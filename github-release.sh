@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+COMMIT=$@
 
 REPO="gama-platform/gama.cloud"
 RELEASE="latest"
@@ -9,6 +10,11 @@ thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/Gam
 
 
 
+
+
+
+SUFFIX=$timestamp'_'$COMMIT'.zip'
+echo $SUFFIX
 
 
 
@@ -73,7 +79,7 @@ echo "Upload new files..."
 echo
 
 	FILE="${thePATH}"
-	NFILE="GamaWeb.war"
+	NFILE="GamaWeb$SUFFIX.war"
 
   FILENAME=`basename $FILE`
   echo   "Uploading $NFILE...  "
