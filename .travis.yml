@@ -10,6 +10,7 @@ cache:
   - "$HOME/.m2"
 script: 
 - bash ./build.sh
+after_success:
 - bash ./github-release.sh "$TRAVIS_COMMIT" 
 branches:
   only:
