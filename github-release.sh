@@ -17,7 +17,7 @@ thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/Gam
 COMMIT="${COMMIT:0:7}"
 
 timestamp=$(date '+_%D')
-SUFFIX=$timestamp'_'$COMMIT'.zip'
+SUFFIX=$timestamp'_'$COMMIT'.war'
 echo $SUFFIX
 
 
@@ -83,7 +83,7 @@ echo "Upload new files..."
 echo
 
 	FILE="${thePATH}"
-	NFILE="GamaWeb$SUFFIX.war"
+	NFILE="GamaWeb$SUFFIX"
 
   FILENAME=`basename $FILE`
   echo   "Uploading $NFILE...  "
