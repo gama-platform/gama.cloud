@@ -488,12 +488,12 @@ public class SwtGui implements IGui {
 
 	@Override
 	public void updateExperimentState(final String forcedState) {
-		 System.out.println("STATE: " + forcedState);
+//		 System.out.println("STATE: " + forcedState);
 		ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
 		if (service != null) {
 			final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
 					.getSourceProvider(SimulationStateProvider.SIMULATION_RUNNING_STATE);
-			// stateProvider.updateStateTo(forcedState);
+//			 stateProvider.updateStateTo(forcedState);
 			if (stateProvider != null) {
 				WorkbenchHelper.run(() -> stateProvider.updateStateTo(forcedState));
 			}

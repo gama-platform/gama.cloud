@@ -4876,14 +4876,6 @@ rule__Unit__OpAlternatives_1_0_1_0
     }
 :
 (
-{ before(grammarAccess.getUnitAccess().getOpLatinCapitalLetterAWithCircumflexDegreeSignKeyword_1_0_1_0_0()); }
-
-	'\u00C2\u00B0' 
-
-{ after(grammarAccess.getUnitAccess().getOpLatinCapitalLetterAWithCircumflexDegreeSignKeyword_1_0_1_0_0()); }
-)
-
-    |(
 { before(grammarAccess.getUnitAccess().getOpNumberSignKeyword_1_0_1_0_1()); }
 
 	'#' 
@@ -4946,14 +4938,6 @@ rule__Unary__OpAlternatives_1_1_0_0_0
     }
 :
 (
-{ before(grammarAccess.getUnaryAccess().getOpLatinCapitalLetterAWithCircumflexDegreeSignKeyword_1_1_0_0_0_0()); }
-
-	'\u00C2\u00B0' 
-
-{ after(grammarAccess.getUnaryAccess().getOpLatinCapitalLetterAWithCircumflexDegreeSignKeyword_1_1_0_0_0_0()); }
-)
-
-    |(
 { before(grammarAccess.getUnaryAccess().getOpNumberSignKeyword_1_1_0_0_0_1()); }
 
 	'#' 

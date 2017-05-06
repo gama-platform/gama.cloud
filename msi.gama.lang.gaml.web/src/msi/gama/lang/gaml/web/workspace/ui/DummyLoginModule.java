@@ -74,7 +74,7 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 //			dbservice.deleteUser(username);
 //			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
 //			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
-//			System.out.println(""+dbservice.getAllUsers());
+			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
 			
 		}
 		return loggedIn;
