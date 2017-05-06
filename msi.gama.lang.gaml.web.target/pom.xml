@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>msi.gama.lang.gaml.web.build.parent</artifactId>
+    <relativePath>../msi.gama.lang.gaml.web.build/parent/pom.xml</relativePath>
+    <version>1.0.0-SNAPSHOT</version>
+    <groupId>msi.gama</groupId>
+  </parent>
+	<groupId>msi.gama</groupId>
+	<artifactId>GamaWeb</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>GamaWeb</name>
+	<packaging>eclipse-target-definition</packaging>
+</project>

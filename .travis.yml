@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk8
+before_install:
+- echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=1024m'" >> ~/.mavenrc
+notifications:
+  email: false
+cache:
+  directories:
+  - "$HOME/.m2"
+script: 
+- bash ./build.sh
+- bash ./github-release.sh
+branches:
+  only:
+    - master

@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Java2d Display for GAMA
+Bundle-SymbolicName: ummisco.gama.web2d;singleton:=true
+Bundle-Version: 1.7.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Require-Bundle: msi.gama.ext,
+ msi.gama.core,
+ org.eclipse.core.runtime;bundle-version="3.11.1",
+ msi.gama.lang.gaml.web;bundle-version="1.0.0",
+ org.eclipse.rap.draw2d;bundle-version="0.1.0",
+ org.eclipse.rap.draw2d.compatibility;bundle-version="0.1.0",
+ org.eclipse.rap.filedialog;bundle-version="3.1.2",
+ org.eclipse.rap.fileupload;bundle-version="3.1.2",
+ org.eclipse.rap.gef;bundle-version="0.1.0",
+ org.eclipse.rap.rwt;bundle-version="3.1.2",
+ org.eclipse.rap.ui;bundle-version="3.1.2",
+ org.eclipse.rap.ui.forms;bundle-version="3.1.2",
+ org.eclipse.rap.ui.navigator;bundle-version="1.4.0",
+ org.eclipse.rap.ui.views;bundle-version="3.1.2",
+ org.eclipse.rap.ui.views.log;bundle-version="0.1.0",
+ org.eclipse.rap.ui.views.properties.tabbed;bundle-version="1.5.0",
+ org.eclipse.rap.ui.workbench;bundle-version="3.1.2",
+ org.eclipse.rap.rwt.osgi;bundle-version="3.1.2",
+ org.eclipse.swt
+Export-Package: 
+ ummisco.gama.web2d,
+ ummisco.gama.web2d.swing
