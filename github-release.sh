@@ -13,6 +13,10 @@ thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/Gam
 
 
 
+
+COMMIT="${COMMIT:0:7}"
+
+timestamp=$(date '+_%D')
 SUFFIX=$timestamp'_'$COMMIT'.zip'
 echo $SUFFIX
 
