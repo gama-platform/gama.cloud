@@ -17,7 +17,7 @@ thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/Gam
 echo
 echo "Getting info of $RELEASE tag..."
 echo 
-LK="https://api.github.com/repos/hqnghi88/cict.gaml.web.editor/releases/tags/$RELEASE"
+LK="https://api.github.com/repos/gama-platform/gama.cloud/releases/tags/$RELEASE"
 
   RESULT=` curl -s -X GET \
   -H "X-Parse-Application-Id: sensitive" \
@@ -31,7 +31,7 @@ RELEASEID=`echo "$RESULT" | sed -ne 's/^  "id": \(.*\),$/\1/p'`
 echo $RELEASEID
 
 
-  LK="https://api.github.com/repos/hqnghi88/cict.gaml.web.editor/releases/$RELEASEID/assets"
+  LK="https://api.github.com/repos/gama-platform/gama.cloud/releases/$RELEASEID/assets"
   
   RESULT=` curl -s -X GET \
   -H "X-Parse-Application-Id: sensitive" \
@@ -56,7 +56,7 @@ if [ $check -ge 0 ]; then
 	echo $assets
 	for theid in $assets; do
 		if [ "$theid" != "id:" ]; then
-		  LK1="https://api.github.com/repos/hqnghi88/cict.gaml.web.editor/releases/assets/$theid"
+		  LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/assets/$theid"
 		  
 			echo   "Deleting $LK1...  "
 		  RESULT1=`curl  -s -X  "DELETE"                \
@@ -77,7 +77,7 @@ echo
 
   FILENAME=`basename $FILE`
   echo   "Uploading $NFILE...  "
-  LK="https://uploads.github.com/repos/hqnghi88/cict.gaml.web.editor/releases/$RELEASEID/assets?name=$NFILE"
+  LK="https://uploads.github.com/repos/gama-platform/gama.cloud/releases/$RELEASEID/assets?name=$NFILE"
   
   RESULT=`curl -s -w  "\n%{http_code}\n"                   \
     -H "Authorization: token $HQN_TOKEN"                \
