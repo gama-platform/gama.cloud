@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO="hqnghi88/cict.gaml.web.editor"
+REPO="gama-platform/gama.cloud"
 RELEASE="latest"
 thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/GamaWeb.product-1.0.0-SNAPSHOT.war"
 
