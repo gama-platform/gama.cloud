@@ -31,9 +31,12 @@ import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.ModelRunner;
+import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbarFactory;
 import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
+import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListener;
+import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 
@@ -181,19 +184,19 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 				SelectionListener listener = null;
 				String imageName = null;
 
-//				if (msg == GamlEditorState.NO_EXP_DEFINED) {
-//					listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
-//					imageName = "small.dropdown";
-//				} else if (newState.hasImportedErrors) {
-//					listener = new OpenImportedErrorSelectionListener(GamlEditor.this, newState,
-//							toolbar.getToolbar(SWT.LEFT));
-//					imageName = "small.dropdown";
-//				} else if (msg != null) {
-//					listener = new RevalidateModelSelectionListener(GamlEditor.this);
-//					imageName = "marker.error2";
-//				} else {
+				if (msg == GamlEditorState.NO_EXP_DEFINED) {
+					listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
+					imageName = "small.dropdown";
+				} else if (newState.hasImportedErrors) {
+					listener = new OpenImportedErrorSelectionListener(GamlEditor.this, newState,
+							toolbar.getToolbar(SWT.LEFT));
+					imageName = "small.dropdown";
+				} else if (msg != null) {
+					listener = new RevalidateModelSelectionListener(GamlEditor.this);
+					imageName = "marker.error2";
+				} else {
 					listener = new OpenExperimentSelectionListener(GamlEditor.this, newState, runner);
-//				}
+				}
 
 				if (msg != null) {
 					final ToolItem t = toolbar.button(c, msg, GamaIcons.create(imageName).image(), listener, SWT.LEFT);
