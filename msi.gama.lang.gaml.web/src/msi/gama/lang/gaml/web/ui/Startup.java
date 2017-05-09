@@ -11,15 +11,14 @@ package msi.gama.lang.gaml.web.ui;
 
 import org.eclipse.ui.IStartup;
 
-//import ummisco.gama.ui.bindings.GamaKeyBindings;
-//import ummisco.gama.ui.utils.CleanupHelper;
+import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
 
 public class Startup implements IStartup {
 
 	@Override
 	public void earlyStartup() {
 //		CleanupHelper.run();
-//		GamaKeyBindings.install();
+		GamaKeyBindings.install();
 	}
 
 }

@@ -100,9 +100,9 @@ public class RunCommand extends AbstractWorkspaceCommand {
 				}
 				System.out.println("Experiment created ");
 
-				if (GAMA.getRegularGui() == null) {
-					GAMA.setRegularGui(new SwtGui());
-				}
+//				if (GAMA.getRegularGui() == null) {
+//					GAMA.setRegularGui(new SwtGui());
+//				}
 				GAMA.runGuiExperiment("Game of Life", model);
 
 			} catch (final Exception e1) {

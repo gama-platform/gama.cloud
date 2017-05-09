@@ -41,45 +41,26 @@ import org.osgi.framework.BundleContext;
  * the perspective id for the initial window.
  */	
 public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
+	private String loggedUser="";
+	
+	
+	
+	public String getLoggedUser() {
+		return loggedUser;
+	}
+
+	public void setLoggedUser(String loggedUser) {
+		this.loggedUser = loggedUser;
+	}
 
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
 		return new BasicWorkbenchWindowAdvisor(configurer);
 	}
 	
 	@Override
-	public void postShutdown() {
-		// TODO Auto-generated method stub
-		super.postShutdown();
-
-//		BasicWorkbench.workbench=null;
-	}
-
-	@Override
-	public boolean preWindowShellClose(IWorkbenchWindowConfigurer configurer) {
-		// TODO Auto-generated method stub
-
-//		StatusDisplayerFactory.displayer=null;
-		return super.preWindowShellClose(configurer);
-	}
-
-	@Override
-	public void postWindowCreate(IWorkbenchWindowConfigurer configurer) {
-		// TODO Auto-generated method stub
-
-		super.postWindowCreate(configurer);
-	}
-
-	@Override
-	public void postWindowOpen(IWorkbenchWindowConfigurer configurer) {
-		// TODO Auto-generated method stub
-		super.postWindowOpen(configurer);
-		
-	}
-
-	@Override
 	public boolean preShutdown() {
 		// TODO Auto-generated method stub
-		System.out.println("preShutdown");
+		System.out.println("preShutdown of "+loggedUser);
 		GAMA.pauseFrontmostExperiment();
 		GAMA.closeAllExperiments(false, true);
 
@@ -90,9 +71,11 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	public void postStartup() {
 		// TODO Auto-generated method stub
 		super.postStartup();
-		if(StatusDisplayerFactory.displayer == null){
+//		if(StatusDisplayerFactory.displayer == null){
+
+		System.out.println("postStartup of "+loggedUser);
 			StatusDisplayerFactory.displayer=new StatusDisplayer();
-		}
+//		}
 
 	}
 

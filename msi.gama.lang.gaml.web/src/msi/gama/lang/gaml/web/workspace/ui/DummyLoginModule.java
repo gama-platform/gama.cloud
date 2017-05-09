@@ -34,6 +34,17 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 	public DummyLoginModule() {
 	}
 
+	private String loggedUser="";
+	
+	
+	
+	public String getLoggedUser() {
+		return loggedUser;
+	}
+
+	public void setLoggedUser(String loggedUser) {
+		this.loggedUser = loggedUser;
+	}
 	public void initialize(Subject subject, CallbackHandler callbackHandler, Map sharedState, Map options) {
 		this.subject = subject;
 		this.callbackHandler = callbackHandler;
@@ -70,11 +81,12 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 		if (dbservice.isRunning()) {
 			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
 				loggedIn=true;
+				loggedUser=username;
 			}
 //			dbservice.deleteUser(username);
 //			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
 //			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
-			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
+//			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
 			
 		}
 		return loggedIn;

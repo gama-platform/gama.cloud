@@ -15,39 +15,17 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
-import msi.gama.lang.gaml.web.editor.BasicWorkbenchAdvisor;
-import msi.gama.lang.gaml.web.editor.presentation.BasicPresentationWorkbenchAdvisor;
-import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
-import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
-import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
-import msi.gama.util.GamaFont;
-
-import java.io.IOException;
-import java.net.URL;
-
 import javax.security.auth.Subject;
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.core.internal.registry.osgi.Activator;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.equinox.security.auth.ILoginContext;
-import org.eclipse.equinox.security.auth.LoginContextFactory;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPreferenceConstants;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
-import org.eclipse.ui.internal.util.PrefUtil;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.osgi.framework.BundleContext;
+
+import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
+import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 
 /**
  * Basic Workbench UI entry point
@@ -59,10 +37,10 @@ public class BasicWorkbench implements EntryPoint {
 
 	public int createUI() {
 	    
-	    DummyCallbackHandler dch =new DummyCallbackHandler() ;
-	    
-	    DummyLoginModule dlm=new DummyLoginModule();
 	    try {
+	    	DummyCallbackHandler dch =new DummyCallbackHandler() ;
+	    	
+	    	DummyLoginModule dlm=new DummyLoginModule();
 	    	dlm.initialize(new Subject(), dch, null, null);
 	    	boolean logged=false;
 			while(!logged) {
@@ -75,6 +53,8 @@ public class BasicWorkbench implements EntryPoint {
 
 //		    RWT.getUISession().setAttribute("user", "default");
 		    WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
+		    System.out.println("logged as "+((BasicWorkbenchAdvisor)workbenchAdvisor).getLoggedUser());
+		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
 //			if (DEMO_PRESENTATION.equals(presentationId)) {
 //				workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
 //			}
