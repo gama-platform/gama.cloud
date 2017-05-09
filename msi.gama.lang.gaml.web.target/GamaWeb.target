@@ -558,17 +558,27 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20151130-0157"/>
+<unit id="ummisco.gama.feature.modeling.ui.feature.group"/>
 <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.3.100.v20150527-1706"/>
 <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.101.v20150826-1318"/>
 <unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.12.0.v20151130-0157"/>
+<unit id="ummisco.gama.feature.core.extensions.feature.group"/>
+<unit id="ummisco.gama.application.product"/>
+<unit id="org.eclipse.equinox.p2.extras.feature.feature.group"/>
 <unit id="org.eclipse.emf.ecore.feature.group" version="2.11.2.v20160208-0816"/>
 <unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20151130-0157"/>
+<unit id="ummisco.gama.feature.dependencies.feature.group"/>
 <unit id="org.eclipse.e4.rcp.feature.group" version="1.4.1.v20160212-1350"/>
+<unit id="ummisco.gama.feature.models.feature.group"/>
+<unit id="ummisco.gama.feature.core.feature.group"/>
+<unit id="ummisco.gama.application.runtime.product"/>
 <unit id="org.eclipse.rcp.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.ecf.core.feature.feature.group" version="1.2.0.v20151130-0157"/>
+<unit id="ummisco.gama.feature.experiment.ui.feature.group"/>
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.102.v20160129-0947"/>
 <unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.12.0.v20151130-0157"/>
 <unit id="org.eclipse.emf.common.feature.group" version="2.11.1.v20160208-0816"/>
+<unit id="ummisco.gama.feature.core.ui.feature.group"/>
 <unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20151130-0157"/>
 <repository location="http://gama-platform.org/updates"/>
 </location>
