@@ -170,17 +170,13 @@ public final class AwtEnvironment {
 		final Font swtFont = initialFont[0];
 		final FontData[] swtFontData = swtFont.getFontData();
 		try {
-			EventQueue.invokeAndWait(() -> {
-				setLookAndFeel();
-				LookAndFeelHandler.getInstance().propagateSwtFont(swtFont, swtFontData);
-				if (FocusHandler.verboseKFHEvents) {
-					FocusDebugging.enableKeyboardFocusManagerLogging();
-				}
-			});
-		} catch (final InterruptedException e) {
+			setLookAndFeel();
+			LookAndFeelHandler.getInstance().propagateSwtFont(swtFont, swtFontData);
+			if (FocusHandler.verboseKFHEvents) {
+				FocusDebugging.enableKeyboardFocusManagerLogging();
+			}
+		} catch (final Exception e) {
 			SWT.error(SWT.ERROR_FAILED_EXEC, e);
-		} catch (final InvocationTargetException e) {
-			SWT.error(SWT.ERROR_FAILED_EXEC, e.getTargetException());
 		}
 
 		// Listen for AWT modal dialogs to make them modal application-wide

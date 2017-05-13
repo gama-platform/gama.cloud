@@ -265,8 +265,8 @@ public abstract class SwingControl extends Composite {
 
 		if (!populated) {
 			populated = true;
-			createFrame();
-			scheduleComponentCreation();
+//			createFrame();
+//			scheduleComponentCreation();
 		}
 	}
 

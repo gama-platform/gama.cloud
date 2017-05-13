@@ -111,10 +111,10 @@ public class SwtGui implements IGui {
 		if (g.isReported())
 			return;
 		if (GAMA.getFrontmostController() != null && GAMA.getFrontmostController().isDisposing()) { return; }
-		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
-		if (!handler.isRunning())
-			handler.start();
-		handler.offer(g);
+//		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
+//		if (!handler.isRunning())
+//			handler.start();
+//		handler.offer(g);
 		g.setReported();
 	}
 
