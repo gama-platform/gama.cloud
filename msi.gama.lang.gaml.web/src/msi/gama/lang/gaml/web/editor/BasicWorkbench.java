@@ -38,18 +38,18 @@ public class BasicWorkbench implements EntryPoint {
 	public int createUI() {
 	    
 	    try {
-//	    	DummyCallbackHandler dch =new DummyCallbackHandler() ;
-//	    	
-//	    	DummyLoginModule dlm=new DummyLoginModule();
-//	    	dlm.initialize(new Subject(), dch, null, null);
-//	    	boolean logged=false;
-//			while(!logged) {
-//				logged=dlm.login();
-//			}
+	    	DummyCallbackHandler dch =new DummyCallbackHandler() ;
+	    	
+	    	DummyLoginModule dlm=new DummyLoginModule();
+	    	dlm.initialize(new Subject(), dch, null, null);
+	    	boolean logged=false;
+			while(!logged) {
+				logged=dlm.login();
+			}
 			
 		    WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 		    System.out.println("logged as "+((BasicWorkbenchAdvisor)workbenchAdvisor).getLoggedUser());
-//		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
+		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
 		    
 		    
 		    

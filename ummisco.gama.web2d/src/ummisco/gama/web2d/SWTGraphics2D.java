@@ -24,6 +24,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.awt.image.DataBufferByte;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
@@ -36,6 +37,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.PaletteData;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * An extension to Graphics2D to support an SWT Piccolo Canvas with little modification to the current Piccolo architecture
@@ -189,7 +193,9 @@ public class SWTGraphics2D extends Graphics2D {
             cachedColor = new org.eclipse.swt.graphics.Color(device,c.getRed(),c.getGreen(),c.getBlue());    
             COLOR_CACHE.put(c,cachedColor);
         }
-        gc.setForeground(cachedColor);
+        gc.setForeground(cachedColor);        
+        gc.setBackground(cachedColor);
+
     }
 
     public void setColor(org.eclipse.swt.graphics.Color c) {
@@ -874,7 +880,29 @@ public class SWTGraphics2D extends Graphics2D {
      * @see java.awt.Graphics#drawImage(Image, int, int, int, int, ImageObserver)
      */
     public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-        return false;
+//    	gc.drawImage(img, x, y, width, height, x, y, width, height);
+//    	gc.drawRectangle(x, y, width, height);
+    	java.awt.image.BufferedImage awtBufImg 	= new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_3BYTE_BGR);
+
+    	java.awt.Graphics awtGraphics = awtBufImg.createGraphics();
+//    	bc.paint(awtGraphics);
+    	awtGraphics.drawImage(img,x,y,width,height,null);
+    	//2) awt.BufferedImage -> raw Data
+    	java.awt.image.WritableRaster awtRaster = awtBufImg.getRaster();
+    	java.awt.image.DataBufferByte awtData = (DataBufferByte) awtRaster.getDataBuffer();
+    	byte[] rawData = awtData.getData();
+
+    	//3) raw Data -> swt.ImageData
+    	org.eclipse.swt.graphics.PaletteData swtPalette = new PaletteData(0xff, 0xff00, 0xff0000);
+
+    	int depth = 0x18;
+    	org.eclipse.swt.graphics.ImageData swtImageData = new ImageData(width, height, depth, swtPalette, width, rawData);
+
+    	//4) swt.ImageData -> swt.Image
+    	org.eclipse.swt.graphics.Image swtImage = new org.eclipse.swt.graphics.Image(Display.getDefault(), swtImageData);
+    	gc.drawImage(swtImage, x, y);
+
+        return true;
     }
 
     /**
