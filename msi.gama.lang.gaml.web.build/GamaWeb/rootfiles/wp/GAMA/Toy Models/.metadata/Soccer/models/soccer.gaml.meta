@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=-~rectangle~*~point~.~rnd~?~<\=~\:~\=~distance_to~at~where~\!\=~>~norm~sqrt~abs~<~+~intersects~circle~as~closest_points_with~flip~/~inter~or~and~not~any_location_in~length~at_distance~mod~empty~among~polyline~square~rgb~cos~sin~line~font
+plugins=msi.gama.core
+attributes=x~y
+statements=action~ask~set~let~if~else~do~arg~init~create~reflex~loop~aspect~draw~output~display~image~display_population~graphics~chart~data
+skills=reflex~moving
+constants=m~red~blue~chartreuse~white~black~darkblue~darkred~zoom~bold
+types=string~list~int~unknown~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

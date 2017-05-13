@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=envelope~-~neighbors_at~as~shuffle~.~one_of~?~in~\:~internal_at~flip~as_matrix~point~length~*~+~kappa~collect~kappa_sim~fuzzy_kappa~fuzzy_kappa_sim~rgb~count~\=~percent_absolute_deviation
+plugins=msi.gama.core~ummisco.gama.opengl
+statements=aspect~draw~init~ask~let~set~loop~put~write~using~add~output~display~display_grid~display_population
+skills=reflex~grid
+constants=blue~green~yellow~red~white
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~map~matrix~container~topology
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

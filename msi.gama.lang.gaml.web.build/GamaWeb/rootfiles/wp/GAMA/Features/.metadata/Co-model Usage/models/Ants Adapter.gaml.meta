@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+architectures=fsm
+operators=-~square~as~point~round~/~rnd~.~+~>~count~sort_by~where~and~distance_to~last~first_with~\=~\!~<~or~circle~\!\=~line~font~*~distance_between~?~<\=~\:~rgb~with_precision~length~min~collect~max
+plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.opengl~ummisco.gama.java2d
+statements=action~arg~set~let~if~else~return~reflex~do~state~transition~aspect~draw~init~loop~ask~create~diffuse~output~display~image~agents~display_population~display_grid~chart~data~write~overlay~inspect~exhaustive~permanent~genetic
+skills=reflex~moving~fsm~grid
+constants=red~white~zoom~bold~yellow~plain~blue~darkgray~green~pixels~darkgreen
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file~container~topology
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

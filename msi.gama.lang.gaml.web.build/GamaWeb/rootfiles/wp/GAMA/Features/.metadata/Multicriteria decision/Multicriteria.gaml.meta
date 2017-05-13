@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=envelope~-~/~.~distance_to~^~weighted_means_DM~>\=~at~promethee_DM~electre_DM~evidence_theory_DM~sphere~as~square~+~rnd~rgb~*~copy~any_location_in
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=area
+statements=action~let~loop~add~return~reflex~if~ask~set~aspect~draw~init~create~output~display~display_population
+skills=reflex
+constants=red
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~map~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

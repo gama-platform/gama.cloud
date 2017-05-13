@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~square~as~circle~rnd~+
+plugins=msi.gama.core
+statements=reflex~do~arg~aspect~draw~init~create~output~display~display_population
+skills=reflex~moving
+constants=green
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

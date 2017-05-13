@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=-~as~envelope~*~/~rnd~rnd_color~and~\=~flip~any_location_in~one_of~\!\=~circle~+~length~at_distance~exp~as_map~\:\:~as_edge_graph~.~with_weights
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=perimeter
+statements=reflex~set~do~arg~if~aspect~draw~init~create~output~display~display_population~action~return
+skills=reflex~moving
+constants=sec~km~h~gray~red
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~map~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

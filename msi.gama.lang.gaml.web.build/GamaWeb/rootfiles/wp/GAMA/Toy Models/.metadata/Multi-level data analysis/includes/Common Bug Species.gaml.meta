@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=envelope~-~rnd~sphere~as~hsb~/
+plugins=msi.gama.core
+statements=reflex~do~set~aspect~draw~init~create
+skills=reflex~moving
+constants=red
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

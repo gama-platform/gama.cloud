@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~as~envelope~point~+~read~triangulate~length~.~closest_to~at~set_z
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=x~y~points
+statements=aspect~draw~init~create~arg~let~loop~set~output~display~display_population
+skills=reflex
+constants=red~grey
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

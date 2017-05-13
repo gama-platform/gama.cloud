@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=-~envelope~as~point~*~neighbors_at~\=~+~max_of~.~min~/~overlapping~accumulate~>~rgb~rnd~mean~collect~empty~where~\!~sort_by~shuffle~max~count~length~<~first~<\=~distance_to~at_distance~copy~not~internal_at~closest_points_with~pyramid~sphere~simplification~any_location_in~font
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=rows~x~y
+statements=action~ask~set~let~create~do~if~else~return~add~aspect~draw~arg~reflex~user_command~loop~remove~init~output~display~display_grid~display_population~chart~data~write~graphics~agents
+skills=reflex~grid~moving
+constants=h~white~magenta~red~orange~green~gray~bold
+types=string~list~int~unknown~geometry~point~agent~rgb~float~bool~date~container~file
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

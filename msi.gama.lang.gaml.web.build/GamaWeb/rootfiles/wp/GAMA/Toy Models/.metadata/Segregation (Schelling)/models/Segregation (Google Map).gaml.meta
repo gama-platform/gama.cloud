@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:37 ICT 2016
+operators=-~square~as~count~.~sum~collect~as_matrix~point~at~shuffle~where~in~copy~\=~length~>\=~*~rnd~of_species~neighbors_at~one_of~\!~any~/
+plugins=msi.gama.core
+attributes=path
+statements=action~write~set~ask~create~init~remove~reflex~add~aspect~draw~do~output~display~image~display_population~chart~data
+skills=reflex~grid
+constants=black~white~lightgray~green~yellow~blue~red
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file~matrix~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

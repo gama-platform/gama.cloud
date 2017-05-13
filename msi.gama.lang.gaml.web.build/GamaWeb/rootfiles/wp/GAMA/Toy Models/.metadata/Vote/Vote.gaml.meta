@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:37 ICT 2016
+operators=-~rectangle~point~points_at~rgb~rnd~at~+~as~/~*~copy~square~with_min_of~distance_to~?~<~\:~\!\=~.~>~one_of~first_with~shuffle~\=~max~min~gauss~triangle~with_max_of~where~circle~length~with_precision~in~union~collect~and~\!~empty~inside~mean~sum~ln
+plugins=msi.gama.core
+attributes=geometries~points~area
+statements=action~switch~match~let~create~set~aspect~draw~if~add~else~do~arg~init~remove~reflex~ask~loop~output~display~display_population~chart~data
+skills=reflex~moving
+constants=orange~white~red~round~black~blue
+types=string~list~int~unknown~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

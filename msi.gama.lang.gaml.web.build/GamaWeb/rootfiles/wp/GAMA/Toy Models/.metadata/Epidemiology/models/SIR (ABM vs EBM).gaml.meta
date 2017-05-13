@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:37 ICT 2016
+operators=-~square~as~+~length~count~.~neighbors_at~one_of~flip~^~and~circle~of_species~first
+plugins=msi.gama.core~ummisco.gaml.extensions.maths
+statements=init~set~reflex~if~aspect~draw~equation~solve~create~output~display~display_grid~display_population~chart~data
+skills=reflex~grid
+constants=green~red~blue~black~lightgray~white
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

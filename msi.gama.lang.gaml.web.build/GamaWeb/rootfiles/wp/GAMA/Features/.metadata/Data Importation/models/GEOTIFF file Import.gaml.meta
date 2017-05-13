@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~as~envelope~max_of~.~min_of~*~/~rgb
+plugins=msi.gama.core
+statements=init~set~ask~let~output~display~display_grid
+skills=reflex~grid
+constants=white~black
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~sphere~/~plan~point~as~polyplan~cylinder~cube~box~*~pyramid~polyhedron~rectangle~length~line~polyline~circle~square~triangle~hexagon~+~internal_at~rgb
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=path
+statements=aspect~draw~init~let~create~set~output~display~display_population
+skills=reflex
+constants=orange~red
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

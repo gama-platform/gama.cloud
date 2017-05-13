@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:32 ICT 2016
+operators=envelope~-~sphere~as~\!\=~point~+~*~rnd~as_matrix~length~internal_at~build~predict~line
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=x~y~z
+statements=aspect~draw~init~loop~if~create~arg~reflex~let~put~set~write~output~display~display_population~graphics
+skills=reflex
+constants=blue~red~black
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~regression~container~matrix
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

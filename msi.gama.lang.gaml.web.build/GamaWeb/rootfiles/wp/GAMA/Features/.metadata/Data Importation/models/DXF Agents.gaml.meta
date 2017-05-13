@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:32 ICT 2016
+operators=-~as~envelope~get~group_by~.~rnd_color~internal_at
+plugins=msi.gama.core
+attributes=keys
+statements=aspect~draw~init~create~arg~let~loop~ask~set~output~display~display_population~graphics
+skills=reflex
+constants=brown
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container~map
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

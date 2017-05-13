@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~cube~as~rnd~\=~sphere~circle~line~point~+~*~cos~sin~rgb~/~or~floor~as_distance_graph
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=x~y~z
+statements=aspect~if~draw~reflex~do~arg~set~init~create~else~loop~output~display~display_population
+skills=reflex~moving3D
+constants=red~green~yellow~orange
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~graph~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

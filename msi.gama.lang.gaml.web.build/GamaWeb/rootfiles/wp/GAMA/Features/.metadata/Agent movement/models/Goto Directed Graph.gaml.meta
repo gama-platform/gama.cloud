@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~as~envelope~rnd~\=~any_location_in~one_of~circle~read~polyline~reverse~directed~as_edge_graph
+plugins=msi.gama.core
+attributes=points
+statements=aspect~draw~reflex~set~if~init~create~arg~switch~match~output~display~display_population
+skills=reflex~moving
+constants=green~red~blue
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~container~path
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

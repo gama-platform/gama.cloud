@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=-~as~envelope~where~\=~.~shuffle~max_of~/~circle~distance_to~first~?~\:~internal_at~closest_to~using~+~neighbors_at~count~length~*~as_edge_graph~or~\!\=~sort_by~last
+plugins=msi.gama.core~ummisco.gama.opengl
+statements=action~let~ask~set~aspect~draw~using~return~init~create~do~reflex~output~display~display_grid~display_population
+skills=reflex~grid
+constants=lightgray~orange~blue~cyan~black~white
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~container~topology
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

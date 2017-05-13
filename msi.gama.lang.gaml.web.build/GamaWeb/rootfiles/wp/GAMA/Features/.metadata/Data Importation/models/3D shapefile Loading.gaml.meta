@@ -1,0 +1,9 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=-~shape_file~envelope~point~/
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=width~height
+statements=aspect~draw~init~create~output~display~display_population
+skills=reflex
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

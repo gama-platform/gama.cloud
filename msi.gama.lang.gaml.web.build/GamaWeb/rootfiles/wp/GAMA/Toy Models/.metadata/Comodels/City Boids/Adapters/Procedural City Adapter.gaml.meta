@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:38 ICT 2016
+operators=-~square~as~+~*~/~rnd~rotated_by~box~internal_at~rgb~hsb~mod~point~sin~cos~closest_to
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=path~width
+statements=reflex~set~aspect~draw~init~create~output~display~display_population~light~action~arg~ask~return
+skills=reflex
+constants=white
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

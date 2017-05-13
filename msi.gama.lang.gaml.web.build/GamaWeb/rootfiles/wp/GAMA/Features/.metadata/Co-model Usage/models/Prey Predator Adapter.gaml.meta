@@ -1,0 +1,11 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+plugins=msi.gama.core
+attributes=location~shape
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander
+operators=-~square~as~rnd~\!\=~circle~>~length~where~and~\!~dead~<~distance_to~\=~any~.~any_location_in~flip~<\=~triangle~first~sort~+
+skills=reflex~moving
+types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~container
+statements=reflex~if~else~do~arg~set~let~aspect~draw~ask~init~create~output~display~display_population~action~return
+constants=green~lime~red~pink
+species=agent

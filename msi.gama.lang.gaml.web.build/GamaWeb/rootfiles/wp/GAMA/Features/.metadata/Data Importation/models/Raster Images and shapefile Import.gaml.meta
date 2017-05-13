@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:32 ICT 2016
+operators=-~as~envelope~.~first_with~shuffle~and~\!\=~empty~inside~square~/~read~as_matrix~point~at
+plugins=msi.gama.core
+attributes=path
+statements=aspect~draw~init~set~create~arg~let~ask~output~display~image~display_grid~display_population
+skills=reflex~grid
+constants=blue~white~orange
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container~matrix
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

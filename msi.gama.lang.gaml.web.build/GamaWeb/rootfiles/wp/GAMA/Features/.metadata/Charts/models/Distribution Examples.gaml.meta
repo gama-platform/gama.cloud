@@ -1,0 +1,8 @@
+#
+#Fri Dec 23 17:58:32 ICT 2016
+operators=envelope~-~distribution_of~gauss~as~at
+plugins=msi.gama.core
+statements=init~set~write~reflex~add~output~display~chart~datalist
+skills=reflex
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~map
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

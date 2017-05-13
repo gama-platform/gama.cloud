@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:33 ICT 2016
+operators=envelope~-~is~\!\=~.~first~as~and~polyline~collect~+~circle~line~?~flip~\:~simple_clustering_by_distance~rnd_color~hierarchical_clustering~where~\=~union
+plugins=msi.gama.core
+attributes=contour
+statements=action~arg~let~loop~if~else~create~add~set~do~ask~aspect~draw~init~reflex~output~display~display_population~display_grid
+skills=reflex~grid
+constants=red~black~green~white
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container~species
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

@@ -1,0 +1,10 @@
+#
+#Fri Dec 23 17:58:32 ICT 2016
+operators=envelope~-~circle~as~generate_barabasi_albert~generate_watts_strogatz~generate_complete_graph~+~length
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=edges~vertices
+statements=aspect~draw~init~switch~match~set~write~output~display~display_population
+skills=reflex
+constants=black~red
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~graph~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause
