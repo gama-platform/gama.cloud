@@ -120,40 +120,40 @@ public class GlobalFocusHandler {
 		}
 
 		// It appears safe to call getFocusOwner on SWT thread
-		final Component owner = ((Frame) swingControl.getAWTHierarchyRoot()).getFocusOwner();
-		if (owner != null) {
-			EventQueue.invokeLater(() -> {
-				// Clear the AWT focus owner so that a permanent focus lost
-				// event is
-				// generated. Where possible, we use the KeyboardFocusManager,
-				// but
-				// it has no method to clear the focus owner within a particular
-				// frame,
-				// if that frame is no longer active. In that case, we use a
-				// hack of
-				// disabling and re-enabling the window's focus owner. The hack
-				// has
-				// the drawback of a brief visual movement of the cursor (or
-				// other
-				// focus indicator), so it is good to avoid it whenever
-				// possible, as
-				// we do here.
-				final KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-				if (owner == kfm.getFocusOwner()) {
-					if (verboseFocusEvents) {
-						trace("clearing focus thru kfm: " + owner);
-					}
-					kfm.clearGlobalFocusOwner();
-				} else {
-					if (verboseFocusEvents) {
-						trace("clearing focus thru hack: " + owner);
-					}
-					owner.setEnabled(false);
-					owner.setEnabled(true);
-				}
-			});
-			swingControl.setData(SAVED_FOCUS_OWNER_KEY, owner);
-		}
+//		final Component owner = ((Frame) swingControl.getAWTHierarchyRoot()).getFocusOwner();
+//		if (owner != null) {
+//			EventQueue.invokeLater(() -> {
+//				// Clear the AWT focus owner so that a permanent focus lost
+//				// event is
+//				// generated. Where possible, we use the KeyboardFocusManager,
+//				// but
+//				// it has no method to clear the focus owner within a particular
+//				// frame,
+//				// if that frame is no longer active. In that case, we use a
+//				// hack of
+//				// disabling and re-enabling the window's focus owner. The hack
+//				// has
+//				// the drawback of a brief visual movement of the cursor (or
+//				// other
+//				// focus indicator), so it is good to avoid it whenever
+//				// possible, as
+//				// we do here.
+//				final KeyboardFocusManager kfm = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+//				if (owner == kfm.getFocusOwner()) {
+//					if (verboseFocusEvents) {
+//						trace("clearing focus thru kfm: " + owner);
+//					}
+//					kfm.clearGlobalFocusOwner();
+//				} else {
+//					if (verboseFocusEvents) {
+//						trace("clearing focus thru hack: " + owner);
+//					}
+//					owner.setEnabled(false);
+//					owner.setEnabled(true);
+//				}
+//			});
+//			swingControl.setData(SAVED_FOCUS_OWNER_KEY, owner);
+//		}
 	}
 
 	protected void restoreFocusOwner(final SwingControl swingControl) {

@@ -9,15 +9,15 @@
  **********************************************************************************************/
 package ummisco.gama.web2d;
 /*********************************************************************************************
- *
- *
- * 'AbstractAWTDisplaySurface.java', in plugin 'msi.gama.application', is part of the source code of the GAMA modeling
- * and simulation platform. (c) 2007-2014 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://code.google.com/p/gama-platform/ for license information and developers contact.
- *
- *
- **********************************************************************************************/
+*
+*
+* 'AbstractAWTDisplaySurface.java', in plugin 'msi.gama.application', is part of the source code of the GAMA modeling
+* and simulation platform. (c) 2007-2014 UMI 209 UMMISCO IRD/UPMC & Partners
+*
+* Visit https://code.google.com/p/gama-platform/ for license information and developers contact.
+*
+*
+**********************************************************************************************/
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,9 +33,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.DirectColorModel;
-import java.awt.image.IndexColorModel;
-import java.awt.image.WritableRaster;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,13 +41,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JPanel;
-import javax.swing.plaf.ComponentUI;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.PaletteData;
-import org.eclipse.swt.graphics.RGB;
 
 import com.vividsolutions.jts.geom.Envelope;
 
@@ -62,6 +54,8 @@ import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.util.ImageUtils;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.lang.gaml.web.ui.views.displays.DisplaySurfaceMenu;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
@@ -78,9 +72,6 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
-import ummisco.gama.web2d.swing.SwingControl;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.lang.gaml.web.ui.views.displays.DisplaySurfaceMenu;
 
 @display ("java2D")
 public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
@@ -114,7 +105,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	}
 
 	final LayeredDisplayOutput output;
-	protected  Rectangle viewPort = new Rectangle();
+	protected final Rectangle viewPort = new Rectangle();
 	protected final AffineTransform translation = new AffineTransform();
 	protected final ILayerManager layerManager;
 	protected IGraphics iGraphics;
@@ -146,14 +137,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		setBackground(output.getData().getBackgroundColor());
 		setName(output.getName());
 		layerManager = new LayerManager(this, output);
-		
 		addComponentListener(new ComponentAdapter() {
-
-			@Override
-			public void componentShown(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				super.componentShown(e);
-			}
 
 			@Override
 			public void componentResized(final ComponentEvent e) {
@@ -174,7 +158,6 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		});
 
 	}
-
 
 	@Override
 	public void setMenuManager(final Object menuManager) {
@@ -291,13 +274,13 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final BufferedImage newImage = ImageUtils.createCompatibleImage(width, height);
 		final Graphics g = newImage.getGraphics();
 
-//		while (!rendered) {
-//			try {
-//				Thread.sleep(10);
-//			} catch (final InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		while (!rendered) {
+			try {
+				Thread.sleep(10);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		try {
 			EventQueue.invokeAndWait(() -> {
 				resizeImage(width, height, false);
@@ -402,23 +385,24 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	@Override
 	public boolean resizeImage(final int x, final int y, final boolean force) {
 		if (!force && x == viewPort.width && y == viewPort.height) { return true; }
-		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
-		iGraphics.setDisplaySurface(this);
 		if (x < 10 || y < 10) { return false; }
-//		if (getWidth() <= 0 && getHeight() <= 0) { return false; }
+		if (getWidth() <= 0 && getHeight() <= 0) { return false; }
 		// java.lang.System.out.println("Resize display : " + x + " " + y);
 		final int[] point = computeBoundsFrom(x, y);
 		final int imageWidth = Math.max(1, point[0]);
 		final int imageHeight = Math.max(1, point[1]);
 		setDisplayHeight(imageHeight);
 		setDisplayWidth(imageWidth);
+		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
+		iGraphics.setDisplaySurface(this);
 		return true;
 
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {
+	public void paintComponent(final Graphics g) {
 		realized = true;
+		if (iGraphics == null) { return; }
 		super.paintComponent(g);
 		final Graphics2D g2d =
 				(Graphics2D) g.create(getOrigin().x, getOrigin().y, (int) getDisplayWidth(), (int) getDisplayHeight());
@@ -434,13 +418,15 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		g2d.dispose();
 		frames++;
 		rendered = true;
-		
-
 	}
 
-	public void paintComponent(SWTGraphics2D g2d) {
+
+	public void paintComponent(final SWTGraphics2D g2d) {
 		realized = true;
+		if (iGraphics == null) { return; }
+//		super.paintComponent(g2d);
 		getIGraphics().setGraphics2D(g2d);
+		getIGraphics().setUntranslatedGraphics2D((Graphics2D) g2d);
 		layerManager.drawLayersOn(iGraphics);
 		if (temp_focus != null) {
 			final IShape geometry = Cast.asGeometry(getScope(), temp_focus.value(getScope()), false);
@@ -448,12 +434,12 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			focusOn(geometry);
 			return;
 		}
-//		g2d.dispose();
+		g2d.dispose();
 		frames++;
 		rendered = true;
-		
-
 	}
+
+	
 	AWTDisplayGraphics getIGraphics() {
 		return (AWTDisplayGraphics) iGraphics;
 	}

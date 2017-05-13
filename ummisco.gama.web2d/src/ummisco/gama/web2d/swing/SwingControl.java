@@ -16,14 +16,9 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FocusTraversalPolicy;
 import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-import java.awt.image.DirectColorModel;
-import java.awt.image.IndexColorModel;
-import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,7 +30,6 @@ import java.util.Set;
 
 import javax.swing.JApplet;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.LayoutFocusTraversalPolicy;
 import javax.swing.RootPaneContainer;
@@ -52,14 +46,9 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -67,15 +56,12 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Widget;
 
-import msi.gama.common.util.ImageUtils;
-import msi.gama.lang.gaml.web.editor.BasicWorkbench;
 import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
-import ummisco.gama.web2d.AWTDisplayView;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class SwingControl extends Composite {
 
-//	public JApplet applet;
+//	JApplet applet;
 
 	// Whether to print debugging information regarding size propagation
 	// and layout.
@@ -84,7 +70,7 @@ public abstract class SwingControl extends Composite {
 	public static final String SWT_PARENT_PROPERTY_KEY = "org.eclipse.albireo.swtParent";
 
 	private final Listener settingsListener = event -> handleSettingsChange();
-	final public Display display;
+	public final /* private */ Display display;
 	private Composite layoutDeferredAncestor;
 
 	// The width of the border to keep around the embedded AWT frame.
@@ -94,10 +80,8 @@ public abstract class SwingControl extends Composite {
 	// borderWidth == 0, or a different Composite if borderWidth != 0.
 	private Composite borderlessChild;
 
-	// private Frame frame;
-//	public JFrame frame;
-
-	private RootPaneContainer rootPaneContainer;
+//	private Frame frame;
+//	private RootPaneContainer rootPaneContainer;
 	private JComponent swingComponent;
 	private boolean populated = false;
 
@@ -140,7 +124,7 @@ public abstract class SwingControl extends Composite {
 	 * @see Widget#getStyle
 	 */
 	public SwingControl(final Composite parent, final int style) {
-		super(parent, style | ((style & SWT.BORDER) == 0 ? SWT.BOLD : 0) | SWT.NO_BACKGROUND);
+		super(parent, style | ((style & SWT.BORDER) == 0 ? SWT.BORDER : 0) | SWT.NO_BACKGROUND);
 		setLayout(new FillLayout());
 		display = getDisplay();
 
@@ -169,7 +153,7 @@ public abstract class SwingControl extends Composite {
 			// from the Composite to the Frame automatically, it ignores
 			// the border. Work around it by creating an intermediate
 			// Composite.
-			borderlessChild = new Composite(this, style & ~SWT.BORDER | SWT.BOLD | SWT.NO_BACKGROUND) {
+			borderlessChild = new Composite(this, style & ~SWT.BORDER | SWT.BORDER | SWT.NO_BACKGROUND) {
 
 				/**
 				 * Overridden.
@@ -292,20 +276,19 @@ public abstract class SwingControl extends Composite {
 		// Make sure Awt environment is initialized.
 		AwtEnvironment.getInstance(display);
 
-//		frame = new JFrame(
-//				GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());// SWT_AWT.new_Frame(borderlessChild);
+//		frame = SWT_AWT.new_Frame(borderlessChild);
 //
 //		if (verboseSizeLayout) {
 //			ComponentDebugging.addComponentSizeDebugListeners(frame);
 //		}
-//
-//		initializeFocusManagement();
-//		initKeystrokeManagement();
-//		initFirstResizeActions();
-//
-//		if (HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE) {
-//			getShell().addControlListener(shellControlListener);
-//		}
+
+		initializeFocusManagement();
+		initKeystrokeManagement();
+		initFirstResizeActions();
+
+		if (HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE) {
+			getShell().addControlListener(shellControlListener);
+		}
 
 	}
 
@@ -354,18 +337,18 @@ public abstract class SwingControl extends Composite {
 			// possible
 //			setComponentBackground(frame, background, true);
 
-//			swingComponent = createSwingComponent();
-//			if (swingComponent != null) {
-//				// Pass on color and font values
-//				// The color of the content Pane is visible permanently.
+			swingComponent = createSwingComponent();
+			if (swingComponent != null) {
+				// Pass on color and font values
+				// The color of the content Pane is visible permanently.
 //				setComponentForeground(rootPaneContainer.getContentPane(), foreground, true);
 //				setComponentBackground(rootPaneContainer.getContentPane(), background, true);
 //				setComponentFont(font, fontData, true);
-//
+
 //				rootPaneContainer.getRootPane().getContentPane().add(swingComponent);
 //				swingComponent.putClientProperty(SWT_PARENT_PROPERTY_KEY, SwingControl.this);
-//				// frame.setFocusable(true);
-//			}
+				// frame.setFocusable(true);
+			}
 
 			// Invoke hooks, for use by the application.
 			afterComponentCreatedAWTThread();
@@ -413,46 +396,45 @@ public abstract class SwingControl extends Composite {
 	 *            the frame to which the root pane container is added
 	 * @return a non-null Swing component
 	 */
-	protected RootPaneContainer addRootPaneContainer(final Frame frame) {
-		assert EventQueue.isDispatchThread(); // On AWT event thread
-		assert frame != null;
-		return rootPaneContainer;
-
-		// It is important to set up the proper top level components in the
-		// frame:
-		// 1) For Swing to work properly, Sun documents that there must be an
-		// implementor of
-		// javax.swing.RootPaneContainer at the top of the component hierarchy.
-		// 2) For proper event handling
-		// an AWT frame must contain a heavyweight component (see
-		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4982522)
-		// 3) The Swing implementation further narrows the options by expecting
-		// that the
-		// top of the hierarchy be a JFrame, JDialog, JWindow, or JApplet. See
-		// javax.swing.PopupFactory or javax.swing.SwingUtilities.convertPoint,
-		// for example.
-		// 4) Trying to add a JFrame, JDialog, or JWindow as child to a Frame
-		// yields an exception "adding a window to a container". However,
-		// JApplet is lucky since it inherits from Panel, not from Window.
-		//
-		// All this drives the choice of JApplet for the top level Swing
-		// component. It is the
-		// only single component that satisfies all the above. This does not
-		// imply that
-		// we have a true applet; in particular, there is no notion of an applet
-		// lifecycle in this
-		// context.
+//	protected RootPaneContainer addRootPaneContainer(final Frame frame) {
+//		assert EventQueue.isDispatchThread(); // On AWT event thread
+//		assert frame != null;
+//
+//		// It is important to set up the proper top level components in the
+//		// frame:
+//		// 1) For Swing to work properly, Sun documents that there must be an
+//		// implementor of
+//		// javax.swing.RootPaneContainer at the top of the component hierarchy.
+//		// 2) For proper event handling
+//		// an AWT frame must contain a heavyweight component (see
+//		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4982522)
+//		// 3) The Swing implementation further narrows the options by expecting
+//		// that the
+//		// top of the hierarchy be a JFrame, JDialog, JWindow, or JApplet. See
+//		// javax.swing.PopupFactory or javax.swing.SwingUtilities.convertPoint,
+//		// for example.
+//		// 4) Trying to add a JFrame, JDialog, or JWindow as child to a Frame
+//		// yields an exception "adding a window to a container". However,
+//		// JApplet is lucky since it inherits from Panel, not from Window.
+//		//
+//		// All this drives the choice of JApplet for the top level Swing
+//		// component. It is the
+//		// only single component that satisfies all the above. This does not
+//		// imply that
+//		// we have a true applet; in particular, there is no notion of an applet
+//		// lifecycle in this
+//		// context.
 //		applet = new ToplevelPanel();
-
+//
 //		if (PlatformHelper.isWin32()) {
 //			// Avoid stack overflows by ensuring correct focus traversal policy
 //			// (see comments in scheduleComponentCreation() for details)
 //			applet.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
 //		}
-
+//
 //		frame.add(applet);
 //		return applet;
-	}
+//	}
 
 	/**
 	 * The top-level java.awt.Panel, added as child of the frame.
@@ -471,8 +453,6 @@ public abstract class SwingControl extends Composite {
 		// this.removeAll();
 		// }
 	}
-
-//	public static BufferedImage output_img;
 
 	/**
 	 * The top-level javax.swing.JRootPane, added as child of the toplevel
@@ -548,16 +528,15 @@ public abstract class SwingControl extends Composite {
 	 * @return An AWT container, usually a Window, or <code>null</code> if the
 	 *         initialization is not yet complete.
 	 */
-	public /* final */ Container getAWTHierarchyRoot() {
-		// Intentionally leaving out checkWidget() call. This method may be
-		// called from the
-		// AWT thread. We still check for disposal, however
-		if (isDisposed()) {
-			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
-		}
+//	public /* final */ Container getAWTHierarchyRoot() {
+//		// Intentionally leaving out checkWidget() call. This method may be
+//		// called from the
+//		// AWT thread. We still check for disposal, however
+//		if (isDisposed()) {
+//			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
+//		}
 //		return frame;
-		return swingComponent;
-	}
+//	}
 
 	// ========================================================================
 	// Size management
@@ -1061,11 +1040,12 @@ public abstract class SwingControl extends Composite {
 	 */
 	public abstract Composite getLayoutAncestor();
 
-	/**
-	 * Called when the preferred sizes of this control, as computed by AWT, have
-	 * changed.
-	 */
-	/* private */ void notePreferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {
+			/**
+			 * Called when the preferred sizes of this control, as computed by
+			 * AWT, have changed.
+			 */
+			/* private */ void notePreferredSizeChanged(final Point minSize, final Point prefSize,
+					final Point maxSize) {
 		preferredSizeChanged(minSize, prefSize, maxSize);
 		firePreferredSizeChangedEvent(minSize, prefSize, maxSize);
 	}
@@ -1243,12 +1223,12 @@ public abstract class SwingControl extends Composite {
 		// Allow subclasses to react to font change if necessary.
 		updateAwtFont(awtFont);
 
-		if (rootPaneContainer != null) {
-			final Container contentPane = rootPaneContainer.getContentPane();
-			if (!contentPane.getFont().equals(awtFont) || !preserveDefaults) {
-				contentPane.setFont(awtFont);
-			}
-		}
+//		if (rootPaneContainer != null) {
+//			final Container contentPane = rootPaneContainer.getContentPane();
+//			if (!contentPane.getFont().equals(awtFont) || !preserveDefaults) {
+//				contentPane.setFont(awtFont);
+//			}
+//		}
 	}
 
 	/**
@@ -1281,14 +1261,14 @@ public abstract class SwingControl extends Composite {
 		if (focusHandler != null) {
 			focusHandler.dispose();
 		}
-		EventQueue.invokeLater(() -> {
-			try {
-//				frame.remove(applet);
-			} catch (final Exception e) {
-
-			}
-
-		});
+//		EventQueue.invokeLater(() -> {
+//			try {
+////				frame.remove(applet);
+//			} catch (final Exception e) {
+//
+//			}
+//
+//		});
 
 		display.removeListener(SWT.Settings, settingsListener);
 		if (borderlessChild != this) {
@@ -1311,9 +1291,9 @@ public abstract class SwingControl extends Composite {
 	public void setBackground(final Color background) {
 		super.setBackground(background);
 
-		if (rootPaneContainer != null) {
-			EventQueue.invokeLater(() -> setComponentBackground(rootPaneContainer.getContentPane(), background, false));
-		}
+//		if (rootPaneContainer != null) {
+//			EventQueue.invokeLater(() -> setComponentBackground(rootPaneContainer.getContentPane(), background, false));
+//		}
 	}
 
 	/**
@@ -1326,9 +1306,9 @@ public abstract class SwingControl extends Composite {
 	public void setForeground(final Color foreground) {
 		super.setForeground(foreground);
 
-		if (rootPaneContainer != null) {
-			EventQueue.invokeLater(() -> setComponentForeground(rootPaneContainer.getContentPane(), foreground, false));
-		}
+//		if (rootPaneContainer != null) {
+//			EventQueue.invokeLater(() -> setComponentForeground(rootPaneContainer.getContentPane(), foreground, false));
+//		}
 	}
 
 	protected void setComponentForeground(final Component component, final Color foreground,
@@ -1706,7 +1686,7 @@ public abstract class SwingControl extends Composite {
 
 	@Override
 	public String toString() {
-		return super.toString() ;//+ " [frame=" + (frame != null ? frame.getName() : "null") + "]";
+		return super.toString();// + " [frame=" + (frame != null ? frame.getName() : "null") + "]";
 	}
 
 	// ============================= Keystroke Management
@@ -1819,7 +1799,7 @@ public abstract class SwingControl extends Composite {
 
 	protected void initFirstResizeActions() {
 //		frame.addComponentListener(new ComponentAdapter() {
-
+//
 //			@Override
 //			public void componentResized(final ComponentEvent e) {
 //				scrollTextFields(frame);
