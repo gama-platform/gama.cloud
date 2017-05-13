@@ -75,7 +75,7 @@ import ummisco.gama.web2d.AWTDisplayView;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class SwingControl extends Composite {
 
-	public JApplet applet;
+//	public JApplet applet;
 
 	// Whether to print debugging information regarding size propagation
 	// and layout.
@@ -95,7 +95,7 @@ public abstract class SwingControl extends Composite {
 	private Composite borderlessChild;
 
 	// private Frame frame;
-	public JFrame frame;
+//	public JFrame frame;
 
 	private RootPaneContainer rootPaneContainer;
 	private JComponent swingComponent;
@@ -292,25 +292,25 @@ public abstract class SwingControl extends Composite {
 		// Make sure Awt environment is initialized.
 		AwtEnvironment.getInstance(display);
 
-		frame = new JFrame(
-				GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());// SWT_AWT.new_Frame(borderlessChild);
-
-		if (verboseSizeLayout) {
-			ComponentDebugging.addComponentSizeDebugListeners(frame);
-		}
-
-		initializeFocusManagement();
-		initKeystrokeManagement();
-		initFirstResizeActions();
-
-		if (HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE) {
-			getShell().addControlListener(shellControlListener);
-		}
+//		frame = new JFrame(
+//				GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());// SWT_AWT.new_Frame(borderlessChild);
+//
+//		if (verboseSizeLayout) {
+//			ComponentDebugging.addComponentSizeDebugListeners(frame);
+//		}
+//
+//		initializeFocusManagement();
+//		initKeystrokeManagement();
+//		initFirstResizeActions();
+//
+//		if (HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE) {
+//			getShell().addControlListener(shellControlListener);
+//		}
 
 	}
 
 	protected void scheduleComponentCreation() {
-		assert frame != null;
+//		assert frame != null;
 
 		final Color foreground = getForeground();
 		final Color background = getBackground();
@@ -341,31 +341,31 @@ public abstract class SwingControl extends Composite {
 					.getName() == "javax.swing.LegacyGlueFocusTraversalPolicy") {
 				kfm.setDefaultFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
 			}
-			if (frame.getFocusTraversalPolicy() != null && frame.getFocusTraversalPolicy().getClass()
-					.getName() == "javax.swing.LegacyGlueFocusTraversalPolicy") {
-				frame.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
-			}
+//			if (frame.getFocusTraversalPolicy() != null && frame.getFocusTraversalPolicy().getClass()
+//					.getName() == "javax.swing.LegacyGlueFocusTraversalPolicy") {
+//				frame.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
+//			}
 
-			rootPaneContainer = addRootPaneContainer(frame);
-			initPopupMenuSupport(rootPaneContainer.getRootPane());
+//			rootPaneContainer = addRootPaneContainer(frame);
+//			initPopupMenuSupport(rootPaneContainer.getRootPane());
 
 			// The color of the frame is visible during redraws. Use the
 			// same color, to reduce flickering, and set it as soon as
 			// possible
-			setComponentBackground(frame, background, true);
+//			setComponentBackground(frame, background, true);
 
-			swingComponent = createSwingComponent();
-			if (swingComponent != null) {
-				// Pass on color and font values
-				// The color of the content Pane is visible permanently.
-				setComponentForeground(rootPaneContainer.getContentPane(), foreground, true);
-				setComponentBackground(rootPaneContainer.getContentPane(), background, true);
-				setComponentFont(font, fontData, true);
-
-				rootPaneContainer.getRootPane().getContentPane().add(swingComponent);
-				swingComponent.putClientProperty(SWT_PARENT_PROPERTY_KEY, SwingControl.this);
-				// frame.setFocusable(true);
-			}
+//			swingComponent = createSwingComponent();
+//			if (swingComponent != null) {
+//				// Pass on color and font values
+//				// The color of the content Pane is visible permanently.
+//				setComponentForeground(rootPaneContainer.getContentPane(), foreground, true);
+//				setComponentBackground(rootPaneContainer.getContentPane(), background, true);
+//				setComponentFont(font, fontData, true);
+//
+//				rootPaneContainer.getRootPane().getContentPane().add(swingComponent);
+//				swingComponent.putClientProperty(SWT_PARENT_PROPERTY_KEY, SwingControl.this);
+//				// frame.setFocusable(true);
+//			}
 
 			// Invoke hooks, for use by the application.
 			afterComponentCreatedAWTThread();
@@ -416,6 +416,7 @@ public abstract class SwingControl extends Composite {
 	protected RootPaneContainer addRootPaneContainer(final Frame frame) {
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 		assert frame != null;
+		return rootPaneContainer;
 
 		// It is important to set up the proper top level components in the
 		// frame:
@@ -441,16 +442,16 @@ public abstract class SwingControl extends Composite {
 		// we have a true applet; in particular, there is no notion of an applet
 		// lifecycle in this
 		// context.
-		applet = new ToplevelPanel();
+//		applet = new ToplevelPanel();
 
-		if (PlatformHelper.isWin32()) {
-			// Avoid stack overflows by ensuring correct focus traversal policy
-			// (see comments in scheduleComponentCreation() for details)
-			applet.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
-		}
+//		if (PlatformHelper.isWin32()) {
+//			// Avoid stack overflows by ensuring correct focus traversal policy
+//			// (see comments in scheduleComponentCreation() for details)
+//			applet.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
+//		}
 
-		frame.add(applet);
-		return applet;
+//		frame.add(applet);
+//		return applet;
 	}
 
 	/**
@@ -471,7 +472,7 @@ public abstract class SwingControl extends Composite {
 		// }
 	}
 
-	public static BufferedImage output_img;
+//	public static BufferedImage output_img;
 
 	/**
 	 * The top-level javax.swing.JRootPane, added as child of the toplevel
@@ -554,7 +555,8 @@ public abstract class SwingControl extends Composite {
 		if (isDisposed()) {
 			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
 		}
-		return frame;
+//		return frame;
+		return swingComponent;
 	}
 
 	// ========================================================================
@@ -915,10 +917,10 @@ public abstract class SwingControl extends Composite {
 					System.err.println("SWT->AWT thread: Setting size: " + size.width + " x " + size.height + " for "
 							+ swingComponent);
 				}
-				if (frame != null) {
-					frame.setBounds(0, 0, Math.max(size.width, 0), Math.max(size.height, 0));
-					frame.validate();
-				}
+//				if (frame != null) {
+//					frame.setBounds(0, 0, Math.max(size.width, 0), Math.max(size.height, 0));
+//					frame.validate();
+//				}
 				// Test if another request was enqueued (from the SWT thread)
 				// while we were processing this one.
 				synchronized (this) {
@@ -1281,7 +1283,7 @@ public abstract class SwingControl extends Composite {
 		}
 		EventQueue.invokeLater(() -> {
 			try {
-				frame.remove(applet);
+//				frame.remove(applet);
 			} catch (final Exception e) {
 
 			}
@@ -1352,7 +1354,7 @@ public abstract class SwingControl extends Composite {
 	private boolean isAWTPermanentFocusLossForced = true;
 
 	protected void initializeFocusManagement() {
-		assert frame != null;
+//		assert frame != null;
 		assert Display.getCurrent() != null; // On SWT event thread
 
 		// final GlobalFocusHandler handler =
@@ -1704,7 +1706,7 @@ public abstract class SwingControl extends Composite {
 
 	@Override
 	public String toString() {
-		return super.toString() + " [frame=" + (frame != null ? frame.getName() : "null") + "]";
+		return super.toString() ;//+ " [frame=" + (frame != null ? frame.getName() : "null") + "]";
 	}
 
 	// ============================= Keystroke Management
@@ -1816,15 +1818,15 @@ public abstract class SwingControl extends Composite {
 	// invokeLater() in called as part of createSwingComponent().
 
 	protected void initFirstResizeActions() {
-		frame.addComponentListener(new ComponentAdapter() {
+//		frame.addComponentListener(new ComponentAdapter() {
 
-			@Override
-			public void componentResized(final ComponentEvent e) {
-				scrollTextFields(frame);
-				// We care about only the first resize
-				frame.removeComponentListener(this);
-			}
-		});
+//			@Override
+//			public void componentResized(final ComponentEvent e) {
+//				scrollTextFields(frame);
+//				// We care about only the first resize
+//				frame.removeComponentListener(this);
+//			}
+//		});
 	}
 
 	// Scroll all the text fields (JTextComponent) so that the caret will be

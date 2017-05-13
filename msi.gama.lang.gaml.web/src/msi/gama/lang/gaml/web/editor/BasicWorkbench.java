@@ -47,14 +47,22 @@ public class BasicWorkbench implements EntryPoint {
 				logged=dlm.login();
 			}
 			
-//			ScopedPreferenceStore prefStore = (ScopedPreferenceStore) PrefUtil.getAPIPreferenceStore();
-//			String keyPresentationId = IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
-//			String presentationId = prefStore.getString(keyPresentationId);
-
-//		    RWT.getUISession().setAttribute("user", "default");
 		    WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 		    System.out.println("logged as "+((BasicWorkbenchAdvisor)workbenchAdvisor).getLoggedUser());
 		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+//			ScopedPreferenceStore prefStore = (ScopedPreferenceStore) PrefUtil.getAPIPreferenceStore();
+//			String keyPresentationId = IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
+//			String presentationId = prefStore.getString(keyPresentationId);		    
+//		    RWT.getUISession().setAttribute("user", "default");
 //			if (DEMO_PRESENTATION.equals(presentationId)) {
 //				workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
 //			}
@@ -65,7 +73,7 @@ public class BasicWorkbench implements EntryPoint {
 			display.dispose();
 			return result;
 
-		} catch (LoginException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

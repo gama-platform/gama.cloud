@@ -60,6 +60,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 	public static long REALIZATION_TIME_OUT = 1000;
 	public boolean isVisible;
 
+    final Graphics2DRenderer renderer = new Graphics2DRenderer();
+    
 	@Override
 	public Java2DDisplaySurface getDisplaySurface() {
 		return (Java2DDisplaySurface) super.getDisplaySurface();
@@ -70,7 +72,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 		if (getOutput() == null) { return null; }
 
-		
+
 		
 		surfaceComposite = new SwingControl(parent, SWT.BORDER_SOLID) {
 
@@ -111,10 +113,10 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 				getDisplaySurface().resizeImage(getSize().y, getSize().y, true);
 //				khoitao=false;
-				output_img = new BufferedImage(getSize().y, getSize().y, BufferedImage.TYPE_INT_RGB);
-				Graphics2D g2 = output_img.createGraphics();
-				g2.setColor(Color.WHITE);
-				getDisplaySurface().paintComponent(g2);
+//				output_img = new BufferedImage(getSize().y, getSize().y, BufferedImage.TYPE_INT_RGB);
+//				Graphics2D g2 = output_img.createGraphics();
+//				g2.setColor(Color.WHITE);
+				
 //				WorkaroundForIssue1353.install();
 //				if(!khoitao) {
 //					updateSwing();
@@ -133,39 +135,61 @@ public class AWTDisplayView extends LayeredDisplayView {
 			public void afterComponentCreatedAWTThread() {}
 		};
 		surfaceComposite.setEnabled(false);
-		surfaceComposite.setBounds(0, 0, 0, 0);
+//		surfaceComposite.setBounds(0, 0, 0, 0);
 
-		org.eclipse.swt.graphics.Color whitecolor=new org.eclipse.swt.graphics.Color(((SwingControl)surfaceComposite).display,255,255,255);
+//		org.eclipse.swt.graphics.Color whitecolor=new org.eclipse.swt.graphics.Color(((SwingControl)surfaceComposite).display,255,255,255);
 //
-		final Canvas doubleBufferedCanvas = new Canvas( surfaceComposite, SWT.BORDER_SOLID );
-		doubleBufferedCanvas .addPaintListener( new PaintListener() {
+		final Canvas canvas = new Canvas( surfaceComposite, SWT.BORDER_SOLID );
+		GC gc=new GC(canvas);
+		if (sw == null)
+			sw = new SWTGraphics2D(gc, canvas.getDisplay());
+		canvas.addPaintListener(new PaintListener() {			
 			@Override
-			public void paintControl( PaintEvent e ) {
-				if(SwingControl.output_img!=null) {			
-					Image image=new Image(((SwingControl)surfaceComposite).display, convertToSWT(SwingControl.output_img));
-					GC gc = e.gc;
-					gc.setAdvanced(true);
-					gc.drawImage(image, surfaceComposite.getSize().x/2 - surfaceComposite.getSize().y/2, 0);
+			public void paintControl(PaintEvent e) {
+				if(getDisplaySurface()!=null)
+	        	getDisplaySurface().paintComponent(sw);
+//				sw.drawRect(10, 10, 40, 40);
+			}
+		});
+//		doubleBufferedCanvas .addPaintListener( new PaintListener() {
+//			@Override
+//			public void paintControl( PaintEvent e ) {
+////				if(SwingControl.output_img!=null) {			
+////					Image image=new Image(((SwingControl)surfaceComposite).display, convertToSWT(SwingControl.output_img));
+//					GC gc = e.gc;
+//					gc.drawRectangle(10, 10, 40, 40);
+////					if(!renderer.prepared)
+////					renderer.prepareRendering(gc);
+////					gc.drawImage(image, surfaceComposite.getSize().x/2 - surfaceComposite.getSize().y/2, 0);
+////					renderer.render(gc);
+////					gc.dispose();
+////				}
+//			  }
+//			} );
 
-				}
-			  }
-			} );
-		
-//		WorkaroundForIssue1594.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
+		WorkaroundForIssue1594xx.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
 
 		return surfaceComposite;
 	}
-
-	@Override
-	public void update(IDisplayOutput output) {
+	SWTGraphics2D sw;
+//	@Override
+//	public void update(IDisplayOutput output) {
 		// TODO Auto-generated method stub
 
-		SwingControl.output_img = new BufferedImage(surfaceComposite.getSize().y, surfaceComposite.getSize().y, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2 = SwingControl.output_img.createGraphics();
-		g2.setColor(Color.WHITE);
-		getDisplaySurface().paintComponent(g2);
-		super.update(output);
-	}
+//		SwingControl.output_img = new BufferedImage(surfaceComposite.getSize().y, surfaceComposite.getSize().y, BufferedImage.TYPE_INT_RGB);
+//		Graphics2D g2 = SwingControl.output_img.createGraphics();
+//		g2.setColor(Color.WHITE);
+		
+		
+//		Graphics2D g2d = renderer.getGraphics2D();
+//        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+//            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+//        if(sw!=null)
+//        	getDisplaySurface().paintComponent(sw);
+		
+//		getDisplaySurface().paintComponent(((SwingControl)surfaceComposite).applet.getGraphics());
+//		super.update(output);
+//	}
 
 	public static ImageData convertToSWT(BufferedImage bufferedImage) {
 		if (bufferedImage.getColorModel() instanceof DirectColorModel) {

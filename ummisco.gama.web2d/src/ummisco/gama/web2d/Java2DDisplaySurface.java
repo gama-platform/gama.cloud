@@ -146,6 +146,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		setBackground(output.getData().getBackgroundColor());
 		setName(output.getName());
 		layerManager = new LayerManager(this, output);
+		
 		addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -437,6 +438,22 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	}
 
+	public void paintComponent(SWTGraphics2D g2d) {
+		realized = true;
+		getIGraphics().setGraphics2D(g2d);
+		layerManager.drawLayersOn(iGraphics);
+		if (temp_focus != null) {
+			final IShape geometry = Cast.asGeometry(getScope(), temp_focus.value(getScope()), false);
+			temp_focus = null;
+			focusOn(geometry);
+			return;
+		}
+//		g2d.dispose();
+		frames++;
+		rendered = true;
+		
+
+	}
 	AWTDisplayGraphics getIGraphics() {
 		return (AWTDisplayGraphics) iGraphics;
 	}
