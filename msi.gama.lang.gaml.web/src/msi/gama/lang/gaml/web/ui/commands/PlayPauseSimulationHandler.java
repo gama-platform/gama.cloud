@@ -17,14 +17,13 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.runtime.GAMA;
-//import ummisco.gama.ui.bindings.GamaKeyBindings;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 
 public class PlayPauseSimulationHandler extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMA.startPauseFrontmostExperiment();
+		GAMAHelper.startPauseFrontmostExperiment();
 		return this;
 	}
 

@@ -60,7 +60,7 @@ public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 	private Module getRuntimeModule() {
 //		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
 
-//		GamlStandaloneSetup.doSetup();
+//		GamlStandaloneSetup.doSetup(); 
 		GamlRuntimeModule original = new GamlRuntimeModule();
 		WebGamlRuntimeModule module = new WebGamlRuntimeModule();
 		Module mergedModule = Modules2.mixin((Module) original, module);

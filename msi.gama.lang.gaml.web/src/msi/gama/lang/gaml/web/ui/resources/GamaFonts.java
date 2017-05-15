@@ -11,6 +11,7 @@ package msi.gama.lang.gaml.web.ui.resources;
 
 import java.util.Arrays;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -18,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 
 import msi.gama.lang.gaml.web.editor.BasicWorkbench;
 import msi.gama.lang.gaml.web.ui.utils.GraphicsHelper;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 public class GamaFonts {
 
@@ -43,7 +45,7 @@ public class GamaFonts {
 	public static Font categoryBoldHelpFont;
 
 	static void initFonts() {
-		systemFont= BasicWorkbench.workbench.getDisplay().getSystemFont();
+		systemFont= WorkbenchHelper.getDisplay().getSystemFont();
 //		System.out.println("System font = " + Arrays.toString(systemFont.getFontData()));
 //		FontData fd = new FontData(awtBaseFont.getName(), awtBaseFont.getSize(), awtBaseFont.getStyle());
 //		final FontData original = fd;

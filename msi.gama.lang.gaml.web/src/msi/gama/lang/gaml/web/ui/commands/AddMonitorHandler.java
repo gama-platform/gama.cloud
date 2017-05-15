@@ -14,14 +14,14 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.views.inspectors.MonitorView;
-import msi.gama.runtime.GAMA;
 
 public class AddMonitorHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		MonitorView.createNewMonitor(GAMA.getRuntimeScope());
+		MonitorView.createNewMonitor(GAMAHelper.getRuntimeScope());
 		return null;
 	}
 

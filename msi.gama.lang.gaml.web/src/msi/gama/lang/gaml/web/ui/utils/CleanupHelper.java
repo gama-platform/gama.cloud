@@ -56,7 +56,7 @@ public class CleanupHelper {
 
 	static class ForceMaximizeRestoration {
 		public static void run() {
-			final IWorkbenchWindow[] windows = PlatformUI.getWorkbench().getWorkbenchWindows();
+			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench().getWorkbenchWindows();
 			for (int i = 0; i < windows.length; i++) {
 				final IWorkbenchPage page = windows[i].getActivePage();
 				if (page != null) {
@@ -135,7 +135,7 @@ public class CleanupHelper {
 
 		public static void run() {
 			final RemoveUnwantedActionSets remove = new RemoveUnwantedActionSets();
-			final IWorkbenchWindow[] windows = PlatformUI.getWorkbench().getWorkbenchWindows();
+			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench().getWorkbenchWindows();
 			for (int i = 0; i < windows.length; i++) {
 				final IWorkbenchPage page = windows[i].getActivePage();
 				if (page != null) {
@@ -204,11 +204,11 @@ public class CleanupHelper {
 		static void run() {
 			final List<IWizardCategory> cats = new ArrayList<>();
 			AbstractExtensionWizardRegistry r =
-					(AbstractExtensionWizardRegistry) PlatformUI.getWorkbench().getNewWizardRegistry();
+					(AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getNewWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
-			r = (AbstractExtensionWizardRegistry) PlatformUI.getWorkbench().getImportWizardRegistry();
+			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getImportWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
-			r = (AbstractExtensionWizardRegistry) PlatformUI.getWorkbench().getExportWizardRegistry();
+			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getExportWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
 			for (final IWizardDescriptor wizard : getAllWizards(cats.toArray(new IWizardCategory[0]))) {
 				final String id = wizard.getCategory().getId();

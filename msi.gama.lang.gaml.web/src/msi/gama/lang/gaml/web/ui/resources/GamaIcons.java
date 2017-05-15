@@ -202,11 +202,11 @@ public class GamaIcons /* implements IGamaIcons */ {
 	// public static ImageDescriptor getEclipseIconDescriptor(final String icon)
 	// {
 	// return
-	// PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(icon);
+	// WorkbenchHelper.getWorkbench().getSharedImages().getImageDescriptor(icon);
 	// }
 	//
 	// public static Image system(final String icon) {
-	// return PlatformUI.getWorkbench().getSharedImages().getImage(icon);
+	// return WorkbenchHelper.getWorkbench().getSharedImages().getImage(icon);
 	// }
 
 	public static Image scaleImage(final Device d, final Image im, final int width, final int height) {

@@ -33,13 +33,13 @@ import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.kernel.simulation.SimulationAgent;
 import msi.gama.kernel.simulation.SimulationClock;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.population.IPopulation;
-import msi.gama.runtime.GAMA;
 import msi.gaml.operators.Dates;
 
 public class StatusControlContribution extends WorkbenchWindowControlContribution
@@ -125,7 +125,7 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 	private ITopLevelAgent getStatusAgent() {
 		if (agentIndex < 0)
 			agentIndex = 0;
-		final IExperimentPlan exp = GAMA.getExperiment();
+		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		if (exp == null)
 			return null;
 		// final ITopLevelAgent agent;

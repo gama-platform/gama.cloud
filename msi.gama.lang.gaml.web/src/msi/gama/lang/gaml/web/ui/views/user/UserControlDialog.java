@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import msi.gama.kernel.experiment.IParameter;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.dialogs.AbstractDetailsDialog;
 import msi.gama.lang.gaml.web.ui.experiment.parameters.AgentAttributesEditorsList;
 import msi.gama.lang.gaml.web.ui.interfaces.IParameterEditor;
@@ -39,7 +40,6 @@ import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.agent.IAgent;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -158,7 +158,7 @@ public class UserControlDialog extends AbstractDetailsDialog {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
 						c.executeOn(scope);
-						GAMA.getExperiment().refreshAllOutputs();
+						GAMAHelper.getExperiment().refreshAllOutputs();
 					}
 
 				});

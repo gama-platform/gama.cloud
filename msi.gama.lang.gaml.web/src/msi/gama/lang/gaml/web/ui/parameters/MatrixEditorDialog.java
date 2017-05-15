@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gama.util.matrix.GamaFloatMatrix;
@@ -202,7 +202,7 @@ public class MatrixEditorDialog extends Dialog {
 			try {
 				data = getNewMatrix();
 			} catch (final GamaRuntimeException e1) {
-				GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
+				GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
 			}
 		});
 		return container;

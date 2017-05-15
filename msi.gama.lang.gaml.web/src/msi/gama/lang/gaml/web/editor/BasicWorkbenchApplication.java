@@ -40,7 +40,7 @@ import org.osgi.framework.BundleContext;
  * contributed through the plugin.xml.
  */
 public class BasicWorkbenchApplication implements IApplication {
-	public static IWorkbench workbench;
+//	public static IWorkbench workbench;
 
 	public Object start(IApplicationContext context) throws Exception {
 	
@@ -51,7 +51,7 @@ public class BasicWorkbenchApplication implements IApplication {
 			if (returnCode == PlatformUI.RETURN_RESTART) {
 				return IApplication.EXIT_RESTART;
 			} else {
-				workbench = PlatformUI.getWorkbench();
+//				workbench = WorkbenchHelper.getWorkbench();
 				return IApplication.EXIT_OK;
 			}
 		} finally {
@@ -60,15 +60,15 @@ public class BasicWorkbenchApplication implements IApplication {
 	}
 
 	public void stop() {
-		workbench = PlatformUI.getWorkbench();
-		if (workbench != null) {
-			final Display display = workbench.getDisplay();
-			display.syncExec(new Runnable() {
-				public void run() {
-					if (!display.isDisposed())
-						workbench.close();
-				}
-			});
-		}
+//		workbench = WorkbenchHelper.getWorkbench();
+//		if (workbench != null) {
+//			final Display display = workbench.getDisplay();
+//			display.syncExec(new Runnable() {
+//				public void run() {
+//					if (!display.isDisposed())
+//						workbench.close();
+//				}
+//			});
+//		}
 	}
 }

@@ -54,6 +54,7 @@ import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.util.ImageUtils;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.displays.DisplaySurfaceMenu;
 import msi.gama.metamodel.agent.IAgent;
@@ -68,7 +69,6 @@ import msi.gama.outputs.display.LayerManager;
 import msi.gama.outputs.layers.IEventLayerListener;
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.precompiler.GamlAnnotations.display;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
@@ -578,7 +578,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	protected void setDisplayScope(final IScope scope) {
 		if (this.scope != null) {
-			GAMA.releaseScope(this.scope);
+			GAMAHelper.releaseScope(this.scope);
 		}
 		this.scope = scope;
 	}
@@ -603,7 +603,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			layerManager.dispose();
 		}
 
-		GAMA.releaseScope(getScope());
+		GAMAHelper.releaseScope(getScope());
 		setDisplayScope(null);
 	}
 

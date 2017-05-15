@@ -19,7 +19,8 @@ import msi.gama.lang.gaml.web.editor.BasicWorkbenchWindowAdvisor;
 import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.ui.utils.SwtGui;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 import java.net.URL;
 
@@ -29,6 +30,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.equinox.security.auth.ILoginContext;
 import org.eclipse.equinox.security.auth.LoginContextFactory;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -61,8 +63,8 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	public boolean preShutdown() {
 		// TODO Auto-generated method stub
 		System.out.println("preShutdown of "+loggedUser);
-		GAMA.pauseFrontmostExperiment();
-		GAMA.closeAllExperiments(false, true);
+		GAMAHelper.pauseFrontmostExperiment();
+		GAMAHelper.closeAllExperiments(false, true);
 
 		return super.preShutdown();
 	}
@@ -71,11 +73,16 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	public void postStartup() {
 		// TODO Auto-generated method stub
 		super.postStartup();
-//		if(StatusDisplayerFactory.displayer == null){
+		// if(StatusDisplayerFactory.displayer == null){
 
-		System.out.println("postStartup of "+loggedUser);
-			StatusDisplayerFactory.displayer=new StatusDisplayer();
-//		}
+		// }
+
+		WorkbenchHelper.setUID(loggedUser);
+		if (GAMAHelper.getRegularGui(loggedUser) == null) {
+			GAMAHelper.setRegularGui(new SwtGui(loggedUser), loggedUser);
+		}
+		System.out.println("postStartup of " + loggedUser);
+		StatusDisplayerFactory.displayer.put(loggedUser, new StatusDisplayer());
 
 	}
 

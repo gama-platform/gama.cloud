@@ -18,7 +18,7 @@ import org.eclipse.ui.ISources;
 
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IExperimentPlan;
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.runtime.ISimulationStateProvider;
 
 public class SimulationStateProvider extends AbstractSourceProvider implements ISimulationStateProvider {
@@ -41,8 +41,8 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 
 	@Override
 	public Map<String, String> getCurrentState() {
-		final String state = GAMA.getGui().getExperimentState();
-		final IExperimentPlan exp = GAMA.getExperiment();
+		final String state = GAMAHelper.getGui().getExperimentState();
+		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		final String type = exp == null ? IGui.NONE
 				: exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
 		map.put(SIMULATION_RUNNING_STATE, state);
@@ -58,7 +58,7 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 	@Override
 	public void updateStateTo(final String state) {
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_RUNNING_STATE, state);
-		final IExperimentPlan exp = GAMA.getExperiment();
+		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		final String type = exp == null ? "NONE" : exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_TYPE, type);
 

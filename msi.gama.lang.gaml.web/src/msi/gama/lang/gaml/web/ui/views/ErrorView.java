@@ -34,12 +34,12 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.interfaces.ItemList;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
 import msi.gama.lang.gaml.web.ui.utils.PreferencesHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.inspectors.ExpandableItemsView;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 
 public class ErrorView extends ExpandableItemsView<GamaRuntimeException> implements IGamaView.Error {
@@ -82,7 +82,7 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				GAMA.getGui().editModel(exception.getEditorContext());
+				GAMAHelper.getGui().editModel(exception.getEditorContext());
 			}
 
 			@Override
@@ -191,7 +191,7 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 //			clipboard.setContents(new Object[] { data }, new Transfer[] { TextTransfer.getInstance() });
 //			clipboard.dispose();
 		});
-		result.put("Show in editor", () -> GAMA.getGui().editModel(item.getEditorContext()));
+		result.put("Show in editor", () -> GAMAHelper.getGui().editModel(item.getEditorContext()));
 		result.put("Report issue on GitHub", () -> this.reportError(item));
 		return result;
 	}

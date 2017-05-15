@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IKeyword;
 import msi.gama.common.util.FileUtils;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.controls.SwitchButton;
 import msi.gama.lang.gaml.web.ui.menus.AgentsMenu;
 import msi.gama.lang.gaml.web.ui.menus.GamaMenu;
@@ -68,7 +69,6 @@ import msi.gama.metamodel.population.IPopulation;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.InspectDisplayOutput;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gama.util.file.CsvWriter;
@@ -191,7 +191,7 @@ public class PopulationInspectView extends GamaViewPart
 			// activated).
 			getOutput().setPaused(true);
 			// we release the scope
-			GAMA.releaseScope(getScope());
+			GAMAHelper.releaseScope(getScope());
 			outputs.clear();
 		}
 		outputs.add(output);
@@ -413,7 +413,7 @@ public class PopulationInspectView extends GamaViewPart
 			final Object o = s.getFirstElement();
 			if (o instanceof IAgent) {
 				getScope().getGui().setHighlightedAgent((IAgent) o);
-				GAMA.getExperiment().refreshAllOutputs();
+				GAMAHelper.getExperiment().refreshAllOutputs();
 				;
 			}
 		});
@@ -701,7 +701,7 @@ public class PopulationInspectView extends GamaViewPart
 			Files.newFolder(getScope(), exportFolder);
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("Impossible to create folder " + exportFolder);
-			GAMA.reportError(getScope(), e1, false);
+			GAMAHelper.reportError(getScope(), e1, false);
 			e1.printStackTrace();
 			return;
 		}
@@ -826,7 +826,7 @@ public class PopulationInspectView extends GamaViewPart
 			currentFont.dispose();
 		}
 		provider.dispose();
-		GAMA.releaseScope(scope);
+		GAMAHelper.releaseScope(scope);
 		scope = null;
 	}
 

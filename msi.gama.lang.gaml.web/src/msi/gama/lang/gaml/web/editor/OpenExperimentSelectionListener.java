@@ -10,6 +10,7 @@
 package msi.gama.lang.gaml.web.editor;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.ui.IPerspectiveDescriptor;
@@ -22,7 +23,6 @@ import msi.gama.lang.gaml.web.ui.controls.FlatButton;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
 import msi.gama.lang.gaml.web.ui.perspective.SimulationPerspectiveDescriptor;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 
 /**
@@ -75,7 +75,7 @@ public class OpenExperimentSelectionListener implements SelectionListener {
 //		if (descriptor==null) {
 //			page.setPerspective(simp);
 //		}
-		
+
 		runner.runModel(editor.getXtextResource(), name);
 
 	}
@@ -83,7 +83,7 @@ public class OpenExperimentSelectionListener implements SelectionListener {
 	void gotoEditor(final GamaRuntimeException exception) {
 		final EObject o = exception.getEditorContext();
 		if (o != null) {
-			WorkbenchHelper.asyncRun(() -> GAMA.getGui().editModel(o));
+			WorkbenchHelper.asyncRun(() -> GAMAHelper.getGui().editModel(o));
 		}
 
 	}

@@ -55,6 +55,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.util.FileUtils;
 import msi.gama.common.util.ImageUtils;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.editor.GamaPerspectiveHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
@@ -70,7 +71,6 @@ import msi.gama.outputs.LayeredDisplayData;
 import msi.gama.outputs.LayeredDisplayData.Changes;
 import msi.gama.outputs.LayeredDisplayData.DisplayDataListener;
 import msi.gama.outputs.LayeredDisplayOutput;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gaml.operators.Files;
@@ -713,12 +713,12 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 			Files.newFolder(scope, IDisplaySurface.SNAPSHOT_FOLDER_NAME);
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("Impossible to create folder " + IDisplaySurface.SNAPSHOT_FOLDER_NAME);
-			GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
 			e1.printStackTrace();
 			return;
 		}
 		final String snapshotFile = FileUtils.constructAbsoluteFilePath(scope, IDisplaySurface.SNAPSHOT_FOLDER_NAME
-				+ "/" + GAMA.getModel().getName() + "_display_" + getOutput().getName(), false);
+				+ "/" + GAMAHelper.getModel().getName() + "_display_" + getOutput().getName(), false);
 
 		final String file = snapshotFile + "_size_" + image.getWidth() + "x" + image.getHeight() + "_cycle_"
 				+ scope.getClock().getCycle() + "_time_" + java.lang.System.currentTimeMillis() + ".png";
@@ -730,7 +730,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		} catch (final java.io.IOException ex) {
 			final GamaRuntimeException e = GamaRuntimeException.create(ex, scope);
 			e.addContext("Unable to create output stream for snapshot image");
-			GAMA.reportError(GAMA.getRuntimeScope(), e, false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e, false);
 		} finally {
 			try {
 				if (os != null) {
@@ -739,7 +739,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 			} catch (final Exception ex) {
 				final GamaRuntimeException e = GamaRuntimeException.create(ex, scope);
 				e.addContext("Unable to close output stream for snapshot image");
-				GAMA.reportError(GAMA.getRuntimeScope(), e, false);
+				GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e, false);
 			}
 		}
 	}

@@ -43,7 +43,7 @@ import msi.gama.lang.gaml.web.ui.controls.IPopupProvider.PopupText;
 public class Popup {
 
 	private static final Shell popup = new Shell(WorkbenchHelper.getDisplay(), SWT.ON_TOP | SWT.NO_TRIM);
-	private static final Listener hide = event -> hide();
+//	private static final Listener hide = event -> hide();
 
 	static {
 		popup.setLayout(new GridLayout(1, true));
@@ -87,11 +87,11 @@ public class Popup {
 	public Popup(final IPopupProvider provider, final Widget... controls) {
 		this.provider = provider;
 		final Shell parent = provider.getControllingShell();
-		parent.addListener(SWT.Move, hide);
-		parent.addListener(SWT.Resize, hide);
-		parent.addListener(SWT.Close, hide);
-		parent.addListener(SWT.Deactivate, hide);
-		parent.addListener(SWT.Hide, hide);
+//		parent.addListener(SWT.Move, hide);
+//		parent.addListener(SWT.Resize, hide);
+//		parent.addListener(SWT.Close, hide);
+//		parent.addListener(SWT.Deactivate, hide);
+//		parent.addListener(SWT.Hide, hide);
 		for (final Widget c : controls) {
 			if (c == null) {
 				continue;

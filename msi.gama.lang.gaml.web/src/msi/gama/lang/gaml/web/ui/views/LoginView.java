@@ -9,67 +9,27 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views;
 
-import java.awt.datatransfer.Clipboard;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Dialog;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 
-import msi.gama.common.interfaces.IGamaView;
-import msi.gama.common.interfaces.IGui;
-import msi.gama.common.interfaces.IRuntimeExceptionHandler;
-import msi.gama.common.interfaces.ItemList;
-import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
-import msi.gama.lang.gaml.web.ui.controls.FlatButton;
-import msi.gama.lang.gaml.web.ui.parameters.EditorFactory;
-import msi.gama.lang.gaml.web.ui.resources.GamaColors;
-import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
-import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
-import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
-import msi.gama.lang.gaml.web.ui.utils.PreferencesHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.lang.gaml.web.ui.views.GamaViewPart.GamaUIJob;
-import msi.gama.lang.gaml.web.ui.views.GamaViewPart.UpdatePriority;
-import msi.gama.lang.gaml.web.ui.views.inspectors.ExpandableItemsView;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
-import msi.gama.runtime.exceptions.GamaRuntimeException;
-import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
-import msi.gaml.statements.IStatement;
-import msi.gaml.statements.UserCommandStatement;
 
 public class LoginView extends GamaViewPart{
 

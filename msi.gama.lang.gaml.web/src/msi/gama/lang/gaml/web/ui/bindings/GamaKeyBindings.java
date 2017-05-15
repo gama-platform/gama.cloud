@@ -20,9 +20,9 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.runtime.GAMA;
 //import msi.gama.lang.gaml.web.ui.access.GamlSearchField;
 
 /**
@@ -74,27 +74,27 @@ public class GamaKeyBindings implements Listener {
 			case 'p':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMA.stepFrontmostExperiment();
+					GAMAHelper.stepFrontmostExperiment();
 				} else if (ctrl(event)) {
 					consume(event);
-					GAMA.startPauseFrontmostExperiment();
+					GAMAHelper.startPauseFrontmostExperiment();
 				}
 				break;
 			// Handles PAUSE & STEP
 			case 'r':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMA.relaunchFrontmostExperiment();
+					GAMAHelper.relaunchFrontmostExperiment();
 				} else if (ctrl(event)) {
 					consume(event);
-					GAMA.reloadFrontmostExperiment();
+					GAMAHelper.reloadFrontmostExperiment();
 				}
 				break;
 			// Handles CLOSE
 			case 'x':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMA.closeAllExperiments(true, false);
+					GAMAHelper.closeAllExperiments(true, false);
 				}
 				break;
 			default:

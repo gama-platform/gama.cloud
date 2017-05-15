@@ -31,6 +31,7 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.kernel.experiment.ExperimentAgent;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.simulation.SimulationAgent;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.controls.ITooltipDisplayer;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
@@ -41,7 +42,6 @@ import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.population.IPopulation;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutputManager;
-import msi.gama.runtime.GAMA;
 
 /**
  * @author drogoul
@@ -105,11 +105,11 @@ public abstract class GamaViewPart extends ViewPart
 		final String id = site.getId() + (s_id == null ? "" : s_id);
 		IDisplayOutput out = null;
 
-		final IExperimentPlan experiment = GAMA.getExperiment();
+		final IExperimentPlan experiment = GAMAHelper.getExperiment();
 
 		if (experiment != null) {
 			for (final IOutputManager manager : concat(
-					transform(GAMA.getControllers(), each -> each.getExperiment().getActiveOutputManagers()))) {
+					transform(GAMAHelper.getControllers(), each -> each.getExperiment().getActiveOutputManagers()))) {
 				out = (IDisplayOutput) manager.get(id);
 				if (out != null) {
 					break;
@@ -118,7 +118,7 @@ public abstract class GamaViewPart extends ViewPart
 
 			// hqngh in case of micro-model
 			if (out == null) {
-				final SimulationAgent sim = GAMA.getExperiment().getCurrentSimulation();
+				final SimulationAgent sim = GAMAHelper.getExperiment().getCurrentSimulation();
 				if (sim != null) {
 					final String[] stemp = id.split("#");
 					if (stemp.length > 1) {

@@ -10,26 +10,22 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.factories;
 
+import java.util.HashMap;
+
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.services.AbstractServiceFactory;
 import org.eclipse.ui.services.IServiceLocator;
 
-import msi.gama.common.StatusMessage;
-import msi.gama.common.SubTaskMessage;
-import msi.gama.common.UserStatusMessage;
-import msi.gama.common.interfaces.IGui;
-import msi.gama.common.interfaces.IStatusDisplayer;
-import msi.gama.common.interfaces.IStatusMessage;
-import msi.gama.lang.gaml.web.ui.controls.StatusControlContribution;
-import msi.gama.lang.gaml.web.ui.utils.ThreadedUpdater;
-import msi.gama.util.GamaColor;
-
 public class StatusDisplayerFactory extends AbstractServiceFactory {
 
-	public static StatusDisplayer displayer = new StatusDisplayer();
+	public static HashMap<String,StatusDisplayer> displayer = new HashMap<String,StatusDisplayer>();
 
 	@Override
 	public Object create(final Class serviceInterface, final IServiceLocator parentLocator,
 			final IServiceLocator locator) {
+		if(displayer.isEmpty()) {
+			displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
+		}
 		return displayer;
 	}
 

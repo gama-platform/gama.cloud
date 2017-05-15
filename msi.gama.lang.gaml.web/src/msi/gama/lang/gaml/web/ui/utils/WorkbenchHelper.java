@@ -100,10 +100,18 @@ public class WorkbenchHelper {
 		if (page != null) { return page.getActivePart(); }
 		return null;
 	}
-
+	private static String uid="user";
+	public static void setUID(final String u) {
+		uid=u;
+	}
 	public static IWorkbench getWorkbench() {
-//		return PlatformUI.getWorkbench();getWindowConfigurer()
-		return BasicWorkbench.workbench;
+//		return WorkbenchHelper.getWorkbench();getWindowConfigurer()		
+		IWorkbench w=BasicWorkbench.workbench.get(uid);
+		if(w!=null) {
+			return w;
+		}			
+		System.out.println("..................WB not found uid "+uid);
+		return PlatformUI.getWorkbench();
 	}
 
 	public static IViewPart findView(final String id, final String second, final boolean restore) {

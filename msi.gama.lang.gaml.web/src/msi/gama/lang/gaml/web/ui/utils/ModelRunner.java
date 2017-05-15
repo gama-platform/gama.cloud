@@ -16,34 +16,18 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-//import org.eclipse.ui.IEditorDescriptor;
-//import org.eclipse.ui.PartInitException;
-//import org.eclipse.ui.PlatformUI;
-//import org.eclipse.ui.part.FileEditorInput;
-//import org.eclipse.ui.services.AbstractServiceFactory;
-//import org.eclipse.ui.services.IServiceLocator;
-import org.eclipse.xtext.resource.XtextResource;
-//import org.eclipse.xtext.ui.editor.IURIEditorOpener;
-//import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-//import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.eclipse.rap.rwt.RWT;
 
-import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import msi.gama.kernel.model.IModel;
 import msi.gama.lang.gaml.resource.GamlResource;
 //import msi.gama.lang.gaml.ui.internal.GamlActivator;
 import msi.gama.lang.gaml.validation.GamlModelBuilder;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gaml.compilation.GamlCompilationError;
 
@@ -76,7 +60,7 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 //				return;
 //			}
 //			try {
-//				final IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry()
+//				final IEditorDescriptor desc = WorkbenchHelper.getWorkbench().getEditorRegistry()
 //						.getDefaultEditor(file.getName());
 //				WorkbenchHelper.getPage().openEditor(new FileEditorInput(file), desc.getId());
 //			} catch (final PartInitException e) {
@@ -99,14 +83,17 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 
 	@Override
 	public void runModel(final Object object, final String exp) {
+
+		GAMAHelper.changeRegularGui(RWT.getUISession().getAttribute("user").toString());
+		WorkbenchHelper.setUID(RWT.getUISession().getAttribute("user").toString());
 		if (object instanceof IModel) {
-			GAMA.runGuiExperiment(exp, (IModel) object);
+			GAMAHelper.runGuiExperiment(exp, (IModel) object);
 		} else if (object instanceof IFile) {
 			final IFile file = (IFile) object;
 			try {
 				if (file.findMaxProblemSeverity(IMarker.PROBLEM, true,
 						IResource.DEPTH_ZERO) == IMarker.SEVERITY_ERROR) {
-					GAMA.getGui().error("Model " + file.getFullPath() + " has errors and cannot be launched");
+					GAMAHelper.getGui().error("Model " + file.getFullPath() + " has errors and cannot be launched");
 					return;
 				}
 			} catch (final CoreException e) {
@@ -119,7 +106,7 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 			final List<GamlCompilationError> errors = new ArrayList<>();
 			final IModel model = GamlModelBuilder.compile(uri, errors);
 			if (model == null) {
-				GAMA.getGui().error("File " + uri.lastSegment() + " cannot be built because of " + errors.size()
+				GAMAHelper.getGui().error("File " + uri.lastSegment() + " cannot be built because of " + errors.size()
 						+ " compilation errors");
 				return;
 			}
@@ -127,7 +114,7 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 		}
 		else //if (object instanceof IXtextDocument) 
 		{
-			System.out.println(object);
+//			System.out.println(object);
 //			final IXtextDocument doc = (IXtextDocument) object;
 			IModel model = null;
 			try {
@@ -141,7 +128,7 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 //
 //				});
 			} catch (final GamaRuntimeException ex) {
-				GAMA.getGui().error("Experiment " + exp + " cannot be instantiated because of the following error: "
+				GAMAHelper.getGui().error("Experiment " + exp + " cannot be instantiated because of the following error: "
 						+ ex.getMessage());
 			}
 			runModel(model, exp);

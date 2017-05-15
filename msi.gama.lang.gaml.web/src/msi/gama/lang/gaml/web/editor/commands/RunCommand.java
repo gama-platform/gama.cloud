@@ -51,9 +51,9 @@ import com.google.inject.Injector;
 
 import msi.gama.kernel.model.IModel;
 import msi.gama.lang.gaml.validation.GamlModelBuilder;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.editor.widget.Gaml;
 import msi.gama.lang.gaml.web.ui.utils.SwtGui;
-import msi.gama.runtime.GAMA;
 import msi.gama.util.GAML;
 import msi.gaml.compilation.GamlCompilationError;
 
@@ -103,7 +103,7 @@ public class RunCommand extends AbstractWorkspaceCommand {
 //				if (GAMA.getRegularGui() == null) {
 //					GAMA.setRegularGui(new SwtGui());
 //				}
-				GAMA.runGuiExperiment("Game of Life", model);
+				GAMAHelper.runGuiExperiment("Game of Life", model);
 
 			} catch (final Exception e1) {
 				throw new RuntimeException(e1);

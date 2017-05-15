@@ -31,7 +31,6 @@ import msi.gama.outputs.layers.ILayerStatement;
 import msi.gama.outputs.layers.ImageLayerStatement;
 import msi.gama.outputs.layers.SpeciesLayerStatement;
 import msi.gama.outputs.layers.charts.ChartLayerStatement;
-import msi.gama.runtime.GAMA;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.types.Types;
 

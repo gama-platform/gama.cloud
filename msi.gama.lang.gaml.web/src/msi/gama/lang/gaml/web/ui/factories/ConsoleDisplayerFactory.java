@@ -18,8 +18,8 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGamaView.Console;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.runtime.GAMA;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.Strings;
 
@@ -70,12 +70,12 @@ public class ConsoleDisplayerFactory extends AbstractServiceFactory {
 
 		@Override
 		public void showConsoleView(final ITopLevelAgent agent) {
-			final IGamaView.Console icv = (Console) GAMA.getGui().showView(IGui.INTERACTIVE_CONSOLE_VIEW_ID, null,
+			final IGamaView.Console icv = (Console) GAMAHelper.getGui().showView(IGui.INTERACTIVE_CONSOLE_VIEW_ID, null,
 					IWorkbenchPage.VIEW_VISIBLE);
 			if (icv != null)
 				icv.append(null, agent, null);
 			final IGamaView.Console console =
-					(Console) GAMA.getGui().showView(IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
+					(Console) GAMAHelper.getGui().showView(IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 			if (consoleBuffer.length() > 0 && console != null) {
 				console.append(consoleBuffer.toString(), agent, null);
 				consoleBuffer.setLength(0);

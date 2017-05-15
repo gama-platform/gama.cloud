@@ -27,7 +27,7 @@ import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 //import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 //import msi.gama.lang.gaml.web.ui.views.WorkaroundForIssue1353;
@@ -281,7 +281,7 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 
 	private void setMousePosition(final int x, final int y) {
 		view.getDisplaySurface().setMousePosition(x, y);
-		GAMA.getGui().setMouseLocationInModel(view.getDisplaySurface().getModelCoordinates());
+		GAMAHelper.getGui().setMouseLocationInModel(view.getDisplaySurface().getModelCoordinates());
 	}
 
 }

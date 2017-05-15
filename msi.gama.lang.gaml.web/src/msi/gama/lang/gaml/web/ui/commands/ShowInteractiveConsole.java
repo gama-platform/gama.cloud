@@ -14,13 +14,13 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 
 public class ShowInteractiveConsole extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMA.getGui().openInteractiveConsole();
+		GAMAHelper.getGui().openInteractiveConsole();
 		return null;
 	}
 

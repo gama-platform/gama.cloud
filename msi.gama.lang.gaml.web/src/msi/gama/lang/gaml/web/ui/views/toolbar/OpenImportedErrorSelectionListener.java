@@ -18,10 +18,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
 import msi.gama.lang.gaml.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.ui.menus.GamaMenu;
-import msi.gama.runtime.GAMA;
 
 /**
  * The class CreateExperimentSelectionListener.
@@ -61,7 +61,7 @@ public class OpenImportedErrorSelectionListener implements SelectionListener {
 
 							@Override
 							public void widgetSelected(final SelectionEvent e1) {
-								GAMA.getGui().editModel(msgs.get(s));
+								GAMAHelper.getGui().editModel(msgs.get(s));
 							}
 
 						}, null);

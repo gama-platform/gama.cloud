@@ -26,15 +26,15 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.IParameter;
 import msi.gama.kernel.experiment.ParametersSet;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.experiment.parameters.EditorsList;
 import msi.gama.lang.gaml.web.ui.experiment.parameters.ExperimentsParametersList;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
-import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gaml.statements.UserCommandStatement;
 
 public class ExperimentParametersView extends AttributesEditorsView<String> implements IGamaView.Parameters {
@@ -85,7 +85,7 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		toolbar.wipe(SWT.LEFT, true);
 		final Collection<UserCommandStatement> userCommands = experiment.getUserCommands();
 		for (final UserCommandStatement command : userCommands) {
-			GamaUIColor color = GamaColors.get(command.getColor(GAMA.getRuntimeScope()));
+			GamaUIColor color = GamaColors.get(command.getColor(GAMAHelper.getRuntimeScope()));
 			if (color == null)
 				color = IGamaColors.BLUE;
 			toolbar.button(color, command.getName(), new SelectionAdapter() {
@@ -93,9 +93,9 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 
-					GAMA.getExperiment().getAgent().executeAction(scope -> {
+					GAMAHelper.getExperiment().getAgent().executeAction(scope -> {
 						final Object result = command.executeOn(scope);
-						GAMA.getExperiment().refreshAllOutputs();
+						GAMAHelper.getExperiment().refreshAllOutputs();
 						return result;
 					});
 				}
@@ -127,7 +127,7 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
-						GAMA.getExperiment().getAgent().createSimulation(new ParametersSet(), true);
+						GAMAHelper.getExperiment().getAgent().createSimulation(new ParametersSet(), true);
 					}
 
 					@Override

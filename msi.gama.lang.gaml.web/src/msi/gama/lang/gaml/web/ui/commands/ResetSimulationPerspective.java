@@ -10,13 +10,17 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.commands;
 
-import org.eclipse.core.commands.*;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.ui.*;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.internal.WorkbenchPage;
-import msi.gama.runtime.GAMA;
+
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 
 public class ResetSimulationPerspective extends AbstractHandler {
 
@@ -34,7 +38,7 @@ public class ResetSimulationPerspective extends AbstractHandler {
 						"Reset experiment perspective", message, SWT.SHEET);
 					if ( !result ) { return null; }
 					page.resetPerspective();
-					GAMA.reloadFrontmostExperiment();
+					GAMAHelper.reloadFrontmostExperiment();
 				}
 
 			}

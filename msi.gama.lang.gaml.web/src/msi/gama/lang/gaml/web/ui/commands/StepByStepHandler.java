@@ -17,14 +17,14 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 //import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class StepByStepHandler extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMA.stepFrontmostExperiment();
+		GAMAHelper.stepFrontmostExperiment();
 		return this;
 	}
 

@@ -16,10 +16,7 @@ import org.osgi.framework.BundleContext;
 import com.google.common.collect.Maps;
 import com.google.inject.Injector;
 
-import msi.gama.lang.gaml.GamlStandaloneSetup;
 import msi.gama.lang.gaml.web.module.WebGamlStandaloneSetup;
-import msi.gama.runtime.GAMA;
-import msi.gama.lang.gaml.web.ui.utils.SwtGui;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -56,9 +53,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public Activator() {
 
-		if (GAMA.getRegularGui() == null) {
-			GAMA.setRegularGui(new SwtGui());
-		}
 
 	}
 

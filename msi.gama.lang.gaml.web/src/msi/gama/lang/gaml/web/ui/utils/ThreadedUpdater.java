@@ -13,6 +13,7 @@ package msi.gama.lang.gaml.web.ui.utils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.progress.UIJob;
 
 import msi.gama.common.interfaces.IDisplaySurface;
@@ -30,7 +31,6 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 
 	Message message = null;
 	private IUpdaterTarget<Message> control;
-
 	public ThreadedUpdater(final String name) {
 		super(WorkbenchHelper.getDisplay(), name);
 		setPriority(DECORATE);

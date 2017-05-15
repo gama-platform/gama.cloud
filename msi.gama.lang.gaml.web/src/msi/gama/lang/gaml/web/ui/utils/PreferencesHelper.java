@@ -157,7 +157,7 @@ public class PreferencesHelper {
 
 				@Override
 				public void afterValueChange(final Boolean newValue) {
-					final IDecoratorManager mgr = PlatformUI.getWorkbench().getDecoratorManager();
+					final IDecoratorManager mgr = WorkbenchHelper.getWorkbench().getDecoratorManager();
 					try {
 						mgr.setEnabled(IGui.NAVIGATOR_LIGHTWEIGHT_DECORATOR_ID, newValue);
 					} catch (final CoreException e) {

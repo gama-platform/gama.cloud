@@ -30,6 +30,7 @@ import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveRegistry;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.lang.gaml.web.ui.perspective.SimulationPerspectiveDescriptor;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 public class GamaPerspectiveHelper extends PerspectiveHelper {
 
@@ -45,7 +46,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	public static String currentPerspectiveId = PERSPECTIVE_MODELING_ID;
 
 	// private static void cleanPerspectives() {
-	// final IPerspectiveRegistry reg = PlatformUI.getWorkbench().getPerspectiveRegistry();
+	// final IPerspectiveRegistry reg = WorkbenchHelper.getWorkbench().getPerspectiveRegistry();
 	// for ( final IPerspectiveDescriptor desc : reg.getPerspectives() ) {
 	// if ( desc.getId().contains(PERSPECTIVE_SIMULATION_FRAGMENT) &&
 	// !desc.getId().equals(PERSPECTIVE_SIMULATION_ID) ) {
@@ -55,7 +56,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	// }
 
 	public static PerspectiveRegistry getPerspectiveRegistry() {
-		return (PerspectiveRegistry) PlatformUI.getWorkbench().getPerspectiveRegistry();
+		return (PerspectiveRegistry) WorkbenchHelper.getWorkbench().getPerspectiveRegistry();
 	}
 
 	public static boolean isModelingPerspective() {
@@ -105,10 +106,10 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 		if ( perspectiveId.equals(currentPerspectiveId) )
 			return true;
 
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		IWorkbenchPage activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if ( activePage == null )
 			try {
-				activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().openPage(perspectiveId, null);
+				activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().openPage(perspectiveId, null);
 			} catch (final WorkbenchException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -135,9 +136,9 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 			// System.out.println("Perspective " + perspectiveId + " opened ");
 		};
 		if ( immediately ) {
-			Display.getDefault().syncExec(r);
+			WorkbenchHelper.getDisplay().syncExec(r);
 		} else {
-			Display.getDefault().asyncExec(r);
+			WorkbenchHelper.getDisplay().asyncExec(r);
 		}
 		return true;
 	}
@@ -149,7 +150,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	}
 
 	public final static IPerspectiveDescriptor getActivePerspective() {
-		final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		final IWorkbenchPage activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		final IPerspectiveDescriptor currentDescriptor = activePage.getPerspective();
 		return currentDescriptor;
 

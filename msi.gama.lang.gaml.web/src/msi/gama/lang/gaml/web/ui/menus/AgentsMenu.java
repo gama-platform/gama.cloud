@@ -27,6 +27,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.kernel.simulation.SimulationAgent;
 import msi.gama.kernel.simulation.SimulationPopulation;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
@@ -35,7 +36,6 @@ import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.agent.IMacroAgent;
 import msi.gama.metamodel.population.IPopulation;
 import msi.gama.outputs.InspectDisplayOutput;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.IScope.ExecutionResult;
 import msi.gaml.statements.Arguments;
@@ -155,7 +155,7 @@ public class AgentsMenu extends ContributionItem {
 			final IAgent a = (IAgent) mi.getData("agent");
 			if (a != null && !a.dead()) {
 				a.getScope().getGui().setHighlightedAgent(a);
-				GAMA.getExperiment().refreshAllOutputs();
+				GAMAHelper.getExperiment().refreshAllOutputs();
 			}
 		}
 	};
@@ -175,7 +175,7 @@ public class AgentsMenu extends ContributionItem {
 				} else if (a != null && !a.dead()) {
 					surface.focusOn(a);
 				}
-			GAMA.getExperiment().refreshAllOutputs();
+			GAMAHelper.getExperiment().refreshAllOutputs();
 		}
 	}
 
@@ -201,7 +201,7 @@ public class AgentsMenu extends ContributionItem {
 			final IAgent a = (IAgent) mi.getData("agent");
 			if (a != null && !a.dead()) {
 				a.dispose();
-				GAMA.getExperiment().refreshAllOutputs();
+				GAMAHelper.getExperiment().refreshAllOutputs();
 			}
 		}
 	};
@@ -223,7 +223,7 @@ public class AgentsMenu extends ContributionItem {
 				runningScope.getSimulation().executeAction(scope -> {
 					final Arguments args = new Arguments();
 					final ExecutionResult result = scope.execute(c, a, args);
-					GAMA.getExperiment().refreshAllOutputs();
+					GAMAHelper.getExperiment().refreshAllOutputs();
 					return result.getValue();
 				});
 
@@ -343,6 +343,6 @@ public class AgentsMenu extends ContributionItem {
 
 	@Override
 	public void fill(final Menu parent, final int index) {
-		createMenuForAgent(parent, GAMA.getExperiment().getAgent(), true, true, HIGHLIGHT_ACTION);
+		createMenuForAgent(parent, GAMAHelper.getExperiment().getAgent(), true, true, HIGHLIGHT_ACTION);
 	}
 }

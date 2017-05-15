@@ -15,15 +15,19 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import java.util.HashMap;
+
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
+import msi.gama.lang.gaml.web.ui.utils.SwtGui;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 
@@ -32,7 +36,7 @@ import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
  *
  */
 public class BasicWorkbench implements EntryPoint {
-	public static IWorkbench workbench;
+	public static HashMap<String,IWorkbench> workbench=new HashMap<String,IWorkbench>();
 //	private static final String DEMO_PRESENTATION = "org.dslforge.texteditor.demo.theme";
 
 	public int createUI() {
@@ -50,9 +54,8 @@ public class BasicWorkbench implements EntryPoint {
 		    WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 		    System.out.println("logged as "+((BasicWorkbenchAdvisor)workbenchAdvisor).getLoggedUser());
 		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
-		    
-		    
-		    
+		    RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
+
 		    
 		    
 		    
@@ -62,7 +65,6 @@ public class BasicWorkbench implements EntryPoint {
 //			ScopedPreferenceStore prefStore = (ScopedPreferenceStore) PrefUtil.getAPIPreferenceStore();
 //			String keyPresentationId = IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
 //			String presentationId = prefStore.getString(keyPresentationId);		    
-//		    RWT.getUISession().setAttribute("user", "default");
 //			if (DEMO_PRESENTATION.equals(presentationId)) {
 //				workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
 //			}

@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views;
 
-import java.awt.FileDialog;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +17,7 @@ import java.util.Map;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -40,6 +40,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.preferences.Pref;
 import msi.gama.lang.gaml.web.editor.BasicWorkbench;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.controls.ParameterExpandBar;
 import msi.gama.lang.gaml.web.ui.controls.ParameterExpandItem;
 import msi.gama.lang.gaml.web.ui.dialogs.Messages;
@@ -50,7 +51,6 @@ import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.runtime.GAMA;
 import msi.gama.util.GamaColor;
 
 /**
@@ -108,7 +108,7 @@ public class GamaPreferencesView {
 		gridLayout.marginWidth = gridLayout.marginHeight = 5;
 		gridLayout.horizontalSpacing = gridLayout.verticalSpacing = 5;
 		shell.setLayout(gridLayout);
-		final PreferenceManager preferenceManager = PlatformUI.getWorkbench().getPreferenceManager();
+		final PreferenceManager preferenceManager = WorkbenchHelper.getWorkbench().getPreferenceManager();
 
 		// We clean the default preference manager to remove useless preferences
 		for (final Object elem : preferenceManager.getElements(PreferenceManager.POST_ORDER)) {
@@ -309,7 +309,7 @@ public class GamaPreferencesView {
 	 */
 	protected void showError(final String string) {
 		// TODO make it a proper component of the view
-		GAMA.getGui().debug("Error in preferences : " + string);
+		GAMAHelper.getGui().debug("Error in preferences : " + string);
 	}
 
 	private void buildButtons() {
@@ -401,7 +401,7 @@ public class GamaPreferencesView {
 					restartRequired = false;
 					final boolean restart = Messages.confirm("Restart ?", "Restart GAMA now ?");
 					if (restart) {
-						BasicWorkbench.workbench.getActiveWorkbenchWindow().getShell().update();
+						WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getShell().update();
 					}
 				} else
 					shell.setVisible(false);

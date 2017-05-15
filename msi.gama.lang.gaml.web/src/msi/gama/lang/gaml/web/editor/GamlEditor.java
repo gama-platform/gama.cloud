@@ -5,8 +5,10 @@ package msi.gama.lang.gaml.web.editor;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -41,7 +43,7 @@ import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 
 public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListener, IToolbarDecoratedView {
-	GamaToolbar2 toolbar;
+	HashMap<String,GamaToolbar2> thetoolbar=new HashMap<String,GamaToolbar2>();
 	Composite toolbarParent;
 //	private EditorSearchControls findControl;
 //	boolean decorationEnabled = AutoStartup.EDITBOX_ENABLED.getValue();
@@ -136,12 +138,13 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 
 	@Override
 	public void createToolItems(GamaToolbar2 tb) {
-
-		this.toolbar = tb;
+		
+		thetoolbar.put(""+RWT.getUISession().getAttribute("user"), tb);
 		buildRightToolbar();		
 	}
 
 	private void buildRightToolbar() {
+		GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));
 		toolbar.wipe(SWT.LEFT, true);
 		final ToolItem t = toolbar.button(IGamaColors.NEUTRAL, "Waiting...", GamaIcons.create("status.clock").image(),
 				null, SWT.LEFT);
@@ -161,6 +164,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		final boolean isBatch = state.types.get(index);
 		final Image image = isBatch ? GamaIcons.create(IGamaIcons.BUTTON_BATCH).image()
 				: GamaIcons.create(IGamaIcons.BUTTON_GUI).image();
+		GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));
 		final ToolItem t = toolbar.button(IGamaColors.OK,
 				text/* + "  " + GamaKeyBindings.format(GamlEditorBindings.MODIFIERS, String.valueOf(index).charAt(0)) */,
 				image, SWT.LEFT);
@@ -175,6 +179,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	private void updateToolbar(final GamlEditorState newState, final boolean forceState) {
 //		if (forceState || !state.equals(newState)) {
 			Display.getDefault().asyncExec(() -> {
+				GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));
 				if (toolbar == null || toolbar.isDisposed()) { return; }
 				toolbar.wipe(SWT.LEFT, true);
 

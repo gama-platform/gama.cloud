@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.common.util.StringUtils;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.IParameter;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.interfaces.EditorListener;
 import msi.gama.lang.gaml.web.ui.interfaces.IParameterEditor;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
@@ -47,7 +48,6 @@ import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.agent.IAgent;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gaml.types.GamaStringType;
@@ -131,14 +131,14 @@ public abstract class AbstractEditor<T>
 
 		@Override
 		public void mouseEnter(final MouseEvent e) {
-			if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
+			if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
 				showToolbar();
 		}
 
 		@Override
 		public void mouseExit(final MouseEvent e) {
 			if (isCombo && combo != null && combo.getListVisible()) { return; }
-			if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
+			if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
 				hideToolbar();
 		}
 
@@ -168,7 +168,7 @@ public abstract class AbstractEditor<T>
 			return scope;
 		if (agent != null)
 			return agent.getScope();
-		return GAMA.getRuntimeScope();
+		return GAMAHelper.getRuntimeScope();
 	}
 
 	public AbstractEditor(final IScope scope, final IAgent a, final IParameter variable, final EditorListener<T> l) {
@@ -216,13 +216,13 @@ public abstract class AbstractEditor<T>
 
 		IAgent a = agent;
 		if (a == null) {
-			final IExperimentPlan exp = GAMA.getExperiment();
+			final IExperimentPlan exp = GAMAHelper.getExperiment();
 			if (exp != null) {
 				a = exp.getAgent();
 			}
 		}
-		if (a != null && GAMA.getExperiment() != null && GAMA.getExperiment().getAgent() != null) {
-			GAMA.getExperiment().getAgent().getScope().setAgentVarValue(a, param.getName(), newValue);
+		if (a != null && GAMAHelper.getExperiment() != null && GAMAHelper.getExperiment().getAgent() != null) {
+			GAMAHelper.getExperiment().getAgent().getScope().setAgentVarValue(a, param.getName(), newValue);
 		}
 		if (agent == null) {
 			param.setValue(a == null ? null : a.getScope(), newValue);
@@ -262,7 +262,7 @@ public abstract class AbstractEditor<T>
 					: isCombo ? createComboParameterControl(composite) : createCustomParameterControl(composite);
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("The editor for " + name + " could not be created");
-			GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
 			return null;
 		}
 
@@ -299,7 +299,7 @@ public abstract class AbstractEditor<T>
 			setOriginalValue(getParameterValue());
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("Impossible to obtain the value of " + name);
-			GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
 		}
 		currentValue = getOriginalValue();
 		composite = new Composite(parent, SWT.NONE);
@@ -345,7 +345,7 @@ public abstract class AbstractEditor<T>
 				controlsThatShowHideToolbars.remove(c);
 			});
 		}
-		if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
+		if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
 			hideToolbar();
 	}
 
@@ -500,7 +500,7 @@ public abstract class AbstractEditor<T>
 			} catch (final GamaRuntimeException e) {
 				e.printStackTrace();
 				e.addContext("Value of " + name + " cannot be modified");
-				GAMA.reportError(GAMA.getRuntimeScope(), GamaRuntimeException.create(e, GAMA.getRuntimeScope()), false);
+				GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), GamaRuntimeException.create(e, GAMAHelper.getRuntimeScope()), false);
 				return;
 			}
 		});
@@ -618,7 +618,7 @@ public abstract class AbstractEditor<T>
 			internalModification = false;
 		} catch (final GamaRuntimeException e) {
 			e.addContext("Unable to obtain the value of " + name);
-			GAMA.reportError(GAMA.getRuntimeScope(), e, false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e, false);
 			return;
 		}
 	}

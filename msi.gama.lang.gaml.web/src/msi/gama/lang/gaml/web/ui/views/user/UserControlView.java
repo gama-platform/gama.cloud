@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGui;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.controls.FlatButton;
 import msi.gama.lang.gaml.web.ui.parameters.EditorFactory;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
@@ -40,7 +41,6 @@ import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.GamaViewPart;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -124,7 +124,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
 						c.executeOn(scope);
-						GAMA.getExperiment().refreshAllOutputs();
+						GAMAHelper.getExperiment().refreshAllOutputs();
 						if (c.isContinue(scope)) {
 							doContinue();
 						}

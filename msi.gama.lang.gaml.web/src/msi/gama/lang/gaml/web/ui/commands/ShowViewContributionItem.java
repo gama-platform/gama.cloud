@@ -19,6 +19,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
 import org.eclipse.ui.actions.ContributionItemFactory;
 
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+
 public class ShowViewContributionItem extends CompoundContributionItem {
 
 	public ShowViewContributionItem() {
@@ -31,7 +33,7 @@ public class ShowViewContributionItem extends CompoundContributionItem {
 	@Override
 	protected IContributionItem[] getContributionItems() {
 		final List<IContributionItem> menuContributionList = new ArrayList<>();
-		final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		final IWorkbenchWindow window = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow();
 		final IContributionItem item = ContributionItemFactory.VIEWS_SHORTLIST.create(window);
 		menuContributionList.add(item); // add the list of views in the menu
 		return menuContributionList.toArray(new IContributionItem[menuContributionList.size()]);

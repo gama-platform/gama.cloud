@@ -18,8 +18,7 @@ package msi.gama.lang.gaml.web.editor;
 import msi.gama.lang.gaml.web.editor.BasicWorkbenchActionBarAdvisor;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
-import msi.gama.runtime.GAMA;
-
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -44,13 +43,13 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().setShowStatusLine(true);
 		getWindowConfigurer().setShowMenuBar( true );
 		getWindowConfigurer().setShowCoolBar( true );	
-		getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1");
+		getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+RWT.getUISession().getAttribute("user"));
 		getWindowConfigurer().setShellStyle(SWT.TITLE | SWT.RESIZE | SWT.MAX);
 		Rectangle bounds = Display.getCurrent().getBounds();
 		getWindowConfigurer().setInitialSize(new Point(bounds.width, bounds.height));
 
 //		if(BasicWorkbench.workbench==null){
-			BasicWorkbench.workbench=getWindowConfigurer().getWindow().getWorkbench();
+			BasicWorkbench.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWindowConfigurer().getWindow().getWorkbench());
 
 //		}
 	}
@@ -60,7 +59,7 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().getWindow().getShell().setMaximized(true);
 
 //		if(StatusDisplayerFactory.displayer == null){
-			StatusDisplayerFactory.displayer=new StatusDisplayer();
+			StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 //		}
 	}
 	

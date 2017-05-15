@@ -17,7 +17,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 //import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class ReloadSimulationHandler extends AbstractHandler implements IElementUpdater {
@@ -25,7 +25,7 @@ public class ReloadSimulationHandler extends AbstractHandler implements IElement
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		// GAMA.pauseFrontmostExperiment();
-		GAMA.reloadFrontmostExperiment();
+		GAMAHelper.reloadFrontmostExperiment();
 		return this;
 	}
 

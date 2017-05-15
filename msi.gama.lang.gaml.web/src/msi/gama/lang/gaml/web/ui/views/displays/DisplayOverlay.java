@@ -43,11 +43,11 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IOverlayProvider;
 import msi.gama.common.interfaces.IUpdaterTarget;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.outputs.layers.OverlayStatement.OverlayInfo;
-import msi.gama.runtime.GAMA;
+import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.outputs.layers.OverlayStatement.OverlayInfo;
 
 /**
  * The class DisplayOverlay.
@@ -331,7 +331,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 					getView().getOverlayZoomInfo(text);
 					zoom.setText(text.toString());
 				} catch (final Exception e) {
-					GAMA.getGui().debug("Error in updating overlay: " + e.getMessage());
+					GAMAHelper.getGui().debug("Error in updating overlay: " + e.getMessage());
 					zoom.setText("Not initialized yet");
 				}
 			}
