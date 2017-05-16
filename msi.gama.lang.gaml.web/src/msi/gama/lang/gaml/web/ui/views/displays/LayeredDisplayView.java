@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.ControlAdapter;
@@ -311,9 +312,12 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 
 			@Override
 			public void controlResized(final ControlEvent e) {
-				final Rectangle r =
-						WorkbenchHelper.getDisplay().map(surfaceComposite, null, surfaceComposite.getBounds());
-				surfaceCompositeBounds.setBounds(r.x, r.y, r.width, r.height);
+				if (WorkbenchHelper.getUID().equals(RWT.getUISession().getAttribute("user").toString())) {
+
+					final Rectangle r = WorkbenchHelper.getDisplay().map(surfaceComposite, null,
+							surfaceComposite.getBounds());
+					surfaceCompositeBounds.setBounds(r.x, r.y, r.width, r.height);
+				}
 			}
 		});
 

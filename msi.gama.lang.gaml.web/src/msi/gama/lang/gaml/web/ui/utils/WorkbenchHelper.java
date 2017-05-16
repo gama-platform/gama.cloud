@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.utils;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -103,6 +104,9 @@ public class WorkbenchHelper {
 	private static String uid="user";
 	public static void setUID(final String u) {
 		uid=u;
+	}
+	public static String getUID() {
+		return uid;
 	}
 	public static IWorkbench getWorkbench() {
 //		return WorkbenchHelper.getWorkbench();getWindowConfigurer()		

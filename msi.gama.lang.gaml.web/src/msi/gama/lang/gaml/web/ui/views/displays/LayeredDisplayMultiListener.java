@@ -248,10 +248,10 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 
 	@Override
 	public void focusGained(final FocusEvent e) {
-		if (!ok())
-			return;
-		// System.out.println("Control has gained focus");
-		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseEnter);
+//		if (!ok())
+//			return;
+//		// System.out.println("Control has gained focus");
+//		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseEnter);
 		// Thread.dumpStack();
 	}
 

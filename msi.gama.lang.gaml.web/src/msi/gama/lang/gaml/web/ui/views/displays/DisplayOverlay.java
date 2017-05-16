@@ -250,7 +250,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doDisplay);
+				WorkbenchHelper.asyncRun(doDisplay);
 			}
 		}
 
@@ -269,7 +269,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partDeactivated(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part) && !referenceComposite.isVisible()) {
-				WorkbenchHelper.run(doHide);
+				WorkbenchHelper.asyncRun(doHide);
 			}
 		}
 
@@ -280,7 +280,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partHidden(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doHide);
+				WorkbenchHelper.asyncRun(doHide);
 			}
 		}
 
@@ -288,7 +288,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partVisible(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doDisplay);
+				WorkbenchHelper.asyncRun(doDisplay);
 			}
 		}
 

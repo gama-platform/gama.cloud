@@ -78,12 +78,12 @@ public class SwtGui implements IGui {
 	private String uid;
 
 	static {
-//		GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
+		// GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
 		PreferencesHelper.initialize();
 	}
 
 	public SwtGui(String loggedUser) {
-		uid=loggedUser;
+		uid = loggedUser;
 	}
 
 	@Override
@@ -93,32 +93,38 @@ public class SwtGui implements IGui {
 
 	@Override
 	public boolean confirmClose(final IExperimentPlan exp) {
-		if (exp == null || !GamaPreferences.Runtime.CORE_ASK_CLOSING.getValue()) { return true; }
+		if (exp == null || !GamaPreferences.Runtime.CORE_ASK_CLOSING.getValue()) {
+			return true;
+		}
 		openSimulationPerspective(true);
-//		return Messages.question("Close simulation confirmation", "Do you want to close experiment '" + exp.getName()
-//				+ "' of model '" + exp.getModel().getName() + "' ?");
+		// return Messages.question("Close simulation confirmation", "Do you
+		// want to close experiment '" + exp.getName()
+		// + "' of model '" + exp.getModel().getName() + "' ?");
 		return true;
 	}
 
 	@Override
 	public void tell(final String msg) {
-//		Messages.tell(msg);
+		// Messages.tell(msg);
 	}
 
 	@Override
 	public void error(final String err) {
-//		Messages.error(err);
+		// Messages.error(err);
 	}
 
 	@Override
 	public void runtimeError(final GamaRuntimeException g) {
 		if (g.isReported())
 			return;
-		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) { return; }
-//		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
-//		if (!handler.isRunning())
-//			handler.start();
-//		handler.offer(g);
+		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
+			return;
+		}
+		// final IRuntimeExceptionHandler handler =
+		// WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
+		// if (!handler.isRunning())
+		// handler.start();
+		// handler.offer(g);
 		g.setReported();
 	}
 
@@ -135,20 +141,23 @@ public class SwtGui implements IGui {
 
 	@Override
 	public void clearErrors() {
-		//hqn
-//		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
-//		handler.clearErrors();
+		// hqn
+		// final IRuntimeExceptionHandler handler =
+		// WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
+		// handler.clearErrors();
 	}
 
 	private Object internalShowView(final String viewId, final String secondaryId, final int code) {
-		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) { return null; }
+		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
+			return null;
+		}
 		final Object[] result = new Object[1];
 		WorkbenchHelper.run(() -> {
 			try {
 				final IWorkbenchPage page = WorkbenchHelper.getPage();
 				if (page != null) {
-//					page.zoomOut();
-					System.out.println("internalShowView   "+viewId);
+					// page.zoomOut();
+					System.out.println("internalShowView   " + viewId);
 					result[0] = page.showView(viewId, secondaryId, code);
 				}
 			} catch (final Exception e) {
@@ -181,7 +190,7 @@ public class SwtGui implements IGui {
 
 	@Override
 	public void openWelcomePage(final boolean ifEmpty) {
-//		WebHelper.openWelcomePage(ifEmpty);
+		// WebHelper.openWelcomePage(ifEmpty);
 	}
 
 	@Override
@@ -189,12 +198,14 @@ public class SwtGui implements IGui {
 
 		Object o = internalShowView(viewId, secondaryId, code);
 		if (o instanceof IWorkbenchPart) {
-			if (o instanceof IGamaView) { return (IGamaView) o; }
+			if (o instanceof IGamaView) {
+				return (IGamaView) o;
+			}
 			o = GamaRuntimeException.error("Impossible to open view " + viewId, GAMAHelper.getRuntimeScope());
 		}
 		if (o instanceof Throwable) {
-			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), GamaRuntimeException.create((Exception) o, GAMAHelper.getRuntimeScope()),
-					false);
+			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(),
+					GamaRuntimeException.create((Exception) o, GAMAHelper.getRuntimeScope()), false);
 		}
 		return null;
 	}
@@ -225,7 +236,8 @@ public class SwtGui implements IGui {
 		if (model == null)
 			return false;
 		final String name = GamaPerspectiveHelper.getNewPerspectiveName(model.getName(), experimentName);
-		return GamaPerspectiveHelper.openPerspective(GamaPerspectiveHelper.PERSPECTIVE_SIMULATION_ID, immediately, false);
+		return GamaPerspectiveHelper.openPerspective(GamaPerspectiveHelper.PERSPECTIVE_SIMULATION_ID, immediately,
+				false);
 
 	}
 
@@ -253,9 +265,11 @@ public class SwtGui implements IGui {
 			final Map<String, Object> initialValues, final Map<String, IType<?>> types) {
 		final Map<String, Object> result = new THashMap<>();
 		WorkbenchHelper.run(() -> {
-//			final EditorsDialog dialog =
-//					new EditorsDialog(scope, WorkbenchHelper.getShell(), initialValues, types, title);
-//			result.putAll(dialog.open() == Window.OK ? dialog.getValues() : initialValues);
+			// final EditorsDialog dialog =
+			// new EditorsDialog(scope, WorkbenchHelper.getShell(),
+			// initialValues, types, title);
+			// result.putAll(dialog.open() == Window.OK ? dialog.getValues() :
+			// initialValues);
 		});
 		return result;
 	}
@@ -324,9 +338,11 @@ public class SwtGui implements IGui {
 	public void updateParameterView(final IExperimentPlan exp) {
 
 		WorkbenchHelper.run(() -> {
-			if (!exp.hasParametersOrUserCommands()) { return; }
-			final IGamaView.Parameters view =
-					(Parameters) showView(PARAMETER_VIEW_ID, null, IWorkbenchPage.VIEW_ACTIVATE);
+			if (!exp.hasParametersOrUserCommands()) {
+				return;
+			}
+			final IGamaView.Parameters view = (Parameters) showView(PARAMETER_VIEW_ID, null,
+					IWorkbenchPage.VIEW_ACTIVATE);
 			view.addItem(exp);
 			view.updateItemValues();
 
@@ -337,9 +353,11 @@ public class SwtGui implements IGui {
 	public void showParameterView(final IExperimentPlan exp) {
 
 		WorkbenchHelper.run(() -> {
-			if (!exp.hasParametersOrUserCommands()) { return; }
-			final IGamaView.Parameters view =
-					(Parameters) showView(PARAMETER_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
+			if (!exp.hasParametersOrUserCommands()) {
+				return;
+			}
+			final IGamaView.Parameters view = (Parameters) showView(PARAMETER_VIEW_ID, null,
+					IWorkbenchPage.VIEW_VISIBLE);
 			view.addItem(exp);
 		});
 	}
@@ -352,8 +370,12 @@ public class SwtGui implements IGui {
 	@Override
 	public void setSelectedAgent(final IAgent a) {
 		WorkbenchHelper.run(() -> {
-			if (WorkbenchHelper.getPage() == null) { return; }
-			if (a == null) { return; }
+			if (WorkbenchHelper.getPage() == null) {
+				return;
+			}
+			if (a == null) {
+				return;
+			}
 			try {
 				final InspectDisplayOutput output = new InspectDisplayOutput(a);
 				output.launch(a.getScope());
@@ -371,14 +393,14 @@ public class SwtGui implements IGui {
 	@Override
 	public void prepareForExperiment(final IExperimentPlan exp) {
 		if (exp.isGui()) {
-//			hqn
+			// hqn
 			final IOpenGLInitializer initializer = WorkbenchHelper.getService(IOpenGLInitializer.class);
 			if (initializer != null && !initializer.isDone()) {
 				initializer.run();
 			}
 			WorkbenchHelper.setWorkbenchWindowTitle(exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(exp);
-//			getConsole().showConsoleView(exp.getAgent());
+			// getConsole().showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -389,14 +411,18 @@ public class SwtGui implements IGui {
 	 */
 	@Override
 	public void cleanAfterExperiment() {
-		WorkbenchHelper.hideView(PARAMETER_VIEW_ID);
-		hideMonitorView();
-//		getConsole().eraseConsole(true);
-		final IGamaView icv = (IGamaView) WorkbenchHelper.findView(INTERACTIVE_CONSOLE_VIEW_ID, null, false);
-		if (icv != null)
-			icv.reset();
-//		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
-//		handler.stop();
+		if (WorkbenchHelper.getUID().equals(RWT.getUISession().getAttribute("user").toString())) {
+
+			WorkbenchHelper.hideView(PARAMETER_VIEW_ID);
+			hideMonitorView();
+			// getConsole().eraseConsole(true);
+			final IGamaView icv = (IGamaView) WorkbenchHelper.findView(INTERACTIVE_CONSOLE_VIEW_ID, null, false);
+			if (icv != null)
+				icv.reset();
+		}
+		// final IRuntimeExceptionHandler handler =
+		// WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
+		// handler.stop();
 	}
 
 	/**
@@ -437,7 +463,7 @@ public class SwtGui implements IGui {
 	 */
 	@Override
 	public void updateSpeedDisplay(final Double d, final boolean notify) {
-		//hqn
+		// hqn
 		final ISpeedDisplayer speedStatus = WorkbenchHelper.getService(ISpeedDisplayer.class);
 		if (speedStatus != null) {
 			WorkbenchHelper.asyncRun(() -> speedStatus.setInit(d, notify));
@@ -486,18 +512,20 @@ public class SwtGui implements IGui {
 		final IExperimentController controller = GAMAHelper.getFrontmostController();
 		if (controller == null) {
 			return NONE;
-		} else if (controller.getScheduler().paused) { return PAUSED; }
+		} else if (controller.getScheduler().paused) {
+			return PAUSED;
+		}
 		return RUNNING;
 	}
 
 	@Override
 	public void updateExperimentState(final String forcedState) {
-//		 System.out.println("STATE: " + forcedState);
+		// System.out.println("STATE: " + forcedState);
 		ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
 		if (service != null) {
 			final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
 					.getSourceProvider(SimulationStateProvider.SIMULATION_RUNNING_STATE);
-//			 stateProvider.updateStateTo(forcedState);
+			// stateProvider.updateStateTo(forcedState);
 			if (stateProvider != null) {
 				WorkbenchHelper.run(() -> stateProvider.updateStateTo(forcedState));
 			}
@@ -525,10 +553,11 @@ public class SwtGui implements IGui {
 
 	@Override
 	public IStatusDisplayer getStatus() {
-//		if(StatusDisplayerFactory.displayer == null){
-//			StatusDisplayerFactory.displayer=new StatusDisplayer();
-//		}
-		return  StatusDisplayerFactory.displayer.get(uid);// = new StatusDisplayer();;//WorkbenchHelper.getService(IStatusDisplayer.class);
+		// if(StatusDisplayerFactory.displayer == null){
+		// StatusDisplayerFactory.displayer=new StatusDisplayer();
+		// }
+		return StatusDisplayerFactory.displayer.get(uid);// = new
+															// StatusDisplayer();;//WorkbenchHelper.getService(IStatusDisplayer.class);
 	}
 
 	@Override

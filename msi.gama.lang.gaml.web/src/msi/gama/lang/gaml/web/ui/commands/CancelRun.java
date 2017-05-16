@@ -24,7 +24,7 @@ public class CancelRun extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		new Thread(() -> GAMAHelper.closeAllExperiments(true, false)).start();
+		GAMAHelper.closeAllExperiments(true, false);
 
 		return null;
 	}
