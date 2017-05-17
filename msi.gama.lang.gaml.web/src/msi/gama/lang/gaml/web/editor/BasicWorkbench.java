@@ -43,7 +43,7 @@ public class BasicWorkbench implements EntryPoint {
 	    
 	    try {
 	    	DummyCallbackHandler dch =new DummyCallbackHandler() ;
-	    	
+
 	    	DummyLoginModule dlm=new DummyLoginModule();
 	    	dlm.initialize(new Subject(), dch, null, null);
 	    	boolean logged=false;

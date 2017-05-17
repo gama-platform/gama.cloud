@@ -24,7 +24,8 @@ public class StatusDisplayerFactory extends AbstractServiceFactory {
 	public Object create(final Class serviceInterface, final IServiceLocator parentLocator,
 			final IServiceLocator locator) {
 		if(displayer.isEmpty()) {
-			displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
+			String uid=RWT.getUISession().getAttribute("user").toString();
+			displayer.put(uid, new StatusDisplayer(uid));
 		}
 		return displayer;
 	}

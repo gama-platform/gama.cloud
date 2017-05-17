@@ -88,7 +88,7 @@ public class SwtGui implements IGui {
 
 	@Override
 	public void debug(final String msg) {
-		System.err.println(msg);
+		System.err.println("debug "+msg);
 	}
 
 	@Override
@@ -488,7 +488,7 @@ public class SwtGui implements IGui {
 
 	@Override
 	public void closeSimulationViews(final boolean openModelingPerspective, final boolean immediately) {
-		WorkbenchHelper.run(() -> {
+			WorkbenchHelper.setUID(RWT.getUISession().getAttribute("user").toString());
 			final IWorkbenchPage page = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			final IViewReference[] views = page.getViewReferences();
 
@@ -503,7 +503,7 @@ public class SwtGui implements IGui {
 				GamaPerspectiveHelper.openModelingPerspective(immediately);
 			}
 			getStatus().neutralStatus("No simulation running");
-		});
+		
 
 	}
 

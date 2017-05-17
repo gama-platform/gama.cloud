@@ -14,6 +14,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -35,7 +36,7 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
   }
 
   protected Point getInitialSize() {
-    return new Point( 350, 270 );
+    return new Point( 350, 350 );
   }
 
   protected Control createDialogArea( Composite parent ) {
@@ -45,7 +46,7 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
     GridData gridData = new GridData(GridData.FILL_BOTH);
     composite.setLayoutData(gridData);
     composite.setLayout( new GridLayout( 2, false ) );
-    createCallbackHandlers( composite );
+    createCallbackHandlers( composite );    
     return composite;
   }
 

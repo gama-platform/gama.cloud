@@ -12,6 +12,7 @@ package msi.gama.lang.gaml.web.workspace.ui;
 
 import java.io.IOException;
 
+import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 
@@ -27,101 +28,117 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public abstract class AbstractLoginDialog extends TitleAreaDialog
-  implements CallbackHandler
-{
+public abstract class AbstractLoginDialog extends TitleAreaDialog implements CallbackHandler {
 
-  boolean processCallbacks = false;
-  boolean isCancelled = false;
-  Callback[] callbackArray;
+	boolean processCallbacks = false;
+	boolean isCancelled = false;
+	Callback[] callbackArray;
 
-  protected final Callback[] getCallbacks() {
-    return this.callbackArray;
-  }
+	protected final Callback[] getCallbacks() {
+		return this.callbackArray;
+	}
 
-  public abstract void internalHandle();
+	public abstract void internalHandle();
 
-  public boolean isCancelled() {
-    return isCancelled;
-  }
+	public boolean isCancelled() {
+		return isCancelled;
+	}
 
-  protected AbstractLoginDialog( Shell parentShell ) {
-    super( parentShell );
-  }
+	protected AbstractLoginDialog(Shell parentShell) {
+		super(parentShell);
+	}
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * javax.security.auth.callback.CallbackHandler#handle(javax.security.auth
-   * .callback.Callback[])
-   */
-  public void handle( final Callback[] callbacks ) throws IOException {
-    this.callbackArray = callbacks;
-    final Display display = Display.getDefault();
-    display.syncExec( new Runnable() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.security.auth.callback.CallbackHandler#handle(javax.security.auth
+	 * .callback.Callback[])
+	 */
+	public void handle(final Callback[] callbacks) throws IOException {
+		this.callbackArray = callbacks;
+		final Display display = Display.getDefault();
+		display.syncExec(new Runnable() {
 
-      public void run() {
-        isCancelled = false;
-        setBlockOnOpen( false );
-        open();
-        final Button okButton = getButton( IDialogConstants.OK_ID );
-        okButton.setText( "Login" );
-        okButton.addSelectionListener( new SelectionListener() {
+			public void run() {
+				isCancelled = false;
+				setBlockOnOpen(false);
+				open();
+				final Button okButton = getButton(IDialogConstants.OK_ID);
+				okButton.setText("OK");
+				okButton.addSelectionListener(new SelectionListener() {
 
-          public void widgetSelected( final SelectionEvent event ) {
-            processCallbacks = true;
-          }
+					public void widgetSelected(final SelectionEvent event) {
+						processCallbacks = true;
+					}
 
-          public void widgetDefaultSelected( final SelectionEvent event ) {
-            // nothing to do
-          }
-        } );
-        final Button cancel = getButton( IDialogConstants.CANCEL_ID );
-        cancel.dispose();
-//        cancel.addSelectionListener( new SelectionListener() {
-//
-//          public void widgetSelected( final SelectionEvent event ) {
-//            isCancelled = true;
-//            processCallbacks = true;
-//          }
-//
-//          public void widgetDefaultSelected( final SelectionEvent event ) {
-//            // nothing to do
-//          }
-//        } );
-      }
-    } );
-    try {
-      ModalContext.setAllowReadAndDispatch( true ); // Works for now.
-      ModalContext.run( new IRunnableWithProgress() {
+					public void widgetDefaultSelected(final SelectionEvent event) {
+						// nothing to do
+					}
+				});
+				final Button cancel = getButton(IDialogConstants.CANCEL_ID);
+				if (callbacks.length<4) {
+					cancel.setText("Change pass");
+					cancel.addSelectionListener(new SelectionListener() {
 
-        public void run( final IProgressMonitor monitor ) {
-          // Wait here until OK or cancel is pressed, then let it rip. The event
-          // listener
-          // is responsible for closing the dialog (in the loginSucceeded
-          // event).
-          while( !processCallbacks ) {
-            try {
-              Thread.sleep( 100 );
-            } catch( final Exception e ) {
-              // do nothing
-            }
-          }
-          processCallbacks = false;
-          // Call the adapter to handle the callbacks
-          if( !isCancelled() )
-            internalHandle();
-        }
-      }, true, new NullProgressMonitor(), Display.getDefault() );
-    } catch( final Exception e ) {
-      final IOException ioe = new IOException();
-      ioe.initCause( e );
-      throw ioe;
-    }
-  }
+						public void widgetSelected(final SelectionEvent event) {
+							try {
 
-  protected void configureShell( Shell shell ) {
-    super.configureShell( shell );
-    shell.setText( "Login" );
-  }
+								DummyCallbackHandler dch = new DummyCallbackHandler();
+
+								DummyProfileModule dlm = new DummyProfileModule();
+								dlm.initialize(new Subject(), dch, null, null);
+								boolean logged = false;
+//								while (!logged) {
+									logged = dlm.changepass();
+//								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+							isCancelled = true;
+							processCallbacks = true;
+						}
+
+						public void widgetDefaultSelected(final SelectionEvent event) {
+							// nothing to do
+						}
+					});
+				}
+			}
+		});
+		try {
+			ModalContext.setAllowReadAndDispatch(true); // Works for now.
+			ModalContext.run(new IRunnableWithProgress() {
+
+				public void run(final IProgressMonitor monitor) {
+					// Wait here until OK or cancel is pressed, then let it rip.
+					// The event
+					// listener
+					// is responsible for closing the dialog (in the
+					// loginSucceeded
+					// event).
+					while (!processCallbacks) {
+						try {
+							Thread.sleep(100);
+						} catch (final Exception e) {
+							// do nothing
+						}
+					}
+					processCallbacks = false;
+					// Call the adapter to handle the callbacks
+					if (!isCancelled())
+						internalHandle();
+				}
+			}, true, new NullProgressMonitor(), Display.getDefault());
+		} catch (final Exception e) {
+			final IOException ioe = new IOException();
+			ioe.initCause(e);
+			throw ioe;
+		}
+	}
+
+	protected void configureShell(Shell shell) {
+		super.configureShell(shell);
+		shell.setText("Login");
+	}
 }

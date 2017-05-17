@@ -103,8 +103,8 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 		final boolean withAutoSave) {
 		if ( perspectiveId == null )
 			return false;
-		if ( perspectiveId.equals(currentPerspectiveId) )
-			return true;
+//		if ( perspectiveId.equals(currentPerspectiveId) )
+//			return true;
 
 		IWorkbenchPage activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if ( activePage == null )

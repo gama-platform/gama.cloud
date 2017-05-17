@@ -467,11 +467,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	}
 
 	public void hide() {
-		if (!popup.isDisposed() && popup.isVisible()) {
-			popup.setSize(0, 0);
-			popup.update();
-			popup.setVisible(false);
-		}
+//		if (!popup.isDisposed() && popup.isVisible()) {
+//			popup.setSize(0, 0);
+//			popup.update();
+//			popup.setVisible(false);
+//		}
 	}
 
 	@Override

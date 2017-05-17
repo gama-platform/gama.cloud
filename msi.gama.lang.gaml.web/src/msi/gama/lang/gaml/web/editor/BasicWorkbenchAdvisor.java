@@ -76,13 +76,15 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		// if(StatusDisplayerFactory.displayer == null){
 
 		// }
+		BasicWorkbench.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWorkbenchConfigurer().getWorkbench());
 
 		WorkbenchHelper.setUID(loggedUser);
 		if (GAMAHelper.getRegularGui(loggedUser) == null) {
 			GAMAHelper.setRegularGui(new SwtGui(loggedUser), loggedUser);
 		}
 		System.out.println("postStartup of " + loggedUser);
-		StatusDisplayerFactory.displayer.put(loggedUser, new StatusDisplayer());
+		StatusDisplayerFactory.displayer.put(loggedUser, new StatusDisplayer(loggedUser));
+//		StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 
 	}
 

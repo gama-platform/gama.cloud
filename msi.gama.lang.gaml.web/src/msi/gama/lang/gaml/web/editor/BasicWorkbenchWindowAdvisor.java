@@ -49,7 +49,7 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().setInitialSize(new Point(bounds.width, bounds.height));
 
 //		if(BasicWorkbench.workbench==null){
-			BasicWorkbench.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWindowConfigurer().getWindow().getWorkbench());
+//			BasicWorkbench.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWindowConfigurer().getWindow().getWorkbench());
 
 //		}
 	}
@@ -59,7 +59,6 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().getWindow().getShell().setMaximized(true);
 
 //		if(StatusDisplayerFactory.displayer == null){
-			StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 //		}
 	}
 	

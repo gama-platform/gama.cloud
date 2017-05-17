@@ -10,7 +10,9 @@
 package msi.gama.lang.gaml.web.ui.controls;
 
 import java.awt.Color;
+import java.util.HashMap;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -59,19 +61,25 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 	int agentIndex; // 0 for experiments, > 0 for simulation(s)
 	StringBuilder text = new StringBuilder(2000);
 
-	static StatusControlContribution INSTANCE;
+	static HashMap<String,StatusControlContribution> INSTANCE=new HashMap<String, StatusControlContribution>();
 
-	public static StatusControlContribution getInstance() {
-		return INSTANCE;
+	public static StatusControlContribution getInstance(String uid) {
+		StatusControlContribution scc=INSTANCE.get(uid);
+		if(scc==null) {
+			scc=new StatusControlContribution();
+			INSTANCE.put(uid, scc);
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution");
+		}
+		return scc;
 	}
 
 	public StatusControlContribution() {
-		INSTANCE = this;
+		INSTANCE.put(RWT.getUISession().getAttribute("user").toString(),this);
 	}
 
 	public StatusControlContribution(final String id) {
 		super(id);
-		INSTANCE = this;
+		INSTANCE.put(RWT.getUISession().getAttribute("user").toString(),this);
 	}
 
 	@Override
