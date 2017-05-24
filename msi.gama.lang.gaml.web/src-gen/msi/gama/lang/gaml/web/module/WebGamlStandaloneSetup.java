@@ -63,7 +63,7 @@ public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 //		GamlStandaloneSetup.doSetup(); 
 		GamlRuntimeModule original = new GamlRuntimeModule();
 		WebGamlRuntimeModule module = new WebGamlRuntimeModule();
-		Module mergedModule = Modules2.mixin((Module) original, module);
+		Module mergedModule = Modules2.mixin(module, (Module) original);
 		return mergedModule;
 	}
 }
