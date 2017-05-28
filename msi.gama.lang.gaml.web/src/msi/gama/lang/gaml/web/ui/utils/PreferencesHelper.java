@@ -54,15 +54,15 @@ public class PreferencesHelper {
 							GamaColor.getNamed("black"), IType.COLOR)
 					.in(GamaPreferences.Interface.NAME, GamaPreferences.Interface.APPEARANCE);
 
-//	public static final Pref<GamaColor> ERROR_TEXT_COLOR = GamaPreferences
-//			.create("pref_error_text_color", "Text color of errors in error view",
-//					GamaColors.toGamaColor(IGamaColors.ERROR.inactive()), IType.COLOR)
-//			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.ERRORS);
+	public static final Pref<GamaColor> ERROR_TEXT_COLOR = GamaPreferences
+			.create("pref_error_text_color", "Text color of errors in error view",
+					GamaColors.toGamaColor(IGamaColors.ERROR.inactive()), IType.COLOR)
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.ERRORS);
 
-//	public static final Pref<GamaColor> WARNING_TEXT_COLOR = GamaPreferences
-//			.create("pref_warning_text_color", "Text color of warnings in error view",
-//					GamaColors.toGamaColor(IGamaColors.WARNING.inactive()), IType.COLOR)
-//			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.ERRORS);
+	public static final Pref<GamaColor> WARNING_TEXT_COLOR = GamaPreferences
+			.create("pref_warning_text_color", "Text color of warnings in error view",
+					GamaColors.toGamaColor(IGamaColors.WARNING.inactive()), IType.COLOR)
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.ERRORS);
 
 	public static final Pref<GamaColor> IMAGE_VIEWER_BACKGROUND =
 			GamaPreferences
@@ -70,22 +70,22 @@ public class PreferencesHelper {
 							GamaColor.getNamed("white"), IType.COLOR)
 					.in(GamaPreferences.Interface.NAME, GamaPreferences.Interface.APPEARANCE);
 
-//	public static final Pref<GamaFont> BASE_BUTTON_FONT = GamaPreferences
-//			.create("pref_button_font", "Font of buttons and dialogs (applies to new buttons)",
-//					new GamaFont(GamaFonts.baseFont, SWT.BOLD, GamaFonts.baseSize), IType.FONT)
-//			.in(GamaPreferences.Interface.NAME, GamaPreferences.Interface.APPEARANCE)
-//			.addChangeListener(new IPreferenceChangeListener<GamaFont>() {
-//
-//				@Override
-//				public boolean beforeValueChange(final GamaFont newValue) {
-//					return true;
-//				}
-//
-//				@Override
-//				public void afterValueChange(final GamaFont newValue) {
-//					GamaFonts.setLabelFont(newValue);
-//				}
-//			});
+	public static final Pref<GamaFont> BASE_BUTTON_FONT = GamaPreferences
+			.create("pref_button_font", "Font of buttons and dialogs (applies to new buttons)",
+					new GamaFont(GamaFonts.baseFont, SWT.BOLD, GamaFonts.baseSize), IType.FONT)
+			.in(GamaPreferences.Interface.NAME, GamaPreferences.Interface.APPEARANCE)
+			.addChangeListener(new IPreferenceChangeListener<GamaFont>() {
+
+				@Override
+				public boolean beforeValueChange(final GamaFont newValue) {
+					return true;
+				}
+
+				@Override
+				public void afterValueChange(final GamaFont newValue) {
+					GamaFonts.setLabelFont(newValue);
+				}
+			});
 
 	public static Pref<String> COLOR_MENU_SORT =
 			GamaPreferences.create("pref_menu_colors_sort", "Sort colors menu by", "RGB value", IType.STRING)

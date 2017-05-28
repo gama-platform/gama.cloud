@@ -53,7 +53,7 @@ import msi.gama.kernel.model.IModel;
 import msi.gama.lang.gaml.validation.GamlModelBuilder;
 import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.editor.widget.Gaml;
-import msi.gama.lang.gaml.web.ui.utils.SwtGui;
+import msi.gama.lang.gaml.web.ui.utils.WebGui;
 import msi.gama.util.GAML;
 import msi.gaml.compilation.GamlCompilationError;
 

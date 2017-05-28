@@ -18,7 +18,6 @@ package msi.gama.lang.gaml.web.editor;
 import java.util.HashMap;
 
 import javax.security.auth.Subject;
-import javax.security.auth.login.LoginException;
 
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
@@ -27,7 +26,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
-import msi.gama.lang.gaml.web.ui.utils.SwtGui;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 
@@ -36,7 +34,6 @@ import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
  *
  */
 public class BasicWorkbench implements EntryPoint {
-	public static HashMap<String,IWorkbench> workbench=new HashMap<String,IWorkbench>();
 //	private static final String DEMO_PRESENTATION = "org.dslforge.texteditor.demo.theme";
 
 	public int createUI() {

@@ -84,7 +84,6 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 	@Override
 	public void runModel(final Object object, final String exp) {
 
-		GAMAHelper.changeRegularGui(RWT.getUISession().getAttribute("user").toString());
 		WorkbenchHelper.setUID(RWT.getUISession().getAttribute("user").toString());
 		if (object instanceof IModel) {
 			GAMAHelper.runGuiExperiment(exp, (IModel) object);

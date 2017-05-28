@@ -9,6 +9,8 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.utils;
 
+import java.util.HashMap;
+
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -26,6 +28,7 @@ import msi.gama.lang.gaml.web.editor.BasicWorkbench;
 import msi.gama.lang.gaml.web.ui.views.IGamlEditor;
 
 public class WorkbenchHelper {
+	public static HashMap<String,IWorkbench> workbench=new HashMap<String,IWorkbench>();
 
 	public final static String GAMA_NATURE = "msi.gama.application.gamaNature";
 	public final static String XTEXT_NATURE = "org.eclipse.xtext.ui.shared.xtextNature";
@@ -110,7 +113,7 @@ public class WorkbenchHelper {
 	}
 	public static IWorkbench getWorkbench() {
 //		return WorkbenchHelper.getWorkbench();getWindowConfigurer()		
-		IWorkbench w=BasicWorkbench.workbench.get(uid);
+		IWorkbench w=workbench.get(uid);
 		if(w!=null) {
 			return w;
 		}			
@@ -157,18 +160,16 @@ public class WorkbenchHelper {
 
 	public static <T> T getService(final Class<T> class1) {
 
-		// final Object[] result = new Object[1];
-		// run(new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		// result[0] = getWorkbench().getService(class1);
-		//
-		// }
-		// });
-		// return (T) result[0];
-		final T result = getWorkbench().getService(class1);
-		return result;
+		final Object[] result = new Object[1];
+		run(new Runnable() {
+
+			@Override
+			public void run() {
+				result[0] = getWorkbench().getService(class1);
+
+			}
+		});
+		return (T) result[0];
 	}
 
 }

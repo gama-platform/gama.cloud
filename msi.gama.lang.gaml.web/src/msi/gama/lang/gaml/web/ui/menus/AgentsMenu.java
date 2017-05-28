@@ -31,7 +31,7 @@ import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
-import msi.gama.lang.gaml.web.ui.utils.SwtGui;
+import msi.gama.lang.gaml.web.ui.utils.WebGui;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.agent.IMacroAgent;
 import msi.gama.metamodel.population.IPopulation;
@@ -166,7 +166,7 @@ public class AgentsMenu extends ContributionItem {
 
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
-			final List<IDisplaySurface> surfaces = SwtGui.allDisplaySurfaces();
+			final List<IDisplaySurface> surfaces = WebGui.allDisplaySurfaces();
 			final MenuItem mi = (MenuItem) e.widget;
 			final IAgent a = (IAgent) mi.getData("agent");
 			for (final IDisplaySurface surface : surfaces)
