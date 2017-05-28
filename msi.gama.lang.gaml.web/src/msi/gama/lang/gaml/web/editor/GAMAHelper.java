@@ -8,6 +8,7 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.GAMA;
 
 public class GAMAHelper extends GAMA{
@@ -21,6 +22,14 @@ public class GAMAHelper extends GAMA{
 //		}
 	}
 
+
+	public static void pauseFrontmostExperiment() {
+		String u=RWT.getUISession().getAttribute("user").toString();
+		if(theControllers.get(u)!=null){
+			IExperimentController controller = theControllers.get(u);
+			controller.directPause();
+		}
+	}
 	public static void closeAllExperiments(final boolean andOpenModelingPerspective, final boolean immediately) {
 //		for (final IExperimentController controller : controllers) {
 //			controller.close();
@@ -29,11 +38,34 @@ public class GAMAHelper extends GAMA{
 		if(theControllers.get(u)!=null){
 			theControllers.get(u).close();
 			getControllers().remove(theControllers.get(u));		
+			getGui().closeSimulationViews(theControllers.get(u).getExperiment().getExperimentScope(), andOpenModelingPerspective, immediately);
 			theControllers.remove(u);
-			getGui().closeSimulationViews(andOpenModelingPerspective, immediately);
 		}
 	}
-	
+
+	public static void reloadFrontmostExperiment() {
+		String u=RWT.getUISession().getAttribute("user").toString();
+		if(theControllers.get(u)!=null){
+//		for (final IExperimentController controller : controllers) {
+			IExperimentController controller = theControllers.get(u);
+			controller.userReload();
+//		}
+		}
+	}
+	public static void stepFrontmostExperiment() {
+		String u=RWT.getUISession().getAttribute("user").toString();
+		if(theControllers.get(u)!=null){
+//		for (final IExperimentController controller : controllers) {
+			IExperimentController controller = theControllers.get(u);
+			controller.userStep();
+//		}
+		}
+	}
+	public static IExperimentPlan getExperiment(String uid) {
+		final IExperimentController controller = theControllers.get(uid);
+		if (controller == null) { return null; }
+		return controller.getExperiment();
+	}
 	public static void runGuiExperiment(final String id, final IModel model) {
 		// System.out.println("Launching experiment " + id + " of model " +
 		// model.getFilePath());
@@ -43,7 +75,7 @@ public class GAMAHelper extends GAMA{
 			 model.getFilePath());
 			return;
 		}
-		IExperimentController controller = getFrontmostController();
+//		IExperimentController controller = getFrontmostController();
 //		if (controller != null) {
 //			final IExperimentPlan existingExperiment = controller.getExperiment();
 //			if (existingExperiment != null) {
@@ -51,19 +83,20 @@ public class GAMAHelper extends GAMA{
 //				if (!getGui().confirmClose(existingExperiment)) { return; }
 //			}
 //		}
-		controller = newExperiment.getController();
+		IExperimentController controller = newExperiment.getController();
 		if (getControllers().size() > 0) {
 			for (final IExperimentController c : getControllers()) {
-				if(c.getExperiment().equals(newExperiment))
-				c.close();
+				if(c.getExperiment().equals(newExperiment)) {					
+					getGui().closeSimulationViews(c.getExperiment().getExperimentScope(), false, false);
+					c.close();
+				}
 			}
-			getGui().closeSimulationViews(false, false);
 
 		}
 
 		if (getGui().openSimulationPerspective(model, id, true)) {
 			getControllers().add(controller);
-
+			WorkbenchHelper.UISession.put(controller.getExperiment().getExperimentScope(), RWT.getUISession().getAttribute("user").toString());
 			theControllers.put(RWT.getUISession().getAttribute("user").toString(), controller);
 			controller.userOpen();
 		} else {

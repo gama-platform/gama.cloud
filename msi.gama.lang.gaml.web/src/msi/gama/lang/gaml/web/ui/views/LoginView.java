@@ -13,6 +13,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionEvent;
@@ -72,7 +73,9 @@ public class LoginView extends GamaViewPart{
 	protected void doContinue() {
 		scope.setOnUserHold(false);
 		deactivate(parent);
-		WorkbenchHelper.hideView(this);
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.hideView(uid, this);
 	}
 
 	@Override

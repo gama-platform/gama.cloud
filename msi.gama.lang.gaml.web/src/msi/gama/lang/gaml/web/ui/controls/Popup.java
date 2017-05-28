@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -42,7 +43,7 @@ import msi.gama.lang.gaml.web.ui.controls.IPopupProvider.PopupText;
  */
 public class Popup {
 
-	private static final Shell popup = new Shell(WorkbenchHelper.getDisplay(), SWT.ON_TOP | SWT.NO_TRIM);
+	private static final Shell popup = new Shell(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), SWT.ON_TOP | SWT.NO_TRIM);
 //	private static final Listener hide = event -> hide();
 
 	static {

@@ -74,7 +74,10 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 	}
 
 	public StatusControlContribution() {
-		INSTANCE.put(RWT.getUISession().getAttribute("user").toString(),this);
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		INSTANCE.put(uid,this);
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution"+uid);
+
 	}
 
 	public StatusControlContribution(final String id) {
@@ -281,7 +284,7 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 			if (getStatusAgent() == null)
 				label.setColor(IGamaColors.NEUTRAL);
 			else
-				label.setColor(GamaColors.get(getStatusAgent().getColor()));
+				label.setColor(GamaColors.get(getStatusAgent().getColor().LIGHT_GRAY));
 		}
 
 		if (inSubTask) {

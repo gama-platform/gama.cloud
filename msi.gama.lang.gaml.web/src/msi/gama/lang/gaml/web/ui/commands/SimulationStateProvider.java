@@ -13,6 +13,7 @@ package msi.gama.lang.gaml.web.ui.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
 
@@ -41,7 +42,8 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 
 	@Override
 	public Map<String, String> getCurrentState() {
-		final String state = GAMAHelper.getGui().getExperimentState();
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		final String state = GAMAHelper.getGui().getExperimentState(uid);
 		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		final String type = exp == null ? IGui.NONE
 				: exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";

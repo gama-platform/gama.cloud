@@ -45,7 +45,8 @@ public class GamaFonts {
 	public static Font categoryBoldHelpFont;
 
 	static void initFonts() {
-		systemFont= WorkbenchHelper.getDisplay().getSystemFont();
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		systemFont= WorkbenchHelper.getDisplay(uid).getSystemFont();
 //		System.out.println("System font = " + Arrays.toString(systemFont.getFontData()));
 //		FontData fd = new FontData(awtBaseFont.getName(), awtBaseFont.getSize(), awtBaseFont.getStyle());
 //		final FontData original = fd;

@@ -39,8 +39,8 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
 	@Override
 	public void preWindowOpen() {
-		getWindowConfigurer().setShowPerspectiveBar(true);
-		getWindowConfigurer().setShowStatusLine(true);
+		getWindowConfigurer().setShowPerspectiveBar(false);
+		getWindowConfigurer().setShowStatusLine(false);
 		getWindowConfigurer().setShowMenuBar( true );
 		getWindowConfigurer().setShowCoolBar( true );	
 		getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+RWT.getUISession().getAttribute("user"));
@@ -61,7 +61,8 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 //		if(StatusDisplayerFactory.displayer == null){
 //		}
 	}
-	
+
+	@Override
 	public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
 		return new BasicWorkbenchActionBarAdvisor(configurer);
 	}

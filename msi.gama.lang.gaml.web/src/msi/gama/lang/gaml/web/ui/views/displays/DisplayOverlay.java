@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -74,7 +75,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 		@Override
 		public void run() {
-			WorkbenchHelper.asyncRun(() -> {
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			WorkbenchHelper.asyncRun(uid,() -> {
 				if (!zoom.isDisposed()) {
 					text.setLength(0);
 					getView().getOverlayZoomInfo(text);
@@ -209,7 +211,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		final int barStartX = x + 1 + BAR_WIDTH / 2 + margin;
 		final int barStartY = y + height - BAR_HEIGHT / 2;
 
-		final Path path = new Path(WorkbenchHelper.getDisplay());
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final Path path = new Path(WorkbenchHelper.getDisplay(uid));
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT + 2);
 		path.lineTo(barStartX, barStartY + 2);
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT / 2 + 2);
@@ -250,7 +253,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.asyncRun(doDisplay);
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid, doDisplay);
 			}
 		}
 
@@ -269,7 +273,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partDeactivated(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part) && !referenceComposite.isVisible()) {
-				WorkbenchHelper.asyncRun(doHide);
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid, doHide);
 			}
 		}
 
@@ -280,7 +285,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partHidden(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.asyncRun(doHide);
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid, doHide);
 			}
 		}
 
@@ -288,7 +294,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partVisible(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.asyncRun(doDisplay);
+
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid, doDisplay);
 			}
 		}
 
@@ -509,7 +517,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// Uses the trick from
 		// http://eclipsesource.com/blogs/2010/06/23/tip-how-to-detect-that-a-view-was-detached/
 		final boolean[] result = new boolean[] { false };
-		WorkbenchHelper.run(() -> {
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, () -> {
 			final IWorkbenchPartSite site = view.getSite();
 			if (site == null) { return; }
 			final Shell shell = site.getShell();

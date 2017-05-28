@@ -11,6 +11,7 @@
 package msi.gama.lang.gaml.web.ui.parameters;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -49,7 +50,8 @@ public class ListEditor extends ExpressionBasedEditor<java.util.List<?>> {
 	@Override
 	public void applyEdit() {
 		if (currentValue instanceof GamaList) {
-			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(), (GamaList) currentValue,
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(uid), (GamaList) currentValue,
 					param.getName());
 			if (d.open() == IDialogConstants.OK_ID) {
 				modifyAndDisplayValue(d.getList(ListEditor.this));

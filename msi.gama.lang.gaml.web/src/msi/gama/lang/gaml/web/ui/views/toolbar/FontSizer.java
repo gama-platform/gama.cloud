@@ -10,6 +10,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.toolbar;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -60,7 +61,9 @@ public class FontSizer {
 				return;
 			}
 			final Font oldFont = currentFont;
-			currentFont = new Font(WorkbenchHelper.getDisplay(), data);
+
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			currentFont = new Font(WorkbenchHelper.getDisplay(uid), data);
 			c.setFont(currentFont);
 			if (oldFont != null && !oldFont.isDisposed()) {
 				oldFont.dispose();

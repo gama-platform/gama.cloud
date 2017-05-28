@@ -72,7 +72,8 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 
 	@Override
 	public void editModel(final Object eObject) {
-		WorkbenchHelper.run(new Runnable() {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, new Runnable() {
 
 			@Override
 			public void run() {
@@ -84,7 +85,7 @@ public class ModelRunner implements IModelRunner {//extends AbstractServiceFacto
 	@Override
 	public void runModel(final Object object, final String exp) {
 
-		WorkbenchHelper.setUID(RWT.getUISession().getAttribute("user").toString());
+//		WorkbenchHelper.setUID(RWT.getUISession().getAttribute("user").toString());
 		if (object instanceof IModel) {
 			GAMAHelper.runGuiExperiment(exp, (IModel) object);
 		} else if (object instanceof IFile) {

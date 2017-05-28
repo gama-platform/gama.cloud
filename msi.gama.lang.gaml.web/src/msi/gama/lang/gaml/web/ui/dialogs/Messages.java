@@ -11,37 +11,41 @@
 package msi.gama.lang.gaml.web.ui.dialogs;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.rap.rwt.RWT;
 
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 public class Messages {
 
 	public static void error(final String error) {
-		WorkbenchHelper.run(new Runnable() {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, new Runnable() {
 
 			@Override
 			public void run() {
-				MessageDialog.openError(WorkbenchHelper.getShell(), "Error", error);
+				MessageDialog.openError(WorkbenchHelper.getShell(uid), "Error", error);
 			}
 		});
 	}
 
 	public static void tell(final String error) {
-		WorkbenchHelper.run(new Runnable() {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, new Runnable() {
 
 			@Override
 			public void run() {
-				MessageDialog.openInformation(WorkbenchHelper.getShell(), "Message", error);
+				MessageDialog.openInformation(WorkbenchHelper.getShell(uid), "Message", error);
 			}
 		});
 	}
 
 	public static void exception(final Throwable e) {
-		WorkbenchHelper.run(new Runnable() {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, new Runnable() {
 
 			@Override
 			public void run() {
-				final ExceptionDetailsDialog d = new ExceptionDetailsDialog(WorkbenchHelper.getShell(), "Gama", null,
+				final ExceptionDetailsDialog d = new ExceptionDetailsDialog(WorkbenchHelper.getShell(uid), "Gama", null,
 						e.getMessage(), e);
 				d.setBlockOnOpen(true);
 				d.open();
@@ -51,11 +55,13 @@ public class Messages {
 	}
 
 	public static boolean question(final String title, final String message) {
-		return MessageDialog.openQuestion(WorkbenchHelper.getShell(), title, message);
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		return MessageDialog.openQuestion(WorkbenchHelper.getShell(uid), title, message);
 	}
 
 	public static boolean confirm(final String title, final String message) {
-		return MessageDialog.openConfirm(WorkbenchHelper.getShell(), title, message);
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		return MessageDialog.openConfirm(WorkbenchHelper.getShell(uid), title, message);
 	}
 
 }

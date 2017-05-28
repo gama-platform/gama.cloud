@@ -10,6 +10,7 @@
  **********************************************************************************************/
 package ummisco.gama.web2d; 
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IPartService;
@@ -53,7 +54,9 @@ public class WorkaroundForIssue1594xx {
 					// AD: Reworked to address Issue 535. It seems necessary to
 					// read the size of the composite inside an SWT
 					// thread and run the sizing inside an AWT thread
-					WorkbenchHelper.asyncRun(new Runnable() {
+
+					final String uid=RWT.getUISession().getAttribute("user").toString();
+					WorkbenchHelper.asyncRun(uid, new Runnable() {
 
 						@Override
 						public void run() {
@@ -71,7 +74,9 @@ public class WorkaroundForIssue1594xx {
 										return;
 									}
 									displaySurface.setBounds(r.x, r.y, r.width, r.height);
-									WorkbenchHelper.asyncRun(new Runnable() {
+
+									final String uid=RWT.getUISession().getAttribute("user").toString();
+									WorkbenchHelper.asyncRun(uid, new Runnable() {
 
 										@Override
 										public void run() {						

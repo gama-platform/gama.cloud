@@ -92,14 +92,19 @@ public class SWTShapeManager {
         double[] polyObj = new double[2*segList.size()];
         for(int i=0; i<segList.size(); i++) {
             Point2D p2 = (Point2D)segList.get(i);
-            polyObj[2*i] = (int)(p2.getX()+0.5);
-            polyObj[2*i+1] = (int)(p2.getY()+0.5);
+            polyObj[2 * i] = 0;
+            polyObj[2 * i + 1] = 0;
+			if (p2 != null) {
+				polyObj[2 * i] = (int) (p2.getX() + 0.5);
+				polyObj[2 * i + 1] = (int) (p2.getY() + 0.5);
+			}
         }
         
         return polyObj;
     }
     
     public static int[] transform(double[] pts, AffineTransform at) {
+    	if(pts == null) return null;
         int[] intPts = new int[pts.length];
         for(int i=0; i<pts.length/2; i++) {
             aPoint.setLocation(pts[2*i],pts[2*i+1]);

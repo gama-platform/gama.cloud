@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.DisposeEvent;
@@ -113,7 +114,9 @@ public class PopulationInspectView extends GamaViewPart
 	// private String speciesName;
 
 	IAgent[] elements = new IAgent[0];
-	Font currentFont = new Font(WorkbenchHelper.getDisplay(), GamaFonts.getSmallFont().getFontData());
+
+	final String uid=RWT.getUISession().getAttribute("user").toString();
+	Font currentFont = new Font(WorkbenchHelper.getDisplay(uid), GamaFonts.getSmallFont().getFontData());
 	Map<String, List<String>> selectedColumns = new HashMap();
 
 	class AgentContentProvider implements ILazyContentProvider {

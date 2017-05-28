@@ -39,7 +39,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 	public BasicWorkbenchActionBarAdvisor(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
-	
+
+	@Override
 	protected void fillMenuBar(IMenuManager menuBar) {
 		IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
 		menuBar.add(createFileMenu(window));
@@ -71,8 +72,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		addToMenuAndRegister(menu, ActionFactory.SAVE.create(window));
 		addToMenuAndRegister(menu, ActionFactory.SAVE_AS.create(window));
 		addToMenuAndRegister(menu, ActionFactory.SAVE_ALL.create(window));
-		menu.add(new Separator());
-		addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
+//		menu.add(new Separator());
+//		addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
 		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
 		return menu;
 	}

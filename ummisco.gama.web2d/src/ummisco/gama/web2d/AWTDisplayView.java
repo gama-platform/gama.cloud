@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -54,7 +55,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 			@Override
 			protected void preferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {
-				WorkbenchHelper.asyncRun(() -> {
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid,() -> {
 					surfaceComposite.setSize(prefSize);
 					parent.layout(true, true);
 				});

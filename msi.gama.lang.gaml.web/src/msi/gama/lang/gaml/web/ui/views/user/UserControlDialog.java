@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -235,7 +236,9 @@ public class UserControlDialog extends AbstractDetailsDialog {
 	@Override
 	protected Control createDetailsArea(final Composite parent) {
 		final Composite compo = new Composite(parent, SWT.BORDER | SWT.SHADOW_IN);
-		compo.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY));
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		compo.setBackground(WorkbenchHelper.getDisplay(uid).getSystemColor(SWT.COLOR_GRAY));
 		final GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 0;
 		compo.setLayout(layout);

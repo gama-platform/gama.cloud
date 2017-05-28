@@ -23,6 +23,7 @@ import msi.gama.lang.gaml.web.ui.controls.FlatButton;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
 import msi.gama.lang.gaml.web.ui.perspective.SimulationPerspectiveDescriptor;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 
 /**
@@ -80,10 +81,12 @@ public class OpenExperimentSelectionListener implements SelectionListener {
 
 	}
 
-	void gotoEditor(final GamaRuntimeException exception) {
+	void gotoEditor(final IScope scope, final GamaRuntimeException exception) {
 		final EObject o = exception.getEditorContext();
 		if (o != null) {
-			WorkbenchHelper.asyncRun(() -> GAMAHelper.getGui().editModel(o));
+//			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+			WorkbenchHelper.asyncRun(uid, () -> GAMAHelper.getGui().editModel(scope, o));
 		}
 
 	}

@@ -13,8 +13,6 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextOutputCallback;
 import javax.security.auth.login.LoginException;
 
-import org.dslforge.workspace.internal.DefaultPersistencyService;
-import org.dslforge.workspace.internal.ExtendedMetadataPersistencyService;
 import org.dslforge.workspace.jpa.IPersistencyService;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;

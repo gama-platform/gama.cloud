@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.ModifyEvent;
@@ -490,7 +491,9 @@ public abstract class AbstractEditor<T>
 	}
 
 	protected void setParameterValue(final T val) {
-		WorkbenchHelper.asyncRun(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		
+		WorkbenchHelper.asyncRun(uid, () -> {
 			try {
 				if (listener == null) {
 					valueModified(val);
@@ -594,7 +597,9 @@ public abstract class AbstractEditor<T>
 		if (!isValueDifferent(val))
 			return;
 		currentValue = val;
-		WorkbenchHelper.asyncRun(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		
+		WorkbenchHelper.asyncRun(uid, () -> {
 			if (titleLabel != null && !titleLabel.isDisposed()) {
 				titleLabel.setBackground(
 						isValueModified() ? CHANGED_BACKGROUND : IGamaColors.PARAMETERS_BACKGROUND.color());
@@ -629,7 +634,8 @@ public abstract class AbstractEditor<T>
 		// if (!isValueDifferent(newVal))
 		// return;
 		currentValue = newVal;
-		WorkbenchHelper.asyncRun(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, () -> {
 			internalModification = true;
 			if (titleLabel != null && !titleLabel.isDisposed()) {
 				titleLabel.setBackground(
@@ -651,7 +657,8 @@ public abstract class AbstractEditor<T>
 	}
 
 	private void displayParameterValueAndCheckButtons() {
-		WorkbenchHelper.run(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid,() -> {
 			displayParameterValue();
 			checkButtons();
 		});
@@ -660,7 +667,8 @@ public abstract class AbstractEditor<T>
 
 	protected final void modifyAndDisplayValue(final T val) {
 		modifyValue(val);
-		WorkbenchHelper.asyncRun(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid,() -> {
 			if (!isEditable) {
 				fixedValue.setText(val instanceof String ? (String) val : StringUtils.toGaml(val, false));
 			} else if (isCombo) {

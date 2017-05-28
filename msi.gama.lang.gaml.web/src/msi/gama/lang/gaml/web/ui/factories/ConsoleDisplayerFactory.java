@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.factories;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.services.AbstractServiceFactory;
 import org.eclipse.ui.services.IServiceLocator;
@@ -52,7 +53,8 @@ public class ConsoleDisplayerFactory extends AbstractServiceFactory {
 		}
 
 		private void writeToConsole(final String msg, final ITopLevelAgent root, final GamaColor color) {
-			final IGamaView.Console console = (Console) WorkbenchHelper.findView(IGui.CONSOLE_VIEW_ID, null, true);
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final IGamaView.Console console = (Console) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, true);
 			if (console != null) {
 				console.append(msg, root, color);
 			} else {
@@ -62,20 +64,21 @@ public class ConsoleDisplayerFactory extends AbstractServiceFactory {
 
 		@Override
 		public void eraseConsole(final boolean setToNull) {
-			final IGamaView console = (IGamaView) WorkbenchHelper.findView(IGui.CONSOLE_VIEW_ID, null, false);
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final IGamaView console = (IGamaView) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, false);
 			if (console != null) {
-				WorkbenchHelper.run(() -> console.reset());
+				WorkbenchHelper.run(uid,() -> console.reset());
 			}
 		}
 
 		@Override
 		public void showConsoleView(final ITopLevelAgent agent) {
-			final IGamaView.Console icv = (Console) GAMAHelper.getGui().showView(IGui.INTERACTIVE_CONSOLE_VIEW_ID, null,
-					IWorkbenchPage.VIEW_VISIBLE);
+			final IGamaView.Console icv = (Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.INTERACTIVE_CONSOLE_VIEW_ID,
+					null, IWorkbenchPage.VIEW_VISIBLE);
 			if (icv != null)
 				icv.append(null, agent, null);
 			final IGamaView.Console console =
-					(Console) GAMAHelper.getGui().showView(IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
+					(Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 			if (consoleBuffer.length() > 0 && console != null) {
 				console.append(consoleBuffer.toString(), agent, null);
 				consoleBuffer.setLength(0);

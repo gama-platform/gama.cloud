@@ -15,13 +15,16 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.security.auth.Subject;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -46,31 +49,35 @@ public class BasicWorkbench implements EntryPoint {
 	    	boolean logged=false;
 			while(!logged) {
 				logged=dlm.login();
+				if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) != null){
+					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "This account is currently used somewhere, please try again later!");
+					logged=false;
+				}
 			}
-			
-		    WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
-		    System.out.println("logged as "+((BasicWorkbenchAdvisor)workbenchAdvisor).getLoggedUser());
-		    ((BasicWorkbenchAdvisor)workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
-		    RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
-
+			if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) == null) {
+				WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
+				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
+				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
+				RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
+				RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), "");
 		    
-		    
-		    
-		    
-		    
-		    
-//			ScopedPreferenceStore prefStore = (ScopedPreferenceStore) PrefUtil.getAPIPreferenceStore();
-//			String keyPresentationId = IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
-//			String presentationId = prefStore.getString(keyPresentationId);		    
-//			if (DEMO_PRESENTATION.equals(presentationId)) {
-//				workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
-//			}
-			
-			Display display = PlatformUI.createDisplay();
-//			GamaFonts.systemFont=Display.getCurrent().getSystemFont();
-			int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
-			display.dispose();
-			return result;
+			    
+			    
+			    
+			    
+	//			ScopedPreferenceStore prefStore = (ScopedPreferenceStore) PrefUtil.getAPIPreferenceStore();
+	//			String keyPresentationId = IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
+	//			String presentationId = prefStore.getString(keyPresentationId);		    
+	//			if (DEMO_PRESENTATION.equals(presentationId)) {
+	//				workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
+	//			}
+				
+				Display display = PlatformUI.createDisplay();
+	//			GamaFonts.systemFont=Display.getCurrent().getSystemFont();
+				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
+				display.dispose();
+				return result;
+			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

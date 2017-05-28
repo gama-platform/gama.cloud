@@ -11,6 +11,7 @@
 package msi.gama.lang.gaml.web.ui.parameters;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -47,7 +48,8 @@ public class MatrixEditor extends ExpressionBasedEditor<IMatrix<?>> {
 	@Override
 	public void applyEdit() {
 
-		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(), currentValue);
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(uid), currentValue);
 		if (d.open() == IDialogConstants.OK_ID) {
 			modifyValue(d.getMatrix());
 		}

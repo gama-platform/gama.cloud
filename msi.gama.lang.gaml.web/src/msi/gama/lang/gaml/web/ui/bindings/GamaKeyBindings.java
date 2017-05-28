@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.bindings.keys.SWTKeySupport;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
@@ -116,7 +117,8 @@ public class GamaKeyBindings implements Listener {
 	private final static GamaKeyBindings BINDINGS = new GamaKeyBindings();
 
 	public static void install() {
-		WorkbenchHelper.run(() -> WorkbenchHelper.getDisplay().addFilter(SWT.KeyDown, BINDINGS));
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, () -> WorkbenchHelper.getDisplay(uid).addFilter(SWT.KeyDown, BINDINGS));
 	}
 
 	public static boolean ctrl(final Event e) {

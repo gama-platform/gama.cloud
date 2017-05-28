@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.action.Action;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -84,7 +85,9 @@ public abstract class GamaViewPart extends ViewPart
 		protected abstract UpdatePriority jobPriority();
 
 		public void runSynchronized() {
-			WorkbenchHelper.run(() -> runInUIThread(null));
+
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			WorkbenchHelper.run(uid, () -> runInUIThread(null));
 		}
 
 	}
@@ -267,9 +270,10 @@ public abstract class GamaViewPart extends ViewPart
 	@Override
 	public void close() {
 
-		WorkbenchHelper.asyncRun(() -> {
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, () -> {
 			try {
-				WorkbenchHelper.hideView(GamaViewPart.this);
+				WorkbenchHelper.hideView(uid, GamaViewPart.this);
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}

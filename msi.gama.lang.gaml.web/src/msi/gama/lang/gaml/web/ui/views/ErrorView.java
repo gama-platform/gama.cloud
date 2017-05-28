@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -82,7 +83,7 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				GAMAHelper.getGui().editModel(exception.getEditorContext());
+				GAMAHelper.getGui().editModel(null, exception.getEditorContext());
 			}
 
 			@Override
@@ -114,7 +115,9 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 	}
 
 	private IRuntimeExceptionHandler getExceptionHandler() {
-		return WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		return WorkbenchHelper.getService(uid, IRuntimeExceptionHandler.class);
 	}
 
 	@Override
@@ -169,7 +172,9 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 
 	@Override
 	public void reset() {
-		WorkbenchHelper.run(() -> {
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, () -> {
 			ErrorView.super.reset();
 			displayItems();
 			parent.layout(true, true);
@@ -191,7 +196,7 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 //			clipboard.setContents(new Object[] { data }, new Transfer[] { TextTransfer.getInstance() });
 //			clipboard.dispose();
 		});
-		result.put("Show in editor", () -> GAMAHelper.getGui().editModel(item.getEditorContext()));
+		result.put("Show in editor", () -> GAMAHelper.getGui().editModel(null, item.getEditorContext()));
 		result.put("Report issue on GitHub", () -> this.reportError(item));
 		return result;
 	}

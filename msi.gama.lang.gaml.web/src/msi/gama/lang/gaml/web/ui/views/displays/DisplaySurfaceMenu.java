@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuEvent;
 import org.eclipse.swt.events.MenuListener;
@@ -131,7 +132,9 @@ public class DisplaySurfaceMenu {
 
 	public void buildMenu(final boolean byLayer, final int mousex, final int mousey, final Collection<IAgent> agents,
 			final Runnable cleanup, final MenuAction... actions) {
-		WorkbenchHelper.asyncRun(() -> {
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, () -> {
 			if (menu != null && !menu.isDisposed()) {
 				menu.dispose();
 			}
@@ -170,11 +173,13 @@ public class DisplaySurfaceMenu {
 	private void retryVisible(final Menu menu, final int retriesRemaining) {
 		if (!PlatformHelper.isGtk())
 			return;
-		WorkbenchHelper.asyncRun(() -> {
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, () -> {
 			if (!menu.isVisible() && retriesRemaining > 0) {
 				menu.setVisible(false);
 				{
-					final Shell shell = new Shell(WorkbenchHelper.getDisplay(),
+					final Shell shell = new Shell(WorkbenchHelper.getDisplay(uid),
 							SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 					shell.setSize(10, 10); // big enough to avoid errors
 											// from the gtk layer

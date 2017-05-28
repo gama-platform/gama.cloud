@@ -42,6 +42,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 
 import com.vividsolutions.jts.geom.Envelope;
@@ -685,7 +686,9 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int yc = mousey - origin.y;
 		final List<ILayer> layers = layerManager.getLayersIntersecting(xc, yc);
 		if (layers.isEmpty()) { return; }
-		WorkbenchHelper.run(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.run(uid, () -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
 	}
 
 	@Override

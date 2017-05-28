@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -147,7 +148,8 @@ public class ConsoleView extends GamaViewPart
 				pauseBuffer.append(text);
 			}
 			if (!indicated) {
-				WorkbenchHelper.run(() -> {
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.run(uid,() -> {
 					if (toolbar != null) {
 						toolbar.status((Image) null, "New contents available", IGamaColors.BLUE, SWT.LEFT);
 					}

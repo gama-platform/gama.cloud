@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -56,7 +57,8 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	// }
 
 	public static PerspectiveRegistry getPerspectiveRegistry() {
-		return (PerspectiveRegistry) WorkbenchHelper.getWorkbench().getPerspectiveRegistry();
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		return (PerspectiveRegistry) WorkbenchHelper.getWorkbench(uid).getPerspectiveRegistry();
 	}
 
 	public static boolean isModelingPerspective() {
@@ -106,10 +108,11 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 //		if ( perspectiveId.equals(currentPerspectiveId) )
 //			return true;
 
-		IWorkbenchPage activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		IWorkbenchPage activePage = WorkbenchHelper.getWorkbench(uid).getActiveWorkbenchWindow().getActivePage();
 		if ( activePage == null )
 			try {
-				activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().openPage(perspectiveId, null);
+				activePage = WorkbenchHelper.getWorkbench(uid).getActiveWorkbenchWindow().openPage(perspectiveId, null);
 			} catch (final WorkbenchException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -136,9 +139,9 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 			// System.out.println("Perspective " + perspectiveId + " opened ");
 		};
 		if ( immediately ) {
-			WorkbenchHelper.getDisplay().syncExec(r);
+			WorkbenchHelper.getDisplay(uid).syncExec(r);
 		} else {
-			WorkbenchHelper.getDisplay().asyncExec(r);
+			WorkbenchHelper.getDisplay(uid).asyncExec(r);
 		}
 		return true;
 	}
@@ -150,7 +153,8 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	}
 
 	public final static IPerspectiveDescriptor getActivePerspective() {
-		final IWorkbenchPage activePage = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final IWorkbenchPage activePage = WorkbenchHelper.getWorkbench(uid).getActiveWorkbenchWindow().getActivePage();
 		final IPerspectiveDescriptor currentDescriptor = activePage.getPerspective();
 		return currentDescriptor;
 

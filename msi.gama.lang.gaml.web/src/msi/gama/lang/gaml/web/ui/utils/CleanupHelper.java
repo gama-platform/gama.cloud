@@ -21,6 +21,7 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener2;
@@ -56,7 +57,8 @@ public class CleanupHelper {
 
 	static class ForceMaximizeRestoration {
 		public static void run() {
-			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench().getWorkbenchWindows();
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench(uid).getWorkbenchWindows();
 			for (int i = 0; i < windows.length; i++) {
 				final IWorkbenchPage page = windows[i].getActivePage();
 				if (page != null) {
@@ -135,7 +137,8 @@ public class CleanupHelper {
 
 		public static void run() {
 			final RemoveUnwantedActionSets remove = new RemoveUnwantedActionSets();
-			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench().getWorkbenchWindows();
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			final IWorkbenchWindow[] windows = WorkbenchHelper.getWorkbench(uid).getWorkbenchWindows();
 			for (int i = 0; i < windows.length; i++) {
 				final IWorkbenchPage page = windows[i].getActivePage();
 				if (page != null) {
@@ -203,12 +206,13 @@ public class CleanupHelper {
 
 		static void run() {
 			final List<IWizardCategory> cats = new ArrayList<>();
+			final String uid=RWT.getUISession().getAttribute("user").toString();
 			AbstractExtensionWizardRegistry r =
-					(AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getNewWizardRegistry();
+					(AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench(uid).getNewWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
-			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getImportWizardRegistry();
+			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench(uid).getImportWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
-			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench().getExportWizardRegistry();
+			r = (AbstractExtensionWizardRegistry) WorkbenchHelper.getWorkbench(uid).getExportWizardRegistry();
 			cats.addAll(Arrays.asList(r.getRootCategory().getCategories()));
 			for (final IWizardDescriptor wizard : getAllWizards(cats.toArray(new IWizardCategory[0]))) {
 				final String id = wizard.getCategory().getId();

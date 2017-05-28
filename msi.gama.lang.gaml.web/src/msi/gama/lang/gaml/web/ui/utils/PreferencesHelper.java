@@ -24,6 +24,7 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.PlatformUI;
@@ -157,7 +158,9 @@ public class PreferencesHelper {
 
 				@Override
 				public void afterValueChange(final Boolean newValue) {
-					final IDecoratorManager mgr = WorkbenchHelper.getWorkbench().getDecoratorManager();
+
+					final String uid=RWT.getUISession().getAttribute("user").toString();
+					final IDecoratorManager mgr = WorkbenchHelper.getWorkbench(uid).getDecoratorManager();
 					try {
 						mgr.setEnabled(IGui.NAVIGATOR_LIGHTWEIGHT_DECORATOR_ID, newValue);
 					} catch (final CoreException e) {

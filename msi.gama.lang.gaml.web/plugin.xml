@@ -112,13 +112,6 @@
            id="msi.gama.lang.gaml.web.editor.commands.help"
            name="About">
      </command>
-         <command
-            defaultHandler="msi.gama.lang.gaml.web.editor.commands.RunCommand"
-            description="Run Simulation"
-            helpContextId="RunSimulation"
-            id="msi.gama.lang.gaml.web.workspace.ui.commands.run"
-            name="Run">
-     	 </command>
    </extension>
    
 

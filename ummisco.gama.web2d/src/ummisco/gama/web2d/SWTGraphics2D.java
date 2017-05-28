@@ -403,8 +403,13 @@ public class SWTGraphics2D extends Graphics2D {
             double[] pts = (double[])SHAPE_CACHE.get(s);
             
             if (pts == null) {
-                pts = SWTShapeManager.shapeToPolyline(s);
-                SHAPE_CACHE.put(s,pts);    
+            	try {
+            		
+            		pts = SWTShapeManager.shapeToPolyline(s);
+            		SHAPE_CACHE.put(s,pts);    
+            	}catch(Exception ex) {
+            		ex.printStackTrace();
+            	}
             }
             
             fillPolygon(pts);
@@ -443,6 +448,7 @@ public class SWTGraphics2D extends Graphics2D {
 
     public void fillPolygon(double[] pts) {
         int[] intPts = SWTShapeManager.transform(pts,transform);
+        if(intPts!=null)
         gc.fillPolygon(intPts);
 //        gc.setBackground(new org.eclipse.swt.graphics.Color(device, 0, 0, 0));
 //        gc.fillOval(0,0,450,80);

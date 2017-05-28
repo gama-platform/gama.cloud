@@ -12,6 +12,7 @@ package msi.gama.lang.gaml.web.ui.controls;
 
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 //import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -605,8 +606,9 @@ public class ParameterExpandBar extends Composite/* implements IPopupProvider */
 					menu.setLocation(p.x, p.y);
 					menu.setVisible(true);
 					while (!menu.isDisposed() && menu.isVisible()) {
-						if (!WorkbenchHelper.getDisplay().readAndDispatch()) {
-							WorkbenchHelper.getDisplay().sleep();
+						final String uid=RWT.getUISession().getAttribute("user").toString();
+						if (!WorkbenchHelper.getDisplay(uid).readAndDispatch()) {
+							WorkbenchHelper.getDisplay(uid).sleep();
 						}
 					}
 					menu.dispose();

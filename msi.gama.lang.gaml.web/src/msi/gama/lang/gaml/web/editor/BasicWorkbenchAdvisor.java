@@ -66,6 +66,10 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		GAMAHelper.pauseFrontmostExperiment();
 		GAMAHelper.closeAllExperiments(false, true);
 
+		String u=RWT.getUISession().getAttribute("user").toString();
+		if(RWT.getApplicationContext().getAttribute("logged_"+u)!=null) {			
+			RWT.getApplicationContext().setAttribute("logged_"+u, null);
+		}
 		return super.preShutdown();
 	}
 
@@ -78,7 +82,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		// }
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWorkbenchConfigurer().getWorkbench());
 
-		WorkbenchHelper.setUID(loggedUser);
+//		WorkbenchHelper.setUID(loggedUser);
 		if (GAMAHelper.getRegularGui() == null) {
 			GAMAHelper.setRegularGui(new WebGui());
 		}

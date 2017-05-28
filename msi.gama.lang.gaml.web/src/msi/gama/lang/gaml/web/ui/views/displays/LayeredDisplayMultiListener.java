@@ -10,6 +10,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.displays;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.DragDetectListener;
@@ -106,7 +107,9 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		if (!ok())
 			return;
 		view.getDisplaySurface().dispatchKeyEvent(e.character);
-		WorkbenchHelper.asyncRun(view.displayOverlay);
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, view.displayOverlay);
 	}
 
 	@Override
@@ -168,7 +171,9 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 	public void mouseMove(final MouseEvent e) {
 		if (!ok())
 			return;
-		WorkbenchHelper.asyncRun(view.displayOverlay);
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.asyncRun(uid, view.displayOverlay);
 		if ((e.stateMask & SWT.MODIFIER_MASK) != 0)
 			return;
 		// System.out.println("Mouse moving on " + view.getPartName());
@@ -273,8 +278,10 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		final boolean surfaceOk = view.getDisplaySurface() != null && !view.getDisplaySurface().isDisposed();
 		if (!control.isFocusControl())
 			control.forceFocus();
-		if (WorkbenchHelper.getActivePart() != view) {
-			WorkbenchHelper.getPage().activate(view);
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (WorkbenchHelper.getActivePart(uid) != view) {
+			WorkbenchHelper.getPage(uid).activate(view);
 		}
 		return surfaceOk;
 	}

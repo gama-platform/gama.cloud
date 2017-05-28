@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.displays;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -134,7 +135,8 @@ public class LayerSideControls {
 						// FIXME Editor not working for the moment
 						final Point p = b.toDisplay(b.getLocation());
 						p.y = p.y + 30;
-						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(),
+						final String uid=RWT.getUISession().getAttribute("user").toString();
+						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(uid),
 								((ChartLayerStatement) definition).getChart(), p);
 						editor.open();
 						updateIfPaused(layer, container);

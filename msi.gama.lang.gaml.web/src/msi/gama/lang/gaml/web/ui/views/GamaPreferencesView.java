@@ -60,7 +60,7 @@ import msi.gama.util.GamaColor;
  * @since 31 août 2013
  *
  */
-@SuppressWarnings ({ "unchecked", "rawtypes" })
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GamaPreferencesView {
 
 	Map<String, IPreferenceNode> preferencePages = new LinkedHashMap();
@@ -71,8 +71,10 @@ public class GamaPreferencesView {
 	private static boolean restartRequired;
 
 	public static void show() {
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
 		if (instance == null || instance.shell == null || instance.shell.isDisposed()) {
-			instance = new GamaPreferencesView(WorkbenchHelper.getShell());
+			instance = new GamaPreferencesView(WorkbenchHelper.getShell(uid));
 		}
 		for (final IParameterEditor ed : instance.editors.values()) {
 			ed.updateValue(true);
@@ -88,7 +90,7 @@ public class GamaPreferencesView {
 		prefs_images.put(GamaPreferences.Interface.NAME, GamaIcons.create(IGamaIcons.PREFS_GENERAL).image());
 		prefs_images.put(GamaPreferences.Modeling.NAME, GamaIcons.create(IGamaIcons.PREFS_EDITOR).image());
 		prefs_images.put(GamaPreferences.Runtime.NAME, GamaIcons.create("prefs.simulations2").image());
-		// prefs_images.put(GamaPreferences.Experiments.NAME, GamaIcons.create("prefs.simulations2").image());
+		prefs_images.put(GamaPreferences.Experiments.NAME, GamaIcons.create("prefs.simulations2").image());
 		prefs_images.put(GamaPreferences.Simulations.NAME, GamaIcons.create("prefs.runtime2").image());
 		prefs_images.put(GamaPreferences.Displays.NAME, GamaIcons.create("prefs.ui2").image());
 		prefs_images.put(GamaPreferences.OpenGL.NAME, GamaIcons.create("prefs.opengl2").image());
@@ -108,7 +110,9 @@ public class GamaPreferencesView {
 		gridLayout.marginWidth = gridLayout.marginHeight = 5;
 		gridLayout.horizontalSpacing = gridLayout.verticalSpacing = 5;
 		shell.setLayout(gridLayout);
-		final PreferenceManager preferenceManager = WorkbenchHelper.getWorkbench().getPreferenceManager();
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final PreferenceManager preferenceManager = WorkbenchHelper.getWorkbench(uid).getPreferenceManager();
 
 		// We clean the default preference manager to remove useless preferences
 		for (final Object elem : preferenceManager.getElements(PreferenceManager.POST_ORDER)) {
@@ -157,7 +161,7 @@ public class GamaPreferencesView {
 		tabFolder.setBorderVisible(true);
 		tabFolder.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		tabFolder.setMRUVisible(true);
-//		tabFolder.setSingle(false); // rounded tabs
+		// tabFolder.setSingle(false); // rounded tabs
 		tabFolder.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
 		final Label sep = new Label(this.shell, SWT.SEPARATOR | SWT.HORIZONTAL);
 		sep.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
@@ -335,15 +339,15 @@ public class GamaPreferencesView {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-//				final FileDialog fd = new FileDialog(shell, SWT.OPEN);
-//				fd.setFilterExtensions(new String[] { "*.prefs" });
-//				final String path = fd.open();
-//				if (path == null)
-//					return;
-//				GamaPreferences.applyPreferencesFrom(path, modelValues);
-//				for (final IParameterEditor ed : editors.values()) {
-//					ed.updateValue(true);
-//				}
+				// final FileDialog fd = new FileDialog(shell, SWT.OPEN);
+				// fd.setFilterExtensions(new String[] { "*.prefs" });
+				// final String path = fd.open();
+				// if (path == null)
+				// return;
+				// GamaPreferences.applyPreferencesFrom(path, modelValues);
+				// for (final IParameterEditor ed : editors.values()) {
+				// ed.updateValue(true);
+				// }
 			}
 
 		});
@@ -355,14 +359,14 @@ public class GamaPreferencesView {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-//				final FileDialog fd = new FileDialog(shell, SWT.SAVE);
-//				fd.setFileName("preferences.gaml");
-//				fd.setFilterExtensions(new String[] { "*.gaml" });
-//				fd.setOverwrite(false);
-//				final String path = fd.open();
-//				if (path == null)
-//					return;
-//				GamaPreferences.savePreferencesTo(path);
+				// final FileDialog fd = new FileDialog(shell, SWT.SAVE);
+				// fd.setFileName("preferences.gaml");
+				// fd.setFilterExtensions(new String[] { "*.gaml" });
+				// fd.setOverwrite(false);
+				// final String path = fd.open();
+				// if (path == null)
+				// return;
+				// GamaPreferences.savePreferencesTo(path);
 			}
 
 		});
@@ -401,7 +405,8 @@ public class GamaPreferencesView {
 					restartRequired = false;
 					final boolean restart = Messages.confirm("Restart ?", "Restart GAMA now ?");
 					if (restart) {
-						WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getShell().update();
+						final String uid=RWT.getUISession().getAttribute("user").toString();
+						WorkbenchHelper.getWorkbench(uid).getActiveWorkbenchWindow().getShell().update();
 					}
 				} else
 					shell.setVisible(false);
@@ -423,6 +428,7 @@ public class GamaPreferencesView {
 
 		});
 
+		final String uid=RWT.getUISession().getAttribute("user").toString();
 		buttonAdvanced.addSelectionListener(new SelectionAdapter() {
 
 			@Override
@@ -432,7 +438,7 @@ public class GamaPreferencesView {
 				// pn.disposeResources();
 				// pn.createPage();
 				// }
-				WorkbenchHelper.asyncRun(() -> {
+				WorkbenchHelper.asyncRun(uid, () -> {
 					final PreferenceDialog pd = WorkbenchPreferenceDialog.createDialogOn(parentShell, null);
 					pd.open();
 					shell.setVisible(true);
@@ -449,7 +455,9 @@ public class GamaPreferencesView {
 		// shell.pack();
 		final Point p = shell.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		// final Monitor primary = SwtGui.getDisplay().getPrimaryMonitor();
-		final Rectangle bounds = WorkbenchHelper.getDisplay().getBounds();
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final Rectangle bounds = WorkbenchHelper.getDisplay(uid).getBounds();
 		final int width = Math.min(p.x, bounds.width - 100);
 		final int height = Math.min(p.y, bounds.height - 100);
 

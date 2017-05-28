@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -191,7 +192,8 @@ public class GamaColorMenu extends GamaMenu {
 		currentListener = colorInserter;
 		currentRunnable = custom;
 		if (mainMenu == null) {
-			mainMenu = new Menu(WorkbenchHelper.getShell(), SWT.POP_UP);
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			mainMenu = new Menu(WorkbenchHelper.getShell(uid), SWT.POP_UP);
 			fillMenu();
 		}
 

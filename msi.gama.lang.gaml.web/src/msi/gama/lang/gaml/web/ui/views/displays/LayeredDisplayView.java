@@ -142,14 +142,16 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 	private void createFullScreenShell() {
 		if (fullScreenShell != null)
 			return;
-		final Monitor[] monitors = WorkbenchHelper.getDisplay().getMonitors();
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final Monitor[] monitors = WorkbenchHelper.getDisplay(uid).getMonitors();
 		int monitorId = getOutput().getData().fullScreen();
 		if (monitorId < 0)
 			monitorId = 0;
 		if (monitorId > monitors.length - 1)
 			monitorId = monitors.length - 1;
 
-		fullScreenShell = new Shell(WorkbenchHelper.getDisplay(),
+		fullScreenShell = new Shell(WorkbenchHelper.getDisplay(uid),
 				(GamaPreferences.Displays.DISPLAY_MODAL_FULLSCREEN.getValue() ? SWT.ON_TOP : SWT.APPLICATION_MODAL)
 						| SWT.NO_TRIM);
 		fullScreenShell.setBounds(monitors[monitorId].getBounds());
@@ -308,17 +310,18 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		parent.setLayout(gl);
 		createSurfaceComposite(parent);
 
+		final String uid=RWT.getUISession().getAttribute("user").toString();
 		surfaceComposite.addControlListener(new ControlAdapter() {
 
 			@Override
 			public void controlResized(final ControlEvent e) {
-				if (WorkbenchHelper.getUID().equals(RWT.getUISession().getAttribute("user").toString())) {
+//				if (WorkbenchHelper.getUID().equals(RWT.getUISession().getAttribute("user").toString())) {
 
-					final Rectangle r = WorkbenchHelper.getDisplay().map(surfaceComposite, null,
+					final Rectangle r = WorkbenchHelper.getDisplay(uid).map(surfaceComposite, null,
 							surfaceComposite.getBounds());
 					surfaceCompositeBounds.setBounds(r.x, r.y, r.width, r.height);
 				}
-			}
+//			}
 		});
 
 		final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -372,7 +375,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 			}
 		};
 
-		WorkbenchHelper.getWindow().addPerspectiveListener(perspectiveListener);
+		WorkbenchHelper.getWindow(uid).addPerspectiveListener(perspectiveListener);
 		keyAndMouseListener = new LayeredDisplayMultiListener(this);
 		menuManager = new DisplaySurfaceMenu(getDisplaySurface(), parent, this);
 		if (getOutput().getData().fullScreen() > -1) {
@@ -427,7 +430,9 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		}
 
 		if (perspectiveListener != null) {
-			WorkbenchHelper.getWindow().removePerspectiveListener(perspectiveListener);
+
+			final String uid=RWT.getUISession().getAttribute("user").toString();
+			WorkbenchHelper.getWindow(uid).removePerspectiveListener(perspectiveListener);
 		}
 		// FIXME Remove the listeners
 
@@ -444,7 +449,9 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 	public void changed(final Changes changes, final Object value) {
 		switch (changes) {
 			case ZOOM:
-				WorkbenchHelper.asyncRun(() -> overlay.update());
+
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid, () -> overlay.update());
 				break;
 			default:
 				break;
@@ -1073,7 +1080,9 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 			return;
 		if (output == getOutput()) {
 			if (isFullScreen()) {
-				WorkbenchHelper.run(() -> toggleFullScreen());
+
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.run(uid, () -> toggleFullScreen());
 			}
 		}
 		output.dispose();

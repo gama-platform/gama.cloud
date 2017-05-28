@@ -61,7 +61,7 @@ public class OpenImportedErrorSelectionListener implements SelectionListener {
 
 							@Override
 							public void widgetSelected(final SelectionEvent e1) {
-								GAMAHelper.getGui().editModel(msgs.get(s));
+								GAMAHelper.getGui().editModel(null, msgs.get(s));
 							}
 
 						}, null);
