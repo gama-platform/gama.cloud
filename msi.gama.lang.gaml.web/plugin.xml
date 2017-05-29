@@ -679,6 +679,7 @@
             name="Errors"
             restorable="false">
       </view>
+      <!--
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
@@ -688,7 +689,7 @@
             name="Login"
             restorable="false">
       </view>
-    
+    -->
    </extension>
    	
    	

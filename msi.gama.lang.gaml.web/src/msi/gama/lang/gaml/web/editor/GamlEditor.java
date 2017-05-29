@@ -33,6 +33,7 @@ import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.ModelRunner;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbarFactory;
@@ -178,7 +179,8 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 
 	private void updateToolbar(final GamlEditorState newState, final boolean forceState) {
 //		if (forceState || !state.equals(newState)) {
-			Display.getDefault().asyncExec(() -> {
+		String uid=RWT.getUISession().getAttribute("user").toString();
+			WorkbenchHelper.getDisplay(uid).asyncExec(() -> {
 				GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));
 				if (toolbar == null || toolbar.isDisposed()) { return; }
 				toolbar.wipe(SWT.LEFT, true);

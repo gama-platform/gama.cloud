@@ -18,7 +18,7 @@ import org.eclipse.ui.services.IServiceLocator;
 
 public class StatusDisplayerFactory extends AbstractServiceFactory {
 
-	public static HashMap<String,StatusDisplayer> displayer = new HashMap<String,StatusDisplayer>();
+	public volatile static HashMap<String,StatusDisplayer> displayer = new HashMap<String,StatusDisplayer>();
 
 	@Override
 	public Object create(final Class serviceInterface, final IServiceLocator parentLocator,

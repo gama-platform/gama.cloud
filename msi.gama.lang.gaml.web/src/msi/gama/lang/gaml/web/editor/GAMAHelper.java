@@ -16,7 +16,7 @@ public class GAMAHelper extends GAMA{
 	public static HashMap<String, IExperimentController> theControllers=new HashMap<String,IExperimentController>();
 	
 
-	public static void startPauseFrontmostExperiment() {
+	public static synchronized void startPauseFrontmostExperiment() {
 //		for (final IExperimentController controller : getControllers()) {
 			theControllers.get(RWT.getUISession().getAttribute("user")).startPause();
 //		}
@@ -43,6 +43,13 @@ public class GAMAHelper extends GAMA{
 		}
 	}
 
+	public static IExperimentPlan getExperiment() {
+		String u=RWT.getUISession().getAttribute("user").toString();
+		final IExperimentController controller = theControllers.get(u);
+		if (controller == null) { return null; }
+		return controller.getExperiment();
+	}
+	
 	public static void reloadFrontmostExperiment() {
 		String u=RWT.getUISession().getAttribute("user").toString();
 		if(theControllers.get(u)!=null){

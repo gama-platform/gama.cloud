@@ -19,9 +19,12 @@ import org.dslforge.workspace.ui.BasicWokspaceNavigator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.navigator.CommonViewer;
 
 /**
  * A basic implementation of the CNF based on java.io.File
@@ -29,7 +32,24 @@ import org.eclipse.ui.PartInitException;
  */
 public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 //	private List<PropertySheetPage> propertySheetPages = new ArrayList<PropertySheetPage>();
+	private String uid="";
 
+	@Override
+	public void workspaceChanged(Object e) {
+		final CommonViewer commonViewer = getCommonViewer();
+		Control control = commonViewer.getControl();
+		if (!control.isDisposed()) {
+			Display display = control.getDisplay();
+			display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (!commonViewer.isBusy() && !commonViewer.getTree().isDisposed())
+						
+						commonViewer.refresh();
+				}
+			});
+		}
+	}
 
 //	@Override
 //	public IPropertySheetPage getPropertySheetPage() {

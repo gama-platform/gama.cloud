@@ -64,7 +64,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		// TODO Auto-generated method stub
 		System.out.println("preShutdown of "+loggedUser);
 		GAMAHelper.pauseFrontmostExperiment();
-		GAMAHelper.closeAllExperiments(false, true);
+		GAMAHelper.closeAllExperiments(true, true);
 
 		String u=RWT.getUISession().getAttribute("user").toString();
 		if(RWT.getApplicationContext().getAttribute("logged_"+u)!=null) {			

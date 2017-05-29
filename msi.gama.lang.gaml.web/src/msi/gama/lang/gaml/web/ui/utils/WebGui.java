@@ -121,7 +121,7 @@ public class WebGui implements IGui {
 		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
 			return;
 		}
-		
+		if(scope.getExperiment()==null) return;
 		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
 		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(uid, IRuntimeExceptionHandler.class);
@@ -584,7 +584,7 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public IStatusDisplayer getStatus(IScope scope) {
+	public synchronized IStatusDisplayer getStatus(IScope scope) {
 		// if(StatusDisplayerFactory.displayer == null){
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }

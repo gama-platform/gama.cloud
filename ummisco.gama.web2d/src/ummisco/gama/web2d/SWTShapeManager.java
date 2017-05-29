@@ -16,8 +16,8 @@ public class SWTShapeManager {
 
     static AffineTransform IDENTITY_XFORM = new AffineTransform();
     static Point2D aPoint = new Point2D.Double();
-    static ArrayList segList = new ArrayList();
-    static double[] pts = new double[8];
+    static volatile ArrayList segList = new ArrayList();
+    static volatile double[] pts = new double[8];
 
 
     /**
@@ -67,7 +67,7 @@ public class SWTShapeManager {
         sRect.height = (int)(aRect.getHeight()+0.5);
     }
     
-    public static double[] shapeToPolyline(Shape s) {
+    public static synchronized double[] shapeToPolyline(Shape s) {
         segList.clear();
         aPoint.setLocation(0,0);
         
@@ -89,9 +89,9 @@ public class SWTShapeManager {
             pi.next();
         }
         
-        double[] polyObj = new double[2*segList.size()];
+        final double[] polyObj = new double[2*segList.size()];
         for(int i=0; i<segList.size(); i++) {
-            Point2D p2 = (Point2D)segList.get(i);
+            final Point2D p2 = (Point2D)segList.get(i);
             polyObj[2 * i] = 0;
             polyObj[2 * i + 1] = 0;
 			if (p2 != null) {

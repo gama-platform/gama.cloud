@@ -122,7 +122,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 	 */
 
 	@Override
-	public void waitToBeRealized() {
+	public synchronized void waitToBeRealized() {
 		if (PlatformHelper.isWin32()) { return; }
 		final long start = System.currentTimeMillis();
 		long now = start;
@@ -135,7 +135,9 @@ public class AWTDisplayView extends LayeredDisplayView {
 				e.printStackTrace();
 			}
 			now = System.currentTimeMillis();
-			openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
+			
+			if(this.getDisplaySurface()!=null)
+				openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
 		}
 		// System.out.println("Realized in " + (now - start) + "ms");
 
