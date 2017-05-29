@@ -15,17 +15,36 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import javax.security.auth.Subject;
+import javax.security.auth.login.LoginException;
+
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.swt.events.HelpListener;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+
+import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
+import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
+import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
+import msi.gama.lang.gaml.web.workspace.ui.DummyModifyUserModule;
+import msi.gama.lang.gaml.web.workspace.ui.DummyNewUserModule;
+import msi.gama.lang.gaml.web.workspace.ui.DummyProfileModule;
 
 /**
  * Creates, adds and disposes actions for the menus and action bars of
@@ -43,6 +62,10 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 	@Override
 	protected void fillMenuBar(IMenuManager menuBar) {
 		IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
+		if (RWT.getUISession().getAttribute("user").toString().equals("admin")) {
+			menuBar.add(createUserMenu(window));
+			menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+		}
 		menuBar.add(createFileMenu(window));
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		menuBar.add(createEditMenu(window));
@@ -74,6 +97,117 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		addToMenuAndRegister(menu, ActionFactory.SAVE_ALL.create(window));
 //		menu.add(new Separator());
 //		addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
+		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
+		return menu;
+	}
+
+	/**
+	 * Creates the 'User' menu
+	 * 
+	 * @param window
+	 * @return
+	 */
+	protected IMenuManager createUserMenu(IWorkbenchWindow window) {
+		IMenuManager menu = new MenuManager("Admin",
+		IWorkbenchActionConstants.M_FILE);    
+		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));	
+		addToMenuAndRegister(menu, new Action("Create Account",GamaIcons.create("menu.add2").descriptor()) {
+			@Override
+			public String getId() {
+				return "NewUser";
+			}
+
+			@Override
+			public void run() {
+				DummyCallbackHandler dch = new DummyCallbackHandler();
+				DummyNewUserModule dlm = new DummyNewUserModule();
+				dlm.initialize(new Subject(), dch, null, null);
+				try {
+					if(dlm.newuser()) {
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "New account created!");
+						
+					}
+				} catch (LoginException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "Create New User Account";
+			}
+		});
+		addToMenuAndRegister(menu, new Action("Modify Account",GamaIcons.create("action.save2").descriptor()) {
+			@Override
+			public String getId() {
+				return "ModifyUser";
+			}
+
+			@Override
+			public void run() {
+				DummyCallbackHandler dch = new DummyCallbackHandler();
+				DummyModifyUserModule dlm = new DummyModifyUserModule();
+				dlm.initialize(new Subject(), dch, null, null);
+				try {
+					if(dlm.changepass()) {
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "Account updated!");
+						
+					}
+				} catch (LoginException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "Modify User Account";
+			}
+		});
+		addToMenuAndRegister(menu, new Action("Delete Account",GamaIcons.create("action.delete.row2").descriptor()) {
+			@Override
+			public String getId() {
+				return "DeleteUser";
+			}
+
+			@Override
+			public void run() {
+				DummyCallbackHandler dch = new DummyCallbackHandler();
+				DummyDeleteUserModule dlm = new DummyDeleteUserModule();
+				dlm.initialize(new Subject(), dch, null, null);
+				try {
+					if(dlm.deleteuser()) {
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "Account deleted!");
+						
+					}
+				} catch (LoginException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "Delete User Account";
+			}
+		});
+
+		addToMenuAndRegister(menu, new Action("Refresh Server",GamaIcons.create("action.clear2").descriptor()) {
+			@Override
+			public String getId() {
+				return "RefreshServer";
+			}
+
+			@Override
+			public void run() {
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "Refresh GAMA server";
+			}
+		});
 		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
 		return menu;
 	}

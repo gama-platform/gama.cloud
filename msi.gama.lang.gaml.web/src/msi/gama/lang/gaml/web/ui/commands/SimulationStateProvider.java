@@ -24,6 +24,7 @@ import msi.gama.runtime.ISimulationStateProvider;
 
 public class SimulationStateProvider extends AbstractSourceProvider implements ISimulationStateProvider {
 
+	public final static String LOGGEDUSER = "msi.gama.lang.gaml.web.ui.experiment.LoggedUser";
 	public final static String SIMULATION_RUNNING_STATE = "msi.gama.lang.gaml.web.ui.experiment.SimulationRunningState";
 	public final static String SIMULATION_TYPE = "msi.gama.lang.gaml.web.ui.experiment.SimulationType";
 	public final static String SIMULATION_STEPBACK = "msi.gama.lang.gaml.web.ui.experiment.SimulationStepBack";
@@ -47,6 +48,7 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		final String type = exp == null ? IGui.NONE
 				: exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
+		map.put(LOGGEDUSER, uid);
 		map.put(SIMULATION_RUNNING_STATE, state);
 		map.put(SIMULATION_TYPE, type);
 		map.put(SIMULATION_STEPBACK, "CANNOT_STEP_BACK");
@@ -59,6 +61,8 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 	 */
 	@Override
 	public void updateStateTo(final String state) {
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		fireSourceChanged(ISources.WORKBENCH, LOGGEDUSER, uid);
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_RUNNING_STATE, state);
 		final IExperimentPlan exp = GAMAHelper.getExperiment();
 		final String type = exp == null ? "NONE" : exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";

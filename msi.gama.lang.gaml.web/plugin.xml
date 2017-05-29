@@ -55,7 +55,7 @@
 	<entrypoint
        class="msi.gama.lang.gaml.web.editor.BasicWorkbench"
        id="msi.gama.lang.gaml.web.editor.entrypoint"
-       path="/">
+       path="/ide">
 		</entrypoint>
 	</extension>
 	
