@@ -27,10 +27,7 @@
       <plugin id="com.google.guava"/>
       <plugin id="com.google.inject"/>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.ibm.icu.base"/>
-      <plugin id="javax.activation"/>
       <plugin id="javax.inject"/>
-      <plugin id="javax.mail"/>
       <plugin id="javax.persistence"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
@@ -41,7 +38,6 @@
       <plugin id="msi.gama.processor"/>
       <plugin id="org.apache.commons.cli"/>
       <plugin id="org.apache.commons.compress"/>
-      <plugin id="org.apache.commons.fileupload"/>
       <plugin id="org.apache.commons.io"/>
       <plugin id="org.apache.commons.lang"/>
       <plugin id="org.apache.commons.logging"/>
@@ -100,8 +96,6 @@
       <plugin id="org.eclipse.persistence.jpa.jpql"/>
       <plugin id="org.eclipse.rap.draw2d"/>
       <plugin id="org.eclipse.rap.draw2d.compatibility"/>
-      <plugin id="org.eclipse.rap.filedialog"/>
-      <plugin id="org.eclipse.rap.fileupload"/>
       <plugin id="org.eclipse.rap.gef"/>
       <plugin id="org.eclipse.rap.jface"/>
       <plugin id="org.eclipse.rap.jface.databinding"/>
@@ -111,8 +105,6 @@
       <plugin id="org.eclipse.rap.ui.forms"/>
       <plugin id="org.eclipse.rap.ui.navigator"/>
       <plugin id="org.eclipse.rap.ui.views"/>
-      <plugin id="org.eclipse.rap.ui.views.log"/>
-      <plugin id="org.eclipse.rap.ui.views.properties.tabbed"/>
       <plugin id="org.eclipse.rap.ui.workbench"/>
       <plugin id="org.eclipse.rap.zest.core"/>
       <plugin id="org.eclipse.rap.zest.layouts"/>
@@ -138,11 +130,9 @@
    <configurations>
       <plugin id="com.google.guava" autoStart="true" startLevel="5" />
       <plugin id="com.google.inject" autoStart="true" startLevel="5" />
-      <plugin id="com.ibm.icu.base" autoStart="true" startLevel="5" />
-      <plugin id="javax.activation" autoStart="true" startLevel="5" />
       <plugin id="javax.inject" autoStart="true" startLevel="5" />
-      <plugin id="javax.mail" autoStart="true" startLevel="5" />
       <plugin id="javax.persistence" autoStart="true" startLevel="5" />
+      <plugin id="javax.servlet" autoStart="false" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="5" />
       <plugin id="msi.gama.lang.gaml" autoStart="true" startLevel="5" />
       <plugin id="msi.gama.lang.gaml.web" autoStart="true" startLevel="5" />
@@ -179,12 +169,14 @@
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.console" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.http.servletbridge" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.jpa" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="5" />

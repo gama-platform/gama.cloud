@@ -201,6 +201,7 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 
 			@Override
 			public void run() {
+				RWT.getApplicationContext();
 			}
 
 			@Override
