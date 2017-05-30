@@ -39,6 +39,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
@@ -201,7 +202,13 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 
 			@Override
 			public void run() {
-				RWT.getApplicationContext();
+				for(IExperimentController s:GAMAHelper.theControllers.values()) {
+					s.close();
+					GAMAHelper.getGui().closeSimulationViews(s.getExperiment().getExperimentScope(), true, true);
+					GAMAHelper.getControllers().remove(s);	
+					s.dispose();
+				}
+				GAMAHelper.theControllers.clear();
 			}
 
 			@Override
