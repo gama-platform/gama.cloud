@@ -156,8 +156,8 @@
       <plugin id="org.dslforge.styledtext" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.workspace" autoStart="true" startLevel="5" />
-      <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="5" />
-      <plugin id="org.dslforge.workspace.jpa" autoStart="true" startLevel="4" />
+      <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="1" />
+      <plugin id="org.dslforge.workspace.jpa" autoStart="true" startLevel="3" />
       <plugin id="org.dslforge.workspace.ui" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.xtext.common" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="5" />
