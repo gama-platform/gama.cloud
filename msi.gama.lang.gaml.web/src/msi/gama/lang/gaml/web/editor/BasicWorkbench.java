@@ -60,7 +60,7 @@ public class BasicWorkbench implements EntryPoint {
 				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
 				RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), "");
 				RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
-				RWT.getUISession().getHttpSession().setMaxInactiveInterval(300);    
+//				RWT.getUISession().getHttpSession().setMaxInactiveInterval(300);    
 			    
 			    
 			    
