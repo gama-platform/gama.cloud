@@ -321,15 +321,18 @@ public class WebGui implements IGui {
 	@Override
 	public void closeDialogs(IScope scope) {
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		WorkbenchHelper.run(uid, () -> {
-			final IUserDialogFactory userDialogFactory = WorkbenchHelper.getService(uid, IUserDialogFactory.class);
-			if (userDialogFactory != null) {
-				userDialogFactory.closeUserDialog();
-			}
-			WorkbenchHelper.hideView(uid, USER_CONTROL_VIEW_ID);
-
-		});
+//		if(scope.getExperiment()!=null) {
+//			scope=scope.getExperiment().getSpecies().getExperimentScope();
+//		}
+//		final String uid=WorkbenchHelper.UISession.get(scope);
+//		WorkbenchHelper.asyncRun(uid, () -> {
+//			final IUserDialogFactory userDialogFactory = WorkbenchHelper.getService(uid, IUserDialogFactory.class);
+//			if (userDialogFactory != null) {
+//				userDialogFactory.closeUserDialog();
+//			}
+//			WorkbenchHelper.hideView(uid, USER_CONTROL_VIEW_ID);
+//
+//		});
 
 	}
 
@@ -358,7 +361,7 @@ public class WebGui implements IGui {
 	public void updateParameterView(IScope scope, final IExperimentPlan exp) {
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		WorkbenchHelper.run(uid, () -> {
+		WorkbenchHelper.asyncRun(uid, () -> {
 			if (!exp.hasParametersOrUserCommands()) {
 				return;
 			}
@@ -417,10 +420,10 @@ public class WebGui implements IGui {
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		if (exp.isGui()) {
-			final IOpenGLInitializer initializer = WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
-			if (initializer != null && !initializer.isDone()) {
-				initializer.run();
-			}
+//			final IOpenGLInitializer initializer = WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
+//			if (initializer != null && !initializer.isDone()) {
+//				initializer.run();
+//			}
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
 			// getConsole().showConsoleView(exp.getAgent());

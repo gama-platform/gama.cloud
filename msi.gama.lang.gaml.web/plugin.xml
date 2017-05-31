@@ -1279,12 +1279,6 @@
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory">
-         <service
-               serviceClass="msi.gama.lang.gaml.web.ui.factories.IConsoleDisplayer">
-         </service>
-      </serviceFactory>
-      <serviceFactory
             factoryClass="msi.gama.lang.gaml.web.ui.factories.RuntimeExceptionHandlerFactory">
          <service
                serviceClass="msi.gama.common.interfaces.IRuntimeExceptionHandler">

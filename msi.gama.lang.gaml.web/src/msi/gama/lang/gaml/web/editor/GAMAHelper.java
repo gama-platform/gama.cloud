@@ -43,7 +43,7 @@ public class GAMAHelper extends GAMA{
 		}
 	}
 
-	public static IExperimentPlan getExperiment() {
+	public synchronized static IExperimentPlan getExperiment() {
 		String u=RWT.getUISession().getAttribute("user").toString();
 		final IExperimentController controller = theControllers.get(u);
 		if (controller == null) { return null; }

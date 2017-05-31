@@ -48,7 +48,7 @@ public class StatusDisplayer implements IStatusDisplayer {
 
 	@Override
 	public void resumeStatus() {
-		status.resume();
+//		status.resume();
 	}
 
 	@Override

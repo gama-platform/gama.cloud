@@ -38,11 +38,12 @@ public class WorkbenchHelper {
 	public final static String BUILTIN_NATURE = "msi.gama.application.builtinNature";
 
 	public static void asyncRun(final String uid , final Runnable r) {
-		final Display d = getDisplay(uid);
-		if (d != null && !d.isDisposed()) {
-			d.asyncExec(r);
-		} else
-			r.run();
+//		final Display d = getDisplay(uid);
+//		if (d != null && !d.isDisposed()) {
+//			d.asyncExec(r);
+//		} else
+//			r.run();
+		run(uid,r);
 	}
 
 	public static void run(final String uid, final Runnable r) {

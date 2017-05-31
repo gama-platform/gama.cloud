@@ -93,7 +93,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 			public void afterComponentCreatedAWTThread() {}
 		};
 		surfaceComposite.setEnabled(false);
-		WorkaroundForIssue1594xx.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
+//		WorkaroundForIssue1594xx.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
 
 		Canvas canvas=new Canvas(surfaceComposite, 1);
 		canvas.addPaintListener(new PaintListener() {
