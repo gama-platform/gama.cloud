@@ -172,8 +172,6 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		toolbar.sep(4, SWT.LEFT);
 
 //		findControl = new EditorSearchControls(this).fill(toolbar.getToolbar(SWT.RIGHT));
-		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(toolbar.getToolbar(SWT.RIGHT));
-		thecollaboratingControl.put(RWT.getUISession().getAttribute("user").toString(), collaboratingControl);
 		toolbar.refresh(true);
 	}
 
@@ -185,7 +183,6 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	@Override
 	public void createPartControl(final Composite compo) {
 		configureTabFolder(compo);
-		System.out.println("hash      "+this.hashCode());
 		Composite toolbarParent = GamaToolbarFactory.createToolbars(this, compo);
 		final GridLayout layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
@@ -206,9 +203,11 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		setResourceListener(this);
 		validateResource();
 		toolbarParent.layout();
-		thetoolbarParent.put(RWT.getUISession().getAttribute("user").toString(), toolbarParent);
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		thetoolbarParent.put(uid, toolbarParent);
 //		installGestures();
-		
+		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
+		thecollaboratingControl.put(uid, collaboratingControl);
 	}
 	
 

@@ -57,7 +57,7 @@ public class OpenExperimentSelectionListener implements SelectionListener {
 
 		// final IGui gui = GAMA.getRegularGui();
 		// We refuse to run if there is no XtextGui available.
-		editor.doSave(null);
+//		editor.doSave(null);
 //		if (AutoStartup.EDITOR_SAVE.getValue()) {
 //			WorkbenchHelper.getPage().saveAllEditors(AutoStartup.EDITOR_SAVE_ASK.getValue());
 //		}

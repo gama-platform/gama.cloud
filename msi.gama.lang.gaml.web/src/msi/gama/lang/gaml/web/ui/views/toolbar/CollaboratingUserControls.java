@@ -58,9 +58,9 @@ public class CollaboratingUserControls {
 			}
 		}
 		for(User u : onlines) {
-
-			if (collaborating.get(u) == null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString()) ) {
-				//&&editor.getXtextResource()!=null&& u.getOrganization().equals(editor.getXtextResource().getURI().toFileString()
+			if (collaborating.get(u) == null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString()) && (editor!=null
+					&& editor.getXtextResource().getURI().toFileString().equals(u.getOrganization()))) {
+				//
 				Button btn = new Button(toolbar, SWT.PUSH | SWT.DOUBLE_BUFFERED);
 				btn.setText(u.getId());
 
