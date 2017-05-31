@@ -11,6 +11,7 @@ package msi.gama.lang.gaml.web.ui.resources;
 
 import java.util.HashMap;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -18,6 +19,7 @@ import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.util.GamaColor;
 
 /**
@@ -181,7 +183,7 @@ public class GamaColors {
 	}
 
 	private static Color getColor(final int r, final int g, final int b) {
-		return new Color(Display.getCurrent(), r, g, b);
+		return new Color(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), r, g, b);
 	}
 
 	public static GamaUIColor get(final java.awt.Color color) {

@@ -679,6 +679,15 @@
             name="Errors"
             restorable="false">
       </view>
+      <view
+            allowMultiple="false"
+            category="msi.gama.gui.category.gama"
+            class="msi.gama.lang.gaml.web.ui.views.console.ConsoleView"
+            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.console2.png"
+            id="msi.gama.application.view.ConsoleView"
+            name="Console"
+            restorable="false">
+      </view>
       <!--
       <view
             allowMultiple="false"

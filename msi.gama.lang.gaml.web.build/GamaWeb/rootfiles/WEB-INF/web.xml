@@ -43,7 +43,7 @@
 
   <!-- session timeout in minutes -->
   <session-config>
-    <session-timeout>20</session-timeout>
+    <session-timeout>3</session-timeout>
   </session-config>
 
 </web-app>

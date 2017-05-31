@@ -65,10 +65,10 @@ public class ConsoleDisplayer implements IConsoleDisplayer {
 
 	@Override
 	public void showConsoleView(final ITopLevelAgent agent) {
-		final IGamaView.Console icv = (Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.INTERACTIVE_CONSOLE_VIEW_ID,
-				null, IWorkbenchPage.VIEW_VISIBLE);
-		if (icv != null)
-			icv.append(null, agent, null);
+//		final IGamaView.Console icv = (Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.INTERACTIVE_CONSOLE_VIEW_ID,
+//				null, IWorkbenchPage.VIEW_VISIBLE);
+//		if (icv != null)
+//			icv.append(null, agent, null);
 		final IGamaView.Console console =
 				(Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 		if (consoleBuffer.length() > 0 && console != null) {

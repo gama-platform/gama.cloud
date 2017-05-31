@@ -21,10 +21,10 @@ public class SimulationPerspective implements IPerspectiveFactory {
 
 	@Override
 	public void createInitialLayout(final IPageLayout layout) {
-		String editorArea = layout.getEditorArea();
+//		String editorArea = layout.getEditorArea();
 		layout.setEditorAreaVisible(false);
 		layout.addPerspectiveShortcut(IWorkbenchConstants.ID_PERSPECTIVE);
-//		layout.setFixed(true);
+		layout.setFixed(true);
 //		layout.addStandaloneView(IWorkbenchConstants.NAVIGATOR_VIEW_ID, true, IPageLayout.LEFT, 0.25f, editorArea);
 //		layout.getViewLayout(IWorkbenchConstants.NAVIGATOR_VIEW_ID).setCloseable(true);
 		
@@ -37,14 +37,14 @@ public class SimulationPerspective implements IPerspectiveFactory {
 //		navigAndParam.addView(IGui.NAVIGATOR_VIEW_ID);
 //		navigAndParam.addPlaceholder(IGui.ERROR_VIEW_ID);
 
-//		final IFolderLayout consoleFolder = lay.createFolder("consoles", IPageLayout.BOTTOM, 0.70f, "navigAndParam");
+//		final IFolderLayout consoleFolder = layout.createFolder("consoles", IPageLayout.BOTTOM, 1.00f, "navigAndParam");
 
 //		consoleFolder.addView(IGui.INTERACTIVE_CONSOLE_VIEW_ID);
 //		consoleFolder.addView(IGui.CONSOLE_VIEW_ID);
 
-		final IPlaceholderFolderLayout displays =
-				layout.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editorArea);
-		displays.addPlaceholder(IGui.LAYER_VIEW_ID + ":*");
+//		final IPlaceholderFolderLayout displays =
+//				layout.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editorArea);
+//		displays.addPlaceholder(IGui.LAYER_VIEW_ID + ":*");
 		
 //		displays.addPlaceholder(IGui.GL_LAYER_VIEW_ID + ":*");
 
