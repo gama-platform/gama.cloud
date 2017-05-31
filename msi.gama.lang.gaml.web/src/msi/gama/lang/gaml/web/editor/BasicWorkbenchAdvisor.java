@@ -23,7 +23,9 @@ import msi.gama.lang.gaml.web.ui.utils.WebGui;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 import java.net.URL;
+import java.util.ArrayList;
 
+import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.internal.registry.osgi.Activator;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -66,9 +68,21 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		GAMAHelper.pauseFrontmostExperiment();
 		GAMAHelper.closeAllExperiments(true, true);
 
-		String u=RWT.getUISession().getAttribute("user").toString();
-		if(RWT.getApplicationContext().getAttribute("logged_"+u)!=null) {			
-			RWT.getApplicationContext().setAttribute("logged_"+u, null);
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		if(RWT.getApplicationContext().getAttribute("logged_"+uid)!=null) {			
+			RWT.getApplicationContext().setAttribute("logged_"+uid, null);
+			
+			ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+			ArrayList<User> onl=new ArrayList<User>(); 
+			if(onlines==null) {
+				onlines=new ArrayList<>();					
+			}
+			for(User us:onlines) {
+				if(!us.getId().equals(uid)) {
+					onl.add(us);
+				}
+			}
+			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
 		return super.preShutdown();
 	}

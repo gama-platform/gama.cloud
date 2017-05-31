@@ -23,7 +23,7 @@ import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
 public class GamaFonts {
 
-	public static Font systemFont = Display.getCurrent().getSystemFont();
+	public static Font systemFont = WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getSystemFont();
 	public static FontData baseData = systemFont.getFontData()[0];
 	public static String baseFont = baseData.getName();
 	public static int baseSize = 11;

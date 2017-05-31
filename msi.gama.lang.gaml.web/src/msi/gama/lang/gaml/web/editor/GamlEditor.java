@@ -3,11 +3,18 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import org.dslforge.styledtext.jface.ITextViewer;
+import org.dslforge.styledtext.jface.TextViewer;
+import org.dslforge.workspace.jpa.database.User;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
+import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -21,9 +28,9 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.util.ReplaceRegion;
 
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.controls.FlatButton;
@@ -34,7 +41,9 @@ import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.ModelRunner;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
+import msi.gama.lang.gaml.web.ui.views.toolbar.EditorSearchControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbarFactory;
 import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
@@ -43,13 +52,23 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 
+/*
+ * The class GamlEditor.
+ *
+ * @author drogoul
+ *
+ * @since 4 mars 2012
+ */
+@SuppressWarnings ("all")
 public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListener, IToolbarDecoratedView {
-	HashMap<String,GamaToolbar2> thetoolbar=new HashMap<String,GamaToolbar2>();
-	Composite toolbarParent;
-//	private EditorSearchControls findControl;
-//	boolean decorationEnabled = AutoStartup.EDITBOX_ENABLED.getValue();
-//	boolean editToolbarEnabled = AutoStartup.EDITOR_SHOW_TOOLBAR.getValue();
 
+	static {
+//		final IPreferenceStore store = EditorsUI.getPreferenceStore();
+//		store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.SHOW_RANGE_INDICATOR, false);
+//		store.setDefault(SpellingService.PREFERENCE_SPELLING_ENABLED, false);
+//		store.setValue(SpellingService.PREFERENCE_SPELLING_ENABLED, false);
+
+	}
 	GamlEditorState state = new GamlEditorState(null, Collections.EMPTY_LIST);
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
@@ -57,44 +76,21 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 
 	public GamlEditor() {
 		super();
+		
 	}
-	
+
+	public static HashMap<String,GamaToolbar2> thetoolbar=new HashMap<String,GamaToolbar2>();
+	public static HashMap<String,Composite> thetoolbarParent=new HashMap<String,Composite>();
+//	private EditorSearchControls findControl;
+	public static HashMap<String,CollaboratingUserControls>  thecollaboratingControl=new HashMap<String, CollaboratingUserControls>();
+//	boolean decorationEnabled = AutoStartup.EDITBOX_ENABLED.getValue();
+//	boolean editToolbarEnabled = AutoStartup.EDITOR_SHOW_TOOLBAR.getValue();
 //	@Override
 //	protected ITextViewer createTextViewer(Composite parent, int styles) {
 //		final BasicText textWidget = createTextWidget(parent, styles);
 //		return (org.dslforge.styledtext.jface.TextViewer) new GamaTextViewer(textWidget, parent, styles,xtextResource);
 //	}
 
-	@Override
-	public void createPartControl(final Composite compo) {
-		configureTabFolder(compo);
-		toolbarParent = GamaToolbarFactory.createToolbars(this, compo);
-		final GridLayout layout = new GridLayout(1, false);
-		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
-		layout.marginWidth = 0;
-		layout.marginHeight = 0;
-		layout.marginLeft = 0;
-		layout.marginRight = -5;
-		toolbarParent.setLayout(layout);
-		toolbarParent.setBackground(IGamaColors.WHITE.color());
-
-		// Asking the editor to fill the rest
-		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
-		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		editor.setLayoutData(data);
-		editor.setLayout(new FillLayout());
-		super.createPartControl(editor);
-		setResourceListener(this);
-		validateResource();
-//		final ITextViewer viewer = getViewer();// getSourceViewer();
-//		if (viewer instanceof GamaTextViewer) {
-//			((GamaTextViewer) viewer).setResourceListener(this);
-//		}
-		toolbarParent.layout();
-//		installGestures();
-
-	}
 
 	private void configureTabFolder(final Composite compo) {
 		Composite c = compo;
@@ -115,7 +111,8 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		}
 
 	}
-	
+
+	// Fix for #2108 -- forces the selection of the "clicked" tab
 	private static MouseAdapter FIX_FOR_ISSUE_2108 = new MouseAdapter() {
 
 		@Override
@@ -140,7 +137,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	@Override
 	public void createToolItems(GamaToolbar2 tb) {
 		
-		thetoolbar.put(""+RWT.getUISession().getAttribute("user"), tb);
+		thetoolbar.put(RWT.getUISession().getAttribute("user").toString(), tb);
 		buildRightToolbar();		
 	}
 
@@ -152,7 +149,8 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		toolbar.sep(4, SWT.LEFT);
 
 //		findControl = new EditorSearchControls(this).fill(toolbar.getToolbar(SWT.RIGHT));
-
+		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(toolbar.getToolbar(SWT.RIGHT));
+		thecollaboratingControl.put(RWT.getUISession().getAttribute("user").toString(), collaboratingControl);
 		toolbar.refresh(true);
 	}
 
@@ -160,7 +158,58 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	public XtextResource getXtextResource(){
 		return xtextResource;
 	}
-	private void enableButton(final int index, final String text, final SelectionListener listener) {
+
+	@Override
+	public void createPartControl(final Composite compo) {
+		configureTabFolder(compo);
+		System.out.println("hash      "+this.hashCode());
+		Composite toolbarParent = GamaToolbarFactory.createToolbars(this, compo);
+		final GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 0;
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
+		layout.marginLeft = 0;
+		layout.marginRight = -5;
+		toolbarParent.setLayout(layout);
+		toolbarParent.setBackground(IGamaColors.WHITE.color());
+
+		// Asking the editor to fill the rest
+		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
+		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
+		editor.setLayoutData(data);
+		editor.setLayout(new FillLayout());
+		super.createPartControl(editor);
+		setResourceListener(this);
+		validateResource();
+		toolbarParent.layout();
+		thetoolbarParent.put(RWT.getUISession().getAttribute("user").toString(), toolbarParent);
+//		installGestures();
+		
+	}
+	
+
+	
+	@Override
+	protected synchronized void handleTextChanged(JsonObject object) {
+		// TODO Auto-generated method stub
+		super.handleTextChanged(object);
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
+		System.out.println(uid+" at "+offset+" : ");
+		
+
+		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+		for(User u:onlines) {
+			if(u.getId().equals(uid)) {
+				u.setLastName(""+offset);
+			}
+		}
+
+		RWT.getApplicationContext().setAttribute("onlines", onlines);
+	}
+
+	private synchronized void enableButton(final int index, final String text, final SelectionListener listener) {
 		if (text == null) { return; }
 		final boolean isBatch = state.types.get(index);
 		final Image image = isBatch ? GamaIcons.create(IGamaIcons.BUTTON_BATCH).image()
@@ -177,66 +226,68 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		toolbar.sep(4, SWT.LEFT);
 	}
 
-	private void updateToolbar(final GamlEditorState newState, final boolean forceState) {
+	private synchronized void updateToolbar(final GamlEditorState newState, final boolean forceState) {
 //		if (forceState || !state.equals(newState)) {
-		String uid=RWT.getUISession().getAttribute("user").toString();
-			WorkbenchHelper.getDisplay(uid).asyncExec(() -> {
-				GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));
-				if (toolbar == null || toolbar.isDisposed()) { return; }
-				toolbar.wipe(SWT.LEFT, true);
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		WorkbenchHelper.getDisplay(uid).asyncExec(() -> {
+			GamaToolbar2 toolbar = thetoolbar.get(uid);
+			if (toolbar == null || toolbar.isDisposed()) {
+				return;
+			}
+			toolbar.wipe(SWT.LEFT, true);
 
-				final GamaUIColor c = state.getColor();
-				final String msg = state.getStatus();
+			thecollaboratingControl.get(uid).fill(toolbar.getToolbar(SWT.RIGHT));
+			final GamaUIColor c = state.getColor();
+			final String msg = state.getStatus();
 
-				SelectionListener listener = null;
-				String imageName = null;
+			SelectionListener listener = null;
+			String imageName = null;
 
-				if (msg == GamlEditorState.NO_EXP_DEFINED) {
-					listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
-					imageName = "small.dropdown";
-				} else if (newState.hasImportedErrors) {
-					listener = new OpenImportedErrorSelectionListener(GamlEditor.this, newState,
-							toolbar.getToolbar(SWT.LEFT));
-					imageName = "small.dropdown";
-				} else if (msg != null) {
-					listener = new RevalidateModelSelectionListener(GamlEditor.this);
-					imageName = "marker.error2";
-				} else {
-					listener = new OpenExperimentSelectionListener(GamlEditor.this, newState, runner);
+			if (msg == GamlEditorState.NO_EXP_DEFINED) {
+				listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
+				imageName = "small.dropdown";
+			} else if (newState.hasImportedErrors) {
+				listener = new OpenImportedErrorSelectionListener(GamlEditor.this, newState,
+						toolbar.getToolbar(SWT.LEFT));
+				imageName = "small.dropdown";
+			} else if (msg != null) {
+				listener = new RevalidateModelSelectionListener(GamlEditor.this);
+				imageName = "marker.error2";
+			} else {
+				listener = new OpenExperimentSelectionListener(GamlEditor.this, newState, runner);
+			}
+
+			if (msg != null) {
+				final ToolItem t = toolbar.button(c, msg, GamaIcons.create(imageName).image(), listener, SWT.LEFT);
+
+				// without the following line, the display of the
+				// text "msg" is not updated
+				// correctly (at least for Windows OS)
+				toolbar.sep(4, SWT.LEFT);
+			} else {
+				int i = 0;
+				for (final String e : state.abbreviations) {
+					enableButton(i++, e, listener);
 				}
 
-				if (msg != null) {
-					final ToolItem t = toolbar.button(c, msg, GamaIcons.create(imageName).image(), listener, SWT.LEFT);
+			}
+			toolbar.refresh(true);
 
-					// without the following line, the display of the
-					// text "msg" is not updated
-					// correctly (at least for Windows OS)
-					toolbar.sep(4, SWT.LEFT);
-				} else {
-					int i = 0;
-					for (final String e : state.abbreviations) {
-						enableButton(i++, e, listener);
-					}
-
-				}
-
-				toolbar.refresh(true);
-
-			});
+		});
 //		}
 
 	}
+
 	@Override
 	public void validationEnded(final Collection<? extends IDescription> newExperiments,
 			final ValidationContext status) {
-
 		if (newExperiments == null && state != null)
 			updateToolbar(state, true);
 		else {
 			final GamlEditorState newState = new GamlEditorState(status, newExperiments);
 			updateToolbar(newState, false);
 			state = newState;
-		}		
+		}
 	}
 
 //	public GamlTemplateStore getTemplateStore() {

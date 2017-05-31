@@ -15,11 +15,13 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 import javax.security.auth.Subject;
 
+import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
@@ -58,6 +60,17 @@ public class BasicWorkbench implements EntryPoint {
 				WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(dlm.getLoggedUser());
+				User u=new User();
+				u.setId(dlm.getLoggedUser());
+				
+				ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+				if(onlines==null) {
+					onlines=new ArrayList<>();					
+				}
+				if(!onlines.contains(u)) {
+					onlines.add(u);
+				}
+				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), "");
 				RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
 //				RWT.getUISession().getHttpSession().setMaxInactiveInterval(300);    

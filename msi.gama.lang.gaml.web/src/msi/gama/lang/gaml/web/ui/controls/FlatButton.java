@@ -220,9 +220,10 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		int width = 0;
 		final Image image = getImage();
 		if (image != null) {
-			final Rectangle bounds = image.getBounds();
+			final Rectangle bounds = image.internalImage.getBounds();
 			width = bounds.width + imagePadding * 2;
 		}
+		width=text.length();
 		if (text != null) {
 			final GC gc = new GC(this);
 			gc.setFont(getFont());
@@ -235,13 +236,14 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 
 	public String newText() {
 		if (text == null) { return null; }
-		final int parentWidth = getParent().getBounds().width;
+		int parentWidth = getParent().getBounds().width;
 		final int width = computeMinWidth();
 		if (parentWidth < width) {
+			parentWidth=width;
 			int imageWidth = 0;
 			final Image image = getImage();
 			if (image != null) {
-				final Rectangle bounds = image.getBounds();
+				final Rectangle bounds = image.internalImage.getBounds();
 				imageWidth = bounds.width + imagePadding;
 			}
 			final float r = (float) (parentWidth - imageWidth) / (float) width;
