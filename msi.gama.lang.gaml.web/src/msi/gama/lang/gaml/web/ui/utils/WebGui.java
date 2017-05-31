@@ -49,6 +49,7 @@ import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.editor.GamaPerspectiveHelper;
 import msi.gama.lang.gaml.web.ui.commands.SimulationStateProvider;
 import msi.gama.lang.gaml.web.ui.dialogs.Messages;
+import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.interfaces.IDisplayLayoutManager;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
@@ -432,11 +433,11 @@ public class WebGui implements IGui {
 	 * @see msi.gama.common.interfaces.IGui#cleanAfterExperiment(msi.gama.kernel.experiment.IExperimentPlan)
 	 */
 	@Override
-	public void cleanAfterExperiment() {
+	public void cleanAfterExperiment(final IScope scope) {
 		final String uid=RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.hideView(uid, PARAMETER_VIEW_ID);
 		hideMonitorView();
-		// getConsole().eraseConsole(true);
+		getConsole(scope).eraseConsole(true);
 		final IGamaView icv = (IGamaView) WorkbenchHelper.findView(uid, INTERACTIVE_CONSOLE_VIEW_ID, null, false);
 		if (icv != null)
 			icv.reset();
@@ -500,8 +501,10 @@ public class WebGui implements IGui {
 	 */
 	@Override
 	public IFileMetaDataProvider getMetaDataProvider() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		return WorkbenchHelper.getService(uid, IFileMetaDataProvider.class);
+//		final String uid=RWT.getUISession().getAttribute("user").toString();
+//		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+//		return WorkbenchHelper.getService(uid, IFileMetaDataProvider.class);
+		return null;
 	}
 
 	@Override
@@ -598,9 +601,15 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public IConsoleDisplayer getConsole() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		return WorkbenchHelper.getService(uid, IConsoleDisplayer.class);
+	public IConsoleDisplayer getConsole(IScope scope) {
+//		final String uid=RWT.getUISession().getAttribute("user").toString();
+		if(scope.getExperiment()!=null) {
+			scope=scope.getExperiment().getSpecies().getExperimentScope();
+		}
+		final String uid=WorkbenchHelper.UISession.get(scope);
+		return ConsoleDisplayerFactory.displayer.get(uid);// = new
+
+//		return WorkbenchHelper.getService(uid, IConsoleDisplayer.class);
 	}
 
 	@Override

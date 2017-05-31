@@ -17,6 +17,8 @@ package msi.gama.lang.gaml.web.editor;
 
 import msi.gama.lang.gaml.web.editor.BasicWorkbenchWindowAdvisor;
 import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
+import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayer;
+import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.utils.WebGui;
@@ -102,6 +104,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		}
 		System.out.println("postStartup of " + loggedUser);
 		StatusDisplayerFactory.displayer.put(loggedUser, new StatusDisplayer(loggedUser));
+		ConsoleDisplayerFactory.displayer.put(loggedUser, new ConsoleDisplayer(loggedUser));
 //		StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 
 	}
