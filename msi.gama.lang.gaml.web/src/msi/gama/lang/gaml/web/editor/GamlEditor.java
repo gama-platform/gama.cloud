@@ -29,6 +29,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.util.ReplaceRegion;
 
@@ -76,7 +79,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 
 	public GamlEditor() {
 		super();
-		
+
 	}
 
 	public static HashMap<String,GamaToolbar2> thetoolbar=new HashMap<String,GamaToolbar2>();
@@ -91,6 +94,26 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 //		return (org.dslforge.styledtext.jface.TextViewer) new GamaTextViewer(textWidget, parent, styles,xtextResource);
 //	}
 
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+
+		setSite(site);
+		setPartName(input.getName());
+		setInput(input);
+		setDirty(false);
+		
+		
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+		for(User us:onlines) {
+			if(us.getId().equals(uid)) {
+				us.setOrganization(xtextResource.getURI().toFileString());
+			}
+		}
+		RWT.getApplicationContext().setAttribute("onlines", onlines);
+		
+	}
 
 	private void configureTabFolder(final Composite compo) {
 		Composite c = compo;
@@ -196,12 +219,13 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		super.handleTextChanged(object);
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
-		System.out.println(uid+" at "+offset+" : ");
+//		System.out.println(uid+" at "+offset+" : ");
 		
 
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {
+				u.setOrganization(xtextResource.getURI().toFileString());
 				u.setLastName(""+offset);
 			}
 		}

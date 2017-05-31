@@ -183,7 +183,7 @@ public class GamaColors {
 	}
 
 	private static Color getColor(final int r, final int g, final int b) {
-		return new Color(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), r, g, b);
+		return new Color(Display.getCurrent(), r, g, b);
 	}
 
 	public static GamaUIColor get(final java.awt.Color color) {

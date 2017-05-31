@@ -59,7 +59,7 @@ public class CollaboratingUserControls {
 		}
 		for(User u : onlines) {
 
-			if(collaborating.get(u)==null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString())) {
+			if (collaborating.get(u) == null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString()) && u.getOrganization().equals(editor.getXtextResource().getURI().toFileString())) {
 				Button btn = new Button(toolbar, SWT.PUSH | SWT.DOUBLE_BUFFERED);
 				btn.setText(u.getId());
 

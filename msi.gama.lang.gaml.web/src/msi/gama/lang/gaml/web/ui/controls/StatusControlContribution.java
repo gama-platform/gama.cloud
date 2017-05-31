@@ -68,7 +68,7 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 		if(scc==null) {
 			scc=new StatusControlContribution();
 			INSTANCE.put(uid, scc);
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution");
+//			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution");
 		}
 		return scc;
 	}
@@ -76,7 +76,7 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 	public StatusControlContribution() {
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		INSTANCE.put(uid,this);
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution"+uid);
+//		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx create new statuscontrolcontribution"+uid);
 
 	}
 
