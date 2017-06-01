@@ -16,8 +16,6 @@
 package msi.gama.lang.gaml.web.editor;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import javax.security.auth.Subject;
 
@@ -25,9 +23,8 @@ import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
+import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
@@ -51,9 +48,16 @@ public class BasicWorkbench implements EntryPoint {
 	    	boolean logged=false;
 			while(!logged) {
 				logged=dlm.login();
-				if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) != null){
-					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "This account is currently used somewhere, please try again later!");
-					logged=false;
+				if(logged) {
+					if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) != null){
+						if(dlm.getLoggedUser().equals("admin")){
+							((UISession)RWT.getApplicationContext().getAttribute("logged_admin")).getHttpSession().setMaxInactiveInterval(0); 
+						}else {							
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "This account is currently used somewhere, please try again later!");
+							logged=false;
+						}
+						
+					}
 				}
 			}
 			if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) == null) {
@@ -71,7 +75,7 @@ public class BasicWorkbench implements EntryPoint {
 					onlines.add(u);
 				}
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
-				RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), "");
+				RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), RWT.getUISession());
 				RWT.getUISession().setAttribute("user", dlm.getLoggedUser());
 //				RWT.getUISession().getHttpSession().setMaxInactiveInterval(300);    
 			    
