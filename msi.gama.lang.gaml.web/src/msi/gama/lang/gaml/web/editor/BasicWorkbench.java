@@ -52,6 +52,7 @@ public class BasicWorkbench implements EntryPoint {
 					if (RWT.getApplicationContext().getAttribute("logged_" + dlm.getLoggedUser()) != null){
 						if(dlm.getLoggedUser().equals("admin")){
 							((UISession)RWT.getApplicationContext().getAttribute("logged_admin")).getHttpSession().setMaxInactiveInterval(0); 
+							RWT.getApplicationContext().setAttribute("logged_" + dlm.getLoggedUser(), null);
 						}else {							
 							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "This account is currently used somewhere, please try again later!");
 							logged=false;
