@@ -15,9 +15,12 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
+import java.util.ArrayList;
+
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
+import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -29,6 +32,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -202,13 +206,28 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 
 			@Override
 			public void run() {
-				for(IExperimentController s:GAMAHelper.theControllers.values()) {
+				for(IExperimentController s:GAMAHelper.theControllers.values()) {					
+					s.directPause();
 					s.close();
 					GAMAHelper.getGui().closeSimulationViews(s.getExperiment().getExperimentScope(), true, true);
 					GAMAHelper.getControllers().remove(s);	
 					s.dispose();
 				}
 				GAMAHelper.theControllers.clear();
+				
+
+				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+				ArrayList<User> onl=(ArrayList<User>) onlines.clone();
+				for(User u: onlines) {
+					if(!u.getId().equals("admin")) {						
+						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
+						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
+						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), null);
+						onl.remove(u);
+					}
+				}
+				RWT.getApplicationContext().setAttribute("onlines", onl);
+
 			}
 
 			@Override

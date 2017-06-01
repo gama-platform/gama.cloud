@@ -124,7 +124,7 @@ public class WorkbenchHelper {
 		if(w!=null) {
 			return w;
 		}			
-		System.out.println("..................WB not found uid "+uid);
+//		System.out.println("..................WB not found uid "+uid);
 		return PlatformUI.getWorkbench();
 	}
 
