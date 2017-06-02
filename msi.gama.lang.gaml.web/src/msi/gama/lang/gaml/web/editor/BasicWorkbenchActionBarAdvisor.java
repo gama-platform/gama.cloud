@@ -32,6 +32,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.widgets.Display;
@@ -206,22 +207,28 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 
 			@Override
 			public void run() {
-				for(IExperimentController s:GAMAHelper.theControllers.values()) {					
-					s.directPause();
-					s.close();
-					GAMAHelper.getGui().closeSimulationViews(s.getExperiment().getExperimentScope(), true, true);
-					GAMAHelper.getControllers().remove(s);	
-					s.dispose();
-				}
-				GAMAHelper.theControllers.clear();
-				
+//				for(IExperimentController s:GAMAHelper.theControllers.values()) {					
+//					s.directPause();
+//					s.close();
+//					GAMAHelper.getGui().closeSimulationViews(s.getExperiment().getExperimentScope(), true, true);
+//					GAMAHelper.getControllers().remove(s);	
+//					s.dispose();
+//				}
+//				GAMAHelper.theControllers.clear();
 
 				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 				ArrayList<User> onl=(ArrayList<User>) onlines.clone();
 				for(User u: onlines) {
-					if(!u.getId().equals("admin")) {						
-						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
-						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
+					if(!u.getId().equals("admin")) {		
+
+						JavaScriptExecutor ex = BasicWorkbench.executor.get(u.getId());
+						System.out.println("script reload  " + ex);
+						ex.execute("window.location.reload(true);");
+						// ex.execute("var myUrl = window.location;\r\n" +
+						// "window.location.replace(myUrl);");
+						ex = null;
+//						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
+//						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
 						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), null);
 						onl.remove(u);
 					}
