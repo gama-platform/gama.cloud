@@ -234,7 +234,7 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 					}
 				}
 				RWT.getApplicationContext().setAttribute("onlines", onl);
-
+				
 			}
 
 			@Override

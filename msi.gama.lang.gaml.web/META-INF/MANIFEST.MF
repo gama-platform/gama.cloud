@@ -35,8 +35,6 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.equinox.registry,
  ch.qos.logback.core
 Import-Package: javax.persistence;version="2.1.0",
- javax.servlet;version="3.1.0",
- javax.servlet.http;version="3.1.0",
  org.apache.log4j,
  org.eclipse.core.internal.filesystem,
  org.eclipse.jface.text.source
