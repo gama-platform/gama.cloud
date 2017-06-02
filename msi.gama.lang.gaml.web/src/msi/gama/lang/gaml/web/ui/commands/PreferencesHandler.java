@@ -14,6 +14,8 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
+import msi.gama.lang.gaml.web.ui.views.GamaPreferencesView;
+
 //import ummisco.gama.ui.views.GamaPreferencesView;
 
 public class PreferencesHandler extends AbstractHandler {
@@ -22,7 +24,7 @@ public class PreferencesHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-//		GamaPreferencesView.show();
+		GamaPreferencesView.show();
 
 		return null;
 	}

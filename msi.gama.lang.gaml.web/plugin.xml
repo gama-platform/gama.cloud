@@ -104,15 +104,6 @@
          </includes>
       </viewerContentBinding>
    </extension>
-      <extension point="org.eclipse.ui.commands">
-     <command
-           defaultHandler="msi.gama.lang.gaml.web.editor.commands.AboutCommand"
-           description="About"
-           helpContextId="About"
-           id="msi.gama.lang.gaml.web.editor.commands.help"
-           name="About">
-     </command>
-   </extension>
    
 
    <extension
@@ -617,6 +608,13 @@
                      tooltip="Toggle the main toolbar on and off">
                </command>
             </menu>
+            <command
+                  commandId="msi.gama.application.preferences"
+                  icon="/icons/menu.open.preferences2.png"
+                  label="Preferences"
+                  style="push"
+                  tooltip="Open preferences">
+            </command>
          </menu>
       </menuContribution>
       
@@ -949,6 +947,19 @@
             id="msi.gama.application.commands.AddMonitor"
             name="Add a monitor">
       </command>
+      <command
+            defaultHandler="msi.gama.lang.gaml.web.editor.commands.AboutCommand"
+            description="About"
+            helpContextId="About"
+            id="msi.gama.lang.gaml.web.editor.commands.help"
+            name="About">
+      </command>
+      <command
+            categoryId="msi.gama.category"
+            defaultHandler="msi.gama.lang.gaml.web.ui.commands.PreferencesHandler"
+            id="msi.gama.application.preferences"
+            name="Preferences">
+      </command>
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
@@ -1244,6 +1255,20 @@
                   </with>
                </not>
             </and>
+         </activeWhen>
+      </handler>
+      <handler
+            class="msi.gama.lang.gaml.web.ui.commands.PreferencesHandler"
+            commandId="org.eclipse.ui.window.preferences">
+         <activeWhen>
+            <or>
+               <reference
+                     definitionId="isInModelingPerspective">
+               </reference>
+               <reference
+                     definitionId="isInSimulationPerspective">
+               </reference>
+            </or>
          </activeWhen>
       </handler>
    </extension>

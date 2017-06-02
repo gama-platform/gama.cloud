@@ -5,11 +5,15 @@ import java.util.HashMap;
 import org.eclipse.rap.rwt.RWT;
 
 import msi.gama.common.interfaces.IGui;
+import msi.gama.kernel.experiment.ExperimentAgent;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
+import msi.gama.kernel.simulation.SimulationAgent;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.runtime.ExecutionScope;
 import msi.gama.runtime.GAMA;
+import msi.gama.runtime.IScope;
 
 public class GAMAHelper extends GAMA{
 //	public static HashMap<String, IGui> theGUI=new HashMap<String,IGui>();
@@ -23,6 +27,15 @@ public class GAMAHelper extends GAMA{
 	}
 
 
+	public static IScope getRuntimeScope() {
+		final IExperimentController controller = getFrontmostController();
+		if (controller == null || controller.getExperiment() == null) { return new ExecutionScope(agent); }
+		final ExperimentAgent a = controller.getExperiment().getAgent();
+		if (a == null || a.dead()) { return controller.getExperiment().getExperimentScope(); }
+		final SimulationAgent s = a.getSimulation();
+		if (s == null || s.dead()) { return a.getScope(); }
+		return s.getScope();
+	}
 	public static void pauseFrontmostExperiment() {
 		String u=RWT.getUISession().getAttribute("user").toString();
 		if(theControllers.get(u)!=null){

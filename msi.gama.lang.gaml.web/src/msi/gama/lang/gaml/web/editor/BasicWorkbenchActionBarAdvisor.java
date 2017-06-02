@@ -28,6 +28,7 @@ import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -45,12 +46,25 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
 import msi.gama.kernel.experiment.IExperimentController;
+import msi.gama.lang.gaml.web.ui.parameters.ListEditorDialog;
+import msi.gama.lang.gaml.web.ui.parameters.MatrixEditorDialog;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
+import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyModifyUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyNewUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyProfileModule;
+import msi.gama.lang.gaml.web.workspace.ui.WebListEditorDialog;
+import msi.gama.util.GamaList;
+import msi.gama.util.GamaListFactory;
+import msi.gama.util.IList;
+import msi.gama.util.matrix.GamaIntMatrix;
+import msi.gama.util.matrix.GamaMatrix;
+import msi.gama.util.matrix.GamaObjectMatrix;
+import msi.gaml.types.IType;
+import msi.gaml.types.ITypesManager;
+import msi.gaml.types.Types;
 
 /**
  * Creates, adds and disposes actions for the menus and action bars of
@@ -144,6 +158,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 				return "Create New User Account";
 			}
 		});
+		
+
 		addToMenuAndRegister(menu, new Action("Modify Account",GamaIcons.create("action.save2").descriptor()) {
 			@Override
 			public String getId() {
@@ -171,6 +187,42 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 				return "Modify User Account";
 			}
 		});
+		addToMenuAndRegister(menu, new Action("Online Account",GamaIcons.create("display.agents2").descriptor()) {
+			@Override
+			public String getId() {
+				return "OnlineUser";
+			}
+
+			@Override
+			public void run() {
+
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+				GamaList<User> o=(GamaList<User>) GamaListFactory.create(User.class);
+				o.addAll(onlines);
+				final WebListEditorDialog d = new WebListEditorDialog(WorkbenchHelper.getShell(uid), o, "Online");
+				if (d.open() == IDialogConstants.OK_ID) {
+				}
+//				DummyCallbackHandler dch = new DummyCallbackHandler();
+//				DummyDeleteUserModule dlm = new DummyDeleteUserModule();
+//				dlm.initialize(new Subject(), dch, null, null);
+//				try {
+////						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "Account deleted!");
+//						
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "View User Account";
+			}
+		});
+
+		
+		
 		addToMenuAndRegister(menu, new Action("Delete Account",GamaIcons.create("action.delete.row2").descriptor()) {
 			@Override
 			public String getId() {

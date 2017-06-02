@@ -141,7 +141,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 		if ( immediately ) {
 			WorkbenchHelper.getDisplay(uid).syncExec(r);
 		} else {
-			WorkbenchHelper.getDisplay(uid).asyncExec(r);
+			WorkbenchHelper.getDisplay(uid).syncExec(r);//asyncExec(r);
 		}
 		return true;
 	}
