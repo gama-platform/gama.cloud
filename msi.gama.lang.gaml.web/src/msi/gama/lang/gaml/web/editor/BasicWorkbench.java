@@ -68,6 +68,7 @@ public class BasicWorkbench implements EntryPoint {
 	// }
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
 
+	@Override
 	public int createUI() {
 
 		try {

@@ -24,7 +24,6 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
 
 import gnu.trove.map.hash.THashMap;
@@ -53,7 +52,6 @@ import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.interfaces.IDisplayLayoutManager;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
-import msi.gama.lang.gaml.web.ui.interfaces.IOpenGLInitializer;
 import msi.gama.lang.gaml.web.ui.interfaces.ISpeedDisplayer;
 import msi.gama.lang.gaml.web.ui.interfaces.IUserDialogFactory;
 import msi.gama.lang.gaml.web.ui.parameters.EditorsDialog;
@@ -251,6 +249,7 @@ public class WebGui implements IGui {
 		if (model == null)
 			return false;
 		final String name = GamaPerspectiveHelper.getNewPerspectiveName(model.getName(), experimentName);
+//		return GamaPerspectiveHelper.openPerspective(name, immediately, false);
 		return GamaPerspectiveHelper.openPerspective(GamaPerspectiveHelper.PERSPECTIVE_SIMULATION_ID, immediately,
 				false);
 
@@ -526,7 +525,7 @@ public class WebGui implements IGui {
 			for (final IViewReference view : views) {
 				final IViewPart part = view.getView(false);
 				if (part instanceof IGamaView) {
-					((IGamaView) part).close();
+//					((IGamaView) part).close();
 
 				}
 			}

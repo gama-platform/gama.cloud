@@ -33,12 +33,12 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.lang.gaml.web.ui.perspective.SimulationPerspectiveDescriptor;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 
-public class GamaPerspectiveHelper extends PerspectiveHelper {
+public class GamaPerspectiveHelper {//extends PerspectiveHelper {
 
-	public GamaPerspectiveHelper(WorkbenchPage workbenchPage, ViewSashContainer mainLayout, Perspective perspective) {
-		super(workbenchPage, mainLayout, perspective);
-		// TODO Auto-generated constructor stub
-	}
+//	public GamaPerspectiveHelper(WorkbenchPage workbenchPage, ViewSashContainer mainLayout, Perspective perspective) {
+//		super(workbenchPage, mainLayout, perspective);
+//		// TODO Auto-generated constructor stub
+//	}
 
 	public static final String PERSPECTIVE_MODELING_ID = IGui.PERSPECTIVE_MODELING_ID;
 	public static final String PERSPECTIVE_SIMULATION_ID = "msi.gama.application.perspectives.SimulationPerspective";
@@ -90,7 +90,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	static void dirtySavePerspective(final SimulationPerspectiveDescriptor sp) {
+	public static void dirtySavePerspective(final SimulationPerspectiveDescriptor sp) {
 		try {
 			final Field descField = PerspectiveRegistry.class.getDeclaredField("descriptors");
 			descField.setAccessible(true);
@@ -105,6 +105,7 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 		final boolean withAutoSave) {
 		if ( perspectiveId == null )
 			return false;
+		//TODO add uisession
 //		if ( perspectiveId.equals(currentPerspectiveId) )
 //			return true;
 
@@ -136,12 +137,13 @@ public class GamaPerspectiveHelper extends PerspectiveHelper {
 				page.closePerspective(oldDescriptor, false, false);
 			}
 			currentPerspectiveId = perspectiveId;
+			
 			// System.out.println("Perspective " + perspectiveId + " opened ");
 		};
 		if ( immediately ) {
 			WorkbenchHelper.getDisplay(uid).syncExec(r);
 		} else {
-			WorkbenchHelper.getDisplay(uid).syncExec(r);//asyncExec(r);
+			WorkbenchHelper.getDisplay(uid).asyncExec(r);
 		}
 		return true;
 	}

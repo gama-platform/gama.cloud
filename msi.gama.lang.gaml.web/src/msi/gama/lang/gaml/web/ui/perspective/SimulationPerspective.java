@@ -20,11 +20,15 @@ import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
 public class SimulationPerspective implements IPerspectiveFactory {
 
 	@Override
-	public void createInitialLayout(final IPageLayout layout) {
+	public void createInitialLayout(final IPageLayout lay) {
+
+		lay.setFixed(false);
+		lay.setEditorAreaVisible(false);
+		final String editor = lay.getEditorArea();
 //		String editorArea = layout.getEditorArea();
-		layout.setEditorAreaVisible(false);
-		layout.addPerspectiveShortcut(IWorkbenchConstants.ID_PERSPECTIVE);
-		layout.setFixed(true);
+//		layout.setEditorAreaVisible(false);
+//		layout.addPerspectiveShortcut(IWorkbenchConstants.ID_PERSPECTIVE);
+//		layout.setFixed(true);
 //		layout.addStandaloneView(IWorkbenchConstants.NAVIGATOR_VIEW_ID, true, IPageLayout.LEFT, 0.25f, editorArea);
 //		layout.getViewLayout(IWorkbenchConstants.NAVIGATOR_VIEW_ID).setCloseable(true);
 		
@@ -42,9 +46,9 @@ public class SimulationPerspective implements IPerspectiveFactory {
 //		consoleFolder.addView(IGui.INTERACTIVE_CONSOLE_VIEW_ID);
 //		consoleFolder.addView(IGui.CONSOLE_VIEW_ID);
 
-//		final IPlaceholderFolderLayout displays =
-//				layout.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editorArea);
-//		displays.addPlaceholder(IGui.LAYER_VIEW_ID + ":*");
+		final IPlaceholderFolderLayout displays =
+				lay.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editor);
+		displays.addPlaceholder(IGui.LAYER_VIEW_ID + ":*");
 		
 //		displays.addPlaceholder(IGui.GL_LAYER_VIEW_ID + ":*");
 

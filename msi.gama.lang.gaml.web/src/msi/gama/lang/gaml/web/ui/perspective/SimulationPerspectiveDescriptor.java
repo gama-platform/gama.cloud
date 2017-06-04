@@ -12,7 +12,7 @@ public class SimulationPerspectiveDescriptor extends PerspectiveDescriptor {
 
 	public SimulationPerspectiveDescriptor(final String id) {
 		super(id, id, GamaPerspectiveHelper.getSimulationDescriptor());
-//		dirtySavePerspective(this);
+//		GamaPerspectiveHelper.dirtySavePerspective(this);
 	}
 
 	@Override

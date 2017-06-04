@@ -56,11 +56,11 @@ public class ConsoleDisplayer implements IConsoleDisplayer {
 
 	@Override
 	public void eraseConsole(final boolean setToNull) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final IGamaView console = (IGamaView) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, false);
-		if (console != null) {
-			WorkbenchHelper.run(uid,() -> console.reset());
-		}
+//		final String uid=RWT.getUISession().getAttribute("user").toString();
+//		final IGamaView console = (IGamaView) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, false);
+//		if (console != null) {
+//			WorkbenchHelper.run(uid,() -> console.reset());
+//		}
 	}
 
 	@Override

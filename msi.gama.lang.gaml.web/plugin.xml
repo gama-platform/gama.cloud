@@ -64,7 +64,7 @@
 		point="org.eclipse.ui.perspectives">
   <perspective
         class="msi.gama.lang.gaml.web.ui.perspective.SimulationPerspective"
-        fixed="true"
+        fixed="false"
         icon="icons/perspective.simulation2.png"
         id="msi.gama.application.perspectives.SimulationPerspective"
         name="Simulation">
@@ -75,7 +75,7 @@
   <perspective
         class="msi.gama.lang.gaml.web.ui.perspective.ModelingPerspective"
         fixed="true"
-        icon="icons/perspective.modeling2.png"
+        icon="platform:/plugin/ummisco.gama.ui.shared/icons/perspective.simulation2.png"
         id="msi.gama.application.perspectives.ModelingPerspective"
         name="Modeling">
      <description>
@@ -724,7 +724,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
+     <!-- <perspectiveExtension
             targetID="*">
          <hiddenMenuItem
                id="org.eclipse.ui.project.buildAll">
@@ -772,6 +772,7 @@
                id="org.eclipse.ui.edit.text.gotoPreviousAnnotation">
          </hiddenToolBarItem>
       </perspectiveExtension>
+      -->
       <perspectiveExtension
             targetID="msi.gama.application.perspectives.SimulationPerspective">
          <viewShortcut

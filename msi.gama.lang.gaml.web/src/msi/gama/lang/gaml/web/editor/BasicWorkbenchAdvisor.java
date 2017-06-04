@@ -15,32 +15,26 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
-import msi.gama.lang.gaml.web.editor.BasicWorkbenchWindowAdvisor;
-import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
+import java.util.ArrayList;
+
+import org.dslforge.workspace.jpa.database.User;
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.application.IWorkbenchConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.jfree.util.Log;
+
 import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.utils.WebGui;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-
-import java.net.URL;
-import java.util.ArrayList;
-
-import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.core.internal.registry.osgi.Activator;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.equinox.security.auth.ILoginContext;
-import org.eclipse.equinox.security.auth.LoginContextFactory;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.application.IWorkbenchConfigurer;
-import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.application.WorkbenchAdvisor;
-import org.eclipse.ui.application.WorkbenchWindowAdvisor;
-import org.osgi.framework.BundleContext;
 
 /**
  * This workbench advisor creates the window advisor, and specifies
@@ -64,13 +58,23 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 	
 	@Override
-	public boolean preShutdown() {
+	public void postShutdown() {
 		// TODO Auto-generated method stub
-		System.out.println("preShutdown of "+loggedUser);
-		GAMAHelper.pauseFrontmostExperiment();
-		GAMAHelper.closeAllExperiments(true, true);
+		super.postShutdown();
+
+
+		
 
 		String uid=RWT.getUISession().getAttribute("user").toString();
+		while(!WorkbenchHelper.getDisplay(uid).isDisposed()) {
+			try {
+				Thread.sleep(100);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		if(RWT.getApplicationContext().getAttribute("logged_"+uid)!=null) {			
 			RWT.getApplicationContext().setAttribute("logged_"+uid, null);
 			
@@ -86,6 +90,13 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			}
 			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
+	}
+
+	@Override
+	public boolean preShutdown() {
+		System.out.println("preShutdown of "+loggedUser);
+		GAMAHelper.pauseFrontmostExperiment();
+		GAMAHelper.closeAllExperiments(true, true);
 		return super.preShutdown();
 	}
 
@@ -96,8 +107,8 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		// if(StatusDisplayerFactory.displayer == null){
 
 		// }
-		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),getWorkbenchConfigurer().getWorkbench());
-
+		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
+		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser);
 		if (GAMAHelper.getRegularGui() == null) {
 			GAMAHelper.setRegularGui(new WebGui());
