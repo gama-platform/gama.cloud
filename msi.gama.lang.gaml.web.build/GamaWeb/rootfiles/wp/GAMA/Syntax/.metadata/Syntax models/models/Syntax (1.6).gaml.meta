@@ -1,6 +1,6 @@
 #
 #Fri Dec 23 17:58:34 ICT 2016
-plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.webopengl
 attributes=location
 actions=follow~goto~move~wander~debug~error~tell~write~die~_init_~_step_~halt~pause
 operators=envelope~-~/~*~rnd~list_with~+~length~as~?~>~\:~where~\=~.~point~min~diff~select~internal_at~square~collect~any~flip~div~union~circle~between~sphere

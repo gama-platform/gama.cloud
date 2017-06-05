@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:32 ICT 2016
 operators=envelope~-~brewer_palettes~as~brewer_colors~max~length~not~empty~internal_at~where~\=~.~point~*~+~square
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=width
 statements=init~if~loop~let~ask~set~output~display~graphics~draw~display_grid
 skills=reflex~grid

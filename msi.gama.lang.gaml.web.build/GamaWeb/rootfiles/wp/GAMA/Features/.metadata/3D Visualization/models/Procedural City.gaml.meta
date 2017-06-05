@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
 operators=-~square~as~+~*~/~rnd~rotated_by~box~internal_at~rgb~hsb~mod~point~sin~cos
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=path~width
 statements=reflex~set~aspect~draw~init~create~output~display~display_population~light
 skills=reflex

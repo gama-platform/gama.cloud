@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
 operators=-~cube~as~point~+~rnd~<~>~sphere~*~at_distance~?~length~\:~mean~collect~.~and~\=~/~at
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=z~x~y
 statements=reflex~do~arg~if~else~set~aspect~draw~action~let~loop~init~create~output~display~image~display_population~return
 skills=reflex~moving3D~moving

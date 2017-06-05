@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:38 ICT 2016
 operators=envelope~-~*~as~/~+~?~\:~mod~\=~point
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=width~height
 statements=reflex~write~if~aspect~draw~init~create~set~output~display~graphics~display_population
 skills=reflex

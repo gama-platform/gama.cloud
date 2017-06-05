@@ -2,7 +2,7 @@
 #Fri Dec 23 17:58:38 ICT 2016
 architectures=fsm
 operators=envelope~-~rnd~as~and~\!\=~.~<~count~\=~+~>~circle~?~\:~at
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 statements=action~ask~do~create~write~reflex~arg~state~transition~set~enter~let~if~aspect~draw~init~output~display~display_grid~display_population
 skills=reflex~moving~fsm~grid
 constants=black~yellow~red~orange~blue~green~cyan~gray~pink~magenta~white

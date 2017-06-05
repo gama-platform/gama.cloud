@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:38 ICT 2016
 operators=envelope~-~rnd~sphere~as~hsb~/~.~>~as_distance_graph~point
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 statements=reflex~do~set~aspect~draw~init~create~ask~output~display~display_population
 skills=reflex~moving
 constants=red~green

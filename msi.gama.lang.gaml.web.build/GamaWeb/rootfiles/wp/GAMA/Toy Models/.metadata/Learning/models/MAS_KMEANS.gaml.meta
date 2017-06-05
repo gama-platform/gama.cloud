@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:38 ICT 2016
 operators=envelope~-~circle~as~sphere~cross~+~line~cube~\=~point~rnd~rnd_color~even~closest_to~.~not~mean~collect~font~rectangle
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 statements=aspect~draw~loop~init~create~if~set~let~ask~reflex~add~output~display~display_population~graphics~else~action~arg
 skills=reflex
 constants=grey~black~bold~yellow~green~red

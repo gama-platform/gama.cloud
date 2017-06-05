@@ -1,6 +1,6 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
-plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.opengl~ummisco.gama.java2d
+plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.webopengl~ummisco.gama.java2d
 attributes=location~shape
 actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander
 operators=-~square~as~rnd~\!\=~circle~>~length~where~and~\!~dead~<~distance_to~\=~any~.~any_location_in~flip~<\=~triangle~first~sort~+~point~round~/~count~sort_by~last~first_with~or~line~font~*~distance_between~?~\:~rgb~with_precision~min~collect~max~internal_at~accumulate~at

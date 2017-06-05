@@ -1,6 +1,6 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=x~y
 actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander
 operators=-~square~as~*~rnd~of_species~agents_overlapping~+~\!~empty~first~sort_by~distance_to~towards~>~shuffle~or~\=~dead~one_of~where~.~\!\=~at_location~point~and~intersects~among~/~length~at

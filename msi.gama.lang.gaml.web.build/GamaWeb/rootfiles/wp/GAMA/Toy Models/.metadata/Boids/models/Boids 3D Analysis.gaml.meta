@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:38 ICT 2016
 operators=-~square~as~/~point~+~rnd~*~cos~sin~circle~sphere~?~\!~empty~\:~polygon~collect~.~length~overlapping~>~mean~dead~<~and~\=~triangle~at~hsb~where~distance_to~sort_by~\:\:~\!\=~remove_duplicates~first
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=width~x~y~keys~z
 statements=reflex~set~aspect~draw~action~loop~if~do~arg~return~else~let~release~capture~remove~add~ask~init~create~put~output~display~image~display_population
 skills=reflex~moving

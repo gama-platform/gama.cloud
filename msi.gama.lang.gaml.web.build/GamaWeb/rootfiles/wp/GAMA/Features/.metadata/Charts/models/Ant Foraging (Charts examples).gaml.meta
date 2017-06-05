@@ -1,6 +1,6 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
-plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.webopengl
 attributes=x~y
 actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander
 operators=-~square~as~point~/~rnd~.~+~>~count~min_of~sort~?~\=~\:~last~first_with~<~circle~\!~<\=~at~distance_to~any_location_in~one_of~contains~and~*~mean~collect~where~length~distribution_of~reverse~distribution2d_of

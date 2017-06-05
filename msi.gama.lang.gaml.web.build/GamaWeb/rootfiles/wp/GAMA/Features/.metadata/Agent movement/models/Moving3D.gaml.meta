@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
 operators=-~cube~as~rnd~\=~sphere~circle~line~point~+~*~cos~sin~rgb~/~or~floor~as_distance_graph
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=x~y~z
 statements=aspect~if~draw~reflex~do~arg~set~init~create~else~loop~output~display~display_population
 skills=reflex~moving3D

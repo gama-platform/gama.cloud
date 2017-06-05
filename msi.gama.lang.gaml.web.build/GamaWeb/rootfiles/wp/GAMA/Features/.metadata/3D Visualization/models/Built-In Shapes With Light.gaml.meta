@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
 operators=-~sphere~/~plan~point~as~polyplan~cylinder~cube~box~*~pyramid~polyhedron~rectangle~length~line~polyline~circle~square~triangle~hexagon~rnd~+~internal_at~rgb~cos~sin
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=path~width~height
 statements=aspect~draw~reflex~do~arg~init~create~let~set~output~display~light~display_population
 skills=reflex~moving

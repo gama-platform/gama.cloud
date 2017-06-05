@@ -2,7 +2,7 @@
 #Fri Dec 23 17:58:38 ICT 2016
 architectures=fsm
 operators=-~square~as~point~/~rnd~.~+~>~count~min_of~sort~?~\=~\:~last~first_with~<~circle~\!~font~*~<\=~at~distance_to~neighbors_at~any_location_in
-plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gaml.extensions.maths~ummisco.gama.webopengl
 statements=action~set~let~if~else~return~reflex~state~do~arg~transition~aspect~draw~init~create~diffuse~output~display~display_grid~display_population
 skills=reflex~moving~fsm~grid
 constants=white~zoom~plain~orange~sienna~brown~darkgoldenrod

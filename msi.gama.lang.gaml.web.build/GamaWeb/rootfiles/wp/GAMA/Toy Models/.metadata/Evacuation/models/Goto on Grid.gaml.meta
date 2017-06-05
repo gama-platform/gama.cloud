@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
 operators=-~as~envelope~rnd~rnd_color~where~not~.~<~distance_to~pyramid~point~sphere~overlapping~one_of
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=x~y
 statements=aspect~draw~reflex~do~arg~if~init~create~ask~set~output~display~image~display_population
 skills=reflex~moving~grid

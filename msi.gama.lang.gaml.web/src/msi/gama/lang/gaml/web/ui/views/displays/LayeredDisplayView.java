@@ -432,7 +432,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		if (perspectiveListener != null) {
 
 			final String uid=RWT.getUISession().getAttribute("user").toString();
-			if(!WorkbenchHelper.getDisplay(uid).isDisposed()) {				
+			if(WorkbenchHelper.getDisplay(uid).isDisposed()) {				
 				WorkbenchHelper.getWindow(uid).removePerspectiveListener(perspectiveListener);
 			}
 		}

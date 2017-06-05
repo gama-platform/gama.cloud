@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:33 ICT 2016
 operators=-~as~envelope~any_location_in~one_of~rnd~.~path_between~\!\=~max~length~<~distance_to~+~circle~as_edge_graph~node~edge~link
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=edges
 statements=action~let~if~set~reflex~do~arg~aspect~draw~init~create~add~loop~output~display~display_population
 skills=reflex~moving

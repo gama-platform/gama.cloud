@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
 operators=-~as~envelope~gauss~at_distance~mean~collect~.~or~empty~and~>~*~<~/~+~any_location_in~point~one_of~where~internal_at~\=~\!~sphere~rgb~?~\:~rnd~distance_between~length~as_edge_graph~read
-plugins=msi.gama.core~ummisco.gama.java2d~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.java2d~ummisco.gama.webopengl
 attributes=area
 statements=action~let~return~set~add~remove~init~do~reflex~aspect~draw~loop~put~create~arg~output~display~display_population
 skills=reflex

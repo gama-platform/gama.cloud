@@ -75,6 +75,10 @@ Export-Package: msi.gama.lang.gaml.web.contentassist;uses:="org.eclipse.emf.ecor
    org.eclipse.jface.resource,
    org.eclipse.ui.plugin",
  msi.gama.lang.gaml.web.module;uses:="com.google.inject,msi.gama.lang.gaml,org.dslforge.xtext.common.shared",
+ msi.gama.lang.gaml.web.ui.bindings,
+ msi.gama.lang.gaml.web.ui.interfaces,
+ msi.gama.lang.gaml.web.ui.menus,
+ msi.gama.lang.gaml.web.ui.resources,
  msi.gama.lang.gaml.web.ui.utils,
  msi.gama.lang.gaml.web.ui.views.displays,
  msi.gama.lang.gaml.web.ui.views.toolbar

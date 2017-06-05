@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
 operators=-~as~envelope~where~\=~.~shuffle~max_of~/~circle~distance_to~first~?~\:~internal_at~closest_to~using~+~neighbors_at~count~length~*~as_edge_graph~or~\!\=~sort_by~last~point
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=x~y
 statements=action~let~ask~set~aspect~draw~using~return~init~create~do~reflex~output~display~display_grid~display_population
 skills=reflex~grid

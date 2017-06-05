@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:32 ICT 2016
 operators=envelope~-~circle~as~generate_barabasi_albert~generate_watts_strogatz~generate_complete_graph~+~length
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=edges~vertices
 statements=aspect~draw~init~switch~match~set~write~output~display~display_population
 skills=reflex

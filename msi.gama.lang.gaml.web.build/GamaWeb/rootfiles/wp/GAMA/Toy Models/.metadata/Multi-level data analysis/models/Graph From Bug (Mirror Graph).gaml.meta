@@ -1,6 +1,6 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=x~y~z~perimeter
 actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander
 operators=envelope~-~rnd~sphere~as~hsb~/~.~<~distance_to~degree_of~+~line~point~*~>

@@ -1,7 +1,7 @@
 #
 #Fri Dec 23 17:58:37 ICT 2016
 operators=-~as~envelope~*~/~rnd~rnd_color~and~\=~flip~any_location_in~one_of~\!\=~circle~+~length~at_distance~exp~as_map~\:\:~as_edge_graph~.~with_weights
-plugins=msi.gama.core~ummisco.gama.opengl
+plugins=msi.gama.core~ummisco.gama.webopengl
 attributes=perimeter
 statements=reflex~set~do~arg~if~aspect~draw~init~create~output~display~display_population
 skills=reflex~moving
