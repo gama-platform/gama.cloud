@@ -263,4 +263,10 @@ public class ConsoleView extends GamaViewPart
 	@Override
 	public void synchronizeChanged() {}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -278,4 +278,10 @@ public class MonitorView extends ExpandableItemsView<MonitorOutput> implements I
 		return null;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

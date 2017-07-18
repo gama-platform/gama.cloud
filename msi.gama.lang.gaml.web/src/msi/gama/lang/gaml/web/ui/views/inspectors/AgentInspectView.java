@@ -231,4 +231,10 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		return null;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

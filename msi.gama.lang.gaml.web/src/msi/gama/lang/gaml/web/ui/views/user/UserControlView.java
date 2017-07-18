@@ -216,4 +216,10 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 		return false;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

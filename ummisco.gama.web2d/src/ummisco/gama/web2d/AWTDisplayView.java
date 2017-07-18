@@ -154,4 +154,10 @@ public class AWTDisplayView extends LayeredDisplayView {
 		return Collections.EMPTY_LIST;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

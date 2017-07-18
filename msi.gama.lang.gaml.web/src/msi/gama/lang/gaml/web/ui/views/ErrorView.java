@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views;
 
-import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,8 +18,6 @@ import java.util.Map;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -36,9 +33,7 @@ import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.interfaces.ItemList;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.lang.gaml.web.editor.GAMAHelper;
-import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
-import msi.gama.lang.gaml.web.ui.utils.PreferencesHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.inspectors.ExpandableItemsView;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
@@ -214,6 +209,12 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 	@Override
 	public void dispose() {
 		super.dispose();
+	}
+
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

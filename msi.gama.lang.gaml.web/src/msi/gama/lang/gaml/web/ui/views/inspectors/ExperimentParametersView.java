@@ -173,4 +173,10 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		return null;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

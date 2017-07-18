@@ -133,4 +133,10 @@ public class LoginView extends GamaViewPart{
 		return false;
 	}
 
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

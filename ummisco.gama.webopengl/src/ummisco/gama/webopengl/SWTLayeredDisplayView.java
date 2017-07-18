@@ -119,4 +119,10 @@ public class SWTLayeredDisplayView extends LayeredDisplayView {
 	protected List<String> getCameraNames() {
 		return new ArrayList<String>(getDisplaySurface().renderer.camera.PRESETS.keySet());
 	}
+
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
 }
