@@ -1225,11 +1225,11 @@ rule_DoKey
     }
 	:
 (
-{ before(grammarAccess.get_DoKeyAccess().getDoKeyword()); }
+{ before(grammarAccess.get_DoKeyAccess().getDoKeyword_0()); }
 
 	'do' 
 
-{ after(grammarAccess.get_DoKeyAccess().getDoKeyword()); }
+{ after(grammarAccess.get_DoKeyAccess().getDoKeyword_0()); }
 )
 
 ;

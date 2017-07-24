@@ -1,4 +1,4 @@
-// $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g 2017-07-18 10:49:58
+// $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g 2017-07-24 17:00:56
 
 package msi.gama.lang.gaml.web.contentassist.antlr.internal; 
 
@@ -3717,11 +3717,11 @@ public class InternalGamlParser extends AbstractInternalContentAssistParser {
             // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g:1228:1: 'do'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.get_DoKeyAccess().getDoKeyword()); 
+               before(grammarAccess.get_DoKeyAccess().getDoKeyword_0()); 
             }
             match(input,18,FOLLOW_18_in_rule_DoKey2567); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.get_DoKeyAccess().getDoKeyword()); 
+               after(grammarAccess.get_DoKeyAccess().getDoKeyword_0()); 
             }
 
             }
