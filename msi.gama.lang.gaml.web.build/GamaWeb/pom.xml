@@ -53,7 +53,8 @@
 						</rules>
 						<removeAll>true</removeAll>
 						<fromDir>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/</fromDir>
-						<file>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</file>
+						<fromFile>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</fromFile>
+						<toFile>./var/www/gama_cloud/GamaWeb.war</toFile>						
 						<toDir>${ftp.toDir}</toDir>
 						<url>${ftp.url}</url>
 						<serverId>p2Repo</serverId>
