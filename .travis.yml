@@ -19,7 +19,7 @@ script:
 - export SSHPASS=$USER_PWD 
 - bash ./compile.sh
 after_success:
-- bash ./github-release.sh "$TRAVIS_COMMIT" 
+- bash ./publish.sh
 branches:
   only:
     - master
