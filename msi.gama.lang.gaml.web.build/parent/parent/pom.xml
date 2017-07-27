@@ -395,7 +395,7 @@
 								</goals>
 								<configuration>
 									<fromFile>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</fromFile>
-									<toFile>./var/www/gama_cloud/GamaWeb.war</toFile>
+									<toFile>./opt/tomcat/webapps/GamaWeb.war</toFile>
 									<url>${ftp.url}</url>
 									<serverId>p2Repo</serverId>
 									<!-- Points to your settings.xml where the connection settings are 
