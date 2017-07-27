@@ -23,6 +23,17 @@
     <plugins>
 		<plugin>
 			<artifactId>maven-deploy-plugin</artifactId>
+			<executions>
+                <!-- disable standard deploy -->
+                <execution>
+                    <id>default-deploy</id>
+                    <phase>none</phase>
+                </execution>
+                <execution>
+                    <id>deployEssential</id>
+                    <phase>deploy</phase>
+                </execution>
+            </executions>
 			<version>2.5</version>
 			<dependencies>
 				<dependency>
@@ -53,9 +64,7 @@
 						</rules>
 						<removeAll>true</removeAll>
 						<fromDir>${repo.path}</fromDir>
-						<includes>
-                    		*.war
-                		</includes>
+						<includes>*.war</includes>
 						<toDir>${ftp.toDir}</toDir>
 						<url>${ftp.url}</url>
 						<serverId>p2Repo</serverId>
