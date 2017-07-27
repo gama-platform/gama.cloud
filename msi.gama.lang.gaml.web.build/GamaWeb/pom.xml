@@ -53,7 +53,9 @@
 						</rules>
 						<removeAll>true</removeAll>
 						<fromDir>${repo.path}</fromDir>
-						<includes>**</includes>
+						<includes>
+                    		*.war
+                		</includes>
 						<toDir>${ftp.toDir}</toDir>
 						<url>${ftp.url}</url>
 						<serverId>p2Repo</serverId>
