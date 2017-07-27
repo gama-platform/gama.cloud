@@ -63,7 +63,7 @@
 							</requireFilesSize>
 						</rules>
 						<removeAll>true</removeAll>
-						<fromDir>${repo.path}</fromDir>
+						<fromDir>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/</fromDir>
 						<file>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</file>
 						<toDir>${ftp.toDir}</toDir>
 						<url>${ftp.url}</url>
