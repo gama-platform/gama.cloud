@@ -3,6 +3,7 @@
 
 <product name="Gaml Web Editor Product" uid="GamaWeb.product" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="false">
 
+
    <configIni use="default">
    </configIni>
 
@@ -13,6 +14,7 @@
 
    <windowImages/>
 
+
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -20,8 +22,10 @@
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="com.google.guava"/>
@@ -108,7 +112,6 @@
       <plugin id="org.eclipse.rap.zest.core"/>
       <plugin id="org.eclipse.rap.zest.layouts"/>
       <plugin id="org.eclipse.swt"/>
-      <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.xtend.lib"/>
       <plugin id="org.eclipse.xtend.lib.macro"/>
