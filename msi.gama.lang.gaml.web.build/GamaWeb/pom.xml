@@ -53,7 +53,7 @@
 					<id>p2Repo</id>
 					<phase>deploy</phase>
 					<goals>
-						<goal>upload</goal>
+						<goal>upload-single</goal>
 					</goals>
 					<configuration>
 						<rules>
