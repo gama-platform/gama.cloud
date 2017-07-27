@@ -362,6 +362,17 @@
 					<plugin>
 						<artifactId>maven-deploy-plugin</artifactId>
 						<version>2.5</version>
+						<executions>
+		                <!-- disable standard deploy -->
+		                <execution>
+		                    <id>default-deploy</id>
+		                    <phase>none</phase>
+		                </execution>
+		                <execution>
+		                    <id>deployEssential</id>
+		                    <phase>deploy</phase>
+		                </execution>
+		            </executions>
 						<dependencies>
 							<dependency>
 								<groupId>org.apache.maven.wagon</groupId>
@@ -380,11 +391,11 @@
 								<id>p2Repo</id>
 								<phase>deploy</phase>
 								<goals>
-									<goal>upload</goal>
+									<goal>upload-single</goal>
 								</goals>
 								<configuration>
 									<fromDir>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/</fromDir>
-									<fromFile>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</fromFile>
+									<file>/home/travis/build/gama-platform/gama.cloud/msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</file>
 									<toDir>${ftp.toDir}</toDir>
 									<url>${ftp.url}</url>
 									<serverId>p2Repo</serverId>
