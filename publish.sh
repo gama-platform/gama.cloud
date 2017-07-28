@@ -14,6 +14,4 @@ else
 	if  [[ ${MESSAGE} == *"ci release"* ]]; then	
 		release 
 	fi	
-		
-		release 
 fi
