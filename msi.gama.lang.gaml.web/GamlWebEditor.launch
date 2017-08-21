@@ -36,5 +36,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="msi.gama.core@default:default,msi.gama.ext@default:default,msi.gama.lang.gaml.web@default:default,msi.gama.lang.gaml@default:default,msi.gama.processor@default:default,ummisco.gama.annotations@default:default,ummisco.gama.web2d@default:default,ummisco.gama.webopengl@default:default,ummisco.gaml.extensions.maths@default:default"/>
+<stringAttribute key="workspace_bundles" value="msi.gama.core@default:default,msi.gama.ext@default:default,msi.gama.lang.gaml.web.logging@default:default,msi.gama.lang.gaml.web@default:default,msi.gama.lang.gaml@default:default,msi.gama.processor@default:default,ummisco.gama.annotations@default:default,ummisco.gama.web2d@default:default,ummisco.gama.webopengl@default:default,ummisco.gaml.extensions.maths@default:default"/>
 </launchConfiguration>

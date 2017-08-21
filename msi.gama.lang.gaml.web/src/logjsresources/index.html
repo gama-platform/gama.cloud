@@ -1,0 +1,36 @@
+<html>
+ 
+<head>
+ <script type="text/javascript" src="logjs.js"></script>
+ <link rel="stylesheet" type="text/css" href="logjs.css" />
+</head>
+<body>
+ 
+ 
+   <div id="logjs1" style="width: 500px; height: 300px;"></div>
+   <br><br>
+   <button onclick="appendInfo('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Info Line</button>
+   <button onclick="appendErr('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Error Line</button>
+   <button onclick="appendWarn('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Warn Line</button>  
+  
+  
+  <script type="text/javascript">
+     var element = document.getElementById('logjs1');
+      
+     var logjs = new LogJS(element);  
+      
+     function appendErr(text)  {  
+        logjs.appendErr(text);      
+     }  
+     function appendWarn(text)  {
+        logjs.appendWarn(text);      
+     }  
+      
+     function appendInfo(text)  {
+        logjs.appendInfo(text);      
+     }  
+  </script>
+ 
+ 
+</body>
+</html>

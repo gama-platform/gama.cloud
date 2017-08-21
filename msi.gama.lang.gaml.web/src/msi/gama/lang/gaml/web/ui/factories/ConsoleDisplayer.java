@@ -1,12 +1,11 @@
 package msi.gama.lang.gaml.web.ui.factories;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.IWorkbenchPage;
 
 import msi.gama.common.interfaces.IConsoleDisplayer;
 import msi.gama.common.interfaces.IGamaView;
-import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IGamaView.Console;
+import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.lang.gaml.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;

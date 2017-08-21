@@ -481,4 +481,16 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		return geometryDrawer;
 	}
 
+	@Override
+	public int getWidthForOverlay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeightForOverlay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g 2017-07-24 17:00:56
+// $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g 2017-08-18 17:04:51
 
 package msi.gama.lang.gaml.web.contentassist.antlr.internal; 
 

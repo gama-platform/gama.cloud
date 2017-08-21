@@ -21,18 +21,13 @@ import java.util.HashMap;
 import javax.security.auth.Subject;
 
 import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
-import org.eclipse.rap.rwt.client.Client;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
-import msi.gama.kernel.experiment.IExperimentController;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 
@@ -72,35 +67,38 @@ public class BasicWorkbench implements EntryPoint {
 	public int createUI() {
 
 		try {
-			String uid = "";
+			String uid = ""; 
+
+//			String uid = "admin";
 			DummyCallbackHandler dch = new DummyCallbackHandler();
 
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
-			boolean logged = false;
+			boolean logged = false; //false
 			while (!logged) {
 				logged = dlm.login();
-				if (logged) {
-					uid = dlm.getLoggedUser();
-					RWT.getUISession().setAttribute("user", uid);
-
+			}
+			if (logged) {
+				uid = dlm.getLoggedUser(); //must enable
+				RWT.getUISession().setAttribute("user", uid);
+				
 //					if (uid.equals(""+uid)) {
-						if (executor.get(uid) != null) {
+				if (executor.get(uid) != null) {
 //							WorkbenchHelper.workbench.get(uid).close();
-							JavaScriptExecutor ex = executor.get(uid);
-							System.out.println("script reload  " + ex);
-							ex.execute("window.location.reload(true);");
-							// ex.execute("var myUrl = window.location;\r\n" +
-							// "window.location.replace(myUrl);");
-							ex = null;
-							executor.put(uid,ex);
-							RWT.getApplicationContext().setAttribute("logged_"+uid, null);// "restart");
-							// return 0;
-							// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-							// "Information", "This account is currently used
-							// somewhere, RETRY!");
-
-						}
+					JavaScriptExecutor ex = executor.get(uid);
+					System.out.println("script reload  " + ex);
+					ex.execute("window.location.reload(true);");
+					// ex.execute("var myUrl = window.location;\r\n" +
+					// "window.location.replace(myUrl);");
+					ex = null;
+					executor.put(uid,ex);
+					RWT.getApplicationContext().setAttribute("logged_"+uid, null);// "restart");
+					// return 0;
+					// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+					// "Information", "This account is currently used
+					// somewhere, RETRY!");
+					
+				}
 //					} 
 //					else {
 //						if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
@@ -109,8 +107,7 @@ public class BasicWorkbench implements EntryPoint {
 //							logged = false;
 //						}
 //					}
-
-				}
+				
 			}
 			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
 				// ||

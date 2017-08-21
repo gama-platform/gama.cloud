@@ -379,4 +379,16 @@ public class ModernRenderer extends Abstract3DRenderer {
 		return sceneBuffer.getSceneToUpdate() != null && sceneBuffer.getSceneToUpdate().cannotAdd();
 	}
 
+	@Override
+	public int getWidthForOverlay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeightForOverlay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

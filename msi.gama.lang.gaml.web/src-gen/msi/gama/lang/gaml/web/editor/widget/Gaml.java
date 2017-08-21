@@ -32,6 +32,7 @@ public class Gaml extends BasicText {
 	protected void setupClient() {
 		super.setupClient();
 		List<IPath> languageResources = new ArrayList<IPath>();
+		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/ace/three.min.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/ace/theme-gaml.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/ace/mode-gaml.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/ace/worker-gaml.js"));

@@ -19,7 +19,6 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
@@ -110,6 +109,51 @@ public class AWTDisplayView extends LayeredDisplayView {
 				}
 			}
 		});
+		
+//		JavaScriptExecutor ex= RWT.getClient().getService(JavaScriptExecutor.class);
+//		String strscript="var camera, scene, renderer;\n" + 
+//				"var geometry, material, mesh;\n" + 
+//				"\n" + 
+//				"init();\n" + 
+//				"animate();\n" + 
+//				"\n" + 
+//				"function init() {\n" + 
+//				"\n" + 
+//				"    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);\n" + 
+//				"    camera.position.z = 1000;\n" + 
+//				"\n" + 
+//				"    scene = new THREE.Scene();\n" + 
+//				"\n" + 
+//				"    geometry = new THREE.BoxGeometry(200, 200, 200);\n" + 
+//				"    material = new THREE.MeshBasicMaterial({\n" + 
+//				"        color: 0xff0000,\n" + 
+//				"        wireframe: true\n" + 
+//				"    });\n" + 
+//				"\n" + 
+//				"    mesh = new THREE.Mesh(geometry, material);\n" + 
+//				"    scene.add(mesh);\n" + 
+//				"\n" + 
+//				"    renderer = new THREE.WebGLRenderer();\n" + 
+//				"    renderer.setSize(window.innerWidth, window.innerHeight);\n" + 
+//				"\n"+
+////				"var list = document.getElementsByTagName(\"canvas\")[1];\n" + 
+////				"list.parentNode.replaceWith(renderer.domElement);\n" + 
+////				"alert(list); \n"+
+//				"    document.body.appendChild(renderer.domElement);\n" + 
+//				"\n" + 
+//				"}\n" + 
+//				"\n" + 
+//				"function animate() {\n" + 
+//				"\n" + 
+//				"    requestAnimationFrame(animate);\n" + 
+//				"\n" + 
+//				"    mesh.rotation.x += 0.01;\n" + 
+//				"    mesh.rotation.y += 0.02;\n" + 
+//				"\n" + 
+//				"    renderer.render(scene, camera);\n" + 
+//				"\n" + 
+//				"}";
+//		ex.execute(strscript);
 		return surfaceComposite;
 	}
 

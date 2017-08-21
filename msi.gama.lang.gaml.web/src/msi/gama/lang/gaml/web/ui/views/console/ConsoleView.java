@@ -9,31 +9,31 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.console;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.apache.batik.util.io.ASCIIDecoder;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Text;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.lang.gaml.web.customwidget.logcomposite.LogComposite;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
@@ -49,25 +49,59 @@ import msi.gaml.operators.fastmaths.CmnFastMath;
 
 public class ConsoleView extends GamaViewPart
 		implements IToolbarDecoratedView.Sizable, IToolbarDecoratedView.Pausable, IGamaView.Console {
-	private Text msgConsole;
-//	private IOConsole msgConsole;
-//	IOConsoleViewer viewer;
+	private LogComposite msgConsole;
+	// private IOConsole msgConsole;
+	// IOConsoleViewer viewer;
 	boolean paused = false;
-	private final StringBuilder pauseBuffer =
-			new StringBuilder(GamaPreferences.Interface.CORE_CONSOLE_BUFFER.getValue() == -1 ? 0
+	private final StringBuilder pauseBuffer = new StringBuilder(
+			GamaPreferences.Interface.CORE_CONSOLE_BUFFER.getValue() == -1 ? 0
 					: GamaPreferences.Interface.CORE_CONSOLE_BUFFER.getValue());
 	private final HashMap<Integer, BufferedWriter> writers = new HashMap<>();
 
 	public void setCharacterLimit(final int limit) {
-//		if (limit == -1)
-//			msgConsole.setWaterMarks(-1, -1);
-//		else
-//			msgConsole.setWaterMarks(limit, limit * 2);
+		// if (limit == -1)
+		// msgConsole.setWaterMarks(-1, -1);
+		// else
+		// msgConsole.setWaterMarks(limit, limit * 2);
 	}
-
+	ScrolledComposite sc;
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
-		msgConsole = new Text(parent, SWT.BORDER);
+		// msgConsole = new Text(parent, SWT.BORDER);
+		// parent.setLayout(new FillLayout());
+
+		parent.setLayout(new GridLayout(1, true));
+
+		sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+		GridData gridData = new GridData(GridData.FILL_BOTH);
+
+		sc.setLayoutData(gridData);
+		msgConsole = new LogComposite(sc, SWT.NONE);
+		msgConsole.setLayout(new FillLayout());
+
+		sc.setContent(msgConsole);
+
+		// Set the minimum size
+
+		// Expand both horizontally and vertically
+		sc.setExpandHorizontal(true);
+		sc.setExpandVertical(true);
+
+		sc.setMinSize(4000, 400000);
+		
+		sc.addListener( SWT.Resize, event -> {
+			Point newsize= parent.computeSize( SWT.DEFAULT , SWT.DEFAULT ) ;
+			  sc.setMinSize(newsize.x+10, newsize.y+10);
+			} );
+		// GridData gridData = new GridData(GridData.FILL_BOTH);
+		//
+		// msgConsole.setLayoutData(gridData);
+
+		// parent.setLayoutData(new GridData( GridData.FILL_BOTH ));
+
+		// msgConsole = new LogComposite(parent, SWT.BORDER);
+		// msgConsole.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+		// 1, 1));
 		setCharacterLimit(GamaPreferences.Interface.CORE_CONSOLE_SIZE.getValue());
 		GamaPreferences.Interface.CORE_CONSOLE_SIZE.addChangeListener(new IPreferenceChangeListener<Integer>() {
 
@@ -81,17 +115,17 @@ public class ConsoleView extends GamaViewPart
 				setCharacterLimit(newValue);
 			}
 		});
-//		viewer = new IOConsoleViewer(parent, msgConsole);
-//		viewer.setWordWrap(GamaPreferences.Interface.CORE_CONSOLE_WRAP.getValue());
+		// viewer = new IOConsoleViewer(parent, msgConsole);
+		// viewer.setWordWrap(GamaPreferences.Interface.CORE_CONSOLE_WRAP.getValue());
 	}
 
 	private BufferedWriter getWriterFor(final ITopLevelAgent root, final GamaUIColor color) {
-//		final Color c = color == null ? getColorFor(root) : color.color();
+		// final Color c = color == null ? getColorFor(root) : color.color();
 		BufferedWriter writer = writers.get(SWT.COLOR_BLACK);
 		if (writer == null) {
 			try {
-				FileOutputStream sf = new FileOutputStream(
-						"console_" + WorkbenchHelper.UISession.get(root.getScope().getExperiment().getSpecies().getExperimentScope()) + ".txt");
+				FileOutputStream sf = new FileOutputStream("console_" + WorkbenchHelper.UISession
+						.get(root.getScope().getExperiment().getSpecies().getExperimentScope()) + ".txt");
 				writer = new BufferedWriter(new OutputStreamWriter(sf));
 				writers.put(SWT.COLOR_BLACK, writer);
 			} catch (FileNotFoundException e) {
@@ -129,13 +163,19 @@ public class ConsoleView extends GamaViewPart
 	public void append(final String text, final ITopLevelAgent root, final GamaUIColor color) {
 
 		if (!paused) {
-			final BufferedWriter writer = getWriterFor(root, color);
+			// final BufferedWriter writer = getWriterFor(root, color);
+			// try {
+			// writer.append(text);
+			// writer.flush();
 			try {
-				writer.append(text);
-				writer.flush();
+
+				msgConsole.appendInfo(text.replace("\n", "<br/>"));
 				
-//				msgConsole.append(text);
-			} catch (final IOException e) {}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			// } catch (final IOException e) {}
 		} else {
 			int maxMemorized = GamaPreferences.Interface.CORE_CONSOLE_BUFFER.getValue();
 			final int maxDisplayed = GamaPreferences.Interface.CORE_CONSOLE_SIZE.getValue();
@@ -159,13 +199,15 @@ public class ConsoleView extends GamaViewPart
 				pauseBuffer.append(text);
 			}
 			if (!indicated) {
-//				String uid = RWT.getUISession().getAttribute("user").toString();
-//				WorkbenchHelper.run(uid,() -> {
-//					if (toolbar != null) {
-//						toolbar.status((Image) null, "New contents available", IGamaColors.BLUE, SWT.LEFT);
-//					}
-//					indicated = true;
-//				});
+				// String uid =
+				// RWT.getUISession().getAttribute("user").toString();
+				// WorkbenchHelper.run(uid,() -> {
+				// if (toolbar != null) {
+				// toolbar.status((Image) null, "New contents available",
+				// IGamaColors.BLUE, SWT.LEFT);
+				// }
+				// indicated = true;
+				// });
 			}
 
 		}
@@ -186,22 +228,22 @@ public class ConsoleView extends GamaViewPart
 	@Override
 	public void reset() {
 		writers.clear();
-		msgConsole.setText("");
+		msgConsole.clearAll();
 		pauseBuffer.setLength(0);
 	}
 
 	@Override
 	public Control getSizableFontControl() {
 		return null;
-//		if (viewer == null) { return null; }
-//		return viewer.getTextWidget();
+		// if (viewer == null) { return null; }
+		// return viewer.getTextWidget();
 	}
 
 	@Override
 	public void pauseChanged() {
 		String uid = RWT.getUISession().getAttribute("user").toString();
 		if (paused) {
-			WorkbenchHelper.asyncRun(uid,() -> {
+			WorkbenchHelper.asyncRun(uid, () -> {
 				if (toolbar != null) {
 					toolbar.wipe(SWT.LEFT, true);
 					// setExecutorAgent(GAMA.getExperiment().getAgent());
@@ -239,8 +281,9 @@ public class ConsoleView extends GamaViewPart
 	}
 
 	/**
-	 * As ConsoleView is automatically opened by moving to the simulation perspective, the automatic closing can cause
-	 * problems. So the view is stated as accepting an "experiment-less" mode. See Issue #1361 Method
+	 * As ConsoleView is automatically opened by moving to the simulation
+	 * perspective, the automatic closing can cause problems. So the view is
+	 * stated as accepting an "experiment-less" mode. See Issue #1361 Method
 	 * shouldBeClosedWhenNoExperiments()
 	 * 
 	 * @see ummisco.gama.ui.views.GamaViewPart#shouldBeClosedWhenNoExperiments()
@@ -261,12 +304,13 @@ public class ConsoleView extends GamaViewPart
 	 * @see ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.Pausable#synchronizeChanged()
 	 */
 	@Override
-	public void synchronizeChanged() {}
+	public void synchronizeChanged() {
+	}
 
 	@Override
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
