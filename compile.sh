@@ -9,7 +9,7 @@ compile (){
 	if  [[ $MSG == *"ci debug"* ]]; then		
 		mvn -X clean compile -Dmaven.test.skip=true
 	else
-		mvn -q clean compile -Dmaven.test.skip=true
+		mvn  clean compile
 	fi
 		
 	cd -
