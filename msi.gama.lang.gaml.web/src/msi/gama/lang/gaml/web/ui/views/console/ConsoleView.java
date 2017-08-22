@@ -22,7 +22,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -65,6 +64,7 @@ public class ConsoleView extends GamaViewPart
 		// msgConsole.setWaterMarks(limit, limit * 2);
 	}
 	ScrolledComposite sc;
+	int count =0;
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
 		// msgConsole = new Text(parent, SWT.BORDER);
@@ -87,12 +87,12 @@ public class ConsoleView extends GamaViewPart
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
 
-		sc.setMinSize(4000, 400000);
+		sc.setMinSize(4000, 40000);
 		
-		sc.addListener( SWT.Resize, event -> {
-			Point newsize= parent.computeSize( SWT.DEFAULT , SWT.DEFAULT ) ;
-			  sc.setMinSize(newsize.x+10, newsize.y+10);
-			} );
+//		sc.addListener( SWT.Resize, event -> {
+//			Point newsize= parent.computeSize( SWT.DEFAULT , SWT.DEFAULT ) ;
+//			  sc.setMinSize(newsize.x+10, newsize.y+10);
+//			} );
 		// GridData gridData = new GridData(GridData.FILL_BOTH);
 		//
 		// msgConsole.setLayoutData(gridData);
@@ -168,8 +168,13 @@ public class ConsoleView extends GamaViewPart
 			// writer.append(text);
 			// writer.flush();
 			try {
-
+				count++;
+				if(count>400) {
+					msgConsole.clearAll();
+					count=0;
+				}
 				msgConsole.appendInfo(text.replace("\n", "<br/>"));
+				Thread.sleep(10);
 				
 			} catch (Exception ex) {
 				ex.printStackTrace();

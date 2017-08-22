@@ -181,7 +181,6 @@ public class LogComposite extends Composite {
 //       JsonObject obj= new JsonObject();
 //       obj.add("text", text);
 //       this.remoteObject.call("appendInfo", obj);
-       
 
 //		final Runnable runnable = new Runnable() {
 //		  public void run() {
@@ -203,6 +202,13 @@ public class LogComposite extends Composite {
     
    public void clearAll() {
 //       System.out.println("clearAll");
-       this.remoteObject.call("clearAll", new JsonObject());
+       UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay("admin"));
+	    uiSession.exec( new Runnable() {
+	      public void run() {
+
+	          remoteObject.call("clearAll", new JsonObject());
+	        
+	      }
+	    } );
    }
 }
