@@ -315,6 +315,16 @@
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
+			<id>dslforgetool</id>
+			<url>http://dslforge.org/downloads/tooling/repository</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
 			<id>sonatype</id>
 			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
 			<releases>
