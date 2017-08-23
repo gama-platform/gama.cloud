@@ -9,7 +9,9 @@ compile (){
 	if  [[ $MSG == *"ci debug"* ]]; then		
 		mvn -X clean compile >> output.txt
 		
-
+		git config --global user.email "travis@travis-ci.org"
+		git config --global user.name "Travis CI"
+		git config --global push.default simple	
 		git remote rm origin
 		git remote add origin https://hqnghi88:$HQN_TOKEN@github.com/gama-platform/gama.cloud
 		git status
