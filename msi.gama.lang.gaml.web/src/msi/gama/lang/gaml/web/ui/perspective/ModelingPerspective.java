@@ -10,13 +10,9 @@
 package msi.gama.lang.gaml.web.ui.perspective;
 
 
-import org.dslforge.workspace.internal.DefaultPersistencyService;
-import org.dslforge.workspace.jpa.IPersistencyService;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
-import msi.gama.common.interfaces.IGui;
 import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
 
 public class ModelingPerspective implements IPerspectiveFactory {

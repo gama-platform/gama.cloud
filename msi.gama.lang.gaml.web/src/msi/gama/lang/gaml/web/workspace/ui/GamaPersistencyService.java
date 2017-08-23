@@ -26,7 +26,6 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.internal.ExtendedMetadataPersistencyService;
 import org.dslforge.workspace.internal.WorkspaceActivator;
-import org.dslforge.workspace.jpa.IPersistencyService;
 import org.dslforge.workspace.jpa.database.Folder;
 import org.dslforge.workspace.jpa.database.Project;
 import org.dslforge.workspace.jpa.database.Resource;
@@ -52,7 +51,7 @@ public class GamaPersistencyService implements IPersistencyService{
 	}
 
 	public GamaPersistencyService() {
-		rootPath = WorkspaceActivator.getDefault().getWorkspace().getRootPath();
+		rootPath = WorkspaceActivator.getDefault().getWorkspace().getWorkspaceRootPath();
 		logger.info("Starting Database Service...");
 	}
 	
