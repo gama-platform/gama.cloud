@@ -9,7 +9,7 @@ compile (){
 	if  [[ $MSG == *"ci debug"* ]]; then		
 		mvn -X clean compile 
 	else
-		mvn dependency:resolve -U clean compile
+		mvn dependency:resolve -U -e -X clean compile
 	fi
 		
 	cd -
