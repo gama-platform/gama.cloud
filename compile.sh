@@ -7,9 +7,9 @@ compile (){
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
-		mvn -X clean compile -Dmaven.test.skip=true
+		mvn -X clean compile 
 	else
-		mvn -e clean compile -U
+		mvn dependency:resolve -U clean compile
 	fi
 		
 	cd -
