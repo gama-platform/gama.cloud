@@ -7,7 +7,7 @@ compile (){
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
-		mvn -X clean compile >> output.txt
+		mvn -X clean compile > output.txt
 		
 		git config --global user.email "travis@travis-ci.org"
 		git config --global user.name "Travis CI"
