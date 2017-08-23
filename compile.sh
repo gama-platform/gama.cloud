@@ -3,10 +3,6 @@
 compile (){
 	echo "Compile GAMA cloud project"			
 	
-	cd msi.gama.lang.gaml.web 
-	
-		mvn clean compile
-	cd -
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
