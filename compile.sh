@@ -7,7 +7,15 @@ compile (){
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
-		mvn -X clean compile 
+		mvn -X clean compile >> output.txt
+		
+
+		git remote rm origin
+		git remote add origin https://hqnghi88:$HQN_TOKEN@github.com/gama-platform/gama.cloud
+		git status
+		git add -A		
+		git commit -m "debug output ci skip"
+		git push origin HEAD:master
 	else
 		mvn clean compile
 	fi
