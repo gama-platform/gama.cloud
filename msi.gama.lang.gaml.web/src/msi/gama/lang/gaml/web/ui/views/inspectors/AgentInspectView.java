@@ -35,13 +35,14 @@ import msi.gama.lang.gaml.web.ui.experiment.parameters.AgentAttributesEditorsLis
 import msi.gama.lang.gaml.web.ui.menus.AgentsMenu;
 import msi.gama.lang.gaml.web.ui.parameters.AbstractEditor;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
-import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
 import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
 import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
+import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutput;
 import msi.gama.outputs.InspectDisplayOutput;
+import msi.gama.runtime.IScope;
 import msi.gaml.variables.IVariable;
 
 public class AgentInspectView extends AttributesEditorsView<IAgent>
@@ -211,7 +212,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 	 * @see msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView.Pausable#pauseChanged()
 	 */
 	@Override
-	public void pauseChanged() {}
+	public void pauseChanged(final IScope scope) {}
 
 	/**
 	 * Method synchronizeChanged()

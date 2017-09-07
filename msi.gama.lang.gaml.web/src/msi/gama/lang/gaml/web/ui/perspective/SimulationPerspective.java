@@ -9,22 +9,20 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.perspective;
 
-import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 
 import msi.gama.common.interfaces.IGui;
-import msi.gama.lang.gaml.web.editor.IWorkbenchConstants;
 
 public class SimulationPerspective implements IPerspectiveFactory {
 
 	@Override
-	public void createInitialLayout(final IPageLayout lay) {
+	public void createInitialLayout(final IPageLayout layout) {
 
-		lay.setFixed(false);
-		lay.setEditorAreaVisible(false);
-		final String editor = lay.getEditorArea();
+		layout.setFixed(false);
+		layout.setEditorAreaVisible(false);
+		final String editor = layout.getEditorArea();
 //		String editorArea = layout.getEditorArea();
 //		layout.setEditorAreaVisible(false);
 //		layout.addPerspectiveShortcut(IWorkbenchConstants.ID_PERSPECTIVE);
@@ -41,24 +39,30 @@ public class SimulationPerspective implements IPerspectiveFactory {
 //		navigAndParam.addView(IGui.NAVIGATOR_VIEW_ID);
 //		navigAndParam.addPlaceholder(IGui.ERROR_VIEW_ID);
 
-//		final IFolderLayout consoleFolder = layout.createFolder("consoles", IPageLayout.BOTTOM, 1.00f, "navigAndParam");
-
-//		consoleFolder.addView(IGui.INTERACTIVE_CONSOLE_VIEW_ID);
-//		consoleFolder.addView(IGui.CONSOLE_VIEW_ID);
 
 		final IPlaceholderFolderLayout displays =
-				lay.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editor);
+				layout.createPlaceholderFolder("displays", IPageLayout.TOP, 0.7f, editor);
 		displays.addPlaceholder(IGui.LAYER_VIEW_ID + ":*");
 		
 //		displays.addPlaceholder(IGui.GL_LAYER_VIEW_ID + ":*");
+		
+		
+		
+//		final IFolderLayout consoleFolder = layout.createFolder("consoles", IPageLayout.BOTTOM,  0.0f, editor);		
+//		consoleFolder.addView(IGui.CONSOLE_VIEW_ID);
+		
+		
+		
+		
+//		consoleFolder.addView(IGui.INTERACTIVE_CONSOLE_VIEW_ID);
 
 //		final IPlaceholderFolderLayout inspect =
-//				lay.createPlaceholderFolder("inspect", IPageLayout.RIGHT, 0.6f, "displays");
+//				layout.createPlaceholderFolder("inspect", IPageLayout.RIGHT, 0.6f, "displays");
 //		inspect.addPlaceholder(IGui.AGENT_VIEW_ID);
 //		inspect.addPlaceholder(IGui.TABLE_VIEW_ID + ":*");
 
 //		final IPlaceholderFolderLayout monitor =
-//				lay.createPlaceholderFolder("monitor", IPageLayout.BOTTOM, 0.50f, "inspect");
+//				layout.createPlaceholderFolder("monitor", IPageLayout.BOTTOM, 0.50f, "inspect");
 //		monitor.addPlaceholder(IGui.MONITOR_VIEW_ID);
 
 	}

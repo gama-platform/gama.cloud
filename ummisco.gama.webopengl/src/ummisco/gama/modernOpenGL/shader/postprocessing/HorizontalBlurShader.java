@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'HorizontalBlurShader.java, in plugin ummisco.gama.webopengl, is part of the source code of the
+ * 'HorizontalBlurShader.java, in plugin ummisco.gama.opengl, is part of the source code of the
  * GAMA modeling and simulation platform.
  * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -10,7 +10,7 @@
  **********************************************************************************************/
 package ummisco.gama.modernOpenGL.shader.postprocessing;
 
-import com.jogamp.opengl.GL2;
+import ummisco.gama.opengl.WebGL2;
 
 public class HorizontalBlurShader extends AbstractPostprocessingShader {
 
@@ -19,7 +19,7 @@ public class HorizontalBlurShader extends AbstractPostprocessingShader {
 	
 	private int location_targetWidth;
 	
-	public HorizontalBlurShader(GL2 gl) {
+	public HorizontalBlurShader(WebGL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

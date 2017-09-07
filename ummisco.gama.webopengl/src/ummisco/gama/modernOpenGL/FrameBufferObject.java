@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'FrameBufferObject.java, in plugin ummisco.gama.webopengl, is part of the source code of the GAMA modeling and
+ * 'FrameBufferObject.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and
  * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
@@ -13,6 +13,8 @@ import java.nio.ByteBuffer;
 
 import com.jogamp.opengl.GL2;
 
+import ummisco.gama.opengl.WebGL2;
+
 public class FrameBufferObject {
 
 	private int width;
@@ -23,9 +25,9 @@ public class FrameBufferObject {
 	private final int[] depthBufferTextureArray = new int[] { -1 };
 	private final int[] textureArray = new int[] { -1 };
 
-	private final GL2 gl;
+	private final WebGL2 gl;
 
-	public FrameBufferObject(final GL2 gl, final int width, final int height) {
+	public FrameBufferObject(final WebGL2 gl, final int width, final int height) {
 		this.gl = gl;
 		setDisplayDimensions(width, height);
 		initialiseFrameBuffer();

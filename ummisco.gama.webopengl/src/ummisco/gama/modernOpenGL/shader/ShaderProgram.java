@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'ShaderProgram.java, in plugin ummisco.gama.webopengl, is part of the source code of the
+ * 'ShaderProgram.java, in plugin ummisco.gama.opengl, is part of the source code of the
  * GAMA modeling and simulation platform.
  * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -15,10 +15,9 @@ import java.util.List;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
-import com.jogamp.opengl.GL2;
-
 import msi.gama.outputs.LightPropertiesStructure;
 import msi.gama.outputs.LightPropertiesStructure.TYPE;
+import ummisco.gama.opengl.WebGL2;
 
 public class ShaderProgram extends AbstractShader {
 	
@@ -43,7 +42,7 @@ public class ShaderProgram extends AbstractShader {
 	
 	private int textureIDStored = -1;
 	
-	public ShaderProgram(GL2 gl) {
+	public ShaderProgram(WebGL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

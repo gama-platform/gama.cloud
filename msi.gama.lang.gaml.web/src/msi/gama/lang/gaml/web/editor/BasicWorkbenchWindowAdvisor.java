@@ -15,9 +15,6 @@
  */
 package msi.gama.lang.gaml.web.editor;
 
-import msi.gama.lang.gaml.web.editor.BasicWorkbenchActionBarAdvisor;
-import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
-import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;

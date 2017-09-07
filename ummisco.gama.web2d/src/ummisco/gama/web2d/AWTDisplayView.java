@@ -28,6 +28,7 @@ import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.displays.LayeredDisplayView;
 import msi.gama.outputs.IDisplayOutput;
+import msi.gama.runtime.IScope;
 import ummisco.gama.web2d.swing.SwingControl;
 
 public class AWTDisplayView extends LayeredDisplayView {
@@ -200,6 +201,12 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 	@Override
 	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pauseChanged(IScope scope) {
 		// TODO Auto-generated method stub
 		
 	}

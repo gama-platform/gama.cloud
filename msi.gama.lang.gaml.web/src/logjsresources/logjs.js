@@ -1,16 +1,18 @@
+
 function LogJS(element)  {
-    
+	
    this.div = document.createElement("div");    
-   this.div.className = 'logjs';
-    
+   this.div.className = 'logjs';    
    element.appendChild(this.div);
-    
-   this.div.innerHTML = "<p>INFO: Loaded APR based Apache Tomcat Native library 1.1.22.</p>";
-    
-    
+   this.div.innerHTML = "";
+   
+
    this.appendInfo = function(text)  {        
+   
        this.div.innerHTML = this.div.innerHTML
         + "<p class='info'>"+ text +"</p>";
+        
+
    };
     
    this.appendErr = function(text)  {  
@@ -26,4 +28,5 @@ function LogJS(element)  {
    this.clearAll = function()  {  
        this.div.innerHTML = "";
    };
+   
 }

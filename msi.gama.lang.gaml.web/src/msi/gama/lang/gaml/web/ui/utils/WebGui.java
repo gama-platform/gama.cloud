@@ -52,7 +52,6 @@ import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
 import msi.gama.lang.gaml.web.ui.interfaces.IDisplayLayoutManager;
 import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
-import msi.gama.lang.gaml.web.ui.interfaces.IOpenGLInitializer;
 import msi.gama.lang.gaml.web.ui.interfaces.ISpeedDisplayer;
 import msi.gama.lang.gaml.web.ui.interfaces.IUserDialogFactory;
 import msi.gama.lang.gaml.web.ui.parameters.EditorsDialog;
@@ -420,10 +419,10 @@ public class WebGui implements IGui {
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		if (exp.isGui()) {
-			final IOpenGLInitializer initializer = WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
-			if (initializer != null && !initializer.isDone()) {
-				initializer.run();
-			}
+//			final IOpenGLInitializer initializer = WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
+//			if (initializer != null && !initializer.isDone()) {
+//				initializer.run();
+//			}
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
 			// getConsole().showConsoleView(exp.getAgent());
@@ -526,7 +525,7 @@ public class WebGui implements IGui {
 			for (final IViewReference view : views) {
 				final IViewPart part = view.getView(false);
 				if (part instanceof IGamaView) {
-//					((IGamaView) part).close();
+					((IGamaView) part).close();
 
 				}
 			}

@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'TextShaderProgram.java, in plugin ummisco.gama.webopengl, is part of the source code of the
+ * 'TextShaderProgram.java, in plugin ummisco.gama.opengl, is part of the source code of the
  * GAMA modeling and simulation platform.
  * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -12,7 +12,7 @@ package ummisco.gama.modernOpenGL.shader;
 
 import javax.vecmath.Vector3f;
 
-import com.jogamp.opengl.GL2;
+import ummisco.gama.opengl.WebGL2;
 
 public class TextShaderProgram extends AbstractShader {
 	
@@ -25,7 +25,7 @@ public class TextShaderProgram extends AbstractShader {
 	
 	private int textureIDStored = -1;
 	
-	public TextShaderProgram(GL2 gl) {
+	public TextShaderProgram(WebGL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

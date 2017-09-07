@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'BillboardingTextShaderProgram.java, in plugin ummisco.gama.webopengl, is part of the source code of the
+ * 'BillboardingTextShaderProgram.java, in plugin ummisco.gama.opengl, is part of the source code of the
  * GAMA modeling and simulation platform.
  * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -13,7 +13,7 @@ package ummisco.gama.modernOpenGL.shader;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
-import com.jogamp.opengl.GL2;
+import ummisco.gama.opengl.WebGL2;
 
 
 public class BillboardingTextShaderProgram extends AbstractShader {
@@ -30,7 +30,7 @@ public class BillboardingTextShaderProgram extends AbstractShader {
 	
 	private int textureIDStored = -1;
 	
-	public BillboardingTextShaderProgram(GL2 gl) {
+	public BillboardingTextShaderProgram(WebGL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

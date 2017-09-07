@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'ModernDrawer.java, in plugin ummisco.gama.webopengl, is part of the source code of the GAMA modeling and simulation
+ * 'ModernDrawer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
  * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
@@ -31,10 +31,11 @@ import ummisco.gama.modernOpenGL.shader.postprocessing.AbstractPostprocessingSha
 import ummisco.gama.modernOpenGL.shader.postprocessing.HorizontalBlurShader;
 import ummisco.gama.modernOpenGL.shader.postprocessing.KeystoneShaderProgram;
 import ummisco.gama.modernOpenGL.shader.postprocessing.VerticalBlurShader;
-import ummisco.gama.webopengl.ModernRenderer;
-import ummisco.gama.webopengl.scene.LayerObject;
-import ummisco.gama.webopengl.vaoGenerator.ModernLayerStructure;
-import ummisco.gama.webopengl.vaoGenerator.TransformationMatrix;
+import ummisco.gama.opengl.ModernRenderer;
+import ummisco.gama.opengl.WebGL2;
+import ummisco.gama.opengl.scene.LayerObject;
+import ummisco.gama.opengl.vaoGenerator.ModernLayerStructure;
+import ummisco.gama.opengl.vaoGenerator.TransformationMatrix;
 
 @SuppressWarnings ({ "unchecked" })
 public class ModernDrawer {
@@ -52,7 +53,7 @@ public class ModernDrawer {
 	// (ex : in graphic layer, if we draw a circle and then a text, we want the
 	// text to be above the circle).
 	private final ModernRenderer renderer;
-	private final GL2 gl;
+	private final WebGL2 gl;
 
 	private final ArrayList<Integer> listOfVAOUsed = new ArrayList<>();
 	private final ArrayList<AbstractShader> shaderLoaded = new ArrayList<>();
@@ -70,7 +71,7 @@ public class ModernDrawer {
 	private static final int NORMAL_IDX = 3;
 	private static final int UVMAPPING_IDX = 4;
 
-	public ModernDrawer(final ModernRenderer renderer, final GL2 gl) {
+	public ModernDrawer(final ModernRenderer renderer, final WebGL2 gl) {
 		this.renderer = renderer;
 		this.gl = gl;
 	}

@@ -251,7 +251,7 @@ public class MonitorView extends ExpandableItemsView<MonitorOutput> implements I
 	 * @see msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView.Pausable#pauseChanged()
 	 */
 	@Override
-	public void pauseChanged() {}
+	public void pauseChanged(final IScope scope) {}
 
 	/**
 	 * Method synchronizeChanged()

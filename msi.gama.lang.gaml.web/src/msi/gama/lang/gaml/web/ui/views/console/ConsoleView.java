@@ -32,7 +32,7 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.kernel.experiment.ITopLevelAgent;
-import msi.gama.lang.gaml.web.customwidget.logcomposite.LogComposite;
+import msi.gama.lang.gaml.web.customwidget.LogComposite;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors;
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
@@ -43,6 +43,7 @@ import msi.gama.lang.gaml.web.ui.views.GamaViewPart;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbarFactory;
 import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
+import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.fastmaths.CmnFastMath;
 
@@ -87,7 +88,7 @@ public class ConsoleView extends GamaViewPart
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
 
-		sc.setMinSize(4000, 40000);
+		sc.setMinSize(800, 40000);
 		
 //		sc.addListener( SWT.Resize, event -> {
 //			Point newsize= parent.computeSize( SWT.DEFAULT , SWT.DEFAULT ) ;
@@ -173,7 +174,7 @@ public class ConsoleView extends GamaViewPart
 					msgConsole.clearAll();
 					count=0;
 				}
-				msgConsole.appendInfo(text.replace("\n", "<br/>"));
+				msgConsole.appendInfo(root.getScope(), text.replace("\n", "<br/>"));
 				Thread.sleep(10);
 				
 			} catch (Exception ex) {
@@ -245,7 +246,7 @@ public class ConsoleView extends GamaViewPart
 	}
 
 	@Override
-	public void pauseChanged() {
+	public void pauseChanged(final IScope scope) {
 		String uid = RWT.getUISession().getAttribute("user").toString();
 		if (paused) {
 			WorkbenchHelper.asyncRun(uid, () -> {
@@ -261,7 +262,7 @@ public class ConsoleView extends GamaViewPart
 		if (paused) {
 			pauseBuffer.setLength(0);
 		} else {
-			append(pauseBuffer.toString(), null, (GamaUIColor) null);
+			append(pauseBuffer.toString(), scope.getRoot(), (GamaUIColor) null);
 		}
 	}
 

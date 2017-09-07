@@ -62,24 +62,25 @@ public class BasicWorkbench implements EntryPoint {
 	// abstract void runInSession();
 	// }
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
-
+    
+	boolean enableLoggin=false;
+	
 	@Override
 	public int createUI() {
 
 		try {
-			String uid = ""; 
+			String uid = enableLoggin?"":"admin"; 
 
-//			String uid = "admin";
 			DummyCallbackHandler dch = new DummyCallbackHandler();
 
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
-			boolean logged = false; //false
+			boolean logged = enableLoggin?false:true; //false
 			while (!logged) {
 				logged = dlm.login();
 			}
 			if (logged) {
-				uid = dlm.getLoggedUser(); //must enable
+				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
 				RWT.getUISession().setAttribute("user", uid);
 				
 //					if (uid.equals(""+uid)) {

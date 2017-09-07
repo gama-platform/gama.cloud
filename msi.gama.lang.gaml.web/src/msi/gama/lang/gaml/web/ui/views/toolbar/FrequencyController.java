@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.outputs.IOutput;
+import msi.gama.runtime.IScope;
 
 /**
  * The class SnapshotItem.
@@ -33,20 +34,20 @@ public class FrequencyController {
 		this.view = view;
 	}
 
-	void toggle() {
-		view.pauseChanged();
+	void toggle(final IScope scope) {
+		view.pauseChanged(scope);
 	}
 
-	void resume(final ToolItem item, final IOutput out) {
+	void resume(final IScope scope, final ToolItem item, final IOutput out) {
 		out.setPaused(false);
 		item.setToolTipText("Pause " + out.getName());
-		view.pauseChanged();
+		view.pauseChanged(scope);
 	}
 
-	void pause(final ToolItem item, final IOutput out) {
+	void pause(final IScope scope, final ToolItem item, final IOutput out) {
 		out.setPaused(true);
 		item.setToolTipText("Resume " + out.getName());
-		view.pauseChanged();
+		view.pauseChanged(scope);
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class FrequencyController {
 	 */
 	public void install(final GamaToolbar2 tb) {
 		// createFrequencyItem(tb);
-		createPauseItem(tb);
+		createPauseItem(null,tb);
 		createSynchronizeItem(tb);
 	}
 
@@ -77,7 +78,7 @@ public class FrequencyController {
 	/**
 	 * @param tb
 	 */
-	private void createPauseItem(final GamaToolbar2 tb) {
+	private void createPauseItem(final IScope scope, final GamaToolbar2 tb) {
 
 		tb.check(IGamaIcons.DISPLAY_TOOLBAR_PAUSE, "Pause", "Pause or resume the current view", new SelectionAdapter() {
 
@@ -87,12 +88,12 @@ public class FrequencyController {
 				final IOutput output = view.getOutput();
 				if (output != null) {
 					if (output.isPaused()) {
-						resume((ToolItem) e.widget, output);
+						resume(scope, (ToolItem) e.widget, output);
 					} else {
-						pause((ToolItem) e.widget, output);
+						pause(scope, (ToolItem) e.widget, output);
 					}
 				} else {
-					toggle();
+					toggle(scope);
 				}
 
 			}

@@ -14,6 +14,7 @@ import org.eclipse.ui.IWorkbenchSite;
 
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
 import msi.gama.outputs.IDisplayOutput;
+import msi.gama.runtime.IScope;
 
 /**
  * Class IToolbarDecoratedView.
@@ -30,7 +31,7 @@ public interface IToolbarDecoratedView {
 
 	public static interface Pausable extends IToolbarDecoratedView {
 
-		public void pauseChanged();
+		public void pauseChanged(final IScope scope);
 
 		public IDisplayOutput getOutput();
 

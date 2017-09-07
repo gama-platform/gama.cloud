@@ -19,15 +19,11 @@ import java.util.ArrayList;
 
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
-import org.jfree.util.Log;
 
 import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayer;
 import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;

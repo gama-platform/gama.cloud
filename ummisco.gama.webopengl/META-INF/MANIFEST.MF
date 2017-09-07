@@ -25,8 +25,8 @@ Import-Package: com.vividsolutions.jts.geom,
  org.apache.commons.lang;version="2.6.0",
  org.jfree.chart
 Export-Package: 
- ummisco.gama.webopengl,
- ummisco.gama.webopengl.utils
+ ummisco.gama.opengl,
+ ummisco.gama.opengl.utils
 Bundle-ClassPath: gluegen-rt-natives-linux-amd64.jar,
  gluegen-rt-natives-linux-i586.jar,
  gluegen-rt-natives-macosx-universal.jar,

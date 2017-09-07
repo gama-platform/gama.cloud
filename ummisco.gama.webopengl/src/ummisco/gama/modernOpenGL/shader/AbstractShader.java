@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'AbstractShader.java, in plugin ummisco.gama.webopengl, is part of the source code of the GAMA modeling and simulation
+ * 'AbstractShader.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
  * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
@@ -17,11 +17,12 @@ import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
 
-import ummisco.gama.webopengl.vaoGenerator.GeomMathUtils;
+import ummisco.gama.opengl.WebGL2;
+import ummisco.gama.opengl.vaoGenerator.GeomMathUtils;
 
 public abstract class AbstractShader {
 
-	protected GL2 gl;
+	protected WebGL2 gl;
 
 	protected boolean isOverlay = false;
 
@@ -41,7 +42,7 @@ public abstract class AbstractShader {
 
 	private static FloatBuffer matrixBuffer = FloatBuffer.allocate(16);
 
-	protected AbstractShader(final GL2 gl, final String vertexFile, final String fragmentFile) {
+	protected AbstractShader(final WebGL2 gl, final String vertexFile, final String fragmentFile) {
 		this.gl = gl;
 
 		final InputStream vertexInputStream =

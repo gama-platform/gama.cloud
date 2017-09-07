@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: msi.gama.lang.gaml.web
-Bundle-Vendor: My Company
+Bundle-Vendor: CICT.CTU
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: msi.gama.lang.gaml.web; singleton:=true
 Bundle-Activator: msi.gama.lang.gaml.web.internal.Activator
@@ -80,6 +80,7 @@ Export-Package: msi.gama.lang.gaml.web.contentassist;uses:="org.eclipse.emf.ecor
  msi.gama.lang.gaml.web.ui.menus,
  msi.gama.lang.gaml.web.ui.resources,
  msi.gama.lang.gaml.web.ui.utils,
+ msi.gama.lang.gaml.web.ui.views,
  msi.gama.lang.gaml.web.ui.views.displays,
  msi.gama.lang.gaml.web.ui.views.toolbar
 Bundle-ClassPath: .
