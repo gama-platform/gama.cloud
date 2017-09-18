@@ -11,15 +11,16 @@
 package msi.gama.lang.gaml.web.editor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 
-import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
+import com.google.common.collect.Iterables;
+
 import msi.gama.lang.gaml.web.ui.resources.GamaColors.GamaUIColor;
+import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 import msi.gaml.descriptions.ExperimentDescription;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
@@ -35,7 +36,7 @@ public class GamlEditorState {
 	final List<Boolean> types;
 	final Map<String, URI> importedErrors;
 
-	public GamlEditorState(final ValidationContext status, final Collection<? extends IDescription> descriptions) {
+	public GamlEditorState(final ValidationContext status, final Iterable<? extends IDescription> descriptions) {
 
 		if (status != null) {
 			hasImportedErrors = status.hasImportedErrors();
@@ -46,7 +47,7 @@ public class GamlEditorState {
 			hasNullStatus = true;
 			importedErrors = Collections.EMPTY_MAP;
 		}
-		final int n = descriptions.size();
+		final int n = Iterables.size(descriptions);
 		if (n > 0) {
 			hasExperiments = true;
 			experiments = new ArrayList<>(n);

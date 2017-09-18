@@ -18,6 +18,7 @@ import java.util.function.Consumer;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.jogamp.opengl.GL2;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFilter;
 
@@ -28,8 +29,8 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.util.file.GamaGeometryFile;
 import ummisco.gama.opengl.files.GamaObjFile;
+import ummisco.gama.opengl.scene.OpenGL;
 import ummisco.gama.opengl.scene.ResourceObject;
-import ummisco.gama.opengl.scene.WebOpenGL;
 
 public class GeometryCache {
 
@@ -62,7 +63,7 @@ public class GeometryCache {
 			this.faces = faces;
 		}
 
-		public void draw(final WebOpenGL gl) {
+		public void draw(final OpenGL gl) {
 			if (bottom != null)
 				gl.drawList(bottom);
 			if (top != null)
@@ -86,7 +87,7 @@ public class GeometryCache {
 		envelopes = CacheBuilder.newBuilder().build();
 	}
 
-	public Integer get(final WebOpenGL gl, final GamaGeometryFile file) {
+	public Integer get(final OpenGL gl, final GamaGeometryFile file) {
 		final String path = file.getPath(scope);
 		Integer index = fileCache.get(path);
 		if (index == null) {
@@ -96,12 +97,12 @@ public class GeometryCache {
 		return index;
 	}
 
-	public BuiltInGeometry get(final WebOpenGL gl, final IShape.Type id) {
+	public BuiltInGeometry get(final OpenGL gl, final IShape.Type id) {
 		final BuiltInGeometry index = shapeCache.get(id);
 		return index;
 	}
 
-	private Integer buildList(final WebOpenGL gl, final GamaGeometryFile file) {
+	private Integer buildList(final OpenGL gl, final GamaGeometryFile file) {
 		// We generate the list first
 
 		final Integer index = gl.compileAsList(() -> {
@@ -125,11 +126,11 @@ public class GeometryCache {
 		return index;
 	}
 
-	void drawSimpleGeometry(final WebOpenGL gl, final Geometry geom) throws ExecutionException {
+	void drawSimpleGeometry(final OpenGL gl, final Geometry geom) throws ExecutionException {
 		geom.apply((GeometryFilter) (g) -> drawer.accept(g));
 	}
 
-	public void dispose(final WebGL2 gl) {
+	public void dispose(final GL2 gl) {
 		for (final Integer i : fileCache.values()) {
 			gl.glDeleteLists(i, 1);
 		}
@@ -137,7 +138,7 @@ public class GeometryCache {
 		GAMA.releaseScope(scope);
 	}
 
-	public void processUnloadedGeometries(final WebOpenGL gl) {
+	public void processUnloadedGeometries(final OpenGL gl) {
 		for (final ResourceObject object : geometriesToProcess.values()) {
 			get(gl, object.getFile());
 		}

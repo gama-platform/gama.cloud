@@ -13,8 +13,6 @@ import java.nio.ByteBuffer;
 
 import com.jogamp.opengl.GL2;
 
-import ummisco.gama.opengl.WebGL2;
-
 public class FrameBufferObject {
 
 	private int width;
@@ -25,9 +23,9 @@ public class FrameBufferObject {
 	private final int[] depthBufferTextureArray = new int[] { -1 };
 	private final int[] textureArray = new int[] { -1 };
 
-	private final WebGL2 gl;
+	private final GL2 gl;
 
-	public FrameBufferObject(final WebGL2 gl, final int width, final int height) {
+	public FrameBufferObject(final GL2 gl, final int width, final int height) {
 		this.gl = gl;
 		setDisplayDimensions(width, height);
 		initialiseFrameBuffer();

@@ -19,14 +19,14 @@ import ummisco.gama.modernOpenGL.FrameBufferObject;
 import ummisco.gama.modernOpenGL.shader.AbstractShader;
 import ummisco.gama.modernOpenGL.shader.postprocessing.AbstractPostprocessingShader;
 import ummisco.gama.modernOpenGL.shader.postprocessing.KeystoneShaderProgram;
-import ummisco.gama.opengl.scene.WebOpenGL;
+import ummisco.gama.opengl.scene.OpenGL;
 
 public class KeystoneDrawer implements IKeystoneState {
 
 	private FrameBufferObject fboScene;
 	private final JOGLRenderer renderer;
-	private WebGL2 gl;
-	private WebOpenGL openGL;
+	private GL2 gl;
+	private OpenGL openGL;
 	protected boolean drawKeystoneHelper = false;
 	protected int cornerSelected = -1, cornerHovered = -1;
 	private int uvMappingBufferIndex;
@@ -45,7 +45,7 @@ public class KeystoneDrawer implements IKeystoneState {
 		this.renderer = r;
 	}
 
-	public void setGLHelper(final WebOpenGL openGL) {
+	public void setGLHelper(final OpenGL openGL) {
 		this.openGL = openGL;
 		this.gl = openGL.getGL();
 	}
@@ -274,8 +274,8 @@ public class KeystoneDrawer implements IKeystoneState {
 
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, indexBufferIndex);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, 24, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, 24, new int[] { 0, 1, 2, 0, 2, 3 }, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 	}
 
 	private void storeAttributes(final int shaderAttributeType, final int bufferIndex, final int size,

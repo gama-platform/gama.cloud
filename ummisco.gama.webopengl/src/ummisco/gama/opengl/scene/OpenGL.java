@@ -23,7 +23,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.DoubleBuffer;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,7 +33,6 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2GL3;
@@ -148,7 +146,8 @@ public class OpenGL {
 	final GamaPoint currentNormal = new GamaPoint();
 	final GamaPoint currentScale = new GamaPoint(1, 1, 1);
 	final GamaPoint textureCoords = new GamaPoint();
-	private double currentZIncrement, currentZTranslation, maxZ;
+	private double currentZIncrement, currentZTranslation, maxZ, savedZTranslation;
+	private volatile boolean ZTranslationSuspended;
 	private final boolean useJTSTriangulation = !GamaPreferences.OpenGL.OPENGL_TRIANGULATOR.getValue();
 	private final Rotation3D tempRotation = Rotation3D.identity();
 	private GLUquadricImpl quadric;
@@ -203,8 +202,8 @@ public class OpenGL {
 
 	public void dispose() {
 		textRendererCache.dispose();
-//		if (geometryCache != null)
-//			geometryCache.dispose(gl);
+		if (geometryCache != null)
+			geometryCache.dispose(gl);
 		volatileTextures.invalidateAll();
 		staticTextures.asMap().forEach((s, t) -> {
 			t.destroy(gl);
@@ -269,7 +268,19 @@ public class OpenGL {
 	 * translations are cumulative
 	 */
 	public void translateByZIncrement() {
-		currentZTranslation += currentZIncrement;
+		if (!ZTranslationSuspended)
+			currentZTranslation += currentZIncrement;
+	}
+
+	public void suspendZTranslation() {
+		ZTranslationSuspended = true;
+		savedZTranslation = currentZTranslation;
+		currentZTranslation = 0;
+	}
+
+	public void resumeZTranslation() {
+		ZTranslationSuspended = false;
+		currentZTranslation = savedZTranslation;
 	}
 
 	/**
@@ -699,14 +710,9 @@ public class OpenGL {
 		return texture;
 	}
 
-	private static Texture buildTexture(final GL gl, final File file) {
-		try {
-			final BufferedImage im = ImageUtils.getInstance().getImageFromFile(file, true);
-			return buildTexture(gl, im);
-		} catch (final GLException e) {
-			e.printStackTrace();
-			return null;
-		}
+	private static Texture buildTexture(final GL gl, final File file) throws GLException {
+		final BufferedImage im = ImageUtils.getInstance().getImageFromFile(file, true);
+		return buildTexture(gl, im);
 	}
 
 	public static Texture buildTexture(final OpenGL gl, final BufferedImage image) {
@@ -763,8 +769,8 @@ public class OpenGL {
 	}
 
 	public void processUnloadedGeometries() {
-//		if (geometryCache != null)
-//			geometryCache.processUnloadedGeometries(this);
+		if (geometryCache != null)
+			geometryCache.processUnloadedGeometries(this);
 	}
 
 	public Envelope3D getEnvelopeFor(final GamaGeometryFile file) {
@@ -952,16 +958,16 @@ public class OpenGL {
 			return;
 		if (file == null)
 			return;
-//		final Integer index = geometryCache.get(this, file);
-//		if (index != null)
-//			drawList(index);
-//		if (border != null && !isWireframe()) {
-//			final Color old = swapCurrentColor(border);
-//			getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
-//			drawList(index);
-//			setCurrentColor(old);
-//			getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
-//		}
+		final Integer index = geometryCache.get(this, file);
+		if (index != null)
+			drawList(index);
+		if (border != null && !isWireframe()) {
+			final Color old = swapCurrentColor(border);
+			getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
+			drawList(index);
+			setCurrentColor(old);
+			getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
+		}
 	}
 
 	public void drawCachedGeometry(final IShape.Type id, final Color border) {
@@ -969,17 +975,17 @@ public class OpenGL {
 			return;
 		if (id == null)
 			return;
-//		final BuiltInGeometry object = geometryCache.get(this, id);
-//		if (object != null) {
-//			object.draw(this);
-//			if (border != null && !isWireframe()) {
-//				final Color old = swapCurrentColor(border);
-//				getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
-//				object.draw(this);
-//				setCurrentColor(old);
-//				getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
-//			}
-//		}
+		final BuiltInGeometry object = geometryCache.get(this, id);
+		if (object != null) {
+			object.draw(this);
+			if (border != null && !isWireframe()) {
+				final Color old = swapCurrentColor(border);
+				getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
+				object.draw(this);
+				setCurrentColor(old);
+				getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
+			}
+		}
 	}
 
 	public void initializeShapeCache() {
@@ -1066,11 +1072,11 @@ public class OpenGL {
 			.010718, .04, .018716, .028577, .028577, .018716, .04, .010718, .052638, .004825, .066108, .001215, .08,
 			0 };
 
-	static DoubleBuffer db = (DoubleBuffer) Buffers.newDirectDoubleBuffer(roundRect.length).put(roundRect).rewind();
+//	static DoubleBuffer db = (DoubleBuffer) Buffers.newDirectDoubleBuffer(roundRect.length).put(roundRect).rewind();
 
 	public void drawRoundedRectangle() {
 		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
-		gl.glVertexPointer(2, GL2.GL_DOUBLE, 0, db);
+//		gl.glVertexPointer(2, GL2.GL_DOUBLE, 0, db);
 		gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, 40);
 		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
 	}
@@ -1200,7 +1206,7 @@ public class OpenGL {
 		setWireframe(isWireframe);
 		translateByZIncrement();
 		setLineWidth(object.getLineWidth());
-//		setCurrentTextures(object.getPrimaryTexture(this), object.getAlternateTexture(this));
+		setCurrentTextures(object.getPrimaryTexture(this), object.getAlternateTexture(this));
 		setCurrentColor(object.getColor());
 	}
 
@@ -1210,10 +1216,6 @@ public class OpenGL {
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
 		gl.glClearDepth(1.0f);
 
-	}
-
-	public double getZIncrement() {
-		return currentZIncrement;
 	}
 
 }

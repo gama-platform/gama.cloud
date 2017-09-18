@@ -79,7 +79,7 @@ public class ModelScene {
 	 * @param context
 	 *            Called every new iteration when updateDisplay() is called on the surface
 	 */
-	public void wipe(final WebOpenGL gl) {
+	public void wipe(final OpenGL gl) {
 
 		for (final Map.Entry<String, LayerObject> entry : layers.entrySet()) {
 			final LayerObject obj = entry.getValue();
@@ -91,7 +91,7 @@ public class ModelScene {
 		gl.deleteVolatileTextures();
 	}
 
-	public void draw(final WebOpenGL gl) {
+	public void draw(final OpenGL gl) {
 
 		if (renderer.useShader()) {
 			// if the rotation helper layer exists, put it at the end of the map
@@ -216,7 +216,7 @@ public class ModelScene {
 	}
 
 	public void beginOverlay() {
-		currentLayer.setOverlay(true);
+		// currentLayer.setOverlay(true);
 	}
 
 	/**

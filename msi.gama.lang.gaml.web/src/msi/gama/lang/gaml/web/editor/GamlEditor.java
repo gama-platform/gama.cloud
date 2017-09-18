@@ -4,15 +4,10 @@
 package msi.gama.lang.gaml.web.editor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-import org.dslforge.styledtext.jface.ITextViewer;
-import org.dslforge.styledtext.jface.TextViewer;
 import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
@@ -33,7 +28,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.util.ReplaceRegion;
 
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.controls.FlatButton;
@@ -46,7 +40,6 @@ import msi.gama.lang.gaml.web.ui.utils.ModelRunner;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
-import msi.gama.lang.gaml.web.ui.views.toolbar.EditorSearchControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbarFactory;
 import msi.gama.lang.gaml.web.ui.views.toolbar.IToolbarDecoratedView;
@@ -302,7 +295,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	}
 
 	@Override
-	public void validationEnded(final Collection<? extends IDescription> newExperiments,
+	public void validationEnded(Iterable<? extends IDescription> newExperiments,
 			final ValidationContext status) {
 		if (newExperiments == null && state != null)
 			updateToolbar(state, true);
@@ -312,6 +305,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 			state = newState;
 		}
 	}
+
 
 //	public GamlTemplateStore getTemplateStore() {
 //		return (GamlTemplateStore) templateStore;

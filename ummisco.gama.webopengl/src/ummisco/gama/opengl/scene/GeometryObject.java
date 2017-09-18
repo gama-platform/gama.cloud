@@ -91,7 +91,7 @@ public class GeometryObject extends AbstractObject {
 		return null;
 	}
 
-	public Envelope3D getEnvelope(final WebOpenGL gl) {
+	public Envelope3D getEnvelope(final OpenGL gl) {
 		return Envelope3D.of(geometry);
 	}
 

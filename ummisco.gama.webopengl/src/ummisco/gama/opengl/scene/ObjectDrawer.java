@@ -13,7 +13,7 @@ import ummisco.gama.opengl.JOGLRenderer;
 
 public abstract class ObjectDrawer<T extends AbstractObject> {
 
-	final WebOpenGL gl;
+	final OpenGL gl;
 
 	public ObjectDrawer(final JOGLRenderer r) {
 		gl = r.getOpenGLHelper();

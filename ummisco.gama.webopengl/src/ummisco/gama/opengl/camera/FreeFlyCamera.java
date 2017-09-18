@@ -10,6 +10,7 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
+import java.awt.event.MouseWheelEvent;
 
 import org.eclipse.swt.SWT;
 
@@ -196,5 +197,11 @@ public class FreeFlyCamera extends AbstractCamera {
 
 	@Override
 	protected void drawRotationHelper() {}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

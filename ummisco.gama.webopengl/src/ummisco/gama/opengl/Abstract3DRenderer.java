@@ -16,15 +16,21 @@ import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
 import java.util.List;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import com.jogamp.common.nio.Buffers;
+import com.jogamp.opengl.FPSCounter;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.swt.GLCanvas;
 import com.vividsolutions.jts.geom.Geometry;
 
+import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.ILayer;
@@ -48,11 +54,12 @@ import ummisco.gama.opengl.camera.ICamera;
 import ummisco.gama.opengl.scene.AbstractObject;
 import ummisco.gama.opengl.scene.ModelScene;
 import ummisco.gama.opengl.scene.ObjectDrawer;
+import ummisco.gama.opengl.scene.OpenGL;
 import ummisco.gama.opengl.scene.SceneBuffer;
-import ummisco.gama.opengl.scene.WebOpenGL;
 import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.ShapeCache;
+
 
 /**
  * This class plays the role of Renderer and IGraphics. Class Abstract3DRenderer.
@@ -128,8 +135,8 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	// protected volatile boolean shouldRecomputeLayerBounds;
 
 	public boolean colorPicking = false;
-	protected WebGL2 gl;
-	protected WebOpenGL openGL;
+	protected GL2 gl;
+	protected OpenGL openGL;
 	protected GamaPoint worldDimensions;
 	protected Envelope3D ROIEnvelope = null;
 	// relative to rotation helper
@@ -149,7 +156,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		camera = new CameraArcBall(this);
 		camera.initialize();
 		sceneBuffer = new SceneBuffer(this);
-		openGL = new WebOpenGL(this);
+		openGL = new OpenGL(this);
 		ShapeCache.freedShapeCache();
 	}
 
@@ -159,22 +166,22 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public abstract IKeystoneState getKeystone();
 
-	public WebGLComposite createDrawable(final Composite parent) {
-//		final GLProfile profile = GLProfile.getDefault();
-//		final GLCapabilities cap = new GLCapabilities(profile);
-//		cap.setDepthBits(24);
-//		// cap.setBackgroundOpaque(true);
-//		cap.setDoubleBuffered(true);
-//		cap.setHardwareAccelerated(true);
-//		cap.setSampleBuffers(true);
-//		cap.setAlphaBits(8);
-//		cap.setNumSamples(8);
-		canvas = new WebGLComposite(parent, SWT.NONE) ;//new GLCanvas(parent, SWT.NONE, cap, null);
-//		canvas.setAutoSwapBufferMode(true);
-//		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
-//		// animator.setIgnoreExceptions(!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue());
-//		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
-//		canvas.addGLEventListener(this);
+	public GLAutoDrawable createDrawable(final Composite parent) {
+		final GLProfile profile = GLProfile.getDefault();
+		final GLCapabilities cap = new GLCapabilities(profile);
+		cap.setDepthBits(24);
+		// cap.setBackgroundOpaque(true);
+		cap.setDoubleBuffered(true);
+		cap.setHardwareAccelerated(true);
+		cap.setSampleBuffers(true);
+		cap.setAlphaBits(8);
+		cap.setNumSamples(8);
+		canvas = new WebGLComposite(parent, SWT.NONE);
+		canvas.setAutoSwapBufferMode(true);
+		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
+		// animator.setIgnoreExceptions(!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue());
+		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
+		canvas.addGLEventListener(this);
 		final FillLayout gl = new FillLayout();
 		canvas.setLayout(gl);
 		return canvas;
@@ -188,24 +195,23 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		return lightHelper;
 	}
 
-	public final WebGLComposite getCanvas() {
+	public final GLCanvas getCanvas() {
 		return canvas;
 	}
 
-	public final WebGLComposite getDrawable() {
+	public final GLAutoDrawable getDrawable() {
 		return canvas;
 	}
 
 	protected void initializeCanvasListeners() {
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid,() -> {
+		WorkbenchHelper.asyncRun("admin",() -> {
 			if (getCanvas() == null || getCanvas().isDisposed()) { return; }
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
-//			getCanvas().addMouseMoveListener(camera);
-//			getCanvas().addMouseWheelListener(camera);
-//			getCanvas().addMouseTrackListener(camera);
+			getCanvas().addMouseMoveListener(camera);
+			getCanvas().addMouseWheelListener(camera);
+			getCanvas().addMouseTrackListener(camera);
 
 		});
 
@@ -233,13 +239,12 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public final void switchCamera() {
 		final ICamera oldCamera = camera;
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid,() -> {
+		WorkbenchHelper.asyncRun("admin",() -> {
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
-//			getCanvas().removeMouseMoveListener(oldCamera);
-//			getCanvas().removeMouseWheelListener(oldCamera);
-//			getCanvas().removeMouseTrackListener(oldCamera);
+			getCanvas().removeMouseMoveListener(oldCamera);
+			getCanvas().removeMouseWheelListener(oldCamera);
+			getCanvas().removeMouseTrackListener(oldCamera);
 		});
 
 		if (!data.isArcBallCamera()) {
@@ -395,10 +400,6 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		return data.getCurrentRotationAboutZ();
 	}
 
-	public boolean isDrawRotationHelper() {
-		return drawRotationHelper;
-	}
-
 	public GamaPoint getRotationHelperPosition() {
 		return rotationHelperPosition;
 	}
@@ -531,7 +532,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		return ROIEnvelope;
 	}
 
-	public WebOpenGL getOpenGLHelper() {
+	public OpenGL getOpenGLHelper() {
 		return openGL;
 	}
 
@@ -568,13 +569,14 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	@Override
 	public boolean beginDrawingLayers() {
-//		while (!inited) {
-//			try {
-//				Thread.sleep(10);
-//			} catch (final InterruptedException e) {
-//				return false;
-//			}
-//		}
+		while (!inited) {
+			init(canvas);
+			try {
+				Thread.sleep(10);
+			} catch (final InterruptedException e) {
+				return false;
+			}
+		}
 		return sceneBuffer.beginUpdatingScene();
 
 	}
@@ -583,13 +585,16 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public boolean isNotReadyToUpdate() {
 		if (data.isSynchronized())
 			return false;
+		if(sceneBuffer.isNotReadyToUpdate()) {
+			display(canvas);
+		}
 		return sceneBuffer.isNotReadyToUpdate();
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-//		dispose(getDrawable()); hqn88
+		dispose(getDrawable());
 	}
 
 	@Override
@@ -616,13 +621,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 					getYOffsetInPixels() * (worldDimensions.y / openGL.getViewHeight()), 0);
 			// System.out.println("XOffsetinPixels: " + getXOffsetInPixels() + " Y " + getYOffsetInPixels());
 
-			//fix 2227 set scale for axes
-			final double distance = Math.sqrt(Math.pow(camera.getPosition().x - rotationHelperPosition.x, 2)
-					+ Math.pow(camera.getPosition().y - rotationHelperPosition.y, 2)
-					+ Math.pow(camera.getPosition().z - rotationHelperPosition.z, 2));
-			final double size = distance / 10; // the size of the displayed axis
-			
-			currentScale = new GamaPoint(size, size, size);
+			currentScale = new GamaPoint(1, 1, 1);
 		}
 		final ModelScene scene = sceneBuffer.getSceneToUpdate();
 		if (scene != null) {

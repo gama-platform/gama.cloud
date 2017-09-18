@@ -24,8 +24,7 @@ import msi.gama.outputs.LightPropertiesStructure;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.Maths;
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.WebGL2;
-import ummisco.gama.opengl.scene.WebOpenGL;
+import ummisco.gama.opengl.scene.OpenGL;
 
 public class LightHelper {
 
@@ -37,13 +36,13 @@ public class LightHelper {
 
 	public static final int fogMode[] = { GL2.GL_EXP, GL2.GL_EXP2, GL2.GL_LINEAR };
 
-	public void setAmbiantLight(final WebOpenGL gl, final Color ambientLightValue) {
+	public void setAmbiantLight(final OpenGL gl, final Color ambientLightValue) {
 		final float[] lightAmbientValue = { ambientLightValue.getRed() / 255.0f, ambientLightValue.getGreen() / 255.0f,
 				ambientLightValue.getBlue() / 255.0f, 1.0f };
 		gl.getGL().glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, lightAmbientValue, 0);
 	}
 
-	public void initializeLighting(final WebOpenGL gl) {
+	public void initializeLighting(final OpenGL gl) {
 		final LayeredDisplayData data = renderer.data;
 		// ambient
 		setAmbiantLight(gl, data.getAmbientLightColor());
@@ -76,8 +75,8 @@ public class LightHelper {
 		gl.getGL().glEnable(GL2.GL_COLOR_MATERIAL);
 	}
 
-	public void updateDiffuseLightValue(final WebOpenGL openGL) {
-		final WebGL2 gl = openGL.getGL();
+	public void updateDiffuseLightValue(final OpenGL openGL) {
+		final GL2 gl = openGL.getGL();
 		final List<LightPropertiesStructure> lightPropertiesList = renderer.data.getDiffuseLights();
 		final double size = renderer.getMaxEnvDim() / 20;
 		final double worldWidth = renderer.data.getEnvWidth();
@@ -136,7 +135,7 @@ public class LightHelper {
 		}
 	}
 
-	private void drawLight(final WebOpenGL openGL, final double size, final double worldWidth, final double worldHeight,
+	private void drawLight(final OpenGL openGL, final double size, final double worldWidth, final double worldHeight,
 			final LightPropertiesStructure lightProperties, final float[] lightPosition) {
 
 		// save the current color to re-set it at the end of this
@@ -219,8 +218,8 @@ public class LightHelper {
 		return result;
 	}
 
-	public void notifyOpenGLRotation(final WebOpenGL openGL, final double angle, final Coordinate axis) {
-		final WebGL2 gl = openGL.getGL();
+	public void notifyOpenGLRotation(final OpenGL openGL, final double angle, final Coordinate axis) {
+		final GL2 gl = openGL.getGL();
 		final LayeredDisplayData data = renderer.data;
 		final List<LightPropertiesStructure> lightPropertiesList = data.getDiffuseLights();
 		for (final LightPropertiesStructure lightProperties : lightPropertiesList) {

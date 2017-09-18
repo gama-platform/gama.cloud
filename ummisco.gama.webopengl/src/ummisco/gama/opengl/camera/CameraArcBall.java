@@ -10,6 +10,7 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
+import java.awt.event.MouseWheelEvent;
 
 import org.eclipse.swt.SWT;
 
@@ -520,6 +521,12 @@ public class CameraArcBall extends AbstractCamera {
 				getRenderer().stopDrawRotationHelper();
 			}
 		}
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }// End of Class CameraArcBall

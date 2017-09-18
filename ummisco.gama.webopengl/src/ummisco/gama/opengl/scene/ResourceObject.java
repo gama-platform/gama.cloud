@@ -39,7 +39,7 @@ public class ResourceObject extends GeometryObject {
 	}
 
 	@Override
-	public Envelope3D getEnvelope(final WebOpenGL gl) {
+	public Envelope3D getEnvelope(final OpenGL gl) {
 		return gl.getEnvelopeFor(file);
 	}
 

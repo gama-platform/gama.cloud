@@ -9,10 +9,10 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.displays;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Control;
 
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.runtime.IScope;
 
 
 /**
@@ -41,10 +41,10 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 	}
 
 	@Override
-	public void close() {
+	public void close(IScope scope) {
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, () -> {
+		WorkbenchHelper.run(uid, () -> {
 			try {
 				if (getDisplaySurface() != null) {
 					getDisplaySurface().dispose();

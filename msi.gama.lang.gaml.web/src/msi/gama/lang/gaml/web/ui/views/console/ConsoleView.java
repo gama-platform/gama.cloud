@@ -226,9 +226,9 @@ public class ConsoleView extends GamaViewPart
 	}
 
 	@Override
-	public void close() {
+	public void close(IScope scope) {
 		reset();
-		super.close();
+		super.close(scope);
 	}
 
 	@Override

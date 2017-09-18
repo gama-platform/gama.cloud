@@ -18,13 +18,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Menu;
 
 import com.jogamp.opengl.GLAnimatorControl;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 import com.vividsolutions.jts.geom.Envelope;
 
 import msi.gama.common.geometry.Envelope3D;
@@ -34,6 +34,7 @@ import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.util.ImageUtils;
+import msi.gama.lang.gaml.web.ui.menus.AgentsMenu;
 import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
 import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
 import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
@@ -99,20 +100,23 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		output.getData().addListener(this);
 		output.setSurface(this);
 		setDisplayScope(output.getScope().copy("in OpenGLDisplaySuface"));
-		if (getOutput().useShader()) {
-			renderer = new ModernRenderer();
+//		if (getOutput().getData().useShader()) {
+//			renderer = new ModernRenderer();
+//
+//		} else {
+//			renderer = new JOGLRenderer();
+//		}
+		
+		renderer = new ModernRenderer();
 
-		} else {
-			renderer = new JOGLRenderer();
-		}
 		renderer.setDisplaySurface(this);
-//		animator = createAnimator(); hqn88
-		 createAnimator();
-		 renderer.getCanvas().setDisplayScope(output.getScope().copy("in OpenGLDisplaySuface"));
+		createAnimator();
+		renderer.canvas.setDisplayScope(output.getScope().copy("in Java2DDisplaySurface"));
+
 		layerManager = new LayerManager(this, output);
 		temp_focus = output.getFacet(IKeyword.FOCUS);
 
-//		animator.start();hqn88
+//		animator.start();
 	}
 
 	@Override
@@ -134,18 +138,17 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				e.printStackTrace();
 			}
 		}
-//		final GLAutoDrawable glad = renderer.getDrawable();
-//		if (glad == null || glad.getGL() == null || glad.getGL().getContext() == null) { return null; }
+		final GLAutoDrawable glad = renderer.getDrawable();
+		if (glad == null || glad.getGL() == null || glad.getGL().getContext() == null) { return null; }
 //		final boolean current = glad.getGL().getContext().isCurrent();
 //		if (!current) {
 //			glad.getGL().getContext().makeCurrent();
 //		}
-//		final AWTGLReadBufferUtil glReadBufferUtil = new AWTGLReadBufferUtil(glad.getGLProfile(), false);
-//		final BufferedImage image = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
+		final AWTGLReadBufferUtil glReadBufferUtil = new AWTGLReadBufferUtil(glad.getGLProfile(), false);
+		final BufferedImage image = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
 //		if (!current) {
 //			glad.getGL().getContext().release();
 //		}
-		final BufferedImage image=new BufferedImage(w, h, h);
 		return ImageUtils.resize(image, w, h);
 	}
 
@@ -176,11 +179,11 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 					focusOn(geometry);
 				}
 			}
-//			if (force) {
+			if (force) {
 //				if (oldState) {
 //					animator.pause();
 //				}
-//			}
+			}
 		} finally {
 			alreadyUpdating = false;
 		}
@@ -295,7 +298,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public int getWidth() {
-		return (int) renderer.getDrawable().getSurfaceWidth();
+		return renderer.getDrawable().getSurfaceWidth();
 		// return size.x;
 	}
 
@@ -306,7 +309,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public int getHeight() {
-		return (int) renderer.getDrawable().getSurfaceHeight();
+		return renderer.getDrawable().getSurfaceHeight();
 		// return size.y;
 	}
 
@@ -419,8 +422,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 			int xc = -origin.x;
 			int yc = -origin.y;
 			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
-			xc = (int) (xc + renderer.getDrawable().getSurfaceWidth());
-			yc = (int) (yc + renderer.getDrawable().getSurfaceHeight());
+			xc = xc + renderer.getDrawable().getSurfaceWidth();
+			yc = yc + renderer.getDrawable().getSurfaceHeight();
 			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
 			currentLayer.setVisibleRegion(e);
 		}
@@ -459,9 +462,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void followAgent(final IAgent a) {
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		new Thread(() -> WorkbenchHelper.asyncRun(uid, () -> renderer.camera.zoomFocus(a))).start();
+		new Thread(() -> WorkbenchHelper.asyncRun("admin",() -> renderer.camera.zoomFocus(a))).start();
 
 	}
 
@@ -517,7 +518,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 //		}
 	}
 
-//	final Runnable cleanup = () -> WorkbenchHelper.asyncRun(() -> renderer.getPickingState().setPicking(false));
+	final Runnable cleanup = () -> WorkbenchHelper.asyncRun("admin",() -> renderer.getPickingState().setPicking(false));
 
 	/**
 	 * Method selectAgents()
@@ -541,12 +542,12 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				if (id != null)
 					ag = id.getAgent(scope);
 			}
-//		if (withHighlight)
-//			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
-//					cleanup, AgentsMenu.getHighlightActionFor(ag));
-//		else
-//			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
-//					cleanup);
+		if (withHighlight)
+			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
+					cleanup, AgentsMenu.getHighlightActionFor(ag));
+		else
+			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
+					cleanup);
 	}
 
 	/**
@@ -568,18 +569,16 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		actions.put(renderer.camera.isROISticky() ? "Hide region" : "Keep region visible",
 				() -> renderer.camera.toggleStickyROI());
 		actions.put("Focus on region", () -> renderer.camera.zoomRoi(env));
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, () -> {
-			final Menu menu = menuManager.buildROIMenu(renderer.camera.getMousePosition().x,
-					renderer.camera.getMousePosition().y, agents, actions, images);
+//		WorkbenchHelper.run("admin",() -> {
+//			final Menu menu = menuManager.buildROIMenu(renderer.camera.getMousePosition().x,
+//					renderer.camera.getMousePosition().y, agents, actions, images);
 //			menu.addMenuListener(new MenuListener() {
 //
 //				@Override
 //				public void menuHidden(final MenuEvent e) {
 //					animator.resume();
 //					// Will be run after the selection
-//					WorkbenchHelper.asyncRun(uid, () -> renderer.cancelROI());
+//					WorkbenchHelper.asyncRun("admin",() -> renderer.cancelROI());
 //
 //				}
 //
@@ -588,9 +587,9 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 //					animator.pause();
 //				}
 //			});
-
-			menu.setVisible(true);
-		});
+//
+//			menu.setVisible(true);
+//		});
 
 	}
 
@@ -679,7 +678,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	public void setSize(final int x, final int y) {}
 
 	private GLAnimatorControl createAnimator() {
-		final WebGLComposite drawable = renderer.createDrawable(parent);
+		final GLAutoDrawable drawable = renderer.createDrawable(parent);
 		return drawable.getAnimator();
 	}
 
@@ -709,7 +708,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	@Override
 	public boolean isRealized() {
 		if (renderer == null) { return false; }
-		final WebGLComposite d = renderer.getDrawable();
+		final GLAutoDrawable d = renderer.getDrawable();
 		if (d == null) { return false; }
 		return d.isRealized();
 	}

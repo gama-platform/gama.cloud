@@ -15,15 +15,13 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.nio.BufferOverflowException;
 
-import org.eclipse.rap.rwt.RWT;
-
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES1;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.fixedfunc.GLLightingFunc;
 import com.jogamp.opengl.glu.GLU;
-import com.vividsolutions.jts.geom.Geometry;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
@@ -36,11 +34,9 @@ import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
-import msi.gaml.statements.draw.ShapeDrawingAttributes;
 import ummisco.gama.opengl.scene.AbstractObject;
 import ummisco.gama.opengl.scene.FieldDrawer;
 import ummisco.gama.opengl.scene.GeometryDrawer;
-import ummisco.gama.opengl.scene.ModelScene;
 import ummisco.gama.opengl.scene.ObjectDrawer;
 import ummisco.gama.opengl.scene.ResourceObject;
 import ummisco.gama.opengl.scene.StringDrawer;
@@ -81,10 +77,9 @@ public class JOGLRenderer extends Abstract3DRenderer {
 
 	@Override
 	public void init(final GLAutoDrawable drawable) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid,() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
 		lightHelper = new LightHelper(this);
-		gl = new WebGL2();// drawable.getGL().getGL2();
+		gl = drawable.getGL();
 		openGL.setGL2(gl);
 		keystone.setGLHelper(openGL);
 		final Color bg = data.getBackgroundColor();
@@ -137,7 +132,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL2.GL_MULTISAMPLE);
 		gl.glHint(GL2.GL_MULTISAMPLE_FILTER_HINT_NV, GL2.GL_NICEST);
 		// }
-		openGL.initializeShapeCache();
+//		openGL.initializeShapeCache();
 		setUpKeystoneCoordinates();
 		// We mark the renderer as inited
 		inited = true;
@@ -147,7 +142,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 	@Override
 	public void display(final GLAutoDrawable drawable) {
 		// Re-set the GL context in case it has changed
-		gl = new WebGL2();// drawable.getGL().getGL2();
+		gl = drawable.getGL();
 		openGL.setGL2(gl);
 		//
 		openGL.setAntiAlias(data.isAntialias());
@@ -187,11 +182,10 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		openGL.disableTextures();
 		openGL.disableLighting();
 		if (data.isShowfps()) {
-//			hqn88
-//			final int fps = (int) canvas.getAnimator().getLastFPS();
-//			openGL.setCurrentColor(Color.black);
-//			final String s = fps == 0 ? "(computing FPS...)" : fps + " FPS";
-//			openGL.rasterText(s, GLUT.BITMAP_HELVETICA_12, -5, 5, 0);
+			final int fps = (int) canvas.getAnimator().getLastFPS();
+			openGL.setCurrentColor(Color.black);
+			final String s = fps == 0 ? "(computing FPS...)" : fps + " FPS";
+			openGL.rasterText(s, GLUT.BITMAP_HELVETICA_12, -5, 5, 0);
 		}
 
 		if (ROIEnvelope != null) {
@@ -210,26 +204,18 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			WorkbenchHelper.asyncRun(uid,() -> getCanvas().setVisible(visible));
+			WorkbenchHelper.asyncRun("admin",() -> getCanvas().setVisible(true));
+
 		}
+
 	}
 
-	@Override
-	public Rectangle2D drawShape(final Geometry shape, final ShapeDrawingAttributes attributes) {
-		if (shape == null) { return null; }
-		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
-		tryToHighlight(attributes);
-		sceneBuffer.getSceneToUpdate().addGeometry(shape, attributes);
-		getCanvas().appendInfo(null, "s");
-		return rect;
-	}
 	@Override
 	public void reshape(final GLAutoDrawable drawable, final int arg1, final int arg2, final int width,
 			final int height) {
 		if (width <= 0 || height <= 0) { return; }
 		// System.out.println("Reshaping to " + width + "x" + height);
-		gl = new WebGL2();// drawable.getContext().getGL().getGL2();
+		gl = drawable.getContext().getGL();
 		gl.glViewport(0, 0, width, height);
 		openGL.setViewWidth(width);
 		openGL.setViewHeight(height);
@@ -326,7 +312,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		int selectedIndex = PickingState.NONE;
 		// 5. When you back to Render mode gl.glRenderMode() methods return
 		// number of hits
-		final int howManyObjects = gl.glRenderMode(WebGL2.GL_RENDER);
+		final int howManyObjects = gl.glRenderMode(GL2.GL_RENDER);
 		// 6. Restore to normal settings
 		openGL.matrixMode(GL2.GL_PROJECTION);
 		openGL.popMatrix();
@@ -412,11 +398,11 @@ public class JOGLRenderer extends Abstract3DRenderer {
 
 	@Override
 	public GamaPoint getRealWorldPointFromWindowPoint(final Point windowPoint) {
-		int realy = 0;// GL y coord pos
-		final double[] wcoord = new double[4];
-		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
 //		hqn88
-//		final GLU glu = GLU.createGLU(); //gl hqn88
+//		int realy = 0;// GL y coord pos
+//		final double[] wcoord = new double[4];
+//		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
+//		final GLU glu = GLU.createGLU(gl);
 //		realy = viewport[3] - y;
 //		glu.gluUnProject(x, realy, 0.1, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
 //		final GamaPoint v1 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
@@ -426,14 +412,13 @@ public class JOGLRenderer extends Abstract3DRenderer {
 //		final float distance =
 //				(float) (camera.getPosition().getZ() / GamaPoint.dotProduct(new GamaPoint(0.0, 0.0, -1.0), v3));
 //		final GamaPoint worldCoordinates = camera.getPosition().plus(v3.times(distance));
+//
 //		return new GamaPoint(worldCoordinates.x, worldCoordinates.y);
-		
-		
-		return new GamaPoint(x,y);
+		return new GamaPoint(800,600);
 	}
 
 	public double[] getPixelWidthAndHeightOfWorld() {
-		final GLU glu = GLU.createGLU(); //gl hqn88
+		final GLU glu = GLU.createGLU(gl);
 		final double[] coord = new double[4];
 		glu.gluProject(getEnvWidth(), 0, 0, mvmatrix, 0, projmatrix, 0, viewport, 0, coord, 0);
 		return coord;
@@ -446,10 +431,10 @@ public class JOGLRenderer extends Abstract3DRenderer {
 	 */
 	@Override
 	public void beginOverlay(final OverlayLayer layer) {
-		final ModelScene scene = sceneBuffer.getSceneToUpdate();
-		if (scene != null) {
-			scene.beginOverlay();
-		}
+		// final ModelScene scene = sceneBuffer.getSceneToUpdate();
+		// if (scene != null) {
+		// scene.beginOverlay();
+		// }
 
 	}
 

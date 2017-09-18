@@ -16,8 +16,6 @@ import java.nio.IntBuffer;
 
 import javax.vecmath.Matrix4f;
 
-import org.eclipse.rap.rwt.RWT;
-
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
@@ -190,13 +188,12 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper.run(uid,() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
 		// the drawingEntityGenerator is used only when there is a webgl display
 		// and/or a modernRenderer.
 		drawingEntityGenerator = new DrawingEntityGenerator(this);
 		lightHelper = new LightHelper(this);
-		gl = new WebGL2();//drawable.getGL().getGL2();
+		gl = drawable.getGL();
 		openGL.setGL2(gl);
 		// openGL.setGL2(gl);
 		final Color background = data.getBackgroundColor();
@@ -221,7 +218,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 		currentScene = sceneBuffer.getSceneToRender();
 		if (currentScene == null) { return; }
-		gl = new WebGL2(); //drawable.getGL().getGL2();
+		gl = drawable.getGL();
 
 		drawer.prepareFrameBufferObject();
 
@@ -245,9 +242,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			WorkbenchHelper.run(uid,() -> getCanvas().setVisible(visible));
+			WorkbenchHelper.run("admin",() -> getCanvas().setVisible(true));
 
 		}
 
@@ -263,8 +258,8 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	@Override
 	protected final void updatePerspective() {
-		final int height = (int) getDrawable().getSurfaceHeight();
-		final int width = (int) getDrawable().getSurfaceWidth();
+		final int height = getDrawable().getSurfaceHeight();
+		final int width = getDrawable().getSurfaceWidth();
 		final double maxDim = getMaxEnvDim();
 		final double fov = data.getCameralens();
 

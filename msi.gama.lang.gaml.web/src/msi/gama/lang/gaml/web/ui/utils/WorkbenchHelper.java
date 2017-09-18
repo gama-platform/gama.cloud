@@ -11,7 +11,6 @@ package msi.gama.lang.gaml.web.ui.utils;
 
 import java.util.HashMap;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -24,7 +23,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 
-import msi.gama.lang.gaml.web.editor.BasicWorkbench;
 import msi.gama.lang.gaml.web.ui.views.IGamlEditor;
 import msi.gama.runtime.IScope;
 

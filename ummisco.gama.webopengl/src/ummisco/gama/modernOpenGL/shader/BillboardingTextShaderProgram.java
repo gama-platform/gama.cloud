@@ -13,7 +13,7 @@ package ummisco.gama.modernOpenGL.shader;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
-import ummisco.gama.opengl.WebGL2;
+import com.jogamp.opengl.GL2;
 
 
 public class BillboardingTextShaderProgram extends AbstractShader {
@@ -30,7 +30,7 @@ public class BillboardingTextShaderProgram extends AbstractShader {
 	
 	private int textureIDStored = -1;
 	
-	public BillboardingTextShaderProgram(WebGL2 gl) {
+	public BillboardingTextShaderProgram(GL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

@@ -36,7 +36,7 @@ import msi.gama.util.file.Gama3DGeometryFile;
 import msi.gaml.types.GamaGeometryType;
 import msi.gaml.types.IType;
 import msi.gaml.types.Types;
-import ummisco.gama.opengl.scene.WebOpenGL;
+import ummisco.gama.opengl.scene.OpenGL;
 
 /**
  * Class GamaObjFile.
@@ -323,7 +323,7 @@ public class GamaObjFile extends Gama3DGeometryFile {
 	// protected void flushBuffer() throws GamaRuntimeException {
 	// }
 
-	public void drawToOpenGL(final WebOpenGL gl) {
+	public void drawToOpenGL(final OpenGL gl) {
 		int nextmat = -1;
 		int matcount = 0;
 		final int totalmats = matTimings.size();
@@ -368,9 +368,8 @@ public class GamaObjFile extends Gama3DGeometryFile {
 						// was not possible when displaying the file
 						texture = gl.getTexture(f, false, true);
 						gl.setCurrentTextures(texture.getTextureObject(), texture.getTextureObject());
-						//hqn88
-//						texture.setTexParameteri(gl.getGL(), GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
-//						texture.setTexParameteri(gl.getGL(), GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
+						texture.setTexParameteri(gl.getGL(), GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
+						texture.setTexParameteri(gl.getGL(), GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 					}
 
 				}

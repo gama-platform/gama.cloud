@@ -28,7 +28,6 @@ public class KeystoneHelperLayerObject extends LayerObject {
 	public KeystoneHelperLayerObject(final Abstract3DRenderer renderer) {
 		super(renderer, null);
 		constantRedrawnLayer = true;
-		overlay = true;
 	}
 
 	@Override
@@ -37,10 +36,15 @@ public class KeystoneHelperLayerObject extends LayerObject {
 	}
 
 	@Override
-	public void clear(final WebOpenGL gl) {}
+	protected boolean computeOverlay() {
+		return true;
+	}
 
 	@Override
-	public void draw(final WebOpenGL gl) {
+	public void clear(final OpenGL gl) {}
+
+	@Override
+	public void draw(final OpenGL gl) {
 		updateObjectList();
 		super.draw(gl);
 	}

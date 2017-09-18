@@ -345,4 +345,9 @@ public class AgentsMenu extends ContributionItem {
 	public void fill(final Menu parent, final int index) {
 		createMenuForAgent(parent, GAMAHelper.getExperiment().getAgent(), true, true, HIGHLIGHT_ACTION);
 	}
+
+	public static MenuAction getHighlightActionFor(IAgent ag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

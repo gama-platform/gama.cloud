@@ -10,14 +10,14 @@
  **********************************************************************************************/
 package ummisco.gama.modernOpenGL.shader.postprocessing;
 
-import ummisco.gama.opengl.WebGL2;
+import com.jogamp.opengl.GL2;
 
 public class InverseColorShader extends AbstractPostprocessingShader{
 
 	private static String VERTEX_FILE = "inverseColorVertex";
 	private static String FRAGMENT_FILE = "inverseColorFragment";
 	
-	public InverseColorShader(WebGL2 gl) {
+	public InverseColorShader(GL2 gl) {
 		super(gl,VERTEX_FILE,FRAGMENT_FILE);
 	}
 	

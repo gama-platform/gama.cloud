@@ -233,7 +233,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 
 	public boolean isOpenGL() {
 		if (outputs.isEmpty()) { return false; }
-		return getOutput().isOpenGL();
+		return getOutput().getData().isOpenGL();
 	}
 
 	public ILayerManager getDisplayManager() {
@@ -815,7 +815,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		layerViewer.setSpacing(5);
 		// Fill the 2 viewers
 		fillGeneralParameters(propertiesViewer);
-		if (getOutput().isOpenGL()) {
+		if (getOutput().getData().isOpenGL()) {
 			fillCameraParameters(propertiesViewer);
 			fillKeystoneParameters(propertiesViewer);
 		}
@@ -1103,7 +1103,7 @@ public abstract class LayeredDisplayView extends GamaViewPart implements Display
 		output.dispose();
 		outputs.remove(output);
 		if (outputs.isEmpty()) {
-			close();
+			close(output.getScope());
 		}
 	}
 

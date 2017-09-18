@@ -10,7 +10,6 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
-import java.awt.event.MouseWheelEvent;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -184,7 +183,7 @@ public abstract class AbstractCamera implements ICamera {
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
 		upVector.setLocation(xPos, yPos, zPos);
-		getRenderer().data.setCameraUpVector((GamaPoint) upVector.clone(), true);
+//		getRenderer().data.setCameraUpVector((GamaPoint) upVector.clone(), true);
 	}
 
 	/* -------Get commands--------- */
@@ -227,8 +226,7 @@ public abstract class AbstractCamera implements ICamera {
 
 	protected void invokeOnGLThread(final GLRunnable runnable) {
 		// Fixing issue #2224
-//		hqn88
-//		runnable.run(renderer.getDrawable());
+		runnable.run(renderer.getDrawable());
 		// renderer.getDrawable().invoke(false, runnable);
 	}
 
@@ -237,19 +235,19 @@ public abstract class AbstractCamera implements ICamera {
 	 * 
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
-	@Override
-	public final void mouseWheelMoved(MouseWheelEvent e) {
-		invokeOnGLThread(drawable -> {
-			if (cameraInteraction) {
-				internalMouseScrolled(e);
-			}
-			return false;
-		});
+//	@Override
+//	public final void mouseScrolled(final MouseEvent e) {
+//		invokeOnGLThread(drawable -> {
+//			if (cameraInteraction) {
+//				internalMouseScrolled(e);
+//			}
+//			return false;
+//		});
+//
+//	}
 
-	}
-
-	protected void internalMouseScrolled(final MouseWheelEvent e) {
-		zoom(e.getClickCount() > 0);
+	protected void internalMouseScrolled(final MouseEvent e) {
+		zoom(e.count > 0);
 	}
 
 	/**

@@ -41,13 +41,13 @@ public class SceneBuffer {
 		// If we are syncrhonized with the simulation and a backScene exists, we
 		// wait until it has been updated (put to null at the end of
 		// endUpdatingScene)
-//		while (renderer.data.isSynchronized() && backScene != null) {
-//			try {
-//				Thread.sleep(20);
-//			} catch (final InterruptedException e) {
-//				return false;
-//			}
-//		}
+		while (renderer.data.isSynchronized() && backScene != null) {
+			try {
+				Thread.sleep(20);
+			} catch (final InterruptedException e) {
+				return false;
+			}
+		}
 		// If we are not synchronized (or if the wait is over), we verify that
 		// backScene is null and create a new one
 		if (backScene != null) {
@@ -63,7 +63,12 @@ public class SceneBuffer {
 
 	public boolean isNotReadyToUpdate() {
 		if (frontScene == null)
-			return false;
+			if(backScene == null) {				
+				return false;
+			}else {
+				frontScene=backScene;
+				return true;
+			}
 		if (!frontScene.rendered())
 			return true;
 		return false;
@@ -142,7 +147,7 @@ public class SceneBuffer {
 	 * 
 	 * @param gl
 	 */
-	public void garbageCollect(final WebOpenGL gl) {
+	public void garbageCollect(final OpenGL gl) {
 		final ModelScene[] scenes = garbage.toArray(new ModelScene[0]);
 		garbage.clear();
 		for (final ModelScene scene : scenes) {

@@ -32,7 +32,6 @@ import ummisco.gama.modernOpenGL.shader.postprocessing.HorizontalBlurShader;
 import ummisco.gama.modernOpenGL.shader.postprocessing.KeystoneShaderProgram;
 import ummisco.gama.modernOpenGL.shader.postprocessing.VerticalBlurShader;
 import ummisco.gama.opengl.ModernRenderer;
-import ummisco.gama.opengl.WebGL2;
 import ummisco.gama.opengl.scene.LayerObject;
 import ummisco.gama.opengl.vaoGenerator.ModernLayerStructure;
 import ummisco.gama.opengl.vaoGenerator.TransformationMatrix;
@@ -53,7 +52,7 @@ public class ModernDrawer {
 	// (ex : in graphic layer, if we draw a circle and then a text, we want the
 	// text to be above the circle).
 	private final ModernRenderer renderer;
-	private final WebGL2 gl;
+	private final GL2 gl;
 
 	private final ArrayList<Integer> listOfVAOUsed = new ArrayList<>();
 	private final ArrayList<AbstractShader> shaderLoaded = new ArrayList<>();
@@ -71,7 +70,7 @@ public class ModernDrawer {
 	private static final int NORMAL_IDX = 3;
 	private static final int UVMAPPING_IDX = 4;
 
-	public ModernDrawer(final ModernRenderer renderer, final WebGL2 gl) {
+	public ModernDrawer(final ModernRenderer renderer, final GL2 gl) {
 		this.renderer = renderer;
 		this.gl = gl;
 	}
@@ -371,7 +370,7 @@ public class ModernDrawer {
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, fboHandles[IDX_BUFF_IDX]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
 		ibIdxBuff.rewind();
 	}
 
@@ -428,8 +427,8 @@ public class ModernDrawer {
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, fboHandles[IDX_BUFF_IDX]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 	}
 
 	private void drawVBO(final int[] typeOfDrawing) {
@@ -611,8 +610,8 @@ public class ModernDrawer {
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
 				layerStructureMap.get(currentLayer).vboHandles[shaderNumber * 5 + IDX_BUFF_IDX]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 
 		final int[] newElement = new int[3];
 		if (drawingType.equals(DrawingEntity.Type.POINT.toString())) {
@@ -646,7 +645,7 @@ public class ModernDrawer {
 			final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data/* totalData,positionInBuffer */);
 			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, fbData);
 			offset += data.length * 4;
-			fbData.rewind(); // It is OK to release CPU after transfer to GPU
+//			fbData.rewind(); // It is OK to release CPU after transfer to GPU
 		}
 
 		gl.glEnableVertexAttribArray(shaderAttributeNumber);

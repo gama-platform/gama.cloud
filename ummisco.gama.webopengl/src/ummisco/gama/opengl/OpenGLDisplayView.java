@@ -18,7 +18,6 @@ import msi.gama.lang.gaml.web.ui.views.displays.SWTDisplayView;
 import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
 import msi.gama.runtime.IScope;
 
-
 /**
  * Class OpenGLLayeredDisplayView.
  *

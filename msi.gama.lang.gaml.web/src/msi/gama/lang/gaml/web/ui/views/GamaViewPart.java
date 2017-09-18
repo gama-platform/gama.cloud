@@ -43,6 +43,7 @@ import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.population.IPopulation;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutputManager;
+import msi.gama.runtime.IScope;
 
 /**
  * @author drogoul
@@ -144,7 +145,7 @@ public abstract class GamaViewPart extends ViewPart
 		} else {
 			if (shouldBeClosedWhenNoExperiments()) {
 				System.err.println("Tried to reopen " + getClass().getSimpleName() + " ; automatically closed");
-				org.eclipse.swt.widgets.Display.getDefault().asyncExec(() -> close());
+				org.eclipse.swt.widgets.Display.getDefault().asyncExec(() -> close(experiment.getAgent().getScope()));
 
 			}
 		}
@@ -268,7 +269,7 @@ public abstract class GamaViewPart extends ViewPart
 	}
 
 	@Override
-	public void close() {
+	public void close(final IScope scope) {
 
 		final String uid=RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.asyncRun(uid, () -> {
@@ -285,7 +286,7 @@ public abstract class GamaViewPart extends ViewPart
 	public void removeOutput(final IDisplayOutput output) {
 		outputs.remove(output);
 		if (outputs.isEmpty()) {
-			close();
+			close(output.getScope());
 		}
 	}
 

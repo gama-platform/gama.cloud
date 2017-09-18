@@ -35,19 +35,19 @@ public abstract class AbstractObject {
 		this.attributes = attributes;
 		if (attributes.getTextures() != null) {
 			textures = new int[attributes.getTextures().size()];
-			Arrays.fill(textures, WebOpenGL.NO_TEXTURE);
+			Arrays.fill(textures, OpenGL.NO_TEXTURE);
 		} else
 			textures = null;
 	}
 
 	public abstract DrawerType getDrawerType();
 
-	public int[] getTexturesId(final WebOpenGL gl) {
+	public int[] getTexturesId(final OpenGL gl) {
 		if (textures == null) { return null; }
 		// final int[] result = new int[textures.length];
 		for (int i = 0; i < textures.length; i++) {
 			final int t = getTexture(gl, i);
-			textures[i] = t == WebOpenGL.NO_TEXTURE ? 0 : t;
+			textures[i] = t == OpenGL.NO_TEXTURE ? 0 : t;
 		}
 		return textures;
 	}
@@ -58,7 +58,7 @@ public abstract class AbstractObject {
 	 * @param gl
 	 * @return the id of the texture or Integer.MAX_VALUE if none is defined
 	 */
-	public int getAlternateTexture(final WebOpenGL gl) {
+	public int getAlternateTexture(final OpenGL gl) {
 		return getTexture(gl, 1);
 	}
 
@@ -68,14 +68,14 @@ public abstract class AbstractObject {
 	 * @param gl
 	 * @return the id of the texture or Integer.MAX_VALUE if none is defined
 	 */
-	public int getPrimaryTexture(final WebOpenGL gl) {
+	public int getPrimaryTexture(final OpenGL gl) {
 		return getTexture(gl, 0);
 	}
 
-	private int getTexture(final WebOpenGL gl, final int order) {
-		if (textures == null) { return WebOpenGL.NO_TEXTURE; }
-		if (order < 0 || order > textures.length - 1) { return WebOpenGL.NO_TEXTURE; }
-		if (isAnimated() || textures[order] == WebOpenGL.NO_TEXTURE) {
+	private int getTexture(final OpenGL gl, final int order) {
+		if (textures == null) { return OpenGL.NO_TEXTURE; }
+		if (order < 0 || order > textures.length - 1) { return OpenGL.NO_TEXTURE; }
+		if (isAnimated() || textures[order] == OpenGL.NO_TEXTURE) {
 			Object obj = null;
 			try {
 				obj = attributes.getTextures().get(order);
@@ -99,7 +99,7 @@ public abstract class AbstractObject {
 		return textures != null && textures.length > 0;
 	}
 
-	public final void draw(final WebOpenGL gl, final ObjectDrawer<AbstractObject> drawer, final boolean isPicking) {
+	public final void draw(final OpenGL gl, final ObjectDrawer<AbstractObject> drawer, final boolean isPicking) {
 		if (isPicking)
 			gl.registerForSelection(attributes.getIndex());
 		drawer.draw(this);

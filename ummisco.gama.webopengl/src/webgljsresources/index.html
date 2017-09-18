@@ -2,6 +2,7 @@
  
 <head>
  <script type="text/javascript" src="webgljs.js"></script>
+ <script type="text/javascript" src="gl-matrix.js"></script>
  <script type="text/javascript" src="three.js"></script>
  <link rel="stylesheet" type="text/css" href="webgljs.css" />
  
@@ -11,6 +12,7 @@
    <button onclick="appendInfo('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Info Line</button>
    <button onclick="appendErr('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Error Line</button>
    <button onclick="appendWarn('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Warn Line</button>  
+   <button onclick="clearAll()">Clear</button>  
   
  
  
@@ -34,6 +36,9 @@
       
      function appendInfo(text)  {
         logjs.appendInfo(text);      
+     }  
+     function clearAll()  {
+        logjs.clearAll();      
      }  
   </script>
  

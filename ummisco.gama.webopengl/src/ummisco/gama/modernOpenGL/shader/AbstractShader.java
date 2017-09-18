@@ -17,12 +17,11 @@ import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
 
-import ummisco.gama.opengl.WebGL2;
 import ummisco.gama.opengl.vaoGenerator.GeomMathUtils;
 
 public abstract class AbstractShader {
 
-	protected WebGL2 gl;
+	protected GL2 gl;
 
 	protected boolean isOverlay = false;
 
@@ -42,7 +41,7 @@ public abstract class AbstractShader {
 
 	private static FloatBuffer matrixBuffer = FloatBuffer.allocate(16);
 
-	protected AbstractShader(final WebGL2 gl, final String vertexFile, final String fragmentFile) {
+	protected AbstractShader(final GL2 gl, final String vertexFile, final String fragmentFile) {
 		this.gl = gl;
 
 		final InputStream vertexInputStream =
@@ -88,16 +87,16 @@ public abstract class AbstractShader {
 		// Check compile status.
 		final int[] compiled = new int[1];
 		gl.glGetShaderiv(shaderID, GL2.GL_COMPILE_STATUS, compiled, 0);
-		if (compiled[0] == 0) {
-			final int[] logLength = new int[1];
-			gl.glGetShaderiv(shaderID, GL2.GL_INFO_LOG_LENGTH, logLength, 0);
-
-			final byte[] log = new byte[logLength[0]];
-			gl.glGetShaderInfoLog(shaderID, logLength[0], (int[]) null, 0, log, 0);
-
-			System.err.println("Error compiling the vertex shader: " + new String(log));
-			System.exit(1);
-		}
+//		if (compiled[0] == 0) {
+//			final int[] logLength = new int[1];
+//			gl.glGetShaderiv(shaderID, GL2.GL_INFO_LOG_LENGTH, logLength, 0);
+//
+//			final byte[] log = new byte[logLength[0]];
+//			gl.glGetShaderInfoLog(shaderID, logLength[0], (int[]) null, 0, log, 0);
+//
+//			System.err.println("Error compiling the vertex shader: " + new String(log));
+//			System.exit(1);
+//		}
 
 		return shaderID;
 	}

@@ -120,9 +120,10 @@ public class WebGui implements IGui {
 		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
 			return;
 		}
-		if(scope.getExperiment()==null) return;
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (scope.getExperiment() == null)
+			return;
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(uid, IRuntimeExceptionHandler.class);
 		if (!handler.isRunning())
 			handler.start();
@@ -133,14 +134,14 @@ public class WebGui implements IGui {
 	@Override
 	public void displayErrors(IScope scope, final List<GamaRuntimeException> exceptions) {
 		if (exceptions == null) {// close it
-//			final String uid=RWT.getUISession().getAttribute("user").toString();
-			if(scope==null) {
+			// final String
+			// uid=RWT.getUISession().getAttribute("user").toString();
+			if (scope == null) {
 				return;
 			}
-			final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+			final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 			WorkbenchHelper.hideView(uid, ERROR_VIEW_ID);
-		}
-		else {
+		} else {
 			final IGamaView.Error v = (Error) showView(scope, ERROR_VIEW_ID, null, IWorkbenchPage.VIEW_ACTIVATE);
 			if (v != null)
 				v.displayErrors();
@@ -149,8 +150,8 @@ public class WebGui implements IGui {
 
 	@Override
 	public void clearErrors(IScope scope) {
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final IRuntimeExceptionHandler handler = WorkbenchHelper.getService(uid, IRuntimeExceptionHandler.class);
 		handler.clearErrors();
 	}
@@ -203,11 +204,11 @@ public class WebGui implements IGui {
 
 	@Override
 	public IGamaView showView(IScope scope, final String viewId, final String secondaryId, final int code) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		if(scope == null) {
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (scope == null) {
 			return null;
 		}
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		Object o = internalShowView(uid, viewId, secondaryId, code);
 		if (o instanceof IWorkbenchPart) {
 			if (o instanceof IGamaView) {
@@ -223,7 +224,7 @@ public class WebGui implements IGui {
 	}
 
 	public void hideMonitorView() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		final IGamaView m = (IGamaView) WorkbenchHelper.findView(uid, MONITOR_VIEW_ID, null, false);
 		if (m != null) {
 			m.reset();
@@ -249,7 +250,8 @@ public class WebGui implements IGui {
 		if (model == null)
 			return false;
 		final String name = GamaPerspectiveHelper.getNewPerspectiveName(model.getName(), experimentName);
-//		return GamaPerspectiveHelper.openPerspective(name, immediately, false);
+		// return GamaPerspectiveHelper.openPerspective(name, immediately,
+		// false);
 		return GamaPerspectiveHelper.openPerspective(GamaPerspectiveHelper.PERSPECTIVE_SIMULATION_ID, immediately,
 				false);
 
@@ -278,7 +280,7 @@ public class WebGui implements IGui {
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
 			final Map<String, Object> initialValues, final Map<String, IType<?>> types) {
 		final Map<String, Object> result = new THashMap<>();
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(uid, () -> {
 			final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(uid), initialValues, types,
 					title);
@@ -288,7 +290,7 @@ public class WebGui implements IGui {
 	}
 
 	public void openUserControlDialog(final IScope scope, final UserPanelStatement panel) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(uid, () -> {
 			final IUserDialogFactory userDialogFactory = WorkbenchHelper.getService(uid, IUserDialogFactory.class);
 			if (userDialogFactory != null) {
@@ -300,7 +302,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public void openUserControlPanel(final IScope scope, final UserPanelStatement panel) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(uid, () -> {
 			IGamaView.User part = null;
 			part = (User) showView(scope, USER_CONTROL_VIEW_ID, null, IWorkbenchPage.VIEW_CREATE);
@@ -319,19 +321,20 @@ public class WebGui implements IGui {
 
 	@Override
 	public void closeDialogs(IScope scope) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-//		if(scope.getExperiment()!=null) {
-//			scope=scope.getExperiment().getSpecies().getExperimentScope();
-//		}
-//		final String uid=WorkbenchHelper.UISession.get(scope);
-//		WorkbenchHelper.asyncRun(uid, () -> {
-//			final IUserDialogFactory userDialogFactory = WorkbenchHelper.getService(uid, IUserDialogFactory.class);
-//			if (userDialogFactory != null) {
-//				userDialogFactory.closeUserDialog();
-//			}
-//			WorkbenchHelper.hideView(uid, USER_CONTROL_VIEW_ID);
-//
-//		});
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		// if(scope.getExperiment()!=null) {
+		// scope=scope.getExperiment().getSpecies().getExperimentScope();
+		// }
+		// final String uid=WorkbenchHelper.UISession.get(scope);
+		// WorkbenchHelper.asyncRun(uid, () -> {
+		// final IUserDialogFactory userDialogFactory =
+		// WorkbenchHelper.getService(uid, IUserDialogFactory.class);
+		// if (userDialogFactory != null) {
+		// userDialogFactory.closeUserDialog();
+		// }
+		// WorkbenchHelper.hideView(uid, USER_CONTROL_VIEW_ID);
+		//
+		// });
 
 	}
 
@@ -347,9 +350,10 @@ public class WebGui implements IGui {
 
 	@Override
 	public void editModel(IScope scope, final Object eObject) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		if(scope == null) return;
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (scope == null)
+			return;
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		final IModelRunner modelRunner = WorkbenchHelper.getService(uid, IModelRunner.class);
 		if (modelRunner == null)
 			return;
@@ -358,14 +362,14 @@ public class WebGui implements IGui {
 
 	@Override
 	public void updateParameterView(IScope scope, final IExperimentPlan exp) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		WorkbenchHelper.asyncRun(uid, () -> {
 			if (!exp.hasParametersOrUserCommands()) {
 				return;
 			}
-			final IGamaView.Parameters view = (Parameters) showView(scope, PARAMETER_VIEW_ID,
-					null, IWorkbenchPage.VIEW_ACTIVATE);
+			final IGamaView.Parameters view = (Parameters) showView(scope, PARAMETER_VIEW_ID, null,
+					IWorkbenchPage.VIEW_ACTIVATE);
 			view.addItem(exp);
 			view.updateItemValues();
 
@@ -374,13 +378,13 @@ public class WebGui implements IGui {
 
 	@Override
 	public void showParameterView(IScope scope, final IExperimentPlan exp) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(uid, () -> {
 			if (!exp.hasParametersOrUserCommands()) {
 				return;
 			}
-			final IGamaView.Parameters view = (Parameters) showView(scope, PARAMETER_VIEW_ID,
-					null, IWorkbenchPage.VIEW_VISIBLE);
+			final IGamaView.Parameters view = (Parameters) showView(scope, PARAMETER_VIEW_ID, null,
+					IWorkbenchPage.VIEW_VISIBLE);
 			view.addItem(exp);
 		});
 	}
@@ -395,7 +399,8 @@ public class WebGui implements IGui {
 		if (a == null) {
 			return;
 		}
-		final String uid=WorkbenchHelper.UISession.get(a.getScope().getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession
+				.get(a.getScope().getExperiment().getSpecies().getExperimentScope());
 		WorkbenchHelper.asyncRun(uid, () -> {
 			if (WorkbenchHelper.getPage(uid) == null) {
 				return;
@@ -416,16 +421,17 @@ public class WebGui implements IGui {
 
 	@Override
 	public void prepareForExperiment(IScope scope, final IExperimentPlan exp) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		if (exp.isGui()) {
-//			final IOpenGLInitializer initializer = WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
-//			if (initializer != null && !initializer.isDone()) {
-//				initializer.run();
-//			}
+			// final IOpenGLInitializer initializer =
+			// WorkbenchHelper.getService(uid, IOpenGLInitializer.class);
+			// if (initializer != null && !initializer.isDone()) {
+			// initializer.run();
+			// }
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
-			// getConsole().showConsoleView(exp.getAgent());
+			getConsole(scope).showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -436,7 +442,7 @@ public class WebGui implements IGui {
 	 */
 	@Override
 	public void cleanAfterExperiment(final IScope scope) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.hideView(uid, PARAMETER_VIEW_ID);
 		hideMonitorView();
 		getConsole(scope).eraseConsole(true);
@@ -459,7 +465,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public void runModel(final Object object, final String exp) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		final IModelRunner modelRunner = WorkbenchHelper.getService(uid, IModelRunner.class);
 		if (modelRunner == null)
 			return;
@@ -468,7 +474,7 @@ public class WebGui implements IGui {
 
 	public static List<IDisplaySurface> allDisplaySurfaces() {
 		final List<IDisplaySurface> result = new ArrayList<>();
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		final IViewReference[] viewRefs = WorkbenchHelper.getPage(uid).getViewReferences();
 		for (final IViewReference ref : viewRefs) {
 			final IWorkbenchPart part = ref.getPart(false);
@@ -487,8 +493,8 @@ public class WebGui implements IGui {
 	 */
 	@Override
 	public void updateSpeedDisplay(IScope scope, final Double d, final boolean notify) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		final ISpeedDisplayer speedStatus = WorkbenchHelper.getService(uid, ISpeedDisplayer.class);
 		if (speedStatus != null) {
 			WorkbenchHelper.asyncRun(uid, () -> speedStatus.setInit(d, notify));
@@ -503,21 +509,22 @@ public class WebGui implements IGui {
 	 */
 	@Override
 	public IFileMetaDataProvider getMetaDataProvider() {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-//		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-//		return WorkbenchHelper.getService(uid, IFileMetaDataProvider.class);
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		// final String
+		// uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// return WorkbenchHelper.getService(uid, IFileMetaDataProvider.class);
 		return null;
 	}
 
 	@Override
 	public IGamlLabelProvider getGamlLabelProvider() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		return WorkbenchHelper.getService(uid, IGamlLabelProvider.class);
 	}
 
 	@Override
 	public void closeSimulationViews(IScope scope, final boolean openModelingPerspective, final boolean immediately) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(uid, () -> {
 			final IWorkbenchPage page = WorkbenchHelper.getWorkbench(uid).getActiveWorkbenchWindow().getActivePage();
 			final IViewReference[] views = page.getViewReferences();
@@ -525,7 +532,7 @@ public class WebGui implements IGui {
 			for (final IViewReference view : views) {
 				final IViewPart part = view.getView(false);
 				if (part instanceof IGamaView) {
-					((IGamaView) part).close();
+					((IGamaView) part).close(scope);
 
 				}
 			}
@@ -551,11 +558,11 @@ public class WebGui implements IGui {
 	@Override
 	public void updateExperimentState(IScope scope, final String forcedState) {
 		// System.out.println("STATE: " + forcedState);
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		if(scope.getExperiment()!=null) {
-			scope=scope.getExperiment().getSpecies().getExperimentScope();
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (scope.getExperiment() != null) {
+			scope = scope.getExperiment().getSpecies().getExperimentScope();
 		}
-		final String uid=WorkbenchHelper.UISession.get(scope);
+		final String uid = WorkbenchHelper.UISession.get(scope);
 		final ISourceProviderService service = WorkbenchHelper.getService(uid, ISourceProviderService.class);
 		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
 				.getSourceProvider(SimulationStateProvider.SIMULATION_RUNNING_STATE);
@@ -573,9 +580,11 @@ public class WebGui implements IGui {
 
 	@Override
 	public void updateViewTitle(final IDisplayOutput out, final SimulationAgent agent) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(agent.getScope().getExperiment().getSpecies().getExperimentScope());
-		final IViewPart part = WorkbenchHelper.findView(uid, out.getViewId(), out.isUnique() ? null : out.getName(), true);
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession
+				.get(agent.getScope().getExperiment().getSpecies().getExperimentScope());
+		final IViewPart part = WorkbenchHelper.findView(uid, out.getViewId(), out.isUnique() ? null : out.getName(),
+				true);
 		if (part != null && part instanceof IGamaView)
 			WorkbenchHelper.run(uid, () -> ((IGamaView) part).changePartNameWithSimulation(agent));
 
@@ -583,7 +592,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public void updateDecorator(final String id) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.asyncRun(uid, () -> WorkbenchHelper.getWorkbench(uid).getDecoratorManager().update(id));
 
 	}
@@ -594,31 +603,31 @@ public class WebGui implements IGui {
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }
 
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-//		System.out.println("getstatus of "+uid);
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// System.out.println("getstatus of "+uid);
 
 		return StatusDisplayerFactory.displayer.get(uid);// = new
-														// StatusDisplayer();;//WorkbenchHelper.getService(IStatusDisplayer.class);
-//		return WorkbenchHelper.getService(IStatusDisplayer.class);
+															// StatusDisplayer();;//WorkbenchHelper.getService(IStatusDisplayer.class);
+		// return WorkbenchHelper.getService(IStatusDisplayer.class);
 	}
 
 	@Override
 	public IConsoleDisplayer getConsole(IScope scope) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		if(scope.getExperiment()!=null) {
-			scope=scope.getExperiment().getSpecies().getExperimentScope();
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		if (scope.getExperiment() != null) {
+			scope = scope.getExperiment().getSpecies().getExperimentScope();
 		}
-		final String uid=WorkbenchHelper.UISession.get(scope);
+		final String uid = WorkbenchHelper.UISession.get(scope);
 		return ConsoleDisplayerFactory.displayer.get(uid);// = new
 
-//		return WorkbenchHelper.getService(uid, IConsoleDisplayer.class);
+		// return WorkbenchHelper.getService(uid, IConsoleDisplayer.class);
 	}
 
 	@Override
 	public void run(IScope scope, final Runnable r) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		WorkbenchHelper.run(uid,r);
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		WorkbenchHelper.run(uid, r);
 
 	}
 
@@ -632,8 +641,8 @@ public class WebGui implements IGui {
 
 	@Override
 	public void applyLayout(IScope scope, final int layout) {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		// final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
 		if (manager != null) {
 			manager.applyLayout(layout);
@@ -652,7 +661,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public void exit() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
+		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.asyncRun(uid, () -> WorkbenchHelper.getWorkbench(uid).close());
 
 	}

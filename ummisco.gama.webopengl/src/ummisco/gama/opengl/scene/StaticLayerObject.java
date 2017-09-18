@@ -27,7 +27,7 @@ public class StaticLayerObject extends LayerObject {
 		}
 
 		@Override
-		public void draw(final WebOpenGL gl) {
+		public void draw(final OpenGL gl) {
 			if (renderer.getPickingState().isPicking())
 				return;
 			gl.disableLighting();
@@ -57,6 +57,6 @@ public class StaticLayerObject extends LayerObject {
 	}
 
 	@Override
-	public void clear(final WebOpenGL gl) {}
+	public void clear(final OpenGL gl) {}
 
 }

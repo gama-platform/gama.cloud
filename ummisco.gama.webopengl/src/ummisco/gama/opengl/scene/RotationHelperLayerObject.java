@@ -25,10 +25,10 @@ public class RotationHelperLayerObject extends LayerObject {
 	}
 
 	@Override
-	public void clear(final WebOpenGL gl) {}
+	public void clear(final OpenGL gl) {}
 
 	@Override
-	public void draw(final WebOpenGL gl) {
+	public void draw(final OpenGL gl) {
 		updateObjectList();
 		super.draw(gl);
 	}
