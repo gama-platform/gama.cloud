@@ -10,6 +10,7 @@
 package ummisco.gama.web2d;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.Collections;
 import java.util.List;
 
@@ -209,6 +210,12 @@ public class AWTDisplayView extends LayeredDisplayView {
 	public void pauseChanged(IScope scope) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

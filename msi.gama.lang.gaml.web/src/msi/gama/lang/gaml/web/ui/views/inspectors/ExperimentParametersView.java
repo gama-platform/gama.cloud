@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.inspectors;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -177,6 +178,12 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.console;
 
+import java.awt.geom.Rectangle2D;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -317,6 +318,12 @@ public class ConsoleView extends GamaViewPart
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

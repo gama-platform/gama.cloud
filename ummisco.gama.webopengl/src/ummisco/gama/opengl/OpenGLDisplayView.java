@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package ummisco.gama.opengl;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,5 +85,11 @@ public class OpenGLDisplayView extends SWTDisplayView {
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

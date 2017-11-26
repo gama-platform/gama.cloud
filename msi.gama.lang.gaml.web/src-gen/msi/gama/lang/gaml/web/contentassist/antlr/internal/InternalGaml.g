@@ -3016,17 +3016,17 @@ rule__HeadlessExperiment__Alternatives_6
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getBlockAssignment_6_0()); }
-(rule__HeadlessExperiment__BlockAssignment_6_0)
-{ after(grammarAccess.getHeadlessExperimentAccess().getBlockAssignment_6_0()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getBlockAssignment_5_0()); }
+(rule__HeadlessExperiment__BlockAssignment_5_0)
+{ after(grammarAccess.getHeadlessExperimentAccess().getBlockAssignment_5_0()); }
 )
 
     |(
-{ before(grammarAccess.getHeadlessExperimentAccess().getSemicolonKeyword_6_1()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getSemicolonKeyword_5_1()); }
 
 	';' 
 
-{ after(grammarAccess.getHeadlessExperimentAccess().getSemicolonKeyword_6_1()); }
+{ after(grammarAccess.getHeadlessExperimentAccess().getSemicolonKeyword_5_1()); }
 )
 
 ;
@@ -6178,11 +6178,11 @@ rule__HeadlessExperiment__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getModelKeyword_3()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getModelKeyword_3_0()); }
 
 	'model:' 
 
-{ after(grammarAccess.getHeadlessExperimentAccess().getModelKeyword_3()); }
+{ after(grammarAccess.getHeadlessExperimentAccess().getModelKeyword_3_0()); }
 )
 
 ;
@@ -6209,9 +6209,9 @@ rule__HeadlessExperiment__Group__4__Impl
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getImportURIAssignment_4()); }
-(rule__HeadlessExperiment__ImportURIAssignment_4)
-{ after(grammarAccess.getHeadlessExperimentAccess().getImportURIAssignment_4()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getImportURIAssignment_3_1()); }
+(rule__HeadlessExperiment__ImportURIAssignment_3_1)
+{ after(grammarAccess.getHeadlessExperimentAccess().getImportURIAssignment_3_1()); }
 )
 
 ;
@@ -6238,9 +6238,9 @@ rule__HeadlessExperiment__Group__5__Impl
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getFacetsAssignment_5()); }
-(rule__HeadlessExperiment__FacetsAssignment_5)*
-{ after(grammarAccess.getHeadlessExperimentAccess().getFacetsAssignment_5()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getFacetsAssignment_4()); }
+(rule__HeadlessExperiment__FacetsAssignment_4)*
+{ after(grammarAccess.getHeadlessExperimentAccess().getFacetsAssignment_4()); }
 )
 
 ;
@@ -6266,9 +6266,9 @@ rule__HeadlessExperiment__Group__6__Impl
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getAlternatives_6()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getAlternatives_5()); }
 (rule__HeadlessExperiment__Alternatives_6)
-{ after(grammarAccess.getHeadlessExperimentAccess().getAlternatives_6()); }
+{ after(grammarAccess.getHeadlessExperimentAccess().getAlternatives_5()); }
 )
 
 ;
@@ -17109,8 +17109,8 @@ rule__HeadlessExperiment__ImportURIAssignment_4
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getImportURISTRINGTerminalRuleCall_4_0()); }
-	RULE_STRING{ after(grammarAccess.getHeadlessExperimentAccess().getImportURISTRINGTerminalRuleCall_4_0()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getImportURISTRINGTerminalRuleCall_3_1_0()); }
+	RULE_STRING{ after(grammarAccess.getHeadlessExperimentAccess().getImportURISTRINGTerminalRuleCall_3_1_0()); }
 )
 
 ;
@@ -17124,8 +17124,8 @@ rule__HeadlessExperiment__FacetsAssignment_5
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getFacetsFacetParserRuleCall_5_0()); }
-	ruleFacet{ after(grammarAccess.getHeadlessExperimentAccess().getFacetsFacetParserRuleCall_5_0()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getFacetsFacetParserRuleCall_4_0()); }
+	ruleFacet{ after(grammarAccess.getHeadlessExperimentAccess().getFacetsFacetParserRuleCall_4_0()); }
 )
 
 ;
@@ -17139,8 +17139,8 @@ rule__HeadlessExperiment__BlockAssignment_6_0
     }
 :
 (
-{ before(grammarAccess.getHeadlessExperimentAccess().getBlockBlockParserRuleCall_6_0_0()); }
-	ruleBlock{ after(grammarAccess.getHeadlessExperimentAccess().getBlockBlockParserRuleCall_6_0_0()); }
+{ before(grammarAccess.getHeadlessExperimentAccess().getBlockBlockParserRuleCall_5_0_0()); }
+	ruleBlock{ after(grammarAccess.getHeadlessExperimentAccess().getBlockBlockParserRuleCall_5_0_0()); }
 )
 
 ;

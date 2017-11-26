@@ -34,6 +34,7 @@ import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGamaView.Error;
 import msi.gama.common.interfaces.IGamaView.Parameters;
+import msi.gama.common.interfaces.IGamaView.Test;
 import msi.gama.common.interfaces.IGamaView.User;
 import msi.gama.common.interfaces.IGamlLabelProvider;
 import msi.gama.common.interfaces.IGui;
@@ -67,6 +68,8 @@ import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
+import msi.gaml.statements.test.CompoundSummary;
+import msi.gaml.statements.test.TestExperimentSummary;
 import msi.gaml.types.IType;
 
 /**
@@ -670,6 +673,36 @@ public class WebGui implements IGui {
 	public void openInteractiveConsole(IScope scope) {
 		this.showView(null, INTERACTIVE_CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 
+	}
+
+	@Override
+	public Test openTestView(IScope scope, boolean remainOpen) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void displayTestsResults(IScope scope, CompoundSummary<?, ?> summary) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endTestDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<TestExperimentSummary> runHeadlessTests(Object model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean toggleFullScreenMode() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

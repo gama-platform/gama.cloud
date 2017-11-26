@@ -9,6 +9,8 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views;
 
+import java.awt.geom.Rectangle2D;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -137,6 +139,12 @@ public class LoginView extends GamaViewPart{
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

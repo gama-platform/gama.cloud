@@ -10,6 +10,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.user;
 
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -220,6 +221,12 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

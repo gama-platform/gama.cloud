@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.inspectors;
 
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -853,6 +854,12 @@ public class PopulationInspectView extends GamaViewPart
 	public void updateToolbarState() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Rectangle2D getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
