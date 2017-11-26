@@ -63,7 +63,7 @@ public class BasicWorkbench implements EntryPoint {
 	// }
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
     
-	boolean enableLoggin=false;
+	boolean enableLoggin=true;
 	
 	@Override
 	public int createUI() {
