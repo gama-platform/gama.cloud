@@ -32,8 +32,7 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.core.expressions,
  org.eclipse.equinox.security,
  org.eclipse.rap.rwt.osgi,
- org.eclipse.equinox.registry,
- ch.qos.logback.core
+ org.eclipse.equinox.registry
 Import-Package: javax.persistence;version="2.1.0",
  org.apache.log4j,
  org.eclipse.core.internal.filesystem,

@@ -27,7 +27,7 @@ public class TreatWarningsAsErrors extends AbstractHandler implements IElementUp
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		GamaPreferences.Runtime.CORE_WARNINGS.set(!GamaPreferences.Runtime.CORE_WARNINGS.getValue());
 		final ICommandService service =
-				HandlerUtil.getActiveWorkbenchWindowChecked(event).getService(ICommandService.class);
+				(ICommandService) HandlerUtil.getActiveWorkbenchWindowChecked(event).getService(ICommandService.class);
 		service.refreshElements(event.getCommand().getId(), null);
 		return null;
 	}

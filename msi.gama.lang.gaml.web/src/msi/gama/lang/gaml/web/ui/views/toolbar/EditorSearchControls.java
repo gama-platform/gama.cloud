@@ -58,7 +58,7 @@ public class EditorSearchControls {
 	public EditorSearchControls fill(final GamaToolbarSimple toolbar) {
 
 		find = new Text(toolbar, SWT.SEARCH | SWT.ICON_SEARCH);
-		final IFocusService focusService = editor.getSite().getService(IFocusService.class);
+		final IFocusService focusService = (IFocusService) editor.getSite().getService(IFocusService.class);
 		focusService.addFocusTracker(find, "search");
 
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);

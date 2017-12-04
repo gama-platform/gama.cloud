@@ -27,7 +27,7 @@ public class WorkaroundForIssue1594xx {
 			final Java2DDisplaySurface displaySurface) {
 		// Install only on Windows
 
-		final IPartService ps = view.getSite().getService(IPartService.class);
+		final IPartService ps = (IPartService) view.getSite().getService(IPartService.class);
 		ps.addPartListener(new IPartListener2() {
 
 			@Override

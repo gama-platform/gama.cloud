@@ -112,7 +112,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			final IOverlayProvider<OverlayInfo> provider) {
 		this.createExtraInfo = provider != null;
 		this.view = view;
-		final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+		final IPartService ps = (IPartService) ((IWorkbenchPart) view).getSite().getService(IPartService.class);
 		ps.addPartListener(pl2);
 		referenceComposite = c;
 		// parentShell = c.getShell();
@@ -493,7 +493,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			if (referenceComposite != null && !referenceComposite.isDisposed()) {
 				referenceComposite.removeControlListener(listener);
 			}
-			final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+			final IPartService ps = (IPartService) ((IWorkbenchPart) view).getSite().getService(IPartService.class);
 			if (ps != null) {
 				ps.removePartListener(pl2);
 			}

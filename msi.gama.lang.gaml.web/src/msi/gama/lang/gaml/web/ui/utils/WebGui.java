@@ -705,4 +705,10 @@ public class WebGui implements IGui {
 		return false;
 	}
 
+	@Override
+	public void refreshNavigator() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
