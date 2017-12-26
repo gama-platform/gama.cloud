@@ -3,7 +3,6 @@
 
 <product name="Gaml Web Editor Product" uid="GamaWeb.product" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="false">
 
-
    <configIni use="default">
    </configIni>
 
@@ -14,7 +13,6 @@
 
    <windowImages/>
 
-
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -22,10 +20,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
       <plugin id="com.google.guava"/>
@@ -35,6 +31,7 @@
       <plugin id="javax.persistence"/>
       <plugin id="javax.xml"/>
       <plugin id="msi.gama.core"/>
+      <plugin id="msi.gama.core.web"/>
       <plugin id="msi.gama.ext"/>
       <plugin id="msi.gama.lang.gaml"/>
       <plugin id="msi.gama.lang.gaml.web"/>

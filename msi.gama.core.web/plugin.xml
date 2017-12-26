@@ -86,10 +86,10 @@
              allPopups="true"
              locationURI="popup:org.dslforge.navigator.view?after=separator2">
           <command
-                commandId="msi.gama.lang.gaml.web.workspace.ui.commands.run"
+                commandId="msi.gama.core.web.workspace.ui.commands.run"
                 helpContextId="RunSimulation"
                 icon="icons/run_exec.png"
-                id="msi.gama.lang.gaml.web.workspace.menu.run"
+                id="msi.gama.core.web.workspace.menu.run"
                 label="Run"
                 style="push"
                 tooltip="Run Simulation">
@@ -147,14 +147,14 @@
                   id="msi.gama.application.status">
             </control>
             <command
-                  commandId="msi.gama.lang.gaml.web.ui.experiment.dummy"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/windows_spacer.png"
+                  commandId="msi.gama.core.web.ui.experiment.dummy"
+                  icon="platform:/plugin/msi.gama.core.web/icons/windows_spacer.png"
                   style="push"
                   tooltip="  ">
             </command>
             <command
                   commandId="msi.gama.application.commands.PlaySimulation"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/menu.run4.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/menu.run4.png"
                   label="Run Experiment"
                   style="push"
                   tooltip="Run the currently opened experiment">
@@ -167,7 +167,7 @@
             </command>
             <command
                   commandId="msi.gama.application.commands.PauseSimulation"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/menu.pause4.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/menu.pause4.png"
                   label="Pause Experiment"
                   style="push"
                   tooltip="Pause the currently opened experiment">
@@ -180,7 +180,7 @@
             </command>
             <command
                   commandId="msi.gama.application.commands.StepByStepSimulation"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/menu.step4.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/menu.step4.png"
                   label="Step Experiment"
                   style="push"
                   tooltip="Advance the experiment step by step">
@@ -193,7 +193,7 @@
             </command>
             <command
                   commandId="msi.gama.application.commands.StepBackSimulation"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/menu.stepBack1.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/menu.stepBack1.png"
                   label="Step Back"
                   style="push"
                   tooltip="Make One step back in the simulation">
@@ -212,7 +212,7 @@
             
             <command
                   commandId="msi.gama.application.commands.ReloadSimulation"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/menu.reload4.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/menu.reload4.png"
                   label="Reload Experiment"
                   mnemonic="M1+M2+R"
                   style="push">
@@ -230,7 +230,7 @@
             </command>
             <command
                   commandId="msi.gama.application.commands.Cancel"
-                  icon="platform:/plugin/msi.gama.lang.gaml.web/icons/toolbar.stop2.png"
+                  icon="platform:/plugin/msi.gama.core.web/icons/toolbar.stop2.png"
                   label="Close Experiment"
                   style="push"
                   tooltip="Stops the currently opened experiment and closes its perspective">
@@ -558,14 +558,6 @@
    	
    	<extension
          point="org.eclipse.ui.views">
-      <view
-            allowMultiple="false"
-            class="msi.gama.lang.gaml.web.workspace.ui.GamlWokspaceNavigator"
-            icon="icons/earth_view.png"
-            id="org.dslforge.navigator.view"
-            name="Project Explorer"
-            restorable="true">
-      </view>
       <category
             id="msi.gama.gui.category.gama"
             name="Gama">
@@ -583,7 +575,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="msi.gama.core.web.ui.views.inspectors.MonitorView"
-            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.monitors2.png"
+            icon="platform:/plugin/msi.gama.core.web/icons/view.monitors2.png"
             id="msi.gama.application.view.MonitorView"
             name="Monitors"
             restorable="false">
@@ -592,7 +584,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="msi.gama.core.web.ui.views.inspectors.ExperimentParametersView"
-            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.parameters2.png"
+            icon="platform:/plugin/msi.gama.core.web/icons/view.parameters2.png"
             id="msi.gama.application.view.ParameterView"
             name="Parameters"
             restorable="false">
@@ -601,7 +593,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="msi.gama.core.web.ui.views.ErrorView"
-            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.errors2.png"
+            icon="platform:/plugin/msi.gama.core.web/icons/view.errors2.png"
             id="msi.gama.application.view.ErrorView"
             name="Errors"
             restorable="false">
@@ -610,7 +602,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="msi.gama.core.web.ui.views.console.ConsoleView"
-            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.console2.png"
+            icon="platform:/plugin/msi.gama.core.web/icons/view.console2.png"
             id="msi.gama.application.view.ConsoleView"
             name="Console"
             restorable="false">
@@ -620,7 +612,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="msi.gama.core.web.ui.views.LoginView"
-            icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.errors2.png"
+            icon="platform:/plugin/msi.gama.core.web/icons/view.errors2.png"
             id="msi.gama.application.view.LoginView"
             name="Login"
             restorable="false">
@@ -835,11 +827,11 @@
       </command>
       <command
             defaultHandler="msi.gama.core.web.ui.commands.DummyHandler"
-            id="msi.gama.lang.gaml.web.ui.experiment.dummy"
+            id="msi.gama.core.web.ui.experiment.dummy"
             name="Separator">
       </command>
       <command
-            id="msi.gama.lang.gaml.web.ui.experiment.command1"
+            id="msi.gama.core.web.ui.experiment.command1"
             name="name">
       </command>
       <category
@@ -863,7 +855,7 @@
             defaultHandler="msi.gama.core.web.editor.commands.AboutCommand"
             description="About"
             helpContextId="About"
-            id="msi.gama.lang.gaml.web.editor.commands.help"
+            id="msi.gama.core.web.editor.commands.help"
             name="About">
       </command>
       <command
@@ -1024,7 +1016,7 @@
                </reference>
                <not>
                   <with
-                        variable="msi.gama.lang.gaml.web.ui.experiment.SimulationRunningState">
+                        variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
                      <equals
                            value="NONE">
                      </equals>
@@ -1086,6 +1078,143 @@
          </service>
       </serviceFactory>
    </extension>
+   
+   
+   
+
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="isSimulationReady">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <or>
+               <with
+                     variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
+                  <equals
+                        value="RUNNING">
+                  </equals>
+               </with>
+               <with
+                     variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
+                  <equals
+                        value="STOPPED">
+                  </equals>
+               </with>
+            </or>
+         </and>
+      </definition>
+      <definition
+            id="isSimulationRunning">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <with
+                  variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
+               <equals
+                     value="RUNNING">
+               </equals>
+            </with>
+         </and>
+      </definition>
+      <definition
+            id="isSimulationPaused">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <with
+                  variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
+               <equals
+                     value="STOPPED">
+               </equals>
+            </with>
+         </and>
+      </definition>
+      <definition
+            id="isSimulationExisting">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <not>
+               <with
+                     variable="msi.gama.core.web.ui.experiment.SimulationRunningState">
+                  <equals
+                        value="NONE">
+                  </equals>
+               </with>
+            </not>
+         </and>
+      </definition>
+      <definition
+            id="isGamlEditorOpened">
+         <and>
+            <reference
+                  definitionId="isActiveEditorAnInstanceOfXtextEditor">
+            </reference>
+            <with
+                  variable="activeEditor">
+               <test
+                     forcePluginActivation="true"
+                     property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
+                     value="msi.gama.lang.gaml.Gaml">
+               </test>
+            </with>
+         </and>
+      </definition>
+      <definition
+            id="isSimulationBatch">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <with
+                  variable="msi.gama.core.web.ui.experiment.SimulationType">
+               <equals
+                     value="BATCH">
+               </equals>
+            </with>
+         </and>
+      </definition>
+      <definition
+            id="isSimulationMemorize">
+         <and>
+            <reference
+                  definitionId="isInSimulationPerspective">
+            </reference>
+            <with
+                  variable="msi.gama.core.web.ui.experiment.SimulationType">
+               <equals
+                     value="MEMORIZE">
+               </equals>
+            </with>
+         </and>
+      </definition>
+      <definition
+            id="isInModelingPerspective">
+         <with
+               variable="activeWorkbenchWindow.activePerspective">
+            <equals
+                  value="msi.gama.application.perspectives.ModelingPerspective">
+            </equals>
+         </with>
+      </definition>
+      <definition
+            id="isInSimulationPerspective">
+         <with
+               variable="activeWorkbenchWindow.activePerspective">
+            <test
+                  property="msi.gama.core.web.ui.containsString"
+                  value="Simulation">
+            </test>
+         </with>
+      </definition>
+   </extension>
+   
    
    
    <extension
