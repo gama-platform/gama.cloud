@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
+import msi.gama.core.web.ui.utils.PlatformHelper;
 
 public class FocusHandler {
 

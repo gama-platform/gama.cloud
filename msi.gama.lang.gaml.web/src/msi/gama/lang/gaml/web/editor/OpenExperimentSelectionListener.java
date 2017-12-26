@@ -10,19 +10,14 @@
 package msi.gama.lang.gaml.web.editor;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.WorkbenchException;
 
-import msi.gama.lang.gaml.web.ui.controls.FlatButton;
-import msi.gama.lang.gaml.web.ui.interfaces.IModelRunner;
-import msi.gama.lang.gaml.web.ui.perspective.SimulationPerspectiveDescriptor;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GamlEditorState;
+import msi.gama.core.web.ui.controls.FlatButton;
+import msi.gama.core.web.ui.interfaces.IModelRunner;
+import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 

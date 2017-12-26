@@ -9,14 +9,12 @@
  **********************************************************************************************/
 package msi.gama.lang.gaml.web.ui.views.toolbar;
 
-import org.eclipse.jface.text.templates.Template;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 
+import msi.gama.core.web.ui.menus.GamaMenu;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
-import msi.gama.lang.gaml.web.ui.menus.GamaMenu;
 
 
 /**

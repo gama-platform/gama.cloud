@@ -28,14 +28,14 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.swt.IFocusService;
 
+import msi.gama.core.web.ui.bindings.GamaKeyBindings;
+import msi.gama.core.web.ui.resources.IGamaColors;
+import msi.gama.core.web.ui.views.toolbar.GamaToolbarSimple;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
-import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
-import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
 
 /**
  * The class EditToolbarFindControls.

@@ -18,7 +18,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 
-import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
+import msi.gama.core.web.ui.utils.PlatformHelper;
 
 /**
  * This class deals with the customization of the look&amp;feel

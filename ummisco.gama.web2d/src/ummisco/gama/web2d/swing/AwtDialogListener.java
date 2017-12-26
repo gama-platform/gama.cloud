@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
 
-import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
+import msi.gama.core.web.ui.utils.PlatformHelper;
 
 
 /**

@@ -18,10 +18,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 
-import msi.gama.lang.gaml.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GamlEditorState;
+import msi.gama.core.web.ui.menus.GamaMenu;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
-import msi.gama.lang.gaml.web.editor.GamlEditorState;
-import msi.gama.lang.gaml.web.ui.menus.GamaMenu;
 
 /**
  * The class CreateExperimentSelectionListener.

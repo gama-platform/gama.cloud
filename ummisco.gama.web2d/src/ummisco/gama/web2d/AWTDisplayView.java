@@ -25,9 +25,9 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.lang.gaml.web.ui.views.displays.LayeredDisplayView;
+import msi.gama.core.web.ui.utils.PlatformHelper;
+import msi.gama.core.web.ui.views.displays.LayeredDisplayView;
+import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.runtime.IScope;
 import ummisco.gama.web2d.swing.SwingControl;
@@ -213,9 +213,9 @@ public class AWTDisplayView extends LayeredDisplayView {
 	}
 
 	@Override
-	public Rectangle2D getBounds() {
+	public boolean containsPoint(int x, int y) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 }

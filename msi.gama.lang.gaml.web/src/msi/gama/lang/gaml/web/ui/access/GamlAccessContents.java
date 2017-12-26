@@ -25,7 +25,6 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -39,10 +38,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import msi.gama.common.interfaces.IGamlDescription;
-import msi.gama.lang.gaml.web.ui.controls.IPopupProvider;
-import msi.gama.lang.gaml.web.ui.controls.Popup;
-import msi.gama.lang.gaml.web.ui.resources.GamaFonts;
-import msi.gama.lang.gaml.web.ui.resources.IGamaColors;
+import msi.gama.core.web.ui.controls.IPopupProvider;
+import msi.gama.core.web.ui.controls.Popup;
+import msi.gama.core.web.ui.resources.GamaFonts;
+import msi.gama.core.web.ui.resources.IGamaColors;
 import msi.gaml.compilation.GamlIdiomsProvider;
 
 public abstract class GamlAccessContents implements IPopupProvider {

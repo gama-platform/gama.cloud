@@ -25,12 +25,14 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayer;
-import msi.gama.lang.gaml.web.ui.factories.ConsoleDisplayerFactory;
-import msi.gama.lang.gaml.web.ui.factories.StatusDisplayer;
-import msi.gama.lang.gaml.web.ui.factories.StatusDisplayerFactory;
-import msi.gama.lang.gaml.web.ui.utils.WebGui;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.IWorkbenchConstants;
+import msi.gama.core.web.ui.factories.ConsoleDisplayer;
+import msi.gama.core.web.ui.factories.ConsoleDisplayerFactory;
+import msi.gama.core.web.ui.factories.StatusDisplayer;
+import msi.gama.core.web.ui.factories.StatusDisplayerFactory;
+import msi.gama.core.web.ui.utils.WebGui;
+import msi.gama.core.web.ui.utils.WorkbenchHelper;
 
 /**
  * This workbench advisor creates the window advisor, and specifies

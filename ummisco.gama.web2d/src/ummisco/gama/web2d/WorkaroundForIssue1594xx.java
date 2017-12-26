@@ -16,8 +16,8 @@ import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IWorkbenchPartReference;
 
-import msi.gama.lang.gaml.web.ui.utils.PlatformHelper;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
+import msi.gama.core.web.ui.utils.PlatformHelper;
+import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import ummisco.gama.web2d.AWTDisplayView;
 import ummisco.gama.web2d.Java2DDisplaySurface;
 

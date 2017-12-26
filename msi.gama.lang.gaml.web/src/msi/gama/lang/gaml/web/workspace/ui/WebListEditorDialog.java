@@ -27,12 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import msi.gama.common.util.StringUtils;
-import msi.gama.lang.gaml.web.ui.parameters.ListEditor;
-import msi.gama.runtime.exceptions.GamaRuntimeException;
-import msi.gama.util.GAML;
 import msi.gama.util.GamaList;
-import msi.gama.util.GamaListFactory;
-import msi.gama.util.IList;
 
 @SuppressWarnings({ "rawtypes" })
 public class WebListEditorDialog extends Dialog {
