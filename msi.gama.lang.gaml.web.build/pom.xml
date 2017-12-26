@@ -20,6 +20,7 @@
 		<!-- 
 		 -->
 		 <module>../msi.gama.lang.gaml.web.target</module>
+ 		<module>../msi.gama.core.web</module>	
  		<module>../msi.gama.lang.gaml.web</module>	
  		<module>../ummisco.gama.web2d</module>	
 		 
