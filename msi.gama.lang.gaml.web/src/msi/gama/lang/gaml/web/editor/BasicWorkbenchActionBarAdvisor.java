@@ -115,6 +115,11 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		IWorkbenchActionConstants.M_FILE);    
 		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_START));	
 		addToMenuAndRegister(menu, new Action("Create Account",GamaIcons.create("menu.add2").descriptor()) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public String getId() {
 				return "NewUser";
