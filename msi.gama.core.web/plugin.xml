@@ -3,9 +3,6 @@
 <plugin>
 
 
-   <extension
-         point="gaml.extension">
-   </extension>
 
 	<extension
 		point="org.eclipse.ui.perspectives">
@@ -1226,5 +1223,8 @@
             properties="containsString"
             type="java.lang.Object">
       </propertyTester>
+   </extension>
+   <extension
+         point="gaml.extension">
    </extension>
 </plugin>

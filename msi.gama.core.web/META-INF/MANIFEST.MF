@@ -27,8 +27,7 @@ Require-Bundle: org.eclipse.rap.ui,
 Import-Package: javax.persistence,
  org.apache.log4j,
  org.eclipse.core.internal.filesystem,
- org.eclipse.jface.text.source,
- org.eclipse.swt.graphics
+ org.eclipse.jface.text.source
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Export-Package: msi.gama.core.web.customwidget,
