@@ -9,6 +9,8 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
 
+import static msi.gama.common.preferences.GamaPreferences.Displays.CORE_SHOW_FPS;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,12 +42,16 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchPartSite;
 
+import msi.gama.common.geometry.Envelope3D;
+import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IOverlayProvider;
 import msi.gama.common.interfaces.IUpdaterTarget;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.outputs.LayeredDisplayOutput;
 import msi.gama.outputs.layers.OverlayStatement.OverlayInfo;
+import msi.gama.runtime.GAMA;
+import msi.gaml.operators.Maths;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -75,11 +81,10 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 		@Override
 		public void run() {
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			WorkbenchHelper.asyncRun(uid,() -> {
+			WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
 				if (!zoom.isDisposed()) {
 					text.setLength(0);
-					getView().getOverlayZoomInfo(text);
+					getOverlayZoomInfo(text);
 					zoom.setText(text.toString());
 				}
 			});
@@ -112,7 +117,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			final IOverlayProvider<OverlayInfo> provider) {
 		this.createExtraInfo = provider != null;
 		this.view = view;
-		final IPartService ps = (IPartService) ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+		final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
 		ps.addPartListener(pl2);
 		referenceComposite = c;
 		// parentShell = c.getShell();
@@ -130,7 +135,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// parentShell.addControlListener(listener);
 		c.addControlListener(listener);
 		if (provider != null) {
-			provider.setTarget((IUpdaterTarget<OverlayInfo>) new ThreadedOverlayUpdater(this), view.getDisplaySurface());
+			provider.setTarget(new ThreadedOverlayUpdater(this), view.getDisplaySurface());
 		}
 		if (GamaPreferences.Displays.CORE_SHOW_FPS.getValue()) {
 			timer.schedule(new FPSTask(), 0, 1000);
@@ -211,8 +216,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		final int barStartX = x + 1 + BAR_WIDTH / 2 + margin;
 		final int barStartY = y + height - BAR_HEIGHT / 2;
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final Path path = new Path(WorkbenchHelper.getDisplay(uid));
+		final Path path = new Path(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()));
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT + 2);
 		path.lineTo(barStartX, barStartY + 2);
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT / 2 + 2);
@@ -231,7 +235,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	}
 
 	private String getScaleRight() {
-		final double real = getView().getValueOfOnePixelInModelUnits() * 100;
+		final double real = getValueOfOnePixelInModelUnits() * 100;
 		// System.out.println("GetScaleRight " + real);
 		if (real > 1000) {
 			return String.format("%.1fkm", real / 1000d);
@@ -253,8 +257,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				final String uid=RWT.getUISession().getAttribute("user").toString();
-				WorkbenchHelper.asyncRun(uid, doDisplay);
+				WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),doDisplay);
 			}
 		}
 
@@ -272,9 +275,8 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		@Override
 		public void partDeactivated(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
-			if (view.equals(part) && !referenceComposite.isVisible()) {
-				final String uid=RWT.getUISession().getAttribute("user").toString();
-				WorkbenchHelper.asyncRun(uid, doHide);
+			if (view.equals(part) && !referenceComposite.isDisposed() && !referenceComposite.isVisible()) {
+				WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),doHide);
 			}
 		}
 
@@ -285,8 +287,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partHidden(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				final String uid=RWT.getUISession().getAttribute("user").toString();
-				WorkbenchHelper.asyncRun(uid, doHide);
+				WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),doHide);
 			}
 		}
 
@@ -294,9 +295,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partVisible(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-
-				final String uid=RWT.getUISession().getAttribute("user").toString();
-				WorkbenchHelper.asyncRun(uid, doDisplay);
+				WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),doDisplay);
 			}
 		}
 
@@ -327,7 +326,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			if (!coord.isDisposed()) {
 				try {
 					text.setLength(0);
-					getView().getOverlayCoordInfo(text);
+					getOverlayCoordInfo(text);
 					coord.setText(text.toString());
 				} catch (final Exception e) {
 					coord.setText("Not initialized yet");
@@ -336,10 +335,10 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			if (!zoom.isDisposed()) {
 				try {
 					text.setLength(0);
-					getView().getOverlayZoomInfo(text);
+					getOverlayZoomInfo(text);
 					zoom.setText(text.toString());
 				} catch (final Exception e) {
-					GAMAHelper.getGui().debug("Error in updating overlay: " + e.getMessage());
+					GAMA.getGui().debug("Error in updating overlay: " + e.getMessage());
 					zoom.setText("Not initialized yet");
 				}
 			}
@@ -475,11 +474,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	}
 
 	public void hide() {
-//		if (!popup.isDisposed() && popup.isVisible()) {
-//			popup.setSize(0, 0);
-//			popup.update();
-//			popup.setVisible(false);
-//		}
+		if (!popup.isDisposed() && popup.isVisible()) {
+			popup.setSize(0, 0);
+			popup.update();
+			popup.setVisible(false);
+		}
 	}
 
 	@Override
@@ -493,7 +492,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			if (referenceComposite != null && !referenceComposite.isDisposed()) {
 				referenceComposite.removeControlListener(listener);
 			}
-			final IPartService ps = (IPartService) ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+			final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
 			if (ps != null) {
 				ps.removePartListener(pl2);
 			}
@@ -517,9 +516,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// Uses the trick from
 		// http://eclipsesource.com/blogs/2010/06/23/tip-how-to-detect-that-a-view-was-detached/
 		final boolean[] result = new boolean[] { false };
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, () -> {
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
 			final IWorkbenchPartSite site = view.getSite();
 			if (site == null) { return; }
 			final Shell shell = site.getShell();
@@ -538,12 +535,62 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		} else if (!viewIsDetached()) {
 			display();
 		}
-		getView().overlayChanged();
 	}
 
 	public void dispose() {
 		popup.dispose();
 
+	}
+
+	public double getValueOfOnePixelInModelUnits() {
+		final IDisplaySurface s = view.getDisplaySurface();
+		if (s == null) { return 1; }
+		final double displayWidth = s.getDisplayWidth();
+		final double envWidth = s.getEnvWidth();
+		return envWidth / displayWidth;
+	}
+
+	public void getOverlayCoordInfo(final StringBuilder sb) {
+		final LayeredDisplayOutput output = view.getOutput();
+		if (output == null) { return; }
+		final boolean paused = output.isPaused();
+		final boolean synced = output.getData().isSynchronized();
+		final IDisplaySurface surface = view.getDisplaySurface();
+		if (surface != null)
+			surface.getModelCoordinatesInfo(sb);
+		if (paused)
+			sb.append(" | Paused");
+		if (synced)
+			sb.append(" | Synchronized");
+	}
+
+	public void getOverlayZoomInfo(final StringBuilder sb) {
+		final IDisplaySurface surface = view.getDisplaySurface();
+		if (surface == null) { return; }
+		if (CORE_SHOW_FPS.getValue()) {
+			sb.append(surface.getFPS());
+			sb.append(" fps | ");
+		}
+		int zl = 0;
+		if (view.getOutput() != null) {
+			final Double dataZoom = view.getOutput().getData().getZoomLevel();
+			if (dataZoom == null) {
+				zl = 1;
+			} else {
+				zl = (int) (dataZoom * 100);
+			}
+		}
+		sb.append("Zoom ").append(zl).append("%");
+		if (view.isOpenGL()) {
+			final Envelope3D roi = ((IDisplaySurface.OpenGL) surface).getROIDimensions();
+			if (roi != null) {
+				sb.append(" ROI [");
+				sb.append(Maths.round(roi.getWidth(), 2));
+				sb.append(" x ");
+				sb.append(Maths.round(roi.getHeight(), 2));
+				sb.append("]");
+			}
+		}
 	}
 
 }

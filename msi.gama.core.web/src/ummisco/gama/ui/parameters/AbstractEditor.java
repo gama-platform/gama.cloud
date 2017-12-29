@@ -10,7 +10,6 @@
 package ummisco.gama.ui.parameters;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,10 +36,11 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.util.StringUtils;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.kernel.experiment.ExperimentParameter;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.IParameter;
 import msi.gama.metamodel.agent.IAgent;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gaml.types.GamaStringType;
@@ -106,7 +106,7 @@ public abstract class AbstractEditor<T>
 	private final Integer order = ORDER++;
 	private final IAgent agent;
 	private final IScope scope;
-	private final String name;
+	protected String name;
 	protected Label titleLabel = null;
 	protected final IParameter param;
 	boolean acceptNull = true;
@@ -132,14 +132,14 @@ public abstract class AbstractEditor<T>
 
 		@Override
 		public void mouseEnter(final MouseEvent e) {
-			if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
+			if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
 				showToolbar();
 		}
 
 		@Override
 		public void mouseExit(final MouseEvent e) {
 			if (isCombo && combo != null && combo.getListVisible()) { return; }
-			if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
+			if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
 				hideToolbar();
 		}
 
@@ -169,18 +169,24 @@ public abstract class AbstractEditor<T>
 			return scope;
 		if (agent != null)
 			return agent.getScope();
-		return GAMAHelper.getRuntimeScope();
+		return GAMA.getRuntimeScope();
 	}
 
 	public AbstractEditor(final IScope scope, final IAgent a, final IParameter variable, final EditorListener<T> l) {
 		this.scope = scope;
 		param = variable;
 		agent = a;
-		isCombo = param.getAmongValue(getScope()) != null;
-		isEditable = param.isEditable();
-		name = param.getTitle();
-		minValue = param.getMinValue(getScope());
-		maxValue = param.getMaxValue(getScope());
+		if (param != null) {
+			isCombo = param.getAmongValue(getScope()) != null;
+			isEditable = param.isEditable();
+			name = param.getTitle();
+			minValue = param.getMinValue(getScope());
+			maxValue = param.getMaxValue(getScope());
+		} else {
+			isCombo = false;
+			isEditable = true;
+			name = "";
+		}
 		listener = l;
 	}
 
@@ -210,23 +216,34 @@ public abstract class AbstractEditor<T>
 		} else {
 			checkButtons();
 		}
+
 		this.getEditor().setEnabled(active);
 	}
 
 	private final void valueModified(final Object newValue) throws GamaRuntimeException {
 
 		IAgent a = agent;
-		if (a == null) {
-			final IExperimentPlan exp = GAMAHelper.getExperiment();
-			if (exp != null) {
-				a = exp.getAgent();
+
+		if (param instanceof ExperimentParameter) {
+			if (a == null) {
+				final IExperimentPlan exp = GAMA.getExperiment();
+				if (exp != null) {
+					a = exp.getAgent();
+				}
 			}
-		}
-		if (a != null && GAMAHelper.getExperiment() != null && GAMAHelper.getExperiment().getAgent() != null) {
-			GAMAHelper.getExperiment().getAgent().getScope().setAgentVarValue(a, param.getName(), newValue);
-		}
-		if (agent == null) {
-			param.setValue(a == null ? null : a.getScope(), newValue);
+			if (a != null && GAMA.getExperiment() != null && GAMA.getExperiment().getAgent() != null) {
+				GAMA.getExperiment().getAgent().getScope().setAgentVarValue(a, param.getName(), newValue);
+			}
+			// Introduced to deal with #2306
+			if (agent == null) {
+				param.setValue(a == null ? null : a.getScope(), newValue);
+			}
+		} else {
+			// param.setValue(a == null ? null : a.getScope(), newValue);
+			if (a == null) {
+				param.setValue(null, newValue);
+			} else
+				param.setValue(a.getScope(), newValue);
 		}
 	}
 
@@ -263,7 +280,7 @@ public abstract class AbstractEditor<T>
 					: isCombo ? createComboParameterControl(composite) : createCustomParameterControl(composite);
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("The editor for " + name + " could not be created");
-			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
+			GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
 			return null;
 		}
 
@@ -275,32 +292,38 @@ public abstract class AbstractEditor<T>
 	}
 
 	protected Color getNormalBackground() {
-		return /* NORMAL_BACKGROUND */parent.getBackground();
+		return parent.getBackground();
 	}
 
-	public static Label createLeftLabel(final Composite parent, final String title) {
-		final Label label = new Label(parent, SWT.NONE | SWT.WRAP);
+	public static Label createLeftLabel(final Composite parent, final String title, final boolean isSubParameter) {
+		final Label label = new Label(parent, SWT.WRAP | SWT.RIGHT);
 		label.setBackground(parent.getBackground());
 		final GridData d = new GridData(SWT.END, SWT.CENTER, false, true);
+		// d.widthHint = 200;
+		// d.minimumWidth = SWT.DEFAULT;
+		if (isSubParameter)
+			d.horizontalIndent = 30;
 		label.setLayoutData(d);
 		label.setFont(GamaFonts.getLabelfont());
 		label.setText(title);
 		return label;
 	}
 
+	public void resizeLabel(final int width) {
+		final Label l = getLabel();
+		if (l != null)
+			((GridData) l.getLayoutData()).widthHint = width;
+	}
+
 	public void createComposite(final Composite parent) {
 		this.parent = parent;
 		internalModification = true;
-		if (!isSubParameter) {
-			titleLabel = createLeftLabel(parent, name);
-		} else {
-			createLeftLabel(parent, " ");
-		}
+		titleLabel = createLeftLabel(parent, name, isSubParameter);
 		try {
 			setOriginalValue(getParameterValue());
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("Impossible to obtain the value of " + name);
-			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e1, false);
+			GAMA.reportError(GAMA.getRuntimeScope(), e1, false);
 		}
 		currentValue = getOriginalValue();
 		composite = new Composite(parent, SWT.NONE);
@@ -309,19 +332,19 @@ public abstract class AbstractEditor<T>
 		data.minimumWidth = 150;
 		composite.setLayoutData(data);
 
-		final GridLayout layout = new GridLayout(isSubParameter ? 3 : 2, false);
+		final GridLayout layout = new GridLayout(2, false);
 		// layout.verticalSpacing = 8;
 		// layout.marginHeight = 5;
 		layout.marginWidth = 5;
 
 		composite.setLayout(layout);
-		if (isSubParameter) {
-			titleLabel = createLeftLabel(composite, name);
-			titleLabel.setFont(GamaFonts.getNavigFolderFont());
-			final GridData d = new GridData(SWT.FILL, SWT.CENTER, true, false);
-			d.grabExcessHorizontalSpace = false;
-			titleLabel.setLayoutData(d);
-		}
+		// if (isSubParameter) {
+		// titleLabel = createLeftLabel(composite, name, false);
+		// titleLabel.setFont(GamaFonts.getNavigFolderFont());
+		// final GridData d = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		// d.grabExcessHorizontalSpace = false;
+		// titleLabel.setLayoutData(d);
+		// }
 		createEditorControl(composite);
 		toolbar = createToolbar();
 
@@ -339,38 +362,45 @@ public abstract class AbstractEditor<T>
 		// System.out.println("Toolbar disposed !");
 		// }
 		// });
-		for (final Control c : controlsThatShowHideToolbars) {
-//			c.addMouseListener(hideShowToolbarListener);
-			c.addDisposeListener(e -> {
-//				c.removeMouseListener(hideShowToolbarListener);
-				controlsThatShowHideToolbars.remove(c);
-			});
-		}
-		if (GAMAHelper.getExperiment() == null || !GAMAHelper.getExperiment().isBatch())
+//		for (final Control c : controlsThatShowHideToolbars) {
+//			c.addMouseTrackListener(hideShowToolbarListener);
+//			c.addDisposeListener(e -> {
+//				c.removeMouseTrackListener(hideShowToolbarListener);
+//				controlsThatShowHideToolbars.remove(c);
+//			});
+//		}
+		if (GAMA.getExperiment() == null || !GAMA.getExperiment().isBatch())
 			hideToolbar();
 	}
 
 	protected void addToolbarHiders(final Control... c) {
-		controlsThatShowHideToolbars.addAll(Arrays.asList(c));
+		for (final Control control : c)
+			if (control != null)
+				controlsThatShowHideToolbars.add(control);
 	}
 
 	protected void hideToolbar() {
+		if (toolbar == null || toolbar.isDisposed())
+			return;
 		final GridData d = (GridData) toolbar.getLayoutData();
 		if (d.exclude) { return; }
 		d.exclude = true;
 		toolbar.setVisible(false);
 		composite.setBackground(getNormalBackground());
-		composite.layout();
+		composite.layout(true, true);
+		composite.update();
 	}
 
 	protected void showToolbar() {
+		if (toolbar == null || toolbar.isDisposed())
+			return;
 		final GridData d = (GridData) toolbar.getLayoutData();
 		if (!d.exclude) { return; }
 		d.exclude = false;
 		toolbar.setVisible(true);
 		composite.setBackground(HOVERED_BACKGROUND);
-		composite.layout();
-
+		composite.layout(true, true);
+		composite.update();
 		// AD 26/12/15 Commented for the moment to not force the focus (see
 		// Issues #1339 and #1248)
 		// if ( combo != null ) {
@@ -410,10 +440,9 @@ public abstract class AbstractEditor<T>
 		return param.getType().serialize(false);
 	}
 
-	private ToolBar createToolbar() {
-		final ToolBar t = new ToolBar(composite, SWT.FLAT | SWT.RIGHT | SWT.HORIZONTAL | SWT.WRAP);
-		final GridData d = this.getParameterGridData();
-		d.grabExcessHorizontalSpace = false;
+	protected ToolBar createToolbar() {
+		final ToolBar t = new ToolBar(composite, SWT.FLAT | SWT.LEFT | SWT.HORIZONTAL | SWT.WRAP);
+		final GridData d = new GridData(SWT.FILL, SWT.TOP, false, false);
 		t.setLayoutData(d);
 		final String unitText = computeUnitLabel();
 		if (!unitText.isEmpty()) {
@@ -421,6 +450,8 @@ public abstract class AbstractEditor<T>
 			unitItem.setText(unitText);
 			unitItem.setEnabled(false);
 		}
+		if (!isEditable)
+			return t;
 		final int[] codes = this.getToolItems();
 		for (final int i : codes) {
 			ToolItem item = null;
@@ -479,7 +510,7 @@ public abstract class AbstractEditor<T>
 	@SuppressWarnings ("unchecked")
 	protected T getParameterValue() throws GamaRuntimeException {
 		Object result;
-		if (agent == null) {
+		if (agent == null || !agent.getSpecies().hasVar(param.getName())) {
 			result = param.value(scope);
 		} else {
 			result = scope.getAgentVarValue(getAgent(), param.getName());
@@ -490,10 +521,12 @@ public abstract class AbstractEditor<T>
 
 	}
 
+	protected EditorListener<?> getListener() {
+		return listener;
+	}
+
 	protected void setParameterValue(final T val) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		WorkbenchHelper.asyncRun(uid, () -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			try {
 				if (listener == null) {
 					valueModified(val);
@@ -503,7 +536,7 @@ public abstract class AbstractEditor<T>
 			} catch (final GamaRuntimeException e) {
 				e.printStackTrace();
 				e.addContext("Value of " + name + " cannot be modified");
-				GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), GamaRuntimeException.create(e, GAMAHelper.getRuntimeScope()), false);
+				GAMA.reportError(GAMA.getRuntimeScope(), GamaRuntimeException.create(e, GAMA.getRuntimeScope()), false);
 				return;
 			}
 		});
@@ -511,9 +544,7 @@ public abstract class AbstractEditor<T>
 
 	protected GridData getParameterGridData() {
 		final GridData d = new GridData(SWT.FILL, SWT.TOP, true, false);
-
-		d.minimumWidth = 70;
-		// d.widthHint = 100; // SWT.DEFAULT
+		d.minimumWidth = 100;
 		return d;
 	}
 
@@ -597,9 +628,7 @@ public abstract class AbstractEditor<T>
 		if (!isValueDifferent(val))
 			return;
 		currentValue = val;
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		WorkbenchHelper.asyncRun(uid, () -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			if (titleLabel != null && !titleLabel.isDisposed()) {
 				titleLabel.setBackground(
 						isValueModified() ? CHANGED_BACKGROUND : IGamaColors.PARAMETERS_BACKGROUND.color());
@@ -623,7 +652,7 @@ public abstract class AbstractEditor<T>
 			internalModification = false;
 		} catch (final GamaRuntimeException e) {
 			e.addContext("Unable to obtain the value of " + name);
-			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), e, false);
+			GAMA.reportError(GAMA.getRuntimeScope(), e, false);
 			return;
 		}
 	}
@@ -634,8 +663,7 @@ public abstract class AbstractEditor<T>
 		// if (!isValueDifferent(newVal))
 		// return;
 		currentValue = newVal;
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, () -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			internalModification = true;
 			if (titleLabel != null && !titleLabel.isDisposed()) {
 				titleLabel.setBackground(
@@ -657,8 +685,7 @@ public abstract class AbstractEditor<T>
 	}
 
 	private void displayParameterValueAndCheckButtons() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid,() -> {
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
 			displayParameterValue();
 			checkButtons();
 		});
@@ -667,8 +694,7 @@ public abstract class AbstractEditor<T>
 
 	protected final void modifyAndDisplayValue(final T val) {
 		modifyValue(val);
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid,() -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			if (!isEditable) {
 				fixedValue.setText(val instanceof String ? (String) val : StringUtils.toGaml(val, false));
 			} else if (isCombo) {

@@ -34,6 +34,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.core.web.customwidget.LogComposite;
+import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.fastmaths.CmnFastMath;
@@ -47,6 +48,7 @@ import ummisco.gama.ui.views.GamaViewPart;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
+import ummisco.gama.ui.views.toolbar.Selector;
 
 public class ConsoleView extends GamaViewPart
 		implements IToolbarDecoratedView.Sizable, IToolbarDecoratedView.Pausable, IGamaView.Console {
@@ -247,7 +249,7 @@ public class ConsoleView extends GamaViewPart
 	}
 
 	@Override
-	public void pauseChanged(final IScope scope) {
+	public void pauseChanged() {
 		String uid = RWT.getUISession().getAttribute("user").toString();
 		if (paused) {
 			WorkbenchHelper.asyncRun(uid, () -> {
@@ -263,7 +265,8 @@ public class ConsoleView extends GamaViewPart
 		if (paused) {
 			pauseBuffer.setLength(0);
 		} else {
-			append(pauseBuffer.toString(), scope.getRoot(), (GamaUIColor) null);
+			
+			append(pauseBuffer.toString(), GAMAHelper.getRuntimeScope().getRoot(), (GamaUIColor) null);
 		}
 	}
 
@@ -272,7 +275,7 @@ public class ConsoleView extends GamaViewPart
 		super.createToolItems(tb);
 		tb.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.RIGHT);
 		tb.button(GamaIcons.create(IGamaIcons.ACTION_CLEAR).getCode(), "Clear", "Clear the console",
-				new SelectionAdapter() {
+				new Selector() {
 
 					@Override
 					public void widgetSelected(final SelectionEvent arg0) {

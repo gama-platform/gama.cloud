@@ -78,9 +78,6 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 			@Override
 			public void afterComponentCreatedSWTThread() {
-				if (GamaPreferences.Displays.CORE_OVERLAY.getValue()) {
-					overlay.setVisible(true);
-				}
 //				WorkaroundForIssue1353.install();
 
 			}
@@ -196,7 +193,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 	}
 
 	@Override
-	protected List<String> getCameraNames() {
+	public List<String> getCameraNames() {
 		return Collections.EMPTY_LIST;
 	}
 
@@ -207,7 +204,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 	}
 
 	@Override
-	public void pauseChanged(IScope scope) {
+	public void pauseChanged() {
 		// TODO Auto-generated method stub
 		
 	}

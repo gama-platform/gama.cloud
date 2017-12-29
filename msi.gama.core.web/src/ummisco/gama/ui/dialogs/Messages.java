@@ -18,34 +18,31 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 public class Messages {
 
 	public static void error(final String error) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, new Runnable() {
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),new Runnable() {
 
 			@Override
 			public void run() {
-				MessageDialog.openError(WorkbenchHelper.getShell(uid), "Error", error);
+				MessageDialog.openError(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), "Error", error);
 			}
 		});
 	}
 
 	public static void tell(final String error) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, new Runnable() {
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),new Runnable() {
 
 			@Override
 			public void run() {
-				MessageDialog.openInformation(WorkbenchHelper.getShell(uid), "Message", error);
+				MessageDialog.openInformation(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), "Message", error);
 			}
 		});
 	}
 
 	public static void exception(final Throwable e) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, new Runnable() {
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),new Runnable() {
 
 			@Override
 			public void run() {
-				final ExceptionDetailsDialog d = new ExceptionDetailsDialog(WorkbenchHelper.getShell(uid), "Gama", null,
+				final ExceptionDetailsDialog d = new ExceptionDetailsDialog(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), "Gama", null,
 						e.getMessage(), e);
 				d.setBlockOnOpen(true);
 				d.open();
@@ -55,13 +52,11 @@ public class Messages {
 	}
 
 	public static boolean question(final String title, final String message) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		return MessageDialog.openQuestion(WorkbenchHelper.getShell(uid), title, message);
+		return MessageDialog.openQuestion(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), title, message);
 	}
 
 	public static boolean confirm(final String title, final String message) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		return MessageDialog.openConfirm(WorkbenchHelper.getShell(uid), title, message);
+		return MessageDialog.openConfirm(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), title, message);
 	}
 
 }

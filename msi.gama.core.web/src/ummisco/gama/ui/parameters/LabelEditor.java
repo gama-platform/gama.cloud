@@ -11,7 +11,6 @@
 package ummisco.gama.ui.parameters;
 
 import java.util.List;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Composite;

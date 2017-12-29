@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -119,7 +118,7 @@ public class GamaColorMenu extends GamaMenu {
 	};
 
 	public static void openView(final IColorRunnable runnable, final RGB initial) {
-		final Shell shell = new Shell(Display.getDefault(), SWT.MODELESS);
+		final Shell shell = new Shell(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), SWT.MODELESS);
 		final ColorDialog dlg = new ColorDialog(shell, SWT.MODELESS);
 		dlg.setText("Choose a custom color");
 		dlg.setRGB(initial);
@@ -192,8 +191,7 @@ public class GamaColorMenu extends GamaMenu {
 		currentListener = colorInserter;
 		currentRunnable = custom;
 		if (mainMenu == null) {
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			mainMenu = new Menu(WorkbenchHelper.getShell(uid), SWT.POP_UP);
+			mainMenu = new Menu(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), SWT.POP_UP);
 			fillMenu();
 		}
 

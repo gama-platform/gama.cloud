@@ -23,7 +23,7 @@ public class SwitchWorkspaceHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 //		if (new PickWorkspaceDialog().open() != Window.CANCEL) {
-//			WorkbenchHelper.getWorkbench().restart();
+//			PlatformUI.getWorkbench().restart();
 //		}
 		return null;
 	}

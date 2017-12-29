@@ -33,6 +33,7 @@ import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
+import msi.gama.lang.gaml.web.ui.views.toolbar.OpenExperimentSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
 import msi.gaml.descriptions.IDescription;
@@ -48,6 +49,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
+import ummisco.gama.ui.views.toolbar.Selector;
 
 /*
  * The class GamlEditor.
@@ -255,14 +257,15 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 
 			thecollaboratingControl.get(uid).fill(toolbar.getToolbar(SWT.RIGHT));
 			final GamaUIColor c = state.getColor();
-			final String msg = state.getStatus();
+			String msg = state.getStatus();
 
-			SelectionListener listener = null;
+			Selector listener = null;
 			String imageName = null;
 
 			if (msg == GamlEditorState.NO_EXP_DEFINED) {
-				listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
-				imageName = "small.dropdown";
+//				listener = new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT));
+//				imageName = "small.dropdown";
+				msg = null;
 			} else if (newState.hasImportedErrors) {
 				listener = new OpenImportedErrorSelectionListener(GamlEditor.this, newState,
 						toolbar.getToolbar(SWT.LEFT));

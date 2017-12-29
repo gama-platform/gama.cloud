@@ -9,15 +9,16 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.toolbar;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutput;
-import msi.gama.runtime.IScope;
 import ummisco.gama.ui.resources.IGamaIcons;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.StateListener;
 
 /**
  * The class SnapshotItem.
@@ -26,79 +27,97 @@ import ummisco.gama.ui.resources.IGamaIcons;
  * @since 19 janv. 2012
  *
  */
-public class FrequencyController {
+public class FrequencyController implements StateListener {
 
-	IToolbarDecoratedView.Pausable view;
+	final IToolbarDecoratedView.Pausable view;
+	ToolItem pauseItem;
+	ToolItem syncItem;
+	boolean internalChange;
 
 	public FrequencyController(final IToolbarDecoratedView.Pausable view) {
 		this.view = view;
+		view.addStateListener(this);
 	}
 
-	void toggle(final IScope scope) {
-		view.pauseChanged(scope);
+	void togglePause(final ToolItem item, final IOutput out) {
+		if (out != null) {
+			item.setToolTipText((out.isPaused() ? "Resume " : "Pause ") + out.getName());
+		}
+		view.pauseChanged();
 	}
 
-	void resume(final IScope scope, final ToolItem item, final IOutput out) {
-		out.setPaused(false);
-		item.setToolTipText("Pause " + out.getName());
-		view.pauseChanged(scope);
-	}
-
-	void pause(final IScope scope, final ToolItem item, final IOutput out) {
-		out.setPaused(true);
-		item.setToolTipText("Resume " + out.getName());
-		view.pauseChanged(scope);
+	void toggleSync(final ToolItem item, final IDisplayOutput out) {
+		if (out != null) {
+			item.setToolTipText((out.isSynchronized() ? "Unsynchronize " : "Synchronize ") + out.getName());
+		}
+		view.synchronizeChanged();
 	}
 
 	/**
 	 * @param tb
 	 */
 	public void install(final GamaToolbar2 tb) {
-		// createFrequencyItem(tb);
-		createPauseItem(null,tb);
+
+		createPauseItem(tb);
 		createSynchronizeItem(tb);
+		tb.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.RIGHT);
 	}
 
 	protected ToolItem createSynchronizeItem(final GamaToolbar2 tb) {
-		final ToolItem ti = tb.check(IGamaIcons.DISPLAY_TOOLBAR_SYNC, "Synchronize with simulation", "Synchronize",
-				new SelectionAdapter() {
-
-					@Override
-					public void widgetSelected(final SelectionEvent e) {
-						view.getOutput().setSynchronized(((ToolItem) e.widget).getSelection());
-						view.synchronizeChanged();
+		syncItem = tb.check(IGamaIcons.DISPLAY_TOOLBAR_SYNC, "Synchronize with simulation", "Synchronize", e -> {
+			final IDisplayOutput output = view.getOutput();
+			if (!internalChange) {
+				if (output != null) {
+					if (output.isSynchronized()) {
+						output.setSynchronized(false);
+					} else {
+						output.setSynchronized(true);
 					}
-
-				}, SWT.RIGHT);
-		ti.setSelection(view.getOutput() != null && view.getOutput().isSynchronized()
+				}
+			}
+			toggleSync((ToolItem) e.widget, output);
+		}, SWT.RIGHT);
+		syncItem.setSelection(view.getOutput() != null && view.getOutput().isSynchronized()
 				|| GamaPreferences.Runtime.CORE_SYNC.getValue());
-		return ti;
+		return syncItem;
 	}
 
 	/**
 	 * @param tb
 	 */
-	private void createPauseItem(final IScope scope, final GamaToolbar2 tb) {
+	private void createPauseItem(final GamaToolbar2 tb) {
 
-		tb.check(IGamaIcons.DISPLAY_TOOLBAR_PAUSE, "Pause", "Pause or resume the current view", new SelectionAdapter() {
+		pauseItem = tb.check(IGamaIcons.DISPLAY_TOOLBAR_PAUSE, "Pause", "Pause or resume the current view", e -> {
+			final IOutput output = view.getOutput();
+			if (!internalChange) {
 
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-
-				final IOutput output = view.getOutput();
 				if (output != null) {
 					if (output.isPaused()) {
-						resume(scope, (ToolItem) e.widget, output);
+						output.setPaused(false);
 					} else {
-						pause(scope, (ToolItem) e.widget, output);
+						output.setPaused(true);
 					}
-				} else {
-					toggle(scope);
 				}
-
 			}
-
+			togglePause((ToolItem) e.widget, output);
 		}, SWT.RIGHT);
+
+	}
+
+	@Override
+	public void updateToReflectState() {
+		if (view == null)
+			return;
+		final IDisplayOutput output = view.getOutput();
+		if (output == null)
+			return;
+
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
+			internalChange = true;
+			pauseItem.setSelection(output.isPaused());
+			syncItem.setSelection(output.isSynchronized());
+			internalChange = false;
+		});
 
 	}
 

@@ -14,7 +14,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.runtime.GAMA;
 
 public class OpenGamaWebsiteHandler extends AbstractHandler {
 
@@ -25,7 +25,7 @@ public class OpenGamaWebsiteHandler extends AbstractHandler {
 	 */
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMAHelper.getGui().openWelcomePage(false);
+		GAMA.getGui().openWelcomePage(false);
 		return null;
 	}
 

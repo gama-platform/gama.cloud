@@ -89,8 +89,7 @@ public class AgentEditor extends ExpressionBasedEditor {
 		final Menu dropMenu = new Menu(items[CHANGE].getParent().getShell());
 		final IAgent a = (IAgent) (currentValue instanceof IAgent ? currentValue : null);
 		if (a != null) {
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			final IAgentMenuFactory factory = WorkbenchHelper.getService(uid, IAgentMenuFactory.class);
+			final IAgentMenuFactory factory = WorkbenchHelper.getService(RWT.getUISession().getAttribute("user").toString(),IAgentMenuFactory.class);
 			if (factory != null)
 				factory.fillPopulationSubMenu(dropMenu, a.getScope().getSimulation().getMicroPopulation(species), null,
 						action);

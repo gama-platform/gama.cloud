@@ -1,8 +1,7 @@
 /*********************************************************************************************
  *
- * 'DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
+ * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuEvent;
@@ -27,10 +27,12 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.ILayer;
@@ -41,6 +43,7 @@ import msi.gama.outputs.layers.GridLayer;
 import msi.gama.outputs.layers.ImageLayer;
 import msi.gama.outputs.layers.SpeciesLayer;
 import msi.gama.outputs.layers.charts.ChartLayer;
+import ummisco.gama.ui.menus.AgentsMenu;
 import ummisco.gama.ui.menus.GamaMenu;
 import ummisco.gama.ui.menus.MenuAction;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -56,11 +59,16 @@ public class DisplaySurfaceMenu {
 		layer_images.put(GridLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRID).image());
 		layer_images.put(AgentLayer.class, GamaIcons.create(IGamaIcons.LAYER_AGENTS).image());
 		layer_images.put(ImageLayer.class, GamaIcons.create(IGamaIcons.LAYER_IMAGE).image());
-//		layer_images.put(TextLayer.class, GamaIcons.create(IGamaIcons.LAYER_TEXT).image());
+		// layer_images.put(TextLayer.class, GamaIcons.create(IGamaIcons.LAYER_TEXT).image());
 		layer_images.put(SpeciesLayer.class, GamaIcons.create(IGamaIcons.LAYER_SPECIES).image());
 		layer_images.put(ChartLayer.class, GamaIcons.create(IGamaIcons.LAYER_CHART).image());
 		layer_images.put(GraphicLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRAPHICS).image());
 	}
+
+	private Menu menu;
+	private final IDisplaySurface surface;
+	private final Control swtControl;
+	private final MenuManager presentationMenu;
 
 	private static class FocusOnSelection extends SelectionAdapter {
 
@@ -84,29 +92,26 @@ public class DisplaySurfaceMenu {
 		}
 	}
 
-	private final IDisplaySurface surface;
-	private final Control swtControl;
-	// private final LayeredDisplayView view;
-
-	public DisplaySurfaceMenu(final IDisplaySurface s, final Control c, final LayeredDisplayView view) {
+	public DisplaySurfaceMenu(final IDisplaySurface s, final Control c, final MenuManager viewMenu) {
 		surface = s;
-		// this.view = view;
 		swtControl = c;
 		if (s != null)
 			s.setMenuManager(this);
-
+		this.presentationMenu = viewMenu;
 	}
 
-	org.eclipse.swt.widgets.Menu menu;
+	public void prepareNewMenu(final Control c, final int x, final int y, final boolean withPresentation) {
+		disposeMenu();
+		menu = new Menu(c);
+		menu.setLocation(c.toDisplay(x, y));
+		if (withPresentation) {
+			presentationMenu.fill(menu, -1);
+			GamaMenu.separate(menu);
+		}
+	}
 
 	public void buildMenu(final int mousex, final int mousey, final int x, final int y, final List<ILayer> displays) {
-		if (displays.isEmpty()) {
-			return;
-		}
-		if (menu != null && !menu.isDisposed()) {
-			menu.dispose();
-			menu = null;
-		}
+		if (displays.isEmpty()) { return; }
 		final Set<IAgent> all = new LinkedHashSet<>();
 		for (final ILayer display : displays) {
 			if (display.isSelectable()) {
@@ -128,16 +133,11 @@ public class DisplaySurfaceMenu {
 				actions);
 	}
 
-	public void buildMenu(final boolean byLayer, final int mousex, final int mousey, final Collection<IAgent> agents,
+	private void buildMenu(final boolean byLayer, final int mousex, final int mousey, final Collection<IAgent> agents,
 			final Runnable cleanup, final MenuAction... actions) {
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, () -> {
-			if (menu != null && !menu.isDisposed()) {
-				menu.dispose();
-			}
-			menu = fill(new Menu(swtControl), -1, true, byLayer, agents, actions);
-			menu.setLocation(swtControl.toDisplay(mousex, mousey));
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
+			prepareNewMenu(swtControl, mousex, mousey, true);
+			fill(menu, -1, true, byLayer, agents, actions);
 			menu.setVisible(true);
 			// AD 3/10/13: Fix for Issue 669 on Linux GTK setup. See :
 			// http://www.eclipse.org/forums/index.php/t/208284/
@@ -162,8 +162,11 @@ public class DisplaySurfaceMenu {
 		});
 	}
 
-	public void buildToolbarMenu(final Menu menu) {
+	public void buildToolbarMenu(final SelectionEvent trigger, final ToolItem t) {
+		final Point point = t.getParent().toDisplay(new Point(trigger.x, trigger.y));
+		prepareNewMenu(t.getParent().getShell(), point.x, point.y, false);
 		fill(menu, -1, false, true, null);
+		menu.setVisible(true);
 	}
 
 	static int MAX_RETRIES = 10;
@@ -171,14 +174,12 @@ public class DisplaySurfaceMenu {
 	private void retryVisible(final Menu menu, final int retriesRemaining) {
 		if (!PlatformHelper.isGtk())
 			return;
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, () -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
 			if (!menu.isVisible() && retriesRemaining > 0) {
 				menu.setVisible(false);
 				{
-					final Shell shell = new Shell(WorkbenchHelper.getDisplay(uid),
-							SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
+					final Shell shell =
+							new Shell(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 					shell.setSize(10, 10); // big enough to avoid errors
 											// from the gtk layer
 					shell.setLocation(menu.getShell().getLocation());
@@ -194,14 +195,14 @@ public class DisplaySurfaceMenu {
 		});
 	}
 
-	private Menu fill(final Menu menu, final int index, final boolean withWorld, final boolean byLayer,
+	private void fill(final Menu menu, final int index, final boolean withWorld, final boolean byLayer,
 			final Collection<IAgent> filteredList, final MenuAction... actions) {
 		if (withWorld) {
-//			AgentsMenu.cascadingAgentMenuItem(menu, surface.getScope().getSimulation(), "World", actions);
+			AgentsMenu.cascadingAgentMenuItem(menu, surface.getScope().getSimulation(), "World", actions);
 			if (filteredList != null && !filteredList.isEmpty()) {
 				GamaMenu.separate(menu);
 			} else {
-				return menu;
+				return;
 			}
 			if (byLayer) {
 				GamaMenu.separate(menu, "Layers");
@@ -209,22 +210,18 @@ public class DisplaySurfaceMenu {
 		}
 		if (!byLayer) {
 			// If the list is null or empty, no need to display anything more
-			if (filteredList == null || filteredList.isEmpty()) {
-				return menu;
-			}
+			if (filteredList == null || filteredList.isEmpty()) { return; }
 			// If only the world is selected, no need to display anything more
-			if (filteredList.size() == 1 && filteredList.contains(surface.getScope().getSimulation())) {
-				return menu;
-			}
+			if (filteredList.size() == 1 && filteredList.contains(surface.getScope().getSimulation())) { return; }
 			final FocusOnSelection adapter = new FocusOnSelection(surface);
-			final MenuAction focus = new MenuAction(adapter, GamaIcons.create(IGamaIcons.MENU_FOCUS).image(),
-					"Focus on this display");
+			final MenuAction focus =
+					new MenuAction(adapter, GamaIcons.create(IGamaIcons.MENU_FOCUS).image(), "Focus on this display");
 			final MenuAction[] actions2 = new MenuAction[actions.length + 1];
 			for (int i = 0; i < actions.length; i++) {
 				actions2[i + 1] = actions[i];
 			}
 			actions2[0] = focus;
-//			AgentsMenu.fillPopulationSubMenu(menu, filteredList, actions2);
+			AgentsMenu.fillPopulationSubMenu(menu, filteredList, actions2);
 		} else {
 
 			for (final ILayer layer : surface.getManager().getItems()) {
@@ -242,7 +239,7 @@ public class DisplaySurfaceMenu {
 					if (layer instanceof GridLayer)
 						actions2 = new MenuAction[] { focus };
 					else
-//						actions2 = new MenuAction[] { focus, AgentsMenu.HIGHLIGHT_ACTION };
+						actions2 = new MenuAction[] { focus };
 
 					if (filteredList != null) {
 						pop.retainAll(filteredList);
@@ -255,22 +252,18 @@ public class DisplaySurfaceMenu {
 					layerMenu.setImage(layer_images.get(layer.getClass()));
 					final Menu submenu = new Menu(layerMenu);
 					layerMenu.setMenu(submenu);
-//					AgentsMenu.fillPopulationSubMenu(submenu, pop, actions2);
+					AgentsMenu.fillPopulationSubMenu(submenu, pop, actions2);
 				}
 			}
 		}
-		return menu;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings ("unused")
 	public Menu buildROIMenu(final int x, final int y, final Collection<IAgent> agents,
 			final Map<String, Runnable> actions, final Map<String, Image> images) {
 
-		if (menu != null && !menu.isDisposed()) {
-			menu.dispose();
-		}
-		menu = fill(new Menu(swtControl), -1, false, true, agents);
-		menu.setLocation(swtControl.toDisplay(x, y));
+		prepareNewMenu(swtControl, x, y, true);
+		fill(menu, -1, false, true, agents);
 		int i = 0;
 		for (final String s : actions.keySet()) {
 			final MenuItem mu = new MenuItem(menu, SWT.PUSH, i++);
@@ -291,8 +284,14 @@ public class DisplaySurfaceMenu {
 		}
 
 		new MenuItem(menu, SWT.SEPARATOR, i);
-
 		return menu;
+	}
+
+	public void disposeMenu() {
+		if (menu != null && !menu.isDisposed()) {
+			menu.dispose();
+		}
+		menu = null;
 	}
 
 }

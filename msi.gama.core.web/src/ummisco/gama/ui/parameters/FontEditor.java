@@ -64,8 +64,7 @@ public class FontEditor extends AbstractEditor<GamaFont> {
 		final GamaFont data = currentValue != null ? currentValue
 				: toGamaFont(GamaFonts.getSmallFont().getFontData()[0]);
 		edit.setText(data.toString());
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		edit.setFont(new Font(WorkbenchHelper.getDisplay(uid), toFontData(data)));
+		edit.setFont(new Font(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), toFontData(data)));
 		internalModification = false;
 	}
 
@@ -98,8 +97,7 @@ public class FontEditor extends AbstractEditor<GamaFont> {
 
 	@Override
 	public void widgetSelected(final SelectionEvent e) {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final FontDialog dialog = new FontDialog(WorkbenchHelper.getShell(uid));
+		final FontDialog dialog = new FontDialog(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()));
 //		dialog.setEffectsVisible(false);
 		FontData data = toFontData(currentValue);
 		dialog.setFontList(new FontData[] { data });

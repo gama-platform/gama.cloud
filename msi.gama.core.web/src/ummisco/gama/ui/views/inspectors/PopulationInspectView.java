@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.inspectors;
 
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,12 +51,12 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IKeyword;
 import msi.gama.common.util.FileUtils;
-import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.population.IPopulation;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.InspectDisplayOutput;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gama.util.file.CsvWriter;
@@ -115,9 +114,7 @@ public class PopulationInspectView extends GamaViewPart
 	// private String speciesName;
 
 	IAgent[] elements = new IAgent[0];
-
-	final String uid=RWT.getUISession().getAttribute("user").toString();
-	Font currentFont = new Font(WorkbenchHelper.getDisplay(uid), GamaFonts.getSmallFont().getFontData());
+	Font currentFont = new Font(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), GamaFonts.getSmallFont().getFontData());
 	Map<String, List<String>> selectedColumns = new HashMap();
 
 	class AgentContentProvider implements ILazyContentProvider {
@@ -195,7 +192,7 @@ public class PopulationInspectView extends GamaViewPart
 			// activated).
 			getOutput().setPaused(true);
 			// we release the scope
-			GAMAHelper.releaseScope(getScope());
+			GAMA.releaseScope(getScope());
 			outputs.clear();
 		}
 		outputs.add(output);
@@ -216,9 +213,9 @@ public class PopulationInspectView extends GamaViewPart
 
 		if (!selectedColumns.containsKey(name)) {
 			selectedColumns.put(name, new ArrayList<>());
-			final List<String> names = (List<String>) getOutput().getAttributes();
-			if (names != null) {
-				selectedColumns.get(name).addAll(names);
+			final Map<String, String> attributes = getOutput().getAttributes();
+			if (attributes != null) {
+				selectedColumns.get(name).addAll(attributes.keySet());
 			} else if (getOutput().getValue() != null) {
 				if (species == null) { return; }
 				selectedColumns.get(name).addAll(species.getVarNames());
@@ -372,7 +369,8 @@ public class PopulationInspectView extends GamaViewPart
 		final boolean hasPreviousSelection = selectedColumns.get(speciesName) != null;
 		final InspectDisplayOutput output = getOutput();
 		final ISpecies species = output.getSpecies();
-		final List<String> names = new ArrayList(species.getVarNames());
+		final List<String> names = new ArrayList(
+				getOutput().getAttributes() == null ? species.getVarNames() : getOutput().getAttributes().keySet());
 		Collections.sort(names);
 		for (final String name : names) {
 			final SwitchButton b = new SwitchButton(attributesMenu, SWT.NONE, "   ", "   ", name);
@@ -400,7 +398,7 @@ public class PopulationInspectView extends GamaViewPart
 		createMenus(intermediate);
 		createViewer(intermediate);
 		intermediate.layout(true, true);
-		parent = intermediate;
+		setParentComposite(intermediate);
 	}
 
 	private void createViewer(final Composite parent) {
@@ -417,7 +415,7 @@ public class PopulationInspectView extends GamaViewPart
 			final Object o = s.getFirstElement();
 			if (o instanceof IAgent) {
 				getScope().getGui().setHighlightedAgent((IAgent) o);
-				GAMAHelper.getExperiment().refreshAllOutputs();
+				GAMA.getExperiment().refreshAllOutputs();
 				;
 			}
 		});
@@ -434,8 +432,7 @@ public class PopulationInspectView extends GamaViewPart
 			if (agent != null) {
 				manager.removeAll();
 				manager.update(true);
-				AgentsMenu.createMenuForAgent(viewer.getControl().getMenu(), agent, false, true,
-						AgentsMenu.HIGHLIGHT_ACTION);
+				AgentsMenu.createMenuForAgent(viewer.getControl().getMenu(), agent, false, true);
 			}
 		});
 		final Menu menu = menuMgr.createContextMenu(viewer.getControl());
@@ -454,8 +451,8 @@ public class PopulationInspectView extends GamaViewPart
 		final Table table = viewer.getTable();
 		if (table.isDisposed()) { return; }
 		table.dispose();
-		createViewer(parent);
-		parent.layout(true);
+		createViewer(getParentComposite());
+		getParentComposite().layout(true);
 	}
 
 	private void createColumns() {
@@ -475,7 +472,11 @@ public class PopulationInspectView extends GamaViewPart
 				final IAgent agent = (IAgent) element;
 				if (agent.dead() && !title.equals(ID_ATTRIBUTE)) { return "N/A"; }
 				if (title.equals(ID_ATTRIBUTE)) { return String.valueOf(agent.getIndex()); }
-				return Cast.toGaml(getScope().getAgentVarValue(agent, title));
+				final Object value;
+				if (agent.getSpecies().hasVar(title))
+					return Cast.toGaml(getScope().getAgentVarValue(agent, title));
+				else
+					return Cast.toGaml(agent.getAttribute(title));
 			}
 		};
 	}
@@ -705,7 +706,7 @@ public class PopulationInspectView extends GamaViewPart
 			Files.newFolder(getScope(), exportFolder);
 		} catch (final GamaRuntimeException e1) {
 			e1.addContext("Impossible to create folder " + exportFolder);
-			GAMAHelper.reportError(getScope(), e1, false);
+			GAMA.reportError(getScope(), e1, false);
 			e1.printStackTrace();
 			return;
 		}
@@ -765,56 +766,39 @@ public class PopulationInspectView extends GamaViewPart
 	public void createToolItems(final GamaToolbar2 tb) {
 		if (getOutput() == null) { return; }
 		super.createToolItems(tb);
-		tb.check("population.lock2", "", "Lock the current population (prevents editing it)", new SelectionAdapter() {
+		tb.check("population.lock2", "", "Lock the current population (prevents editing it)", e -> {
+			locked = !locked;
+			editor.getControl().setEnabled(!locked);
+			populationMenu.setEnabled(!locked);
 
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				locked = !locked;
-				editor.getControl().setEnabled(!locked);
-				populationMenu.setEnabled(!locked);
-
-				// TODO let the list of agents remain the same ??
-			}
-
+			// TODO let the list of agents remain the same ??
 		}, SWT.RIGHT);
 		createExpressionComposite();
-		populationMenu = tb.menu("population.list2", "", "Browse a species", new SelectionAdapter() {
+		populationMenu = tb.menu("population.list2", "", "Browse a species", trigger -> {
+			if (locked) { return; }
+			final GamaMenu menu = new GamaMenu() {
 
-			@Override
-			public void widgetSelected(final SelectionEvent trigger) {
-				if (locked) { return; }
-				final GamaMenu menu = new GamaMenu() {
+				@Override
+				protected void fillMenu() {
+					final IPopulation[] pops = getOutput().getRootAgent().getMicroPopulations();
+					for (final IPopulation p : pops) {
+						action(p.getName(), new SelectionAdapter() {
 
-					@Override
-					protected void fillMenu() {
-						final IPopulation[] pops = getOutput().getRootAgent().getMicroPopulations();
-						for (final IPopulation p : pops) {
-							action(p.getName(), new SelectionAdapter() {
+							@Override
+							public void widgetSelected(final SelectionEvent e) {
+								editor.getControl().setText(p.getName());
+								editor.widgetDefaultSelected(null);
+							}
 
-								@Override
-								public void widgetSelected(final SelectionEvent e) {
-									editor.getControl().setText(p.getName());
-									editor.widgetDefaultSelected(null);
-								}
-
-							}, GamaIcons.create("display.agents2").image());
-						}
+						}, GamaIcons.create("display.agents2").image());
 					}
-				};
-				menu.open(toolbar.getToolbar(SWT.RIGHT), trigger);
-			}
-
+				}
+			};
+			menu.open(toolbar.getToolbar(SWT.RIGHT), trigger);
 		}, SWT.RIGHT);
 		tb.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.RIGHT);
 		tb.button("menu.saveas2", "Save as CSV", "Save the agents and their attributes into a CSV file",
-				new SelectionAdapter() {
-
-					@Override
-					public void widgetSelected(final SelectionEvent e) {
-						saveAsCSV();
-					}
-
-				}, SWT.RIGHT);
+				e -> saveAsCSV(), SWT.RIGHT);
 	}
 
 	@Override
@@ -830,7 +814,7 @@ public class PopulationInspectView extends GamaViewPart
 			currentFont.dispose();
 		}
 		provider.dispose();
-		GAMAHelper.releaseScope(scope);
+		GAMA.releaseScope(scope);
 		scope = null;
 	}
 
@@ -840,7 +824,7 @@ public class PopulationInspectView extends GamaViewPart
 	 * @see ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.Pausable#pauseChanged()
 	 */
 	@Override
-	public void pauseChanged(final IScope scope) {}
+	public void pauseChanged() {}
 
 	/**
 	 * Method synchronizeChanged()
@@ -849,17 +833,5 @@ public class PopulationInspectView extends GamaViewPart
 	 */
 	@Override
 	public void synchronizeChanged() {}
-
-	@Override
-	public void updateToolbarState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-//	@Override
-	public Rectangle2D getBounds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

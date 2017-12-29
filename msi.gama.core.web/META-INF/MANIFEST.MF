@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.equinox.registry,
  msi.gama.ext,
  msi.gama.core,
- msi.gama.lang.gaml
+ msi.gama.lang.gaml,
+ org.eclipse.swt
 Import-Package: javax.persistence,
  org.apache.log4j,
  org.eclipse.core.internal.filesystem,

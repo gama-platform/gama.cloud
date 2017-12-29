@@ -19,9 +19,8 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.util.GamaColor;
 import ummisco.gama.ui.menus.GamaColorMenu;
 import ummisco.gama.ui.resources.GamaColors;
-import ummisco.gama.ui.resources.GamaIcons;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
-import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.Colorizable;
+import ummisco.gama.ui.resources.GamaIcons;
 
 /**
  * Class FontSizer.
@@ -32,7 +31,7 @@ import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.Colorizable;
  */
 public class BackgroundChooser {
 
-	final Colorizable view;
+	final IToolbarDecoratedView.Colorizable view;
 	final String[] labels;
 	final GamaUIColor[] colors;
 

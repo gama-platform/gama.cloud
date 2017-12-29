@@ -1,8 +1,7 @@
 /*********************************************************************************************
  *
- * 'LayeredDisplayMultiListener.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'LayeredDisplayMultiListener.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA
+ * modeling and simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -24,17 +23,21 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
-//import org.eclipse.swt.events.MouseWheelListener;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.common.interfaces.IDisplaySurface;
+import msi.gama.runtime.GAMA;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
 import ummisco.gama.ui.utils.WorkbenchHelper;
+//import ummisco.gama.ui.views.WorkaroundForIssue1353;
 
 public class LayeredDisplayMultiListener implements MenuDetectListener, MouseListener, MouseMoveListener,
-		MouseTrackListener, KeyListener, DragDetectListener, FocusListener {
+		MouseTrackListener, MouseWheelListener, KeyListener, DragDetectListener, FocusListener {
 
-	final LayeredDisplayView view;
+	final LayeredDisplayDecorator view;
+	final IDisplaySurface surface;
 	final Control control;
 	volatile boolean mouseIsDown;
 	volatile boolean inMenu;
@@ -45,39 +48,42 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 	private class DisplayKeyListener implements KeyListener {
 
 		@Override
-		public void keyPressed(final KeyEvent e) {
-		}
+		public void keyPressed(final KeyEvent e) {}
 
 		@Override
 		public void keyReleased(final KeyEvent e) {
 			switch (e.keyCode) {
-			case SWT.ESC:
-				view.toggleFullScreen();
-				break;
-			case 'o':
-//				if (GamaKeyBindings.ctrl(e)) {
-//					view.toggleOverlay();
-//				}
-				break;
-			case 'l':
-//				if (GamaKeyBindings.ctrl(e)) {
-//					view.toggleSideControls();
-//				}
-				break;
-			case 'k':
-//				if (GamaKeyBindings.ctrl(e)) {
-//					if (view.isFullScreen())
-//						view.toggleInteractiveConsole();
-//				}
+				case 'o':
+					if (GamaKeyBindings.ctrl(e)) {
+						view.toggleOverlay();
+					}
+					break;
+				case 'l':
+					if (GamaKeyBindings.ctrl(e)) {
+						view.toggleSideControls();
+					}
+					break;
+				case 'k':
+					if (GamaKeyBindings.ctrl(e)) {
+						if (view.isFullScreen())
+							view.toggleInteractiveConsole();
+					}
+					break;
+				case 't':
+					if (GamaKeyBindings.ctrl(e)) {
+						if (view.isFullScreen())
+							view.toggleSimulationControls();
+					}
 			}
 
 		}
 
 	}
 
-	public LayeredDisplayMultiListener(final LayeredDisplayView view) {
+	public LayeredDisplayMultiListener(final LayeredDisplayDecorator view, final IDisplaySurface surface) {
 		this.view = view;
-		control = view.getZoomableControls()[0];
+		this.surface = surface;
+		control = view.view.getZoomableControls()[0];
 		control.addKeyListener(this);
 		control.addMouseListener(this);
 		control.addMenuDetectListener(this);
@@ -95,7 +101,6 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		control.removeMenuDetectListener(this);
 		control.removeDragDetectListener(this);
 //		control.removeMouseTrackListener(this);
-		// control.removeMouseWheelListener(this);
 //		control.removeMouseMoveListener(this);
 		control.removeFocusListener(this);
 	}
@@ -104,10 +109,8 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 	public void keyPressed(final KeyEvent e) {
 		if (!ok())
 			return;
-		view.getDisplaySurface().dispatchKeyEvent(e.character);
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, view.displayOverlay);
+		surface.dispatchKeyEvent(e.character);
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),view.displayOverlay);
 	}
 
 	@Override
@@ -117,11 +120,11 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		delegate.keyReleased(e);
 	}
 
-//	@Override
-//	public void mouseScrolled(final MouseEvent e) {
-//		if (!ok())
-//			return;
-//	}
+	@Override
+	public void mouseScrolled(final MouseEvent e) {
+		if (!ok())
+			return;
+	}
 
 	@Override
 	public void mouseEnter(final MouseEvent e) {
@@ -136,7 +139,7 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		lastEnterTime = System.currentTimeMillis();
 		lastEnterPosition = new Point(e.x, e.y);
 		// System.out.println("Mouse entering " + e);
-		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseEnter);
+		surface.dispatchMouseEvent(SWT.MouseEnter);
 	}
 
 	@Override
@@ -144,15 +147,14 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		if (!ok())
 			return;
 		final long currentTime = System.currentTimeMillis();
-		if (currentTime - lastEnterTime < 100 && lastEnterPosition.x == e.x && lastEnterPosition.y == e.y) {
-			return;
-		}
+		if (currentTime - lastEnterTime < 100 && lastEnterPosition.x == e.x && lastEnterPosition.y == e.y) { return; }
 		setMousePosition(-1, -1);
 		if (e.button > 0)
 			return;
 		// System.out.println("Mouse exiting " + e);
-//		WorkaroundForIssue1353.showShell();
-		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseExit);
+//		if (!view.isFullScreen())
+//			WorkaroundForIssue1353.showShell();
+		surface.dispatchMouseEvent(SWT.MouseExit);
 	}
 
 	@Override
@@ -162,26 +164,24 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		if (e.button > 0)
 			return;
 		// System.out.println("Mouse hovering on " + view.getPartName());
-//		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseHover);
+//		surface.dispatchMouseEvent(SWT.MouseHover);
 	}
 
 	@Override
 	public void mouseMove(final MouseEvent e) {
 		if (!ok())
 			return;
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.asyncRun(uid, view.displayOverlay);
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),view.displayOverlay);
 		if ((e.stateMask & SWT.MODIFIER_MASK) != 0)
 			return;
 		// System.out.println("Mouse moving on " + view.getPartName());
 
 		if (mouseIsDown) {
-			view.getDisplaySurface().draggedTo(e.x, e.y);
-			view.getDisplaySurface().dispatchMouseEvent(SWT.DragDetect);
+			surface.draggedTo(e.x, e.y);
+			surface.dispatchMouseEvent(SWT.DragDetect);
 		} else {
 			setMousePosition(e.x, e.y);
-			view.getDisplaySurface().dispatchMouseEvent(SWT.MouseMove);
+			surface.dispatchMouseEvent(SWT.MouseMove);
 		}
 
 	}
@@ -205,7 +205,7 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 			return;
 		mouseIsDown = true;
 		// System.out.println("Mouse down on " + view.getPartName());
-		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseDown);
+		surface.dispatchMouseEvent(SWT.MouseDown);
 	}
 
 	@Override
@@ -221,8 +221,9 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 			return;
 		mouseIsDown = false;
 		// System.out.println("Mouse up on " + view.getPartName());
-//		WorkaroundForIssue1353.showShell();
-		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseUp);
+//		if (!view.isFullScreen())
+//			WorkaroundForIssue1353.showShell();
+		surface.dispatchMouseEvent(SWT.MouseUp);
 	}
 
 	@Override
@@ -237,7 +238,7 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		final int y = p.y;
 		inMenu = true;
 		setMousePosition(x, y);
-		view.getDisplaySurface().selectAgentsAroundMouse();
+		surface.selectAgentsAroundMouse();
 	}
 
 	@Override
@@ -245,16 +246,16 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		if (!ok())
 			return;
 		// System.out.println("Mouse drag detected on " + view.getPartName());
-		// view.getDisplaySurface().draggedTo(e.x, e.y);
-		view.getDisplaySurface().dispatchMouseEvent(SWT.DragDetect);
+		// surface.draggedTo(e.x, e.y);
+		surface.dispatchMouseEvent(SWT.DragDetect);
 	}
 
 	@Override
 	public void focusGained(final FocusEvent e) {
-//		if (!ok())
-//			return;
-//		// System.out.println("Control has gained focus");
-//		view.getDisplaySurface().dispatchMouseEvent(SWT.MouseEnter);
+		if (!ok())
+			return;
+		// System.out.println("Control has gained focus");
+		surface.dispatchMouseEvent(SWT.MouseEnter);
 		// Thread.dumpStack();
 	}
 
@@ -267,26 +268,24 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 	}
 
 	private boolean ok() {
-		final boolean viewOk = view != null && !view.disposed;
+		final boolean viewOk = view != null && !view.view.disposed;
 		if (!viewOk)
 			return false;
 		final boolean controlOk = control != null && !control.isDisposed();
 		if (!controlOk)
 			return false;
-		final boolean surfaceOk = view.getDisplaySurface() != null && !view.getDisplaySurface().isDisposed();
+		final boolean surfaceOk = surface != null && !surface.isDisposed();
 		if (!control.isFocusControl())
 			control.forceFocus();
-
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		if (WorkbenchHelper.getActivePart(uid) != view) {
-			WorkbenchHelper.getPage(uid).activate(view);
+		if (WorkbenchHelper.getActivePart(RWT.getUISession().getAttribute("user").toString()) != view) {
+			WorkbenchHelper.getPage(RWT.getUISession().getAttribute("user").toString()).activate(view.view);
 		}
 		return surfaceOk;
 	}
 
 	private void setMousePosition(final int x, final int y) {
-		view.getDisplaySurface().setMousePosition(x, y);
-		GAMAHelper.getGui().setMouseLocationInModel(view.getDisplaySurface().getModelCoordinates());
+		surface.setMousePosition(x, y);
+		GAMA.getGui().setMouseLocationInModel(surface.getModelCoordinates());
 	}
 
 }

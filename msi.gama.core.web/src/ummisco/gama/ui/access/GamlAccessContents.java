@@ -9,12 +9,10 @@
  **********************************************************************************************/
 package ummisco.gama.ui.access;
 
-import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//import org.eclipse.draw2d.text.TextLayout;
 import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -24,11 +22,12 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Listener;
@@ -40,7 +39,7 @@ import org.eclipse.swt.widgets.Text;
 import msi.gama.common.interfaces.IGamlDescription;
 import msi.gaml.compilation.GamlIdiomsProvider;
 import ummisco.gama.ui.controls.IPopupProvider;
-import ummisco.gama.ui.controls.Popup;
+import ummisco.gama.ui.controls.Popup2;
 import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.resources.IGamaColors;
 
@@ -52,18 +51,19 @@ public abstract class GamlAccessContents implements IPopupProvider {
 
 	protected Table table;
 
-	// private LocalResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
-
 	/**
 	 * A color for dulled out items created by mixing the table foreground. Will be disposed when the
 	 * {@link #resourceManager} is disposed.
 	 */
-	// private Color grayColor;
 	private TextLayout textLayout;
 	protected boolean resized = false;
 	private TriggerSequence keySequence;
 
-	private Popup popup;
+	private Popup2 popup;
+
+	public int maxProviderWidth = 145;
+
+	public int maxDefinitionWidth = 1000;
 
 	/**
 	 * Refreshes the contents of the quick access shell
@@ -119,7 +119,6 @@ public abstract class GamlAccessContents implements IPopupProvider {
 					} else {
 						item = new TableItem(table, SWT.NONE);
 					}
-
 					item.setData(entry);
 					item.setText(0, entry.provider.name);
 					item.setText(1, entry.element.getTitle());
@@ -133,6 +132,8 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		if (selectionIndex == -1) {
 			selectionIndex = 0;
 		}
+		// table.setSize(table.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		// table.layout();
 		return selectionIndex;
 	}
 
@@ -255,10 +256,9 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	private void doDispose() {
-		textLayout=null;
-//		if (textLayout != null && !textLayout.isDisposed()) {
-//			textLayout.dispose();
-//		}
+		if (textLayout != null && !textLayout.isDisposed()) {
+			textLayout.dispose();
+		}
 	}
 
 	protected String getId() {
@@ -349,26 +349,45 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		table = new Table(tableComposite, SWT.None /* SWT.SINGLE | SWT.FULL_SELECTION */);
 		table.setBackground(IGamaColors.VERY_LIGHT_GRAY.color());
 		table.setLinesVisible(true);
-//		textLayout = new TextLayout(table.getDisplay());
-//		textLayout.setOrientation(defaultOrientation);
+		textLayout = new TextLayout(table.getDisplay());
+		textLayout.setOrientation(defaultOrientation);
 		final Font boldFont = GamaFonts.getHelpFont();
 		table.setFont(boldFont);
-//		textLayout.setText("Available categories");
-//		int maxProviderWidth = (int) (textLayout.getBounds().width * 1.1);
-//		textLayout.setFont(boldFont);
-//		for (int i = 0; i < GamlIdiomsProvider.PROVIDERS.size(); i++) {
-//			final GamlIdiomsProvider<?> provider = GamlIdiomsProvider.PROVIDERS.get(i);
-//			textLayout.setText(provider.name);
-//			final int width = (int) (textLayout.getBounds().width * 1.1);
-//			if (width > maxProviderWidth) {
-//				maxProviderWidth = width;
-//			}
-//		}
+		textLayout.setText("Available categories");
+		// if (maxProviderWidth == 0) {
+		// maxProviderWidth = (int) (textLayout.getBounds().width * 1.1);
+		// textLayout.setFont(boldFont);
+		// for (int i = 0; i < GamlIdiomsProvider.PROVIDERS.size(); i++) {
+		// final GamlIdiomsProvider<?> provider = GamlIdiomsProvider.PROVIDERS.get(i);
+		// textLayout.setText(provider.name);
+		// final int width = (int) (textLayout.getBounds().width * 1.1);
+		// if (width > maxProviderWidth) {
+		// maxProviderWidth = width;
+		// }
+		// }
+		// }
+		// if (maxDefinitionWidth == 0) {
+		// textLayout.setText("Available definitions");
+		// maxDefinitionWidth = (int) (textLayout.getBounds().width * 1.1);
+		// textLayout.setFont(boldFont);
+		// for (int i = 0; i < GamlIdiomsProvider.PROVIDERS.size(); i++) {
+		// final GamlIdiomsProvider<? extends IGamlDescription> provider = GamlIdiomsProvider.PROVIDERS.get(i);
+		// for (final IGamlDescription d : provider.getSortedElements()) {
+		// textLayout.setText(d.getTitle());
+		// final int width = (int) (textLayout.getBounds().width * 1.1);
+		// if (width > maxDefinitionWidth) {
+		// maxDefinitionWidth = width;
+		// }
+		// }
+		// }
+		// System.out.println("Provider: " + maxProviderWidth + " Definition:" + maxDefinitionWidth);
+		//
+		// }
 
 		final TableColumn c1 = new TableColumn(table, SWT.NONE);
 		final TableColumn c2 = new TableColumn(table, SWT.NONE);
-//		tableColumnLayout.setColumnData(c1, new ColumnWeightData(0, maxProviderWidth));
-		tableColumnLayout.setColumnData(c2, new ColumnWeightData(100, 300));
+		tableColumnLayout.setColumnData(c1, new ColumnWeightData(0, maxProviderWidth, false));
+		tableColumnLayout.setColumnData(c2, new ColumnWeightData(0, maxDefinitionWidth, false));
 
 		table.addKeyListener(new KeyListener() {
 			@Override
@@ -404,45 +423,28 @@ public abstract class GamlAccessContents implements IPopupProvider {
 			}
 		});
 
-		table.addMouseListener(new MouseListener() {
-			TableItem lastItem = null;
-
-			public void mouseMove(final MouseEvent e) {
-				if (table.equals(e.getSource())) {
-					final Object o = table.getItem(new Point(e.x, e.y));
-					if (lastItem == null ^ o == null) {
-						table.setCursor(o == null ? null : table.getDisplay().getSystemCursor(SWT.CURSOR_HAND));
-					}
-					if (o instanceof TableItem) {
-						if (!o.equals(lastItem)) {
-							lastItem = (TableItem) o;
-							table.setSelection(new TableItem[] { lastItem });
-							popup.display();
-						}
-					} else if (o == null) {
-						lastItem = null;
-					}
-				}
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseUp(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+//		table.addMouseMoveListener(new MouseMoveListener() {
+//			TableItem lastItem = null;
+//
+//			@Override
+//			public void mouseMove(final MouseEvent e) {
+//				if (table.equals(e.getSource())) {
+//					final Object o = table.getItem(new Point(e.x, e.y));
+//					if (lastItem == null ^ o == null) {
+//						table.setCursor(o == null ? null : table.getDisplay().getSystemCursor(SWT.CURSOR_HAND));
+//					}
+//					if (o instanceof TableItem) {
+//						if (!o.equals(lastItem)) {
+//							lastItem = (TableItem) o;
+//							table.setSelection(new TableItem[] { lastItem });
+//							popup.display();
+//						}
+//					} else if (o == null) {
+//						lastItem = null;
+//					}
+//				}
+//			}
+//		});
 
 		table.addSelectionListener(new SelectionListener() {
 			@Override
@@ -456,11 +458,11 @@ public abstract class GamlAccessContents implements IPopupProvider {
 			}
 		});
 
-		popup = new Popup(this, table);
+		popup = new Popup2(this, table);
 
-		final Listener listener = event -> {
-			final GamlAccessEntry entry = (GamlAccessEntry) event.item.getData();
-			if (entry != null) {
+//		final Listener listener = event -> {
+//			final GamlAccessEntry entry = (GamlAccessEntry) event.item.getData();
+//			if (entry != null) {
 //				switch (event.type) {
 //					case SWT.MeasureItem:
 //						entry.measure(event, textLayout);
@@ -472,8 +474,8 @@ public abstract class GamlAccessContents implements IPopupProvider {
 //						entry.erase(event);
 //						break;
 //				}
-			}
-		};
+//			}
+//		};
 //		table.addListener(SWT.MeasureItem, listener);
 //		table.addListener(SWT.EraseItem, listener);
 //		table.addListener(SWT.PaintItem, listener);

@@ -21,8 +21,10 @@ import msi.gama.runtime.IScope;
 import msi.gama.util.GamaDate;
 import msi.gama.util.file.IGamaFile;
 import msi.gaml.expressions.IExpression;
+import msi.gaml.statements.UserCommandStatement;
 import msi.gaml.types.IType;
 import ummisco.gama.ui.interfaces.EditorListener;
+import ummisco.gama.ui.interfaces.IParameterEditor;
 
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class EditorFactory {
@@ -43,7 +45,7 @@ public class EditorFactory {
 	// final EditorListener<GamaFont> whenModified) {
 	// return new FontEditor(parent, title, value, whenModified);
 	// }
- 
+
 	public static ColorEditor create(final IScope scope, final Composite parent, final String title,
 			final java.awt.Color value, final EditorListener<java.awt.Color> whenModified) {
 		return new ColorEditor(scope, parent, title, value, whenModified);
@@ -59,14 +61,26 @@ public class EditorFactory {
 		return new ExpressionEditor(scope, parent, title, value, whenModified, expectedType);
 	}
 
-//	public static FileEditor createFile(final IScope scope, final Composite parent, final String title,
-//			final String value, final EditorListener<IGamaFile> whenModified) {
-//		return new FileEditor(scope, parent, title, value, whenModified);
-//	}
+	public static FileEditor createFile(final IScope scope, final Composite parent, final String title,
+			final String value, final EditorListener<IGamaFile> whenModified) {
+		return new FileEditor(scope, parent, title, value, whenModified);
+	}
 
 	public static FloatEditor create(final IScope scope, final Composite parent, final String title, final Double value,
 			final Double min, final Double max, final Double step, final boolean canBeNull,
 			final EditorListener<Double> whenModified) {
+		return new FloatEditor(scope, parent, title, value, min, max, step, canBeNull, whenModified);
+	}
+
+	public static AbstractEditor create(final IScope scope, final Composite parent, final String title,
+			final Double value, final Double min, final Double max, final Double step, final boolean canBeNull,
+			final boolean isSlider, final EditorListener<Double> whenModified) {
+		final InputParameter par = new InputParameter(title, value, min, max, step);
+		if (isSlider) {
+			final SliderEditor se = new SliderEditor.Float(scope, null, par, whenModified);
+			se.createComposite(parent);
+			return se;
+		}
 		return new FloatEditor(scope, parent, title, value, min, max, step, canBeNull, whenModified);
 	}
 
@@ -144,7 +158,9 @@ public class EditorFactory {
 		return ed;
 	}
 
-	public AbstractEditor create(final IScope scope, final IAgent agent, final IParameter var, final EditorListener l) {
+	public AbstractEditor create(final IScope scope, final IAgent agent, final IParameter disp,
+			final EditorListener l) {
+		final IParameter var = disp;
 		final boolean canBeNull = var instanceof ExperimentParameter && ((ExperimentParameter) var).canBeNull();
 		final IType t = var.getType();
 		final int type = t.getType().id();
@@ -173,8 +189,8 @@ public class EditorFactory {
 				return new MapEditor(scope, agent, var, l);
 			case IType.MATRIX:
 				return new MatrixEditor(scope, agent, var, l);
-//			case IType.FILE:
-//				return new FileEditor(scope, agent, var, l);
+			case IType.FILE:
+				return new FileEditor(scope, agent, var, l);
 			case IType.FONT:
 				return new FontEditor(scope, agent, var, l);
 			case IType.STRING:
@@ -182,5 +198,10 @@ public class EditorFactory {
 			default:
 				return new GenericEditor(scope, agent, var, l);
 		}
+	}
+
+	public IParameterEditor create(final IScope scope, final UserCommandStatement command,
+			final EditorListener.Command selectionAdapter) {
+		return new CommandEditor(scope, command, selectionAdapter);
 	}
 }

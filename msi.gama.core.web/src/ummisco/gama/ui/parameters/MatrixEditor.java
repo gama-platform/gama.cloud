@@ -48,8 +48,7 @@ public class MatrixEditor extends ExpressionBasedEditor<IMatrix<?>> {
 	@Override
 	public void applyEdit() {
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(uid), currentValue);
+		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), currentValue);
 		if (d.open() == IDialogConstants.OK_ID) {
 			modifyValue(d.getMatrix());
 		}

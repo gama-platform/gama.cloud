@@ -9,9 +9,7 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.inspectors;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -29,21 +27,22 @@ import org.eclipse.swt.widgets.Menu;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IParameter;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.kernel.experiment.ParameterAdapter;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutput;
 import msi.gama.outputs.InspectDisplayOutput;
 import msi.gama.runtime.IScope;
-import msi.gaml.variables.IVariable;
+import msi.gaml.types.Types;
 import ummisco.gama.ui.controls.FlatButton;
 import ummisco.gama.ui.controls.ParameterExpandBar;
 import ummisco.gama.ui.controls.ParameterExpandItem;
 import ummisco.gama.ui.experiment.parameters.AgentAttributesEditorsList;
 import ummisco.gama.ui.menus.AgentsMenu;
 import ummisco.gama.ui.parameters.AbstractEditor;
+import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.resources.IGamaColors;
-import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
 
 public class AgentInspectView extends AttributesEditorsView<IAgent>
@@ -68,7 +67,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		}
 
 		final IAgent agent = agents[0];
-		if (parent == null) {
+		if (getParentComposite() == null) {
 			super.addOutput(out);
 		} else if (editors == null || !editors.getCategories().containsKey(agent)) {
 			super.addOutput(out);
@@ -103,7 +102,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 	@Override
 	protected Composite createItemContentsFor(final IAgent agent) {
 		final Composite attributes = super.createItemContentsFor(agent);
-		final Label l = AbstractEditor.createLeftLabel(attributes, "Actions");
+		final Label l = AbstractEditor.createLeftLabel(attributes, "Actions", false);
 		l.setFont(GamaFonts.getExpandfont());
 		final Composite composite = new Composite(attributes, SWT.NONE);
 		composite.setBackground(attributes.getBackground());
@@ -121,8 +120,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final Menu m = new Menu(b);
-				AgentsMenu.createMenuForAgent(m, agent, agent instanceof ITopLevelAgent, false,
-						AgentsMenu.HIGHLIGHT_ACTION);
+				AgentsMenu.createMenuForAgent(m, agent, agent instanceof ITopLevelAgent, false);
 				m.setVisible(true);
 			}
 
@@ -145,7 +143,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 			editors.add(getParametersToInspect(agent), agent);
 			// System.out.println("Asking to create the item " + agent.getName()
 			// + " in inspector");
-			final ParameterExpandItem item = createItem(parent, agent, true, null);
+			final ParameterExpandItem item = createItem(getParentComposite(), agent, true, null);
 			if (item == null) { return false; }
 			return true;
 		}
@@ -159,17 +157,43 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 	}
 
 	private List<IParameter> getParametersToInspect(final IAgent agent) {
-		Collection<String> names = (Collection<String>) getOutput().getAttributes();
-		if (names == null) {
-			names = agent.getSpecies().getVarNames();
-		}
+		final Map<String, String> names = getOutput().getAttributes();
+		if (names == null) { return new ArrayList<IParameter>(agent.getSpecies().getVars()); }
 		final List<IParameter> params = new ArrayList<>();
-		for (final IVariable v : agent.getSpecies().getVars()) {
-			if (names.contains(v.getName())) {
-				params.add(v);
-			}
+		for (final String s : names.keySet()) {
+			if (agent.getSpecies().getVar(s) != null)
+				params.add(agent.getSpecies().getVar(s));
+			else
+				params.add(buildAttribute(agent, s, names.get(s)));
 		}
 		return params;
+	}
+
+	private IParameter buildAttribute(final IAgent agent, final String att, final String t) {
+		final IParameter result = new ParameterAdapter(att, Types.get(t).id()) {
+
+			@Override
+			public void setValue(final IScope scope, final Object value) {
+				agent.setAttribute(att, value);
+			}
+
+			@Override
+			public boolean isEditable() {
+				return true;
+			}
+
+			@Override
+			public boolean isDefined() {
+				return true;
+			}
+
+			@Override
+			public Object value() {
+				return agent.getAttribute(att);
+			}
+
+		};
+		return result;
 	}
 
 	@Override
@@ -213,7 +237,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 	 * @see ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.Pausable#pauseChanged()
 	 */
 	@Override
-	public void pauseChanged(final IScope scope) {}
+	public void pauseChanged() {}
 
 	/**
 	 * Method synchronizeChanged()
@@ -230,17 +254,6 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 	 */
 	@Override
 	public Map<String, Runnable> handleMenu(final IAgent data, final int x, final int y) {
-		return null;
-	}
-
-	@Override
-	public void updateToolbarState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Rectangle2D getBounds() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

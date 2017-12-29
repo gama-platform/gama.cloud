@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchSite;
 
 import msi.gama.outputs.IDisplayOutput;
-import msi.gama.runtime.IScope;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 
 /**
@@ -29,9 +28,15 @@ public interface IToolbarDecoratedView {
 
 	public void createToolItems(GamaToolbar2 tb);
 
+	default void addStateListener(final StateListener listener) {};
+
+	public static interface StateListener {
+		public void updateToReflectState();
+	}
+
 	public static interface Pausable extends IToolbarDecoratedView {
 
-		public void pauseChanged(final IScope scope);
+		public void pauseChanged();
 
 		public IDisplayOutput getOutput();
 
@@ -76,6 +81,10 @@ public interface IToolbarDecoratedView {
 		 */
 		boolean zoomWhenScrolling();
 
+	}
+
+	public default boolean toolbarVisible() {
+		return true;
 	}
 
 }

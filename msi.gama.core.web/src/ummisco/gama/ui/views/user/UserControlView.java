@@ -48,6 +48,7 @@ import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.GamaViewPart;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
+import ummisco.gama.ui.views.toolbar.Selector;
 
 public class UserControlView extends GamaViewPart implements IGamaView.User {
 
@@ -186,7 +187,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	public void createToolItems(final GamaToolbar2 tb) {
 		super.createToolItems(tb);
 
-		inspectItem = tb.button(IGamaIcons.PANEL_INSPECT, "Inspect", "Inspect", new SelectionAdapter() {
+		inspectItem = tb.button(IGamaIcons.PANEL_INSPECT, "Inspect", "Inspect", new Selector() {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -195,7 +196,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 		}, SWT.RIGHT);
 		inspectItem.setEnabled(false);
-		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", new SelectionListener() {
+		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", new Selector() {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {

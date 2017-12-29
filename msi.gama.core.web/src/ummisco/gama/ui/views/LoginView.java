@@ -33,6 +33,7 @@ import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
+import ummisco.gama.ui.views.toolbar.Selector;
 
 public class LoginView extends GamaViewPart{
 
@@ -111,7 +112,7 @@ public class LoginView extends GamaViewPart{
 	public void createToolItems(final GamaToolbar2 tb) {
 		super.createToolItems(tb);
 
-		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", new SelectionListener() {
+		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", new Selector() {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {		

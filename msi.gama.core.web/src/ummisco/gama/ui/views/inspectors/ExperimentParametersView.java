@@ -9,33 +9,25 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.inspectors;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGui;
+import msi.gama.kernel.experiment.IExperimentDisplayable;
 import msi.gama.kernel.experiment.IExperimentPlan;
-import msi.gama.kernel.experiment.IParameter;
 import msi.gama.kernel.experiment.ParametersSet;
-import msi.gama.core.web.editor.GAMAHelper;
-import msi.gaml.statements.UserCommandStatement;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.experiment.parameters.EditorsList;
 import ummisco.gama.ui.experiment.parameters.ExperimentsParametersList;
-import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaIcons;
-import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
-import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 
 public class ExperimentParametersView extends AttributesEditorsView<String> implements IGamaView.Parameters {
@@ -55,7 +47,7 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		intermediate.setLayout(parentLayout);
 		view.pack();
 		view.layout();
-		parent = intermediate;
+		setParentComposite(intermediate);
 	}
 
 	@Override
@@ -64,8 +56,10 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 			experiment = exp;
 			if (!exp.hasParametersOrUserCommands()) { return; }
 			reset();
-			final Collection<IParameter> params = new ArrayList<>(exp.getParameters().values());
+			final List<IExperimentDisplayable> params = new ArrayList<>(exp.getParameters().values());
 			params.addAll(exp.getExplorableParameters().values());
+			params.addAll(exp.getUserCommands());
+			params.sort(null);
 			editors = new ExperimentsParametersList(exp.getAgent().getScope(), params);
 			final String expInfo = "Model " + experiment.getModel().getDescription().getTitle() + " / "
 					+ StringUtils.capitalize(experiment.getDescription().getTitle());
@@ -76,72 +70,57 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		}
 	}
 
-	@Override
-	public void displayItems() {
-		super.displayItems();
-		this.displayCommands();
-	}
+	// @Override
+	// public void displayItems() {
+	// super.displayItems();
+	// // this.displayCommands();
+	// }
 
-	protected void displayCommands() {
-		toolbar.wipe(SWT.LEFT, true);
-		final Collection<UserCommandStatement> userCommands = experiment.getUserCommands();
-		for (final UserCommandStatement command : userCommands) {
-			GamaUIColor color = GamaColors.get(command.getColor(GAMAHelper.getRuntimeScope()));
-			if (color == null)
-				color = IGamaColors.BLUE;
-			toolbar.button(color, command.getName(), new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-
-					GAMAHelper.getExperiment().getAgent().executeAction(scope -> {
-						final Object result = command.executeOn(scope);
-						GAMAHelper.getExperiment().refreshAllOutputs();
-						return result;
-					});
-				}
-
-			}, SWT.LEFT);
-			toolbar.sep(2, SWT.LEFT);
-		}
-		toolbar.refresh(true);
-
-	}
+	// protected void displayCommands() {
+	// toolbar.wipe(SWT.LEFT, true);
+	// final Collection<UserCommandStatement> userCommands = experiment.getUserCommands();
+	// for (final UserCommandStatement command : userCommands) {
+	// GamaUIColor color = GamaColors.get(command.getColor(GAMA.getRuntimeScope()));
+	// if (color == null)
+	// color = IGamaColors.BLUE;
+	// toolbar.button(color, command.getName(), new SelectionAdapter() {
+	//
+	// @Override
+	// public void widgetSelected(final SelectionEvent e) {
+	//
+	// GAMA.getExperiment().getAgent().executeAction(scope -> {
+	// final Object result = command.executeOn(scope);
+	// GAMA.getExperiment().refreshAllOutputs();
+	// return result;
+	// });
+	// }
+	//
+	// }, SWT.LEFT);
+	// toolbar.sep(2, SWT.LEFT);
+	// }
+	// toolbar.refresh(true);
+	//
+	// }
 
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
 		super.createToolItems(tb);
 		tb.button(GamaIcons.create(IGamaIcons.ACTION_REVERT).getCode(), "Revert parameter values",
-				"Revert parameters to their initial values", new SelectionAdapter() {
-
-					@Override
-					public void widgetSelected(final SelectionEvent e) {
-						final EditorsList<?> eds = editors;
-						if (eds != null) {
-							eds.revertToDefaultValue();
-						}
+				"Revert parameters to their initial values", e -> {
+					final EditorsList<?> eds = editors;
+					if (eds != null) {
+						eds.revertToDefaultValue();
 					}
-
 				}, SWT.RIGHT);
 		tb.button("menu.add2", "Add simulation",
-				"Add a new simulation (with the current parameters) to this experiment", new SelectionListener() {
-
-					@Override
-					public void widgetSelected(final SelectionEvent e) {
-						GAMAHelper.getExperiment().getAgent().createSimulation(new ParametersSet(), true);
-					}
-
-					@Override
-					public void widgetDefaultSelected(final SelectionEvent e) {
-						widgetSelected(e);
-					}
-				}, SWT.RIGHT);
+				"Add a new simulation (with the current parameters) to this experiment",
+				e -> GAMA.getExperiment().getAgent().createSimulation(new ParametersSet(), true), SWT.RIGHT);
 
 	}
 
 	@Override
 	public boolean addItem(final String object) {
-		createItem(parent, object, true, null);
+		createItem(getParentComposite(), object, true, null);
 		return true;
 	}
 
@@ -151,7 +130,7 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 
 	@Override
 	public void stopDisplayingTooltips() {
-		displayCommands();
+		// displayCommands();
 	}
 
 	@Override
@@ -171,18 +150,6 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 	 */
 	@Override
 	public Map<String, Runnable> handleMenu(final String data, final int x, final int y) {
-		return null;
-	}
-
-	@Override
-	public void updateToolbarState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-//	@Override
-	public Rectangle2D getBounds() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

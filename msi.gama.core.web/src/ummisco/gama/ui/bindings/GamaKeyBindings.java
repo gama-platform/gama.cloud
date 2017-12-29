@@ -21,7 +21,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.runtime.GAMA;
+import ummisco.gama.ui.access.GamlSearchField;
 import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -59,6 +60,12 @@ public class GamaKeyBindings implements Listener {
 
 	@Override
 	public void handleEvent(final Event event) {
+		if (event.keyCode == SWT.ESC) {
+			if (GAMA.getGui().toggleFullScreenMode()) {
+				consume(event);
+			}
+			return;
+		}
 		if (event.stateMask == 0)
 			return;
 
@@ -67,34 +74,34 @@ public class GamaKeyBindings implements Listener {
 			case 'h':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-//					GamlSearchField.INSTANCE.search();
+					GamlSearchField.INSTANCE.search();
 				}
 				break;
 			// Handles START & RELOAD
 			case 'p':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMAHelper.stepFrontmostExperiment();
+					GAMA.stepFrontmostExperiment();
 				} else if (ctrl(event)) {
 					consume(event);
-					GAMAHelper.startPauseFrontmostExperiment();
+					GAMA.startPauseFrontmostExperiment();
 				}
 				break;
 			// Handles PAUSE & STEP
 			case 'r':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMAHelper.relaunchFrontmostExperiment();
+					GAMA.relaunchFrontmostExperiment();
 				} else if (ctrl(event)) {
 					consume(event);
-					GAMAHelper.reloadFrontmostExperiment();
+					GAMA.reloadFrontmostExperiment();
 				}
 				break;
 			// Handles CLOSE
 			case 'x':
 				if (ctrl(event) && shift(event)) {
 					consume(event);
-					GAMAHelper.closeAllExperiments(true, false);
+					GAMA.closeAllExperiments(true, false);
 				}
 				break;
 			default:
@@ -116,8 +123,7 @@ public class GamaKeyBindings implements Listener {
 	private final static GamaKeyBindings BINDINGS = new GamaKeyBindings();
 
 	public static void install() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(uid, () -> WorkbenchHelper.getDisplay(uid).addFilter(SWT.KeyDown, BINDINGS));
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).addFilter(SWT.KeyDown, BINDINGS));
 	}
 
 	public static boolean ctrl(final Event e) {

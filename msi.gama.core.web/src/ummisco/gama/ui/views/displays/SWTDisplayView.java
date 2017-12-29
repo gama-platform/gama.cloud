@@ -9,11 +9,11 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Control;
 
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.WorkbenchHelper;
-
 
 /**
  * Class OpenGLLayeredDisplayView.
@@ -41,10 +41,9 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 	}
 
 	@Override
-	public void close(IScope scope) {
-		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+	public void close(final IScope scope) {
 
-		WorkbenchHelper.run(uid, () -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			try {
 				if (getDisplaySurface() != null) {
 					getDisplaySurface().dispose();
@@ -59,8 +58,7 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 
 	@Override
 	public void waitToBeRealized() {
-//		final String uid=RWT.getUISession().getAttribute("user").toString();
-//		WorkbenchHelper.asyncRun(uid, () ->  WorkbenchHelper.getPage(uid).bringToTop(SWTDisplayView.this));
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> WorkbenchHelper.getPage(RWT.getUISession().getAttribute("user").toString()).bringToTop(SWTDisplayView.this));
 	}
 
 }

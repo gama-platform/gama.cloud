@@ -16,8 +16,6 @@ import org.eclipse.core.commands.ExecutionException;
 
 import ummisco.gama.ui.views.GamaPreferencesView;
 
-//import ummisco.gama.ui.views.GamaPreferencesView;
-
 public class PreferencesHandler extends AbstractHandler {
 
 	// GamaPreferencesView view;

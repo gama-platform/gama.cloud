@@ -50,8 +50,7 @@ public class ListEditor extends ExpressionBasedEditor<java.util.List<?>> {
 	@Override
 	public void applyEdit() {
 		if (currentValue instanceof GamaList) {
-			final String uid=RWT.getUISession().getAttribute("user").toString();
-			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(uid), (GamaList) currentValue,
+			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), (GamaList) currentValue,
 					param.getName());
 			if (d.open() == IDialogConstants.OK_ID) {
 				modifyAndDisplayValue(d.getList(ListEditor.this));

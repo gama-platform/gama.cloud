@@ -67,10 +67,10 @@ public class ExpressionControl implements /* IPopupProvider, */SelectionListener
 		text.addModifyListener(this);
 		text.addFocusListener(this);
 		text.addSelectionListener(this);
-//		text.addMouseListener(tooltipListener);
-		if (ed != null) {
-//			ed.getLabel().addMouseListener(tooltipListener);
-		}
+//		text.addMouseTrackListener(tooltipListener);
+//		if (ed != null) {
+//			ed.getLabel().addMouseTrackListener(tooltipListener);
+//		}
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class ExpressionControl implements /* IPopupProvider, */SelectionListener
 			String s = text.getText();
 			if (expectedType == Types.STRING) {
 				if (!StringUtils.isGamaString(s))
-				s = StringUtils.toGamlString(s);
+					s = StringUtils.toGamlString(s);
 			}
 			// AD: Fix for Issue 1042
 			if (agent != null && agent.getScope().interrupted() && agent instanceof SimulationAgent) {
