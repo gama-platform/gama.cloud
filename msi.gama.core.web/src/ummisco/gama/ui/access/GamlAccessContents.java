@@ -7,7 +7,7 @@
  * 
  *
  **********************************************************************************************/
-package msi.gama.lang.gaml.web.ui.access;
+package ummisco.gama.ui.access;
 
 import java.awt.font.TextLayout;
 import java.util.ArrayList;

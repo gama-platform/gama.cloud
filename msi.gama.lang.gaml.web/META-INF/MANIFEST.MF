@@ -48,7 +48,6 @@ Export-Package: msi.gama.lang.gaml.ui.labeling,
  msi.gama.lang.gaml.web.editor.widget,
  msi.gama.lang.gaml.web.internal,
  msi.gama.lang.gaml.web.module,
- msi.gama.lang.gaml.web.ui.access,
  msi.gama.lang.gaml.web.ui.views.toolbar,
  msi.gama.lang.gaml.web.workspace.ui
 Bundle-ClassPath: .
