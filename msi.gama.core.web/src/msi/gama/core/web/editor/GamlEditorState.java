@@ -19,11 +19,11 @@ import org.eclipse.emf.common.util.URI;
 
 import com.google.common.collect.Iterables;
 
-import msi.gama.core.web.ui.resources.GamaColors.GamaUIColor;
-import msi.gama.core.web.ui.resources.IGamaColors;
 import msi.gaml.descriptions.ExperimentDescription;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
+import ummisco.gama.ui.resources.IGamaColors;
+import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 
 public class GamlEditorState {
 

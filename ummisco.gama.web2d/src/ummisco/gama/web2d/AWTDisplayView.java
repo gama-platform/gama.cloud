@@ -25,11 +25,11 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.core.web.ui.utils.PlatformHelper;
-import msi.gama.core.web.ui.views.displays.LayeredDisplayView;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.runtime.IScope;
+import ummisco.gama.ui.utils.PlatformHelper;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.displays.LayeredDisplayView;
 import ummisco.gama.web2d.swing.SwingControl;
 
 public class AWTDisplayView extends LayeredDisplayView {

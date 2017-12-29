@@ -55,9 +55,7 @@ import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.util.ImageUtils;
-import msi.gama.core.web.ui.views.displays.DisplaySurfaceMenu;
 import msi.gama.core.web.editor.GAMAHelper;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
@@ -73,6 +71,8 @@ import msi.gama.precompiler.GamlAnnotations.display;
 import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
 
 @display ("java2D")
 public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {

@@ -56,7 +56,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Widget;
 
-import msi.gama.core.web.ui.utils.PlatformHelper;
+import ummisco.gama.ui.utils.PlatformHelper;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class SwingControl extends Composite {

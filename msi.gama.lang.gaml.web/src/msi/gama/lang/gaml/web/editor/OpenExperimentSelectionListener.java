@@ -15,11 +15,11 @@ import org.eclipse.swt.events.SelectionListener;
 
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.core.web.editor.GamlEditorState;
-import msi.gama.core.web.ui.controls.FlatButton;
-import msi.gama.core.web.ui.interfaces.IModelRunner;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
+import ummisco.gama.ui.controls.FlatButton;
+import ummisco.gama.ui.interfaces.IModelRunner;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * The class CreateExperimentSelectionListener.

@@ -13,8 +13,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 
-import msi.gama.core.web.ui.menus.GamaMenu;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
+import ummisco.gama.ui.menus.GamaMenu;
 
 
 /**

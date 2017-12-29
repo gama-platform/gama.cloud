@@ -32,10 +32,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.swt.IFocusService;
 
-import msi.gama.core.web.ui.bindings.GamaKeyBindings;
-import msi.gama.core.web.ui.resources.IGamaColors;
-import msi.gama.core.web.ui.views.toolbar.GamaToolbarSimple;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
+import ummisco.gama.ui.resources.IGamaColors;
+import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 /**
  * The class EditToolbarFindControls.

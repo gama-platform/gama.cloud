@@ -30,8 +30,8 @@ import org.eclipse.ui.internal.registry.IWorkbenchRegistryConstants;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveRegistry;
 import msi.gama.common.interfaces.IGui;
-import msi.gama.core.web.ui.perspective.SimulationPerspectiveDescriptor;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.perspective.SimulationPerspectiveDescriptor;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class GamaPerspectiveHelper {//extends PerspectiveHelper {
 

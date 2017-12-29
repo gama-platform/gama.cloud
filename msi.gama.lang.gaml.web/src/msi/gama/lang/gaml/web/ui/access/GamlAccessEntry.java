@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
 import msi.gama.common.interfaces.IGamlDescription;
-import msi.gama.core.web.ui.resources.IGamaColors;
 import msi.gaml.compilation.GamlIdiomsProvider;
+import ummisco.gama.ui.resources.IGamaColors;
 
 public class GamlAccessEntry {
 	boolean firstInCategory;

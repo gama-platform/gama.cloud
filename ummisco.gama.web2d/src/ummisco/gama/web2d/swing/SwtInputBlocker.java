@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-import msi.gama.core.web.ui.utils.PlatformHelper;
+import ummisco.gama.ui.utils.PlatformHelper;
 
 /**
  * This class, together with {@link AwtDialogListener}, ensures the proper modal

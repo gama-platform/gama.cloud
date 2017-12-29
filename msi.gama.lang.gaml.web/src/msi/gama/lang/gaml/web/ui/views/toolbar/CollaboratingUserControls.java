@@ -27,9 +27,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.ToolItem;
 
-import msi.gama.core.web.ui.views.toolbar.GamaToolbarSimple;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
 import msi.gaml.operators.Cast;
+import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 /**
  * The class EditToolbarFindControls.

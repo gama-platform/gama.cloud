@@ -30,17 +30,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.xtext.resource.XtextResource;
 
 import msi.gama.core.web.editor.GamlEditorState;
-import msi.gama.core.web.ui.controls.FlatButton;
-import msi.gama.core.web.ui.interfaces.IModelRunner;
-import msi.gama.core.web.ui.resources.GamaColors.GamaUIColor;
-import msi.gama.core.web.ui.resources.GamaIcons;
-import msi.gama.core.web.ui.resources.IGamaColors;
-import msi.gama.core.web.ui.resources.IGamaIcons;
-import msi.gama.core.web.ui.utils.ModelRunner;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
-import msi.gama.core.web.ui.views.toolbar.GamaToolbar2;
-import msi.gama.core.web.ui.views.toolbar.GamaToolbarFactory;
-import msi.gama.core.web.ui.views.toolbar.IToolbarDecoratedView;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener;
@@ -48,6 +37,17 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListene
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
+import ummisco.gama.ui.controls.FlatButton;
+import ummisco.gama.ui.interfaces.IModelRunner;
+import ummisco.gama.ui.resources.GamaIcons;
+import ummisco.gama.ui.resources.IGamaColors;
+import ummisco.gama.ui.resources.IGamaIcons;
+import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
+import ummisco.gama.ui.utils.ModelRunner;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.toolbar.GamaToolbar2;
+import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
+import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
 
 /*
  * The class GamlEditor.

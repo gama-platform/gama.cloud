@@ -4,16 +4,15 @@ import java.util.HashMap;
 
 import org.eclipse.rap.rwt.RWT;
 
-import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.ExperimentAgent;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.ExecutionScope;
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class GAMAHelper extends GAMA{
 //	public static HashMap<String, IGui> theGUI=new HashMap<String,IGui>();

@@ -38,11 +38,11 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import msi.gama.common.interfaces.IGamlDescription;
-import msi.gama.core.web.ui.controls.IPopupProvider;
-import msi.gama.core.web.ui.controls.Popup;
-import msi.gama.core.web.ui.resources.GamaFonts;
-import msi.gama.core.web.ui.resources.IGamaColors;
 import msi.gaml.compilation.GamlIdiomsProvider;
+import ummisco.gama.ui.controls.IPopupProvider;
+import ummisco.gama.ui.controls.Popup;
+import ummisco.gama.ui.resources.GamaFonts;
+import ummisco.gama.ui.resources.IGamaColors;
 
 public abstract class GamlAccessContents implements IPopupProvider {
 

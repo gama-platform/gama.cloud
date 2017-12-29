@@ -16,8 +16,8 @@ import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
 
-import msi.gama.core.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.IScope;
+import ummisco.gama.ui.utils.WorkbenchHelper;
  
 public class LogComposite extends Composite {
  

@@ -20,8 +20,8 @@ import org.eclipse.swt.widgets.Control;
 
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.core.web.editor.GamlEditorState;
-import msi.gama.core.web.ui.menus.GamaMenu;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
+import ummisco.gama.ui.menus.GamaMenu;
 
 /**
  * The class CreateExperimentSelectionListener.

@@ -11,9 +11,73 @@
   </extension>
   
   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:new">
+         <command
+               commandId="org.dslforge.workspace.ui.commands.newProject"
+               icon="icons/prj_obj.png"
+               id="org.dslforge.workspace.ui.actions.newProject"
+               label="Project"
+               style="push"
+               tooltip="Create a new project">
+         </command>
+         <command
+               commandId="org.dslforge.workspace.ui.commands.newModel"
+               helpContextId="CreateNewModel"
+               icon="icons/model.png"
+               label="Model">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.dslforge.navigator.view">
+         <menu
+               id="org.dslforge.workspace.menu.new"
+               label="New">
+            <command
+                  commandId="org.dslforge.workspace.ui.commands.newProject"
+                  helpContextId="CreateNewProject"
+                  icon="icons/prj_obj.png"
+                  id="org.dslforge.workspace.menu.new.project"
+                  label="Project"
+                  style="push"
+                  tooltip="Create new project">
+            </command>
+            <command
+                  commandId="org.dslforge.workspace.ui.commands.newModel"
+                  helpContextId="CreateNewModel"
+                  icon="icons/model.png"
+                  label="Model">
+            </command>
+         </menu>
+         <separator
+               name="separator1"
+               visible="true">
+         </separator>
+      </menuContribution>
+      <menuContribution
+             allPopups="true"
+             locationURI="popup:org.dslforge.navigator.view?after=separator2">
+          <command
+                commandId="msi.gama.core.web.workspace.ui.commands.run"
+                helpContextId="RunSimulation"
+                icon="icons/run_exec.png"
+                id="msi.gama.core.web.workspace.menu.run"
+                label="Run"
+                style="push"
+                tooltip="Run Simulation">
+          </command>
+          <separator
+                name="separator3"
+                visible="true">
+          </separator>
+       </menuContribution>
   
   
-  
+   </extension>
    
       <extension
          point="org.eclipse.rap.ui.resources">
@@ -53,8 +117,8 @@
 </extension>
 <extension point="org.eclipse.rap.ui.entrypoint">
 	<entrypoint
-       class="msi.gama.lang.gaml.web.editor.BasicWorkbench"
-       id="msi.gama.lang.gaml.web.editor.entrypoint"
+       class="msi.gama.lang.gaml.web.workbench.BasicWorkbench"
+       id="msi.gama.lang.gaml.web.workbench.entrypoint"
        path="/texteditor">
 		</entrypoint>
 	</extension>
@@ -87,6 +151,45 @@
 
    	
    	
+   <extension
+         point="org.eclipse.ui.services">
+      <serviceFactory
+            factoryclass="ummisco.gama.ui.factories.AgentMenuFactory">
+         <service
+               serviceclass="ummisco.gama.ui.interfaces.IAgentMenuFactory">
+         </service>
+      </serviceFactory>
+      <serviceFactory
+            factoryclass="ummisco.gama.ui.factories.UserDialogFactory">
+         <service
+               serviceclass="ummisco.gama.ui.interfaces.IUserDialogFactory">
+         </service>
+      </serviceFactory>
+      <sourceProvider
+            provider="ummisco.gama.ui.commands.SimulationStateProvider">
+         <variable
+               name="msi.gama.core.web.ui.experiment.SimulationRunningState"
+               priorityLevel="workbench">
+         </variable>
+         <variable
+               name="msi.gama.core.web.ui.experiment.SimulationType"
+               priorityLevel="workbench">
+         </variable>
+      </sourceProvider>
+      <serviceFactory
+            factoryclass="ummisco.gama.ui.factories.StatusDisplayerFactory">
+         <service
+               serviceClass="msi.gama.common.interfaces.IStatusDisplayer">
+         </service>
+      </serviceFactory>
+      <serviceFactory
+            factoryclass="ummisco.gama.ui.factories.RuntimeExceptionHandlerFactory">
+         <service
+               serviceClass="msi.gama.common.interfaces.IRuntimeExceptionHandler">
+         </service>
+      </serviceFactory>
+   </extension>
+   
    	
    	
    	
