@@ -9,15 +9,12 @@
  **********************************************************************************************/
 package ummisco.gama.opengl;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
-import msi.gama.lang.gaml.web.ui.views.displays.SWTDisplayView;
-import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
-import msi.gama.runtime.IScope;
+import ummisco.gama.ui.views.displays.SWTDisplayView;
 
 /**
  * Class OpenGLLayeredDisplayView.
@@ -27,8 +24,6 @@ import msi.gama.runtime.IScope;
  *
  */
 public class OpenGLDisplayView extends SWTDisplayView {
-
-	boolean isOverlayTemporaryVisible;
 
 	public static String ID = "msi.gama.application.view.OpenGLDisplayView";
 
@@ -46,50 +41,13 @@ public class OpenGLDisplayView extends SWTDisplayView {
 	}
 
 	@Override
-	protected void updateOverlay() {
+	public boolean forceOverlayVisibility() {
 		final SWTOpenGLDisplaySurface surface = getDisplaySurface();
-		if (surface == null)
-			return;
-		if (surface.getROIDimensions() != null) {
-			if (!overlay.isVisible()) {
-				isOverlayTemporaryVisible = true;
-				overlay.setVisible(true);
-			}
-		} else {
-			if (isOverlayTemporaryVisible) {
-				isOverlayTemporaryVisible = false;
-				overlay.setVisible(false);
-			}
-		}
-		overlay.update();
+		return surface != null && surface.getROIDimensions() != null;
 	}
 
 	@Override
-	public void createToolItems(final GamaToolbar2 tb) {
-		super.createToolItems(tb);
-		new OpenGLToolbarMenu().createItem(tb, this);
-	}
-
-	@Override
-	protected List<String> getCameraNames() {
+	public List<String> getCameraNames() {
 		return new ArrayList<String>(getDisplaySurface().renderer.camera.PRESETS.keySet());
-	}
-
-	@Override
-	public void pauseChanged(IScope scope) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateToolbarState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Rectangle2D getBounds() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

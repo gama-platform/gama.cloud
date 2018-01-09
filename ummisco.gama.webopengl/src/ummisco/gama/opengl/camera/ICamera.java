@@ -10,13 +10,13 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
-import java.awt.event.MouseWheelListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.events.MouseWheelListener;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.metamodel.shape.GamaPoint;

@@ -18,9 +18,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 
 import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -34,11 +38,6 @@ import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.util.ImageUtils;
-import msi.gama.lang.gaml.web.ui.menus.AgentsMenu;
-import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
-import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
-import msi.gama.lang.gaml.web.ui.views.displays.DisplaySurfaceMenu;
 import msi.gama.metamodel.agent.AgentIdentifier;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
@@ -56,6 +55,11 @@ import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
+import ummisco.gama.ui.menus.AgentsMenu;
+import ummisco.gama.ui.resources.GamaIcons;
+import ummisco.gama.ui.resources.IGamaIcons;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
 
 /**
  * Class OpenGLSWTDisplaySurface.
@@ -67,7 +71,7 @@ import msi.gaml.statements.draw.DrawingAttributes;
 @msi.gama.precompiler.GamlAnnotations.display ("opengl")
 public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 
-//	GLAnimatorControl animator;
+	GLAnimatorControl animator;
 	Abstract3DRenderer renderer;
 	protected double zoomIncrement = 0.1;
 	protected boolean zoomFit = true;
@@ -86,7 +90,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		parent = null;
 		layerManager = null;
 		output = null;
-//		animator = null;
+		animator = null;
 		renderer = null;
 	}
 
@@ -100,18 +104,14 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		output.getData().addListener(this);
 		output.setSurface(this);
 		setDisplayScope(output.getScope().copy("in OpenGLDisplaySuface"));
-//		if (getOutput().getData().useShader()) {
-//			renderer = new ModernRenderer();
-//
-//		} else {
-//			renderer = new JOGLRenderer();
-//		}
-		
-		renderer = new ModernRenderer();
+		if (getOutput().getData().useShader()) {
+			renderer = new ModernRenderer();
 
+		} else {
+			renderer = new JOGLRenderer();
+		}
 		renderer.setDisplaySurface(this);
-		createAnimator();
-		renderer.canvas.setDisplayScope(output.getScope().copy("in Java2DDisplaySurface"));
+		animator = createAnimator();
 
 		layerManager = new LayerManager(this, output);
 		temp_focus = output.getFacet(IKeyword.FOCUS);
@@ -140,15 +140,15 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		}
 		final GLAutoDrawable glad = renderer.getDrawable();
 		if (glad == null || glad.getGL() == null || glad.getGL().getContext() == null) { return null; }
-//		final boolean current = glad.getGL().getContext().isCurrent();
-//		if (!current) {
-//			glad.getGL().getContext().makeCurrent();
-//		}
+		final boolean current = glad.getGL().getContext().isCurrent();
+		if (!current) {
+			glad.getGL().getContext().makeCurrent();
+		}
 		final AWTGLReadBufferUtil glReadBufferUtil = new AWTGLReadBufferUtil(glad.getGLProfile(), false);
 		final BufferedImage image = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
-//		if (!current) {
-//			glad.getGL().getContext().release();
-//		}
+		if (!current) {
+			glad.getGL().getContext().release();
+		}
 		return ImageUtils.resize(image, w, h);
 	}
 
@@ -164,10 +164,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		try {
 			alreadyUpdating = true;
 
-//			final boolean oldState = animator.isPaused();
-//			if (force) {
-//				animator.resume();
-//			}
+			final boolean oldState = animator.isPaused();
+			if (force) {
+				animator.resume();
+			}
 			layerManager.drawLayersOn(renderer);
 
 			// EXPERIMENTAL
@@ -180,9 +180,9 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				}
 			}
 			if (force) {
-//				if (oldState) {
-//					animator.pause();
-//				}
+				if (oldState) {
+					animator.pause();
+				}
 			}
 		} finally {
 			alreadyUpdating = false;
@@ -285,10 +285,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		if (getScope().isPaused()) {
 			updateDisplay(true);
 		}
-//		if (animator.isPaused()) {
-//			animator.resume();
-//			animator.pause();
-//		}
+		if (animator.isPaused()) {
+			animator.resume();
+			animator.pause();
+		}
 	}
 
 	/**
@@ -462,7 +462,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void followAgent(final IAgent a) {
-		new Thread(() -> WorkbenchHelper.asyncRun("admin",() -> renderer.camera.zoomFocus(a))).start();
+		new Thread(() -> WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> renderer.camera.zoomFocus(a))).start();
 
 	}
 
@@ -511,14 +511,14 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void setPaused(final boolean paused) {
-//		if (paused) {
-//			animator.pause();
-//		} else {
-//			animator.resume();
-//		}
+		if (paused) {
+			animator.pause();
+		} else {
+			animator.resume();
+		}
 	}
 
-	final Runnable cleanup = () -> WorkbenchHelper.asyncRun("admin",() -> renderer.getPickingState().setPicking(false));
+	final Runnable cleanup = () -> WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> renderer.getPickingState().setPicking(false));
 
 	/**
 	 * Method selectAgents()
@@ -569,27 +569,27 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		actions.put(renderer.camera.isROISticky() ? "Hide region" : "Keep region visible",
 				() -> renderer.camera.toggleStickyROI());
 		actions.put("Focus on region", () -> renderer.camera.zoomRoi(env));
-//		WorkbenchHelper.run("admin",() -> {
-//			final Menu menu = menuManager.buildROIMenu(renderer.camera.getMousePosition().x,
-//					renderer.camera.getMousePosition().y, agents, actions, images);
-//			menu.addMenuListener(new MenuListener() {
-//
-//				@Override
-//				public void menuHidden(final MenuEvent e) {
-//					animator.resume();
-//					// Will be run after the selection
-//					WorkbenchHelper.asyncRun("admin",() -> renderer.cancelROI());
-//
-//				}
-//
-//				@Override
-//				public void menuShown(final MenuEvent e) {
-//					animator.pause();
-//				}
-//			});
-//
-//			menu.setVisible(true);
-//		});
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> {
+			final Menu menu = menuManager.buildROIMenu(renderer.camera.getMousePosition().x,
+					renderer.camera.getMousePosition().y, agents, actions, images);
+			menu.addMenuListener(new MenuListener() {
+
+				@Override
+				public void menuHidden(final MenuEvent e) {
+					animator.resume();
+					// Will be run after the selection
+					WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> renderer.cancelROI());
+
+				}
+
+				@Override
+				public void menuShown(final MenuEvent e) {
+					animator.pause();
+				}
+			});
+
+			menu.setVisible(true);
+		});
 
 	}
 
@@ -607,9 +607,9 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		if (layerManager != null) {
 			layerManager.dispose();
 		}
-//		if (animator != null && animator.isStarted()) {
-//			animator.stop();
-//		}
+		if (animator != null && animator.isStarted()) {
+			animator.stop();
+		}
 		this.menuManager = null;
 		this.listeners.clear();
 		this.renderer = null;
@@ -637,9 +637,9 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				renderer.switchCamera();
 				break;
 			case SPLIT_LAYER:
-				final boolean yes = (Boolean) value;
+				final double dist = (Double) value;
 				final int nbLayers = this.getManager().getItems().size();
-				final double gap = yes ? 1d / (nbLayers * 2) : 0;
+				final double gap = dist;
 				double currentElevation = 0;
 				for (final ILayer layer : this.getManager().getItems()) {
 					layer.addElevation(currentElevation);
@@ -701,8 +701,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public int getFPS() {
-//		return (int) this.animator.getTotalFPS();
-		return 0;
+		return (int) this.animator.getTotalFPS();
 	}
 
 	@Override

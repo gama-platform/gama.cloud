@@ -16,13 +16,14 @@ import java.nio.IntBuffer;
 
 import javax.vecmath.Matrix4f;
 
+import org.eclipse.rap.rwt.RWT;
+
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
 import msi.gama.common.geometry.Scaling3D;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.util.file.GamaFile;
@@ -34,6 +35,7 @@ import ummisco.gama.modernOpenGL.ModernDrawer;
 import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.TransformationMatrix;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * This class plays the role of Renderer and IGraphics. Class ModernRenderer.
@@ -188,7 +190,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 
-		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(visible));
 		// the drawingEntityGenerator is used only when there is a webgl display
 		// and/or a modernRenderer.
 		drawingEntityGenerator = new DrawingEntityGenerator(this);
@@ -218,7 +220,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 		currentScene = sceneBuffer.getSceneToRender();
 		if (currentScene == null) { return; }
-		gl = drawable.getGL();
+		gl = drawable.getGL().getGL2();
 
 		drawer.prepareFrameBufferObject();
 
@@ -242,7 +244,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.run("admin",() -> getCanvas().setVisible(true));
+			WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(true));
 
 		}
 

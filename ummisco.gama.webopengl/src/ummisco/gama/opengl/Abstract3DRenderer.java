@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
 import java.util.List;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -30,12 +31,10 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.swt.GLCanvas;
 import com.vividsolutions.jts.geom.Geometry;
 
-import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
@@ -59,7 +58,7 @@ import ummisco.gama.opengl.scene.SceneBuffer;
 import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.ShapeCache;
-
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * This class plays the role of Renderer and IGraphics. Class Abstract3DRenderer.
@@ -127,7 +126,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	protected final PickingState pickingState = new PickingState();
 	public SceneBuffer sceneBuffer;
 	protected ModelScene currentScene;
-	protected WebGLComposite canvas;
+	protected GLCanvas canvas;
 	public ICamera camera;
 	protected LightHelper lightHelper;
 	protected volatile boolean inited;
@@ -176,7 +175,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		cap.setSampleBuffers(true);
 		cap.setAlphaBits(8);
 		cap.setNumSamples(8);
-		canvas = new WebGLComposite(parent, SWT.NONE);
+		canvas = new GLCanvas(parent, SWT.NONE, cap, null);
 		canvas.setAutoSwapBufferMode(true);
 		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		// animator.setIgnoreExceptions(!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue());
@@ -205,7 +204,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	protected void initializeCanvasListeners() {
 
-		WorkbenchHelper.asyncRun("admin",() -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
 			if (getCanvas() == null || getCanvas().isDisposed()) { return; }
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
@@ -239,7 +238,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public final void switchCamera() {
 		final ICamera oldCamera = camera;
-		WorkbenchHelper.asyncRun("admin",() -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
 			getCanvas().removeMouseMoveListener(oldCamera);
@@ -356,7 +355,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 * @return
 	 */
 	public static float getLineWidth() {
-		return GamaPreferences.OpenGL.CORE_LINE_WIDTH.getValue().floatValue();
+		return GamaPreferences.Displays.CORE_LINE_WIDTH.getValue().floatValue();
 	}
 
 	@Override
@@ -570,7 +569,6 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	@Override
 	public boolean beginDrawingLayers() {
 		while (!inited) {
-			init(canvas);
 			try {
 				Thread.sleep(10);
 			} catch (final InterruptedException e) {
@@ -585,9 +583,6 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public boolean isNotReadyToUpdate() {
 		if (data.isSynchronized())
 			return false;
-		if(sceneBuffer.isNotReadyToUpdate()) {
-			display(canvas);
-		}
 		return sceneBuffer.isNotReadyToUpdate();
 	}
 

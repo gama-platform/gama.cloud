@@ -12,6 +12,7 @@ package ummisco.gama.opengl.vaoGenerator;
 import java.awt.Font;
 
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.util.texture.Texture;
 
 import msi.gama.runtime.IScope;
 import ummisco.gama.modernOpenGL.DrawingEntity;
@@ -71,11 +72,11 @@ public class DrawingEntityGenerator {
 		AbstractTransformer transformer = null;
 		if (object instanceof StringObject) {
 			final StringObject strObj = (StringObject) object;
-//			final Texture[] textures = new Texture[1];
+			final Texture[] textures = new Texture[1];
 			final String fontName = getFontName(strObj);
 			final String style = getStyle(strObj);
 			final int fontSize = getFontSize(strObj);
-//			textures[0] = fontTextCache.getFontTexture(fontName + style);
+			textures[0] = fontTextCache.getFontTexture(fontName + style);
 			float ratio = (float) (layer.isOverlay() ? 1
 					: renderer.getGlobalYRatioBetweenPixelsAndModelUnits() / renderer.getZoomLevel());
 			ratio = (float) (object.getDimensions() != null ? ratio / object.getDimensions().getX() : ratio);
@@ -84,7 +85,7 @@ public class DrawingEntityGenerator {
 			final String[] texturePaths = new String[1];
 			texturePaths[0] = fontName + style;
 			final int[] textureIds = new int[1];
-//			textureIds[0] = textures[0].getTextureObject();
+			textureIds[0] = textures[0].getTextureObject();
 			transformer = new StringObjectTransformer(strObj, textureIds, texturePaths, textMeshData, layer.isOverlay(),
 					renderer.data.isWireframe(), renderer.getOpenGLHelper().getCurrentObjectAlpha());
 		} else if (object instanceof GeometryObject) {

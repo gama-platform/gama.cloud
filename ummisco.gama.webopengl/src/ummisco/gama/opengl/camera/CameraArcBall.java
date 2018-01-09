@@ -10,25 +10,24 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
-import java.awt.event.MouseWheelEvent;
 
 import org.eclipse.swt.SWT;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.LayeredDisplayData;
 import msi.gaml.operators.Maths;
 import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class CameraArcBall extends AbstractCamera {
 
 	private double radius;
 
-	private final boolean isDrawingRotateHelper = GamaPreferences.OpenGL.DRAW_ROTATE_HELPER.getValue();
+	private final boolean isDrawingRotateHelper = GamaPreferences.Displays.DRAW_ROTATE_HELPER.getValue();
 
 	public CameraArcBall(final Abstract3DRenderer renderer) {
 		super(renderer);
@@ -196,12 +195,9 @@ public class CameraArcBall extends AbstractCamera {
 		if (initialPosition == null) {
 			if (data.isCameraPosDefined()) {
 				updatePosition();
-				if(data.isCameraLookAtDefined())
-				{
+				if (data.isCameraLookAtDefined()) {
 					updateTarget();
-				}
-				else
-				{
+				} else {
 					final double envWidth = data.getEnvWidth();
 					final double envHeight = data.getEnvHeight();
 					radius = getRenderer().getMaxEnvDim() * INIT_Z_FACTOR;
@@ -209,8 +205,7 @@ public class CameraArcBall extends AbstractCamera {
 					phi = 0;
 					theta = -90.00;
 				}
-				if(data.isCameraUpVectorDefined())
-				{
+				if (data.isCameraUpVectorDefined()) {
 					updateOrientation();
 				}
 				updateSphericalCoordinatesFromLocations();
@@ -368,7 +363,7 @@ public class CameraArcBall extends AbstractCamera {
 	public void zoom(final boolean in) {
 		if (keystoneMode)
 			return;
-		final double step = radius != 0d ? radius / 10d * GamaPreferences.OpenGL.OPENGL_ZOOM.getValue() : 0.1d;
+		final double step = radius != 0d ? radius / 10d * GamaPreferences.Displays.OPENGL_ZOOM.getValue() : 0.1d;
 		radius = radius + (in ? -step : step);
 		getRenderer().data.setZoomLevel(zoomLevel(), true);
 	}
@@ -521,12 +516,6 @@ public class CameraArcBall extends AbstractCamera {
 				getRenderer().stopDrawRotationHelper();
 			}
 		}
-	}
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }// End of Class CameraArcBall

@@ -2818,6 +2818,10 @@ public class GL2 extends GL2ES2{
 	  public static final int GL_OFFSET_TEXTURE_2D_SCALE_NV = 0x86e2;
 
 
+
+	public static final int GL_DOUBLE = 0x140A;
+
+
 	public GL2() {
 		
 	}
@@ -3299,9 +3303,19 @@ public class GL2 extends GL2ES2{
 		
 	}
 
-	public Object getContext() {
+	public GLContext getContext() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void glBufferData(int glElementArrayBuffer, int numBytes, IntBuffer ibIdxBuff, int glStaticDraw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public GL2 getGL2() {
+		// TODO Auto-generated method stub
+		return this;
 	}
 
 }

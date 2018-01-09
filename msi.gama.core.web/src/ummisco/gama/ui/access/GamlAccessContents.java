@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package ummisco.gama.ui.access;
 
+import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,15 +23,12 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -256,9 +254,9 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	private void doDispose() {
-		if (textLayout != null && !textLayout.isDisposed()) {
-			textLayout.dispose();
-		}
+//		if (textLayout != null && !textLayout.isDisposed()) {
+//			textLayout.dispose();
+//		}
 	}
 
 	protected String getId() {
@@ -349,11 +347,11 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		table = new Table(tableComposite, SWT.None /* SWT.SINGLE | SWT.FULL_SELECTION */);
 		table.setBackground(IGamaColors.VERY_LIGHT_GRAY.color());
 		table.setLinesVisible(true);
-		textLayout = new TextLayout(table.getDisplay());
-		textLayout.setOrientation(defaultOrientation);
-		final Font boldFont = GamaFonts.getHelpFont();
-		table.setFont(boldFont);
-		textLayout.setText("Available categories");
+//		textLayout = new TextLayout(table.getDisplay());
+//		textLayout.setOrientation(defaultOrientation);
+//		final Font boldFont = GamaFonts.getHelpFont();
+//		table.setFont(boldFont);
+//		textLayout.setText("Available categories");
 		// if (maxProviderWidth == 0) {
 		// maxProviderWidth = (int) (textLayout.getBounds().width * 1.1);
 		// textLayout.setFont(boldFont);

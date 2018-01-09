@@ -23,7 +23,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
@@ -34,7 +33,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 //import ummisco.gama.ui.views.WorkaroundForIssue1353;
 
 public class LayeredDisplayMultiListener implements MenuDetectListener, MouseListener, MouseMoveListener,
-		MouseTrackListener, MouseWheelListener, KeyListener, DragDetectListener, FocusListener {
+		MouseTrackListener, KeyListener, DragDetectListener, FocusListener {
 
 	final LayeredDisplayDecorator view;
 	final IDisplaySurface surface;
@@ -120,11 +119,11 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 		delegate.keyReleased(e);
 	}
 
-	@Override
-	public void mouseScrolled(final MouseEvent e) {
-		if (!ok())
-			return;
-	}
+//	@Override
+//	public void mouseScrolled(final MouseEvent e) {
+//		if (!ok())
+//			return;
+//	}
 
 	@Override
 	public void mouseEnter(final MouseEvent e) {

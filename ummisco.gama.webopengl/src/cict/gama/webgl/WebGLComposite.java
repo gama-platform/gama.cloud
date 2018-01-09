@@ -21,10 +21,10 @@ import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.swt.GLCanvas;
 
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class WebGLComposite extends GLCanvas {
 

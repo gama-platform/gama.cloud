@@ -19,9 +19,9 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IDisplaySurface.OpenGL;
-import msi.gama.lang.gaml.web.ui.resources.GamaIcons;
-import msi.gama.lang.gaml.web.ui.resources.IGamaIcons;
-import msi.gama.lang.gaml.web.ui.views.toolbar.GamaToolbar2;
+import ummisco.gama.ui.resources.GamaIcons;
+import ummisco.gama.ui.resources.IGamaIcons;
+import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 
 /**
  * The class FocusItem.
@@ -39,39 +39,39 @@ public class OpenGLToolbarMenu {
 
 		new MenuItem(menu, SWT.SEPARATOR);
 
-		final MenuItem camera = new MenuItem(menu, SWT.PUSH);
-		camera.setImage(GamaIcons.create(IGamaIcons.DISPLAY_TOOLBAR_CAMERA).image());
-		final boolean arcBall = view.getDisplaySurface().getData().isArcBallCamera();
-		camera.setText(arcBall ? "Use FreeFly camera" : "Use ArcBall camera");
-		camera.addSelectionListener(new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-
-				view.getDisplaySurface().runAndUpdate(() -> {
-					final boolean old = view.getDisplaySurface().getData().isArcBallCamera();
-					((OpenGL) view.getDisplaySurface()).getData().setArcBallCamera(!old);
-				});
-			}
-		});
-		new MenuItem(menu, SWT.SEPARATOR);
-
-		final MenuItem rotation = new MenuItem(menu, SWT.CHECK);
-		final boolean rotated = view.getDisplaySurface().getData().isRotationOn();
-		rotation.setSelection(rotated);
-		rotation.setText("Rotate scene");
-		rotation.setImage(GamaIcons.create(IGamaIcons.DISPLAY_TOOLBAR_ROTATE).image());
-		rotation.addSelectionListener(new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-
-				view.getDisplaySurface().runAndUpdate(() -> {
-					final boolean rotated1 = view.getDisplaySurface().getData().isRotationOn();
-					view.getDisplaySurface().getData().setRotation(!rotated1);
-				});
-			}
-		});
+		// final MenuItem camera = new MenuItem(menu, SWT.PUSH);
+		// camera.setImage(GamaIcons.create(IGamaIcons.DISPLAY_TOOLBAR_CAMERA).image());
+		// final boolean arcBall = view.getDisplaySurface().getData().isArcBallCamera();
+		// camera.setText(arcBall ? "Use FreeFly camera" : "Use ArcBall camera");
+		// camera.addSelectionListener(new SelectionAdapter() {
+		//
+		// @Override
+		// public void widgetSelected(final SelectionEvent e) {
+		//
+		// view.getDisplaySurface().runAndUpdate(() -> {
+		// final boolean old = view.getDisplaySurface().getData().isArcBallCamera();
+		// view.getDisplaySurface().getData().setArcBallCamera(!old);
+		// });
+		// }
+		// });
+		// new MenuItem(menu, SWT.SEPARATOR);
+		//
+		// final MenuItem rotation = new MenuItem(menu, SWT.CHECK);
+		// final boolean rotated = view.getDisplaySurface().getData().isRotationOn();
+		// rotation.setSelection(rotated);
+		// rotation.setText("Rotate scene");
+		// rotation.setImage(GamaIcons.create(IGamaIcons.DISPLAY_TOOLBAR_ROTATE).image());
+		// rotation.addSelectionListener(new SelectionAdapter() {
+		//
+		// @Override
+		// public void widgetSelected(final SelectionEvent e) {
+		//
+		// view.getDisplaySurface().runAndUpdate(() -> {
+		// final boolean rotated1 = view.getDisplaySurface().getData().isRotationOn();
+		// view.getDisplaySurface().getData().setRotation(!rotated1);
+		// });
+		// }
+		// });
 		final MenuItem split = new MenuItem(menu, SWT.CHECK);
 		split.setImage(GamaIcons.create(IGamaIcons.DISPLAY_TOOLBAR_SPLIT).image());
 		final boolean splitted = view.getDisplaySurface().getData().isLayerSplitted();
@@ -111,24 +111,19 @@ public class OpenGLToolbarMenu {
 	 */
 	public void createItem(final GamaToolbar2 tb, final OpenGLDisplayView view) {
 
-		tb.menu("display.presentation2", "Presentation", "OpenGL options", new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent trigger) {
-				final boolean asMenu = trigger.detail == SWT.ARROW;
-				if (!asMenu) { return; }
-				final ToolItem target = (ToolItem) trigger.widget;
-				final ToolBar toolBar = target.getParent();
-				if (menu != null) {
-					menu.dispose();
-				}
-				menu = new Menu(toolBar.getShell(), SWT.POP_UP);
-				fillMenu(menu, view);
-				final Point point = toolBar.toDisplay(new Point(trigger.x, trigger.y));
-				menu.setLocation(point.x, point.y);
-				menu.setVisible(true);
-
+		tb.menu("display.presentation2", "Presentation", "OpenGL options", trigger -> {
+			final boolean asMenu = trigger.detail == SWT.ARROW;
+			if (!asMenu) { return; }
+			final ToolItem target = (ToolItem) trigger.widget;
+			final ToolBar toolBar = target.getParent();
+			if (menu != null) {
+				menu.dispose();
 			}
+			menu = new Menu(toolBar.getShell(), SWT.POP_UP);
+			fillMenu(menu, view);
+			final Point point = toolBar.toDisplay(new Point(trigger.x, trigger.y));
+			menu.setLocation(point.x, point.y);
+			menu.setVisible(true);
 
 		}, SWT.LEFT);
 

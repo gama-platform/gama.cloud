@@ -67,7 +67,7 @@ public class FileEditor extends AbstractEditor<IGamaFile> {
 	public void widgetSelected(final SelectionEvent e) {
 		final FileDialog dialog = new FileDialog(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getActiveShell(), SWT.NULL);
 		IGamaFile file = currentValue;
-		dialog.setFileName(file.getPath(getScope()));
+//		dialog.setFileName(file.getPath(getScope()));
 		dialog.setText("Choose a file for parameter '" + param.getTitle() + "'");
 		final String path = dialog.open();
 		if (path != null) {

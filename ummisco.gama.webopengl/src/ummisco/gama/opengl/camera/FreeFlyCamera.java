@@ -10,14 +10,12 @@
 package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
-import java.awt.event.MouseWheelEvent;
 
 import org.eclipse.swt.SWT;
 
 import com.jogamp.opengl.glu.GLU;
 
 import msi.gama.common.geometry.Envelope3D;
-import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
@@ -26,6 +24,7 @@ import msi.gama.outputs.LayeredDisplayData;
 import msi.gaml.operators.Maths;
 import msi.gaml.operators.fastmaths.FastMath;
 import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class FreeFlyCamera extends AbstractCamera {
 
@@ -197,11 +196,5 @@ public class FreeFlyCamera extends AbstractCamera {
 
 	@Override
 	protected void drawRotationHelper() {}
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

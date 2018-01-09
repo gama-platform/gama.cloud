@@ -339,7 +339,7 @@ public class GamaPreferencesView {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final FileDialog fd = new FileDialog(shell, SWT.OPEN);
-				fd.setFilterExtensions(new String[] { "*.prefs" });
+//				fd.setFilterExtensions(new String[] { "*.prefs" });
 				final String path = fd.open();
 				if (path == null)
 					return;
@@ -359,9 +359,9 @@ public class GamaPreferencesView {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final FileDialog fd = new FileDialog(shell, SWT.SAVE);
-				fd.setFileName("preferences.gaml");
-				fd.setFilterExtensions(new String[] { "*.gaml" });
-				fd.setOverwrite(false);
+//				fd.setFileName("preferences.gaml");
+//				fd.setFilterExtensions(new String[] { "*.gaml" });
+//				fd.setOverwrite(false);
 				final String path = fd.open();
 				if (path == null)
 					return;

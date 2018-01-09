@@ -24,7 +24,12 @@ Require-Bundle: org.eclipse.rap.ui,
  msi.gama.ext,
  msi.gama.core,
  msi.gama.lang.gaml,
- org.eclipse.swt
+ org.dslforge.workspace.ui,
+ org.dslforge.workspace,
+ org.eclipse.rap.rwt,
+ org.eclipse.rap.fileupload,
+ org.eclipse.rap.filedialog,
+ org.eclipse.rap.addons.filedialog
 Import-Package: javax.persistence,
  org.apache.log4j,
  org.eclipse.core.internal.filesystem,

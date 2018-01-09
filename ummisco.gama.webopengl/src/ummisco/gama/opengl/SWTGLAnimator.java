@@ -13,7 +13,6 @@ import java.io.PrintStream;
 
 import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.GLException;
 
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
@@ -25,7 +24,7 @@ import msi.gama.common.preferences.IPreferenceChangeListener;
  */
 public class SWTGLAnimator implements Runnable, GLAnimatorControl, GLAnimatorControl.UncaughtExceptionHandler {
 
-	static int FRAME_PER_SECOND = GamaPreferences.OpenGL.OPENGL_FPS.getValue();
+	static int FRAME_PER_SECOND = GamaPreferences.Displays.OPENGL_FPS.getValue();
 	protected int targetFPS = FRAME_PER_SECOND;
 	protected final Thread animatorThread;
 	protected final GLAutoDrawable drawable;
@@ -38,7 +37,7 @@ public class SWTGLAnimator implements Runnable, GLAnimatorControl, GLAnimatorCon
 	protected int frames = 0;
 
 	public SWTGLAnimator(final GLAutoDrawable drawable) {
-		GamaPreferences.OpenGL.OPENGL_FPS.addChangeListener(new IPreferenceChangeListener<Integer>() {
+		GamaPreferences.Displays.OPENGL_FPS.addChangeListener(new IPreferenceChangeListener<Integer>() {
 
 			@Override
 			public boolean beforeValueChange(final Integer newValue) {
@@ -211,7 +210,7 @@ public class SWTGLAnimator implements Runnable, GLAnimatorControl, GLAnimatorCon
 			if (drawable.isRealized()) {
 				drawable.display();
 			}
-		} catch (final GLException ex) {
+		} catch (final Exception ex) {
 			System.out.println("Exception in OpenGL:" + ex.getMessage());
 		} finally {
 			this.animating = false;

@@ -15,6 +15,8 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.nio.BufferOverflowException;
 
+import org.eclipse.rap.rwt.RWT;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GL2ES1;
@@ -26,7 +28,6 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.lang.gaml.web.ui.utils.WorkbenchHelper;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.util.file.GamaFile;
@@ -41,6 +42,7 @@ import ummisco.gama.opengl.scene.ObjectDrawer;
 import ummisco.gama.opengl.scene.ResourceObject;
 import ummisco.gama.opengl.scene.StringDrawer;
 import ummisco.gama.opengl.utils.LightHelper;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * This class plays the role of Renderer and IGraphics. Class JOGLRenderer.
@@ -77,7 +79,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 
 	@Override
 	public void init(final GLAutoDrawable drawable) {
-		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(visible));
 		lightHelper = new LightHelper(this);
 		gl = drawable.getGL();
 		openGL.setGL2(gl);
@@ -103,7 +105,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL.GL_DEPTH_TEST); // enables depth testing
 		gl.glDepthFunc(GL.GL_LEQUAL); // the type of depth test to do
 		// Whether face culling is enabled or not
-		if (GamaPreferences.OpenGL.ONLY_VISIBLE_FACES.getValue()) {
+		if (GamaPreferences.Displays.ONLY_VISIBLE_FACES.getValue()) {
 			gl.glEnable(GL.GL_CULL_FACE);
 			gl.glCullFace(GL.GL_BACK);
 		}
@@ -132,7 +134,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL2.GL_MULTISAMPLE);
 		gl.glHint(GL2.GL_MULTISAMPLE_FILTER_HINT_NV, GL2.GL_NICEST);
 		// }
-//		openGL.initializeShapeCache();
+		openGL.initializeShapeCache();
 		setUpKeystoneCoordinates();
 		// We mark the renderer as inited
 		inited = true;
@@ -204,7 +206,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.asyncRun("admin",() -> getCanvas().setVisible(true));
+			WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(true));
 
 		}
 
@@ -398,23 +400,21 @@ public class JOGLRenderer extends Abstract3DRenderer {
 
 	@Override
 	public GamaPoint getRealWorldPointFromWindowPoint(final Point windowPoint) {
-//		hqn88
-//		int realy = 0;// GL y coord pos
-//		final double[] wcoord = new double[4];
-//		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
-//		final GLU glu = GLU.createGLU(gl);
-//		realy = viewport[3] - y;
+		int realy = 0;// GL y coord pos
+		final double[] wcoord = new double[4];
+		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
+		final GLU glu = GLU.createGLU(gl);
+		realy = viewport[3] - y;
 //		glu.gluUnProject(x, realy, 0.1, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
-//		final GamaPoint v1 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
-//		glu.gluUnProject(x, realy, 0.9, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
-//		final GamaPoint v2 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
-//		final GamaPoint v3 = v2.minus(v1).normalized();
-//		final float distance =
-//				(float) (camera.getPosition().getZ() / GamaPoint.dotProduct(new GamaPoint(0.0, 0.0, -1.0), v3));
-//		final GamaPoint worldCoordinates = camera.getPosition().plus(v3.times(distance));
-//
-//		return new GamaPoint(worldCoordinates.x, worldCoordinates.y);
-		return new GamaPoint(800,600);
+		final GamaPoint v1 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
+		glu.gluUnProject(x, realy, 0.9, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
+		final GamaPoint v2 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
+		final GamaPoint v3 = v2.minus(v1).normalized();
+		final float distance =
+				(float) (camera.getPosition().getZ() / GamaPoint.dotProduct(new GamaPoint(0.0, 0.0, -1.0), v3));
+		final GamaPoint worldCoordinates = camera.getPosition().plus(v3.times(distance));
+
+		return new GamaPoint(worldCoordinates.x, worldCoordinates.y);
 	}
 
 	public double[] getPixelWidthAndHeightOfWorld() {

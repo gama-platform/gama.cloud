@@ -11,7 +11,7 @@
   </extension>
   
   
-   <extension
+   <!--extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
@@ -77,7 +77,7 @@
        </menuContribution>
   
   
-   </extension>
+   </extension -->
    
       <extension
          point="org.eclipse.rap.ui.resources">
@@ -149,48 +149,6 @@
    
 
 
-   	
-   	
-   <extension
-         point="org.eclipse.ui.services">
-      <serviceFactory
-            factoryclass="ummisco.gama.ui.factories.AgentMenuFactory">
-         <service
-               serviceclass="ummisco.gama.ui.interfaces.IAgentMenuFactory">
-         </service>
-      </serviceFactory>
-      <serviceFactory
-            factoryclass="ummisco.gama.ui.factories.UserDialogFactory">
-         <service
-               serviceclass="ummisco.gama.ui.interfaces.IUserDialogFactory">
-         </service>
-      </serviceFactory>
-      <sourceProvider
-            provider="ummisco.gama.ui.commands.SimulationStateProvider">
-         <variable
-               name="msi.gama.core.web.ui.experiment.SimulationRunningState"
-               priorityLevel="workbench">
-         </variable>
-         <variable
-               name="msi.gama.core.web.ui.experiment.SimulationType"
-               priorityLevel="workbench">
-         </variable>
-      </sourceProvider>
-      <serviceFactory
-            factoryclass="ummisco.gama.ui.factories.StatusDisplayerFactory">
-         <service
-               serviceClass="msi.gama.common.interfaces.IStatusDisplayer">
-         </service>
-      </serviceFactory>
-      <serviceFactory
-            factoryclass="ummisco.gama.ui.factories.RuntimeExceptionHandlerFactory">
-         <service
-               serviceClass="msi.gama.common.interfaces.IRuntimeExceptionHandler">
-         </service>
-      </serviceFactory>
-   </extension>
-   
-   	
    	
    	
    	

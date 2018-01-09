@@ -16,7 +16,6 @@ import org.eclipse.swt.events.GestureListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.widgets.Control;
 
 import ummisco.gama.ui.resources.IGamaIcons;
@@ -66,13 +65,13 @@ public class ZoomController {
 			}
 		};
 
-		final MouseWheelListener mw = e -> {
-			if (e.count < 0) {
-				view.zoomOut();
-			} else {
-				view.zoomIn();
-			}
-		};
+//		final MouseWheelListener mw = e -> {
+//			if (e.count < 0) {
+//				view.zoomOut();
+//			} else {
+//				view.zoomIn();
+//			}
+//		};
 
 		tb.addControlListener(new ControlAdapter() {
 

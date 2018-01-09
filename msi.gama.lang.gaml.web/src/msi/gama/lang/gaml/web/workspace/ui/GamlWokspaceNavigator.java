@@ -32,7 +32,7 @@ import org.eclipse.ui.navigator.CommonViewer;
  */
 public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 //	private List<PropertySheetPage> propertySheetPages = new ArrayList<PropertySheetPage>();
-	private String uid="";
+//	private String uid="";
 
 	@Override
 	public void workspaceChanged(Object e) {

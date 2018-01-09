@@ -18,11 +18,11 @@ import com.jogamp.opengl.GLRunnable;
 import com.jogamp.opengl.glu.GLU;
 
 import msi.gama.common.geometry.Envelope3D;
-import msi.gama.lang.gaml.web.ui.bindings.GamaKeyBindings;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.LayeredDisplayData;
 import msi.gaml.operators.Maths;
 import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public abstract class AbstractCamera implements ICamera {
 
@@ -183,7 +183,7 @@ public abstract class AbstractCamera implements ICamera {
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
 		upVector.setLocation(xPos, yPos, zPos);
-//		getRenderer().data.setCameraUpVector((GamaPoint) upVector.clone(), true);
+		getRenderer().data.setCameraUpVector((GamaPoint) upVector.clone(), true);
 	}
 
 	/* -------Get commands--------- */
@@ -235,16 +235,16 @@ public abstract class AbstractCamera implements ICamera {
 	 * 
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
-//	@Override
-//	public final void mouseScrolled(final MouseEvent e) {
-//		invokeOnGLThread(drawable -> {
-//			if (cameraInteraction) {
-//				internalMouseScrolled(e);
-//			}
-//			return false;
-//		});
-//
-//	}
+	@Override
+	public final void mouseScrolled(final MouseEvent e) {
+		invokeOnGLThread(drawable -> {
+			if (cameraInteraction) {
+				internalMouseScrolled(e);
+			}
+			return false;
+		});
+
+	}
 
 	protected void internalMouseScrolled(final MouseEvent e) {
 		zoom(e.count > 0);

@@ -63,12 +63,7 @@ public class SceneBuffer {
 
 	public boolean isNotReadyToUpdate() {
 		if (frontScene == null)
-			if(backScene == null) {				
-				return false;
-			}else {
-				frontScene=backScene;
-				return true;
-			}
+			return false;
 		if (!frontScene.rendered())
 			return true;
 		return false;

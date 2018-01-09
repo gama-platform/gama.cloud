@@ -32,6 +32,60 @@
 
 
 
+   	
+   <extension
+         point="org.eclipse.ui.services">
+     <serviceFactory
+             factoryClass="ummisco.gama.ui.factories.AgentMenuFactory">
+          <service></service>
+          <service
+                serviceClass="ummisco.gama.ui.interfaces.IAgentMenuFactory">
+          </service>
+       </serviceFactory>
+     <serviceFactory
+             factoryClass="ummisco.gama.ui.factories.UserDialogFactory">
+          <service></service>
+          <service
+                serviceClass="ummisco.gama.ui.interfaces.IUserDialogFactory">
+          </service>
+       </serviceFactory>
+       
+
+     <serviceFactory
+             factoryClass="ummisco.gama.ui.factories.StatusDisplayerFactory">
+          <service></service>
+          <service
+                serviceClass="msi.gama.common.interfaces.IStatusDisplayer">
+          </service>
+       </serviceFactory>
+       
+
+       
+
+     <serviceFactory
+             factoryClass="ummisco.gama.ui.factories.RuntimeExceptionHandlerFactory">
+          <service></service>
+          <service
+                serviceClass="msi.gama.common.interfaces.IRuntimeExceptionHandler">
+          </service>
+       </serviceFactory>
+       
+
+      <sourceProvider
+            provider="ummisco.gama.ui.commands.SimulationStateProvider">
+         <variable
+               name="msi.gama.core.web.ui.experiment.SimulationRunningState"
+               priorityLevel="workbench">
+         </variable>
+         <variable
+               name="msi.gama.core.web.ui.experiment.SimulationType"
+               priorityLevel="workbench">
+         </variable>
+      </sourceProvider>
+   </extension>
+   
+   	
+   	
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -83,13 +137,13 @@
              allPopups="true"
              locationURI="popup:org.dslforge.navigator.view?after=separator2">
           <command
-                commandId="msi.gama.core.web.workspace.ui.commands.run"
-                helpContextId="RunSimulation"
-                icon="icons/run_exec.png"
-                id="msi.gama.core.web.workspace.menu.run"
-                label="Run"
+                commandId="msi.gama.core.web.workspace.ui.commands.import"
+                helpContextId="ImportProject"
+                icon="icons/navigator/navigator.import.project2.png"
+                id="msi.gama.core.web.workspace.menu.import"
+                label="Import"
                 style="push"
-                tooltip="Run Simulation">
+                tooltip="Import Project">
           </command>
           <separator
                 name="separator3"
@@ -847,6 +901,13 @@
             categoryId="msi.gama.category"
             id="msi.gama.application.commands.AddMonitor"
             name="Add a monitor">
+      </command>
+      <command
+            defaultHandler="msi.gama.core.web.workspace.ui.commands.ImportProjectCommand"
+            description="Import Project"
+            helpContextId="ImportProject"
+            id="msi.gama.core.web.workspace.ui.commands.import"
+            name="About">
       </command>
       <command
             defaultHandler="msi.gama.core.web.editor.commands.AboutCommand"
