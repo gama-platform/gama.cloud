@@ -190,7 +190,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 
-		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
 		// the drawingEntityGenerator is used only when there is a webgl display
 		// and/or a modernRenderer.
 		drawingEntityGenerator = new DrawingEntityGenerator(this);
@@ -220,7 +220,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 		currentScene = sceneBuffer.getSceneToRender();
 		if (currentScene == null) { return; }
-		gl = drawable.getGL().getGL2();
+		gl = drawable.getGL();
 
 		drawer.prepareFrameBufferObject();
 
@@ -244,7 +244,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(true));
+			WorkbenchHelper.run("admin",() -> getCanvas().setVisible(true));
 
 		}
 

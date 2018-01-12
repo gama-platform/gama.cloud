@@ -14,7 +14,26 @@
 
 		events : [],
 
-		methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'clearAll', 'glDrawElements',  'glFrontFace', 'glBindBuffer', 'glBufferData' ]
+		methods : [ 'appendWarn', 'appendErr', 'appendInfo', 
+			'glDrawElements',  
+			'glFrontFace', 
+			'glBindBuffer', 
+			'glClearColor',
+			'glClear',
+			'glEnable',
+			'glDepthFunc',
+			'glBufferData', 
+			'glGenFramebuffers',
+			'glGenBuffers',
+			'glBindFramebuffer',
+			'glViewport',
+			'glDrawBuffer',
+			'glGenRenderbuffers',
+			'glRenderbufferStorage',
+			'glBindRenderbuffer',
+			'glFramebufferRenderbuffer',
+			'clearAll' 
+			]
 
 	});
 
@@ -108,29 +127,125 @@
 			
 
 			glBindBuffer : function(json) {
-				var target = json["target"];
-				var buffer = json["buffer"];
+				var glElementArrayBuffer = json["glElementArrayBuffer"];
+				var i = json["i"];
 
-				this.webgljs.glBindBuffer(target,buffer);
+				this.webgljs.glBindBuffer(glElementArrayBuffer,i);
+			},
+
+			glRenderbufferStorage : function(json) {
+				var glRenderbuffer = json["glRenderbuffer"];
+				var glDepthComponent = json["glDepthComponent"];
+				var width = json["width"];
+				var height = json["height"];
+
+				this.webgljs.glRenderbufferStorage(glRenderbuffer, glDepthComponent, width, height);
 			},
 			
 			
+			glViewport : function(json) {
+				var i = json["i"];
+				var j = json["j"];
+				var width = json["width"];
+				var height = json["height"];
+
+				this.webgljs.glViewport(i, j, width, height);
+			},
+			
+			
+			
 
 			
 
+			glFramebufferRenderbuffer : function(json) {
+				var glFramebuffer = json["glFramebuffer"];
+				var glDepthAttachment = json["glDepthAttachment"];
+				var glRenderbuffer = json["glRenderbuffer"];
+				var i = json["i"];
+				this.webgljs.glFramebufferRenderbuffer(glFramebuffer, glDepthAttachment, glRenderbuffer, i);
+			},
+			
+			
 			glBufferData : function(json) {
 				var target = json["target"];
 				var srcData = json["srcData"];
 				var usage = json["usage"];
-
-				
 				this.webgljs.glBufferData(target, srcData, usage);
+			},
+			
+
+			glClearColor : function(json) {
+				var f = json["f"];
+				var g = json["g"];
+				var h = json["h"];
+				var i = json["i"];
+
+				this.webgljs.glClearColor(f,g,h,i);
+			},
+			
+			glClear : function(json) {
+				var i = json["i"];
+				this.webgljs.glClear(i);
+			},
+			
+
+			
+			glEnable : function(json) {
+				var glDepthTest = json["glDepthTest"];
+				this.webgljs.glEnable(glDepthTest);
+			},
+			
+
+			glDepthFunc : function(json) {
+				var glLequal = json["glLequal"];
+				this.webgljs.glDepthFunc(glLequal);
+			},
+
+			glGenFramebuffers : function(json) {
+				var i = json["i"];
+				var fBufferArray = json["frameBufferArray"];
+				var j = json["j"];
+				this.webgljs.glGenFramebuffers(i,fBufferArray,j);
+			},
+
+
+			glGenBuffers : function(json) {
+				var i = json["i"];
+				var vboHandles = json["vboHandles"];
+				var j = json["j"];
+				this.webgljs.glGenBuffers(i,vboHandles,j);
+			},
+
+
+			glBindFramebuffer : function(json) {
+				var glFramebuffer = json["glFramebuffer"];
+				var i = json["i"];
+				this.webgljs.glBindFramebuffer(glFramebuffer,i);
+			},
+			
+
+			glDrawBuffer : function(json) {
+				var glColorAttachment0 = json["glColorAttachment0"];
+				this.webgljs.glDrawBuffer(glColorAttachment0);
+			},
+
+			
+
+			glGenRenderbuffers : function(json) {
+				var i = json["i"];
+				var dBufferArray = json["depthBufferArray"];
+				var j = json["j"];
+				this.webgljs.glGenRenderbuffers(i,dBufferArray,j);
 			},
 			
 			
 			
-			
-			
+
+			glBindRenderbuffer : function(json) {
+				var glRenderbuffer = json["glRenderbuffer"];
+				var i = json["i"];
+				this.webgljs.glBindRenderbuffer(glRenderbuffer,i);
+			},
 			
 
 

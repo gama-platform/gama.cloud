@@ -112,12 +112,12 @@ public class FrequencyController implements StateListener {
 		if (output == null)
 			return;
 
-		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
-			internalChange = true;
-			pauseItem.setSelection(output.isPaused());
-			syncItem.setSelection(output.isSynchronized());
-			internalChange = false;
-		});
+//		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
+//			internalChange = true;
+//			pauseItem.setSelection(output.isPaused());
+//			syncItem.setSelection(output.isSynchronized());
+//			internalChange = false;
+//		});
 
 	}
 

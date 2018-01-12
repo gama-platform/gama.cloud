@@ -20,7 +20,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.metamodel.shape.GamaPoint;
-import msi.gama.metamodel.shape.IShape;
+import msi.gama.metamodel.shape.IShape; 
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gaml.statements.draw.DrawingAttributes;
@@ -29,6 +29,7 @@ import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.modernOpenGL.DrawingEntity;
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.ModernRenderer;
+//import ummisco.gama.opengl.ModernRenderer;
 import ummisco.gama.opengl.scene.GeometryObject.GeometryObjectWithAnimation;
 
 /**
@@ -66,7 +67,7 @@ public class LayerObject {
 		this.layer = layer;
 		this.overlay = computeOverlay();
 		currentList = newCurrentList();
-		if (layer != null && layer.getTrace() != null || renderer instanceof ModernRenderer) {
+		if (layer != null && layer.getTrace() != null ) { //|| renderer instanceof ModernRenderer
 			objects = new LinkedList();
 			objects.add(currentList);
 		} else
@@ -111,16 +112,16 @@ public class LayerObject {
 			renderer.getDrawer().prepareMapForLayer(this);
 			double alpha = 0d;
 			final double originalAlpha = this.alpha;
-			final int size = objects.size();
+			final int size = currentList.size();
 			final double delta = size == 0 ? 0 : 1d / size;
-			for (final List<AbstractObject> list : objects) {
+			for (final AbstractObject list : currentList) {
 				alpha = isFading ? originalAlpha * (alpha + delta) : originalAlpha;
 				synchronized (list) {
-					for (final AbstractObject object : list) {
+//					for (final AbstractObject object : list) {
 						final double alpha1 = alpha;
 						renderer.getOpenGLHelper().setCurrentObjectAlpha(alpha1);
 						final DrawingEntity[] drawingEntity = renderer.getDrawingEntityGenerator()
-								.generateDrawingEntities(renderer.getSurface().getScope(), object, this, gl);
+								.generateDrawingEntities(renderer.getSurface().getScope(), list, this, gl);
 						if (overlay) {
 							for (final DrawingEntity de : drawingEntity) {
 								de.enableOverlay(true);
@@ -128,7 +129,7 @@ public class LayerObject {
 						}
 						if (drawingEntity != null)
 							renderer.getDrawer().addDrawingEntities(drawingEntity);
-					}
+//					}
 				}
 			}
 			renderer.getDrawer().redraw();

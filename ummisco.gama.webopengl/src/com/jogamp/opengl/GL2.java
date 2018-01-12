@@ -2917,16 +2917,20 @@ public class GL2 extends GL2ES2{
 		return null;
 	}
 	public void glClearColor(float f, float g, float h, float i) {
-		// TODO Auto-generated method stub
-
-//		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-//		System.out.println("methodName = " + methodName);
-//		WebGLComposite.execJS(methodName, null);
-//		WebGLComposite.execJS("appendInfo","s");
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("f", f);
+		obj.add("g", g);
+		obj.add("h", h);
+		obj.add("i", i);
+		WebGLComposite.execJS(methodName,obj);		
 
 	}
 	public void glClear(int i) {
-		// TODO Auto-generated method stub
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("i", i);
+		WebGLComposite.execJS(methodName,obj);		
 		
 	}
 	public void setSwapInterval(int i) {
@@ -2942,8 +2946,10 @@ public class GL2 extends GL2ES2{
 		
 	}
 	public void glEnable(int glDepthTest) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glDepthTest", glDepthTest);
+		WebGLComposite.execJS(methodName,obj);		
 	}
 	public void glDepthFunc(int glLequal) {
 		// TODO Auto-generated method stub
@@ -2954,9 +2960,10 @@ public class GL2 extends GL2ES2{
 		
 	}
 	public void glFrontFace(int glCw) {
-		// TODO Auto-generated method stub
-//		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-//		WebGLComposite.execJS(methodName,"");
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glCw", glCw);
+		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glHint(int glPerspectiveCorrectionHint, int glNicest) {
 		// TODO Auto-generated method stub
@@ -2979,8 +2986,13 @@ public class GL2 extends GL2ES2{
 		
 	}
 	public void glViewport(int i, int j, int width, int height) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("i", i);
+		obj.add("j", j);
+		obj.add("width", width);
+		obj.add("height", height);
+		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glGetIntegerv(int glViewport, int[] viewport, int i) {
 		// TODO Auto-generated method stub
@@ -3032,16 +3044,26 @@ public class GL2 extends GL2ES2{
 		
 	}
 	public void glBindFramebuffer(int glFramebuffer, int i) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glFramebuffer", glFramebuffer);
+		obj.add("i",1);
+		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glGenFramebuffers(int i, int[] frameBufferArray, int j) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("i",i);
+		obj.add("frameBufferArray", Arrays.toString(frameBufferArray));
+		obj.add("j",j);
+		WebGLComposite.execJS(methodName,obj);		
 	}
+	
 	public void glDrawBuffer(int glColorAttachment0) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glColorAttachment0",glColorAttachment0);
+		WebGLComposite.execJS(methodName,obj);		
 	}
 	public void glGenTextures(int i, int[] textureArray, int j) {
 		// TODO Auto-generated method stub
@@ -3061,20 +3083,39 @@ public class GL2 extends GL2ES2{
 		
 	}
 	public void glGenRenderbuffers(int i, int[] depthBufferArray, int j) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("i",i);
+		obj.add("frameBufferArray", Arrays.toString(depthBufferArray));
+		obj.add("j",j);
+		WebGLComposite.execJS(methodName,obj);		
 	}
 	public void glRenderbufferStorage(int glRenderbuffer, int glDepthComponent, int width, int height) {
-		// TODO Auto-generated method stub
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glRenderbuffer", glRenderbuffer);
+		obj.add("glDepthComponent", glDepthComponent);
+		obj.add("width", width);
+		obj.add("height", height);
+		WebGLComposite.execJS(methodName,obj);
 		
 	}
 	public void glBindRenderbuffer(int glRenderbuffer, int i) {
-		// TODO Auto-generated method stub
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glRenderbuffer", glRenderbuffer);
+		obj.add("i", i);
+		WebGLComposite.execJS(methodName,obj);
 		
 	}
 	public void glFramebufferRenderbuffer(int glFramebuffer, int glDepthAttachment, int glRenderbuffer, int i) {
-		// TODO Auto-generated method stub
-		
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("glFramebuffer", glFramebuffer);
+		obj.add("glDepthAttachment", glDepthAttachment);
+		obj.add("glRenderbuffer", glRenderbuffer);
+		obj.add("i", i);
+		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glDisableVertexAttribArray(int intValue) {
 		// TODO Auto-generated method stub
@@ -3082,21 +3123,25 @@ public class GL2 extends GL2ES2{
 	}
 	public void glGenBuffers(int i, int[] vboHandles, int j) {
 		// TODO Auto-generated method stub
-		
+		if(vboHandles==null) {
+			return;
+		}
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("i", i);
+		obj.add("vboHandles", Arrays.toString(vboHandles));
+		obj.add("j", j);
+		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glActiveTexture(int glTexture0) {
 		// TODO Auto-generated method stub
 		
 	}
 	public void glBindBuffer(int glElementArrayBuffer, int i) {
-		// TODO Auto-generated method stub
-
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-
 		JsonObject obj = new JsonObject();
-		obj.add("target", glElementArrayBuffer);
-		obj.add("buffer", i);
-
+		obj.add("glElementArrayBuffer", glElementArrayBuffer);
+		obj.add("i", i);
 		WebGLComposite.execJS(methodName,obj);
 	}
 	public void glBufferData(int glElementArrayBuffer, int numBytes, int[] intIdxBuffer, int glStaticDraw) {
@@ -3127,6 +3172,8 @@ public class GL2 extends GL2ES2{
 		obj.add("type", glUnsignedInt);
 		obj.add("offset", j);
 		WebGLComposite.execJS(methodName,obj);
+
+		WebGLComposite.execJS("appendInfo",obj);
 	}
 	public void glBufferSubData(int glArrayBuffer, int offset, int i, FloatBuffer fbData) {
 		// TODO Auto-generated method stub
@@ -3306,11 +3353,6 @@ public class GL2 extends GL2ES2{
 	public GLContext getContext() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public void glBufferData(int glElementArrayBuffer, int numBytes, IntBuffer ibIdxBuff, int glStaticDraw) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public GL2 getGL2() {

@@ -195,7 +195,7 @@ public class ModernDrawer {
 
 		if (numberOfShaderInTheCurrentLayer == 0) { return; // if nothing is to draw for this layer, do nothing.
 		}
-		final int[] vboHandles = new int[numberOfShaderInTheCurrentLayer * 5];
+		final int[] vboHandles = new int[] {36, 37, 38, 39, 40};//new int[numberOfShaderInTheCurrentLayer * 5];
 		this.gl.glGenBuffers(numberOfShaderInTheCurrentLayer * 5, vboHandles, 0);
 		ModernLayerStructure layerStructure = new ModernLayerStructure();
 		layerStructure.vboHandles = vboHandles;
@@ -274,7 +274,7 @@ public class ModernDrawer {
 			// INDEX BUFFER
 			// Select the VBO, GPU memory data, to use for colors
 			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
-					layerStructureMap.get(currentLayer).vboHandles[typeOfDrawing[2] * 5 + IDX_BUFF_IDX]);
+					layerStructureMap.get(currentLayer).vboHandles[0]);
 			//////////////////////////////////
 
 			drawVBO(typeOfDrawing);
@@ -286,7 +286,7 @@ public class ModernDrawer {
 	@SuppressWarnings ("null")
 	private FrameBufferObject applyPostprocessing(final FrameBufferObject inputFbo,
 			final AbstractPostprocessingShader shader, final int effectNumber, final boolean lastEffect) {
-		fboHandles = new int[5];
+		fboHandles =new int[] {36, 37, 38, 39, 40};
 		this.gl.glGenBuffers(5, fboHandles, 0);
 		postProcessingShaderLoaded.add(shader);
 
@@ -370,7 +370,7 @@ public class ModernDrawer {
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, fboHandles[IDX_BUFF_IDX]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
 		ibIdxBuff.rewind();
 	}
 
@@ -427,8 +427,8 @@ public class ModernDrawer {
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, fboHandles[IDX_BUFF_IDX]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 	}
 
 	private void drawVBO(final int[] typeOfDrawing) {
@@ -608,10 +608,10 @@ public class ModernDrawer {
 		final IntBuffer ibIdxBuff = Buffers.newDirectIntBuffer(intIdxBuffer);
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
-				layerStructureMap.get(currentLayer).vboHandles[shaderNumber * 5 + IDX_BUFF_IDX]);
+				layerStructureMap.get(currentLayer).vboHandles[4]);
 		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 
 		final int[] newElement = new int[3];
 		if (drawingType.equals(DrawingEntity.Type.POINT.toString())) {
@@ -638,14 +638,14 @@ public class ModernDrawer {
 		for (final float[] data : listData) {
 			numBytes += data.length * 4;
 		}
-		gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, new int[0], GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, null, GL2.GL_STATIC_DRAW);
 
 		int offset = 0;
 		for (final float[] data : listData) {
 			final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data/* totalData,positionInBuffer */);
 			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, fbData);
 			offset += data.length * 4;
-			fbData.rewind(); // It is OK to release CPU after transfer to GPU
+//			fbData.rewind(); // It is OK to release CPU after transfer to GPU
 		}
 
 		gl.glEnableVertexAttribArray(shaderAttributeNumber);
@@ -674,7 +674,7 @@ public class ModernDrawer {
 		// Select the VBO, GPU memory data, to use for data
 		if (!isRenderingToTexture)
 			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER,
-					layerStructureMap.get(currentLayer).vboHandles[shaderNumber * 5 + bufferAttributeNumber]);
+					layerStructureMap.get(currentLayer).vboHandles[0]);//[shaderNumber * 5 + bufferAttributeNumber]);
 		else
 			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, fboHandles[bufferAttributeNumber]);
 

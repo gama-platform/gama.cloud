@@ -55,7 +55,7 @@ public class WebGLComposite extends GLCanvas {
 
 	private static final String REMOTE_TYPE = "webopengl.WebGLComposite";
 
-	private final String[] FILENAMES = { "webgljs.css", "webgljs.js", "load-css-file.js", "rap-handler.js",
+	private final String[] FILENAMES = { "webgljs.css", "webgljs.js", "load-css-file.js", "rap-handler.js", "three.js",
 			"gl-matrix.js", "cubetexture.png" };
 
 	private final OperationHandler operationHandler = new AbstractOperationHandler() {
@@ -138,6 +138,11 @@ public class WebGLComposite extends GLCanvas {
 			// loaded=true;
 			JavaScriptLoader jsLoader = RWT.getClient().getService(JavaScriptLoader.class);
 			ResourceManager resourceManager = RWT.getResourceManager();
+
+			// Load file three.js into page
+
+			jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "three.js"));
+
 
 			// Load file webgljs.js into page
 
@@ -230,6 +235,7 @@ public class WebGLComposite extends GLCanvas {
 
 		// final Runnable runnable = new Runnable() {
 		// public void run() {
+//		if(!func.equals("appendInfo")) return;
 		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 
 		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
@@ -237,9 +243,14 @@ public class WebGLComposite extends GLCanvas {
 			public void run() {
 
 				remoteObject.call(func, obj);
-
 			}
 		});
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// }
 		// };
 		// runnable.run();

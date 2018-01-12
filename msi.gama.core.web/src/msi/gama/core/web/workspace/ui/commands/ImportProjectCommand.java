@@ -1,16 +1,19 @@
 package msi.gama.core.web.workspace.ui.commands;
 
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.widgets.DialogCallback;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import msi.gama.core.web.workspace.ui.wizards.ImportProjectWizard;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class ImportProjectCommand extends AbstractWorkspaceCommand {
@@ -20,27 +23,35 @@ public class ImportProjectCommand extends AbstractWorkspaceCommand {
 		super();
 	}
 
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-//		ImportProjectWizard wizard = new ImportProjectWizard();
-//		wizard.init(getWindow().getWorkbench(), StructuredSelection.EMPTY);
-//		WizardDialog wizardDialog = new WizardDialog(getWindow().getShell(), wizard);
-//		wizardDialog.create();
-//		setSizeAndLocation(wizardDialog);
-//		return wizardDialog.open();
-		String uid=RWT.getUISession().getAttribute("user").toString();
-		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(uid) , SWT.APPLICATION_MODAL | SWT.MULTI );
-
-		// SWT compatibility mode:
-		System.out.println( "Stored file: " + fileDialog.open() );
-
-		// JEE compatibility mode:
-		fileDialog.open( new DialogCallback() {
-		  public void dialogClosed( int returnCode ) {
-		    System.out.println( "Stored file: " + fileDialog.getFileName() );
-		  }
-		} );
-		  
+		// ImportProjectWizard wizard = new ImportProjectWizard();
+		// wizard.init(getWindow().getWorkbench(), StructuredSelection.EMPTY);
+		// WizardDialog wizardDialog = new WizardDialog(getWindow().getShell(),
+		// wizard);
+		// wizardDialog.create();
+		// setSizeAndLocation(wizardDialog);
+		// return wizardDialog.open();
+		
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(uid), SWT.SHELL_TRIM | SWT.APPLICATION_MODAL | SWT.MULTI);
+		fileDialog.open(new DialogCallback() {
+			public void dialogClosed(int returnCode) {
+				String s[]=fileDialog.getFileNames();
+				for(int i=0; i<s.length; i++){					
+					System.out.println("Stored file: " + s[i] );
+					  try {       
+						  File f=new File(s[i]);
+						  Path movefrom = FileSystems.getDefault().getPath(s[i]);
+					        Path target = FileSystems.getDefault().getPath("C:/eclipseneon/webapps/GamaWeb/wp/"+f.getName());
+				            Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
+				        } catch (Exception e) {
+				            System.err.println(e);
+				        }
+				}
+			}
+		});
 		return true;
 	}
 }

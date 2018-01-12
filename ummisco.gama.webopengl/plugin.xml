@@ -2,6 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
     <extension
+          point="gaml.extension">
+    </extension>
+    <extension
           point="org.eclipse.ui.views">
        <view
              allowMultiple="true"
@@ -29,8 +32,5 @@
                 serviceClass="msi.gama.lang.gaml.web.ui.interfaces.IOpenGLInitializer">
           </service>
        </serviceFactory>
-    </extension>
-    <extension
-          point="gaml.extension">
     </extension>
 </plugin>

@@ -39,6 +39,7 @@ public class LightsLayerObject extends LayerObject {
 	}
 
 	public void updateObjectList() {
+		if(objects==null) return;
 		objects.clear();
 		for (final LightPropertiesStructure light : renderer.data.getDiffuseLights()) {
 			if (light.drawLight && light.id != 0) {

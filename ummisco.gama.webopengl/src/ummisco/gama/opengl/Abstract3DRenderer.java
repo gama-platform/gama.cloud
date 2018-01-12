@@ -31,6 +31,7 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.swt.GLCanvas;
 import com.vividsolutions.jts.geom.Geometry;
 
+import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.ILayer;
@@ -126,7 +127,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	protected final PickingState pickingState = new PickingState();
 	public SceneBuffer sceneBuffer;
 	protected ModelScene currentScene;
-	protected GLCanvas canvas;
+	protected WebGLComposite canvas;
 	public ICamera camera;
 	protected LightHelper lightHelper;
 	protected volatile boolean inited;
@@ -175,11 +176,11 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		cap.setSampleBuffers(true);
 		cap.setAlphaBits(8);
 		cap.setNumSamples(8);
-		canvas = new GLCanvas(parent, SWT.NONE, cap, null);
+		canvas = new WebGLComposite(parent, SWT.NONE);
 		canvas.setAutoSwapBufferMode(true);
-		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
+//		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		// animator.setIgnoreExceptions(!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue());
-		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
+//		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
 		canvas.addGLEventListener(this);
 		final FillLayout gl = new FillLayout();
 		canvas.setLayout(gl);
@@ -204,7 +205,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	protected void initializeCanvasListeners() {
 
-		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
+		WorkbenchHelper.asyncRun("admin",() -> {
 			if (getCanvas() == null || getCanvas().isDisposed()) { return; }
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
@@ -238,7 +239,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public final void switchCamera() {
 		final ICamera oldCamera = camera;
-		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
+		WorkbenchHelper.asyncRun("admin",() -> {
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
 			getCanvas().removeMouseMoveListener(oldCamera);
@@ -569,6 +570,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	@Override
 	public boolean beginDrawingLayers() {
 		while (!inited) {
+			init(canvas);
 			try {
 				Thread.sleep(10);
 			} catch (final InterruptedException e) {
@@ -583,6 +585,9 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public boolean isNotReadyToUpdate() {
 		if (data.isSynchronized())
 			return false;
+		if(sceneBuffer.isNotReadyToUpdate()) {
+			display(canvas);
+		}
 		return sceneBuffer.isNotReadyToUpdate();
 	}
 

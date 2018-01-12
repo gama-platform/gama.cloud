@@ -134,7 +134,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL2.GL_MULTISAMPLE);
 		gl.glHint(GL2.GL_MULTISAMPLE_FILTER_HINT_NV, GL2.GL_NICEST);
 		// }
-		openGL.initializeShapeCache();
+//		openGL.initializeShapeCache();
 		setUpKeystoneCoordinates();
 		// We mark the renderer as inited
 		inited = true;
@@ -206,7 +206,7 @@ public class JOGLRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> getCanvas().setVisible(true));
+			WorkbenchHelper.asyncRun("admin",() -> getCanvas().setVisible(true));
 
 		}
 
@@ -400,21 +400,23 @@ public class JOGLRenderer extends Abstract3DRenderer {
 
 	@Override
 	public GamaPoint getRealWorldPointFromWindowPoint(final Point windowPoint) {
-		int realy = 0;// GL y coord pos
-		final double[] wcoord = new double[4];
-		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
-		final GLU glu = GLU.createGLU(gl);
-		realy = viewport[3] - y;
+//		hqn88
+//		int realy = 0;// GL y coord pos
+//		final double[] wcoord = new double[4];
+//		final int x = (int) windowPoint.getX(), y = (int) windowPoint.getY();
+//		final GLU glu = GLU.createGLU(gl);
+//		realy = viewport[3] - y;
 //		glu.gluUnProject(x, realy, 0.1, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
-		final GamaPoint v1 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
-		glu.gluUnProject(x, realy, 0.9, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
-		final GamaPoint v2 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
-		final GamaPoint v3 = v2.minus(v1).normalized();
-		final float distance =
-				(float) (camera.getPosition().getZ() / GamaPoint.dotProduct(new GamaPoint(0.0, 0.0, -1.0), v3));
-		final GamaPoint worldCoordinates = camera.getPosition().plus(v3.times(distance));
-
-		return new GamaPoint(worldCoordinates.x, worldCoordinates.y);
+//		final GamaPoint v1 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
+//		glu.gluUnProject(x, realy, 0.9, mvmatrix, 0, projmatrix, 0, viewport, 0, wcoord, 0);
+//		final GamaPoint v2 = new GamaPoint(wcoord[0], wcoord[1], wcoord[2]);
+//		final GamaPoint v3 = v2.minus(v1).normalized();
+//		final float distance =
+//				(float) (camera.getPosition().getZ() / GamaPoint.dotProduct(new GamaPoint(0.0, 0.0, -1.0), v3));
+//		final GamaPoint worldCoordinates = camera.getPosition().plus(v3.times(distance));
+//
+//		return new GamaPoint(worldCoordinates.x, worldCoordinates.y);
+		return new GamaPoint(800,600);
 	}
 
 	public double[] getPixelWidthAndHeightOfWorld() {

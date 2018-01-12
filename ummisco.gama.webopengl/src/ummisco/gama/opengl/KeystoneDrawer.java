@@ -274,8 +274,8 @@ public class KeystoneDrawer implements IKeystoneState {
 
 		// Select the VBO, GPU memory data, to use for colors
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, indexBufferIndex);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, 24, ibIdxBuff, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, 24, new int[] { 0, 1, 2, 0, 2, 3 }, GL2.GL_STATIC_DRAW);
+//		ibIdxBuff.rewind();
 	}
 
 	private void storeAttributes(final int shaderAttributeType, final int bufferIndex, final int size,
@@ -286,7 +286,7 @@ public class KeystoneDrawer implements IKeystoneState {
 		gl.glVertexAttribPointer(shaderAttributeType, size, GL2.GL_FLOAT, false, 0, 0 /* offset */);
 		// compute the total size of the buffer :
 		final int numBytes = data.length * 4;
-		gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, new int[0], GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, null, GL2.GL_STATIC_DRAW);
 
 		final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data);
 		gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, numBytes, fbData);

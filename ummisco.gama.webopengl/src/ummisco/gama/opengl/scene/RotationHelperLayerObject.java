@@ -34,6 +34,7 @@ public class RotationHelperLayerObject extends LayerObject {
 	}
 
 	private void updateObjectList() {
+		if(objects==null) return;
 		objects.clear();
 		if (renderer.getRotationHelperPosition() != null) {
 			final double distance =

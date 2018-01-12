@@ -907,7 +907,7 @@
             description="Import Project"
             helpContextId="ImportProject"
             id="msi.gama.core.web.workspace.ui.commands.import"
-            name="About">
+            name="Import">
       </command>
       <command
             defaultHandler="msi.gama.core.web.editor.commands.AboutCommand"

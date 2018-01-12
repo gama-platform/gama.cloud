@@ -22,7 +22,9 @@ import org.eclipse.ui.services.IServiceLocator;
 import com.jogamp.common.util.JarUtil;
 import com.jogamp.opengl.GLProfile;
 
-public class OpenGLInitializer extends AbstractServiceFactory implements ummisco.gama.ui.interfaces.IOpenGLInitializer {
+import ummisco.gama.ui.interfaces.IOpenGLInitializer;
+
+public class OpenGLInitializer extends AbstractServiceFactory implements IOpenGLInitializer {
 
 	boolean isInitialized = false;
 

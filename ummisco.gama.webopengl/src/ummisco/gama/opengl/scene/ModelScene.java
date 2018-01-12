@@ -68,7 +68,7 @@ public class ModelScene {
 		}
 		if (renderer.useShader()) {
 			layers.put(ROTATION_HELPER_KEY, new RotationHelperLayerObject(renderer));
-			layers.put(KEYSTONE_HELPER_KEY, new KeystoneHelperLayerObject(renderer));
+//			layers.put(KEYSTONE_HELPER_KEY, new KeystoneHelperLayerObject(renderer));
 			layers.put(LIGHTS_KEY, new LightsLayerObject(renderer));
 			if (renderer.data.isShowfps())
 				layers.put(FPS_KEY, new FPSLayerObject(renderer));

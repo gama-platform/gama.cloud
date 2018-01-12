@@ -65,6 +65,7 @@ public class FPSLayerObject extends LayerObject {
 	}
 
 	private void updateObjectList() {
+		if(objects==null) return;
 		objects.clear();
 		computeFrameRate();
 
