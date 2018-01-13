@@ -235,7 +235,7 @@ public class WebGLComposite extends GLCanvas {
 
 		// final Runnable runnable = new Runnable() {
 		// public void run() {
-//		if(!func.equals("appendInfo")) return;
+//		if(!func.equals("appendErr")) return;
 		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 
 		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));

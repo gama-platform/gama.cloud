@@ -32,6 +32,7 @@
 			'glRenderbufferStorage',
 			'glBindRenderbuffer',
 			'glFramebufferRenderbuffer',
+			'glBufferSubData',
 			'clearAll' 
 			]
 
@@ -115,12 +116,12 @@
 			},
 
 			glDrawElements : function(json) {
-				var mode = json["mode"];
-				var count = json["count"];
-				var type = json["type"];
-				var offset = json["offset"];
+				var glTriangles = json["glTriangles"];
+				var i = json["i"];
+				var glUnsignedInt = json["glUnsignedInt"];
+				var j = json["j"];
 				
-				this.webgljs.glDrawElements(mode, count, type, offset);
+				this.webgljs.glDrawElements(glTriangles, i, glUnsignedInt, j);
 			},
 			
 
@@ -238,13 +239,25 @@
 				this.webgljs.glGenRenderbuffers(i,dBufferArray,j);
 			},
 			
-			
+
 			
 
 			glBindRenderbuffer : function(json) {
 				var glRenderbuffer = json["glRenderbuffer"];
 				var i = json["i"];
 				this.webgljs.glBindRenderbuffer(glRenderbuffer,i);
+			},
+			
+
+
+			
+
+			glBufferSubData : function(json) {
+				var glArrayBuffer = json["glArrayBuffer"];
+				var offset = json["offset"];
+				var i = json["i"];
+				var fbData = json["fbData"];
+				this.webgljs.glBufferSubData(glArrayBuffer, offset, i, fbData);
 			},
 			
 

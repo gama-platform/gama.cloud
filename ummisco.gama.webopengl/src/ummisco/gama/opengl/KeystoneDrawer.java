@@ -289,7 +289,7 @@ public class KeystoneDrawer implements IKeystoneState {
 		gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, null, GL2.GL_STATIC_DRAW);
 
 		final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data);
-		gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, numBytes, fbData);
+		gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, numBytes, data);
 		gl.glEnableVertexAttribArray(shaderAttributeType);
 	}
 

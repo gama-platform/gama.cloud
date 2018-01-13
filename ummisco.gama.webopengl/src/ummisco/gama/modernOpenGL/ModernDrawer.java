@@ -643,7 +643,7 @@ public class ModernDrawer {
 		int offset = 0;
 		for (final float[] data : listData) {
 			final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data/* totalData,positionInBuffer */);
-			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, fbData);
+			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, data);
 			offset += data.length * 4;
 //			fbData.rewind(); // It is OK to release CPU after transfer to GPU
 		}
