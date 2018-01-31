@@ -25,7 +25,6 @@ public class ImportProjectCommand extends AbstractWorkspaceCommand {
 		super();
 	}
 
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// ImportProjectWizard wizard = new ImportProjectWizard();
@@ -35,27 +34,29 @@ public class ImportProjectCommand extends AbstractWorkspaceCommand {
 		// wizardDialog.create();
 		// setSizeAndLocation(wizardDialog);
 		// return wizardDialog.open();
-		
+
 		String uid = RWT.getUISession().getAttribute("user").toString();
-		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(uid), SWT.SHELL_TRIM | SWT.APPLICATION_MODAL | SWT.MULTI);
+		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(uid),
+				SWT.SHELL_TRIM | SWT.APPLICATION_MODAL | SWT.MULTI);
 		fileDialog.open(new DialogCallback() {
 			public void dialogClosed(int returnCode) {
-				String s[]=fileDialog.getFileNames();
-				for(int i=0; i<s.length; i++){					
-					System.out.println("Stored file: " + s[i] );
-					  try {       
-						  File f=new File(s[i]);
-						  Path movefrom = FileSystems.getDefault().getPath(s[i]);
-						  IConfigurationElement[] o = Platform.getExtensionRegistry().getConfigurationElementsFor("org.dslforge.workspace.config.configuration");
-						  String p="C:/eclipseneon/webapps/GamaWeb/wp/"; 
-						  if(o.length>0 && null!=o[0]) {
-							  p=o[0].getAttribute("path");
-						  }
-					        Path target = FileSystems.getDefault().getPath(p+"/"+f.getName());
-				            Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
-				        } catch (Exception e) {
-				            System.err.println(e);
-				        }
+				String s[] = fileDialog.getFileNames();
+				for (int i = 0; i < s.length; i++) {
+					System.out.println("Stored file: " + s[i]);
+					try {
+						File f = new File(s[i]);
+						Path movefrom = FileSystems.getDefault().getPath(s[i]);
+						IConfigurationElement[] o = Platform.getExtensionRegistry()
+								.getConfigurationElementsFor("org.dslforge.workspace.config.configuration");
+						String p = "C:/eclipseneon/webapps/GamaWeb/wp/";
+						if (o.length > 0 && null != o[0]) {
+							p = o[0].getAttribute("path");
+						}
+						Path target = FileSystems.getDefault().getPath(p + "/" + f.getName());
+						Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
+					} catch (Exception e) {
+						System.err.println(e);
+					}
 				}
 			}
 		});

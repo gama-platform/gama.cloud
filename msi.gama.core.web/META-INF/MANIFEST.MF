@@ -28,12 +28,9 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.rap.fileupload,
  org.eclipse.rap.filedialog,
  org.eclipse.rap.addons.filedialog,
- org.dslforge.workspace;bundle-version="0.9.1",
- org.dslforge.workspace.ui;bundle-version="0.9.1"
-Import-Package: javax.persistence,
- org.apache.log4j,
- org.eclipse.core.internal.filesystem,
- org.eclipse.jface.text.source
+ org.dslforge.workspace,
+ org.dslforge.workspace.ui,
+ org.apache.log4j;bundle-version="1.2.15"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Export-Package: msi.gama.core.web.customwidget,

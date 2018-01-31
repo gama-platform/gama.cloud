@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="41">
+<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="61">
 <locations>
-<location path="${eclipse_home}" type="Profile"/>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
-<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
-<unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
-<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
-<repository location="http://download.eclipse.org/releases/oxygen"/>
-</location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="ca.odell.glazedlists" version="1.9.0.v201303080712"/>
 <unit id="ca.odell.glazedlists.source" version="1.9.0.v201303080712"/>
@@ -549,13 +540,18 @@
 <unit id="org.eclipse.rap.visualization.feature.feature.group" version="1.5.0.20120725-0824"/>
 <repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
 </location>
+<location path="${eclipse_home}" type="Profile"/>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.dslforge.tooling.feature.feature.group" version="0.9.1.201703182122"/>
-<repository location="https://dslforge.org/downloads/tooling/repository/"/>
+<unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
+<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
+<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-<repository location="https://dslforge.org/downloads/runtime/repository/"/>
+<repository location="http://dslforge.org/downloads/runtime/repository"/>
 </location>
 </locations>
 <environment>
