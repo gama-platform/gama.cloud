@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="61">
+<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="71">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="ca.odell.glazedlists" version="1.9.0.v201303080712"/>
@@ -551,7 +551,7 @@
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-<repository location="http://dslforge.org/downloads/runtime/repository"/>
+<repository location="https://dslforge.org/downloads/runtime/repository/"/>
 </location>
 </locations>
 <environment>
