@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Gaml" sequenceNumber="53">
+<?pde version="3.8"?><target name="Gaml" sequenceNumber="54">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.addons.chart.demo" version="0.1.0.20160622-0732"/>
@@ -557,6 +557,11 @@
 <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
 <repository location="http://download.eclipse.org/releases/oxygen"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 </location>
 </locations>
 </target>
