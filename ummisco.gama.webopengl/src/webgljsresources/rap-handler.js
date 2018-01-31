@@ -32,6 +32,7 @@
 			'glRenderbufferStorage',
 			'glBindRenderbuffer',
 			'glFramebufferRenderbuffer',
+			'glEnableVertexAttribArray',
 			'glBufferSubData',
 			'clearAll' 
 			]
@@ -144,6 +145,12 @@
 			},
 			
 			
+			glEnableVertexAttribArray : function(json) {
+				var attributePosition = json["attributePosition"];
+
+				this.webgljs.glEnableVertexAttribArray(attributePosition);
+			},
+
 			glViewport : function(json) {
 				var i = json["i"];
 				var j = json["j"];
@@ -168,10 +175,11 @@
 			
 			
 			glBufferData : function(json) {
-				var target = json["target"];
-				var srcData = json["srcData"];
-				var usage = json["usage"];
-				this.webgljs.glBufferData(target, srcData, usage);
+				var glElementArrayBuffer = json["glElementArrayBuffer"];
+				var numBytes = json["numBytes"];
+				var intIdxBuffer = json["intIdxBuffer"];
+				var glStaticDraw = json["glStaticDraw"];
+				this.webgljs.glBufferData(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw);
 			},
 			
 

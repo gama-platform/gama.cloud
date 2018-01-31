@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.widgets.DialogCallback;
 import org.eclipse.swt.SWT;
@@ -44,7 +46,12 @@ public class ImportProjectCommand extends AbstractWorkspaceCommand {
 					  try {       
 						  File f=new File(s[i]);
 						  Path movefrom = FileSystems.getDefault().getPath(s[i]);
-					        Path target = FileSystems.getDefault().getPath("C:/eclipseneon/webapps/GamaWeb/wp/"+f.getName());
+						  IConfigurationElement[] o = Platform.getExtensionRegistry().getConfigurationElementsFor("org.dslforge.workspace.config.configuration");
+						  String p="C:/eclipseneon/webapps/GamaWeb/wp/"; 
+						  if(o.length>0 && null!=o[0]) {
+							  p=o[0].getAttribute("path");
+						  }
+					        Path target = FileSystems.getDefault().getPath(p+"/"+f.getName());
 				            Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
 				        } catch (Exception e) {
 				            System.err.println(e);

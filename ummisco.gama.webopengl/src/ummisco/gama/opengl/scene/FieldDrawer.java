@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Locale;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.primitives.Doubles;
 import com.jogamp.opengl.GL;
@@ -51,7 +52,7 @@ public class FieldDrawer extends ObjectDrawer<FieldObject> {
 				drawFromImage(demObj);
 				return;
 			}
-			final double altFactor = Objects.firstNonNull(demObj.getHeight(), 1.0);
+			final double altFactor = MoreObjects.firstNonNull(demObj.getHeight(), 1.0);
 			final double maxZ = Doubles.max(demObj.values);
 			if (demObj.isGrayScaled()) {
 				gl.disableTextures();
@@ -219,7 +220,7 @@ public class FieldDrawer extends ObjectDrawer<FieldObject> {
 		cols = dem.getWidth() - 1;
 		ts = 1.0f / cols;
 		tt = 1.0f / rows;
-		final double altFactor = Objects.firstNonNull(demObj.getHeight(), 1.0);
+		final double altFactor = MoreObjects.firstNonNull(demObj.getHeight(), 1.0);
 		final double centerX = gl.getWorldWidth() / 2;
 		final double centerY = gl.getWorldHeight() / 2;
 		tw = 2 * centerX / cols;

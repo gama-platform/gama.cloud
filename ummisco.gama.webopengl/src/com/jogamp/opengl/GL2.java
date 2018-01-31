@@ -3896,7 +3896,10 @@ public class GL2 extends GL2ES2 {
 	}
 
 	public void glEnableVertexAttribArray(int attributePosition) {
-		// TODO Auto-generated method stub
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("attributePosition", attributePosition);
+		WebGLComposite.execJS(methodName, obj);
 
 	}
 
@@ -4273,9 +4276,10 @@ public class GL2 extends GL2ES2 {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 
 		JsonObject obj = new JsonObject();
-		obj.add("target", glElementArrayBuffer);
-		obj.add("srcData", Arrays.toString(intIdxBuffer));
-		obj.add("usage", glStaticDraw);
+		obj.add("glElementArrayBuffer", glElementArrayBuffer);
+		obj.add("numBytes", numBytes);
+		obj.add("intIdxBuffer", Arrays.toString(intIdxBuffer));
+		obj.add("glStaticDraw", glStaticDraw);
 		WebGLComposite.execJS(methodName, obj);
 
 	}

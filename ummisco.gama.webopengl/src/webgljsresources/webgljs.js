@@ -573,7 +573,9 @@ function WebGLJS(e) {
 
 	this.glDrawElements = function(glTriangles, i, glUnsignedInt, j) {
 		
-		gl.drawElements(glTriangles, i, gl.UNSIGNED_SHORT, j);
+//		gl.drawElements(glTriangles, i, gl.UNSIGNED_SHORT, j);
+
+		 gl.drawArrays(glTriangles, 0, 3);
 		console.log("gl.drawElements("+glTriangles+","+i+", gl.UNSIGNED_SHORT, "+j+")");
 		 // gl.drawElements(gl.POINTS, 8, gl.UNSIGNED_BYTE, 0);
 
@@ -581,11 +583,11 @@ function WebGLJS(e) {
 
 	this.glBindFramebuffer = function(glFramebuffer, i) {
 // gl.bindFramebuffer(glFramebuffer, i);
-		gl.bindFramebuffer(gl.FRAMEBUFFER, frameBufferArray); 
-		console.log("gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray) = "+frameBufferArray+" "+i);
+//		gl.bindFramebuffer(gl.FRAMEBUFFER, frameBufferArray); 
+//		console.log("gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray) = "+frameBufferArray+" "+i);
 	};
 	this.glViewport = function(i,j,width, height) {
-		gl.viewport(i,j,800, 600);
+		gl.viewport(i,j,80, 60);
 		console.log("gl.viewport (i,j,800, 600) "+width);
 	};
 
@@ -611,8 +613,8 @@ function WebGLJS(e) {
 	this.glFramebufferRenderbuffer = function(glFramebuffer, glDepthAttachment, glRenderbuffer, i) {
 // gl.framebufferRenderbuffer(glFramebuffer, glDepthAttachment, glRenderbuffer,
 // i);
-		gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray);
-		console.log("gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray); = "+depthBufferArray);
+//		gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray);
+//		console.log("gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray); = "+depthBufferArray);
 	};
 
 
@@ -628,18 +630,17 @@ function WebGLJS(e) {
 		console.log("bufferArray= gl.createBuffer(); = "+vboHandles);
 	};
 
-	this.glBufferData = function(target, srcData, usage) {		
+	this.glBufferData = function(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw) {		
 // gl.bufferData(target, new Float32Array(JSON.parse(srcData)),usage);
-		gl.bufferData(gl.ARRAY_BUFFER, 1024, gl.STATIC_DRAW);
-		console.log("gl.bufferData(gl.ARRAY_BUFFER, 1024, gl.STATIC_DRAW); = "+target+" "+ new Float32Array(JSON.parse(srcData))+" "+usage);
+		gl.bufferData(gl.ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
+		console.log("gl.bufferData(gl.ARRAY_BUFFER, 1024, gl.STATIC_DRAW); = "+numBytes+" "+ new Float32Array(JSON.parse(intIdxBuffer)));
 		 
 	};
 
 	this.glBufferSubData = function(glArrayBuffer, offset, i, fbData) {		
-// gl.bufferData(target, new Float32Array(JSON.parse(srcData)),usage);
-		gl.bufferSubData(gl.ARRAY_BUFFER, 0,  new Float32Array(JSON.parse(fbData)));
-//		gl.bufferData(glArrayBuffer, offset, i, fbData);
 		console.log("gl.bufferSubData(gl.ARRAY_BUFFER, 512, fbData); = "+glArrayBuffer+" "+ new Float32Array(JSON.parse(fbData))+" "+offset);
+		//gl.bufferSubData(gl.ARRAY_BUFFER, offset,  new Float32Array(JSON.parse(fbData)));
+//		gl.bufferData(glArrayBuffer, offset, i, fbData);
 		 
 	};
 
@@ -654,6 +655,19 @@ function WebGLJS(e) {
 		
 		gl.clearColor(f,g,h,i);
 		console.log("gl.clearColor(f,g,h,i); = "+f+" "+g+" "+h+" "+i);
+		 
+	};
+
+
+
+	this.glEnableVertexAttribArray = function(attributePosition) {
+
+        var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+        // point an attribute to the currently bound VBO
+        gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
+        // Enable the attribute
+        gl.enableVertexAttribArray(coord);
+		console.log("glEnableVertexAttribArray(attributePosition); = "+attributePosition);
 		 
 	};
 

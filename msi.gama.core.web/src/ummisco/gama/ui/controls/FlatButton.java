@@ -198,7 +198,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 			y_image += (getBounds().height - image.getBounds().height) / 2;
 		}
 		int y_text = 0;
-		final String text = newText();
+//		final String text = newText();
 		if (text != null) {
 			y_text += (getBounds().height - gc.textExtent(text).y) / 2;
 		}
