@@ -556,7 +556,7 @@
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
-<repository location="http://download.eclipse.org/releases/neon"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
