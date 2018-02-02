@@ -68,7 +68,9 @@ public class BasicWorkbench implements EntryPoint {
 	
 	@Override
 	public int createUI() {
-		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler());
+		if(RWT.getServiceManager().getServiceHandlerUrl("tokenCallback")==null) {
+			RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler());
+		}
 		try {
 			String uid = enableLoggin?"":"admin"; 
 

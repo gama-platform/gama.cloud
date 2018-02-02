@@ -61,7 +61,7 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 		return result;
 	}
 	public boolean login() throws LoginException {
-		Callback label = new TextOutputCallback(TextOutputCallback.INFORMATION, "Please login!");
+		Callback label = new TextOutputCallback(TextOutputCallback.INFORMATION, "Please login using Pre-registered account\n or Google authentication!");
 		NameCallback nameCallback = new NameCallback("Username:");
 		PasswordCallback passwordCallback = new PasswordCallback("Password:", false);
 		GoogleSigninCallback gCallback=new GoogleSigninCallback("", 0, 0, 0);
