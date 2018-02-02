@@ -30,6 +30,7 @@ import org.eclipse.ui.application.WorkbenchAdvisor;
 
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
+import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 
 /**
  * Basic Workbench UI entry point
@@ -63,11 +64,11 @@ public class BasicWorkbench implements EntryPoint {
 	// }
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
     
-	boolean enableLoggin=false;
+	boolean enableLoggin=true;
 	
 	@Override
 	public int createUI() {
-
+		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler());
 		try {
 			String uid = enableLoggin?"":"admin"; 
 

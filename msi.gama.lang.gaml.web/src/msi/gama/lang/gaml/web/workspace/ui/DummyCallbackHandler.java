@@ -4,13 +4,18 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextOutputCallback;
-
+import javax.servlet.http.HttpSession;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -21,6 +26,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import msi.gama.rap.oauth.Authorization;
 
 /**
  * Handles the callbacks to show a RCP/RAP UI for the LoginModule.
@@ -60,8 +67,50 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
         createNameHandler( composite, ( NameCallback )callback );
       } else if( callback instanceof PasswordCallback ) {
         createPasswordHandler( composite, ( PasswordCallback )callback );
+      } else if( callback instanceof GoogleSigninCallback) {
+    	  createGoogleSigninHander( composite, ( GoogleSigninCallback )callback );
       }
     }
+  }
+
+  private String getTokenCallbackURL() {
+    return RWT.getServiceManager().getServiceHandlerUrl( "tokenCallback" );
+  }
+
+  private String getCid() {
+    String url = getTokenCallbackURL();
+    return url.substring( url.lastIndexOf( "cid=" ) );
+  }
+  
+
+  private Browser browser;
+  private void createGoogleSigninHander(Composite composite, final GoogleSigninCallback callback) {		
+		Button button = new Button( composite, SWT.PUSH );
+	    button.setText( "Google Login" );
+	    button.addSelectionListener( new SelectionAdapter() {
+	      @SuppressWarnings("unused")
+	      @Override
+	      public void widgetSelected( SelectionEvent e ) {
+	        HttpSession session = RWT.getRequest().getSession();
+	        int localPort = RWT.getRequest().getLocalPort();
+	        String authorizationURL = new Authorization( session ).getURL( localPort );
+	        String authorizationJavaScriptURL = "/oauthJS";
+	        String googleURL = "https://www.google.com/custom";
+	        String url = authorizationJavaScriptURL + "?sessionId=" + session.getId() + "&" + getCid();
+	        System.out.println( "open in browser widget: " + url );
+	        browser.setUrl( url );
+	      }
+	    } );
+	    
+
+	    createBrowserWidget( composite );
+  }
+
+  private void createBrowserWidget( Composite parent ) {
+    browser = new Browser( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, true ).span( 2, 1 ).applyTo( browser );
+    browser.setBounds( 0, 0, 200, 300 );
+    parent.layout();
   }
 
   private void createPasswordHandler( Composite composite, final PasswordCallback callback ) {

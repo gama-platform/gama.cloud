@@ -8,7 +8,7 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
-import msi.gama.lang.gaml.web.internal.Activator;
+import msi.gama.rap.oauth.Activator;
 
 public class GamlExecutableExtensionFactory extends AbstractGuiceAwareWebExecutableExtensionFactory {
 

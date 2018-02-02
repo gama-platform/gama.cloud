@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextOutputCallback;
@@ -63,9 +64,11 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 		Callback label = new TextOutputCallback(TextOutputCallback.INFORMATION, "Please login!");
 		NameCallback nameCallback = new NameCallback("Username:");
 		PasswordCallback passwordCallback = new PasswordCallback("Password:", false);
+		GoogleSigninCallback gCallback=new GoogleSigninCallback("", 0, 0, 0);
 		try {
-			callbackHandler.handle(new Callback[] { label, nameCallback, passwordCallback });
+			callbackHandler.handle(new Callback[] { label, nameCallback, passwordCallback, gCallback });
 		} catch (Exception exception) {
+			exception.printStackTrace();
 			return false;
 		}
 		String username = nameCallback.getName();
