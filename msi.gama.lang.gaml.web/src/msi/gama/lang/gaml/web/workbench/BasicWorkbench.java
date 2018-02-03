@@ -66,11 +66,42 @@ public class BasicWorkbench implements EntryPoint {
     
 	boolean enableLoggin=true;
 	
+	public void postLoggedIn(final String uid) {
+		RWT.getUISession().setAttribute("user", uid);
+		
+//		if (uid.equals(""+uid)) {
+	if (executor.get(uid) != null) {
+//				WorkbenchHelper.workbench.get(uid).close();
+		JavaScriptExecutor ex = executor.get(uid);
+		System.out.println("script reload  " + ex);
+		ex.execute("window.location.reload(true);");
+		// ex.execute("var myUrl = window.location;\r\n" +
+		// "window.location.replace(myUrl);");
+		ex = null;
+		executor.put(uid,ex);
+		RWT.getApplicationContext().setAttribute("logged_"+uid, null);// "restart");
+		// return 0;
+		// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+		// "Information", "This account is currently used
+		// somewhere, RETRY!");
+		
+	}
+//		} 
+//		else {
+//			if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
+//				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
+//						"This account is currently used somewhere, please try again later!");
+//				logged = false;
+//			}
+//		}
+	}
+	
 	@Override
 	public int createUI() {
-		if(RWT.getServiceManager().getServiceHandlerUrl("tokenCallback")==null) {
-			RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler());
-		}
+
+		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
+		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
+
 		try {
 			String uid = enableLoggin?"":"admin"; 
 
@@ -78,48 +109,24 @@ public class BasicWorkbench implements EntryPoint {
 
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
-			boolean logged = enableLoggin?false:true; //false
-			while (!logged) {
+			boolean logged = enableLoggin?(RWT.getApplicationContext().getAttribute("credential") == null?false:true):true; //false
+//			while (!logged) {
 				logged = dlm.login();
-			}
-			if (logged) {
+//			}
+			if (logged || RWT.getApplicationContext().getAttribute("credential")!=null) {
 				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
-				RWT.getUISession().setAttribute("user", uid);
+				postLoggedIn(uid);
 				
-//					if (uid.equals(""+uid)) {
-				if (executor.get(uid) != null) {
-//							WorkbenchHelper.workbench.get(uid).close();
-					JavaScriptExecutor ex = executor.get(uid);
-					System.out.println("script reload  " + ex);
-					ex.execute("window.location.reload(true);");
-					// ex.execute("var myUrl = window.location;\r\n" +
-					// "window.location.replace(myUrl);");
-					ex = null;
-					executor.put(uid,ex);
-					RWT.getApplicationContext().setAttribute("logged_"+uid, null);// "restart");
-					// return 0;
-					// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-					// "Information", "This account is currently used
-					// somewhere, RETRY!");
-					
-				}
-//					} 
-//					else {
-//						if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
-//							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-//									"This account is currently used somewhere, please try again later!");
-//							logged = false;
-//						}
-//					}
-				
+			}else {
+				return 0;
 			}
 			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
 				// ||
 				// "restart".equals(RWT.getApplicationContext().getAttribute("logged_"+uid).toString()))
 				// {
 				WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
-				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
+				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 				User u = new User();
 				u.setId(uid);
 

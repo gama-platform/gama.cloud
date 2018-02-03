@@ -6,12 +6,5 @@
 	<classpathentry kind="src" path="xtend-gen"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="src-js"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-api-client-1.23.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-api-services-drive-v2-rev296-1.23.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-http-client-1.23.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-http-client-jackson2-1.23.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/google-oauth-client-1.23.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/gson-2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

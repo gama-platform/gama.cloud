@@ -15,15 +15,26 @@
  */
 package msi.gama.lang.gaml.web.workspace.ui;
 
+import java.io.File;
+
+import org.dslforge.workspace.ui.BasicViewerComparator;
 import org.dslforge.workspace.ui.BasicWokspaceNavigator;
+import org.dslforge.workspace.ui.BasicWorkspaceFilter;
+import org.dslforge.workspace.ui.BasicWorkspaceSorter;
+import org.dslforge.workspace.ui.FileSystemContentProvider;
+import org.dslforge.workspace.ui.FileSystemLabelProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 
 /**
@@ -33,6 +44,23 @@ import org.eclipse.ui.navigator.CommonViewer;
 public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 //	private List<PropertySheetPage> propertySheetPages = new ArrayList<PropertySheetPage>();
 //	private String uid="";
+
+
+	@Override
+	public void createPartControl(Composite aParent) {
+		super.createPartControl(aParent);
+		getCommonViewer().setSorter(new BasicWorkspaceSorter());
+		getCommonViewer().setComparator(new BasicViewerComparator());
+		String workspaceRoot = getWorkspaceRoot();
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IPartService partService = workbench.getActiveWorkbenchWindow().getPartService();
+		partService.addPartListener(this);
+		getCommonViewer().addSelectionChangedListener(selectionListener);
+		getCommonViewer().addFilter(new BasicWorkspaceFilter());
+		getCommonViewer().setContentProvider(new GamaFileSystemContentProvider());
+		getCommonViewer().setLabelProvider(new FileSystemLabelProvider());
+		getCommonViewer().setInput(new File(workspaceRoot));
+	}
 
 	@Override
 	public void workspaceChanged(Object e) {

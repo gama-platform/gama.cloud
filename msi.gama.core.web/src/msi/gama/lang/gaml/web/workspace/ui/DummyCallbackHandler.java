@@ -1,5 +1,6 @@
 package msi.gama.lang.gaml.web.workspace.ui;
 
+import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
@@ -13,12 +14,11 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,8 +29,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import msi.gama.rap.oauth.Authorization;
 
 /**
  * Handles the callbacks to show a RCP/RAP UI for the LoginModule.
@@ -60,8 +58,24 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 		// create OK and Cancel buttons by default
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.get().OK_LABEL,
 				true);
-		createButton(parent, IDialogConstants.CLOSE_ID,
-				IDialogConstants.get().CLOSE_LABEL, false);
+
+		final Button okButton = getButton(IDialogConstants.OK_ID);
+		okButton.setText("Login");
+		okButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(final SelectionEvent event) {
+				processCallbacks = true;
+			}
+
+			public void widgetDefaultSelected(final SelectionEvent event) {
+				// nothing to do
+			}
+		});			
+
+//		createButton(parent, IDialogConstants.CLOSE_ID,
+//				IDialogConstants.get().CLOSE_LABEL, false);
+
+		createChangePass(parent);
 
         Callback[] callbacks = getCallbacks();
 		for (int i = 0; i < callbacks.length; i++) {
@@ -73,6 +87,38 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 
 		createBrowserWidget(parent);
 	}
+
+	private void createChangePass(Composite parent) {
+		((GridLayout) parent.getLayout()).numColumns++;
+		Button button = new Button(parent, SWT.PUSH);
+		button.setText("Change Pass");
+		button.setFont(JFaceResources.getDialogFont());
+		button.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(final SelectionEvent event) {
+				try {
+
+					DummyCallbackHandler dch = new DummyCallbackHandler();
+
+					DummyProfileModule dlm = new DummyProfileModule();
+					dlm.initialize(new Subject(), dch, null, null);
+					boolean logged = false;
+//					while (!logged) {
+						logged = dlm.changepass();
+//					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				isCancelled = true;
+				processCallbacks = true;
+			}
+
+			public void widgetDefaultSelected(final SelectionEvent event) {
+				// nothing to do
+			}
+		});
+		setButtonLayoutData(button);
+	}
+
 
 	protected Control createDialogArea(Composite parent) {
 		Composite dialogarea = (Composite) super.createDialogArea(parent);
@@ -113,23 +159,24 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 	private void createGoogleSigninHander(Composite parent, final GoogleSigninCallback callback) {
 		((GridLayout) parent.getLayout()).numColumns++;
 		Button button = new Button(parent, SWT.PUSH);
-		button.setText("Google Login");
+		button.setText("Google Signin");
 		button.setFont(JFaceResources.getDialogFont());
 		setButtonLayoutData(button);
 		
 		
 		button.addSelectionListener(new SelectionAdapter() {
-			@SuppressWarnings("unused")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				HttpSession session = RWT.getRequest().getSession();
-				int localPort = RWT.getRequest().getLocalPort();
-				String authorizationURL = new Authorization(session).getURL(localPort);
+//				int localPort = RWT.getRequest().getLocalPort();
+//				String authorizationURL = new Authorization(session).getURL(localPort);
 				String authorizationJavaScriptURL = "/oauthJS";
-				String googleURL = "https://www.google.com/custom";
+//				String googleURL = "https://www.google.com/custom";
 				String url = authorizationJavaScriptURL + "?sessionId=" + session.getId() + "&" + getCid();
 				System.out.println("open in browser widget: " + url);
 				browser.setUrl(url);
+//				processCallbacks=true;
+
 			}
 		});
 
@@ -186,5 +233,6 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 	}
 
 	public void internalHandle() {
+		
 	}
 }

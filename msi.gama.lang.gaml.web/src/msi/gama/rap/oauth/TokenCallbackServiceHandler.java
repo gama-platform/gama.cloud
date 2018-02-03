@@ -39,14 +39,16 @@ import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
+import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
+
 public class TokenCallbackServiceHandler implements ServiceHandler {
 
-	private static final HttpTransport TRANSPORT = new NetHttpTransport();
-	private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
+	public static final HttpTransport TRANSPORT = new NetHttpTransport();
+	public static final JacksonFactory JSON_FACTORY = new JacksonFactory();
 
 	private final GoogleClientSecrets clientSecrets = Authorization.clientSecrets;
 
-	public TokenCallbackServiceHandler() {
+	public TokenCallbackServiceHandler(BasicWorkbench bw) {
 
 	}
 
@@ -67,6 +69,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			if (token != null && !token.equals("undefined")) {
 				System.out.println("token=" + token);
 				handleIdToken(request.getParameter("idToken"));
+//				RWT.get
 				handleToken(token);
 				out.println("callback Token OK");
 			} else {
@@ -116,6 +119,9 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			System.out.println("created credentials from access token: " + credential.getAccessToken());
 			System.out.println("credentials' refresh token: " + credential.getRefreshToken());
 			System.out.println("credentials expire in " + credential.getExpiresInSeconds() + "s");
+			
+			RWT.getApplicationContext().setAttribute("credential", credential);
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -123,14 +129,6 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 		}
 
 	}
-
-    private static final List<String> SCOPES =
-        Arrays.asList(DriveScopes.DRIVE_APPDATA);
-
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-        System.getProperty("user.home"), "./credentials/drive-java-quickstart");
-
-    private static FileDataStoreFactory DATA_STORE_FACTORY;
 
 	/*
 	 * 2014-02-05 I guess, using the token on the server will only work as long as I

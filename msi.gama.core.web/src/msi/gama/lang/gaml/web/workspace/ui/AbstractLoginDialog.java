@@ -22,6 +22,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
@@ -63,47 +64,7 @@ public abstract class AbstractLoginDialog extends TitleAreaDialog implements Cal
 			public void run() {
 				isCancelled = false;
 				setBlockOnOpen(false);
-				open();
-				final Button okButton = getButton(IDialogConstants.OK_ID);
-				okButton.setText("OK");
-				okButton.addSelectionListener(new SelectionListener() {
-
-					public void widgetSelected(final SelectionEvent event) {
-						processCallbacks = true;
-					}
-
-					public void widgetDefaultSelected(final SelectionEvent event) {
-						// nothing to do
-					}
-				});
-				final Button cancel = getButton(IDialogConstants.CANCEL_ID);
-				if (callbacks.length<4) {
-					cancel.setText("Change pass");
-					cancel.addSelectionListener(new SelectionListener() {
-
-						public void widgetSelected(final SelectionEvent event) {
-							try {
-
-								DummyCallbackHandler dch = new DummyCallbackHandler();
-
-								DummyProfileModule dlm = new DummyProfileModule();
-								dlm.initialize(new Subject(), dch, null, null);
-								boolean logged = false;
-//								while (!logged) {
-									logged = dlm.changepass();
-//								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-							isCancelled = true;
-							processCallbacks = true;
-						}
-
-						public void widgetDefaultSelected(final SelectionEvent event) {
-							// nothing to do
-						}
-					});
-				}
+				open();	
 			}
 		});
 		try {
@@ -117,7 +78,7 @@ public abstract class AbstractLoginDialog extends TitleAreaDialog implements Cal
 					// is responsible for closing the dialog (in the
 					// loginSucceeded
 					// event).
-					while (!processCallbacks) {
+					while (!processCallbacks && (RWT.getApplicationContext().getAttribute("credential")==null)) {
 						try {
 							Thread.sleep(100);
 						} catch (final Exception e) {
@@ -131,9 +92,7 @@ public abstract class AbstractLoginDialog extends TitleAreaDialog implements Cal
 				}
 			}, true, new NullProgressMonitor(), Display.getDefault());
 		} catch (final Exception e) {
-			final IOException ioe = new IOException();
-			ioe.initCause(e);
-			throw ioe;
+			e.printStackTrace();
 		}
 	}
 

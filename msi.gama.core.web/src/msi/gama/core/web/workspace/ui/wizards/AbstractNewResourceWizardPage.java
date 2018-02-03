@@ -37,6 +37,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 
+import msi.gama.lang.gaml.web.workspace.ui.GamaFileSystemContentProvider;
+
 @SuppressWarnings("serial")
 public abstract class AbstractNewResourceWizardPage extends WizardPage {
 
@@ -64,7 +66,7 @@ public abstract class AbstractNewResourceWizardPage extends WizardPage {
 		gd.heightHint = convertHeightInCharsToPixels(15);
 		treeViewer.getTree().setLayoutData(gd);
 		treeViewer.setLabelProvider(new FileSystemLabelProvider());
-		treeViewer.setContentProvider(new FileSystemContentProvider());
+		treeViewer.setContentProvider(new GamaFileSystemContentProvider());
 		treeViewer.addFilter(new BasicWorkspaceFilter());
 		treeViewer.setInput(WorkspaceManager.INSTANCE.getWorkspaceRootFolder());
 		return treeViewer;

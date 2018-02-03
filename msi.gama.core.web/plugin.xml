@@ -658,6 +658,14 @@
             name="Console"
             restorable="false">
       </view>
+      <view
+            allowMultiple="false"
+            class="msi.gama.lang.gaml.web.workspace.ui.GamlWokspaceNavigator"
+            icon="icons/earth_view.png"
+            id="org.dslforge.navigator.view"
+            name="Project Explorer"
+            restorable="true">
+      </view>
       <!--
       <view
             allowMultiple="false"
@@ -1233,8 +1241,30 @@
          </with>
       </definition>
    </extension>
-   
-   
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="msi.gama.lang.gaml.web.workspace.ui.GamaFileSystemContentProvider"
+            id="org.dslforge.navigator.fileContent"
+            labelProvider="org.dslforge.workspace.ui.FileSystemLabelProvider"
+            name="Workspace Content"
+            priority="high">
+         <triggerPoints>
+            <instanceof
+                  value="java.io.File">
+            </instanceof>
+         </triggerPoints>
+      </navigatorContent>
+      <commonFilter
+            activeByDefault="false"
+            class="org.dslforge.workspace.ui.BasicWorkspaceFilter"
+            description="a filter example"
+            id="org.dslforge.workspace.commonFilter2"
+            name=".* resources"
+            visibleInUI="true">
+      </commonFilter>
+   </extension>
    
    <extension
          point="org.eclipse.core.expressions.propertyTesters">

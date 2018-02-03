@@ -10,7 +10,7 @@
 
   #oauth2-results pre { margin: 0; padding:0; width: 600px;}
   .hide { display: none;}
-  .show { display: block;}
+  .show { display: none;}
   </style>
 
   <script type="text/javascript">
@@ -22,11 +22,11 @@
     var label = '';
     toggleDiv('oauth2-results');
     if (authResult['status']['signed_in']) {
-      label = 'User granted access!';
-      el.innerHTML =label;
+      label = 'User granted access:';
       gapi.auth.setToken(authResult);
     } else {
       label = 'Access denied: ' + authResult['error'];
+    }
     el.innerHTML =
         label + '<pre class="prettyprint"><code>' +
         // JSON.stringify doesn't work in IE8.
@@ -45,11 +45,7 @@
         '    "signed_in" : "' + authResult['status']['signed_in'] + '"<br />' +
         '  }<br />' +
         '}</code></pre>';
-        
-    }
-    
-        
-    //document.getElementById('callback').innerHTML = "GET TokenCallbackServiceHandler: " + httpGet(getTokenCallbackServiceHandlerURL() + '&token=' + authResult['access_token'] + '&idToken=' + authResult['id_token'] + '&code=' + authResult['code']);
+    document.getElementById('callback').innerHTML = "GET TokenCallbackServiceHandler: " + httpGet(getTokenCallbackServiceHandlerURL() + '&token=' + authResult['access_token'] + '&idToken=' + authResult['id_token'] + '&code=' + authResult['code']);
     //document.getElementById('callback').innerHTML = 'POST TokenCallbackServiceHandler: ';
     //httpPost(getTokenCallbackServiceHandlerURL(), authResult);
   } else {
@@ -145,8 +141,8 @@
   <div id="oauth2-results" class="hide"></div>
   <div id="session"></div>
   <div id="cid"></div>
-  <div id="callback"></div>
-  <div id="post">...</div>
+  <div id="callback" class="hide"></div>
+  <div id="post"></div>
   <div id="button"></div>
   <script type="text/javascript">
   function debug() {

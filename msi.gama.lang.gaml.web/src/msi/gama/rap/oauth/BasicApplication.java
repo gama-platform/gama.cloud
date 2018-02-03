@@ -15,7 +15,7 @@ public class BasicApplication implements ApplicationConfiguration {
     Map<String, String> properties = new HashMap<String, String>();
     properties.put( WebClient.PAGE_TITLE, "OAuth Demo" );
     application.addEntryPoint( "/auth", BasicEntryPoint.class, properties );
-    application.addServiceHandler( "tokenCallback", new TokenCallbackServiceHandler() );
+    application.addServiceHandler( "tokenCallback", new TokenCallbackServiceHandler(null) );
   }
 
 }
