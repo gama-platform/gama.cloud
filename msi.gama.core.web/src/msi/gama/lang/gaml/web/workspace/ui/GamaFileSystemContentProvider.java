@@ -15,7 +15,6 @@
  */
 package msi.gama.lang.gaml.web.workspace.ui;
 
-
 import java.util.ArrayList;
 
 import org.dslforge.workspace.ui.FileSystemContentProvider;
@@ -32,7 +31,7 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
-public class GamaFileSystemContentProvider implements ITreeContentProvider  {
+public class GamaFileSystemContentProvider implements ITreeContentProvider {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,10 +39,10 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider  {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-//		if (inputElement instanceof File) {
-//			rootDirectory = (File) inputElement;
-//			return getChildren(rootDirectory);
-//		}
+		// if (inputElement instanceof File) {
+		// rootDirectory = (File) inputElement;
+		// return getChildren(rootDirectory);
+		// }
 		if (inputElement instanceof java.io.File) {
 			rootDirectory = (java.io.File) inputElement;
 			return getChildren(rootDirectory);
@@ -69,41 +68,43 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider  {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		GoogleCredential credential = (GoogleCredential) RWT.getApplicationContext().getAttribute("credential");
-		String token=credential.getAccessToken();
+		String token = credential.getAccessToken();
 		TokenResponse tokenResponse = new TokenResponse();
 		tokenResponse.setAccessToken(token);
 		tokenResponse.setTokenType("bearer");
 		tokenResponse.setScope(DriveScopes.DRIVE_FILE);
-//		GoogleCredential credential = new GoogleCredential.Builder().setJsonFactory(JSON_FACTORY)
-//			.setTransport(TRANSPORT).setClientSecrets(clientSecrets).build().setFromTokenResponse(tokenResponse);
-		
-        try {
+		// GoogleCredential credential = new
+		// GoogleCredential.Builder().setJsonFactory(JSON_FACTORY)
+		// .setTransport(TRANSPORT).setClientSecrets(clientSecrets).build().setFromTokenResponse(tokenResponse);
+
+		try {
 
 			// Use access token to call API
 			Drive drive = new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
 					.setApplicationName("GAMA Cloud").build();
-			
-			String pageToken = null;
-			ArrayList<GDriveFile> lf=new ArrayList(); 
-			do {
-			  FileList result = drive.files().list()
-			      .setSpaces("drive") 
-			      .setQ("'root' in parents and trashed = false")
-		          
-			      .setPageToken(pageToken)
-			      .execute();
 
-			  for (File file : result.getItems()) {
-				  GDriveFile gf=new GDriveFile(file.getTitle());
-				  lf.add(gf);
-//					if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
-//						System.out.printf(">>Folder ");
-//					}				
-//					System.out.printf(" %s \n",file.getTitle());
-					
-			  }
-			  pageToken = result.getNextPageToken();					
-//			  System.out.printf("---------pageToken %s \n",pageToken);
+			String pageToken = null;
+			ArrayList<GDriveFile> lf = new ArrayList();
+			do {
+				FileList result = drive.files().list().setSpaces("drive").setQ("'root' in parents and trashed = false")
+
+						.setPageToken(pageToken).execute();
+
+				for (File file : result.getItems()) {
+					GDriveFile gf = new GDriveFile(file.getTitle());
+
+					if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+						gf.isDir = true;
+					}
+					lf.add(gf);
+					// if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+					// System.out.printf(">>Folder ");
+					// }
+					// System.out.printf(" %s \n",file.getTitle());
+
+				}
+				pageToken = result.getNextPageToken();
+				// System.out.printf("---------pageToken %s \n",pageToken);
 
 			} while (pageToken != null);
 			return lf.toArray();
@@ -111,18 +112,17 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-//		if (parentElement instanceof File) {
-//			File file = (File) parentElement;
-//			if (file.isDirectory()) {
-//				File[] f=file.listFiles();
-////				for(int i=0; i<f.length; i++) {
-////					f[i]=new File(f[i].getAbsolutePath()+"  x");
-////				}
-//				return f;
-//			}
-//		}
+
+		// if (parentElement instanceof File) {
+		// File file = (File) parentElement;
+		// if (file.isDirectory()) {
+		// File[] f=file.listFiles();
+		//// for(int i=0; i<f.length; i++) {
+		//// f[i]=new File(f[i].getAbsolutePath()+" x");
+		//// }
+		// return f;
+		// }
+		// }
 		return new Object[] {};
 	}
 
@@ -134,9 +134,9 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider  {
 	public Object getParent(Object element) {
 		if (element instanceof File) {
 			File file = (File) element;
-//			if (file.getParent() != null)
-//				return new File(file.getParent());
-			if(file.getParents().size()>0) {
+			// if (file.getParent() != null)
+			// return new File(file.getParent());
+			if (file.getParents().size() > 0) {
 				return file.getParents();
 			}
 		}
@@ -149,13 +149,10 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider  {
 	 */
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof File) {
-			File file = (File) element;
-//			if (file.isDirectory()) {
-//				if (file.list().length > 0)
-//					return true;
-//			}
-			if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+		if (element instanceof GDriveFile) {
+			GDriveFile file = (GDriveFile) element;
+			if (file.isDirectory()) {
+				// if (file.list().length > 0)
 				return true;
 			}
 		}
