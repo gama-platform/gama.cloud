@@ -587,7 +587,7 @@
 <unit id="ummisco.gama.feature.experiment.ui.feature.group" version="1.7.0.201801310219"/>
 <unit id="ummisco.gama.feature.modeling.ui.feature.group" version="1.7.0.201801310219"/>
 <unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.201801310219"/>
-<repository location="http://gama-platform.org/updates"/>
+<repository location="http://gama-platform.org/updates/oxygen"/>
 </location>
 </locations>
 </target>
