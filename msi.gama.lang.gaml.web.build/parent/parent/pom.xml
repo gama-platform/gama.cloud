@@ -265,7 +265,7 @@
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
-			<id>gama</id>
+			<id>gamaoxygen</id>
 			<url>http://gama-platform.org/updates/oxygen</url>
 			<releases>
 				<enabled>true</enabled>
