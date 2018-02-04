@@ -265,6 +265,16 @@
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
+			<id>gama</id>
+			<url>http://gama-platform.org/updates/oxygen</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
 			<id>gemini</id>
 			<url>http://download.eclipse.org/gemini/jpa/updates/</url>
 			<releases>
