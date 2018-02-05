@@ -31,12 +31,11 @@ Require-Bundle: org.eclipse.rap.ui,
  org.dslforge.workspace,
  msi.gama.ext,
  msi.gama.core,
- msi.gama.core.web;bundle-version="1.0.0",
- org.apache.log4j;bundle-version="1.2.15",
- javax.persistence;bundle-version="2.2.0",
- javax.servlet;bundle-version="3.1.0",
+ msi.gama.core.web,
  org.dslforge.workspace.jpa,
- org.dslforge.workspace.config
+ org.dslforge.workspace.config,
+ javax.servlet,
+ org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: msi.gama.lang.gaml.ui.labeling,
  msi.gama.lang.gaml.web.contentassist,
