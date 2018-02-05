@@ -55,7 +55,7 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IPartService partService = workbench.getActiveWorkbenchWindow().getPartService();
 		partService.addPartListener(this);
-		getCommonViewer().addSelectionChangedListener(selectionListener);
+//		getCommonViewer().addSelectionChangedListener(selectionListener);
 		getCommonViewer().addFilter(new BasicWorkspaceFilter());
 		getCommonViewer().setContentProvider(new GamaFileSystemContentProvider());
 		getCommonViewer().setLabelProvider(new FileSystemLabelProvider());
