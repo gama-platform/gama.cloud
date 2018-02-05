@@ -28,7 +28,7 @@ public class OAuthCallbackServlet extends HttpServlet {
   private static final HttpTransport TRANSPORT = new NetHttpTransport();
   private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
 
-  private static GoogleClientSecrets clientSecrets = Authorization.clientSecrets;
+  private static GoogleClientSecrets clientSecrets = Authorization.getClientSecrets();
 
   @Override
   protected void doGet( HttpServletRequest request, HttpServletResponse response )

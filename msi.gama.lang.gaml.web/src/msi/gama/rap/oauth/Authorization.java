@@ -4,6 +4,7 @@ package msi.gama.rap.oauth;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -15,6 +16,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
+
 public class Authorization {
 
   private static final HttpTransport TRANSPORT = new NetHttpTransport();
@@ -24,19 +27,30 @@ public class Authorization {
    */
   private static final String PLAIN_PROFILE_SCOPE = "profile";
   private static final String FULL_PLUS_PROFILE_SCOPE = "https://www.googleapis.com/auth/drive";
-  private static final String CLIENT_SECRETS_RESOURCE = "client_secrets.json";
+  private static final String CLIENT_SECRETS_RESOURCE = "/src-js/client_secrets.json";
 
   static {
-    try {
-      InputStream clientSecretsStream = BasicEntryPoint.class.getClassLoader()
-        .getResourceAsStream( CLIENT_SECRETS_RESOURCE );
-      InputStreamReader clientSecretsReader = new InputStreamReader( clientSecretsStream );
-      clientSecrets = GoogleClientSecrets.load( JSON_FACTORY, clientSecretsReader );
-    } catch( IOException e ) {
-      throw new Error( String.format( "No %s found", CLIENT_SECRETS_RESOURCE ), e );
-    }
+	  getClientSecrets();
   }
-
+public static GoogleClientSecrets getClientSecrets() {
+	if(clientSecrets==null) {		
+//	 URL url;
+	 try {
+//	        url = new URL("platform:/plugin/msi.gama.lang.gaml.web/src-js/"+CLIENT_SECRETS_RESOURCE);
+//	    InputStream inputStream = url.openConnection().getInputStream();
+	   
+	      InputStream clientSecretsStream = BasicWorkbench.class.getClassLoader()
+	        .getResourceAsStream( CLIENT_SECRETS_RESOURCE);
+	      
+	      
+	      InputStreamReader clientSecretsReader = new InputStreamReader( clientSecretsStream );
+	      clientSecrets = GoogleClientSecrets.load( JSON_FACTORY, clientSecretsReader );
+	    } catch( IOException e ) {
+	      throw new Error( String.format( "No %s found", CLIENT_SECRETS_RESOURCE ), e );
+	    }
+	}
+	 return clientSecrets;
+}
   static GoogleClientSecrets clientSecrets;
   
   // not yet unique cross-site-request-forgery see

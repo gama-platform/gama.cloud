@@ -46,7 +46,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 	public static final HttpTransport TRANSPORT = new NetHttpTransport();
 	public static final JacksonFactory JSON_FACTORY = new JacksonFactory();
 
-	private final GoogleClientSecrets clientSecrets = Authorization.clientSecrets;
+	private final GoogleClientSecrets clientSecrets = Authorization.getClientSecrets();
 
 	public TokenCallbackServiceHandler(BasicWorkbench bw) {
 
