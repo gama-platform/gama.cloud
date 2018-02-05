@@ -8,7 +8,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <groupId>msi.gama</groupId>
   </parent>
-	<groupId>ummisco.gama</groupId>
+	<groupId>msi.gama</groupId>
 	<artifactId>GamaWeb</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>GamaWeb</name>
