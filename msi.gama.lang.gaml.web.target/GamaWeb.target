@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Gaml" sequenceNumber="65">
+<?pde version="3.8"?><target name="Gaml" sequenceNumber="66">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.xtend.sdk.feature.group" version="2.13.0.v20171020-0920"/>
@@ -567,6 +567,32 @@
 <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
 <repository location="http://download.eclipse.org/releases/oxygen"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.e4.rcp.feature.group" version="1.6.2.v20171129-0543"/>
+<unit id="org.eclipse.ecf.core.feature.feature.group" version="1.4.0.v20170516-2248"/>
+<unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.8.v20170715-2257"/>
+<unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.13.8.v20170715-2257"/>
+<unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.emf.common.feature.group" version="2.13.0.v20170609-0707"/>
+<unit id="org.eclipse.emf.ecore.feature.group" version="2.13.0.v20170609-0707"/>
+<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.4.1.v20170928-1405"/>
+<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.3.1.v20170928-1405"/>
+<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.3.2.v20171108-1343"/>
+<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.3.2.v20171108-1343"/>
+<unit id="org.eclipse.rcp.feature.group" version="4.7.2.v20171130-0510"/>
+<unit id="ummisco.gama.application.product" version="1.7.0.201802050229"/>
+<unit id="ummisco.gama.application.runtime.product" version="1.7.0.201802050229"/>
+<unit id="ummisco.gama.feature.core.extensions.feature.group" version="1.7.0.201802050222"/>
+<unit id="ummisco.gama.feature.core.feature.group" version="1.7.0.201802050228"/>
+<unit id="ummisco.gama.feature.core.ui.feature.group" version="1.7.0.201802050222"/>
+<unit id="ummisco.gama.feature.dependencies.feature.group" version="1.7.0.201802050222"/>
+<unit id="ummisco.gama.feature.experiment.ui.feature.group" version="1.7.0.201802050222"/>
+<unit id="ummisco.gama.feature.modeling.ui.feature.group" version="1.7.0.201802050222"/>
+<unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.201802050222"/>
+<repository location="http://gama-platform.org/updates/oxygen"/>
 </location>
 </locations>
 </target>
