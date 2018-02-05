@@ -1,51 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Gaml" sequenceNumber="59">
+<?pde version="3.8"?><target name="Gaml" sequenceNumber="65">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.rap.addons.chart.demo" version="0.1.0.20160622-0732"/>
-<unit id="org.eclipse.rap.addons.chart.demo.source" version="0.1.0.20160622-0732"/>
-<unit id="org.eclipse.rap.addons.chart.feature.feature.group" version="0.1.0.20160622-0732"/>
-<unit id="org.eclipse.rap.addons.dropdown.demo.examples" version="1.0.0.20160126-1309"/>
-<unit id="org.eclipse.rap.clientscripting.examples.feature.feature.group" version="0.2.0.20140425-1548"/>
-<unit id="org.eclipse.rap.clientscripting.feature.feature.group" version="0.2.0.20140425-1548"/>
-<unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
-<unit id="org.eclipse.rap.demo.ckeditor" version="0.2.0.20150623-1041"/>
-<unit id="org.eclipse.rap.dropdown.feature.feature.group" version="0.3.0.20161122-1051"/>
-<unit id="org.eclipse.rap.examples.pages.ckeditor" version="0.2.0.20150623-1041"/>
-<unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
-<unit id="org.eclipse.rap.gef.feature.feature.group" version="0.1.0.20170413-1152"/>
-<unit id="org.eclipse.rap.pde.feature.feature.group" version="0.1.0.20170322-1101"/>
-<unit id="org.eclipse.rap.richtext.feature.feature.group" version="0.2.0.20150623-1041"/>
-<unit id="org.eclipse.rap.tabbed-properties.feature.feature.group" version="0.1.0.20140426-0943"/>
-<unit id="org.eclipse.rap.visualization.feature.feature.group" version="1.5.0.20120725-0824"/>
-<repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
+<unit id="org.eclipse.xtend.sdk.feature.group" version="2.13.0.v20171020-0920"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.13.0/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
 <unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
 <repository location="http://dslforge.org/downloads/runtime/repository"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.persistence.sdk.feature.group" version="2.6.4.v20160829-44060b6"/>
-<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
-<repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-<unit id="org.eclipse.jdt.feature.group" version="3.13.2.v20171130-0906"/>
-<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
-<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
-<unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
-<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
-<repository location="http://download.eclipse.org/releases/oxygen"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="ca.odell.glazedlists" version="1.9.0.v201303080712"/>
@@ -568,30 +532,41 @@
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.e4.rcp.feature.group" version="1.6.2.v20171129-0543"/>
-<unit id="org.eclipse.ecf.core.feature.feature.group" version="1.4.0.v20170516-2248"/>
-<unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-<unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.8.v20170715-2257"/>
-<unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.13.8.v20170715-2257"/>
-<unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-<unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-<unit id="org.eclipse.emf.common.feature.group" version="2.13.0.v20170609-0707"/>
-<unit id="org.eclipse.emf.ecore.feature.group" version="2.13.0.v20170609-0707"/>
-<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.4.1.v20170928-1405"/>
-<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.3.1.v20170928-1405"/>
-<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.3.2.v20171108-1343"/>
-<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.3.2.v20171108-1343"/>
-<unit id="org.eclipse.rcp.feature.group" version="4.7.2.v20171130-0510"/>
-<unit id="ummisco.gama.application.product" version="1.7.0.201802050229"/>
-<unit id="ummisco.gama.application.runtime.product" version="1.7.0.201802050229"/>
-<unit id="ummisco.gama.feature.core.extensions.feature.group" version="1.7.0.201802050222"/>
-<unit id="ummisco.gama.feature.core.feature.group" version="1.7.0.201802050228"/>
-<unit id="ummisco.gama.feature.core.ui.feature.group" version="1.7.0.201802050222"/>
-<unit id="ummisco.gama.feature.dependencies.feature.group" version="1.7.0.201802050222"/>
-<unit id="ummisco.gama.feature.experiment.ui.feature.group" version="1.7.0.201802050222"/>
-<unit id="ummisco.gama.feature.modeling.ui.feature.group" version="1.7.0.201802050222"/>
-<unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.201802050222"/>
-<repository location="http://gama-platform.org/updates/oxygen"/>
+<unit id="org.eclipse.rap.addons.chart.demo" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.chart.demo.source" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.chart.feature.feature.group" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.dropdown.demo.examples" version="1.0.0.20160126-1309"/>
+<unit id="org.eclipse.rap.clientscripting.examples.feature.feature.group" version="0.2.0.20140425-1548"/>
+<unit id="org.eclipse.rap.clientscripting.feature.feature.group" version="0.2.0.20140425-1548"/>
+<unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
+<unit id="org.eclipse.rap.demo.ckeditor" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.dropdown.feature.feature.group" version="0.3.0.20161122-1051"/>
+<unit id="org.eclipse.rap.examples.pages.ckeditor" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
+<unit id="org.eclipse.rap.gef.feature.feature.group" version="0.1.0.20170413-1152"/>
+<unit id="org.eclipse.rap.pde.feature.feature.group" version="0.1.0.20170322-1101"/>
+<unit id="org.eclipse.rap.richtext.feature.feature.group" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.tabbed-properties.feature.feature.group" version="0.1.0.20140426-0943"/>
+<unit id="org.eclipse.rap.visualization.feature.feature.group" version="1.5.0.20120725-0824"/>
+<repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.persistence.sdk.feature.group" version="2.6.4.v20160829-44060b6"/>
+<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
+<repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.jdt.feature.group" version="3.13.2.v20171130-0906"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
+<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
+<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 </locations>
 </target>

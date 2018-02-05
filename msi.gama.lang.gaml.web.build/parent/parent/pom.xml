@@ -253,6 +253,15 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
+		</pluginRepository><pluginRepository>
+			<id>eclipse</id>
+			<url>http://download.eclipse.org/releases/oxygen</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
 			<id>gamaoxygen</id>
