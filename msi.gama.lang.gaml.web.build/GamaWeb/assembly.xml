@@ -8,9 +8,11 @@
     <fileSet>
       <directory>${basedir}/target/products/${artifactId}/linux/gtk/x86_64</directory>
       <outputDirectory>/WEB-INF</outputDirectory>
+      <!-- 
       <excludes>
         <exclude>plugins/javax.servlet*.jar</exclude>
       </excludes>
+       -->
     </fileSet>
     <fileSet>
       <directory>${basedir}/rootfiles</directory>

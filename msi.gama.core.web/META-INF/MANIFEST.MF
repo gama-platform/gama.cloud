@@ -28,13 +28,13 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.rap.fileupload,
  org.eclipse.rap.filedialog,
  org.eclipse.rap.addons.filedialog,
- org.dslforge.workspace,
- org.dslforge.workspace.ui,
+ org.dslforge.workspace;visibility:=reexport,
+ org.dslforge.workspace.ui;visibility:=reexport,
  org.apache.log4j,
- javax.servlet,
+ org.dslforge.workspace.jpa;visibility:=reexport,
+ org.dslforge.workspace.config;visibility:=reexport,
  javax.persistence,
- org.dslforge.workspace.jpa,
- org.dslforge.workspace.config
+ javax.servlet;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  lib/google-api-client-1.23.0.jar,
