@@ -255,16 +255,6 @@
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
-			<id>gama</id>
-			<url>http://gama-platform.org/updates/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
 			<id>gamaoxygen</id>
 			<url>http://gama-platform.org/updates/oxygen</url>
 			<releases>
