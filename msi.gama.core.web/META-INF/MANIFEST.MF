@@ -30,11 +30,11 @@ Require-Bundle: org.eclipse.rap.ui,
  org.eclipse.rap.addons.filedialog,
  org.dslforge.workspace,
  org.dslforge.workspace.ui,
- org.apache.log4j;bundle-version="1.2.15",
- javax.servlet;bundle-version="3.1.0",
- javax.persistence;bundle-version="2.2.0",
- org.dslforge.workspace.jpa;bundle-version="0.9.1",
- org.dslforge.workspace.config;bundle-version="0.9.1"
+ org.apache.log4j,
+ javax.servlet,
+ javax.persistence,
+ org.dslforge.workspace.jpa,
+ org.dslforge.workspace.config
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  lib/google-api-client-1.23.0.jar,
