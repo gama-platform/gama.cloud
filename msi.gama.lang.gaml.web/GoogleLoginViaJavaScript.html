@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google+ Sign-in button demo: JavaScript flow</title>
+  <style type="text/css">
+  html, body { margin: 0; padding:0;}
+  #signin-button {
+   padding: 5px;
+  }
+
+  #oauth2-results pre { margin: 0; padding:0; width: 600px;}
+  .hide { display: none;}
+  .show { display: none;}
+  </style>
+
+  <script type="text/javascript">
+
+  var loginFinished = function(authResult) {
+  if (authResult) {
+    console.log(authResult);
+    var el = document.getElementById('oauth2-results');
+    var label = '';
+    toggleDiv('oauth2-results');
+    if (authResult['status']['signed_in']) {
+      label = 'User granted access:';
+      gapi.auth.setToken(authResult);
+    } else {
+      label = 'Access denied: ' + authResult['error'];
+    }
+    el.innerHTML =
+        label + '<pre class="prettyprint"><code>' +
+        // JSON.stringify doesn't work in IE8.
+        '{<br />' +
+        '  "token_type" : "' + authResult['token_type'] +'",<br />' +
+        '  "id_token" : "' + authResult['id_token'] +'",<br />' +
+        '  "access_token" : "' + authResult['access_token'] + '",<br />' +
+        '  "state" : "' + authResult['state'] + '",<br />' +
+        '  "expires_in" : "' + authResult['expires_in'] + '",<br />' +
+        '  "error" : "' + authResult['error'] + '",<br />' +
+        '  "error_description" : "' + authResult['error_description'] + '",<br />' +
+        '  "authUser" : "' + authResult['authuser'] + '",<br />' +
+        '  "status" : {"' + '<br />' +
+        '    "google_logged_in" : "' + authResult['status']['google_logged_in'] + '",<br />' +
+        '    "method" : "' + authResult['status']['method'] + '",<br />' +
+        '    "signed_in" : "' + authResult['status']['signed_in'] + '"<br />' +
+        '  }<br />' +
+        '}</code></pre>';
+    document.getElementById('callback').innerHTML = "GET TokenCallbackServiceHandler: " + httpGet(getTokenCallbackServiceHandlerURL() + '&token=' + authResult['access_token'] + '&idToken=' + authResult['id_token'] + '&code=' + authResult['code']);
+    //document.getElementById('callback').innerHTML = 'POST TokenCallbackServiceHandler: ';
+    //httpPost(getTokenCallbackServiceHandlerURL(), authResult);
+  } else {
+    document.getElementById('oauth2-results').innerHTML = 'Empty authResult';
+  }
+  };
+
+  function getTokenCallbackServiceHandlerURL() {
+    return location.protocol + "//" + location.hostname + ":" + location.port + "/texteditor?servicehandler=tokenCallback&cid=" + QueryParameters["cid"];
+  }
+
+  function toggleDiv(id) {
+    var div = document.getElementById(id);
+    if (div.getAttribute('class') == 'hide') {
+      div.setAttribute('class', 'show');
+    } else {
+      div.setAttribute('class', 'hide');
+    }
+  }
+
+  // Creates associative array (object) of query params
+  // taken from http://geekswithblogs.net/PhubarBaz/archive/2011/11/21/getting-query-parameters-in-javascript.aspx
+  var QueryParameters = (function()
+  {
+    var result = {};
+
+    if (window.location.search)
+    {
+        // split up the query string and store in an associative array
+        var params = window.location.search.slice(1).split("&");
+        for (var i = 0; i < params.length; i++)
+        {
+            var tmp = params[i].split("=");
+            result[tmp[0]] = unescape(tmp[1]);
+        }
+    }
+
+    return result;
+  }());
+
+  // taken from http://stackoverflow.com/questions/247483/http-get-request-in-javascript
+  function httpGet(theUrl)
+  {
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+  }
+
+  // taken from http://stackoverflow.com/questions/1255948/post-data-in-json-format-with-javascript
+  function httpPost(theUrl, data)
+  {
+    console.log('post to:' + theUrl);
+    // construct an HTTP request
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", theUrl, false);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+    // send the collected data as JSON
+    xhr.send(JSON.stringify(data));
+
+    xhr.onloadend = function () {
+      document.getElementById('post').innerHTML = 'POST done';
+      // done
+    };
+  }
+
+  var options = {
+    'callback' : loginFinished,
+    'approvalprompt' : 'force',
+    'accesstype' : 'offline',
+    // https://developers.google.com/+/api/oauth#scopes
+    'scope' : 'https://www.googleapis.com/auth/drive',
+    'clientid' : '835218236857-pq8m60p0k4rg26fn48vkaigqnc72c6p6.apps.googleusercontent.com',
+    'cookiepolicy' : 'single_host_origin'
+  };
+  
+  function startFlow() {
+    toggleDiv('startFlow');
+    // see: https://developers.google.com/+/web/api/javascript#gapiauthsigninparameters
+    gapi.auth.signIn(options);
+  }
+  
+  </script>
+  <script src="https://apis.google.com/js/client:platform.js" type="text/javascript"></script>
+</head>
+<body onload="startFlow()">
+  <div id="startFlow">
+    <a class="button button-blue" href="javascript:startFlow();">Click me</a> to trigger the sign-in flow with <code>gapi.auth.signIn()</code>
+  </div>
+  <div id="oauth2-results" class="hide"></div>
+  <div id="session"></div>
+  <div id="cid"></div>
+  <div id="callback" class="hide"></div>
+  <div id="post"></div>
+  <div id="button"></div>
+  <script type="text/javascript">
+  function debug() {
+    gapi.signin.render('button', options);
+  	document.getElementById('debug').innerHTML += "HTTP session: " + QueryParameters["sessionId"];
+  	document.getElementById('debug').innerHTML += "<br/>CID: " + QueryParameters["cid"];
+  	document.getElementById('debug').innerHTML += "<br/>base URL: " + location.protocol + "//" + location.hostname + ":" + location.port;
+  	document.getElementById('debug').innerHTML += "<br/>URL: " + window.location;
+  }
+  </script>
+  <div id="debug"></div>
+</body>
+</html>
