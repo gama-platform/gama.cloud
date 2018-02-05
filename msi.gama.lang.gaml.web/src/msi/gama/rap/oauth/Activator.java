@@ -84,7 +84,7 @@ public class Activator extends AbstractUIPlugin {
 			try {
 				httpService.registerServlet("/" + START_OAUTH_SERVLET_NAME, new ConnectServlet(), null, null);
 				httpService.registerServlet("/" + OAUTH_CALLBACK_SERVLET_NAME, new OAuthCallbackServlet(), null, null);
-				httpService.registerResources("/oauthJS", "GoogleLoginViaJavaScript.html", null);				
+				httpService.registerResources("/oauthJS", "/src-js/GoogleLoginViaJavaScript.html", null);				
 			} catch (ServletException e) {
 				throwInitializationException(e);
 			} catch (NamespaceException e) {
