@@ -31,7 +31,6 @@
 				<version>${tycho.version}</version>
 				<configuration>
 					<filters>
-					<!-- 
 						<filter>
 							<type>java-package</type>
 							<id>javax.servlet</id>
@@ -40,7 +39,6 @@
 								<id>javax.servlet</id>
 							</restrictTo>
 						</filter>
-					 -->
 						<filter>
 							<type>eclipse-plugin</type>
 							<id>org.antlr.runtime</id>

@@ -43,6 +43,7 @@
 			</plugin>
 
 			<!-- Remove javax.servlet from the bundles.info 
+			-->
 			<plugin>
 				<groupId>com.google.code.maven-replacer-plugin</groupId>
 				<artifactId>maven-replacer-plugin</artifactId>
@@ -73,7 +74,6 @@
 					</regexFlags>
 				</configuration>
 			</plugin>
-			-->
 
 			<!-- Configure the assembly plugin to zip the war file -->
 			<plugin>
