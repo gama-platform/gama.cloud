@@ -638,8 +638,10 @@ function WebGLJS(e) {
 	};
 
 	this.glBufferSubData = function(glArrayBuffer, offset, i, fbData) {		
-		console.log("gl.bufferSubData(gl.ARRAY_BUFFER, 512, fbData); = "+glArrayBuffer+" "+ new Float32Array(JSON.parse(fbData))+" "+offset);
-		//gl.bufferSubData(gl.ARRAY_BUFFER, offset,  new Float32Array(JSON.parse(fbData)));
+		fbData=JSON.stringify(fbData).replace("NaN","-1").replace("-Infinity","-1");
+		console.log("  fbData "+fbData );
+		console.log("gl.bufferSubData(gl.ARRAY_BUFFER, 512, fbData); = "+glArrayBuffer+"  fbData "+ new Float32Array(JSON.parse(fbData))+" "+offset);
+		gl.bufferSubData(gl.ARRAY_BUFFER, offset,  new Float32Array(JSON.parse(fbData)));
 //		gl.bufferData(glArrayBuffer, offset, i, fbData);
 		 
 	};

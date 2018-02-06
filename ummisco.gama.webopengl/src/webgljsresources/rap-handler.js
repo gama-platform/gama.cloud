@@ -264,6 +264,7 @@
 				var glArrayBuffer = json["glArrayBuffer"];
 				var offset = json["offset"];
 				var i = json["i"];
+				
 				var fbData = json["fbData"];
 				this.webgljs.glBufferSubData(glArrayBuffer, offset, i, fbData);
 			},

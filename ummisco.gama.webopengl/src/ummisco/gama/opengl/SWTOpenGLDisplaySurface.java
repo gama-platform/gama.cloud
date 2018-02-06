@@ -68,7 +68,7 @@ import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
  * @since 25 mars 2015
  *
  */
-@msi.gama.precompiler.GamlAnnotations.display ("webgl")
+@msi.gama.precompiler.GamlAnnotations.display ("opengl")
 public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 
 //	GLAnimatorControl animator;
@@ -114,7 +114,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 
 		renderer.setDisplaySurface(this);
 		createAnimator();
-		renderer.canvas.setDisplayScope(output.getScope().copy("in Java2DDisplaySurface"));
+		renderer.canvas.setDisplayScope(output.getScope().copy("in OpenGLDisplaySuface"));
 
 		layerManager = new LayerManager(this, output);
 		temp_focus = output.getFacet(IKeyword.FOCUS);
@@ -323,6 +323,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void outputReloaded() {
+		if(null==output) return;
 		setDisplayScope(output.getScope().copy("in OpenGLDisplaySurface"));
 		if (!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue())
 			getScope().disableErrorReporting();
