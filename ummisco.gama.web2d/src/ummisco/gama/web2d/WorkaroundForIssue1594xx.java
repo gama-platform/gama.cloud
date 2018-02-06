@@ -18,13 +18,13 @@ import org.eclipse.ui.IWorkbenchPartReference;
 
 import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
-import ummisco.gama.web2d.AWTDisplayView;
-import ummisco.gama.web2d.Java2DDisplaySurface;
+import ummisco.gama.web2d.WebAWTDisplayView;
+import ummisco.gama.web2d.Web2DDisplaySurface;
 
 public class WorkaroundForIssue1594xx {
 
-	public static void installOn(final AWTDisplayView view, final Composite parent, final Composite surfaceComposite,
-			final Java2DDisplaySurface displaySurface) {
+	public static void installOn(final WebAWTDisplayView view, final Composite parent, final Composite surfaceComposite,
+			final Web2DDisplaySurface displaySurface) {
 		// Install only on Windows
 
 		final IPartService ps = (IPartService) view.getSite().getService(IPartService.class);

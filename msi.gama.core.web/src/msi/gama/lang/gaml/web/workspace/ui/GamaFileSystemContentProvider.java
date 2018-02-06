@@ -39,10 +39,6 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		// if (inputElement instanceof File) {
-		// rootDirectory = (File) inputElement;
-		// return getChildren(rootDirectory);
-		// }
 		if (inputElement instanceof java.io.File) {
 			rootDirectory = (java.io.File) inputElement;
 			return getChildren(rootDirectory);
@@ -61,6 +57,8 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 		}
 	}
 
+	public static Drive drive;
+
 	/**
 	 * @param parentElement
 	 * @return Object[]
@@ -68,61 +66,63 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		GoogleCredential credential = (GoogleCredential) RWT.getApplicationContext().getAttribute("credential");
-		String token = credential.getAccessToken();
-		TokenResponse tokenResponse = new TokenResponse();
-		tokenResponse.setAccessToken(token);
-		tokenResponse.setTokenType("bearer");
-		tokenResponse.setScope(DriveScopes.DRIVE_FILE);
-		// GoogleCredential credential = new
-		// GoogleCredential.Builder().setJsonFactory(JSON_FACTORY)
-		// .setTransport(TRANSPORT).setClientSecrets(clientSecrets).build().setFromTokenResponse(tokenResponse);
+		if (credential != null) {
 
-		try {
+			String token = credential.getAccessToken();
+			TokenResponse tokenResponse = new TokenResponse();
+			tokenResponse.setAccessToken(token);
+			tokenResponse.setTokenType("bearer");
+			tokenResponse.setScope(DriveScopes.DRIVE_FILE);
+			// GoogleCredential credential = new
+			// GoogleCredential.Builder().setJsonFactory(JSON_FACTORY)
+			// .setTransport(TRANSPORT).setClientSecrets(clientSecrets).build().setFromTokenResponse(tokenResponse);
 
-			// Use access token to call API
-			Drive drive = new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
-					.setApplicationName("GAMA Cloud").build();
+			try {
 
-			String pageToken = null;
-			ArrayList<GDriveFile> lf = new ArrayList();
-			do {
-				FileList result = drive.files().list().setSpaces("drive").setQ("'root' in parents and trashed = false")
+				// Use access token to call API
+				drive = new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+						.setApplicationName("GAMA Cloud").build();
 
-						.setPageToken(pageToken).execute();
+				String pageToken = null;
+				ArrayList<GDriveFile> lf = new ArrayList();
+				do {
+					FileList result = drive.files().list().setSpaces("drive")
+							.setQ("'root' in parents and trashed = false")
 
-				for (File file : result.getItems()) {
-					GDriveFile gf = new GDriveFile(file.getTitle());
+							.setPageToken(pageToken).execute();
 
-					if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
-						gf.isDir = true;
+					for (File file : result.getItems()) {
+						GDriveFile gf = new GDriveFile(file.getId(), file.getTitle());
+						gf.downloadUrl = file.getDownloadUrl();
+						if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+							gf.isDir = true;
+						}
+						lf.add(gf);
+						// if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+						// System.out.printf(">>Folder ");
+						// }
+						// System.out.printf(" %s \n",file.getTitle());
+
 					}
-					lf.add(gf);
-					// if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
-					// System.out.printf(">>Folder ");
-					// }
-					// System.out.printf(" %s \n",file.getTitle());
+					pageToken = result.getNextPageToken();
+					// System.out.printf("---------pageToken %s \n",pageToken);
 
+				} while (pageToken != null);
+				return lf.toArray();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else {
+			if (parentElement instanceof File) {
+				java.io.File file = (java.io.File) parentElement;
+				if (file.isDirectory()) {
+					java.io.File[] f = file.listFiles();
+					return f;
 				}
-				pageToken = result.getNextPageToken();
-				// System.out.printf("---------pageToken %s \n",pageToken);
-
-			} while (pageToken != null);
-			return lf.toArray();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			}
 		}
-
-		// if (parentElement instanceof File) {
-		// File file = (File) parentElement;
-		// if (file.isDirectory()) {
-		// File[] f=file.listFiles();
-		//// for(int i=0; i<f.length; i++) {
-		//// f[i]=new File(f[i].getAbsolutePath()+" x");
-		//// }
-		// return f;
-		// }
-		// }
 		return new Object[] {};
 	}
 

@@ -8,15 +8,18 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: msi.gama.ext,
  msi.gama.core,
  org.eclipse.core.runtime;bundle-version="3.11.1",
- org.eclipse.rap.rwt,
- org.eclipse.rap.ui,
- org.eclipse.rap.ui.forms,
+ msi.gama.lang.gaml.web;bundle-version="1.0.0",
+ org.eclipse.rap.rwt;bundle-version="3.1.2",
+ org.eclipse.rap.ui;bundle-version="3.1.2",
+ org.eclipse.rap.ui.forms;bundle-version="3.1.2",
  org.eclipse.rap.ui.navigator;bundle-version="1.4.0",
- org.eclipse.rap.ui.views,
- org.eclipse.rap.ui.workbench,
- org.eclipse.rap.rwt.osgi,
+ org.eclipse.rap.ui.views;bundle-version="3.1.2",
+ org.eclipse.rap.ui.workbench;bundle-version="3.1.2",
+ org.eclipse.rap.rwt.osgi;bundle-version="3.1.2",
  org.eclipse.swt,
- msi.gama.core.web
+ msi.gama.core.web;bundle-version="1.0.0"
 Export-Package: 
+ gaml.additions,
  ummisco.gama.web2d,
  ummisco.gama.web2d.swing
+Bundle-ClassPath: .

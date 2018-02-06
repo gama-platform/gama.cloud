@@ -68,7 +68,7 @@ import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
  * @since 25 mars 2015
  *
  */
-@msi.gama.precompiler.GamlAnnotations.display ("opengl")
+@msi.gama.precompiler.GamlAnnotations.display ("webgl")
 public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 
 //	GLAnimatorControl animator;

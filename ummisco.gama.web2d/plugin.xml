@@ -4,7 +4,7 @@
    <extension
          point="gama.display">
       <implementation
-            class="ummisco.gama.web2d.Java2DDisplaySurface"
+            class="ummisco.gama.web2d.Web2DDisplaySurface"
             keyword="java2D">
       </implementation>
    </extension>
@@ -13,7 +13,7 @@
       <view
             allowMultiple="true"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.web2d.AWTDisplayView"
+            class="ummisco.gama.web2d.WebAWTDisplayView"
             icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.display2.png"
             id="msi.gama.application.view.LayeredDisplayView"
             name="Display"

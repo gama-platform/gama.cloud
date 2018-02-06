@@ -10,7 +10,6 @@
 package ummisco.gama.web2d;
 
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,20 +25,19 @@ import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.outputs.IDisplayOutput;
-import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.LayeredDisplayView;
 import ummisco.gama.web2d.swing.SwingControl;
 
-public class AWTDisplayView extends LayeredDisplayView {
+public class WebAWTDisplayView extends LayeredDisplayView {
 
 	public static long REALIZATION_TIME_OUT = 1000;
 	public boolean isVisible;
 	
 	@Override
-	public Java2DDisplaySurface getDisplaySurface() {
-		return (Java2DDisplaySurface) super.getDisplaySurface();
+	public Web2DDisplaySurface getDisplaySurface() {
+		return (Web2DDisplaySurface) super.getDisplaySurface();
 	}
 
 	@Override

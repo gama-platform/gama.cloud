@@ -75,9 +75,9 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
 
 @display ("java2D")
-public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
+public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 
 	static {
 		GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.addChangeListener(new IPreferenceChangeListener<Boolean>() {
@@ -126,7 +126,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	Set<IEventLayerListener> listeners = new HashSet<>();
 	Point mousePosition;
 
-	public Java2DDisplaySurface(final Object... args) {
+	public Web2DDisplaySurface(final Object... args) {
 		output = (LayeredDisplayOutput) args[0];
 		output.setSurface(this);
 		setDisplayScope(output.getScope().copy("in Java2DDisplaySurface"));
