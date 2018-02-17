@@ -239,7 +239,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		rotateModel();
 		drawScene();
 		gl.glDisable(GL.GL_DEPTH_TEST); // disables depth testing
-		drawer.renderToTexture();
+//		drawer.renderToTexture();
 
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured

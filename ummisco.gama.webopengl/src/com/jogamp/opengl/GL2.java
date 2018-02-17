@@ -4269,9 +4269,6 @@ public class GL2 extends GL2ES2 {
 
 	public void glBufferData(int glElementArrayBuffer, int numBytes, int[] intIdxBuffer, int glStaticDraw) {
 		// TODO Auto-generated method stub
-		if (intIdxBuffer == null) {
-			return;
-		}
 
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 

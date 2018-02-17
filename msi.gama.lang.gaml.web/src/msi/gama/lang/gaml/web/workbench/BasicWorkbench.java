@@ -64,7 +64,7 @@ public class BasicWorkbench implements EntryPoint {
 	// }
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
     
-	boolean enableLoggin=true;
+	boolean enableLoggin=false;
 	
 	public void postLoggedIn(final String uid) {
 		RWT.getUISession().setAttribute("user", uid);
@@ -110,9 +110,9 @@ public class BasicWorkbench implements EntryPoint {
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
 			boolean logged = enableLoggin?(RWT.getApplicationContext().getAttribute("credential") == null?false:true):true; //false
-//			while (!logged) {
+			while (!logged) {
 				logged = dlm.login();
-//			}
+			}
 			if (logged || RWT.getApplicationContext().getAttribute("credential")!=null) {
 				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
 				postLoggedIn(uid);

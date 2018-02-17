@@ -64,11 +64,11 @@ public class ModernDrawer {
 	private int numberOfShaderInTheCurrentLayer = 0;
 	private int currentShaderNumber = 0;
 
-	private static final int COLOR_IDX = 0;
-	private static final int VERTICES_IDX = 1;
-	private static final int IDX_BUFF_IDX = 2;
-	private static final int NORMAL_IDX = 3;
-	private static final int UVMAPPING_IDX = 4;
+	private static final int COLOR_IDX = 0;//36
+	private static final int VERTICES_IDX = 1;//37
+	private static final int IDX_BUFF_IDX = 2;//38
+	private static final int NORMAL_IDX = 3;//39
+	private static final int UVMAPPING_IDX = 4;//40
 
 	public ModernDrawer(final ModernRenderer renderer, final GL2 gl) {
 		this.renderer = renderer;
@@ -553,13 +553,13 @@ public class ModernDrawer {
 			final AbstractShader shader) {
 
 		final ArrayList<float[]> listVertices = new ArrayList<float[]>();
-		final ArrayList<float[]> listColors = new ArrayList<float[]>();
+//		final ArrayList<float[]> listColors = new ArrayList<float[]>();
 		final ArrayList<float[]> listIdxBuffer = new ArrayList<float[]>();
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
 		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
 		for (final DrawingEntity entity : listEntities) {
 			listVertices.add(entity.getVertices());
-			listColors.add(entity.getColors());
+//			listColors.add(entity.getColors());
 			listIdxBuffer.add(entity.getIndices());
 			listNormals.add(entity.getNormals());
 			if (entity.getUvMapping() != null)
@@ -568,9 +568,34 @@ public class ModernDrawer {
 
 		// VERTICES POSITIONS BUFFER
 		storeDataInAttributeList(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, listVertices, shaderNumber);
-
+		
+//		System.out.println();
+//		System.out.println("vertices");
+//		for(int i=0; i<listVertices.size(); i++) {
+//			for(int j=0; j<listVertices.get(i).length; j++) {
+//				System.out.print(listVertices.get(i)[j]+",");
+//			}
+//			System.out.println( );
+//		}
+//		
+//		System.out.println();
+//		System.out.println("colors");
+//		for(int i=0; i<listColors.size(); i++) {
+//			for(int j=0; j<listColors.get(i).length; j++) {
+//				System.out.print(listColors.get(i)[j]+",");
+//			}
+//			System.out.println( );
+//		}
+//		System.out.println();
+//		System.out.println("indices");
+//		for(int i=0; i<listIdxBuffer.size(); i++) {
+//			for(int j=0; j<listIdxBuffer.get(i).length; j++) {
+//				System.out.print(listIdxBuffer.get(i)[j]+",");
+//			}
+//			System.out.println( );
+//		}
 		// COLORS BUFFER
-		storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
+//		storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
 
 		// UV MAPPING (If a texture is defined)
 		if (listUvMapping.size() != 0) {
@@ -611,7 +636,7 @@ public class ModernDrawer {
 				layerStructureMap.get(currentLayer).vboHandles[4]);
 		final int numBytes = intIdxBuffer.length * 4;
 		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
-//		ibIdxBuff.rewind();
+		ibIdxBuff.rewind();
 
 		final int[] newElement = new int[3];
 		if (drawingType.equals(DrawingEntity.Type.POINT.toString())) {
@@ -645,7 +670,7 @@ public class ModernDrawer {
 			final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data/* totalData,positionInBuffer */);
 			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, data);
 			offset += data.length * 4;
-//			fbData.rewind(); // It is OK to release CPU after transfer to GPU
+			fbData.rewind(); // It is OK to release CPU after transfer to GPU
 		}
 
 		gl.glEnableVertexAttribArray(shaderAttributeNumber);

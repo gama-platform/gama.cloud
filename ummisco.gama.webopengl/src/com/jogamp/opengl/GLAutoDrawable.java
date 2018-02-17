@@ -37,12 +37,12 @@ public class GLAutoDrawable extends Composite{
 
 	public int getSurfaceWidth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 800;
 	}
 
 	public int getSurfaceHeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 600;
 	}
 
 	public GL2 getGL() {

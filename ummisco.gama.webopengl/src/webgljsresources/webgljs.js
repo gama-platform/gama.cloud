@@ -10,14 +10,20 @@ var xwidth, xheight;
 
 var gl; 
 var buffers;
+
+var COLOR_IDX;//36
+var VERTICES_IDX;//37
+var IDX_BUFF_IDX;//38
+var NORMAL_IDX;//39
+var UVMAPPING_IDX;//40
 var programInfo;
 var cubeRotation = 0.0;
 
-var bufferArray;
-var frameBufferArray;
-var depthBufferArray;
-var depthBufferTextureArray;
-var textureArray;
+var bufferArray=null;
+var frameBufferArray=null;
+var depthBufferArray=null;
+var depthBufferTextureArray=null;
+var textureArray=null;
 var then = 0;
 var deltaTime;
 
@@ -49,233 +55,519 @@ function WebGLJS(e) {
 	}
 
 
-	// Vertex shader program
+	  
+         /*====================== Shaders =======================*/
+ /*
+         // Vertex shader source code
+         var vertCode =
+            'attribute vec3 coordinates;' +
+            'void main(void) {' +
+               ' gl_Position = vec4(coordinates, 1.0);' +
+            '}';
+         
+         // Create a vertex shader object
+         var vertShader = gl.createShader(gl.VERTEX_SHADER);
 
-//	var vsSource = `
-//		attribute vec4 aVertexPosition;
-//		attribute vec3 aVertexNormal;
-//		attribute vec2 aTextureCoord;
-//
-//		uniform mat4 uNormalMatrix;
-//		uniform mat4 uModelViewMatrix;
-//		uniform mat4 uProjectionMatrix;
-//
-//		varying highp vec2 vTextureCoord;
-//		varying highp vec3 vLighting;
-//
-//		void main(void) {
-//		gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-//		vTextureCoord = aTextureCoord;
-//
-//		// Apply lighting effect
-//
-//		highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
-//		highp vec3 directionalLightColor = vec3(1, 1, 1);
-//		highp vec3 directionalVector = normalize(vec3(0.85, 0.8, 0.75));
-//
-//		highp vec4 transformedNormal = uNormalMatrix * vec4(aVertexNormal, 1.0);
-//
-//		highp float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);
-//		vLighting = ambientLight + (directionalLightColor * directional);
-//		}
-//		`;
-//
-//	// Fragment shader program
-//
-//	var fsSource = `
-//		varying highp vec2 vTextureCoord;
-//		varying highp vec3 vLighting;
-//
-//		uniform sampler2D uSampler;
-//
-//		void main(void) {
-//		highp vec4 texelColor = texture2D(uSampler, vTextureCoord);
-//
-//		gl_FragColor = vec4(texelColor.rgb * vLighting, texelColor.a);
-//		}
-//		`;
-//
-//	// Initialize a shader program; this is where all the lighting
-//	// for the vertices and so forth is established.
-//	var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-//
-//	// Collect all the info needed to use the shader program.
-//	// Look up which attributes our shader program is using
-//	// for aVertexPosition, aVertexNormal, aTextureCoord,
-//	// and look up uniform locations.
-//	programInfo = {
-//			program: shaderProgram,
-//			attribLocations: {
-//				vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-//				vertexNormal: gl.getAttribLocation(shaderProgram, 'aVertexNormal'),
-//				textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
-//			},
-//			uniformLocations: {
-//				projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-//				modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
-//				normalMatrix: gl.getUniformLocation(shaderProgram, 'uNormalMatrix'),
-//				uSampler: gl.getUniformLocation(shaderProgram, 'uSampler'),
-//			},
-//	};
-//
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//	 
-//
-//
-//         gl.linkProgram(shaderProgram);
-//
-//         // Use the combined shader program object
-//         gl.useProgram(shaderProgram);
+         // Attach vertex shader source code
+         gl.shaderSource(vertShader, vertCode);
 
-	  /* Step3: Create and compile Shader programs */
-      // Vertex shader source code
-      var vertCode =
-         'attribute vec2 coordinates;' + 
-         'void main(void) {' + ' gl_Position = vec4(coordinates,0.0, 1.0);' + '}';
-      // Create a vertex shader object
-      var vertShader = gl.createShader(gl.VERTEX_SHADER);
-      // Attach vertex shader source code
-      gl.shaderSource(vertShader, vertCode);
-      // Compile the vertex shader
-      gl.compileShader(vertShader);
-      // Fragment shader source code
-      var fragCode = 'void main(void) {' + 'gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-      // Create fragment shader object
-      var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
-      // Attach fragment shader source code
-      gl.shaderSource(fragShader, fragCode);
-      // Compile the fragment shader
-      gl.compileShader(fragShader);
-      // Create a shader program object to store combined shader program
-      var shaderProgram = gl.createProgram();
-      // Attach a vertex shader
-      gl.attachShader(shaderProgram, vertShader);         
-      // Attach a fragment shader
-      gl.attachShader(shaderProgram, fragShader);
-      // Link both programs
-      gl.linkProgram(shaderProgram);
-      // Use the combined shader program object
-      gl.useProgram(shaderProgram); 
-	 
+         // Compile the vertex shader
+         gl.compileShader(vertShader);
+
+         // Fragment shader source code
+         var fragCode =
+            'void main(void) {' +
+               ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
+            '}';
+         
+         // Create fragment shader object 
+         var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+         // Attach fragment shader source code
+         gl.shaderSource(fragShader, fragCode);
+         // Compile the fragmentt shader
+         gl.compileShader(fragShader);
+         // Create a shader program object to
+         // store the combined shader program
+         var shaderProgram = gl.createProgram();
+         // Attach a vertex shader
+         gl.attachShader(shaderProgram, vertShader);
+         // Attach a fragment shader
+         gl.attachShader(shaderProgram, fragShader);
+         // Link both the programs
+         gl.linkProgram(shaderProgram);
+         // Use the combined shader program object
+         gl.useProgram(shaderProgram);
+
+		 */
+		 
+		 
+		 
+		  var vertCode = 'attribute vec3 position;'+
+	            'uniform mat4 Pmatrix;'+
+	            'uniform mat4 Vmatrix;'+
+	            'uniform mat4 Mmatrix;'+
+	            'attribute vec3 color;'+//the color of the point
+	            'varying vec3 vColor;'+
+	            'void main(void) { '+//pre-built function
+	               'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.);'+
+	               'vColor = color;'+
+	            '}';
+
+	         var fragCode = 'precision mediump float;'+
+	            'varying vec3 vColor;'+
+	            'void main(void) {'+
+	               'gl_FragColor = vec4(vColor, 1.);'+
+	            '}';
+
+	         var vertShader = gl.createShader(gl.VERTEX_SHADER);
+	         gl.shaderSource(vertShader, vertCode);
+	         gl.compileShader(vertShader);
+
+	         var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+	         gl.shaderSource(fragShader, fragCode);
+	         gl.compileShader(fragShader);
+				
+	         var shaderProgram = gl.createProgram();
+	         gl.attachShader(shaderProgram, vertShader);
+	         gl.attachShader(shaderProgram, fragShader);
+	         gl.linkProgram(shaderProgram);
+			 gl.useProgram(shaderProgram);
+		 
+COLOR_IDX = gl.createBuffer();//36
+VERTICES_IDX = gl.createBuffer();//37
+IDX_BUFF_IDX = gl.createBuffer();//38
+NORMAL_IDX = gl.createBuffer();//39
+UVMAPPING_IDX = gl.createBuffer();//40
+		 /*
+         // Create an empty buffer object to store vertex buffer
+         var vertex_buffer = gl.createBuffer();
+
+	     // Create and store data into color buffer
+	     var color_buffer = gl.createBuffer ();
+         // Create an empty buffer object to store Index buffer
+         var Index_Buffer = gl.createBuffer();
+		/**/
+		
+	         var _Pmatrix = gl.getUniformLocation(shaderProgram, "Pmatrix");
+	         var _Vmatrix = gl.getUniformLocation(shaderProgram, "Vmatrix");
+	         var _Mmatrix = gl.getUniformLocation(shaderProgram, "Mmatrix");
+
+	         gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);
+	         var _position = gl.getAttribLocation(shaderProgram, "position");
+	         gl.vertexAttribPointer(_position, 3, gl.FLOAT, false,0,0);
+	         gl.enableVertexAttribArray(_position);
+			 
+
+	         gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
+	         var _color = gl.getAttribLocation(shaderProgram, "color");
+	         gl.vertexAttribPointer(_color, 3, gl.FLOAT, false,0,0) ;
+	         gl.enableVertexAttribArray(_color);
+			 
+	         function get_projection(angle, a, zMin, zMax) {
+	            var ang = Math.tan((angle*.5)*Math.PI/180);//angle*.5
+	            return [
+	               0.5/ang, 0 , 0, 0,
+	               0, 0.5*a/ang, 0, 0,
+	               0, 0, -(zMax+zMin)/(zMax-zMin), -1,
+	               0, 0, (-2*zMax*zMin)/(zMax-zMin), 0 
+				   ];
+	         }
+	         
+	         var proj_matrix = get_projection(40, canvas.width/canvas.height, 1, 100);
+	         var mo_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,1, 0,0,0,1 ];
+	         var view_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,1, 0,0,0,1 ];
+
+	         view_matrix[14] = view_matrix[14]-6;
+			 
+			 
+			 
+			 
+			 colors=[
+		0.8509804,0.28235295,0.12941177,1.0,0.8509804,0.28235295,0.12941177,1.0,0.8509804,0.28235295,0.12941177,1.0,
+		0.95686275,0.64705884,0.15686275,1.0,0.95686275,0.64705884,0.15686275,1.0,0.95686275,0.64705884,0.15686275,1.0,
+		0.08627451,0.36862746,0.5764706,1.0,0.08627451,0.36862746,0.5764706,1.0,0.08627451,0.36862746,0.5764706,1.0
+		];
+	         gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
+	         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+			 
+			 
+			 
+			 
+		gl.viewport(0,0,canvas.width,canvas.height);
+			 
+			 
+			 
+			 
+		
 	this.appendInfo = function(text) {
 
-        /* Step2: Define the geometry and store it in buffer objects */
+        /*
+		vertices=[
 
-        var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5,  -0.2, 0.2, -0.2, -0.2, 0.0, -0.2];
-
-        // Create a new buffer object
-        var vertex_buffer = gl.createBuffer();
-
-        // Bind an empty array buffer to it
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-        
-        // Pass the vertices data to the buffer
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-        // Unbind the buffer
-        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+110.0,0.0,0.0,91.48871,-8.333333,0.0,91.48871,8.333333,0.0,
+0.0,110.0,0.0,8.333333,91.48871,0.0,-8.333333,91.48871,0.0,
+0.0,0.0,110.0,8.333333,0.0,91.48871,-8.333333,0.0,91.48871
 
 
-        
-        
-        /* Step3: Create and compile Shader programs */
+		];
+		var min=Math.min(...vertices);
+		var max=Math.max(...vertices);
+		
 
-        // Vertex shader source code
-        var vertCode =
-           'attribute vec2 coordinates;' + 
-           'void main(void) {' + ' gl_Position = vec4(coordinates,0.0, 1.0);' + '}';
+		for(var i=0; i<vertices.length; i++) {
+			vertices[i] *= (1.0/(max-min));
+		}
 
-        // Create a vertex shader object
-        var vertShader = gl.createShader(gl.VERTEX_SHADER);
+		colors=[
+		0.8509804,0.28235295,0.12941177,1.0,0.8509804,0.28235295,0.12941177,1.0,0.8509804,0.28235295,0.12941177,1.0,
+		0.95686275,0.64705884,0.15686275,1.0,0.95686275,0.64705884,0.15686275,1.0,0.95686275,0.64705884,0.15686275,1.0,
+		0.08627451,0.36862746,0.5764706,1.0,0.08627451,0.36862746,0.5764706,1.0,0.08627451,0.36862746,0.5764706,1.0
+		];
+		
+		indices=[
 
-        // Attach vertex shader source code
-        gl.shaderSource(vertShader, vertCode);
+0.0,1.0,2.0,
+0.0,1.0,2.0,
+0.0,1.0,2.0
 
-        // Compile the vertex shader
-        gl.compileShader(vertShader);
+];
+		
+		
+	         // Create and store data into vertex buffer
+	         //var vertex_buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+	         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-        // Fragment shader source code
-        var fragCode = 'void main(void) {' + 'gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+	         // Create and store data into color buffer
+	         //var color_buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer);
+	         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 
-        // Create fragment shader object
-        var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+	         // Create and store data into index buffer
+	         //var Index_Buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer);
+	         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+	                                           
 
-        // Attach fragment shader source code
-        gl.shaderSource(fragShader, fragCode);
+         /* ======= Associating shaders to buffer objects =======*/
+/*
+         // Bind vertex buffer object
+         gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
 
-        // Compile the fragment shader
-        gl.compileShader(fragShader);
+         // Bind index buffer object
+         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer); 
+ 
+         // Get the attribute location
+         var coord = gl.getAttribLocation(shaderProgram, "coordinates");
 
-        // Create a shader program object to store combined shader program
-        var shaderProgram = gl.createProgram();
-
-        // Attach a vertex shader
-        gl.attachShader(shaderProgram, vertShader); 
-        
-        // Attach a fragment shader
-        gl.attachShader(shaderProgram, fragShader);
-
-        // Link both programs
-        gl.linkProgram(shaderProgram);
-
-        // Use the combined shader program object
-        gl.useProgram(shaderProgram);
-
-        
-        
-        
-
-        /* Step 4: Associate the shader programs to buffer objects */
-
-        // Bind vertex buffer object
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
-
-        // Get the attribute location
-        var coord = gl.getAttribLocation(shaderProgram, "coordinates");
-
-        // point an attribute to the currently bound VBO
-        gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
-
-        // Enable the attribute
-        gl.enableVertexAttribArray(coord);
+         // Point an attribute to the currently bound VBO
+         gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
+ 
+         // Enable the attribute
+         gl.enableVertexAttribArray(coord);
+		 */
+		 
+		 
+         /*============= Drawing the Quad ================*/
+		/*
+		var v=[-0.5, 0.5, 0.5,
+		-0.5, -0.5, 0,
+		0.5, -0.5, 0,
+		0.5, 0.5, 0.5];
+		var v1=[0,1,0,
+		1,0,0,
+		0,1,1,
+		0,0,1,
+		1,1,0,1];
+		var idx=[
+		0,1,2,0,2,3];
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX  );// 37		
+	    //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v1), gl.STATIC_DRAW);
+	    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
+		
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(idx),  gl.STATIC_DRAW);  
 
 
-        /* Step5: Drawing the required object (triangle) */
+				
+		gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 
-        // Clear the canvas
-        gl.clearColor(0.5, 0.5, 0.5, 0.9);
+		gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+			/*	*/
+				
+/*
 
-        // Enable the depth test
-        gl.enable(gl.DEPTH_TEST); 
-        
-        // Clear the color buffer bit
-        gl.clear(gl.COLOR_BUFFER_BIT);
+				
+gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 36
+gl.bufferData(34962, 576, 35044);  
+v=[0,80.71001434326172,104.77825927734375,0,90.71001434326172,104.77825927734375,0,90.71001434326172,94.77825927734375,0,80.71001434326172,94.77825927734375,0,80.71001434326172,104.77825927734375,10,90.71001434326172,104.77825927734375,10,90.71001434326172,94.77825927734375,10,80.71001434326172,94.77825927734375,10,90.71001434326172,104.77825927734375,0,80.71001434326172,104.77825927734375,0,90.71001434326172,94.77825927734375,0,80.71001434326172,94.77825927734375,0,80.71001434326172,104.77825927734375,10,90.71001434326172,104.77825927734375,10,90.71001434326172,94.77825927734375,10,80.71001434326172,94.77825927734375,10,90.71001434326172,104.77825927734375,0,90.71001434326172,104.77825927734375,10,80.71001434326172,104.77825927734375,10,80.71001434326172,104.77825927734375,0,90.71001434326172,94.77825927734375,0,90.71001434326172,94.77825927734375,10,80.71001434326172,94.77825927734375,0,80.71001434326172,94.77825927734375,10];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(v));//
+v1=[288,38.78462600708008,14.23061466217041,0,48.78462600708008,14.23061466217041,0,48.78462600708008,4.23061466217041,0,38.78462600708008,4.23061466217041,0,38.78462600708008,14.23061466217041,10,48.78462600708008,14.23061466217041,10,48.78462600708008,4.23061466217041,10,38.78462600708008,4.23061466217041,10,48.78462600708008,14.23061466217041,0,38.78462600708008,14.23061466217041,0,48.78462600708008,4.23061466217041,0,38.78462600708008,4.23061466217041,0,38.78462600708008,14.23061466217041,10,48.78462600708008,14.23061466217041,10,48.78462600708008,4.23061466217041,10,38.78462600708008,4.23061466217041,10,48.78462600708008,14.23061466217041,0,48.78462600708008,14.23061466217041,10,38.78462600708008,14.23061466217041,10,38.78462600708008,14.23061466217041,0,48.78462600708008,4.23061466217041,0,48.78462600708008,4.23061466217041,10,38.78462600708008,4.23061466217041,0,38.78462600708008,4.23061466217041,10];
+gl.bufferSubData(gl.ARRAY_BUFFER, v.length, new Float32Array(v1));//
+gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+gl.bufferData(34962, 576, 35044);  
+c=[0,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(c));//
+c1=[288,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c.length, new Float32Array(c1));//
 
-        // Set the view port
-        gl.viewport(0,0,canvas.width,canvas.height);
 
-        // Draw the triangle
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+ii=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22,24,27,26,26,25,24,31,28,29,29,30,31,33,32,37,37,36,33,40,34,38,38,41,40,44,35,39,39,45,44,46,43,42,42,47,46];
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(ii), gl.STATIC_DRAW);// 
+
+				
+		gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+
+gl.drawElements(gl.TRIANGLES, 72, gl.UNSIGNED_SHORT, 0);//72
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 36
+gl.bufferData(34962, 1152, 35044);  
+v=[0.7514423131942749,0.08572578430175781,0,0.9185840487480164,0.08572578430175781,0,0.9185840487480164,-0.08141594380140305,0,0.7514423131942749,-0.08141594380140305,0,0.7514423131942749,0.08572578430175781,0.16714173555374146,0.9185840487480164,0.08572578430175781,0.16714173555374146,0.9185840487480164,-0.08141594380140305,0.16714173555374146,0.7514423131942749,-0.08141594380140305,0.16714173555374146,0.9185840487480164,0.08572578430175781,0,0.7514423131942749,0.08572578430175781,0,0.9185840487480164,-0.08141594380140305,0,0.7514423131942749,-0.08141594380140305,0,0.7514423131942749,0.08572578430175781,0.16714173555374146,0.9185840487480164,0.08572578430175781,0.16714173555374146,0.9185840487480164,-0.08141594380140305,0.16714173555374146,0.7514423131942749,-0.08141594380140305,0.16714173555374146,0.9185840487480164,0.08572578430175781,0,0.9185840487480164,0.08572578430175781,0.16714173555374146,0.7514423131942749,0.08572578430175781,0.16714173555374146,0.7514423131942749,0.08572578430175781,0,0.9185840487480164,-0.08141594380140305,0,0.9185840487480164,-0.08141594380140305,0.16714173555374146,0.7514423131942749,-0.08141594380140305,0,0.7514423131942749,-0.08141594380140305,0.16714173555374146
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(v));//
+v1=[0.876919150352478,0.5939986705780029,0,1,0.5939986705780029,0,1,0.47091785073280334,0,0.876919150352478,0.47091785073280334,0,0.876919150352478,0.5939986705780029,0.12308084964752197,1,0.5939986705780029,0.12308084964752197,1,0.47091785073280334,0.12308084964752197,0.876919150352478,0.47091785073280334,0.12308084964752197,1,0.5939986705780029,0,0.876919150352478,0.5939986705780029,0,1,0.47091785073280334,0,0.876919150352478,0.47091785073280334,0,0.876919150352478,0.5939986705780029,0.12308084964752197,1,0.5939986705780029,0.12308084964752197,1,0.47091785073280334,0.12308084964752197,0.876919150352478,0.47091785073280334,0.12308084964752197,1,0.5939986705780029,0,1,0.5939986705780029,0.12308084964752197,0.876919150352478,0.5939986705780029,0.12308084964752197,0.876919150352478,0.5939986705780029,0,1,0.47091785073280334,0,1,0.47091785073280334,0.12308084964752197,0.876919150352478,0.47091785073280334,0,0.876919150352478,0.47091785073280334,0.12308084964752197
+
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v.length, new Float32Array(v1));//
+v2=[0.8907865285873413,0.4445098042488098,0,1,0.4445098042488098,0,1,0.3352963626384735,0,0.8907865285873413,0.3352963626384735,0,0.8907865285873413,0.4445098042488098,0.1092134565114975,1,0.4445098042488098,0.1092134565114975,1,0.3352963626384735,0.1092134565114975,0.8907865285873413,0.3352963626384735,0.1092134565114975,1,0.4445098042488098,0,0.8907865285873413,0.4445098042488098,0,1,0.3352963626384735,0,0.8907865285873413,0.3352963626384735,0,0.8907865285873413,0.4445098042488098,0.1092134565114975,1,0.4445098042488098,0.1092134565114975,1,0.3352963626384735,0.1092134565114975,0.8907865285873413,0.3352963626384735,0.1092134565114975,1,0.4445098042488098,0,1,0.4445098042488098,0.1092134565114975,0.8907865285873413,0.4445098042488098,0.1092134565114975,0.8907865285873413,0.4445098042488098,0,1,0.3352963626384735,0,1,0.3352963626384735,0.1092134565114975,0.8907865285873413,0.3352963626384735,0,0.8907865285873413,0.3352963626384735,0.1092134565114975
+
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v1.length, new Float32Array(v2));//
+v3=[0.8880081176757812,0.5407939553260803,0,1,0.5407939553260803,0,1,0.4288020730018616,0,0.8880081176757812,0.4288020730018616,0,0.8880081176757812,0.5407939553260803,0.11199189722537994,1,0.5407939553260803,0.11199189722537994,1,0.4288020730018616,0.11199189722537994,0.8880081176757812,0.4288020730018616,0.11199189722537994,1,0.5407939553260803,0,0.8880081176757812,0.5407939553260803,0,1,0.4288020730018616,0,0.8880081176757812,0.4288020730018616,0,0.8880081176757812,0.5407939553260803,0.11199189722537994,1,0.5407939553260803,0.11199189722537994,1,0.4288020730018616,0.11199189722537994,0.8880081176757812,0.4288020730018616,0.11199189722537994,1,0.5407939553260803,0,1,0.5407939553260803,0.11199189722537994,0.8880081176757812,0.5407939553260803,0.11199189722537994,0.8880081176757812,0.5407939553260803,0,1,0.4288020730018616,0,1,0.4288020730018616,0.11199189722537994,0.8880081176757812,0.4288020730018616,0,0.8880081176757812,0.4288020730018616,0.11199189722537994
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v2.length, new Float32Array(v3));//
+gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+gl.bufferData(34962, 1152, 35044);  
+c=[0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0.5,0,0,0.5,0,0,-0.5,0,0,-0.5,0,0,0,-0.5,0,0,-0.5,0,-0.5,0,0,-0.5,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(c));//
+c1=[0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0.5,0,0,0.5,0,0,-0.5,0,0,-0.5,0,0,0,-0.5,0,0,-0.5,0,-0.5,0,0,-0.5,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c.length, new Float32Array(c1));//
+
+c2=[0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0.5,0,0,0.5,0,0,-0.5,0,0,-0.5,0,0,0,-0.5,0,0,-0.5,0,-0.5,0,0,-0.5,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c1.length, new Float32Array(c2));//
+
+c3=[0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,-0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0,0.5,0,0,0.5,0,0.5,0,0,0,-0.5,0,0.5,0,0,0.5,0,0,-0.5,0,0,-0.5,0,0,0,-0.5,0,0,-0.5,0,-0.5,0,0,-0.5,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c2.length, new Float32Array(c3));//
+
+
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+ii=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22,24,27,26,26,25,24,31,28,29,29,30,31,33,32,37,37,36,33,40,34,38,38,41,40,44,35,39,39,45,44,46,43,42,42,47,46,48,51,50,50,49,48,55,52,53,53,54,55,57,56,61,61,60,57,64,58,62,62,65,64,68,59,63,63,69,68,70,67,66,66,71,70,72,75,74,74,73,72,79,76,77,77,78,79,81,80,85,85,84,81,88,82,86,86,89,88,92,83,87,87,93,92,94,91,90,90,95,94
+];
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(ii), gl.STATIC_DRAW);// 
+
+
+		gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+
+gl.drawElements(gl.TRIANGLES, ii.length, gl.UNSIGNED_SHORT, 0);//72
+
+
+
+
+
+
+
+/**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 36
+
+gl.bufferData(34962, 1152, 35044);  
+v=[0.8822857141494751,0.22219237685203552,0,1,0.22219237685203552,0,1,0.10447807610034943,0,0.8822857141494751,0.10447807610034943,0,0.8822857141494751,0.22219237685203552,0.1177142933011055,1,0.22219237685203552,0.1177142933011055,1,0.10447807610034943,0.1177142933011055,0.8822857141494751,0.10447807610034943,0.1177142933011055,1,0.22219237685203552,0,0.8822857141494751,0.22219237685203552,0,1,0.10447807610034943,0,0.8822857141494751,0.10447807610034943,0,0.8822857141494751,0.22219237685203552,0.1177142933011055,1,0.22219237685203552,0.1177142933011055,1,0.10447807610034943,0.1177142933011055,0.8822857141494751,0.10447807610034943,0.1177142933011055,1,0.22219237685203552,0,1,0.22219237685203552,0.1177142933011055,0.8822857141494751,0.22219237685203552,0.1177142933011055,0.8822857141494751,0.22219237685203552,0,1,0.10447807610034943,0,1,0.10447807610034943,0.1177142933011055,0.8822857141494751,0.10447807610034943,0,0.8822857141494751,0.10447807610034943,0.1177142933011055
+
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(v));//
+v1=[0.8880614638328552,0.8709843158721924,0,1,0.8709843158721924,0,1,0.7590457797050476,0,0.8880614638328552,0.7590457797050476,0,0.8880614638328552,0.8709843158721924,0.11193851381540298,1,0.8709843158721924,0.11193851381540298,1,0.7590457797050476,0.11193851381540298,0.8880614638328552,0.7590457797050476,0.11193851381540298,1,0.8709843158721924,0,0.8880614638328552,0.8709843158721924,0,1,0.7590457797050476,0,0.8880614638328552,0.7590457797050476,0,0.8880614638328552,0.8709843158721924,0.11193851381540298,1,0.8709843158721924,0.11193851381540298,1,0.7590457797050476,0.11193851381540298,0.8880614638328552,0.7590457797050476,0.11193851381540298,1,0.8709843158721924,0,1,0.8709843158721924,0.11193851381540298,0.8880614638328552,0.8709843158721924,0.11193851381540298,0.8880614638328552,0.8709843158721924,0,1,0.7590457797050476,0,1,0.7590457797050476,0.11193851381540298,0.8880614638328552,0.7590457797050476,0,0.8880614638328552,0.7590457797050476,0.11193851381540298
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v.length, new Float32Array(v1));//288,
+v2=[0.9031962752342224,0.9209688305854797,0,1,0.9209688305854797,0,1,0.8241651058197021,0,0.9031962752342224,0.8241651058197021,0,0.9031962752342224,0.9209688305854797,0.0968037024140358,1,0.9209688305854797,0.0968037024140358,1,0.8241651058197021,0.0968037024140358,0.9031962752342224,0.8241651058197021,0.0968037024140358,1,0.9209688305854797,0,0.9031962752342224,0.9209688305854797,0,1,0.8241651058197021,0,0.9031962752342224,0.8241651058197021,0,0.9031962752342224,0.9209688305854797,0.0968037024140358,1,0.9209688305854797,0.0968037024140358,1,0.8241651058197021,0.0968037024140358,0.9031962752342224,0.8241651058197021,0.0968037024140358,1,0.9209688305854797,0,1,0.9209688305854797,0.0968037024140358,0.9031962752342224,0.9209688305854797,0.0968037024140358,0.9031962752342224,0.9209688305854797,0,1,0.8241651058197021,0,1,0.8241651058197021,0.0968037024140358,0.9031962752342224,0.8241651058197021,0,0.9031962752342224,0.8241651058197021,0.0968037024140358
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v1.length, new Float32Array(v2));//576,
+v3=[0.8661029934883118,0.6089192032814026,0,1,0.6089192032814026,0,1,0.47502216696739197,0,0.8661029934883118,0.47502216696739197,0,0.8661029934883118,0.6089192032814026,0.13389702141284943,1,0.6089192032814026,0.13389702141284943,1,0.47502216696739197,0.13389702141284943,0.8661029934883118,0.47502216696739197,0.13389702141284943,1,0.6089192032814026,0,0.8661029934883118,0.6089192032814026,0,1,0.47502216696739197,0,0.8661029934883118,0.47502216696739197,0,0.8661029934883118,0.6089192032814026,0.13389702141284943,1,0.6089192032814026,0.13389702141284943,1,0.47502216696739197,0.13389702141284943,0.8661029934883118,0.47502216696739197,0.13389702141284943,1,0.6089192032814026,0,1,0.6089192032814026,0.13389702141284943,0.8661029934883118,0.6089192032814026,0.13389702141284943,0.8661029934883118,0.6089192032814026,0,1,0.47502216696739197,0,1,0.47502216696739197,0.13389702141284943,0.8661029934883118,0.47502216696739197,0,0.8661029934883118,0.47502216696739197,0.13389702141284943
+];
+gl.bufferSubData(gl.ARRAY_BUFFER, v2.length, new Float32Array(v3));//864,
+
+gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+gl.bufferData(34962, 1152, 35044);  
+c=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(c));//0,
+
+c1=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c.length, new Float32Array(c1));//288,
+
+c2=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c1.length, new Float32Array(c2));//576,
+
+c3=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+gl.bufferSubData(gl.ARRAY_BUFFER, c2.length, new Float32Array(c3));//864,
+
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+ii=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22,24,27,26,26,25,24,31,28,29,29,30,31,33,32,37,37,36,33,40,34,38,38,41,40,44,35,39,39,45,44,46,43,42,42,47,46,48,51,50,50,49,48,55,52,53,53,54,55,57,56,61,61,60,57,64,58,62,62,65,64,68,59,63,63,69,68,70,67,66,66,71,70,72,75,74,74,73,72,79,76,77,77,78,79,81,80,85,85,84,81,88,82,86,86,89,88,92,83,87,87,93,92,94,91,90,90,95,94];
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(ii), gl.STATIC_DRAW);// 
+
+		gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+gl.drawElements(gl.TRIANGLES, ii.length, gl.UNSIGNED_SHORT, 0);//144
+				/*	*/
+				
+				
+				/*
+				
+         // Enable the depth test
+         gl.enable(gl.DEPTH_TEST);
+         // Clear the color buffer bit
+         //gl.clear(gl.COLOR_BUFFER_BIT);
+         // Set the view port
+         gl.viewport(0,0,canvas.width,canvas.height);
+         // Draw the triangle
+         gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT,0);
+
+              */
 		console.log("appendinfo ");
 	};
 
+
+	this.appendWarn = function(text) {
+		
+		
+		
+		vertices1=[
+
+1.4901163E-7,100.0,10.0,1.9509048,100.0,9.807853,1.8088474,100.73082,9.807853,1.4033635,101.35521,9.807853,0.7935046,101.78224,9.807853,0.06808574,101.949715,9.807853,-0.6672485,101.83325,9.807853,-1.3054099,101.44981,9.807853,-1.7534614,100.85522,9.807853,-1.9461523,100.136086,9.807853,-1.8554205,99.39714,9.807853,-1.4944797,98.74598,9.807853,-0.91589427,98.27745,9.807853,-0.20392469,98.059784,9.807853,0.53774214,98.12467,9.807853,1.2010971,98.46267,9.807853,1.689533,99.02454,9.807853,3.8268356,100.0,9.238795,3.5481806,101.433556,9.238795,2.7527952,102.65834,9.238795,1.5565143,103.49599,9.238795,0.13355477,103.8245,9.238795,-1.3088546,103.59605,9.238795,-2.5606525,102.843895,9.238795,-3.4395366,101.677574,9.238795,-3.8175135,100.266945,9.238795,-3.6395364,98.817444,9.238795,-2.9315262,97.54016,9.238795,-1.7965906,96.62111,9.238795,-0.40001258,96.19413,9.238795,1.0548184,96.32141,9.238795,2.3560355,96.98441,9.238795,3.3141363,98.08658,9.238795,5.555702,100.0,8.314696,5.1511574,102.0812,8.314696,3.9964378,103.859314,8.314696,2.2597077,105.075386,8.314696,0.19389136,105.552315,8.314696,-1.9001617,105.22065,8.314696,-3.7174904,104.12869,8.314696,-4.993432,102.43546,8.314696,-5.542169,100.38754,8.314696,-5.2837873,98.283195,8.314696,-4.255915,96.42886,8.314696,-2.6082444,95.094604,8.314696,-0.5807282,94.47473,8.314696,1.5313585,94.659515,8.314696,3.420432,95.62205,8.314696,4.8113794,97.222145,8.314696,7.0710683,100.0,7.071068,6.55618,102.64887,7.071068,5.0865006,104.91198,7.071068,2.8760624,106.45974,7.071068,0.24677685,107.06676,7.071068,-2.4184475,106.64463,7.071068,-4.7314687,105.25483,7.071068,-6.355434,103.099754,7.071068,-7.0538435,100.493256,7.071068,-6.724986,97.81492,7.071068,-5.416753,95.4548,7.071068,-3.319666,93.756615,7.071068,-0.73912686,92.96767,7.071068,1.9490498,93.20285,7.071068,4.353385,94.427925,7.071068,6.123724,96.46446,7.071068,8.314696,100.0,5.555702,7.7092514,103.11474,5.555702,5.981092,105.77587,5.555702,3.3818913,107.595856,5.555702,0.29017884,108.30963,5.555702,-2.843793,107.813255,5.555702,-5.5636177,106.17902,5.555702,-7.4731994,103.64492,5.555702,-8.294441,100.58,5.555702,-7.907746,97.43062,5.555702,-6.3694267,94.65542,5.555702,-3.9035134,92.65856,5.555702,-0.8691212,91.73085,5.555702,2.2918398,92.0074,5.555702,5.119038,93.44793,5.555702,7.200737,95.84265,5.555702,9.238795,100.0,3.8268342,8.566062,103.460915,3.8268342,6.645833,106.41781,3.8268342,3.7577562,108.44006,3.8268342,0.32242942,109.23317,3.8268342,-3.159854,108.681625,3.8268342,-6.181961,106.86576,3.8268342,-8.303775,104.05002,3.8268342,-9.21629,100.64446,3.8268342,-8.786617,97.14506,3.8268342,-7.0773287,94.06142,3.8268342,-4.3373528,91.84263,3.8268342,-0.96571577,90.81181,3.8268342,2.546556,91.1191,3.8268342,5.687971,92.71973,3.8268342,8.001031,95.3806,3.8268342,9.807853,100.0,1.9509032,9.093683,103.67409,1.9509032,7.0551786,106.81311,1.9509032,3.989213,108.959915,1.9509032,0.34228924,109.80188,1.9509032,-3.3544827,109.21637,1.9509032,-6.5627346,107.28865,1.9509032,-8.81524,104.29948,1.9509032,-9.783961,100.68416,1.9509032,-9.327823,96.96921,1.9509032,-7.5132513,93.69563,1.9509032,-4.6045084,91.34018,1.9509032,-1.0251983,90.24587,1.9509032,2.7034092,90.57208,1.9509032,6.0383177,92.27131,1.9509032,8.493849,95.09607,1.9509032,10.0,100.0,6.123234E-16,9.271839,103.74606,6.123234E-16,7.193398,106.94659,6.123234E-16,4.067366,109.13545,6.123234E-16,0.3489951,109.99391,6.123234E-16,-3.4202008,109.39693,6.123234E-16,-6.691307,107.43145,6.123234E-16,-8.987941,104.38371,6.123234E-16,-9.975641,100.69756,6.123234E-16,-9.510566,96.90983,6.123234E-16,-7.660445,93.57213,6.123234E-16,-4.6947165,91.170525,6.123234E-16,-1.0452832,90.05478,6.123234E-16,2.756372,90.38738,6.123234E-16,6.1566153,92.119896,6.123234E-16,8.660254,95.0,6.123234E-16,9.807853,100.0,-1.9509032,9.093683,103.67409,-1.9509032,7.0551786,106.81311,-1.9509032,3.989213,108.959915,-1.9509032,0.34228924,109.80188,-1.9509032,-3.3544827,109.21637,-1.9509032,-6.5627346,107.28865,-1.9509032,-8.81524,104.29948,-1.9509032,-9.783961,100.68416,-1.9509032,-9.327823,96.96921,-1.9509032,-7.5132513,93.69563,-1.9509032,-4.6045084,91.34018,-1.9509032,-1.0251983,90.24587,-1.9509032,2.7034092,90.57208,-1.9509032,6.0383177,92.27131,-1.9509032,8.493849,95.09607,-1.9509032,9.238795,100.0,-3.8268342,8.566062,103.460915,-3.8268342,6.645833,106.41781,-3.8268342,3.7577562,108.44006,-3.8268342,0.32242942,109.23317,-3.8268342,-3.159854,108.681625,-3.8268342,-6.181961,106.86576,-3.8268342,-8.303775,104.05002,-3.8268342,-9.21629,100.64446,-3.8268342,-8.786617,97.14506,-3.8268342,-7.0773287,94.06142,-3.8268342,-4.3373528,91.84263,-3.8268342,-0.96571577,90.81181,-3.8268342,2.546556,91.1191,-3.8268342,5.687971,92.71973,-3.8268342,8.001031,95.3806,-3.8268342,8.314696,100.0,-5.555702,7.7092514,103.11474,-5.555702,5.981092,105.77587,-5.555702,3.3818913,107.595856,-5.555702,0.29017884,108.30963,-5.555702,-2.843793,107.813255,-5.555702,-5.5636177,106.17902,-5.555702,-7.4731994,103.64492,-5.555702,-8.294441,100.58,-5.555702,-7.907746,97.43062,-5.555702,-6.3694267,94.65542,-5.555702,-3.9035134,92.65856,-5.555702,-0.8691212,91.73085,-5.555702,2.2918398,92.0074,-5.555702,5.119038,93.44793,-5.555702,7.200737,95.84265,-5.555702,7.0710683,100.0,-7.071068,6.55618,102.64887,-7.071068,5.0865006,104.91198,-7.071068,2.8760624,106.45974,-7.071068,0.24677685,107.06676,-7.071068,-2.4184475,106.64463,-7.071068,-4.7314687,105.25483,-7.071068,-6.355434,103.099754,-7.071068,-7.0538435,100.493256,-7.071068,-6.724986,97.81492,-7.071068,-5.416753,95.4548,-7.071068,-3.319666,93.756615,-7.071068,-0.73912686,92.96767,-7.071068,1.9490498,93.20285,-7.071068,4.353385,94.427925,-7.071068,6.123724,96.46446,-7.071068,5.555702,100.0,-8.314696,5.1511574,102.0812,-8.314696,3.9964378,103.859314,-8.314696,2.2597077,105.075386,-8.314696,0.19389136,105.552315,-8.314696,-1.9001617,105.22065,-8.314696,-3.7174904,104.12869,-8.314696,-4.993432,102.43546,-8.314696,-5.542169,100.38754,-8.314696,-5.2837873,98.283195,-8.314696,-4.255915,96.42886,-8.314696,-2.6082444,95.094604,-8.314696,-0.5807282,94.47473,-8.314696,1.5313585,94.659515,-8.314696,3.420432,95.62205,-8.314696,4.8113794,97.222145,-8.314696,3.8268356,100.0,-9.238795,3.5481806,101.433556,-9.238795,2.7527952,102.65834,-9.238795,1.5565143,103.49599,-9.238795,0.13355477,103.8245,-9.238795,-1.3088546,103.59605,-9.238795,-2.5606525,102.843895,-9.238795,-3.4395366,101.677574,-9.238795,-3.8175135,100.266945,-9.238795,-3.6395364,98.817444,-9.238795,-2.9315262,97.54016,-9.238795,-1.7965906,96.62111,-9.238795,-0.40001258,96.19413,-9.238795,1.0548184,96.32141,-9.238795,2.3560355,96.98441,-9.238795,3.3141363,98.08658,-9.238795,1.4901163E-7,100.0,-9.807853
+
+
+		];
+		var min=Math.min(...vertices1);
+		var max=Math.max(...vertices1);
+		
+
+for(var i=0; i<vertices1.length; i++) {
+    vertices1[i] *= (1/(max-min));
+}
+
+		vertices=vertices.concat(vertices1);
+		colors=colors.concat([
+		1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0
+
+		
+		]);
+		indices=indices.concat([
+		2.0,1.0,0.0,3.0,2.0,0.0,4.0,3.0,0.0,5.0,4.0,0.0,6.0,5.0,0.0,7.0,6.0,0.0,8.0,7.0,0.0,9.0,8.0,0.0,10.0,9.0,0.0,11.0,10.0,0.0,12.0,11.0,0.0,13.0,12.0,0.0,14.0,13.0,0.0,15.0,14.0,0.0,16.0,15.0,0.0,1.0,16.0,0.0,1.0,2.0,18.0,18.0,17.0,1.0,2.0,3.0,19.0,19.0,18.0,2.0,3.0,4.0,20.0,20.0,19.0,3.0,4.0,5.0,21.0,21.0,20.0,4.0,5.0,6.0,22.0,22.0,21.0,5.0,6.0,7.0,23.0,23.0,22.0,6.0,7.0,8.0,24.0,24.0,23.0,7.0,8.0,9.0,25.0,25.0,24.0,8.0,9.0,10.0,26.0,26.0,25.0,9.0,10.0,11.0,27.0,27.0,26.0,10.0,11.0,12.0,28.0,28.0,27.0,11.0,12.0,13.0,29.0,29.0,28.0,12.0,13.0,14.0,30.0,30.0,29.0,13.0,14.0,15.0,31.0,31.0,30.0,14.0,15.0,16.0,32.0,32.0,31.0,15.0,16.0,1.0,17.0,17.0,32.0,16.0,17.0,18.0,34.0,34.0,33.0,17.0,18.0,19.0,35.0,35.0,34.0,18.0,19.0,20.0,36.0,36.0,35.0,19.0,20.0,21.0,37.0,37.0,36.0,20.0,21.0,22.0,38.0,38.0,37.0,21.0,22.0,23.0,39.0,39.0,38.0,22.0,23.0,24.0,40.0,40.0,39.0,23.0,24.0,25.0,41.0,41.0,40.0,24.0,25.0,26.0,42.0,42.0,41.0,25.0,26.0,27.0,43.0,43.0,42.0,26.0,27.0,28.0,44.0,44.0,43.0,27.0,28.0,29.0,45.0,45.0,44.0,28.0,29.0,30.0,46.0,46.0,45.0,29.0,30.0,31.0,47.0,47.0,46.0,30.0,31.0,32.0,48.0,48.0,47.0,31.0,32.0,17.0,33.0,33.0,48.0,32.0,33.0,34.0,50.0,50.0,49.0,33.0,34.0,35.0,51.0,51.0,50.0,34.0,35.0,36.0,52.0,52.0,51.0,35.0,36.0,37.0,53.0,53.0,52.0,36.0,37.0,38.0,54.0,54.0,53.0,37.0,38.0,39.0,55.0,55.0,54.0,38.0,39.0,40.0,56.0,56.0,55.0,39.0,40.0,41.0,57.0,57.0,56.0,40.0,41.0,42.0,58.0,58.0,57.0,41.0,42.0,43.0,59.0,59.0,58.0,42.0,43.0,44.0,60.0,60.0,59.0,43.0,44.0,45.0,61.0,61.0,60.0,44.0,45.0,46.0,62.0,62.0,61.0,45.0,46.0,47.0,63.0,63.0,62.0,46.0,47.0,48.0,64.0,64.0,63.0,47.0,48.0,33.0,49.0,49.0,64.0,48.0,49.0,50.0,66.0,66.0,65.0,49.0,50.0,51.0,67.0,67.0,66.0,50.0,51.0,52.0,68.0,68.0,67.0,51.0,52.0,53.0,69.0,69.0,68.0,52.0,53.0,54.0,70.0,70.0,69.0,53.0,54.0,55.0,71.0,71.0,70.0,54.0,55.0,56.0,72.0,72.0,71.0,55.0,56.0,57.0,73.0,73.0,72.0,56.0,57.0,58.0,74.0,74.0,73.0,57.0,58.0,59.0,75.0,75.0,74.0,58.0,59.0,60.0,76.0,76.0,75.0,59.0,60.0,61.0,77.0,77.0,76.0,60.0,61.0,62.0,78.0,78.0,77.0,61.0,62.0,63.0,79.0,79.0,78.0,62.0,63.0,64.0,80.0,80.0,79.0,63.0,64.0,49.0,65.0,65.0,80.0,64.0,65.0,66.0,82.0,82.0,81.0,65.0,66.0,67.0,83.0,83.0,82.0,66.0,67.0,68.0,84.0,84.0,83.0,67.0,68.0,69.0,85.0,85.0,84.0,68.0,69.0,70.0,86.0,86.0,85.0,69.0,70.0,71.0,87.0,87.0,86.0,70.0,71.0,72.0,88.0,88.0,87.0,71.0,72.0,73.0,89.0,89.0,88.0,72.0,73.0,74.0,90.0,90.0,89.0,73.0,74.0,75.0,91.0,91.0,90.0,74.0,75.0,76.0,92.0,92.0,91.0,75.0,76.0,77.0,93.0,93.0,92.0,76.0,77.0,78.0,94.0,94.0,93.0,77.0,78.0,79.0,95.0,95.0,94.0,78.0,79.0,80.0,96.0,96.0,95.0,79.0,80.0,65.0,81.0,81.0,96.0,80.0,81.0,82.0,98.0,98.0,97.0,81.0,82.0,83.0,99.0,99.0,98.0,82.0,83.0,84.0,100.0,100.0,99.0,83.0,84.0,85.0,101.0,101.0,100.0,84.0,85.0,86.0,102.0,102.0,101.0,85.0,86.0,87.0,103.0,103.0,102.0,86.0,87.0,88.0,104.0,104.0,103.0,87.0,88.0,89.0,105.0,105.0,104.0,88.0,89.0,90.0,106.0,106.0,105.0,89.0,90.0,91.0,107.0,107.0,106.0,90.0,91.0,92.0,108.0,108.0,107.0,91.0,92.0,93.0,109.0,109.0,108.0,92.0,93.0,94.0,110.0,110.0,109.0,93.0,94.0,95.0,111.0,111.0,110.0,94.0,95.0,96.0,112.0,112.0,111.0,95.0,96.0,81.0,97.0,97.0,112.0,96.0,97.0,98.0,114.0,114.0,113.0,97.0,98.0,99.0,115.0,115.0,114.0,98.0,99.0,100.0,116.0,116.0,115.0,99.0,100.0,101.0,117.0,117.0,116.0,100.0,101.0,102.0,118.0,118.0,117.0,101.0,102.0,103.0,119.0,119.0,118.0,102.0,103.0,104.0,120.0,120.0,119.0,103.0,104.0,105.0,121.0,121.0,120.0,104.0,105.0,106.0,122.0,122.0,121.0,105.0,106.0,107.0,123.0,123.0,122.0,106.0,107.0,108.0,124.0,124.0,123.0,107.0,108.0,109.0,125.0,125.0,124.0,108.0,109.0,110.0,126.0,126.0,125.0,109.0,110.0,111.0,127.0,127.0,126.0,110.0,111.0,112.0,128.0,128.0,127.0,111.0,112.0,97.0,113.0,113.0,128.0,112.0,113.0,114.0,130.0,130.0,129.0,113.0,114.0,115.0,131.0,131.0,130.0,114.0,115.0,116.0,132.0,132.0,131.0,115.0,116.0,117.0,133.0,133.0,132.0,116.0,117.0,118.0,134.0,134.0,133.0,117.0,118.0,119.0,135.0,135.0,134.0,118.0,119.0,120.0,136.0,136.0,135.0,119.0,120.0,121.0,137.0,137.0,136.0,120.0,121.0,122.0,138.0,138.0,137.0,121.0,122.0,123.0,139.0,139.0,138.0,122.0,123.0,124.0,140.0,140.0,139.0,123.0,124.0,125.0,141.0,141.0,140.0,124.0,125.0,126.0,142.0,142.0,141.0,125.0,126.0,127.0,143.0,143.0,142.0,126.0,127.0,128.0,144.0,144.0,143.0,127.0,128.0,113.0,129.0,129.0,144.0,128.0,129.0,130.0,146.0,146.0,145.0,129.0,130.0,131.0,147.0,147.0,146.0,130.0,131.0,132.0,148.0,148.0,147.0,131.0,132.0,133.0,149.0,149.0,148.0,132.0,133.0,134.0,150.0,150.0,149.0,133.0,134.0,135.0,151.0,151.0,150.0,134.0,135.0,136.0,152.0,152.0,151.0,135.0,136.0,137.0,153.0,153.0,152.0,136.0,137.0,138.0,154.0,154.0,153.0,137.0,138.0,139.0,155.0,155.0,154.0,138.0,139.0,140.0,156.0,156.0,155.0,139.0,140.0,141.0,157.0,157.0,156.0,140.0,141.0,142.0,158.0,158.0,157.0,141.0,142.0,143.0,159.0,159.0,158.0,142.0,143.0,144.0,160.0,160.0,159.0,143.0,144.0,129.0,145.0,145.0,160.0,144.0,145.0,146.0,162.0,162.0,161.0,145.0,146.0,147.0,163.0,163.0,162.0,146.0,147.0,148.0,164.0,164.0,163.0,147.0,148.0,149.0,165.0,165.0,164.0,148.0,149.0,150.0,166.0,166.0,165.0,149.0,150.0,151.0,167.0,167.0,166.0,150.0,151.0,152.0,168.0,168.0,167.0,151.0,152.0,153.0,169.0,169.0,168.0,152.0,153.0,154.0,170.0,170.0,169.0,153.0,154.0,155.0,171.0,171.0,170.0,154.0,155.0,156.0,172.0,172.0,171.0,155.0,156.0,157.0,173.0,173.0,172.0,156.0,157.0,158.0,174.0,174.0,173.0,157.0,158.0,159.0,175.0,175.0,174.0,158.0,159.0,160.0,176.0,176.0,175.0,159.0,160.0,145.0,161.0,161.0,176.0,160.0,161.0,162.0,178.0,178.0,177.0,161.0,162.0,163.0,179.0,179.0,178.0,162.0,163.0,164.0,180.0,180.0,179.0,163.0,164.0,165.0,181.0,181.0,180.0,164.0,165.0,166.0,182.0,182.0,181.0,165.0,166.0,167.0,183.0,183.0,182.0,166.0,167.0,168.0,184.0,184.0,183.0,167.0,168.0,169.0,185.0,185.0,184.0,168.0,169.0,170.0,186.0,186.0,185.0,169.0,170.0,171.0,187.0,187.0,186.0,170.0,171.0,172.0,188.0,188.0,187.0,171.0,172.0,173.0,189.0,189.0,188.0,172.0,173.0,174.0,190.0,190.0,189.0,173.0,174.0,175.0,191.0,191.0,190.0,174.0,175.0,176.0,192.0,192.0,191.0,175.0,176.0,161.0,177.0,177.0,192.0,176.0,177.0,178.0,194.0,194.0,193.0,177.0,178.0,179.0,195.0,195.0,194.0,178.0,179.0,180.0,196.0,196.0,195.0,179.0,180.0,181.0,197.0,197.0,196.0,180.0,181.0,182.0,198.0,198.0,197.0,181.0,182.0,183.0,199.0,199.0,198.0,182.0,183.0,184.0,200.0,200.0,199.0,183.0,184.0,185.0,201.0,201.0,200.0,184.0,185.0,186.0,202.0,202.0,201.0,185.0,186.0,187.0,203.0,203.0,202.0,186.0,187.0,188.0,204.0,204.0,203.0,187.0,188.0,189.0,205.0,205.0,204.0,188.0,189.0,190.0,206.0,206.0,205.0,189.0,190.0,191.0,207.0,207.0,206.0,190.0,191.0,192.0,208.0,208.0,207.0,191.0,192.0,177.0,193.0,193.0,208.0,192.0,193.0,194.0,210.0,210.0,209.0,193.0,194.0,195.0,211.0,211.0,210.0,194.0,195.0,196.0,212.0,212.0,211.0,195.0,196.0,197.0,213.0,213.0,212.0,196.0,197.0,198.0,214.0,214.0,213.0,197.0,198.0,199.0,215.0,215.0,214.0,198.0,199.0,200.0,216.0,216.0,215.0,199.0,200.0,201.0,217.0,217.0,216.0,200.0,201.0,202.0,218.0,218.0,217.0,201.0,202.0,203.0,219.0,219.0,218.0,202.0,203.0,204.0,220.0,220.0,219.0,203.0,204.0,205.0,221.0,221.0,220.0,204.0,205.0,206.0,222.0,222.0,221.0,205.0,206.0,207.0,223.0,223.0,222.0,206.0,207.0,208.0,224.0,224.0,223.0,207.0,208.0,193.0,209.0,209.0,224.0,208.0,225.0,209.0,210.0,225.0,210.0,211.0,225.0,211.0,212.0,225.0,212.0,213.0,225.0,213.0,214.0,225.0,214.0,215.0,225.0,215.0,216.0,225.0,216.0,217.0,225.0,217.0,218.0,225.0,218.0,219.0,225.0,219.0,220.0,225.0,220.0,221.0,225.0,221.0,222.0,225.0,222.0,223.0,225.0,223.0,224.0,225.0,224.0,209.0
+
+
+]);
+		
+	
+	  
+		
+	         // Create and store data into vertex buffer
+	         //var vertex_buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+	         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+	         // Create and store data into color buffer
+	         //var color_buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ARRAY_BUFFER, color_buffer);
+	         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+	         // Create and store data into index buffer
+	         //var Index_Buffer = gl.createBuffer ();
+	         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer);
+	         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+	                                           
+
+         /* ======= Associating shaders to buffer objects =======*/
+/*
+         // Bind vertex buffer object
+         gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+
+         // Bind index buffer object
+         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer); 
+ 
+         // Get the attribute location
+         var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+
+         // Point an attribute to the currently bound VBO
+         gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
+ 
+         // Enable the attribute
+         gl.enableVertexAttribArray(coord);
+		 */
+         /*============= Drawing the Quad ================*/
+
+			/*	*/
+              
+
+		 console.log("appendWarn ");
+		 
+		 
+		 
+		 
+		 
+		 
+	};
+
+
+
+	this.clearAll = function() {
+
+	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+
+				
+	            gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+				
+
+		 console.log("clearAll");
+	};
 
 	this.appendErr = function(text) {
 		 var vertices = [
@@ -501,114 +793,76 @@ function WebGLJS(e) {
 		console.log("appendErr ");
 	};
 	
-	
-	this.appendWarn = function(text) {
-
-// frameBufferArray= gl.createFramebuffer();
-//
-// gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray);
-//
-// depthBufferArray = gl.createRenderbuffer();
-//		 
-// gl.bindRenderbuffer (gl.RENDERBUFFER, depthBufferArray);
-//
-// gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600);
-//
-// gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0,
-// gl.RENDERBUFFER, depthBufferArray);
-//
-// gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray);
-//
-// gl.viewport (0,0,800, 600);
-//
-// gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray);
-//
-// gl.viewport (0,0,800, 600);
-
-// gl.clearColor(1,1,1,1);
-
-// gl.clear(17664);
-
-// gl.enable(gl.DEPTH_TEST);
-// gl.enable(gl.DEPTH_TEST);
-// gl.enable(gl.DEPTH_TEST);
-		var vertices =  [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5,  -0.2, 0.2, -0.2, -0.2, 0.0, -0.2, -0.5,-0.5, -0.25,0.5, 0.0,-0.5,]; // [0,3,1,3,1,2];
-
-        gl.clearColor(0.5, 0.5, 0.5, 0.9);
-        // Enable the depth test
-        gl.enable(gl.DEPTH_TEST);         
-        // Clear the color buffer bit
-        gl.clear(gl.COLOR_BUFFER_BIT);
-		 bufferArray= gl.createBuffer(); // = [36, 37, 38, 39, 40]
-
-// gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray);
-
-// gl.viewport (0,0,800, 600);
-		 gl.viewport(0,0,canvas.width,canvas.height);
-
-// gl.bindBuffer (gl.ARRAY_BUFFER,bufferArray );
-//
-// gl.bindBuffer (gl.ARRAY_BUFFER,bufferArray );
-
-		 gl.bindBuffer (gl.ARRAY_BUFFER,bufferArray );
-
-// gl.bufferData(gl.ARRAY_BUFFER, 1024, gl.DYNAMIC_DRAW ); //= 34963 0,1,2,0,2,3
-// 35044
-		 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-	        /* Step 4: Associate the shader programs to buffer objects */
-	        // Bind vertex buffer object
-	        gl.bindBuffer(gl.ARRAY_BUFFER, bufferArray);
-	        // Get the attribute location
-	        var coord = gl.getAttribLocation(shaderProgram, "coordinates");
-	        // point an attribute to the currently bound VBO
-	        gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
-	        // Enable the attribute
-	        gl.enableVertexAttribArray(coord);
-// gl.drawElements(4,6, gl.UNSIGNED_SHORT, 0);
-
-		 gl.drawArrays(gl.TRIANGLES, 0, 9);
-		 console.log("appendWarn ");
-	};
-
 	this.glDrawElements = function(glTriangles, i, glUnsignedInt, j) {
 		
-//		gl.drawElements(glTriangles, i, gl.UNSIGNED_SHORT, j);
 
-		 gl.drawArrays(glTriangles, 0, 3);
-		console.log("gl.drawElements("+glTriangles+","+i+", gl.UNSIGNED_SHORT, "+j+")");
-		 // gl.drawElements(gl.POINTS, 8, gl.UNSIGNED_BYTE, 0);
+		console.log("gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);//"+i);
+		
+	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
+
+		
+		//gl.drawElements(glTriangles, i,  gl.UNSIGNED_BYTE, j);
+		//gl.drawArrays(glTriangles, 0, 3);
+		//gl.drawElements(gl.POINTS, 8, gl.UNSIGNED_BYTE, 0);
+		
+	
+		//gl.drawElements(gl.TRIANGLE_STRIP, 4, gl.UNSIGNED_SHORT, 0);
+		
+		//gl.drawElements(glTriangles, i, gl.UNSIGNED_SHORT, j);
+		
 
 	};
 
 	this.glBindFramebuffer = function(glFramebuffer, i) {
-// gl.bindFramebuffer(glFramebuffer, i);
+		//console.log("gl.bindFramebuffer ("+glFramebuffer+","+i+");  ");
+		//gl.bindFramebuffer(glFramebuffer, frameBufferArray);
+//		gl.bindFramebuffer(glFramebuffer, i);
 //		gl.bindFramebuffer(gl.FRAMEBUFFER, frameBufferArray); 
-//		console.log("gl.bindFramebuffer ( gl.FRAMEBUFFER,frameBufferArray) = "+frameBufferArray+" "+i);
 	};
 	this.glViewport = function(i,j,width, height) {
-		gl.viewport(i,j,80, 60);
-		console.log("gl.viewport (i,j,800, 600) "+width);
+		//console.log("gl.viewport ("+i+","+j+","+width+","+ height+"); //"+canvas.width+" "+canvas.height);
+		//gl.viewport(i,j,width, height);
+		//gl.viewport(0,0,canvas.width,canvas.height);
 	};
 
 
 	this.glBindBuffer = function(glElementArrayBuffer, i) {
 // gl.bindBuffer(glElementArrayBuffer, i);
-		gl.bindBuffer(gl.ARRAY_BUFFER, bufferArray);
-		console.log("gl.bindBuffer (gl.ARRAY_BUFFER,bufferArray ) = "+bufferArray+" "+i);
+		//console.log("gl.bindBuffer ("+glElementArrayBuffer+", bufferArray  );// "+i);
+		if(i==36){			
+			console.log("gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// "+i);
+			gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);					
+		}
+		if(i==37){			
+			console.log("gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// "+i);
+			gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);
+		}
+		if(i==38){			
+			console.log("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// "+i);
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+		}
+		if(i==39){			
+			console.log("gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// "+i);
+			gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);
+		}
+		
+		//gl.bindBuffer(gl.ARRAY_BUFFER, bufferArray);
 	};
 
 	this.glBindRenderbuffer = function(glRenderbuffer, i) {
 // gl.glBindRenderbuffer(depthBufferArray, i);
-		gl.bindRenderbuffer(gl.RENDERBUFFER, depthBufferArray);
-		console.log("gl.bindRenderbuffer (gl.RENDERBUFFER, depthBufferArray)="+depthBufferArray+" "+i);
+		//console.log("gl.bindRenderbuffer ("+glRenderbuffer+", depthBufferArray);//"+i);
+		//gl.bindRenderbuffer(gl.RENDERBUFFER, depthBufferArray);
 	};
 
 	this.glRenderbufferStorage = function(glRenderbuffer, glDepthComponent, width, height) {
 // gl.renderbufferStorage(glRenderbuffer, glDepthComponent, width, height);//not use
 
 //		gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600);
-		console.log("gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600) = "+glRenderbuffer);
+		//console.log("gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600) = "+glRenderbuffer);
 	};
 	this.glFramebufferRenderbuffer = function(glFramebuffer, glDepthAttachment, glRenderbuffer, i) {
 // gl.framebufferRenderbuffer(glFramebuffer, glDepthAttachment, glRenderbuffer,
@@ -619,66 +873,136 @@ function WebGLJS(e) {
 
 
 	this.glGenFramebuffers = function(i,f,j) {
-
-		frameBufferArray= gl.createFramebuffer();
-		console.log("frameBufferArray= gl.createFramebuffer(); = "+frameBufferArray);
+		/*
+		if(frameBufferArray==null){
+			console.log("frameBufferArray= gl.createFramebuffer();  ");
+			frameBufferArray= gl.createFramebuffer();
+		}
+		/**/
 	};
 
 	this.glGenBuffers = function(i,vboHandles,j) {
-
-		bufferArray= gl.createBuffer();
-		console.log("bufferArray= gl.createBuffer(); = "+vboHandles);
+		/*
+		if(bufferArray==null){
+			console.log("bufferArray= gl.createBuffer(); ");
+			bufferArray= gl.createBuffer();
+		}
+		/**/
 	};
 
-	this.glBufferData = function(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw) {		
+	this.glBufferData = function(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw) {	  
+		intIdxBuffer=JSON.stringify(intIdxBuffer).replace("NaN","-1").replace("-Infinity","-1");
+		
+		var v = intIdxBuffer.substr( 2, intIdxBuffer.length-2 ).split(',');
+/*
+
+		
+		var min=Math.min(...v);
+		
+		var max=Math.max(...v);
+		
+
+		for(var i=0; i<v.length; i++) {
+			v[i] *= (1.0/(max-min));
+		}*/
 // gl.bufferData(target, new Float32Array(JSON.parse(srcData)),usage);
-		gl.bufferData(gl.ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
-		console.log("gl.bufferData(gl.ARRAY_BUFFER, 1024, gl.STATIC_DRAW); = "+numBytes+" "+ new Float32Array(JSON.parse(intIdxBuffer)));
-		 
+		if(glElementArrayBuffer==gl.ELEMENT_ARRAY_BUFFER){
+			
+
+			v=v.map(function(i){return parseInt(i);});
+			//gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
+			//if(isNaN(v)){
+				//console.log("gl.bufferData("+glElementArrayBuffer+", "+numBytes+", "+glStaticDraw+");  ");
+				//gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
+			//}else{
+				console.log("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);");
+				console.log("gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);// "+new Uint16Array(v));
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// 38
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);
+			//}
+		}
+		if(glElementArrayBuffer==gl.ARRAY_BUFFER){
+			
+
+			v=v.map(function(i){return parseFloat(i);});
+			if(isNaN(v[0])){
+				 console.log("gl.bufferData("+glElementArrayBuffer+", "+numBytes+", "+glStaticDraw+");  ");
+				 gl.bufferData(gl.ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
+			}else{
+				console.log("gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);// "+new Float32Array(v));
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
+			}
+		}
+		//gl.bufferData(gl.ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
+		 //new Float32Array(JSON.parse(intIdxBuffer))
 	};
 
 	this.glBufferSubData = function(glArrayBuffer, offset, i, fbData) {		
 		fbData=JSON.stringify(fbData).replace("NaN","-1").replace("-Infinity","-1");
-		console.log("  fbData "+fbData );
-		console.log("gl.bufferSubData(gl.ARRAY_BUFFER, 512, fbData); = "+glArrayBuffer+"  fbData "+ new Float32Array(JSON.parse(fbData))+" "+offset);
-		gl.bufferSubData(gl.ARRAY_BUFFER, offset,  new Float32Array(JSON.parse(fbData)));
-//		gl.bufferData(glArrayBuffer, offset, i, fbData);
+		//console.log("gl.bufferSubData("+gl.ARRAY_BUFFER+","+ 512, fbData); = "+glArrayBuffer+"  fbData "+ new Float32Array(JSON.parse(fbData))+" "+offset);
+		
+		var v = fbData.substr( 2, fbData.length-2 ).split(',');
+
+
+
+		v=v.map(function(i){return parseFloat(i);});
+		
+		
+		var min=Math.min(...v);
+		
+		var max=Math.max(...v);
+		
+
+		for(var i=0; i<v.length; i++) {
+			v[i] *= (1.0/(max-min));
+		}
+		/**/
+		//console.log(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+ vertices+");");
+        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+		console.log("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//"+ offset+","+ new Float32Array(v) );
+		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));
+	    //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
+
 		 
 	};
 
 	this.glDrawBuffer = function(glColorAttachment0) {		
+		//console.log("gl.drawbuffers([gl.NONE, "+glColorAttachmbufferSubDataent0+"]); ");		
+		//gl.drawbuffers([gl.NONE, gl.COLOR_ATTACHMENT1]);
+		
 // gl.drawBuffers(frameBufferArray);
-		gl.drawbuffers([gl.NONE, gl.COLOR_ATTACHMENT1]);
-		console.log("gl.drawbuffers([gl.NONE, gl.COLOR_ATTACHMENT1]); ");
+		//gl.drawbuffers([gl.NONE, gl.COLOR_ATTACHMENT1]);
 		 
 	};
 
 	this.glClearColor = function(f,g,h,i) {
 		
-		gl.clearColor(f,g,h,i);
-		console.log("gl.clearColor(f,g,h,i); = "+f+" "+g+" "+h+" "+i);
+		//console.log("gl.clearColor("+f+", "+g+", "+h+", "+i+")");
+		//gl.clearColor(f,g,h,i);
 		 
 	};
 
 
 
 	this.glEnableVertexAttribArray = function(attributePosition) {
-
+/*
         var coord = gl.getAttribLocation(shaderProgram, "coordinates");
         // point an attribute to the currently bound VBO
         gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 0, 0);
         // Enable the attribute
         gl.enableVertexAttribArray(coord);
-		console.log("glEnableVertexAttribArray(attributePosition); = "+attributePosition);
+/**/		
+		//console.log("gl.enableVertexAttribArray("+attributePosition+"); //more");
 		 
 	};
 
 
 	this.glClear = function(i) {
 		
-		gl.clear(gl.COLOR_BUFFER_BIT);
+		//console.log("gl.clear("+i+");");
+		//gl.clear(i);
+		//gl.clear(gl.COLOR_BUFFER_BIT);
 		
-		console.log("gl.clear(i); = "+i);
 		 
 	};
 
@@ -686,34 +1010,36 @@ function WebGLJS(e) {
 
 	this.glEnable = function(glDepthTest) {
 		
-		gl.enable(gl.DEPTH_TEST);
-		console.log("gl.enable(gl.DEPTH_TEST); ");
+		//console.log("gl.enable("+gl.DEPTH_TEST+"); ");
 		 
+		//gl.enable(glDepthTest);
+		 //gl.enable(gl.DEPTH_TEST);
 	};
 
 
 	this.glGenRenderbuffers = function(i,dBufferArray,j) {
-		
-		depthBufferArray = gl.createRenderbuffer();
-		console.log("depthBufferArray = gl.createRenderbuffer(); ");
-		 
+		/*
+		if(depthBufferArray==null){
+			console.log("depthBufferArray = gl.createRenderbuffer(); // "+i+" "+dBufferArray+" "+j);		
+			depthBufferArray = gl.createRenderbuffer();
+		 }
+		 /**/
 	};
 
 	
 
 
 	this.glDepthFunc = function(glLequal) {
-		
-		gl.depthFunc(glLequal);		 
-		console.log("gl.depthFunc(glLequal); ");
+		//console.log("gl.depthFunc("+glLequal+"); ");		
+		//gl.depthFunc(glLequal);		 
 	};
 
 
 
 
 	this.glFrontFace = function(text) {
-		gl.frontFace(gl.CW);
-		console.log('gl.frontFace(gl.CW);');
+		//console.log("gl.frontFace("+text+");");
+		//gl.frontFace(gl.CW);
 	};
 
 
@@ -721,11 +1047,6 @@ function WebGLJS(e) {
 
 
 
-
-
-	this.clearAll = function() {
-
-	};
 
 }
 

@@ -212,7 +212,7 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 						}
 					});
 
-				} else if (file.exists() && file.isDirectory()) {
+				} else {//if (file.exists() && file.isDirectory()) {
 					// Double click a folder
 					Object eventSource = anEvent.getSource();
 					if (eventSource instanceof TreeViewer) {

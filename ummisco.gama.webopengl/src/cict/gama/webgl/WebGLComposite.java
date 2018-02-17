@@ -296,7 +296,7 @@ public class WebGLComposite extends GLCanvas {
 		// tmp=getSize().x;
 		// }
 		// });
-		return tmp;
+		return 800;
 	}
 
 	public int getSurfaceHeight() {
@@ -313,7 +313,7 @@ public class WebGLComposite extends GLCanvas {
 		// tmp=getSize().y;
 		// }
 		// });
-		return tmp;
+		return 600;
 	}
 
 	public boolean isRealized() {
