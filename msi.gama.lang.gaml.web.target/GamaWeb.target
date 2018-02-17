@@ -574,15 +574,14 @@
 <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.3.2.v20171108-1343"/>
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.3.2.v20171108-1343"/>
 <unit id="org.eclipse.rcp.feature.group" version="4.7.2.v20171130-0510"/>
-<unit id="ummisco.gama.application.product" version="1.7.0.201802050811"/>
-<unit id="ummisco.gama.application.runtime.product" version="1.7.0.201802050811"/>
-<unit id="ummisco.gama.feature.core.extensions.feature.group" version="1.7.0.201802050802"/>
-<unit id="ummisco.gama.feature.core.feature.group" version="1.7.0.201802050810"/>
-<unit id="ummisco.gama.feature.core.ui.feature.group" version="1.7.0.201802050802"/>
-<unit id="ummisco.gama.feature.dependencies.feature.group" version="1.7.0.201802050809"/>
-<unit id="ummisco.gama.feature.experiment.ui.feature.group" version="1.7.0.201802050802"/>
-<unit id="ummisco.gama.feature.modeling.ui.feature.group" version="1.7.0.201802050802"/>
-<unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.201802050802"/>
+<unit id="ummisco.gama.application.product" />
+<unit id="ummisco.gama.feature.core.extensions.feature.group" />
+<unit id="ummisco.gama.feature.core.feature.group"/>
+<unit id="ummisco.gama.feature.core.ui.feature.group"/>
+<unit id="ummisco.gama.feature.dependencies.feature.group"/>
+<unit id="ummisco.gama.feature.experiment.ui.feature.group"/>
+<unit id="ummisco.gama.feature.modeling.ui.feature.group" />
+<unit id="ummisco.gama.feature.models.feature.group" />
 <repository location="http://gama-platform.org/updates/oxygen"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
