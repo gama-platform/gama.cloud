@@ -34,7 +34,7 @@ public class ErrorsPauseAndEdit extends AbstractHandler implements IElementUpdat
 
 	@Override
 	public void updateElement(final UIElement element, final Map parameters) {
-		element.setChecked(GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.getValue());
+//		element.setChecked(GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.getValue());
 	}
 
 }
