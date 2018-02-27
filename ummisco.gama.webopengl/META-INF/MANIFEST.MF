@@ -53,3 +53,4 @@ Export-Package:
  ummisco.gama.opengl.vaoGenerator,
  ummisco.gama.webgl
 Bundle-Vendor: UMMISCO
+Bundle-ClassPath: .
