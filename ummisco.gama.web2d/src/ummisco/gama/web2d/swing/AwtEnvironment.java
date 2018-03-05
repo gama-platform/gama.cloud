@@ -41,7 +41,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
-import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
@@ -459,7 +458,7 @@ public final class AwtEnvironment {
 		final Shell shell = new Shell(parent, SWT.NO_TRIM | SWT.APPLICATION_MODAL);
 
 		final Composite composite = new Composite(shell, SWT.BOLD);
-		final Frame frame = SWT_AWT.new_Frame(composite);
+		final Frame frame = new Frame();// SWT_AWT.new_Frame(composite);
 
 		// Position and size the shell and embedded composite. This ensures that
 		// any child dialogs will be shown in the proper position, relative to

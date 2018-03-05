@@ -258,7 +258,7 @@ public class ModernDrawer {
 			bindBuffer(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, typeOfDrawing[2]);
 
 			// COLORS BUFFER
-			bindBuffer(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, typeOfDrawing[2]);
+//			bindBuffer(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, typeOfDrawing[2]);
 
 			// UV MAPPING (If a texture is defined)
 			if (shader.useTexture()) {
@@ -679,7 +679,7 @@ public class ModernDrawer {
 		}
 	}
 
-	private void bindBuffer(final int shaderAttributeNumber, final int bufferAttributeNumber, final int shaderNumber) {
+	private void bindBuffer(final int shaderAttributeNumber, int bufferAttributeNumber, final int shaderNumber) {
 		int coordinateSize = 0;
 		switch (shaderAttributeNumber) {
 			// recognize the type of VAO to determine the size of the coordinates
@@ -697,11 +697,12 @@ public class ModernDrawer {
 				break; // s, t, r, q for textureRendering, u, v otherwise
 		}
 		// Select the VBO, GPU memory data, to use for data
-		if (!isRenderingToTexture)
-			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER,
-					layerStructureMap.get(currentLayer).vboHandles[0]);//[shaderNumber * 5 + bufferAttributeNumber]);
-		else
-			gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, fboHandles[bufferAttributeNumber]);
+			if (bufferAttributeNumber==3) {bufferAttributeNumber=0;}
+			if (!isRenderingToTexture)
+				gl.glBindBuffer(GL2.GL_ARRAY_BUFFER,
+						layerStructureMap.get(currentLayer).vboHandles[bufferAttributeNumber]);//[shaderNumber * 5 + bufferAttributeNumber]);
+			else
+				gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, fboHandles[bufferAttributeNumber]);
 
 		// Associate Vertex attribute with the last bound VBO
 		gl.glVertexAttribPointer(shaderAttributeNumber, coordinateSize, GL2.GL_FLOAT, false /* normalized? */,
