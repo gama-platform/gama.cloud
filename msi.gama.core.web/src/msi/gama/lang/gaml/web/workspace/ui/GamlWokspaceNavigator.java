@@ -17,9 +17,12 @@ package msi.gama.lang.gaml.web.workspace.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import org.dslforge.workspace.ui.BasicViewerComparator;
 import org.dslforge.workspace.ui.BasicWokspaceNavigator;
@@ -48,6 +51,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 
+import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.services.drive.Drive;
@@ -73,7 +77,7 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 		partService.addPartListener(this);
 //		getCommonViewer().addSelectionChangedListener(selectionListener);
 		getCommonViewer().addFilter(new BasicWorkspaceFilter());
-		getCommonViewer().setContentProvider(new FileSystemContentProvider());
+		getCommonViewer().setContentProvider(new GamaFileSystemContentProvider());
 		getCommonViewer().setLabelProvider(new FileSystemLabelProvider());
 		getCommonViewer().setInput(new File(workspaceRoot));
 	}
@@ -130,6 +134,46 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 	      return null;
 	    }
 	  }
+	  
+
+	  /**
+	   * Update an existing file's metadata and content.
+	   *
+	   * @param service Drive API service instance.
+	   * @param fileId ID of the file to update.
+	   * @param newTitle New title for the file.
+	   * @param newDescription New description for the file.
+	   * @param newMimeType New MIME type for the file.
+	   * @param newFilename Filename of the new content to upload.
+	   * @param newRevision Whether or not to create a new revision for this
+	   *        file.
+	   * @return Updated file metadata if successful, {@code null} otherwise.
+	   */
+	  private com.google.api.services.drive.model.File updateFile(Drive service, String fileId, String newTitle,
+	      String newDescription, String newMimeType, String newFilename, boolean newRevision) {
+	    try {
+	      // First retrieve the file from the API.
+	      com.google.api.services.drive.model.File file = service.files().get(fileId).execute();
+
+	      // File's new metadata.
+	      file.setTitle(newTitle);
+	      file.setDescription(newDescription);
+	      file.setMimeType(newMimeType);
+
+	      // File's new content.
+	      java.io.File fileContent = new java.io.File(newFilename);
+	      FileContent mediaContent = new FileContent(newMimeType, fileContent);
+
+	      // Send the request to the API.
+	      com.google.api.services.drive.model.File updatedFile = service.files().update(fileId, file, mediaContent).execute();
+
+	      return updatedFile;
+	    } catch (IOException e) {
+	      System.out.println("An error occurred: " + e);
+	      return null;
+	    }
+	  }
+
 
 	@Override
 	protected void handleDoubleClick(DoubleClickEvent anEvent) {
@@ -141,7 +185,7 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 		if (openHandler == null) {
 			IStructuredSelection selection = (IStructuredSelection) anEvent.getSelection();
 			Object element = selection.getFirstElement();
-			if (element instanceof File) {
+			if (element instanceof File && !(element instanceof GDriveFile)) {
 				final File file = (File) element;
 				if (file.exists() && !file.isDirectory()) {
 					final Display display = PlatformUI.getWorkbench().getDisplay();
@@ -190,6 +234,22 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 							try {
 //								s = GamaFileSystemContentProvider.drive.files().export(file.id, "text/plain");
 								InputStream in=downloadFile(GamaFileSystemContentProvider.drive,file);//s.executeMediaAsInputStream();
+
+
+							    File targetFile = new File(file.getPath());
+							    OutputStream outStream = new FileOutputStream(targetFile);
+							    
+							    
+
+								int read = 0;
+								byte[] bytes = new byte[1024];
+
+								while ((read = in.read(bytes)) != -1) {
+									outStream.write(bytes, 0, read);
+								}
+							    outStream.close();
+							    in.close();
+							    /*
 								InputStreamReader isr=new InputStreamReader(in);
 								BufferedReader br = new BufferedReader(isr);
 								String line = null;
@@ -198,16 +258,18 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 								while((line = br.readLine()) != null) {
 									responseData.append(line);
 								}
-								System.out.println(responseData);
+								System.out.println(responseData);*/
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-//							String absolutePath = file.getAbsolutePath();
-//							IWorkbench workbench = PlatformUI.getWorkbench();
-//							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
-////								logger.info("Double click on file " + absolutePath);
-//							}
+							
+							updateFile(GamaFileSystemContentProvider.drive, file.getId(), file.getTitle(), file.getDescription(), file.getMimeType(), file.getPath(), true);
+							String absolutePath = file.getPath();//file.getAbsolutePath();
+							IWorkbench workbench = PlatformUI.getWorkbench();
+							if (GamlEditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+//								logger.info("Double click on file " + absolutePath);
+							}
 //							workspaceChanged(null);
 						}
 					});

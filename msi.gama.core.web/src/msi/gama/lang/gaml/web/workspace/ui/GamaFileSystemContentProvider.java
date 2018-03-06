@@ -15,7 +15,10 @@
  */
 package msi.gama.lang.gaml.web.workspace.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.dslforge.workspace.ui.FileSystemContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -27,7 +30,10 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.Drive.Children;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.ChildList;
+import com.google.api.services.drive.model.ChildReference;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
@@ -77,7 +83,6 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 			// .setTransport(TRANSPORT).setClientSecrets(clientSecrets).build().setFromTokenResponse(tokenResponse);
 
 			try {
-
 				// Use access token to call API
 				drive = new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
 						.setApplicationName("GAMA Cloud").build();
@@ -85,16 +90,19 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 				String pageToken = null;
 				ArrayList<GDriveFile> lf = new ArrayList();
 				do {
+					String pp=parentElement instanceof GDriveFile?((GDriveFile)parentElement).getId():"root";
 					FileList result = drive.files().list().setSpaces("drive")
-							.setQ("'root' in parents and trashed = false")
+							.setQ("'"+pp+"' in parents and trashed = false")
 
 							.setPageToken(pageToken).execute();
 
 					for (File file : result.getItems()) {
-						GDriveFile gf = new GDriveFile(file.getId(), file.getTitle());
-						gf.downloadUrl = file.getDownloadUrl();
+						GDriveFile gf = new GDriveFile(file.getId(), file.getTitle(), file.getTitle(),
+								file.getDescription(), file.getMimeType(), file.getDownloadUrl());
+
 						if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
 							gf.isDir = true;
+//							gf.setChildren(printFilesInFolder(drive, gf));
 						}
 						lf.add(gf);
 						// if("application/vnd.google-apps.folder".equals(file.getMimeType())) {
@@ -114,11 +122,10 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 			}
 
 		} else {
-			if (parentElement instanceof File) {
+			if (parentElement instanceof java.io.File) {
 				java.io.File file = (java.io.File) parentElement;
 				if (file.isDirectory()) {
-					java.io.File[] f = file.listFiles();
-					return f;
+					return file.listFiles();
 				}
 			}
 		}
@@ -132,14 +139,55 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 	@Override
 	public Object getParent(Object element) {
 		if (element instanceof File) {
-			File file = (File) element;
-			// if (file.getParent() != null)
-			// return new File(file.getParent());
-			if (file.getParents().size() > 0) {
-				return file.getParents();
-			}
+			java.io.File file = (java.io.File) element;
+			if (file.getParent() != null)
+				return new java.io.File(file.getParent());
+			// if (file.getParents().size() > 0) {
+			// return file.getParents();
+			// }
 		}
 		return null;
+	}
+
+	private static ArrayList<GDriveFile> printFilesInFolder(Drive service, GDriveFile f) {
+
+		String pageToken = null;
+		ArrayList<GDriveFile> lf = new ArrayList();
+		try {
+			do {
+				FileList result;
+				result = drive.files().list().setSpaces("drive")
+						.setQ("'" + f.getId() + "' in parents and trashed = false") // 1JIjVlN4zxm3rK9SR2E_2Bl-zNWL1sPUL
+
+						.setPageToken(pageToken).execute();
+
+				for (File file : result.getItems()) {
+					GDriveFile gf = new GDriveFile(file.getId(), file.getTitle(), file.getTitle(),
+							file.getDescription(), file.getMimeType(), file.getDownloadUrl());
+
+					if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+						gf.setDir(true);
+//						gf.setChildren(printFilesInFolder(drive, gf));
+					}
+					lf.add(gf);
+					if ("application/vnd.google-apps.folder".equals(file.getMimeType())) {
+						System.out.printf(">>Folder ");
+					}
+					System.out.printf(" %s \n", file.getTitle());
+					return lf;
+
+				}
+				pageToken = result.getNextPageToken();
+				// System.out.printf("---------pageToken %s \n",pageToken);
+
+			} while (pageToken != null);
+			// return lf.toArray();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lf;
+
 	}
 
 	/**
@@ -150,9 +198,16 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 	public boolean hasChildren(Object element) {
 		if (element instanceof GDriveFile) {
 			GDriveFile file = (GDriveFile) element;
+			if (file.isDirectory()) {				
+//				 if (printFilesInFolder(drive, file).size() > 0)
+//				if(file.getChildren().size()>0)
+					 return true;
+			}
+		} else if (element instanceof java.io.File) {
+			java.io.File file = (java.io.File) element;
 			if (file.isDirectory()) {
-				// if (file.list().length > 0)
-				return true;
+				if (file.list().length > 0)
+					return true;
 			}
 		}
 		return false;

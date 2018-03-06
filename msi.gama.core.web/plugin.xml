@@ -1276,7 +1276,4 @@
             type="java.lang.Object">
       </propertyTester>
    </extension>
-   <extension
-         point="gaml.extension">
-   </extension>
 </plugin>

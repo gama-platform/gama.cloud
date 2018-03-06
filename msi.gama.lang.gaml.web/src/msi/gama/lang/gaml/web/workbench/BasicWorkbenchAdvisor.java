@@ -25,6 +25,8 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.core.web.editor.IWorkbenchConstants;
 import ummisco.gama.ui.factories.ConsoleDisplayer;
@@ -61,6 +63,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		super.postShutdown();
 
 
+		RWT.getApplicationContext().setAttribute("credential",null);
 		
 
 		String uid=RWT.getUISession().getAttribute("user").toString();

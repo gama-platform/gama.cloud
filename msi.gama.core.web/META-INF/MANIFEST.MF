@@ -31,7 +31,8 @@ Require-Bundle: org.eclipse.rap.ui,
  org.dslforge.workspace;visibility:=reexport,
  org.dslforge.workspace.ui;visibility:=reexport,
  org.dslforge.workspace.jpa;visibility:=reexport,
- org.dslforge.workspace.config;visibility:=reexport
+ org.dslforge.workspace.config;visibility:=reexport,
+ org.dslforge.texteditor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  lib/google-api-client-1.23.0.jar,
