@@ -169,7 +169,7 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 				HttpSession session = RWT.getRequest().getSession();
 //				int localPort = RWT.getRequest().getLocalPort();
 //				String authorizationURL = new Authorization(session).getURL(localPort);
-				String authorizationJavaScriptURL = "/oauthJS";
+				String authorizationJavaScriptURL = "oauthJS";
 //				String googleURL = "https://www.google.com/custom";
 				String url = authorizationJavaScriptURL + "?sessionId=" + session.getId() + "&" + getCid();
 				System.out.println("open in browser widget: " + url);

@@ -19,15 +19,15 @@
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.8 -XX:+UseG1GC -XX:+UseStringDeduplication -Dosgi.requiredJavaVersion=1.8 -Xms256m -Xmx1024m -Declipse.ignoreApp=true -Dosgi.noShutdown=true&#13;&#10;-Dorg.eclipse.equinox.http.jetty.log.stderr.threshold=info"/>
 <stringAttribute key="org.eclipse.rap.launch.browserMode" value="INTERNAL"/>
-<stringAttribute key="org.eclipse.rap.launch.contextpath" value="/"/>
+<stringAttribute key="org.eclipse.rap.launch.contextpath" value="/GamaWeb"/>
 <stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.tools.launch/GamlWebEditor_targetbundles"/>
-<booleanAttribute key="org.eclipse.rap.launch.developmentMode" value="true"/>
+<booleanAttribute key="org.eclipse.rap.launch.developmentMode" value="false"/>
 <booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="false"/>
 <intAttribute key="org.eclipse.rap.launch.port" value="10080"/>
 <stringAttribute key="org.eclipse.rap.launch.servletPath" value="/texteditor"/>
 <intAttribute key="org.eclipse.rap.launch.sessionTimeout" value="0"/>
 <booleanAttribute key="org.eclipse.rap.launch.useDefaultDataLocation" value="true"/>
-<booleanAttribute key="org.eclipse.rap.launch.useManualContextPath" value="false"/>
+<booleanAttribute key="org.eclipse.rap.launch.useManualContextPath" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useManualPort" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useSessionTimeout" value="false"/>
 <stringAttribute key="pde.version" value="3.3"/>

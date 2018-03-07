@@ -26,3 +26,4 @@ release/*
 /*/gaml/
 /*/bin/
 msi.gama.ext/lib/
+xtend-gen/*
