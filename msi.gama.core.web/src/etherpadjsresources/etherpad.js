@@ -23,7 +23,7 @@
       'plugins'           : {},
       'rtl'               : false
     };
-    alert('test');
+
     var $self = this;
     if (!$self.length) return;
     if (!$self.attr('id')) throw new Error('No "id" attribute');

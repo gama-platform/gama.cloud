@@ -34,11 +34,9 @@ public class EtherpadComposite extends Composite {
  
    private static final String REMOTE_TYPE = "o7planning.EtherpadComposite";
  
-   private final String[] FILENAMES = { "etherpadjs.css", "jquery-latest.min.js", "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js", "etherpad.js"};
+   private final String[] FILENAMES = {  "etherpadjs.css",  "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js"};
  
    private final OperationHandler operationHandler = new AbstractOperationHandler() {
- 
-       private static final long serialVersionUID = -1979566336567602883L;
  
        @Override
        public void handleSet(JsonObject properties) {
@@ -110,15 +108,19 @@ public class EtherpadComposite extends Composite {
  
        // Load file logjs.js into page
 
+//       jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//               + "etherpad.jquery.json"));
+       
+
+//       jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//               + "etherpad.js"));
+
+//       jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//               + "jquery-latest.min.js"));
+
        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
                + "etherpadjs.js"));
 
-       jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-               + "etherpad.js"));
-
-       jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-               + "jquery-latest.min.js"));
- 
        // Load file load-css-file.js into page
     
        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
