@@ -16,7 +16,7 @@ import java.util.Map;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.MouseWheelListener;
+//import org.eclipse.swt.events.MouseWheelListener;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.metamodel.shape.GamaPoint;
@@ -31,7 +31,7 @@ import ummisco.gama.opengl.Abstract3DRenderer;
  *
  */
 public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListener, MouseMoveListener,
-		MouseTrackListener, MouseWheelListener {
+		MouseTrackListener {
 	@FunctionalInterface
 	public static interface CameraPreset {
 		void applyTo(AbstractCamera camera);

@@ -210,8 +210,8 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
 			getCanvas().addMouseMoveListener(camera);
-			getCanvas().addMouseWheelListener(camera);
-			getCanvas().addMouseTrackListener(camera);
+			//getCanvas().addMouseWheelListener(camera);
+			//getCanvas().addMouseTrackListener(camera);
 
 		});
 
@@ -243,8 +243,8 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
 			getCanvas().removeMouseMoveListener(oldCamera);
-			getCanvas().removeMouseWheelListener(oldCamera);
-			getCanvas().removeMouseTrackListener(oldCamera);
+			//getCanvas().removeMouseWheelListener(oldCamera);
+			//getCanvas().removeMouseTrackListener(oldCamera);
 		});
 
 		if (!data.isArcBallCamera()) {

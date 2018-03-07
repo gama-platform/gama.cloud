@@ -33,6 +33,7 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.core.web.customwidget.EtherpadComposite;
 import msi.gama.core.web.customwidget.LogComposite;
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.runtime.IScope;
@@ -52,7 +53,11 @@ import ummisco.gama.ui.views.toolbar.Selector;
 
 public class ConsoleView extends GamaViewPart
 		implements IToolbarDecoratedView.Sizable, IToolbarDecoratedView.Pausable, IGamaView.Console {
-	private LogComposite msgConsole;
+	//private LogComposite msgConsole;
+	private EtherpadComposite ethConsole;
+	
+	//private LogComposite ethConsole;
+	
 	// private IOConsole msgConsole;
 	// IOConsoleViewer viewer;
 	boolean paused = false;
@@ -80,11 +85,15 @@ public class ConsoleView extends GamaViewPart
 		GridData gridData = new GridData(GridData.FILL_BOTH);
 
 		sc.setLayoutData(gridData);
-		msgConsole = new LogComposite(sc, SWT.NONE);
-		msgConsole.setLayout(new FillLayout());
+	//	msgConsole = new LogComposite(sc, SWT.NONE);
+   //		msgConsole.setLayout(new FillLayout());
 
-		sc.setContent(msgConsole);
-
+	//	sc.setContent(msgConsole);
+		
+		ethConsole = new EtherpadComposite(sc, SWT.NONE);
+		//ethConsole = new LogComposite(sc, SWT.NONE);
+		ethConsole.setLayout(new FillLayout());
+		sc.setContent(ethConsole);
 		// Set the minimum size
 
 		// Expand both horizontally and vertically
@@ -174,10 +183,13 @@ public class ConsoleView extends GamaViewPart
 			try {
 				count++;
 				if(count>400) {
-					msgConsole.clearAll();
+					//msgConsole.clearAll();
+					ethConsole.clearAll();
 					count=0;
 				}
-				msgConsole.appendInfo(root.getScope(), text.replace("\n", "<br/>"));
+				
+				//msgConsole.appendInfo(root.getScope(), text.replace("\n", "<br/>"));
+				ethConsole.appendInfo(root.getScope(), text.replace("\n", "<br/>"));
 				Thread.sleep(10);
 				
 			} catch (Exception ex) {
@@ -237,7 +249,8 @@ public class ConsoleView extends GamaViewPart
 	@Override
 	public void reset() {
 		writers.clear();
-		msgConsole.clearAll();
+		//msgConsole.clearAll();
+		ethConsole.clearAll();
 		pauseBuffer.setLength(0);
 	}
 

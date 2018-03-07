@@ -74,19 +74,19 @@ public class CollaboratingUserControls {
 				btn.addSelectionListener(new SelectionListener() {
 					
 					@Override
-					public void widgetSelected(SelectionEvent arg0) {
-						// TODO Auto-generated method stub
-						int offset = Cast.asInt(null, u.getLastName());
-						int line=editor.getViewer().getTextWidget().getLineAtOffset(offset);
-						TextRange t=new TextRange(line, line, line, line);
-						editor.getViewer().getTextWidget().clearMarkers();
-						editor.getViewer().getTextWidget().addMarker(t);
-//						TextRange t=new TextRange(line, line+1, line, line);
-//						ArrayList a=new ArrayList<>(); a.add(t);
-//						editor.getViewer().getTextWidget().clearMarkers();
-//						editor.getViewer().getTextWidget().setMarkers(a);
-					}
-					
+						public void widgetSelected(SelectionEvent arg0) {
+							// TODO Auto-generated method stub
+							int offset = Cast.asInt(null, u.getLastName());
+							int line=editor.getViewer().getTextWidget().getLineAtOffset(offset);
+							TextRange t=new TextRange(line, line, line, line);
+							editor.getViewer().getTextWidget().clearMarkers();
+							editor.getViewer().getTextWidget().addMarker(t);
+	//						TextRange t=new TextRange(line, line+1, line, line);
+	//						ArrayList a=new ArrayList<>(); a.add(t);
+	//						editor.getViewer().getTextWidget().clearMarkers();
+	//						editor.getViewer().getTextWidget().setMarkers(a);
+						}
+						
 					@Override
 					public void widgetDefaultSelected(SelectionEvent arg0) {
 						// TODO Auto-generated method stub

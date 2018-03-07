@@ -218,7 +218,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		
          var proj_matrix = get_projection(90, canvas.width/canvas.height, 1, 200);
          var mo_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ];
-         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,    -(canvas.width/6),-(canvas.height/3),-80,1 ];
+         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,    -(canvas.width/6),-(canvas.height/3),-200,1 ];
 
 		
 			
@@ -348,10 +348,10 @@ UVMAPPING_IDX = gl.createBuffer();//40
 			 
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 			 
-        //animate(0);
 	this.appendInfo = function(text) {
 
 			  
+        animate(0);
 
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37

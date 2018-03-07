@@ -235,7 +235,7 @@ public abstract class AbstractCamera implements ICamera {
 	 * 
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
-	@Override
+	//@Override
 	public final void mouseScrolled(final MouseEvent e) {
 		invokeOnGLThread(drawable -> {
 			if (cameraInteraction) {
