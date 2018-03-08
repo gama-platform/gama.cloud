@@ -188,7 +188,7 @@ public class EtherpadComposite extends Composite {
    }
     
    public void appendInfo(final IScope scope, String text) {
-////       System.out.println("appendInfo");
+////      System.out.println("appendInfo");
 //       JsonObject obj= new JsonObject();
 //       obj.add("text", text);
 //       this.remoteObject.call("appendInfo", obj);
@@ -203,6 +203,7 @@ public class EtherpadComposite extends Composite {
 
 		          JsonObject obj= new JsonObject();
 		          obj.add("text", text);
+		          obj.add("userId", uid);
 		          remoteObject.call("appendInfo", obj);	 
 		        
 		      }

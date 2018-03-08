@@ -104,7 +104,8 @@
         
        appendInfo : function(json) {  
            var text= json["text"];
-           this.etherpadjs.appendInfo(text);
+           var userId= json["userId"];
+           this.etherpadjs.appendInfo(text, userId);
        },
         
        clearAll : function()  {  

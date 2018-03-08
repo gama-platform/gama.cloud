@@ -235,7 +235,7 @@ public class GamlWokspaceNavigator extends BasicWokspaceNavigator {
 //								s = GamaFileSystemContentProvider.drive.files().export(file.id, "text/plain");
 								InputStream in=downloadFile(GamaFileSystemContentProvider.drive,file);//s.executeMediaAsInputStream();
 
-
+								
 							    File targetFile = new File(file.getPath());
 							    OutputStream outStream = new FileOutputStream(targetFile);
 							    

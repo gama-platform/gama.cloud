@@ -4,7 +4,7 @@ function EtherpadJS(element)  {
    this.div = document.createElement("div");    
    this.div.className = "etherpaddiv";
    this.div.setAttribute("id","etherpaddiv");
-
+   var userId ='';
 
    element.appendChild(this.div);
    this.div.innerHTML = "";
@@ -31,12 +31,14 @@ function EtherpadJS(element)  {
 
 		   $.fn.pad = function( options ) {
 		     var settings = {
-		       'host'              : 'http://beta.etherpad.org',
+		       //'host'              : 'http://beta.etherpad.org',
+		    	'host'              : 'http://127.0.0.1:9001',
 		       'baseUrl'           : '/p/',
 		       'showControls'      : false,
 		       'showChat'          : false,
-		       'showLineNumbers'   : false,
-		       'userName'          : 'unnamed',
+		       'showLineNumbers'   : true,
+		      // 'userName'          : 'admin',
+		       'userName'          : userId,
 		       'lang'              : '',
 		       'useMonospaceFont'  : false,
 		       'noColors'          : false,
@@ -142,18 +144,19 @@ function EtherpadJS(element)  {
 		 })( jQuery );
 
 	   
-	    $('#etherpaddiv').pad({'padId':'phqn88','height':500}); 
+//	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true', 'showLineNumbers':'true'}); 
+//	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true'}); 
+	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true'});
+
 
 
 	};
-	
 
 	   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
-   this.appendInfo = function(text)  {        
+   this.appendInfo = function(text, user)  {        
 	     // The most basic example
-	   
-	    console.log("test in appendInfo");
-
+	   	userId = user;
+	    console.log("test in appendInfo user Id: "+ userId);
 	   // 
 	   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
        this.div.innerHTML = this.div.innerHTML
