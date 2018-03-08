@@ -119,8 +119,8 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			System.out.println("created credentials from access token: " + credential.getAccessToken());
 			System.out.println("credentials' refresh token: " + credential.getRefreshToken());
 			System.out.println("credentials expire in " + credential.getExpiresInSeconds() + "s");
-			
-			RWT.getApplicationContext().setAttribute("credential", credential);
+
+			RWT.getApplicationContext().setAttribute("credential"+RWT.getUISession().getHttpSession(), credential);
 			
 
 		} catch (IOException e) {
@@ -164,11 +164,11 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 
 			// String accessToken = tokenResponse.getAccessToken();
 //			GoogleCredential ccredential = credential.createScoped(Arrays.asList(DriveScopes.DRIVE_FILE));
-
+/*
 			// Use access token to call API
 			Drive drive = new Drive.Builder(TRANSPORT, JSON_FACTORY, credential)
 					.setApplicationName("GAMA Cloud").build();
-			
+			*/
 //			List<File> ff=retrieveAllFiles(drive);
 //			for (File file : ff) {
 //				System.out.printf(" %s \n", file.getTitle() );
@@ -185,6 +185,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 //						System.out.printf(" %s \n", file.getTitle() );
 //					}
 //				}
+			/*
 			String pageToken = null;
 			do {
 			  FileList result = drive.files().list()
@@ -205,52 +206,13 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 //			  System.out.printf("---------pageToken %s \n",pageToken);
 
 			} while (pageToken != null);
-
+*/
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	}
-
-	  private static void printFilesInFolder(Drive service, String folderId)
-	      throws IOException {
-	    Children.List request = service.children().list(folderId);
-
-	    do {
-	      try {
-	        ChildList children = request.execute();
-
-	        for (ChildReference child : children.getItems()) {
-	          System.out.println("File Id: " + child.keySet());
-	        }
-	        request.setPageToken(children.getNextPageToken());
-	      } catch (IOException e) {
-	        System.out.println("An error occurred: " + e);
-	        request.setPageToken(null);
-	      }
-	    } while (request.getPageToken() != null &&
-	             request.getPageToken().length() > 0);
-	  }
-
-	private static List<File> retrieveAllFiles(Drive service) throws IOException {
-		List<File> result = new ArrayList<File>();
-		Files.List request = service.files().list();
-
-		do {
-			try {
-				FileList files = request.execute();
-
-				result.addAll(files.getItems());
-				request.setPageToken(files.getNextPageToken());
-			} catch (Exception e) {
-				e.printStackTrace();
-				request.setPageToken(null);
-			}
-		} while (request.getPageToken() != null && request.getPageToken().length() > 0);
-
-		return result;
 	}
 
 	private void handleIdToken(String idTokenString) {
@@ -261,7 +223,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			idToken = GoogleIdToken.parse(jsonFactory, idTokenString);
 			GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier(new NetHttpTransport(), jsonFactory);
 			System.out.println("idToken is valid: " + verifier.verify(idToken));
-			System.out.println("Google+ ID: " + idToken.getPayload().getSubject());
+			System.out.println("Google+ ID: " + idToken.getPayload().getEmail());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (GeneralSecurityException e) {

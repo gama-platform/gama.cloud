@@ -14,8 +14,11 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextOutputCallback;
 import javax.security.auth.login.LoginException;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
 public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 
@@ -61,6 +64,9 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 		return result;
 	}
 	public boolean login() throws LoginException {
+		if(RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession())!= null) {
+			return true;
+		}
 		Callback label = new TextOutputCallback(TextOutputCallback.INFORMATION, "Please login using Pre-registered account\n or Google authentication!");
 		NameCallback nameCallback = new NameCallback("Username:");
 		PasswordCallback passwordCallback = new PasswordCallback("Password:", false);

@@ -25,6 +25,8 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+
 /**
  * Configures the initial size and appearance of a workbench window.
  */
@@ -40,7 +42,12 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().setShowStatusLine(false);
 		getWindowConfigurer().setShowMenuBar( true );
 		getWindowConfigurer().setShowCoolBar( true );	
-		getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+RWT.getUISession().getAttribute("user"));
+		if(RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession())!=null) {
+			GoogleCredential credential=(GoogleCredential) RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession());			
+			getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+credential.hashCode());
+		}else {
+			getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+RWT.getUISession().getAttribute("user"));
+		}
 		getWindowConfigurer().setShellStyle(SWT.TITLE | SWT.RESIZE | SWT.MAX);
 		Rectangle bounds = Display.getCurrent().getBounds();
 		getWindowConfigurer().setInitialSize(new Point(bounds.width, bounds.height));

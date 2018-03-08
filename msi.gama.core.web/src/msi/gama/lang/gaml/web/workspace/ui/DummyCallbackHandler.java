@@ -232,6 +232,6 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 	}
 
 	public void internalHandle() {
-		
+		System.out.println("ss");
 	}
 }

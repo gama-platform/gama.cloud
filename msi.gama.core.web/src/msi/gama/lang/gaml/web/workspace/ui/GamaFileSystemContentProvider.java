@@ -71,7 +71,7 @@ public class GamaFileSystemContentProvider implements ITreeContentProvider {
 	 */
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		GoogleCredential credential = (GoogleCredential) RWT.getApplicationContext().getAttribute("credential");
+		GoogleCredential credential = (GoogleCredential) RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession());
 		if (credential != null) {
 			String token = credential.getAccessToken();
 			TokenResponse tokenResponse = new TokenResponse();

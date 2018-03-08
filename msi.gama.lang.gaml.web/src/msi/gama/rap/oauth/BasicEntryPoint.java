@@ -83,7 +83,7 @@ public class BasicEntryPoint extends AbstractEntryPoint {
     label.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
     label.setText( "<a href=\"http://localhost:"
                    + port
-                   + "/oauth\" target=\"_blank\">Link to Servlet</a>" );
+                   + "/GamaWeb/oauth\" target=\"_blank\">Link to Servlet</a>" );
   }
 
   private String getTokenCallbackURL() {

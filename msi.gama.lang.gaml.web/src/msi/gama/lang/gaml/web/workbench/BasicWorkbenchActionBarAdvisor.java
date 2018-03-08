@@ -39,6 +39,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
+import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyModifyUserModule;
@@ -98,8 +99,27 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		addToMenuAndRegister(menu, ActionFactory.SAVE.create(window));
 		addToMenuAndRegister(menu, ActionFactory.SAVE_AS.create(window));
 		addToMenuAndRegister(menu, ActionFactory.SAVE_ALL.create(window));
-//		menu.add(new Separator());
+		menu.add(new Separator());
 //		addToMenuAndRegister(menu, ActionFactory.QUIT.create(window));
+
+		addToMenuAndRegister(menu, new Action("Log out",GamaIcons.create("view.panel2").descriptor()) {
+			@Override
+			public String getId() {
+				return "Logout";
+			}
+
+			@Override
+			public void run() {
+				RWT.getApplicationContext().setAttribute("credential"+RWT.getUISession().getHttpSession(),null);
+				
+			}
+
+			@Override
+			public String getToolTipText() {
+				return "Logout";
+			}
+		});
+		
 		menu.add(new GroupMarker(IWorkbenchActionConstants.FILE_END));
 		return menu;
 	}
@@ -326,6 +346,35 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		IMenuManager menu = new MenuManager("Tools", IWorkbenchActionConstants.M_EDIT);
 		menu.add(new GroupMarker(TOOLS_START));
 		return menu;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.ActionBarAdvisor#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		super.dispose();
+
+//		RWT.getApplicationContext().setAttribute("credential"+RWT.getUISession().getHttpSession(),null);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.ActionBarAdvisor#disposeActions()
+	 */
+	@Override
+	protected void disposeActions() {
+		// TODO Auto-generated method stub
+		super.disposeActions();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.ActionBarAdvisor#disposeAction(org.eclipse.jface.action.IAction)
+	 */
+	@Override
+	protected void disposeAction(IAction action) {
+		// TODO Auto-generated method stub
+		super.disposeAction(action);
 	}
 
 	/**

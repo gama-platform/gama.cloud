@@ -73,7 +73,7 @@ public static GoogleClientSecrets getClientSecrets() {
       .build();
     return flow.newAuthorizationUrl()
       .setState( state )
-      .setRedirectUri( "http://localhost:" + localPort + "/oauthCallback" )
+      .setRedirectUri( "http://localhost:" + localPort + "/GamaWeb/oauthCallback" )
       .build();
   }
 }

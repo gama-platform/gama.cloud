@@ -109,11 +109,12 @@ public class BasicWorkbench implements EntryPoint {
 
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
-			boolean logged = enableLoggin?(RWT.getApplicationContext().getAttribute("credential") == null?false:true):true; //false
+//			System.out.println("ss    "+RWT.getUISession().getHttpSession());
+			boolean logged = enableLoggin?(RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession()) == null?false:true):true; //false
 			while (!logged) {
 				logged = dlm.login();
 			}
-			if (logged || RWT.getApplicationContext().getAttribute("credential")!=null) {
+			if (logged || RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession()) != null) {
 				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
 				postLoggedIn(uid);
 				
@@ -151,47 +152,6 @@ public class BasicWorkbench implements EntryPoint {
 				System.out.println("script new    " + executor);
 				// }
 				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
-				// RWT.getUISession().getHttpSession().setMaxInactiveInterval(300);
-
-				// ScopedPreferenceStore prefStore = (ScopedPreferenceStore)
-				// PrefUtil.getAPIPreferenceStore();
-				// String keyPresentationId =
-				// IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID;
-				// String presentationId =
-				// prefStore.getString(keyPresentationId);
-				// if (DEMO_PRESENTATION.equals(presentationId)) {
-				// workbenchAdvisor = new BasicPresentationWorkbenchAdvisor();
-				// }
-				// System.out.println("UISESSION....................");
-
-				// final Runnable runnable = new SessionRunnable() {
-				// @Override
-				// public void runInSession() {
-				// while (true) {
-				// try {
-				// System.out.println(RWT.getApplicationContext().getAttribute("logged_"+uid));
-				// if ("restart".equals("" +
-				// RWT.getApplicationContext().getAttribute("logged_"+uid))) {
-				// System.out.println("Client listened " + cli);
-				// final JavaScriptExecutor executor =
-				// cli.getService(JavaScriptExecutor.class);
-				// executor.execute("window.location.reload(true);");
-				// // String u =
-				// // RWT.getUISession().getAttribute("user").toString();
-				// // if (WorkbenchHelper.workbench.get(u) !=
-				// // null) {
-				// // WorkbenchHelper.workbench.get(u).close();
-				// // }
-				// }
-				// Thread.sleep(1000);
-				// } catch (InterruptedException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
-				// }
-				// }
-				// };
-				// new Thread(runnable).start();
 
 				Display display = PlatformUI.createDisplay();
 

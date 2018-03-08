@@ -61,10 +61,15 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	public void postShutdown() {
 		// TODO Auto-generated method stub
 		super.postShutdown();
-
-
-		RWT.getApplicationContext().setAttribute("credential",null);
-		
+//
+//
+//		if(RWT.getApplicationContext().getAttribute("credential"+RWT.getClient())!=null) {
+//
+//			GoogleCredential credential=(GoogleCredential) RWT.getApplicationContext().getAttribute("credential");
+//			
+//			//RWT.getApplicationContext().setAttribute("credential",null);
+//		}
+//		
 
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		while(!WorkbenchHelper.getDisplay(uid).isDisposed()) {

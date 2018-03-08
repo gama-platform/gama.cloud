@@ -62,7 +62,7 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
-System.out.println("activeotr");
+//System.out.println("activetor");
 	}
 
 	private HttpServiceTracker tracker;
@@ -82,8 +82,8 @@ System.out.println("activeotr");
 			super.addingService(reference);
 			HttpService httpService = context.getService(reference);
 			try {
-				httpService.registerServlet("/" + START_OAUTH_SERVLET_NAME, new ConnectServlet(), null, null);
-				httpService.registerServlet("/" + OAUTH_CALLBACK_SERVLET_NAME, new OAuthCallbackServlet(), null, null);
+				httpService.registerServlet("/GamaWeb/" + START_OAUTH_SERVLET_NAME, new ConnectServlet(), null, null);
+				httpService.registerServlet("/GamaWeb/" + OAUTH_CALLBACK_SERVLET_NAME, new OAuthCallbackServlet(), null, null);
 				httpService.registerResources("/oauthJS", "/src-js/GoogleLoginViaJavaScript.html", null);				
 			} catch (ServletException e) {
 				throwInitializationException(e);
@@ -97,7 +97,7 @@ System.out.println("activeotr");
 		public void removedService(ServiceReference<HttpService> reference, Object service) {
 			super.removedService(reference, service);
 			HttpService httpService = context.getService(reference);
-			httpService.unregister("/" + OAUTH_CALLBACK_SERVLET_NAME);
+			httpService.unregister("/GamaWeb/" + OAUTH_CALLBACK_SERVLET_NAME);
 		}
 
 		private void throwInitializationException(Exception e) {

@@ -75,7 +75,7 @@ public class OAuthCallbackServlet extends HttpServlet {
                                                                                    code,
                                                                                    "http://localhost:"
                                                                                        + request.getLocalPort()
-                                                                                       + "/oauthCallback" ).execute();
+                                                                                       + "/GamaWeb/oauthCallback" ).execute();
 
       // You can read the Google user ID in the ID token.
       // This sample does not use the user ID.

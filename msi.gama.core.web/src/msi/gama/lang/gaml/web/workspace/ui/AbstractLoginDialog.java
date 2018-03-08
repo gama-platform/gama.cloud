@@ -78,17 +78,26 @@ public abstract class AbstractLoginDialog extends TitleAreaDialog implements Cal
 					// is responsible for closing the dialog (in the
 					// loginSucceeded
 					// event).
-					while (!processCallbacks && (RWT.getApplicationContext().getAttribute("credential")==null)) {
+					while (!processCallbacks && (RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession())==null)) {
 						try {
-							Thread.sleep(100);
+//							System.out.println("waiting");
+							Thread.sleep(10);
 						} catch (final Exception e) {
-							// do nothing
+							e.printStackTrace();
 						}
 					}
-					processCallbacks = false;
+					processCallbacks = true;
 					// Call the adapter to handle the callbacks
-					if (!isCancelled())
-						internalHandle();
+					if (!isCancelled()) {
+						display.syncExec(new Runnable() {
+
+							public void run() {
+								close();
+							}
+						});
+					}
+//						internalHandle();
+//						close();
 				}
 			}, true, new NullProgressMonitor(), Display.getDefault());
 		} catch (final Exception e) {
