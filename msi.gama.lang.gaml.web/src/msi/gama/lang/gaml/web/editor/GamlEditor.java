@@ -29,6 +29,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.xtext.resource.XtextResource;
 
+import msi.gama.core.web.customwidget.EtherpadComposite;
 import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
@@ -198,6 +199,13 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		super.createPartControl(editor);
 		setResourceListener(this);
 		validateResource();
+		final EtherpadComposite epEditor=new EtherpadComposite(editor,SWT.BORDER);
+
+		final GridData data2 = new GridData(SWT.FILL, SWT.FILL, true, true);
+		epEditor.setLayoutData(data2);
+		epEditor.setLayout(new FillLayout());
+		editor.layout();
+		
 		toolbarParent.layout();
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		thetoolbarParent.put(uid, toolbarParent);

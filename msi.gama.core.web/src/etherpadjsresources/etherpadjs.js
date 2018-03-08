@@ -146,6 +146,9 @@ function EtherpadJS(element)  {
 
 
 	};
+	
+
+	   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
    this.appendInfo = function(text)  {        
 	     // The most basic example
 	   
