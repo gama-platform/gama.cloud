@@ -62,7 +62,7 @@ public class TokenCallbackServiceHandler implements ServiceHandler {
 			System.out.println(parser.parseAndClose(TokenResponse.class));
 			// TODO handle POST request containing a complete TokenResponse as JSON
 
-		} else if (request.getMethod() == "GET") {
+		} else if ("GET".equals(request.getMethod().trim().toUpperCase())  ) {
 			System.out.println("received GET");
 			PrintWriter out = new PrintWriter(response.getOutputStream());
 			String token = request.getParameter("token");
