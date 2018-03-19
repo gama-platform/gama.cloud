@@ -660,7 +660,7 @@
       </view>
       <view
             allowMultiple="false"
-            class="msi.gama.lang.gaml.web.workspace.ui.GamlWokspaceNavigator"
+            class="msi.gama.lang.gaml.web.workspace.ui.GamlWorkspaceNavigator"
             icon="icons/earth_view.png"
             id="org.dslforge.navigator.view"
             name="Project Explorer"

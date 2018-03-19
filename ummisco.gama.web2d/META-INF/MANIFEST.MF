@@ -19,7 +19,6 @@ Require-Bundle: msi.gama.ext,
  org.eclipse.swt,
  msi.gama.core.web;bundle-version="1.0.0"
 Export-Package: 
- gaml.additions,
  ummisco.gama.web2d,
  ummisco.gama.web2d.swing
 Bundle-ClassPath: .

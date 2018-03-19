@@ -36,7 +36,6 @@ Export-Package:
  com.jogamp.opengl.util.texture,
  com.jogamp.opengl.util.texture.awt,
  com.jogamp.opengl.util.texture.spi,
- gaml.additions,
  jogamp.opengl,
  jogamp.opengl.gl4,
  jogamp.opengl.glu,

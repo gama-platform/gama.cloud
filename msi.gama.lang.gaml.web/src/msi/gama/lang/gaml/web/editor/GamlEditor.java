@@ -6,9 +6,16 @@ package msi.gama.lang.gaml.web.editor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
+import org.dslforge.styledtext.Annotation;
+import org.dslforge.styledtext.jface.ITextViewer;
+import org.dslforge.texteditor.BasicTextEditor;
 import org.dslforge.workspace.jpa.database.User;
+import org.dslforge.xtext.common.BasicXtextEditor;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
+import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
@@ -26,10 +33,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPathEditorInput;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.validation.CheckMode;
+import org.eclipse.xtext.validation.IResourceValidator;
+import org.eclipse.xtext.validation.Issue;
 
-import msi.gama.core.web.customwidget.EtherpadComposite;
 import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControls;
@@ -73,7 +87,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
 	static final String EDITOR_ID = "msi.gama.lang.gaml.web.editor";
-
+	
 	public GamlEditor() {
 		super();
 
@@ -100,8 +114,11 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		setInput(input);
 		setDirty(false);
 		
-		
 		String uid=RWT.getUISession().getAttribute("user").toString();
+		
+		
+		
+		
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User us:onlines) {
 			if(us.getId().equals(uid)) {
@@ -186,11 +203,13 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
-		layout.marginLeft = 0;
+		layout.marginLeft = 0; //0
 		layout.marginRight = -5;
 		toolbarParent.setLayout(layout);
 		toolbarParent.setBackground(IGamaColors.WHITE.color());
 
+		
+		
 		// Asking the editor to fill the rest
 		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -199,19 +218,21 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		super.createPartControl(editor);
 		setResourceListener(this);
 		validateResource();
-		final EtherpadComposite epEditor=new EtherpadComposite(editor,SWT.BORDER);
-
-		final GridData data2 = new GridData(SWT.FILL, SWT.FILL, true, true);
-		epEditor.setLayoutData(data2);
-		epEditor.setLayout(new FillLayout());
+		
+	
+		
+		
+		String uid=RWT.getUISession().getAttribute("user").toString();
+		
 		editor.layout();
 		
 		toolbarParent.layout();
-		String uid=RWT.getUISession().getAttribute("user").toString();
+		
 		thetoolbarParent.put(uid, toolbarParent);
 //		installGestures();
 		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
 		thecollaboratingControl.put(uid, collaboratingControl);
+		
 	}
 	
 
