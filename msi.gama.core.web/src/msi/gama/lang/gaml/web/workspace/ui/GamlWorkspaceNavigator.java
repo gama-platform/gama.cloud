@@ -203,7 +203,7 @@ public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
 						@Override
 						public void run() {
 							// Double click a file
-							System.out.println(" Trying to connect to etherpad. From "+getClass().toString());
+							System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
 							//EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "ea45b73fbcba78e79125835624433e291c7ca2418b93d7cc14964bc7abc4e6f4");
 							EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "13b06a4979933f63641228e4a22d4b9e816b0e7237a8ae3d36b2ccb254ddb5e6");
 							
@@ -231,10 +231,17 @@ public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
 							String absolutePath = file.getAbsolutePath();
 							IWorkbench workbench = PlatformUI.getWorkbench();
 							
-							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+					//		if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+							if (EditorUtil.openFormEditor(workbench, new Path(absolutePath)) != null) {
 //								logger.info("Double click on file " + absolutePath);
 								
-							
+								System.out.println(" -->-->- Going to sleep before opening other editor ");
+								
+						//		try { Thread.sleep(10000); } catch (InterruptedException e1) { e1.printStackTrace(); }
+								
+						//		EditorUtil.openEditor(workbench, new Path(absolutePath)) ;
+								System.out.println(" -->-->- Open an editor  ");
+								
 								
 								try {
 									String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));

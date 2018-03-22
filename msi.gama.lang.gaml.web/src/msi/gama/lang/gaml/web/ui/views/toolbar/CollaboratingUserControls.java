@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.lang.gaml.web.editor.GamlEditor;
 import msi.gaml.operators.Cast;
+
 import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 /**
@@ -48,6 +49,8 @@ public class CollaboratingUserControls {
 	public CollaboratingUserControls(final GamlEditor editor) {
 		this.editor = editor;
 	}
+	
+	
 
 	public synchronized CollaboratingUserControls fill(final GamaToolbarSimple toolbar) {
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
