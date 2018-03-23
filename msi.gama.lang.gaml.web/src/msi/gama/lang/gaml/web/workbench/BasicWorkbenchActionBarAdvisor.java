@@ -33,11 +33,14 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.internal.WorkbenchMessages;
 
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
@@ -73,6 +76,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		menuBar.add(createFileMenu(window));
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		menuBar.add(createEditMenu(window));
+		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+		menuBar.add(createCollaborativeMenu(window));
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		menuBar.add(createHelpMenu(window));		
 	}
@@ -335,6 +340,47 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		return menu;
 	}
+	
+
+	/**
+	 * Creates the 'Collaborative' menu.
+	 * 
+	 * @param window
+	 * @return
+	 */
+	protected IMenuManager createCollaborativeMenu(IWorkbenchWindow window) {
+		IMenuManager menu = new MenuManager("Collaborative",	IWorkbenchActionConstants.M_WINDOW);
+		menu.add(new GroupMarker(IWorkbenchActionConstants.OPEN_EXT));
+		addToMenuAndRegister(menu, ActionFactory.NEW_EDITOR.create(window));
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		addToMenuAndRegister(menu, ActionFactory.REDO.create(window));
+		menu.add(new GroupMarker(IWorkbenchActionConstants.UNDO_EXT));
+		menu.add(new Separator());
+		addToMenuAndRegister(menu, ActionFactory.CUT.create(window));
+		IWorkbenchAction copyAction = ActionFactory.COPY.create(window);	
+		addToMenuAndRegister(menu, copyAction);
+		addToMenuAndRegister(menu, ActionFactory.PASTE.create(window));
+		menu.add(new GroupMarker(IWorkbenchActionConstants.CUT_EXT));
+		menu.add(new Separator());
+		
+		menu.add(new Separator());
+
+		menu.add(new GroupMarker(IWorkbenchActionConstants.ADD_EXT));
+
+		menu.add(new GroupMarker(IWorkbenchActionConstants.EDIT_END));
+		menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		return menu;
+	}
+
 
 	/**
 	 * Creates the 'Tools'menu.
