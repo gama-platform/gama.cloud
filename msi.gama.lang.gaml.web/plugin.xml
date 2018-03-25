@@ -97,6 +97,7 @@
       </widget>
    </extension>
    <extension point="org.eclipse.ui.editors">
+   <!--
       <editor
             class="msi.gama.lang.gaml.web.editor.GamlEditor"
             contributorClass="msi.gama.lang.gaml.web.editor.GamlActionBarContributor"
@@ -105,7 +106,19 @@
             icon="icons/model.png"
             id="msi.gama.lang.gaml.web.editor"
             name="Gaml Model Editor">
+      </editor> 
+      -->
+      
+      <editor
+            class="msi.gama.lang.gaml.web.editor.EtherpadEditor"
+            contributorClass="msi.gama.lang.gaml.web.editor.GamlActionBarContributor"
+            default="true"
+            extensions="gaml"
+            icon="icons/model.png"
+            id="msi.gama.lang.gaml.web.editor.EtherpadEditor"
+            name="EtherPadEditor Gaml Model Editor">
       </editor>
+      
    </extension>
    <extension
          point="org.dslforge.xtext.common.contribution">

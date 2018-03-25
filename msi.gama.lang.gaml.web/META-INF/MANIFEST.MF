@@ -33,7 +33,8 @@ Require-Bundle: org.eclipse.rap.ui,
  msi.gama.core,
  msi.gama.core.web,
  org.dslforge.workspace.jpa,
- org.dslforge.workspace.config
+ org.dslforge.workspace.config,
+ org.eclipse.jface
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: msi.gama.lang.gaml.ui.labeling,
  msi.gama.lang.gaml.web.contentassist,
@@ -51,4 +52,5 @@ Bundle-ClassPath: .
 Import-Package: javax.servlet;resolution:=optional,
  javax.servlet.http;resolution:=optional,
  org.apache.log4j;resolution:=optional,
- org.osgi.service.http;resolution:=optional
+ org.osgi.service.http;resolution:=optional,
+ ummisco.gama.participative

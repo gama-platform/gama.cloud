@@ -2,7 +2,7 @@ package ummisco.gama.ui.interfaces;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
+import org.eclipse.rap.ui.resources.IResource;
 
 public interface IRefreshHandler {
 

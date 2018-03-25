@@ -105,6 +105,8 @@ public class GamlEditorUtil extends EditorUtil{
 			try {
 				for (IEditorDescriptor desc : editorDescriptors) {
 					// lookup any form editor contributed by default
+					System.out.println("Passage par la.....8");
+			
 					if (desc.getId().contains(WEB_FORM_ID_SUFFIX)) {
 						PathEditorInput editorInput = new PathEditorInput(path);
 						IEditorPart editor = page.findEditor(editorInput);
