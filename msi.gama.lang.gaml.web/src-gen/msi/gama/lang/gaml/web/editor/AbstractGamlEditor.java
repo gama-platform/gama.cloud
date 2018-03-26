@@ -17,6 +17,7 @@ import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.editor.widget.Gaml;
 import msi.gama.rap.oauth.Activator;
 
+
 public abstract class AbstractGamlEditor extends XtextContentAssistEnabledEditor {
 	private IGamlBuilderListener resourceListener;
 

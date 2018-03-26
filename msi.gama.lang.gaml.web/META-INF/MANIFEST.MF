@@ -53,4 +53,7 @@ Import-Package: javax.servlet;resolution:=optional,
  javax.servlet.http;resolution:=optional,
  org.apache.log4j;resolution:=optional,
  org.osgi.service.http;resolution:=optional,
- ummisco.gama.participative
+ ummisco.gama.participative,
+ ummisco.gama.participative.styledtext.jface,
+ ummisco.gama.participative.texteditor,
+ ummisco.gama.participative.xtext.common

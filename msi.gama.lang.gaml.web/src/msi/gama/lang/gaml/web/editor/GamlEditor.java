@@ -12,7 +12,6 @@ import org.dslforge.styledtext.Annotation;
 import org.dslforge.styledtext.jface.ITextViewer;
 import org.dslforge.texteditor.BasicTextEditor;
 import org.dslforge.workspace.jpa.database.User;
-import org.dslforge.xtext.common.BasicXtextEditor;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.jface.util.SafeRunnable;
