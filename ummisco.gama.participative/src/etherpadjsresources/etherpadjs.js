@@ -5,6 +5,7 @@ function EtherpadJS(element)  {
    this.div.className = "etherpaddiv";
    this.div.setAttribute("id","etherpaddiv");
    var userId ='';
+   var padId='';
 
    element.appendChild(this.div);
    this.div.innerHTML = "";
@@ -21,6 +22,7 @@ function EtherpadJS(element)  {
        script.onreadystatechange = callback;
        script.onload = callback;
 
+  
        // Fire the loading
        head.appendChild(script);
    }
@@ -35,11 +37,11 @@ function EtherpadJS(element)  {
 		    	'host'              : 'http://127.0.0.1:9001',
 		       'baseUrl'           : '/p/',
 		       'showControls'      : false,
-		       'showChat'          : false,
+		       'showChat'          : true,
 		       'showLineNumbers'   : true,
 		      // 'userName'          : 'admin',
 		       'userName'          : userId,
-		       'lang'              : '',
+		       'lang'              : 'en',
 		       'useMonospaceFont'  : false,
 		       'noColors'          : false,
 		       'userColor'         : false,
@@ -146,25 +148,39 @@ function EtherpadJS(element)  {
 	   
 //	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true', 'showLineNumbers':'true'}); 
 //	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true'}); 
-	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true'});
+	    $('#etherpaddiv').pad({'padId':padId,'height':500,'showChat':'true'});
 
 
 
 	};
 
-	   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
+	//   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
    this.appendInfo = function(text, user)  {        
 	     // The most basic example
 	   	userId = user;
 	    console.log("test in appendInfo user Id: "+ userId);
 	   // 
-	   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
+	 //  loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
        this.div.innerHTML = this.div.innerHTML
         + "<p class='info'>"+ text +"</p>";
 
 	   console.log("test appendInfo ");
 
    };
+   
+   this.setText = function(text, user, pad)  {        
+	     // The most basic example
+	 userId = user;
+	 padId = pad;
+	 console.log("test in appendInfo user Id: "+ userId+ " and pad : "+pad);
+	 
+	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
+     this.div.innerHTML = this.div.innerHTML
+      + "<p class='info'>"+ text +"</p>";
+
+	   console.log("test appendInfo ");
+
+ };
     
    this.appendErr = function(text)  {  
        this.div.innerHTML = this.div.innerHTML

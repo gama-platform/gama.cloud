@@ -13,7 +13,7 @@
  
        events : [],
  
-       methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'clearAll' ]
+       methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'setText', 'clearAll' ]
  
    });
  
@@ -36,6 +36,7 @@
     
        // Render interface
        rap.on("render", this.onRender);
+      
    };
  
    o7planning.EtherpadComposite.prototype = {
@@ -43,11 +44,11 @@
        ready : false,
  
        onChange : function() {
-            
+            //alert('1');
        },
  
        onReady : function() {
- 
+    	   //alert('2');
        },
  
       
@@ -58,17 +59,21 @@
                 
                rap.on("render", this.onRender);
                rap.on("send", this.onSend);
+              
+               //alert('3');
            }
+           //alert('4');
        },
  
        //  
        onSend : function() {
- 
+    	   //alert('5');
        },
  
        destroy : function() {
            rap.off("send", this.onSend);
            try {
+        	   //alert('6');
                this.element.parentNode.removeChild(this.element);
            } catch (e) {
                try {
@@ -78,6 +83,7 @@
                } catch (e) {
                }
            }
+           //alert('7');
        },
  
        layout : function() {
@@ -86,40 +92,56 @@
                this.element.style.left = area[0] + "px";
                this.element.style.top = area[1] + "px";
                this.editor.resize(area[2], area[3]);
+               //alert('8');
            }
        },
  
        setAbc : function(abc) {
+    	   //alert('9');
        },
  
        appendErr : function(json) {  
            var text= json["text"];
            this.etherpadjs.appendErr(text);
+           //alert('10');
        },
  
        appendWarn : function(json) {  
            var text= json["text"];
            this.etherpadjs.appendWarn(text);
+           //alert('11');
        },
         
        appendInfo : function(json) {  
            var text= json["text"];
            var userId= json["userId"];
            this.etherpadjs.appendInfo(text, userId);
+           //alert('12');
        },
-        
+       
+       setText : function(json) {  
+           var text= json["text"];
+           var userId= json["userId"];
+           var padId= json["padId"];
+           this.etherpadjs.setText(text, userId, padId);
+           //alert('13');
+       },
+       
        clearAll : function()  {  
            this.etherpadjs.clearAll();
+           //alert('14');
        }
    };
  
    var bind = function(context, method) {
        return function() {
+    	   //alert('15');
            return method.apply(context, arguments);
        };
    };
  
    var bindAll = function(context, methodNames) {
+	   //alert('16');
        for (var i = 0; i < methodNames.length; i++) {
            var method = context[methodNames[i]];
            context[methodNames[i]] = bind(context, method);
@@ -127,6 +149,7 @@
    };
  
    var async = function(context, func) {
+	   //alert('17');
        window.setTimeout(function() {
            func.apply(context);
        }, 0);

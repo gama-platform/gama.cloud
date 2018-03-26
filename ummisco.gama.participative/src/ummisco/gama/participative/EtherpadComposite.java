@@ -1,8 +1,7 @@
-package msi.gama.core.web.customwidget;
- 
+package ummisco.gama.participative;
+
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
@@ -22,11 +21,11 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 public class EtherpadComposite extends Composite {
  
  
-   private static final long serialVersionUID = -8590973451146216709L;
+   private static final long serialVersionUID = -8490973451146216709L;
  
    private RemoteObject remoteObject;
- 
- 
+   
+  
    // The directory containing the file js, css.
    private static final String REAL_RESOURCE_PATH = "etherpadjsresources";
  
@@ -34,7 +33,16 @@ public class EtherpadComposite extends Composite {
  
    private static final String REMOTE_TYPE = "o7planning.EtherpadComposite";
  
-   private final String[] FILENAMES = {  "etherpadjs.css",  "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js"};
+   //  private final String[] FILENAMES = {  "etherpadjs.css",  "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js"};
+   private final String[] FILENAMES = {  "etherpadjs.css",  
+		   "etherpadjs.js" ,
+		   "load-css-file.js" , 
+		   "rap-handler.js",
+		   "Gaml.js",
+		   "GamlLexer.js",
+		   "GamlParser.js"
+		   
+		   };
  
    private final OperationHandler operationHandler = new AbstractOperationHandler() {
  
@@ -70,7 +78,7 @@ public class EtherpadComposite extends Composite {
    public EtherpadComposite(Composite parent, int style) {
        super(parent, style);
  
-       System.out.println("Ceci est un test de composite!");
+       System.out.println("Ceci est un test de composite Etherpad depuis la classe EtherpadComposite!");
        // Note: Catching error when viewed on WindowBuilder
        try {
            registerResources();
@@ -130,6 +138,17 @@ public class EtherpadComposite extends Composite {
  
         jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
                   + "rap-handler.js"));
+ 
+        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+                + "Gaml.js"));
+        
+        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+                + "GamlLexer.js"));
+        
+        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+                + "GamlParser.js"));
+        
+      
 
    }
  
@@ -178,6 +197,7 @@ public class EtherpadComposite extends Composite {
        JsonObject obj= new JsonObject();
        obj.add("text", text);
        this.remoteObject.call("appendWarn", obj);
+       
    }
     
    public void appendErr(String text) {
@@ -187,6 +207,19 @@ public class EtherpadComposite extends Composite {
        this.remoteObject.call("appendErr", obj);
    }
     
+   public void setText(final String uid, String text, String padId) {
+		    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+		    uiSession.exec( new Runnable() {
+		      public void run() {
+		          JsonObject obj= new JsonObject();
+		          obj.add("text", text);
+		          obj.add("userId", uid);
+		          obj.add("padId", padId);
+		          remoteObject.call("setText", obj);	 
+		      }
+		    } );
+}
+   
    public void appendInfo(final IScope scope, String text) {
 ////      System.out.println("appendInfo");
 //       JsonObject obj= new JsonObject();
@@ -204,6 +237,7 @@ public class EtherpadComposite extends Composite {
 		          JsonObject obj= new JsonObject();
 		          obj.add("text", text);
 		          obj.add("userId", uid);
+		          
 		          remoteObject.call("appendInfo", obj);	 
 		        
 		      }
