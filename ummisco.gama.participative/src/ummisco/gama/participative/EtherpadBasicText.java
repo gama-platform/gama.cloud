@@ -170,38 +170,6 @@ public class EtherpadBasicText extends BasicText {
 		content = new DefaultContent();
 	}
 
-	protected void loadJsResources(List<IPath> resources) {
-		for (int i = 0; i < resources.size(); i++) {
-			getJavaScriptLoader().requireJs(getResourceManager().getLocation(resources.get(i).toString()));
-		}
-	}
-
-	protected void setupClient() {
-		getClient().getService(ClientFileLoader.class).requireJs(System.getProperty(ACE_LIBRARY_KEY, ACE_LIBRARY_VALUE));
-		getClient().getService(ClientFileLoader.class).requireJs(System.getProperty(ACE_SEARCHBOX_KEY, ACE_SEARCHBOX_VALUE)); 
-		addBaseResource(new Path("org/dslforge/styledtext/ace/ext-language_tools.js"));
-		addBaseResource(new Path("org/dslforge/styledtext/ace/ext-tooltip.js"));
-		addBaseResource(new Path("org/dslforge/styledtext/ace/theme-basic.js"));
-		addBaseResource(new Path("org/dslforge/styledtext/global-index.js"));
-		registerJsResources(getBaseResources(), EtherpadBasicText.class.getClassLoader());
-		loadJsResources(getBaseResources());
-	}
-
-	protected void registerJsResources(List<IPath> resources, ClassLoader loader) {
-		ResourceManager resourceManager = getResourceManager();
-		try {
-			for (IPath filePath : resources) {
-				boolean isRegistered = resourceManager.isRegistered(filePath.toString());
-				if (!isRegistered) {
-					logger.debug("Registering resource " + filePath.toString());
-					registerResource(resourceManager, loader, filePath.toString());
-				}
-			}
-		} catch (IOException ioe) {
-			logger.error(ioe.getMessage(), ioe);
-		}
-	}
-
 	/**
 	 * Adds event listeners
 	 */
@@ -494,18 +462,6 @@ public class EtherpadBasicText extends BasicText {
 		BasicTextListener typedListener = new BasicTextListener(listener);
 		addListener(ContentAssist, typedListener);
 	}
-
-	@Override
-	public void addListener(int eventType, Listener listener) {
-		boolean wasListening = isListening(eventType);
-		super.addListener(eventType, listener);
-		boolean isListening = isListening(eventType);
-		String remoteType = eventTypeToString(eventType);
-		if (remoteType != null && !wasListening && isListening) {
-			getRemoteObject().listen(remoteType, true);
-		}
-	}
-
 	/**
 	 * Notifies listeners when events are sent from the client.
 	 * 
@@ -1160,23 +1116,7 @@ public class EtherpadBasicText extends BasicText {
 		this.remoteObject = remoteObject;
 	}
 
-	/**
-	 * Returns the path list of the base widget resources
-	 * 
-	 * @return the paths of the base widget resources
-	 */
-	protected List<IPath> getBaseResources() {
-	 	return resources;
-	}
-
-	/**
-	 * Use this to add additional script files on startup
-	 * 
-	 * @param path
-	 */
-	protected void addBaseResource(IPath path) {
-		getBaseResources().add(path);
-	}
+	
 
 	/**
 	 * Opens a client/server connection.
