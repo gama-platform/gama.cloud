@@ -15,9 +15,7 @@
  */
 package ummisco.gama.participative.xtext.common;
 
-import ummisco.gama.participative.texteditor.PathEditorInput;
-import ummisco.gama.participative.xtext.common.IXtextResourceFactory;
-import ummisco.gama.participative.xtext.common.IXtextResourceSetProvider;
+import org.dslforge.xtext.common.IXtextResourceFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
@@ -27,6 +25,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.xtext.resource.XtextResource;
 
 import com.google.inject.Inject;
+
+import ummisco.gama.participative.texteditor.PathEditorInput;
 
 public class XtextResourceFactory implements IXtextResourceFactory {
 

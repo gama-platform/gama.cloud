@@ -10,16 +10,9 @@
 package msi.gama.lang.gaml.web.editor.participative;
 
 
-import ummisco.gama.participative.styledtext.jface.TextViewer;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.jface.text.source.IOverviewRuler;
-import org.eclipse.jface.text.source.IVerticalRuler;
+import org.dslforge.styledtext.jface.TextViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.xtext.resource.XtextResource;
-//import org.eclipse.xtext.ui.editor.XtextSourceViewer;
-//import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.util.CancelIndicator;
-import org.eclipse.xtext.util.concurrent.CancelableUnitOfWork;
 
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;

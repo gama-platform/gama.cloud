@@ -5,6 +5,8 @@ package msi.gama.lang.gaml.web.editor;
 
 
 
+import org.dslforge.styledtext.BasicText;
+import org.dslforge.xtext.common.XtextContentAssistEnabledEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -15,10 +17,10 @@ import org.eclipse.xtext.resource.XtextResource;
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.editor.widget.Gaml;
-import msi.gama.rap.oauth.Activator;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.XtextContentAssistEnabledEtherpadEditor;
 
+import msi.gama.rap.oauth.Activator;
 public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabledEtherpadEditor {
 	private IGamlBuilderListener resourceListener;
 
@@ -33,7 +35,7 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 
 	@Override
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
-		Gaml gamlWidget = new Gaml(parent, styles);
+		EtherpadBasicText gamlWidget = new EtherpadBasicText(parent, styles);
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;

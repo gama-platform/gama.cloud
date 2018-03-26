@@ -22,10 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
-//import org.dslforge.xtext.common.IBasicXtextEditor;
-import ummisco.gama.participative.xtext.common.IBasicXtextEditor;
-
+import org.dslforge.styledtext.Annotation;
+import org.dslforge.styledtext.Annotation.AceSeverity;
+import org.dslforge.styledtext.jface.IDocument;
+import org.dslforge.xtext.common.IXtextResourceFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
@@ -54,12 +54,8 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import ummisco.gama.participative.Annotation;
-import ummisco.gama.participative.Annotation.AceSeverity;
 import ummisco.gama.participative.EtherpadBasicText;
-import ummisco.gama.participative.styledtext.jface.IDocument;
 import ummisco.gama.participative.texteditor.EtherpadBasicTextEditor;
-import ummisco.gama.participative.xtext.common.IXtextResourceFactory;
 
 /**
  * A basic Xtext RAP Editor
@@ -184,7 +180,7 @@ public class BasicXtextEtherpadEditor extends EtherpadBasicTextEditor implements
 	protected void createCompletionProposals() {
 		IDocument document = getViewer().getDocument();
 		if (document.get().length() > 0) {
-			EtherpadBasicText textWidget = getViewer().getTextWidget();
+			EtherpadBasicText textWidget = (EtherpadBasicText) getViewer().getTextWidget();
 			createCompletionProposals(textWidget.getOffsetAtCursorPosition());
 		}
 	}

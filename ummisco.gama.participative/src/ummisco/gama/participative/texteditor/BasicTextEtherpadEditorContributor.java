@@ -1,30 +1,13 @@
 package ummisco.gama.participative.texteditor;
 
-/**
- * <copyright>
- *
- * Copyright (c) 2015 PlugBee. All rights reserved.
- * 
- * This program and the accompanying materials are made available 
- * under the terms of the Eclipse Public License v1.0 which 
- * accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Amine Lajmi - Initial API and implementation
- *
- * </copyright>
- */
-
-
-import ummisco.gama.participative.ITextSelection;
-import ummisco.gama.participative.TextSelection;
-import ummisco.gama.participative.texteditor.actions.CopyAction;
-import ummisco.gama.participative.texteditor.actions.CutAction;
-import ummisco.gama.participative.texteditor.actions.DeleteAction;
-import ummisco.gama.participative.texteditor.actions.PasteAction;
-import ummisco.gama.participative.texteditor.actions.RedoAction;
-import ummisco.gama.participative.texteditor.actions.UndoAction;
+import org.dslforge.styledtext.ITextSelection;
+import org.dslforge.styledtext.TextSelection;
+import org.dslforge.texteditor.actions.CopyAction;
+import org.dslforge.texteditor.actions.CutAction;
+import org.dslforge.texteditor.actions.DeleteAction;
+import org.dslforge.texteditor.actions.PasteAction;
+import org.dslforge.texteditor.actions.RedoAction;
+import org.dslforge.texteditor.actions.UndoAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -35,8 +18,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.EditorActionBarContributor;
-
-import ummisco.gama.participative.texteditor.IBasicTextEditor;
 
 public class BasicTextEtherpadEditorContributor extends EditorActionBarContributor implements IPropertyListener {
 

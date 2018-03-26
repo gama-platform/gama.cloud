@@ -4,7 +4,7 @@ import java.io.File;
 
 import ummisco.gama.participative.xtext.common.XtextResourceSetProvider;
 import org.dslforge.xtext.common.registry.LanguageRegistry;
-import org.dslforge.xtext.common.util.FileUtil;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 public class SharedXtextResourceSetProvider extends XtextResourceSetProvider {

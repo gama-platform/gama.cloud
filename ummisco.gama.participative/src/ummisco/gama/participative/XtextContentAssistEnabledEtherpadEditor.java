@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.dslforge.styledtext.jface.ICompletionProposal;
+import org.dslforge.styledtext.jface.IContentAssistProcessor;
+import org.dslforge.styledtext.jface.IDocument;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.swt.SWT;
@@ -14,7 +17,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescription.Manager;
-
 import org.eclipse.xtext.util.ReplaceRegion;
 
 import com.google.common.base.Function;
@@ -22,12 +24,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 
-import ummisco.gama.participative.XtextContentAssistProcessor;
-import ummisco.gama.participative.styledtext.jface.ICompletionProposal;
-import ummisco.gama.participative.styledtext.jface.IContentAssistProcessor;
-import ummisco.gama.participative.styledtext.jface.IDocument;
 import ummisco.gama.participative.xtext.common.BasicXtextEtherpadEditor;
-import ummisco.gama.participative.xtext.common.XtextContentAssistProcessorEtherpad;
 
 /**
  * An Xtext web editor which makes use of the migrated content assist feature.
@@ -105,7 +102,7 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 	@Override
 	protected void createCompletionProposals() {
 		IDocument document = getViewer().getDocument();
-		EtherpadBasicText textWidget = getViewer().getTextWidget();
+		EtherpadBasicText textWidget = (EtherpadBasicText) getViewer().getTextWidget();
 		textWidget.setText(document.get(), false);
 		createCompletionProposals(textWidget.getOffsetAtCursorPosition());	
 	}
@@ -116,10 +113,10 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 			private static final long serialVersionUID = 1L;
 			public void run() {
 				XtextContentAssistProcessorEtherpad xtextContentAssistProcessor = (XtextContentAssistProcessorEtherpad)contentAssistProcessor;
-				ICompletionProposal[] computedCompletionProposals = XtextContentAssistProcessorEtherpad.computeCompletionProposals(getViewer(), xtextResource, offset);
-				if (computedCompletionProposals!=null) {
-					setProposals(Arrays.asList(computedCompletionProposals));	
-				}
+//				ICompletionProposal[] computedCompletionProposals = XtextContentAssistProcessorEtherpad.computeCompletionProposals(getViewer(), xtextResource, offset);
+//				if (computedCompletionProposals!=null) {
+//					setProposals(Arrays.asList(computedCompletionProposals));	
+//				}
 			}
 		});
 	}

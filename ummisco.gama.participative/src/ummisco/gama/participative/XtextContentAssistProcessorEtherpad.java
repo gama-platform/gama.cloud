@@ -5,9 +5,9 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 //import ummisco.gama.participative.jface.IContentAssistProcessor;
 
-import ummisco.gama.participative.styledtext.jface.ICompletionProposal;
-import ummisco.gama.participative.styledtext.jface.IContentAssistProcessor;
-import ummisco.gama.participative.ITextViewer;
+
+//import ummisco.gama.participative.ITextViewer;
+import org.dslforge.styledtext.jface.ITextViewer;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.contentassist.CompletionProposalComputer;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -36,22 +36,22 @@ public class XtextContentAssistProcessorEtherpad extends XtextContentAssistProce
 	@Inject
 	private ICompletionProposalComparator completionProposalComparator;
 
-	private ITextViewer viewer;
+	private org.dslforge.styledtext.jface.ITextViewer viewer;
 
 
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
+	public org.dslforge.styledtext.jface.ICompletionProposal[] computeCompletionProposals(org.dslforge.styledtext.jface.ITextViewer viewer, int offset) {
 		throw new UnsupportedOperationException("Unhandled operation");
 	}
 	
-	public  ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, XtextResource resource, int offset) {
+	public  org.dslforge.styledtext.jface.ICompletionProposal[] computeCompletionProposals(org.dslforge.styledtext.jface.ITextViewer viewer, XtextResource resource, int offset) {
 		this.viewer = viewer;
 		if (contentProposalProvider == null)
 			return null;
-		ICompletionProposal[] result = null;
+		org.dslforge.styledtext.jface.ICompletionProposal[] result = null;
 		try {
 			CompletionProposalComputer completionProposalComputer = createCompletionProposalComputer(getViewer(), offset);
-			result = (ICompletionProposal[]) completionProposalComputer.exec(resource);
-			Arrays.sort(result, completionProposalComparator);
+			result = (org.dslforge.styledtext.jface.ICompletionProposal[]) completionProposalComputer.exec(resource);
+			Arrays.sort(result);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 		}
@@ -84,7 +84,7 @@ public class XtextContentAssistProcessorEtherpad extends XtextContentAssistProce
 	}
 	
 	@Override
-	public ITextViewer getViewer() {
+	public org.dslforge.styledtext.jface.ITextViewer getViewer() {
 		return viewer;
 	}
 	

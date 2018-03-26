@@ -1,7 +1,8 @@
 package ummisco.gama.participative.xtext.common;
 
 import ummisco.gama.participative.EtherpadBasicText;
-import ummisco.gama.participative.styledtext.jface.IContentAssistProcessor;
+
+import org.dslforge.styledtext.jface.IContentAssistProcessor;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.contentassist.CompletionProposalComputer;
 

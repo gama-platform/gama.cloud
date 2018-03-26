@@ -3,6 +3,11 @@ package ummisco.gama.participative;
 
 
 
+import org.dslforge.styledtext.BasicText;
+import org.dslforge.styledtext.ITextSelection;
+import org.dslforge.styledtext.TextSelection;
+import org.dslforge.styledtext.jface.IDocument;
+import org.dslforge.styledtext.jface.ITextViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -15,7 +20,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import ummisco.gama.participative.styledtext.jface.IDocument;
+
 
 public class EtherpadTextViewer extends Viewer implements ITextViewer{
 
@@ -177,5 +182,6 @@ public class EtherpadTextViewer extends Viewer implements ITextViewer{
 	protected void handleDispose() {
 		fTextWidget= null;
 	}
+
 }
 

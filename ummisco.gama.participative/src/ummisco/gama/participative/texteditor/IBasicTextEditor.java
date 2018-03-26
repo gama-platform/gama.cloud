@@ -15,7 +15,8 @@
  */
 package ummisco.gama.participative.texteditor;
 
-import ummisco.gama.participative.ITextViewer;
+
+import org.dslforge.styledtext.jface.ITextViewer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.ui.IEditorPart;

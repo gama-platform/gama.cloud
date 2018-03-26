@@ -26,6 +26,19 @@ import java.util.EventListener;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.dslforge.styledtext.Annotation;
+import org.dslforge.styledtext.BasicText;
+import org.dslforge.styledtext.IContentAssistListener;
+import org.dslforge.styledtext.ITextChangeListener;
+import org.dslforge.styledtext.ITextModifyListener;
+import org.dslforge.styledtext.ITextOperationConstants;
+import org.dslforge.styledtext.ITextSaveListener;
+import org.dslforge.styledtext.ITextSelection;
+import org.dslforge.styledtext.TextChangedEvent;
+import org.dslforge.styledtext.TextRange;
+import org.dslforge.styledtext.TextSavedEvent;
+import org.dslforge.styledtext.TextSelection;
+import org.dslforge.styledtext.jface.ICompletionProposal;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonArray;
@@ -50,12 +63,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 
-import ummisco.gama.participative.styledtext.jface.ICompletionProposal;
+
 
 /**
  * A basic implementation of a styled text widget.
  */
-public class EtherpadBasicText extends Composite {
+public class EtherpadBasicText extends BasicText {
 
 	private static final long serialVersionUID = 131001464693386296L;
 
@@ -85,13 +98,13 @@ public class EtherpadBasicText extends Composite {
 	private int style;
 	private Listener listener;
 	private String clipboard;
-	private Position cursorPosition;
+	private EtherpadBasicText_Position cursorPosition;
 	private DefaultContent content;
 	
-	private class Position {
+	public class EtherpadBasicText_Position {
 		private final int row;
 		private final int column;
-		public Position(int newRow, int newColumn) {
+		public EtherpadBasicText_Position(int newRow, int newColumn) {
 			this.row = newRow;
 			this.column = newColumn;
 		}
@@ -246,7 +259,7 @@ public class EtherpadBasicText extends Composite {
 			JsonObject position = (JsonObject) data.get("value");
 			int row = position.get("row").asInt();
 			int column = position.get("column").asInt();
-			this.cursorPosition = new Position(row, column);
+			this.cursorPosition = new EtherpadBasicText_Position(row, column);
 		}
 	}
 
@@ -327,7 +340,7 @@ public class EtherpadBasicText extends Composite {
 			JsonObject position = (JsonObject) data.get("value");
 			int row = position.get("row").asInt();
 			int column = position.get("column").asInt();
-			this.cursorPosition = new Position(row, column);
+			this.cursorPosition = new EtherpadBasicText_Position(row, column);
 		}
 	}
 	
@@ -906,10 +919,10 @@ public class EtherpadBasicText extends Composite {
 		this.markers.add(range);
 		
 		JsonObject properties = new JsonObject();
-		properties.add("rowStart", range.rowStart);
-		properties.add("columnStart", range.columnStart);
-		properties.add("rowEnd", range.rowEnd);
-		properties.add("columnEnd", range.columnEnd);
+//		properties.add("rowStart", range.rowStart);
+//		properties.add("columnStart", range.columnStart);
+//		properties.add("rowEnd", range.rowEnd);
+//		properties.add("columnEnd", range.columnEnd);
 		getRemoteObject().call("addMarker", properties);
 	}
 	
@@ -926,10 +939,10 @@ public class EtherpadBasicText extends Composite {
 		this.markers.remove(range);
 		
 		JsonObject properties = new JsonObject();
-		properties.add("rowStart", range.rowStart);
-		properties.add("columnStart", range.columnStart);
-		properties.add("rowEnd", range.rowEnd);
-		properties.add("columnEnd", range.columnEnd);
+//		properties.add("rowStart", range.rowStart);
+//		properties.add("columnStart", range.columnStart);
+//		properties.add("rowEnd", range.rowEnd);
+//		properties.add("columnEnd", range.columnEnd);
 		getRemoteObject().call("removeMarker", properties);
 	}
 	
@@ -1006,10 +1019,10 @@ public class EtherpadBasicText extends Composite {
 		final int columnEnd = (offset+length) - getOffsetAtLine(rowEnd);
 		TextRange range = new TextRange(rowStart, columnStart,rowEnd, columnEnd);
 		JsonObject properties = new JsonObject();
-		properties.add("rowStart", range.rowStart);
-		properties.add("columnStart", range.columnStart);
-		properties.add("rowEnd", range.rowEnd);
-		properties.add("columnEnd", range.columnEnd);
+//		properties.add("rowStart", range.rowStart);
+//		properties.add("columnStart", range.columnStart);
+//		properties.add("rowEnd", range.rowEnd);
+//		properties.add("columnEnd", range.columnEnd);
 		getRemoteObject().call("setSelection", properties);
 	}
 
@@ -1224,7 +1237,8 @@ public class EtherpadBasicText extends Composite {
 	 * 
 	 * @return the cursor position
 	 */
-	public Position getCursorPosition() {
+//	@Override
+	public EtherpadBasicText_Position getCursorEPosition() {
 		return cursorPosition;
 	}
 
@@ -1275,7 +1289,7 @@ public class EtherpadBasicText extends Composite {
 	 * @return
 	 */
 	public int getOffsetAtCursorPosition() {
-		Position position = getCursorPosition();
+		EtherpadBasicText_Position position = getCursorEPosition();
 		return getOffsetAtPosition(position.row, position.column);
 	}
 	

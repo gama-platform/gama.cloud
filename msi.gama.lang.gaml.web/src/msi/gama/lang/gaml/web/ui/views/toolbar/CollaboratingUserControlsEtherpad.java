@@ -12,11 +12,11 @@ package msi.gama.lang.gaml.web.ui.views.toolbar;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.dslforge.styledtext.TextRange;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.IFindReplaceTarget;
 import org.eclipse.jface.text.IFindReplaceTargetExtension;
 import org.eclipse.jface.text.ITextOperationTarget;
-import org.dslforge.styledtext.TextSelection;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
 import msi.gaml.operators.Cast;
-import ummisco.gama.participative.TextRange;
 import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 /**

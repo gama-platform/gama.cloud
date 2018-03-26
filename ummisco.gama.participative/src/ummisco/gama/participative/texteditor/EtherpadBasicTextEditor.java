@@ -32,6 +32,19 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
+import org.dslforge.styledtext.Annotation;
+import org.dslforge.styledtext.IContentAssistListener;
+import org.dslforge.styledtext.ITextChangeListener;
+import org.dslforge.styledtext.ITextModifyListener;
+import org.dslforge.styledtext.ITextSaveListener;
+import org.dslforge.styledtext.TextChangedEvent;
+import org.dslforge.styledtext.TextSavedEvent;
+import org.dslforge.styledtext.TextSelection;
+import org.dslforge.styledtext.jface.BadLocationException;
+import org.dslforge.styledtext.jface.ICompletionProposal;
+import org.dslforge.styledtext.jface.IDocument;
+import org.dslforge.styledtext.jface.ITextViewer;
+import org.dslforge.styledtext.jface.TextDocument;
 import org.dslforge.texteditor.internal.Activator;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -94,21 +107,9 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
-import ummisco.gama.participative.Annotation;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.EtherpadTextViewer;
-import ummisco.gama.participative.IContentAssistListener;
-import ummisco.gama.participative.ITextChangeListener;
-import ummisco.gama.participative.ITextModifyListener;
-import ummisco.gama.participative.ITextSaveListener;
-import ummisco.gama.participative.ITextViewer;
-import ummisco.gama.participative.TextChangedEvent;
-import ummisco.gama.participative.TextSavedEvent;
-import ummisco.gama.participative.TextSelection;
-import ummisco.gama.participative.styledtext.jface.BadLocationException;
-import ummisco.gama.participative.styledtext.jface.ICompletionProposal;
-import ummisco.gama.participative.styledtext.jface.IDocument;
-import ummisco.gama.participative.styledtext.jface.TextDocument;
+
 import ummisco.gama.participative.texteditor.PathEditorPropertySource;
 import ummisco.gama.participative.texteditor.URIEditorPropertySource;
 
@@ -136,11 +137,12 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public void handleTextChanged(TextChangedEvent e) {
-			setDirty(true);
-			JsonObject object = (JsonObject) e.data;
-			EtherpadBasicTextEditor.this.handleTextChanged(object);
+		public void handleTextChanged(TextChangedEvent arg0) {
+			// TODO Auto-generated method stub
+			
 		}
+
+
 	};
 	
 	protected void handleTextChanged(JsonObject object) {
@@ -472,7 +474,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 
 	@SuppressWarnings("serial")
 	protected void addListeners() {
-		EtherpadBasicText textWidget = viewer.getTextWidget();
+		EtherpadBasicText textWidget = (EtherpadBasicText) viewer.getTextWidget();
 		if (textWidget!= null && !textWidget.isDisposed()) {
 			textWidget.addTextChangeListener(iTextChangeListener);	
 			
@@ -495,7 +497,6 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 			
 			textWidget.addTextModifyListener(new ITextModifyListener() {
 
-				@Override
 				public void handleTextModified(ModifyEvent event) {
 					JsonObject object = (JsonObject) event.data;
 					String text = object.get("value") != null ? object.get("value").asString() : null;
@@ -537,8 +538,8 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 					} catch (InterruptedException e) {
 						// handle cancelation
 					}
-				}
-			});
+
+			}});
 			textWidget.addFocusListener(new FocusListener() {
 
 				@Override
