@@ -6,15 +6,9 @@ package msi.gama.lang.gaml.web.editor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
-import org.dslforge.styledtext.Annotation;
-import org.dslforge.styledtext.jface.ITextViewer;
-import org.dslforge.texteditor.BasicTextEditor;
 import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
-import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
@@ -32,16 +26,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IPathEditorInput;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.util.CancelIndicator;
-import org.eclipse.xtext.validation.CheckMode;
-import org.eclipse.xtext.validation.IResourceValidator;
-import org.eclipse.xtext.validation.Issue;
 
 import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
@@ -52,7 +38,6 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListene
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
-import ummisco.gama.participative.EtherpadComposite;
 import ummisco.gama.ui.controls.FlatButton;
 import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -87,10 +72,9 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
 	static final String EDITOR_ID = "msi.gama.lang.gaml.web.editor";
-	
+
 	public GamlEditor() {
 		super();
-		System.out.println("--->>>>---->>>---    The class was called! From: GamlEditor");
 
 	}
 
@@ -115,11 +99,8 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		setInput(input);
 		setDirty(false);
 		
+		
 		String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		
-		
-		
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User us:onlines) {
 			if(us.getId().equals(uid)) {
@@ -204,156 +185,25 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
-		layout.marginLeft = 0; //0
+		layout.marginLeft = 0;
 		layout.marginRight = -5;
 		toolbarParent.setLayout(layout);
 		toolbarParent.setBackground(IGamaColors.WHITE.color());
 
-		
-	// Original version
-	/*
 		// Asking the editor to fill the rest
 		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
-		
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		editor.setLayoutData(data);
 		editor.setLayout(new FillLayout());
 		super.createPartControl(editor);
 		setResourceListener(this);
 		validateResource();
-		
-		BasicTextEditor bt = new BasicTextEditor();
-//		bt.printMessage();
-		
-		
-		String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		editor.layout();
-		
 		toolbarParent.layout();
-		
+		String uid=RWT.getUISession().getAttribute("user").toString();
 		thetoolbarParent.put(uid, toolbarParent);
 //		installGestures();
 		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
 		thecollaboratingControl.put(uid, collaboratingControl);
-	*/
-		
-		
-		
-		
-		
-		
-		//---------------------------------------------------
-		//---------------------------------------------------
-		
-		
-		
-		// Asking the editor to fill the rest
-		final Composite epEditor=new EtherpadComposite(toolbarParent,SWT.BORDER);
-		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		
-		System.out.println("TEST --> 0 ");
-		epEditor.setLayoutData(data);
-		
-		System.out.println("TEST -->  1");
-		epEditor.setLayout(new FillLayout());
-		
-		System.out.println("TEST -->  2");
-		super.createPartControl(epEditor);
-		
-		System.out.println("TEST -->  3");
-		setResourceListener(this);
-		
-		System.out.println("TEST -->  4");
-		validateResource();
-		
-		System.out.println("TEST -->  5");
-		
-		String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		System.out.println("TEST -->  6");
-		
-		epEditor.layout();
-		System.out.println("TEST -->  7");
-		
-		//super.createPartControl(epEditor);
-		//setResourceListener(this);
-		//validateResource();
-		//epEditor.layout();
-		System.out.println("TEST -->  8");
-		toolbarParent.layout();
-		
-		
-		
-		thetoolbarParent.put(uid, toolbarParent);
-		System.out.println("TEST -->  9");
-//		installGestures();
-		CollaboratingUserControls collaboratingControl=new CollaboratingUserControls(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
-		thecollaboratingControl.put(uid, collaboratingControl);
-		
-		System.out.println("TEST --> 10 ");
-	//	epEditor.clearAll();
-		System.out.println("TEST --> 11");
-		
-		
-		
-		
-		
-		
-		
-		//////////
-		BasicTextEditor basic = new BasicTextEditor();
-		System.out.println("ICI --> 1 ");
-		IResourceValidator resourceValidator = xtextResource.getResourceServiceProvider()
-							.getResourceValidator();
-		System.out.println("ICI --> 2");	
-		List<Issue> issues = resourceValidator.validate(xtextResource, CheckMode.NORMAL_AND_FAST,
-								CancelIndicator.NullImpl);
-		System.out.println("ICI --> 3");
-	//	basic.createAnnotations(issues);
-		System.out.println("ICI --> 4");
-		List<Annotation> annotations = new ArrayList<Annotation>();
-		System.out.println("ICI --> 5");
-		for (Issue issue : issues) {
-			System.out.println("ICI --> 6");
-					Integer offset = issue.getOffset();
-					Integer line = issue.getLineNumber();
-					int lineNumber = line.intValue();
-					String message = issue.getMessage();
-					Severity severity = issue.getSeverity();
-					System.out.println("Le message :-> "+message);
-					//annotations.add(new Annotation(convertSeverity(severity), lineNumber, offset, message));
-					annotations.add(new Annotation(null, lineNumber, offset, message));
-		
-		}
-		System.out.println("ICI --> 7");
-	//	getViewer().getTextWidget().setAnnotations(annotations);
-		
-		ITextViewer viewer = basic.getViewer();
-		viewer.setText("TTest");
-		System.out.println("ICI --> 8");
-		
-		
-		/////////////
-		
-		
-		
-		
-		
-		
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		System.out.println("ICI --> 9");
-		
-
-		
-		
-		//super.getViewer().getDocument();
-//		epEditor.setText(uid, super.getViewer().getDocument().toString(),  getFilePath().toFile().getName().toString());
-
-		//epEditor.setText(uid, super.getViewer().toString(),  getFilePath().toFile().getName().toString());
-		((EtherpadComposite) epEditor).setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
-		viewer.setText("TTest");
-		
 	}
 	
 

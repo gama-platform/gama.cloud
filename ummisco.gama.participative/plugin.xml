@@ -7,14 +7,45 @@
 	
 	<extension point="org.eclipse.ui.editors">
   		<editor
-        	class="msi.gama.lang.gaml.web.editor.EtherpadEditor"
-        	contributorClass="msi.gama.lang.gaml.web.editor.GamlActionBarContributor"
+        	class="msi.gama.lang.gaml.web.editor.participative.EtherpadEditor"
+        	contributorClass="msi.gama.lang.gaml.web.editor.participative.EtherPadActionBarContributor"
         	default="true"
         	extensions="gaml"
         	icon="icons/model.png"
-        	id="msi.gama.lang.gaml.web.editor.EtherpadEditor"
+        	id="msi.gama.lang.gaml.web.editor.EtherPadEditor"
         	name="EtherPad based Gaml Model Editor">
   		</editor>
    </extension>
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          defaultHandler="ummisco.gama.workspace.ui.commands.OpenEtherPadCommand"
+          description="Open EtherPad Editor"
+          helpContextId="OpenEtherPad"
+          id="ummisco.gama.workspace.ui.commands.openEtherPad"
+          name="OpenEtherPad">
+    </command>
+ </extension>
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          allPopups="false"
+          locationURI="popup:org.dslforge.navigator.view?after=separator1">
+       <menu
+             id="org.dslforge.workspace.menu.openwith"
+             label="Open With"
+             tooltip="Open with">
+          <command
+                commandId="ummisco.gama.workspace.ui.commands.openEtherPad"
+                helpContextId="OpenEtherPadEditor"
+                icon="icons/model.png"
+                id="ummisco.gama.workspace.menu.open.etherpad"
+                label="EtherPad Editor"
+                style="push"
+                tooltip="Open with EtherPad editor">
+          </command>
+       </menu>
+    </menuContribution>
+ </extension>
 	
 </plugin>

@@ -18,15 +18,11 @@ package msi.gama.lang.gaml.web.workspace.ui;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
 
 import org.dslforge.workspace.ui.BasicViewerComparator;
 import org.dslforge.workspace.ui.BasicWokspaceNavigator;
@@ -42,14 +38,11 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorRegistry;
 import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbench;
@@ -57,15 +50,12 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
-// import ummisco.gama.participative.EtherPadEditor;
+
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.Drive.Files.Export;
-
-
-import net.gjerull.etherpad.client.EPLiteClient;
 
 /**
  * A basic implementation of the CNF based on java.io.File
@@ -203,71 +193,10 @@ public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
 						@Override
 						public void run() {
 							// Double click a file
-							System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
-							//EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "ea45b73fbcba78e79125835624433e291c7ca2418b93d7cc14964bc7abc4e6f4");
-							EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
-							
-							
-							// Create pad and set text
-							//client.createPad("my_pad");
-							//client.setText("my_pad", "foo!!");
-
-							// Get pad text
-							
-							// ---------------------
-			//				IEditorRegistry editorRegistry = PlatformUI.getWorkbench().getEditorRegistry();
-			//				IEditorDescriptor ed = editorRegistry.findEditor("ummisco.gama.participative.EtherPadEditor");
-						//	EtherPadEditor ethEditor = new EtherPadEditor();
-						//	ethEditor.createPartControl(compo);
-						
-						
-						//	editorRegistry.setDefaultEditor(new Path(absolutePath), "ummisco.gama.participative.EtherPadEditor");
-			//				System.out.println(" ---> Il exite bien: " +ed.getId());
-						//	editorRegistry.getDefaultEditor(new Path(absolutePath), "ummisco.gama.participative.EtherPadEditor");
-							// --------------------
-							
-							
-						//	String uid=RWT.getUISession().getAttribute("user").toString();
 							String absolutePath = file.getAbsolutePath();
 							IWorkbench workbench = PlatformUI.getWorkbench();
-							
-					//		if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
-					//		if (EtherpadEditorUtil.openFormEditor(workbench, new Path(absolutePath)) != null) {
-							if (EtherpadEditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
 //								logger.info("Double click on file " + absolutePath);
-								
-								System.out.println(" -->-->- Going to sleep before opening other editor ");
-								
-						//		try { Thread.sleep(10000); } catch (InterruptedException e1) { e1.printStackTrace(); }
-								
-						//		EditorUtil.openEditor(workbench, new Path(absolutePath)) ;
-						//		EtherpadEditorUtil.openEditor(workbench, new Path(absolutePath)) ;
-								System.out.println(" -->-->- Open an editor  ");
-								
-								
-								try {
-									String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-									//System.out.println(" -> Double click on file: " +content);
-									Map padList = epClient.listAllPads();
-								
-									String value = (String) padList.get(file.getName());
-									if (value != null) {
-										epClient.deletePad(file.getName());
-									} else {
-										epClient.createPad(file.getName());
-										epClient.setText(file.getName(), content);
-									}
-									
-									
-									
-								//	xcv
-									String text = epClient.getText(file.getName()).get("text").toString();
-									System.out.println(" The pad content is :"+ text);
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							
 							}
 							workspaceChanged(null);
 						}
@@ -300,28 +229,13 @@ public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
 					display.asyncExec(new Runnable() {
 						@Override
 						public void run() {
-							// Double click a file 
-							// Add here the code to insert the file in the dataBase. 
-							EPLiteClient client = new EPLiteClient("http://localhost:9001", "K8OF91QMQYUvrNu3e9rJ7FnnVgaB3m9q");
-//							
-							// Create pad and set text
-							//client.createPad("my_pad");
-							//client.setText("my_pad", "foo!!");
-
-							// Get pad text
-							String text = client.getText("SKLAB").get("text").toString();
-
-							System.out.println(" The pad content is :"+ text);
-							// Get list of all pad ids
-						//	Map result = client.listAllPads();
-						//	List padIds = (List) result.get("padIDs");
-							
-							Export s;
+							// Double click a file
+//							Export s;
 							try {
 //								s = GamaFileSystemContentProvider.drive.files().export(file.id, "text/plain");
 								InputStream in=downloadFile(GamaFileSystemContentProvider.drive,file);//s.executeMediaAsInputStream();
 
-								
+
 							    File targetFile = new File(file.getPath());
 							    OutputStream outStream = new FileOutputStream(targetFile);
 							    

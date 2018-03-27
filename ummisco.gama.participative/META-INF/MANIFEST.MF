@@ -23,7 +23,9 @@ Require-Bundle: msi.gama.core;bundle-version="1.7.0",
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  msi.gama.core.web,
- org.eclipse.rap.ui.views
+ org.eclipse.rap.ui.views,
+ msi.gama.lang.gaml,
+ msi.gama.lang.gaml.web
 Export-Package: gaml.additions,
  org.graphstream.graph,
  org.graphstream.graph.implementations,
