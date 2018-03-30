@@ -9,7 +9,7 @@
   		<editor
         	class="msi.gama.lang.gaml.web.editor.participative.EtherpadEditor"
         	contributorClass="msi.gama.lang.gaml.web.editor.participative.EtherPadActionBarContributor"
-        	default="true"
+        	default="false"
         	extensions="gaml"
         	icon="icons/model.png"
         	id="msi.gama.lang.gaml.web.editor.EtherPadEditor"
