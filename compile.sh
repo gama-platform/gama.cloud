@@ -33,8 +33,6 @@ deploy(){
 	echo "Deploy to p2 update site"	
 	sh ./deploy.sh
 	
-	echo "Deploy tomcat website"		
-	sshpass -e ssh gamaws@51.255.46.42 /var/www/gama_cloud/deployweb.sh
 }
 
 
