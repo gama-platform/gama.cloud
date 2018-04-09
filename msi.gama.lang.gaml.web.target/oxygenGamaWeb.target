@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="246">
+<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="214">
 <locations>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
-<unit id="org.eclipse.gemini.jpa.samples.feature.feature.group" version="1.2.0.M1"/>
-<repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
-</location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.persistence.sdk.feature.group" version="2.7.1.v20171221-bd47e8f"/>
 <repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
@@ -553,6 +548,7 @@
 <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
 <repository location="http://dslforge.org/downloads/runtime/repository/"/>
 </location>
+<location path="${eclipse_home}" type="Profile"/>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
 <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
@@ -561,7 +557,11 @@
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
 <repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
-<location path="${eclipse_home}" type="Profile"/>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
+<unit id="org.eclipse.gemini.jpa.samples.feature.feature.group" version="1.2.0.M1"/>
+<repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
+</location>
 </locations>
 <includeBundles>
 <plugin id="ca.odell.glazedlists"/>
@@ -593,8 +593,8 @@
 <plugin id="com.google.gson" version="2.2.4.v201311231704"/>
 <plugin id="com.google.gson" version="2.7.0.v20170129-0911"/>
 <plugin id="com.google.gson.source"/>
-<plugin id="com.google.guava" version="15.0.0.v201403281430"/>
 <plugin id="com.google.guava" version="21.0.0.v20170206-1425"/>
+<plugin id="com.google.guava" version="15.0.0.v201403281430"/>
 <plugin id="com.google.guava.source"/>
 <plugin id="com.google.gwt.servlet"/>
 <plugin id="com.google.gwt.servlet.source"/>
@@ -611,7 +611,8 @@
 <plugin id="com.google.inject.multibindings"/>
 <plugin id="com.google.inject.multibindings.source"/>
 <plugin id="com.google.inject.source"/>
-<plugin id="com.google.protobuf"/>
+<plugin id="com.google.javascript"/>
+<plugin id="com.google.protobuf" version="2.4.0.v201105131100"/>
 <plugin id="com.google.protobuf.source"/>
 <plugin id="com.gradleware.tooling.client"/>
 <plugin id="com.gradleware.tooling.model"/>
@@ -624,8 +625,8 @@
 <plugin id="com.ibm.icu.base.source" version="58.2.0.v20170418-1837"/>
 <plugin id="com.ibm.icu.source" version="56.1.0.v201601250100"/>
 <plugin id="com.ibm.icu.source" version="58.2.0.v20170418-1837"/>
-<plugin id="com.jcraft.jsch" version="0.1.53.v201508180515"/>
 <plugin id="com.jcraft.jsch" version="0.1.54.v20170116-1932"/>
+<plugin id="com.jcraft.jsch" version="0.1.53.v201508180515"/>
 <plugin id="com.jcraft.jsch.source" version="0.1.53.v201508180515"/>
 <plugin id="com.jcraft.jsch.source" version="0.1.54.v20170116-1932"/>
 <plugin id="com.jcraft.jzlib"/>
@@ -640,8 +641,6 @@
 <plugin id="com.sun.el.source" version="2.2.0.v201303151357"/>
 <plugin id="com.sun.jersey"/>
 <plugin id="com.sun.jersey.source"/>
-<plugin id="com.sun.jna"/>
-<plugin id="com.sun.jna.platform"/>
 <plugin id="com.sun.syndication"/>
 <plugin id="com.sun.syndication.source"/>
 <plugin id="com.sun.xml.bind"/>
@@ -655,6 +654,24 @@
 <plugin id="com.vaadin"/>
 <plugin id="commonj.sdo" version="2.1.1.v201112051852"/>
 <plugin id="commonj.sdo.source" version="2.1.1.v201112051852"/>
+<plugin id="de.odysseus.stan.eclipse"/>
+<plugin id="de.odysseus.stan.eclipse.asm"/>
+<plugin id="de.odysseus.stan.eclipse.base"/>
+<plugin id="de.odysseus.stan.eclipse.dean"/>
+<plugin id="de.odysseus.stan.eclipse.digraph"/>
+<plugin id="de.odysseus.stan.eclipse.distance"/>
+<plugin id="de.odysseus.stan.eclipse.explorer"/>
+<plugin id="de.odysseus.stan.eclipse.graphics"/>
+<plugin id="de.odysseus.stan.eclipse.graphics.svg"/>
+<plugin id="de.odysseus.stan.eclipse.help"/>
+<plugin id="de.odysseus.stan.eclipse.jdt"/>
+<plugin id="de.odysseus.stan.eclipse.jfreechart"/>
+<plugin id="de.odysseus.stan.eclipse.metrics"/>
+<plugin id="de.odysseus.stan.eclipse.metrics.def"/>
+<plugin id="de.odysseus.stan.eclipse.perspective"/>
+<plugin id="de.odysseus.stan.eclipse.report"/>
+<plugin id="de.odysseus.stan.eclipse.report.ant"/>
+<plugin id="de.odysseus.stan.eclipse.violations"/>
 <plugin id="de.tuberlin.eecs.agg"/>
 <plugin id="edu.emory.mathcs.backport"/>
 <plugin id="edu.emory.mathcs.backport.source"/>
@@ -665,7 +682,7 @@
 <plugin id="javaewah.source"/>
 <plugin id="javassist"/>
 <plugin id="javassist.source"/>
-<plugin id="javax.activation" version="1.1.0.v201211130549"/>
+<plugin id="javax.activation"/>
 <plugin id="javax.activation.source"/>
 <plugin id="javax.annotation" version="1.2.0.v201602091430"/>
 <plugin id="javax.annotation.source" version="1.2.0.v201602091430"/>
@@ -684,10 +701,11 @@
 <plugin id="javax.mail.glassfish.source"/>
 <plugin id="javax.management"/>
 <plugin id="javax.management.remote"/>
-<plugin id="javax.persistence" version="1.0.0.v200905011740"/>
 <plugin id="javax.persistence" version="2.2.0.v201708071007"/>
-<plugin id="javax.persistence.source" version="2.2.0.v201708071007"/>
+<plugin id="javax.persistence" version="2.1.0.v201304241213"/>
+<plugin id="javax.persistence" version="1.0.0.v200905011740"/>
 <plugin id="javax.persistence.source" version="1.0.0.v200905011740"/>
+<plugin id="javax.persistence.source" version="2.2.0.v201708071007"/>
 <plugin id="javax.resource"/>
 <plugin id="javax.resource.source"/>
 <plugin id="javax.security.auth.message"/>
@@ -720,8 +738,8 @@
 <plugin id="javax.xml.soap"/>
 <plugin id="javax.xml.stream"/>
 <plugin id="javax.xml.ws"/>
-<plugin id="jaxb-core" version="2.2.11.v201407311112"/>
-<plugin id="jaxb-xjc" version="2.2.11.v201407311112"/>
+<plugin id="jaxb-core"/>
+<plugin id="jaxb-xjc"/>
 <plugin id="jnr.constants"/>
 <plugin id="jnr.enxio"/>
 <plugin id="jnr.ffi"/>
@@ -745,10 +763,11 @@
 <plugin id="net.sourceforge.nattable.core"/>
 <plugin id="net.sourceforge.nattable.core.source"/>
 <plugin id="org.antlr.runtime" version="3.2.0.v201101311130"/>
+<plugin id="org.antlr.runtime" version="4.3.0.v201502022030"/>
 <plugin id="org.antlr.runtime.source"/>
 <plugin id="org.aopalliance"/>
-<plugin id="org.apache.ant" version="1.10.1.v20170504-0840"/>
 <plugin id="org.apache.ant" version="1.9.6.v201510161327"/>
+<plugin id="org.apache.ant" version="1.10.1.v20170504-0840"/>
 <plugin id="org.apache.ant.source" version="1.10.1.v20170504-0840"/>
 <plugin id="org.apache.ant.source" version="1.9.6.v201510161327"/>
 <plugin id="org.apache.axis"/>
@@ -756,8 +775,8 @@
 <plugin id="org.apache.batik.bridge.source"/>
 <plugin id="org.apache.batik.css" version="1.7.0.v201011041433"/>
 <plugin id="org.apache.batik.css" version="1.8.0.v20170214-1941"/>
-<plugin id="org.apache.batik.css.source" version="1.8.0.v20170214-1941"/>
 <plugin id="org.apache.batik.css.source" version="1.7.0.v201011041433"/>
+<plugin id="org.apache.batik.css.source" version="1.8.0.v20170214-1941"/>
 <plugin id="org.apache.batik.dom"/>
 <plugin id="org.apache.batik.dom.source"/>
 <plugin id="org.apache.batik.dom.svg"/>
@@ -775,14 +794,14 @@
 <plugin id="org.apache.batik.swing.source"/>
 <plugin id="org.apache.batik.transcoder"/>
 <plugin id="org.apache.batik.transcoder.source"/>
-<plugin id="org.apache.batik.util" version="1.7.0.v201011041433"/>
 <plugin id="org.apache.batik.util" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.util" version="1.7.0.v201011041433"/>
 <plugin id="org.apache.batik.util.gui" version="1.8.0.v20170214-1941"/>
 <plugin id="org.apache.batik.util.gui" version="1.7.0.v200903091627"/>
 <plugin id="org.apache.batik.util.gui.source" version="1.7.0.v200903091627"/>
 <plugin id="org.apache.batik.util.gui.source" version="1.8.0.v20170214-1941"/>
-<plugin id="org.apache.batik.util.source" version="1.7.0.v201011041433"/>
 <plugin id="org.apache.batik.util.source" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.util.source" version="1.7.0.v201011041433"/>
 <plugin id="org.apache.batik.xml"/>
 <plugin id="org.apache.batik.xml.source"/>
 <plugin id="org.apache.bcel"/>
@@ -805,8 +824,8 @@
 <plugin id="org.apache.commons.cli.source"/>
 <plugin id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
 <plugin id="org.apache.commons.codec" version="1.9.0.v20170208-1614"/>
-<plugin id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
 <plugin id="org.apache.commons.codec.source" version="1.9.0.v20170208-1614"/>
+<plugin id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
 <plugin id="org.apache.commons.collections"/>
 <plugin id="org.apache.commons.collections.source"/>
 <plugin id="org.apache.commons.compress" version="1.6.0.v201310281400"/>
@@ -819,13 +838,13 @@
 <plugin id="org.apache.commons.exec"/>
 <plugin id="org.apache.commons.exec.source"/>
 <plugin id="org.apache.commons.fileupload" version="1.3.1.201405120000"/>
-<plugin id="org.apache.commons.fileupload" version="1.3.2.v20170320-2229"/>
 <plugin id="org.apache.commons.fileupload" version="1.2.2.v20111214-1400"/>
+<plugin id="org.apache.commons.fileupload" version="1.3.2.v20170320-2229"/>
 <plugin id="org.apache.commons.fileupload.source"/>
 <plugin id="org.apache.commons.httpclient"/>
 <plugin id="org.apache.commons.httpclient.source"/>
-<plugin id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 <plugin id="org.apache.commons.io" version="2.2.0.201405120000"/>
+<plugin id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 <plugin id="org.apache.commons.io.source" version="2.2.0.v201405211200"/>
 <plugin id="org.apache.commons.jxpath" version="1.3.0.v200911051830"/>
 <plugin id="org.apache.commons.jxpath.source" version="1.3.0.v200911051830"/>
@@ -867,17 +886,16 @@
 <plugin id="org.apache.geronimo.specs.osgi.registry.source"/>
 <plugin id="org.apache.hadoop.zookeeper"/>
 <plugin id="org.apache.hadoop.zookeeper.source"/>
-<plugin id="org.apache.httpcomponents.httpclient" version="4.5.2.v20170210-0925"/>
 <plugin id="org.apache.httpcomponents.httpclient" version="4.3.6.v201511171540"/>
-<plugin id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
+<plugin id="org.apache.httpcomponents.httpclient" version="4.5.2.v20170210-0925"/>
 <plugin id="org.apache.httpcomponents.httpclient.source" version="4.5.2.v20170210-0925"/>
-<plugin id="org.apache.httpcomponents.httpclient.win"/>
-<plugin id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
+<plugin id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
 <plugin id="org.apache.httpcomponents.httpcore" version="4.4.6.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
 <plugin id="org.apache.httpcomponents.httpcore.nio"/>
 <plugin id="org.apache.httpcomponents.httpcore.nio.source"/>
-<plugin id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
 <plugin id="org.apache.httpcomponents.httpcore.source" version="4.4.6.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
 <plugin id="org.apache.jasper"/>
 <plugin id="org.apache.jasper.glassfish" version="2.2.2.v201501141630"/>
 <plugin id="org.apache.jasper.glassfish.source" version="2.2.2.v201501141630"/>
@@ -893,8 +911,8 @@
 <plugin id="org.apache.lucene.analyzers-common.source"/>
 <plugin id="org.apache.lucene.analyzers-smartcn"/>
 <plugin id="org.apache.lucene.analyzers-smartcn.source"/>
-<plugin id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
 <plugin id="org.apache.lucene.core" version="6.1.0.v20170814-1820"/>
+<plugin id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
 <plugin id="org.apache.lucene.core.source" version="3.5.0.v20120725-1805"/>
 <plugin id="org.apache.lucene.core.source" version="6.1.0.v20170814-1820"/>
 <plugin id="org.apache.lucene.grouping"/>
@@ -1045,8 +1063,6 @@
 <plugin id="org.eclipse.compare.core"/>
 <plugin id="org.eclipse.compare.core.source"/>
 <plugin id="org.eclipse.compare.source"/>
-<plugin id="org.eclipse.compare.win32"/>
-<plugin id="org.eclipse.compare.win32.source"/>
 <plugin id="org.eclipse.core.commands" version="3.9.0.v20170530-1048"/>
 <plugin id="org.eclipse.core.commands.source" version="3.9.0.v20170530-1048"/>
 <plugin id="org.eclipse.core.contenttype" version="3.6.0.v20170207-1037"/>
@@ -1066,16 +1082,14 @@
 <plugin id="org.eclipse.core.filebuffers"/>
 <plugin id="org.eclipse.core.filebuffers.source"/>
 <plugin id="org.eclipse.core.filesystem"/>
+<plugin id="org.eclipse.core.filesystem.macosx"/>
 <plugin id="org.eclipse.core.filesystem.source"/>
-<plugin id="org.eclipse.core.filesystem.win32.x86_64"/>
-<plugin id="org.eclipse.core.jobs" version="3.9.2.v20171030-1027"/>
-<plugin id="org.eclipse.core.jobs.source" version="3.9.2.v20171030-1027"/>
+<plugin id="org.eclipse.core.jobs" version="3.9.3.v20180115-1757"/>
+<plugin id="org.eclipse.core.jobs.source" version="3.9.3.v20180115-1757"/>
 <plugin id="org.eclipse.core.net"/>
 <plugin id="org.eclipse.core.net.source"/>
-<plugin id="org.eclipse.core.net.win32.x86_64"/>
 <plugin id="org.eclipse.core.resources"/>
 <plugin id="org.eclipse.core.resources.source"/>
-<plugin id="org.eclipse.core.resources.win32.x86_64"/>
 <plugin id="org.eclipse.core.runtime" version="3.13.0.v20170207-1030"/>
 <plugin id="org.eclipse.core.runtime.source" version="3.13.0.v20170207-1030"/>
 <plugin id="org.eclipse.core.variables"/>
@@ -1124,6 +1138,8 @@
 <plugin id="org.eclipse.e4.ui.workbench.addons.swt"/>
 <plugin id="org.eclipse.e4.ui.workbench.addons.swt.source"/>
 <plugin id="org.eclipse.e4.ui.workbench.renderers.swt"/>
+<plugin id="org.eclipse.e4.ui.workbench.renderers.swt.cocoa"/>
+<plugin id="org.eclipse.e4.ui.workbench.renderers.swt.cocoa.source"/>
 <plugin id="org.eclipse.e4.ui.workbench.renderers.swt.source"/>
 <plugin id="org.eclipse.e4.ui.workbench.source"/>
 <plugin id="org.eclipse.e4.ui.workbench.swt"/>
@@ -1253,7 +1269,6 @@
 <plugin id="org.eclipse.epp.logging.aeri.core"/>
 <plugin id="org.eclipse.epp.logging.aeri.ide"/>
 <plugin id="org.eclipse.epp.mpc.core"/>
-<plugin id="org.eclipse.epp.mpc.core.win32"/>
 <plugin id="org.eclipse.epp.mpc.help.ui"/>
 <plugin id="org.eclipse.epp.mpc.ui"/>
 <plugin id="org.eclipse.epp.package.common"/>
@@ -1290,8 +1305,8 @@
 <plugin id="org.eclipse.equinox.jsp.jasper.registry.source"/>
 <plugin id="org.eclipse.equinox.jsp.jasper.source"/>
 <plugin id="org.eclipse.equinox.launcher"/>
+<plugin id="org.eclipse.equinox.launcher.cocoa.macosx.x86_64"/>
 <plugin id="org.eclipse.equinox.launcher.source"/>
-<plugin id="org.eclipse.equinox.launcher.win32.win32.x86_64"/>
 <plugin id="org.eclipse.equinox.p2.artifact.repository"/>
 <plugin id="org.eclipse.equinox.p2.artifact.repository.source"/>
 <plugin id="org.eclipse.equinox.p2.console"/>
@@ -1354,11 +1369,11 @@
 <plugin id="org.eclipse.equinox.registry" version="3.7.0.v20170222-1344"/>
 <plugin id="org.eclipse.equinox.registry.source" version="3.7.0.v20170222-1344"/>
 <plugin id="org.eclipse.equinox.security"/>
+<plugin id="org.eclipse.equinox.security.macosx"/>
+<plugin id="org.eclipse.equinox.security.macosx.source"/>
 <plugin id="org.eclipse.equinox.security.source"/>
 <plugin id="org.eclipse.equinox.security.ui"/>
 <plugin id="org.eclipse.equinox.security.ui.source"/>
-<plugin id="org.eclipse.equinox.security.win32.x86_64"/>
-<plugin id="org.eclipse.equinox.security.win32.x86_64.source"/>
 <plugin id="org.eclipse.equinox.servletbridge"/>
 <plugin id="org.eclipse.equinox.servletbridge.source"/>
 <plugin id="org.eclipse.equinox.simpleconfigurator"/>
@@ -1382,8 +1397,8 @@
 <plugin id="org.eclipse.help.webapp"/>
 <plugin id="org.eclipse.help.webapp.source"/>
 <plugin id="org.eclipse.jdt"/>
-<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.annotation" version="1.1.100.v20160418-1457"/>
+<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
 <plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.apt.core"/>
@@ -1417,24 +1432,42 @@
 <plugin id="org.eclipse.jdt.junit5.runtime"/>
 <plugin id="org.eclipse.jdt.junit5.runtime.source"/>
 <plugin id="org.eclipse.jdt.launching"/>
+<plugin id="org.eclipse.jdt.launching.macosx"/>
+<plugin id="org.eclipse.jdt.launching.macosx.source"/>
 <plugin id="org.eclipse.jdt.launching.source"/>
+<plugin id="org.eclipse.jdt.launching.ui.macosx"/>
+<plugin id="org.eclipse.jdt.launching.ui.macosx.source"/>
 <plugin id="org.eclipse.jdt.ui"/>
 <plugin id="org.eclipse.jdt.ui.source"/>
 <plugin id="org.eclipse.jem.util"/>
 <plugin id="org.eclipse.jetty.continuation" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.continuation" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.continuation.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.continuation.source" version="9.4.8.v20171121"/>
+<plugin id="org.eclipse.jetty.http" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.http" version="9.4.7.v20170914"/>
 <plugin id="org.eclipse.jetty.http.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.http.source" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.io" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.io" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.io.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.io.source" version="9.4.8.v20171121"/>
+<plugin id="org.eclipse.jetty.security" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.security" version="9.4.7.v20170914"/>
 <plugin id="org.eclipse.jetty.security.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.security.source" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.server" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.server" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.server.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.server.source" version="9.4.8.v20171121"/>
+<plugin id="org.eclipse.jetty.servlet" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.servlet" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.servlet.source" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.servlet.source" version="9.4.7.v20170914"/>
 <plugin id="org.eclipse.jetty.util" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.util" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.util.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.util.source" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.webapp"/>
 <plugin id="org.eclipse.jetty.xml"/>
 <plugin id="org.eclipse.jface"/>
@@ -1449,6 +1482,30 @@
 <plugin id="org.eclipse.jsch.core.source"/>
 <plugin id="org.eclipse.jsch.ui"/>
 <plugin id="org.eclipse.jsch.ui.source"/>
+<plugin id="org.eclipse.jst.common.project.facet.core"/>
+<plugin id="org.eclipse.jst.server.core"/>
+<plugin id="org.eclipse.jst.server.ui"/>
+<plugin id="org.eclipse.libra.facet"/>
+<plugin id="org.eclipse.libra.facet.ui"/>
+<plugin id="org.eclipse.libra.framework.core"/>
+<plugin id="org.eclipse.libra.framework.editor.core"/>
+<plugin id="org.eclipse.libra.framework.editor.integration"/>
+<plugin id="org.eclipse.libra.framework.editor.ui"/>
+<plugin id="org.eclipse.libra.framework.equinox"/>
+<plugin id="org.eclipse.libra.framework.equinox.ui"/>
+<plugin id="org.eclipse.libra.framework.felix"/>
+<plugin id="org.eclipse.libra.framework.felix.ui"/>
+<plugin id="org.eclipse.libra.framework.jonas"/>
+<plugin id="org.eclipse.libra.framework.jonas.ui"/>
+<plugin id="org.eclipse.libra.framework.knopflerfish"/>
+<plugin id="org.eclipse.libra.framework.knopflerfish.ui"/>
+<plugin id="org.eclipse.libra.framework.ui"/>
+<plugin id="org.eclipse.lsp4j"/>
+<plugin id="org.eclipse.lsp4j.generator"/>
+<plugin id="org.eclipse.lsp4j.generator.source"/>
+<plugin id="org.eclipse.lsp4j.jsonrpc"/>
+<plugin id="org.eclipse.lsp4j.jsonrpc.source"/>
+<plugin id="org.eclipse.lsp4j.source"/>
 <plugin id="org.eclipse.ltk.core.refactoring"/>
 <plugin id="org.eclipse.ltk.core.refactoring.source"/>
 <plugin id="org.eclipse.ltk.ui.refactoring"/>
@@ -1487,7 +1544,6 @@
 <plugin id="org.eclipse.oomph.extractor.lib"/>
 <plugin id="org.eclipse.oomph.jreinfo"/>
 <plugin id="org.eclipse.oomph.jreinfo.ui"/>
-<plugin id="org.eclipse.oomph.jreinfo.win32.x86_64"/>
 <plugin id="org.eclipse.oomph.p2"/>
 <plugin id="org.eclipse.oomph.p2.core"/>
 <plugin id="org.eclipse.oomph.p2.doc"/>
@@ -1515,12 +1571,13 @@
 <plugin id="org.eclipse.oomph.workingsets.editor"/>
 <plugin id="org.eclipse.orbit.mongodb"/>
 <plugin id="org.eclipse.orbit.mongodb.source"/>
-<plugin id="org.eclipse.osgi" version="3.12.50.v20170928-1321"/>
+<plugin id="org.eclipse.osgi" version="3.12.100.v20180210-1608"/>
 <plugin id="org.eclipse.osgi.compatibility.state"/>
 <plugin id="org.eclipse.osgi.compatibility.state.source"/>
 <plugin id="org.eclipse.osgi.services" version="3.6.0.v20170228-1906"/>
 <plugin id="org.eclipse.osgi.services.source" version="3.6.0.v20170228-1906"/>
 <plugin id="org.eclipse.osgi.source" version="3.12.50.v20170928-1321"/>
+<plugin id="org.eclipse.osgi.source" version="3.12.100.v20180210-1608"/>
 <plugin id="org.eclipse.osgi.util" version="3.4.0.v20170111-1608"/>
 <plugin id="org.eclipse.osgi.util.source" version="3.4.0.v20170111-1608"/>
 <plugin id="org.eclipse.pde"/>
@@ -1562,31 +1619,34 @@
 <plugin id="org.eclipse.pde.ui.templates"/>
 <plugin id="org.eclipse.pde.ui.templates.source"/>
 <plugin id="org.eclipse.persistence.antlr" version="3.5.2.v201605171345"/>
-<plugin id="org.eclipse.persistence.antlr.source" version="3.5.2.v201605171345"/>
+<plugin id="org.eclipse.persistence.antlr" version="3.2.0.v201302191141"/>
+<plugin id="org.eclipse.persistence.antlr.source"/>
 <plugin id="org.eclipse.persistence.asm" version="6.0.0.v201710052159"/>
-<plugin id="org.eclipse.persistence.asm.source" version="6.0.0.v201710052159"/>
+<plugin id="org.eclipse.persistence.asm" version="5.0.1.v201405080102"/>
+<plugin id="org.eclipse.persistence.asm.source"/>
+<plugin id="org.eclipse.persistence.core" version="2.6.0.v20140809-296a69f"/>
 <plugin id="org.eclipse.persistence.core" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.core.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.dbws" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.dbws.builder" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.dbws.builder.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.dbws.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.core.source"/>
+<plugin id="org.eclipse.persistence.dbws"/>
+<plugin id="org.eclipse.persistence.dbws.builder"/>
+<plugin id="org.eclipse.persistence.dbws.builder.source"/>
+<plugin id="org.eclipse.persistence.dbws.source"/>
 <plugin id="org.eclipse.persistence.jpa" version="2.7.1.v20171221-bd47e8f"/>
 <plugin id="org.eclipse.persistence.jpa.jpql" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.jpa.jpql.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.jpa.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.moxy" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.moxy.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.nosql" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.nosql.source" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.oracle" version="2.7.0.v20170811-0b2932f74d"/>
-<plugin id="org.eclipse.persistence.oracle.nosql" version="2.7.0.v20170630-9d93b0e80a"/>
-<plugin id="org.eclipse.persistence.oracle.nosql.source" version="2.7.0.v20170630-9d93b0e80a"/>
-<plugin id="org.eclipse.persistence.oracle.source" version="2.7.0.v20170811-0b2932f74d"/>
-<plugin id="org.eclipse.persistence.oracleddlparser" version="1.0.0.v20150306"/>
-<plugin id="org.eclipse.persistence.oracleddlparser.source" version="1.0.0.v20150306"/>
-<plugin id="org.eclipse.persistence.sdo" version="2.7.1.v20171221-bd47e8f"/>
-<plugin id="org.eclipse.persistence.sdo.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.jpa.jpql.source"/>
+<plugin id="org.eclipse.persistence.jpa.source"/>
+<plugin id="org.eclipse.persistence.moxy"/>
+<plugin id="org.eclipse.persistence.moxy.source"/>
+<plugin id="org.eclipse.persistence.nosql"/>
+<plugin id="org.eclipse.persistence.nosql.source"/>
+<plugin id="org.eclipse.persistence.oracle"/>
+<plugin id="org.eclipse.persistence.oracle.nosql"/>
+<plugin id="org.eclipse.persistence.oracle.nosql.source"/>
+<plugin id="org.eclipse.persistence.oracle.source"/>
+<plugin id="org.eclipse.persistence.oracleddlparser"/>
+<plugin id="org.eclipse.persistence.oracleddlparser.source"/>
+<plugin id="org.eclipse.persistence.sdo"/>
+<plugin id="org.eclipse.persistence.sdo.source"/>
 <plugin id="org.eclipse.platform"/>
 <plugin id="org.eclipse.platform.doc.isv"/>
 <plugin id="org.eclipse.platform.doc.user"/>
@@ -1705,8 +1765,8 @@
 <plugin id="org.eclipse.search"/>
 <plugin id="org.eclipse.search.source"/>
 <plugin id="org.eclipse.swt"/>
-<plugin id="org.eclipse.swt.win32.win32.x86_64"/>
-<plugin id="org.eclipse.swt.win32.win32.x86_64.source"/>
+<plugin id="org.eclipse.swt.cocoa.macosx.x86_64"/>
+<plugin id="org.eclipse.swt.cocoa.macosx.x86_64.source"/>
 <plugin id="org.eclipse.team.core"/>
 <plugin id="org.eclipse.team.core.source"/>
 <plugin id="org.eclipse.team.cvs.core"/>
@@ -1728,6 +1788,8 @@
 <plugin id="org.eclipse.ui.browser.source"/>
 <plugin id="org.eclipse.ui.cheatsheets"/>
 <plugin id="org.eclipse.ui.cheatsheets.source"/>
+<plugin id="org.eclipse.ui.cocoa"/>
+<plugin id="org.eclipse.ui.cocoa.source"/>
 <plugin id="org.eclipse.ui.console"/>
 <plugin id="org.eclipse.ui.console.source"/>
 <plugin id="org.eclipse.ui.editors"/>
@@ -1767,8 +1829,6 @@
 <plugin id="org.eclipse.ui.views.properties.tabbed"/>
 <plugin id="org.eclipse.ui.views.properties.tabbed.source"/>
 <plugin id="org.eclipse.ui.views.source"/>
-<plugin id="org.eclipse.ui.win32"/>
-<plugin id="org.eclipse.ui.win32.source"/>
 <plugin id="org.eclipse.ui.workbench"/>
 <plugin id="org.eclipse.ui.workbench.source"/>
 <plugin id="org.eclipse.ui.workbench.texteditor"/>
@@ -1788,6 +1848,7 @@
 <plugin id="org.eclipse.wst.common.modulecore"/>
 <plugin id="org.eclipse.wst.common.modulecore.ui"/>
 <plugin id="org.eclipse.wst.common.project.facet.core"/>
+<plugin id="org.eclipse.wst.common.project.facet.ui"/>
 <plugin id="org.eclipse.wst.common.snippets"/>
 <plugin id="org.eclipse.wst.common.ui"/>
 <plugin id="org.eclipse.wst.common.uriresolver"/>
@@ -1796,6 +1857,39 @@
 <plugin id="org.eclipse.wst.dtd.ui.infopop"/>
 <plugin id="org.eclipse.wst.dtdeditor.doc.user"/>
 <plugin id="org.eclipse.wst.internet.cache"/>
+<plugin id="org.eclipse.wst.internet.monitor.core"/>
+<plugin id="org.eclipse.wst.jsdt.chromium"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.debug"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.debug.core"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.debug.js"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.debug.jsdtbridge"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.debug.ui"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.wip.eclipse"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.wipbackend.dev"/>
+<plugin id="org.eclipse.wst.jsdt.chromium.wipbackend.protocol_1_0"/>
+<plugin id="org.eclipse.wst.jsdt.core"/>
+<plugin id="org.eclipse.wst.jsdt.debug.core"/>
+<plugin id="org.eclipse.wst.jsdt.debug.crossfire"/>
+<plugin id="org.eclipse.wst.jsdt.debug.rhino"/>
+<plugin id="org.eclipse.wst.jsdt.debug.rhino.debugger"/>
+<plugin id="org.eclipse.wst.jsdt.debug.transport"/>
+<plugin id="org.eclipse.wst.jsdt.debug.ui"/>
+<plugin id="org.eclipse.wst.jsdt.doc"/>
+<plugin id="org.eclipse.wst.jsdt.js.bower"/>
+<plugin id="org.eclipse.wst.jsdt.js.cli"/>
+<plugin id="org.eclipse.wst.jsdt.js.common"/>
+<plugin id="org.eclipse.wst.jsdt.js.grunt"/>
+<plugin id="org.eclipse.wst.jsdt.js.gulp"/>
+<plugin id="org.eclipse.wst.jsdt.js.node"/>
+<plugin id="org.eclipse.wst.jsdt.js.node.common"/>
+<plugin id="org.eclipse.wst.jsdt.js.npm"/>
+<plugin id="org.eclipse.wst.jsdt.manipulation"/>
+<plugin id="org.eclipse.wst.jsdt.support.firefox"/>
+<plugin id="org.eclipse.wst.jsdt.support.ie"/>
+<plugin id="org.eclipse.wst.jsdt.ui"/>
+<plugin id="org.eclipse.wst.server.core"/>
+<plugin id="org.eclipse.wst.server.discovery"/>
+<plugin id="org.eclipse.wst.server.ui"/>
 <plugin id="org.eclipse.wst.sse.core"/>
 <plugin id="org.eclipse.wst.sse.doc.user"/>
 <plugin id="org.eclipse.wst.sse.ui"/>
@@ -1804,6 +1898,7 @@
 <plugin id="org.eclipse.wst.validation"/>
 <plugin id="org.eclipse.wst.validation.infopop"/>
 <plugin id="org.eclipse.wst.validation.ui"/>
+<plugin id="org.eclipse.wst.web"/>
 <plugin id="org.eclipse.wst.xml.core"/>
 <plugin id="org.eclipse.wst.xml.ui"/>
 <plugin id="org.eclipse.wst.xml.ui.infopop"/>
@@ -1918,6 +2013,8 @@
 <plugin id="org.eclipse.xtext.xtext.ui.source"/>
 <plugin id="org.eclipse.xtext.xtext.wizard"/>
 <plugin id="org.eclipse.xtext.xtext.wizard.source"/>
+<plugin id="org.eclipse.zest.core"/>
+<plugin id="org.eclipse.zest.layouts"/>
 <plugin id="org.glassfish.com.sun.faces"/>
 <plugin id="org.glassfish.com.sun.faces.source"/>
 <plugin id="org.glassfish.hk2.api"/>
@@ -1926,7 +2023,7 @@
 <plugin id="org.glassfish.hk2.utils"/>
 <plugin id="org.glassfish.javax.faces"/>
 <plugin id="org.glassfish.javax.faces.source"/>
-<plugin id="org.glassfish.javax.json" version="1.0.4.v201311181159"/>
+<plugin id="org.glassfish.javax.json"/>
 <plugin id="org.glassfish.jersey.apache.connector"/>
 <plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
 <plugin id="org.glassfish.jersey.core.jersey-client"/>
@@ -1978,16 +2075,21 @@
 <plugin id="org.kohsuke.args4j.source"/>
 <plugin id="org.mockito"/>
 <plugin id="org.mockito.source"/>
-<plugin id="org.mongodb.mongo-java-driver" version="3.2.0"/>
-<plugin id="org.mozilla.javascript"/>
+<plugin id="org.mongodb.mongo-java-driver"/>
+<plugin id="org.mozilla.javascript" version="1.7.5.v201504281450"/>
 <plugin id="org.mozilla.javascript.source"/>
+<plugin id="org.objectweb.asm" version="6.0.0.v20180116-1719"/>
+<plugin id="org.objectweb.asm" version="5.2.0.v20170126-0011"/>
 <plugin id="org.objectweb.asm" version="5.0.1.v201404251740"/>
 <plugin id="org.objectweb.asm.analysis"/>
 <plugin id="org.objectweb.asm.analysis.source"/>
 <plugin id="org.objectweb.asm.commons"/>
 <plugin id="org.objectweb.asm.commons.source"/>
 <plugin id="org.objectweb.asm.source" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.source" version="6.0.0.v20180116-1719"/>
 <plugin id="org.objectweb.asm.tree" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.tree" version="6.0.0.v20180116-1719"/>
+<plugin id="org.objectweb.asm.tree.source" version="6.0.0.v20180116-1719"/>
 <plugin id="org.objectweb.asm.tree.source" version="5.0.1.v201404251740"/>
 <plugin id="org.objectweb.asm.util"/>
 <plugin id="org.objectweb.asm.util.source"/>
@@ -2031,8 +2133,8 @@
 <plugin id="org.swtchart.source"/>
 <plugin id="org.tukaani.xz" version="1.5.0.v20170111-1717"/>
 <plugin id="org.tukaani.xz" version="1.3.0.v201308270617"/>
-<plugin id="org.tukaani.xz.source" version="1.3.0.v201308270617"/>
 <plugin id="org.tukaani.xz.source" version="1.5.0.v20170111-1717"/>
+<plugin id="org.tukaani.xz.source" version="1.3.0.v201308270617"/>
 <plugin id="org.uddi4j"/>
 <plugin id="org.w3c.css.sac" version="1.3.1.v200903091627"/>
 <plugin id="org.w3c.css.sac.source" version="1.3.1.v200903091627"/>
@@ -2052,10 +2154,13 @@
 <plugin id="scannotation.source"/>
 </includeBundles>
 <environment>
-<os>win32</os>
-<ws>win32</ws>
+<os>macosx</os>
+<ws>cocoa</ws>
 <arch>x86_64</arch>
 <nl>en_US</nl>
 </environment>
 <targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+<launcherArgs>
+<vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dosgi.instance.area.default=@user.home/eclipse-workspace -XX:+UseG1GC -XX:+UseStringDeduplication --add-modules=ALL-SYSTEM -Dosgi.requiredJavaVersion=1.8 -Xms2256m -Xmx3024m --add-modules=ALL-SYSTEM</vmArgs>
+</launcherArgs>
 </target>
