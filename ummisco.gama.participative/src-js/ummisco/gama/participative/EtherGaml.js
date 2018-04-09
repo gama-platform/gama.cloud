@@ -2,16 +2,16 @@
  * @Generated
  */
 (function() {
-	rap.registerTypeHandler("msi.gama.lang.gaml.web.editor.widget.Gaml", {
+	rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
 		factory : function(properties) {
-			return new msi.gama.lang.gaml.web.editor.widget.Gaml(properties);
+			return new ummisco.gama.participative.EtherpadBasicText(properties);
 		},
 		destructor : "destroy",
 		properties : [ "url", "text", "editable", "status", "annotations", "scope", "proposals", "font", "dirty", "markers", "background"],
 		events : ["Modify", "TextChanged", "Save", "FocusIn", "FocusOut", "Selection", "CaretEvent", "ContentAssist"],
 		methods : ["setSelection", "addMarker", "removeMarker", "clearMarkers", "insertText", "removeText", "setProposals", "moveCursorFileStart","moveCursorFileEnd"]
 	});
-	rwt.qx.Class.define("msi.gama.lang.gaml.web.editor.widget.Gaml", {
+	rwt.qx.Class.define("ummisco.gama.participative.EtherpadBasicText", {
 		extend :org.dslforge.styledtext.BasicText,
 		construct : function(properties) {
 			this.base(arguments, properties);
@@ -20,11 +20,11 @@
 			createEditor : function() {
 				var basePath = 'rwt-resources/src-js/org/dslforge/styledtext/ace';
 				ace.require("ace/config").set("basePath", basePath);
-				var workerPath = 'rwt-resources/src-js/msi/gama/lang/gaml/web/ace';
+				var workerPath = 'rwt-resources/src-js/ummisco/gama/participative/ace';
 				ace.require("ace/config").set("workerPath", workerPath);
-				var themePath = 'rwt-resources/src-js/msi/gama/lang/gaml/web/ace';
+				var themePath = 'rwt-resources/src-js/ummisco/gama/participative/ace';
 				ace.require("ace/config").set("themePath", themePath);
-				var modePath = 'rwt-resources/src-js/msi/gama/lang/gaml/web/ace';
+				var modePath = 'rwt-resources/src-js/ummisco/gama/participative/ace';
 				ace.require("ace/config").set("modePath", modePath);
 				var editor = this.editor = ace.edit(this.element);
 				if (editor != null) {

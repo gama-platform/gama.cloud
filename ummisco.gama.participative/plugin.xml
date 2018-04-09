@@ -16,6 +16,25 @@
         	name="EtherPad based Gaml Model Editor">
   		</editor>
    </extension>
+   
+   
+    <extension
+         point="org.eclipse.rap.ui.resources">
+      <resource
+          class="ummisco.gama.participative.EtherGamlResource">
+		<dependsOn
+			resourceId="org.dslforge.styledtext.basictext">
+		</dependsOn>
+      </resource>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.themeableWidgets">
+      <widget
+            class="ummisco.gama.participative.EtherpadBasicText"
+            id="ummisco.gama.participative.EtherpadBasicText"
+            name="EtherGaml">
+      </widget>
+   </extension>
  <extension
        point="org.eclipse.ui.commands">
     <command

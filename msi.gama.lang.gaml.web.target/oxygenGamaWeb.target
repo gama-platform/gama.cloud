@@ -1,576 +1,2061 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="206">
-    <locations>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="org.eclipse.persistence.sdk.feature.group" version="2.7.1.v20171221-bd47e8f"/>
-            <repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
-        </location>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="ca.odell.glazedlists" version="1.9.0.v201303080712"/>
-            <unit id="ca.odell.glazedlists.source" version="1.9.0.v201303080712"/>
-            <unit id="cdi.api" version="1.0.0.v201105160744"/>
-            <unit id="cdi.api.source" version="1.0.0.v201105160744"/>
-            <unit id="ch.ethz.iks.slp" version="1.0.0.RC5_v20080820-1500"/>
-            <unit id="ch.ethz.iks.slp.source" version="1.0.0.RC2_v20080604-1500"/>
-            <unit id="ch.qos.logback.classic" version="1.0.7.v20121108-1250"/>
-            <unit id="ch.qos.logback.classic.source" version="1.0.7.v20121108-1250"/>
-            <unit id="ch.qos.logback.core" version="1.0.7.v20121108-1250"/>
-            <unit id="ch.qos.logback.core.source" version="1.0.7.v20121108-1250"/>
-            <unit id="ch.qos.logback.slf4j" version="1.0.7.v201505121915"/>
-            <unit id="ch.qos.logback.slf4j.source" version="1.0.7.v201505121915"/>
-            <unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.5.0.v201504151636"/>
-            <unit id="com.fasterxml.jackson.core.jackson-core" version="2.5.0.v201504151636"/>
-            <unit id="com.fasterxml.jackson.core.jackson-databind" version="2.5.0.v201504151636"/>
-            <unit id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" version="2.5.0.v201504151636"/>
-            <unit id="com.fasterxml.jackson.datatype.jackson-datatype-guava" version="2.5.0.v201504151636"/>
-            <unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" version="2.5.0.v201504171603"/>
-            <unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" version="2.5.0.v201504171603"/>
-            <unit id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" version="2.5.0.v201504151636"/>
-            <unit id="com.google.gerrit.common" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gerrit.common.source" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gerrit.prettify" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gerrit.prettify.source" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gerrit.reviewdb" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gerrit.reviewdb.source" version="2.1.5.v201112241444"/>
-            <unit id="com.google.gson" version="2.2.4.v201311231704"/>
-            <unit id="com.google.gson.source" version="2.2.4.v201311231704"/>
-            <unit id="com.google.guava" version="15.0.0.v201403281430"/>
-            <unit id="com.google.guava.source" version="15.0.0.v201403281430"/>
-            <unit id="com.google.gwt.servlet" version="2.1.0.v201111291940"/>
-            <unit id="com.google.gwt.servlet.source" version="2.1.0.v201111291940"/>
-            <unit id="com.google.gwt.user" version="2.1.0.v201505121915"/>
-            <unit id="com.google.gwt.user.source" version="2.1.0.v201505121915"/>
-            <unit id="com.google.gwtjsonrpc" version="1.2.5.v201112241444"/>
-            <unit id="com.google.gwtjsonrpc.source" version="1.2.5.v201112241444"/>
-            <unit id="com.google.gwtorm" version="1.1.4.v201112241444"/>
-            <unit id="com.google.gwtorm.source" version="1.1.4.v201112241444"/>
-            <unit id="com.google.inject" version="3.0.0.v201605172100"/>
-            <unit id="com.google.inject.assistedinject" version="3.0.0.v201402270930"/>
-            <unit id="com.google.inject.assistedinject.source" version="3.0.0.v201402270930"/>
-            <unit id="com.google.inject.multibindings" version="3.0.0.v201605172100"/>
-            <unit id="com.google.inject.multibindings.source" version="3.0.0.v201605172100"/>
-            <unit id="com.google.inject.source" version="3.0.0.v201605172100"/>
-            <unit id="com.google.protobuf" version="2.4.0.v201105131100"/>
-            <unit id="com.google.protobuf.source" version="2.4.0.v201105131100"/>
-            <unit id="com.ibm.icu" version="56.1.0.v201601250100"/>
-            <unit id="com.ibm.icu.base" version="56.1.0.v201601250100"/>
-            <unit id="com.ibm.icu.base.source" version="56.1.0.v201601250100"/>
-            <unit id="com.ibm.icu.source" version="56.1.0.v201601250100"/>
-            <unit id="com.jcraft.jsch" version="0.1.53.v201508180515"/>
-            <unit id="com.jcraft.jsch.source" version="0.1.53.v201508180515"/>
-            <unit id="com.jcraft.jzlib" version="1.1.1.v201205102305"/>
-            <unit id="com.jcraft.jzlib.source" version="1.1.1.v201205102305"/>
-            <unit id="com.kenai.jffi" version="1.2.7.v201505052040"/>
-            <unit id="com.lowagie.text" version="2.1.7.v201004222200"/>
-            <unit id="com.lowagie.text.source" version="2.1.7.v201004222200"/>
-            <unit id="com.novell.ldap" version="2.3.30.v201112011400"/>
-            <unit id="com.spotify.docker.client" version="3.1.1.v201605180100"/>
-            <unit id="com.spotify.docker.client.source" version="3.1.1.v201605180100"/>
-            <unit id="com.sun.el" version="2.2.0.v201303151357"/>
-            <unit id="com.sun.el.source" version="2.2.0.v201303151357"/>
-            <unit id="com.sun.jersey" version="1.17.0.v201503170330"/>
-            <unit id="com.sun.jersey.source" version="1.17.0.v201503170330"/>
-            <unit id="com.sun.syndication" version="0.9.0.v200803061811"/>
-            <unit id="com.sun.syndication.source" version="0.9.0.v200803061811"/>
-            <unit id="com.sun.xml.bind" version="2.2.0.v201505121915"/>
-            <unit id="com.sun.xml.bind.source" version="2.2.0.v201505121915"/>
-            <unit id="com.thoughtworks.qdox" version="1.6.3.v20081201-1400"/>
-            <unit id="com.thoughtworks.qdox.source" version="1.6.3.v20081201-1400"/>
-            <unit id="com.thoughtworks.selenium" version="2.25.0.v201212071504"/>
-            <unit id="com.thoughtworks.selenium.source" version="2.25.0.v201212071504"/>
-            <unit id="com.thoughtworks.xstream" version="1.3.1.v201111240924"/>
-            <unit id="com.thoughtworks.xstream.source" version="1.3.1.v201111240924"/>
-            <unit id="com.vaadin" version="6.5.3.v201111241034"/>
-            <unit id="commonj.sdo" version="2.1.1.v201112051852"/>
-            <unit id="commonj.sdo.source" version="2.1.1.v201112051852"/>
-            <unit id="de.tuberlin.eecs.agg" version="2.1.0.v201512080800"/>
-            <unit id="edu.emory.mathcs.backport" version="3.1.0.v201505121915"/>
-            <unit id="edu.emory.mathcs.backport.source" version="3.1.0.v201505121915"/>
-            <unit id="java_cup.runtime" version="0.10.0.v201005080400"/>
-            <unit id="java_cup.runtime.source" version="0.10.0.v201005080400"/>
-            <unit id="javaewah" version="0.7.9.v201605172130"/>
-            <unit id="javaewah.source" version="0.7.9.v201605172130"/>
-            <unit id="javassist" version="3.13.0.GA_v201209210905"/>
-            <unit id="javassist.source" version="3.13.0.GA_v201209210905"/>
-            <unit id="javax.activation" version="1.1.0.v201211130549"/>
-            <unit id="javax.activation.source" version="1.1.0.v201211130549"/>
-            <unit id="javax.annotation" version="1.2.0.v201602091430"/>
-            <unit id="javax.annotation.source" version="1.2.0.v201602091430"/>
-            <unit id="javax.ejb" version="3.1.1.v201204261316"/>
-            <unit id="javax.ejb.source" version="3.1.1.v201204261316"/>
-            <unit id="javax.el" version="2.2.0.v201303151357"/>
-            <unit id="javax.el.source" version="2.2.0.v201303151357"/>
-            <unit id="javax.inject" version="1.0.0.v20091030"/>
-            <unit id="javax.inject.source" version="1.0.0.v20091030"/>
-            <unit id="javax.jms" version="1.1.0.v201205091237"/>
-            <unit id="javax.jms.source" version="1.1.0.v201205091237"/>
-            <unit id="javax.jws" version="2.0.0.v201005080400"/>
-            <unit id="javax.jws.source" version="2.0.0.v201005080400"/>
-            <unit id="javax.mail" version="1.4.0.v201005080615"/>
-            <unit id="javax.mail.glassfish" version="1.4.1.v201108011116"/>
-            <unit id="javax.mail.glassfish.source" version="1.4.1.v201108011116"/>
-            <unit id="javax.management" version="1.2.0.v20100427-1100"/>
-            <unit id="javax.management.remote" version="1.0.0.v20100427-1100"/>
-            <unit id="javax.persistence" version="1.0.0.v200905011740"/>
-            <unit id="javax.persistence.source" version="1.0.0.v200905011740"/>
-            <unit id="javax.resource" version="1.6.0.v201204270900"/>
-            <unit id="javax.resource.source" version="1.6.0.v201204270900"/>
-            <unit id="javax.security.auth.message" version="1.0.0.v201108011116"/>
-            <unit id="javax.security.auth.message.source" version="1.0.0.v201108011116"/>
-            <unit id="javax.security.jacc" version="1.4.0.v201205031350"/>
-            <unit id="javax.security.jacc.source" version="1.4.0.v201205031350"/>
-            <unit id="javax.servlet" version="3.1.0.v201410161800"/>
-            <unit id="javax.servlet.jsp" version="2.2.0.v201112011158"/>
-            <unit id="javax.servlet.jsp.jstl" version="1.2.0.v201105211821"/>
-            <unit id="javax.servlet.jsp.jstl.impl" version="1.2.0.v201210211230"/>
-            <unit id="javax.servlet.jsp.jstl.impl.source" version="1.2.0.v201210211230"/>
-            <unit id="javax.servlet.jsp.jstl.source" version="1.2.0.v201105211821"/>
-            <unit id="javax.servlet.jsp.source" version="2.2.0.v201112011158"/>
-            <unit id="javax.servlet.source" version="3.1.0.v201410161800"/>
-            <unit id="javax.transaction" version="1.1.1.v201105210645"/>
-            <unit id="javax.transaction.source" version="1.1.1.v201105210645"/>
-            <unit id="javax.validation" version="1.0.0.GA_v201205091237"/>
-            <unit id="javax.validation.source" version="1.0.0.GA_v201205091237"/>
-            <unit id="javax.websocket" version="1.0.0.v20140310-1603"/>
-            <unit id="javax.websocket.source" version="1.0.0.v20140310-1603"/>
-            <unit id="javax.ws.rs" version="2.0.1.v201504171603"/>
-            <unit id="javax.wsdl" version="1.6.2.v201012040545"/>
-            <unit id="javax.wsdl.source" version="1.6.2.v201012040545"/>
-            <unit id="javax.xml" version="1.3.4.v201005080400"/>
-            <unit id="javax.xml.bind" version="2.2.0.v201105210648"/>
-            <unit id="javax.xml.bind.source" version="2.2.0.v201105210648"/>
-            <unit id="javax.xml.rpc" version="1.1.0.v201209140446"/>
-            <unit id="javax.xml.soap" version="1.3.0.v201105210645"/>
-            <unit id="javax.xml.stream" version="1.0.1.v201004272200"/>
-            <unit id="javax.xml.ws" version="2.1.0.v200902101523"/>
-            <unit id="jnr.constants" version="0.8.6.v201505052040"/>
-            <unit id="jnr.enxio" version="0.6.0.v201505052040"/>
-            <unit id="jnr.ffi" version="2.0.1.v201505052040"/>
-            <unit id="jnr.posix" version="3.0.9.v201505052040"/>
-            <unit id="jnr.unixsocket" version="0.5.0.v201505052040"/>
-            <unit id="jnr.x86asm" version="1.0.2.v201505052040"/>
-            <unit id="lpg.runtime.java" version="2.0.17.v201004271640"/>
-            <unit id="lpg.runtime.java.source" version="2.0.17.v201004271640"/>
-            <unit id="me.prettyprint.hector" version="0.7.0.0022_v20110412-1025"/>
-            <unit id="me.prettyprint.hector.source" version="0.7.0.0022_v20110412-1025"/>
-            <unit id="net.miginfocom.layout" version="3.7.1.v200911230030"/>
-            <unit id="net.miginfocom.layout.source" version="3.7.1.v200911230030"/>
-            <unit id="net.miginfocom.layout.swing" version="3.7.1.v200911230030"/>
-            <unit id="net.miginfocom.layout.swing.source" version="3.7.1.v200911230030"/>
-            <unit id="net.miginfocom.layout.swt" version="3.7.1.v201505121915"/>
-            <unit id="net.miginfocom.layout.swt.source" version="3.7.1.v201505121915"/>
-            <unit id="net.sourceforge.lpg.lpgjavaruntime" version="1.1.0.v201004271650"/>
-            <unit id="net.sourceforge.lpg.lpgjavaruntime.source" version="1.1.0.v201004271650"/>
-            <unit id="net.sourceforge.mx4j" version="3.0.1.v20100427-1100"/>
-            <unit id="net.sourceforge.mx4j.remote" version="3.0.1.v20100427-1100"/>
-            <unit id="net.sourceforge.nattable.core" version="2.1.0.v201102231538"/>
-            <unit id="net.sourceforge.nattable.core.source" version="2.1.0.v201102070845"/>
-            <unit id="org.antlr.runtime" version="4.3.0.v201502022030"/>
-            <unit id="org.antlr.runtime.source" version="4.3.0.v201502022030"/>
-            <unit id="org.aopalliance" version="1.0.0.v201105210816"/>
-            <unit id="org.apache.ant" version="1.9.6.v201510161327"/>
-            <unit id="org.apache.ant.source" version="1.9.6.v201510161327"/>
-            <unit id="org.apache.axis" version="1.4.0.v201411182030"/>
-            <unit id="org.apache.batik.bridge" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.bridge.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.css" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.css.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.dom" version="1.7.1.v201505191845"/>
-            <unit id="org.apache.batik.dom.source" version="1.7.1.v201505191845"/>
-            <unit id="org.apache.batik.dom.svg" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.dom.svg.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.ext.awt" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.ext.awt.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.extension" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.extension.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.parser" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.parser.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.pdf" version="1.6.0.v201105071520"/>
-            <unit id="org.apache.batik.svggen" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.svggen.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.swing" version="1.7.0.v201302011158"/>
-            <unit id="org.apache.batik.swing.source" version="1.7.0.v201302011158"/>
-            <unit id="org.apache.batik.transcoder" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.transcoder.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.util" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.util.gui" version="1.7.0.v200903091627"/>
-            <unit id="org.apache.batik.util.gui.source" version="1.7.0.v200903091627"/>
-            <unit id="org.apache.batik.util.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.xml" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.batik.xml.source" version="1.7.0.v201011041433"/>
-            <unit id="org.apache.bcel" version="5.2.0.v201005080400"/>
-            <unit id="org.apache.bcel.source" version="5.2.0.v201005080400"/>
-            <unit id="org.apache.bsf" version="2.4.0.v201103030230"/>
-            <unit id="org.apache.bsf.source" version="2.4.0.v201103030230"/>
-            <unit id="org.apache.bval" version="0.3.0.v201205161050"/>
-            <unit id="org.apache.bval.source" version="0.3.0.v201205161050"/>
-            <unit id="org.apache.cassandra" version="0.7.0.v201503170330"/>
-            <unit id="org.apache.cassandra.source" version="0.7.0.v201503170330"/>
-            <unit id="org.apache.catalina" version="7.0.56.v201503170330"/>
-            <unit id="org.apache.catalina.ha" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.catalina.ha.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.catalina.ha.translated_host_properties" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.catalina.source" version="7.0.56.v201503170330"/>
-            <unit id="org.apache.catalina.tribes" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.catalina.tribes.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.commons.beanutils" version="1.8.0.v201205091237"/>
-            <unit id="org.apache.commons.beanutils.source" version="1.8.0.v201205091237"/>
-            <unit id="org.apache.commons.cli" version="1.2.0.v201404270220"/>
-            <unit id="org.apache.commons.cli.source" version="1.2.0.v201404270220"/>
-            <unit id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
-            <unit id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
-            <unit id="org.apache.commons.collections" version="3.2.2.v201511171945"/>
-            <unit id="org.apache.commons.collections.source" version="3.2.2.v201511171945"/>
-            <unit id="org.apache.commons.compress" version="1.6.0.v201310281400"/>
-            <unit id="org.apache.commons.compress.source" version="1.6.0.v201310281400"/>
-            <unit id="org.apache.commons.daemon" version="1.0.5.v20121125-0905"/>
-            <unit id="org.apache.commons.daemon.source" version="1.0.5.v20121125-0905"/>
-            <unit id="org.apache.commons.dbcp" version="1.4.0.v201204271417"/>
-            <unit id="org.apache.commons.dbcp.source" version="1.4.0.v201204271417"/>
-            <unit id="org.apache.commons.discovery" version="0.2.0.v201004190315"/>
-            <unit id="org.apache.commons.exec" version="1.1.0.v201301240602"/>
-            <unit id="org.apache.commons.exec.source" version="1.1.0.v201301240602"/>
-            <unit id="org.apache.commons.fileupload" version="1.2.2.v20111214-1400"/>
-            <unit id="org.apache.commons.fileupload.source" version="1.2.2.v20111214-1400"/>
-            <unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
-            <unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
-            <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
-            <unit id="org.apache.commons.io.source" version="2.2.0.v201405211200"/>
-            <unit id="org.apache.commons.jxpath" version="1.3.0.v200911051830"/>
-            <unit id="org.apache.commons.jxpath.source" version="1.3.0.v200911051830"/>
-            <unit id="org.apache.commons.lang" version="2.6.0.v201404270220"/>
-            <unit id="org.apache.commons.lang.source" version="2.6.0.v201404270220"/>
-            <unit id="org.apache.commons.lang3" version="3.1.0.v201403281430"/>
-            <unit id="org.apache.commons.lang3.source" version="3.1.0.v201403281430"/>
-            <unit id="org.apache.commons.logging" version="1.1.1.v201101211721"/>
-            <unit id="org.apache.commons.logging.source" version="1.1.1.v201101211721"/>
-            <unit id="org.apache.commons.math" version="2.1.0.v201105210652"/>
-            <unit id="org.apache.commons.math.source" version="2.1.0.v201105210652"/>
-            <unit id="org.apache.commons.net" version="3.2.0.v201305141515"/>
-            <unit id="org.apache.commons.net.source" version="3.2.0.v201305141515"/>
-            <unit id="org.apache.commons.pool" version="1.6.0.v201204271246"/>
-            <unit id="org.apache.commons.pool.source" version="1.6.0.v201204271246"/>
-            <unit id="org.apache.coyote" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.coyote.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.coyote.translated_host_properties" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.derby" version="10.11.1.1_v201605202053"/>
-            <unit id="org.apache.derby.source" version="10.11.1.1_v201605202053"/>
-            <unit id="org.apache.el" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.el.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.felix.gogo.command" version="0.10.0.v201209301215"/>
-            <unit id="org.apache.felix.gogo.command.source" version="0.10.0.v201209301215"/>
-            <unit id="org.apache.felix.gogo.runtime" version="0.10.0.v201209301036"/>
-            <unit id="org.apache.felix.gogo.runtime.source" version="0.10.0.v201209301036"/>
-            <unit id="org.apache.felix.gogo.shell" version="0.10.0.v201212101605"/>
-            <unit id="org.apache.felix.gogo.shell.source" version="0.10.0.v201212101605"/>
-            <unit id="org.apache.geronimo.components.connector" version="3.1.1.v201205170953"/>
-            <unit id="org.apache.geronimo.components.connector.source" version="3.1.1.v201205170953"/>
-            <unit id="org.apache.geronimo.components.transaction" version="3.1.1.v201205170710"/>
-            <unit id="org.apache.geronimo.components.transaction.source" version="3.1.1.v201205170710"/>
-            <unit id="org.apache.geronimo.specs.j2ee.management" version="1.0.0.v201205091237"/>
-            <unit id="org.apache.geronimo.specs.j2ee.management.source" version="1.0.0.v201205091237"/>
-            <unit id="org.apache.geronimo.specs.osgi.locator" version="1.1.0.v201205170953"/>
-            <unit id="org.apache.geronimo.specs.osgi.locator.source" version="1.1.0.v201205170953"/>
-            <unit id="org.apache.geronimo.specs.osgi.registry" version="1.1.0.v201205170710"/>
-            <unit id="org.apache.geronimo.specs.osgi.registry.source" version="1.1.0.v201205170710"/>
-            <unit id="org.apache.hadoop.zookeeper" version="3.4.5.v20121214-1350"/>
-            <unit id="org.apache.hadoop.zookeeper.source" version="3.4.5.v20121214-1350"/>
-            <unit id="org.apache.httpcomponents.httpclient" version="4.3.6.v201511171540"/>
-            <unit id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
-            <unit id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
-            <unit id="org.apache.httpcomponents.httpcore.nio" version="4.1.0.v201101201700"/>
-            <unit id="org.apache.httpcomponents.httpcore.nio.source" version="4.1.0.v201101201700"/>
-            <unit id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
-            <unit id="org.apache.jasper" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.jasper.glassfish" version="2.2.2.v201501141630"/>
-            <unit id="org.apache.jasper.glassfish.source" version="2.2.2.v201501141630"/>
-            <unit id="org.apache.jasper.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.juli.extras" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.juli.extras.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
-            <unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
-            <unit id="org.apache.lucene" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.analysis" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.analysis.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.core.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.grouping" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.grouping.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.highlighter" version="3.5.0.v20121015-1317"/>
-            <unit id="org.apache.lucene.highlighter.source" version="3.5.0.v20121015-1317"/>
-            <unit id="org.apache.lucene.memory" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.memory.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.misc" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.misc.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.queries" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.queries.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.spatial" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.spatial.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.spellchecker" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.lucene.spellchecker.source" version="3.5.0.v20120725-1805"/>
-            <unit id="org.apache.mina.core" version="2.0.7.v201401071602"/>
-            <unit id="org.apache.mina.core.source" version="2.0.7.v201401071602"/>
-            <unit id="org.apache.mina.filter.compression" version="2.0.7.v201401141305"/>
-            <unit id="org.apache.mina.filter.compression.source" version="2.0.7.v201401141305"/>
-            <unit id="org.apache.neethi" version="2.0.4.1"/>
-            <unit id="org.apache.olingo" version="2.0.3.v201605172220"/>
-            <unit id="org.apache.openejb.api" version="4.0.0.beta-2_v201205041047"/>
-            <unit id="org.apache.openejb.api.source" version="4.0.0.beta-2_v201205041047"/>
-            <unit id="org.apache.openejb.core" version="4.0.0.beta-2_v201205260545"/>
-            <unit id="org.apache.openejb.core.source" version="4.0.0.beta-2_v201205260545"/>
-            <unit id="org.apache.openejb.javaagent" version="4.0.0.beta-2_v201205041047"/>
-            <unit id="org.apache.openejb.javaagent.source" version="4.0.0.beta-2_v201205041047"/>
-            <unit id="org.apache.openejb.jee" version="4.0.0.beta-2_v201205041336"/>
-            <unit id="org.apache.openejb.jee.source" version="4.0.0.beta-2_v201205041336"/>
-            <unit id="org.apache.openejb.loader" version="4.0.0.beta-2_v201304191030"/>
-            <unit id="org.apache.openejb.loader.source" version="4.0.0.beta-2_v201304191030"/>
-            <unit id="org.apache.openwebbeans.ee" version="1.1.7.v201304200545"/>
-            <unit id="org.apache.openwebbeans.ee.common" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.ee.common.source" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.ee.source" version="1.1.7.v201304200545"/>
-            <unit id="org.apache.openwebbeans.ejb" version="1.1.7.v201304200545"/>
-            <unit id="org.apache.openwebbeans.ejb.source" version="1.1.7.v201304200545"/>
-            <unit id="org.apache.openwebbeans.impl" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.impl.source" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.jsf" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.jsf.source" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.spi" version="1.1.7.v201505121400"/>
-            <unit id="org.apache.openwebbeans.spi.source" version="1.1.7.v201505121400"/>
-            <unit id="org.apache.openwebbeans.tomcat7" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.tomcat7.source" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.web" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.openwebbeans.web.source" version="1.1.7.v201304201405"/>
-            <unit id="org.apache.oro" version="2.0.8.v201005080400"/>
-            <unit id="org.apache.oro.source" version="2.0.8.v201005080400"/>
-            <unit id="org.apache.poi" version="3.9.0.v201405241750"/>
-            <unit id="org.apache.poi.ooxml" version="3.9.0.v201405241905"/>
-            <unit id="org.apache.poi.ooxml.schemas" version="3.9.0.v201405241750"/>
-            <unit id="org.apache.poi.ooxml.schemas.source" version="3.9.0.v201405241750"/>
-            <unit id="org.apache.poi.ooxml.source" version="3.9.0.v201405241905"/>
-            <unit id="org.apache.poi.source" version="3.9.0.v201405241750"/>
-            <unit id="org.apache.solr.client.solrj" version="3.5.0.v20150506-0844"/>
-            <unit id="org.apache.solr.client.solrj.source" version="3.5.0.v20150506-0844"/>
-            <unit id="org.apache.solr.core" version="3.5.0.v20150506-0844"/>
-            <unit id="org.apache.solr.core.source" version="3.5.0.v20150506-0844"/>
-            <unit id="org.apache.sshd.core" version="0.7.0.v201303101611"/>
-            <unit id="org.apache.sshd.core.source" version="0.7.0.v201303101611"/>
-            <unit id="org.apache.taglibs.standard.glassfish" version="1.2.0.v201112081803"/>
-            <unit id="org.apache.taglibs.standard.glassfish.source" version="1.2.0.v201112081803"/>
-            <unit id="org.apache.thrift" version="0.5.0.v20110412-1025"/>
-            <unit id="org.apache.thrift.source" version="0.5.0.v20110412-1025"/>
-            <unit id="org.apache.tika.core" version="1.3.0.v201505121915"/>
-            <unit id="org.apache.tika.core.source" version="1.3.0.v201505121915"/>
-            <unit id="org.apache.tika.parsers" version="1.3.0.v201605180015"/>
-            <unit id="org.apache.tika.parsers.source" version="1.3.0.v201605180015"/>
-            <unit id="org.apache.tomcat.api" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.tomcat.api.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.tomcat.util" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.tomcat.util.source" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.tomcat.util.translated_host_properties" version="7.0.56.v201412180755"/>
-            <unit id="org.apache.velocity" version="1.5.0.v200905192330"/>
-            <unit id="org.apache.ws.commons.schema" version="1.4.2.v201003051240"/>
-            <unit id="org.apache.ws.commons.util" version="1.0.1.v20100518-1140"/>
-            <unit id="org.apache.ws.jaxme" version="0.5.1.v20100427-1100"/>
-            <unit id="org.apache.wsil4j" version="1.0.0.v200901211807"/>
-            <unit id="org.apache.xalan" version="2.7.1.v201005080400"/>
-            <unit id="org.apache.xbean.asm" version="3.12.0.v201304200545"/>
-            <unit id="org.apache.xbean.bundleutils" version="3.12.0.v201304200545"/>
-            <unit id="org.apache.xbean.bundleutils.source" version="3.12.0.v201304200545"/>
-            <unit id="org.apache.xbean.finder" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xbean.finder.source" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xbean.naming" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xbean.naming.source" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xbean.reflect" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xbean.reflect.source" version="3.12.0.v201304201405"/>
-            <unit id="org.apache.xerces" version="2.9.0.v201101211617"/>
-            <unit id="org.apache.xml.resolver" version="1.2.0.v201005080400"/>
-            <unit id="org.apache.xml.security" version="1.4.2.v201005080400"/>
-            <unit id="org.apache.xml.serializer" version="2.7.1.v201005080400"/>
-            <unit id="org.apache.xmlbeans" version="2.3.0.v201605172150"/>
-            <unit id="org.apache.xmlbeans.source" version="2.3.0.v201605172150"/>
-            <unit id="org.apache.xmlgraphics" version="1.4.0.v201301251218"/>
-            <unit id="org.apache.xmlrpc" version="3.0.0.v20100427-1100"/>
-            <unit id="org.bouncycastle.bcpkix" version="1.51.0.v201505131810"/>
-            <unit id="org.bouncycastle.bcpkix.source" version="1.51.0.v201505131810"/>
-            <unit id="org.bouncycastle.bcprov" version="1.51.0.v201505131810"/>
-            <unit id="org.bouncycastle.bcprov.source" version="1.51.0.v201505131810"/>
-            <unit id="org.ccil.cowan.tagsoup" version="1.2.0.v201202211000"/>
-            <unit id="org.cliffc.high_scale_lib" version="1.1.2.v20110412-1025"/>
-            <unit id="org.cliffc.high_scale_lib.source" version="1.1.2.v20110412-1025"/>
-            <unit id="org.codehaus.jackson.core" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.core.source" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.jaxrs" version="1.6.0.v20101005-1100"/>
-            <unit id="org.codehaus.jackson.jaxrs.source" version="1.6.0.v20101005-1100"/>
-            <unit id="org.codehaus.jackson.mapper" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.mapper.source" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.smile" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.smile.source" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.xc" version="1.6.0.v20101005-0925"/>
-            <unit id="org.codehaus.jackson.xc.source" version="1.6.0.v20101005-0925"/>
-            <unit id="org.custommonkey.xmlunit" version="1.3.0.v201605172130"/>
-            <unit id="org.custommonkey.xmlunit.source" version="1.3.0.v201605172130"/>
-            <unit id="org.cyberneko.html" version="1.9.14.v201105210654"/>
-            <unit id="org.dojotoolkit" version="1.6.1.v201108161253"/>
-            <unit id="org.dom4j" version="1.6.1.v201312101416"/>
-            <unit id="org.dom4j.source" version="1.6.1.v201312101416"/>
-            <unit id="org.easymock" version="2.4.0.v20090202-0900"/>
-            <unit id="org.easymock.source" version="2.4.0.v20090202-0900"/>
-            <unit id="org.eclipse.orbit.mongodb" version="2.10.1.v20130422-1135"/>
-            <unit id="org.eclipse.orbit.mongodb.source" version="2.10.1.v20130422-1135"/>
-            <unit id="org.glassfish.com.sun.faces" version="2.1.18.v201304210537"/>
-            <unit id="org.glassfish.com.sun.faces.source" version="2.1.18.v201304210537"/>
-            <unit id="org.glassfish.hk2.api" version="2.3.0.b10_v201508191500"/>
-            <unit id="org.glassfish.hk2.locator" version="2.3.0.b10_v201508191500"/>
-            <unit id="org.glassfish.hk2.osgi-resource-locator" version="2.3.0.b10_v201508191500"/>
-            <unit id="org.glassfish.hk2.utils" version="2.3.0.b10_v201508191500"/>
-            <unit id="org.glassfish.javax.faces" version="2.1.18.v201304200545"/>
-            <unit id="org.glassfish.javax.faces.source" version="2.1.18.v201304200545"/>
-            <unit id="org.glassfish.jersey.apache.connector" version="2.14.0.v201504171603"/>
-            <unit id="org.glassfish.jersey.bundles.repackaged.jersey-guava" version="2.14.0.v201504151636"/>
-            <unit id="org.glassfish.jersey.core.jersey-client" version="2.14.0.v201504211925"/>
-            <unit id="org.glassfish.jersey.core.jersey-common" version="2.14.0.v201504171603"/>
-            <unit id="org.glassfish.jersey.media.jersey-media-json-jackson" version="2.14.0.v201504171603"/>
-            <unit id="org.h2" version="1.3.168.v201212121212"/>
-            <unit id="org.h2.source" version="1.3.168.v201212121212"/>
-            <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
-            <unit id="org.hamcrest.core" version="1.3.0.v201303031735"/>
-            <unit id="org.hamcrest.core.source" version="1.3.0.v201303031735"/>
-            <unit id="org.hamcrest.generator" version="1.3.0.v201305210900"/>
-            <unit id="org.hamcrest.generator.source" version="1.3.0.v201305210900"/>
-            <unit id="org.hamcrest.integration" version="1.3.0.v201305210900"/>
-            <unit id="org.hamcrest.integration.source" version="1.3.0.v201305210900"/>
-            <unit id="org.hamcrest.library" version="1.3.0.v201505072020"/>
-            <unit id="org.hamcrest.library.source" version="1.3.0.v201505072020"/>
-            <unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
-            <unit id="org.hamcrest.text.source" version="1.1.0.v20090501071000"/>
-            <unit id="org.jdom" version="1.1.1.v201101151400"/>
-            <unit id="org.jdom.source" version="1.1.1.v201101151400"/>
-            <unit id="org.jmock" version="1.2.0.v201303080310"/>
-            <unit id="org.json" version="1.0.0.v201011060100"/>
-            <unit id="org.jsoup" version="1.7.2.v201411291515"/>
-            <unit id="org.jsoup.source" version="1.7.2.v201411291515"/>
-            <unit id="org.junit" version="4.12.0.v201504281640"/>
-            <unit id="org.junit.source" version="4.12.0.v201504281640"/>
-            <unit id="org.kohsuke.args4j" version="2.0.21.v201301150030"/>
-            <unit id="org.kohsuke.args4j.source" version="2.0.21.v201301150030"/>
-            <unit id="org.mockito" version="1.9.5.v201605172210"/>
-            <unit id="org.mockito.source" version="1.9.5.v201605172210"/>
-            <unit id="org.mozilla.javascript" version="1.7.5.v201504281450"/>
-            <unit id="org.mozilla.javascript.source" version="1.7.5.v201504281450"/>
-            <unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.analysis" version="5.0.1.v201505121915"/>
-            <unit id="org.objectweb.asm.analysis.source" version="5.0.1.v201505121915"/>
-            <unit id="org.objectweb.asm.commons" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.commons.source" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.source" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.tree" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.tree.source" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.util" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.util.source" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.xml" version="5.0.1.v201404251740"/>
-            <unit id="org.objectweb.asm.xml.source" version="5.0.1.v201404251740"/>
-            <unit id="org.objenesis" version="1.0.0.v201505121915"/>
-            <unit id="org.objenesis.source" version="1.0.0.v201505121915"/>
-            <unit id="org.openid4java" version="0.9.5.v201105210655"/>
-            <unit id="org.opensaml" version="1.1.0.v201105210827"/>
-            <unit id="org.ow2.jotm.jotm-core" version="2.1.9.v201204271116"/>
-            <unit id="org.ow2.jotm.jotm-core.source" version="2.1.9.v201204271116"/>
-            <unit id="org.prefuse" version="0.1.0.v20100514-1000"/>
-            <unit id="org.prefuse.source" version="0.1.0.v20100514-1000"/>
-            <unit id="org.pushingpixels.trident" version="1.2.0.v201305152020"/>
-            <unit id="org.pushingpixels.trident.source" version="1.2.0.v201305152020"/>
-            <unit id="org.quartz" version="1.8.3.v20110329-1420"/>
-            <unit id="org.quartz.source" version="1.8.3.v20110329-1420"/>
-            <unit id="org.restlet" version="2.0.5.v201605172130"/>
-            <unit id="org.restlet.ext.servlet" version="2.0.5.v201605172130"/>
-            <unit id="org.restlet.ext.servlet.source" version="2.0.5.v201605172130"/>
-            <unit id="org.restlet.source" version="2.0.5.v201605172130"/>
-            <unit id="org.sat4j.core" version="2.3.5.v201308161310"/>
-            <unit id="org.sat4j.pb" version="2.3.5.v201404071733"/>
-            <unit id="org.slf4j.api" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.api.source" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.ext" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.ext.source" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.impl.log4j12" version="1.7.2.v20131105-2200"/>
-            <unit id="org.slf4j.impl.log4j12.source" version="1.7.2.v20131105-2200"/>
-            <unit id="org.slf4j.jcl" version="1.7.2.v20130115-1340"/>
-            <unit id="org.slf4j.jcl.source" version="1.7.2.v20130115-1340"/>
-            <unit id="org.slf4j.jul" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.jul.source" version="1.7.2.v20121108-1250"/>
-            <unit id="org.slf4j.log4j" version="1.7.2.v20130115-1340"/>
-            <unit id="org.slf4j.log4j.source" version="1.7.2.v20130115-1340"/>
-            <unit id="org.slf4j.nop" version="1.7.2.v201212060727"/>
-            <unit id="org.slf4j.nop.source" version="1.7.2.v201212060727"/>
-            <unit id="org.swtchart" version="0.10.0.v201605200358"/>
-            <unit id="org.swtchart.source" version="0.10.0.v201605200358"/>
-            <unit id="org.tukaani.xz" version="1.3.0.v201308270617"/>
-            <unit id="org.tukaani.xz.source" version="1.3.0.v201308270617"/>
-            <unit id="org.uddi4j" version="2.0.5.v200805270300"/>
-            <unit id="org.w3c.css.sac" version="1.3.1.v200903091627"/>
-            <unit id="org.w3c.css.sac.source" version="1.3.1.v200903091627"/>
-            <unit id="org.w3c.dom.events" version="3.0.0.draft20060413_v201105210656"/>
-            <unit id="org.w3c.dom.events.source" version="3.0.0.draft20060413_v201105210656"/>
-            <unit id="org.w3c.dom.smil" version="1.0.1.v200903091627"/>
-            <unit id="org.w3c.dom.smil.source" version="1.0.1.v200903091627"/>
-            <unit id="org.w3c.dom.svg" version="1.1.0.v201011041433"/>
-            <unit id="org.w3c.dom.svg.source" version="1.1.0.v201011041433"/>
-            <unit id="org.xbill.dns" version="2.0.8.v201112050911"/>
-            <unit id="org.xbill.dns.source" version="2.0.8.v201112050911"/>
-            <unit id="org.xmlpull" version="1.1.3.4_v201201052148"/>
-            <unit id="org.yaml.snakeyaml" version="1.14.0.v201604211500"/>
-            <unit id="osgi.enterprise" version="4.2.0.v201108120515"/>
-            <unit id="osgi.enterprise.source" version="4.2.0.v201108120515"/>
-            <unit id="scannotation" version="1.0.2.v201205170710"/>
-            <unit id="scannotation.source" version="1.0.2.v201205170710"/>
-            <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
-        </location>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="org.eclipse.rap.addons.chart.demo" version="0.1.0.20160622-0732"/>
-            <unit id="org.eclipse.rap.addons.chart.demo.source" version="0.1.0.20160622-0732"/>
-            <unit id="org.eclipse.rap.addons.chart.feature.feature.group" version="0.1.0.20160622-0732"/>
-            <unit id="org.eclipse.rap.addons.dropdown.demo.examples" version="1.0.0.20160126-1309"/>
-            <unit id="org.eclipse.rap.clientscripting.examples.feature.feature.group" version="0.2.0.20140425-1548"/>
-            <unit id="org.eclipse.rap.clientscripting.feature.feature.group" version="0.2.0.20140425-1548"/>
-            <unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
-            <unit id="org.eclipse.rap.demo.ckeditor" version="0.2.0.20150623-1041"/>
-            <unit id="org.eclipse.rap.dropdown.feature.feature.group" version="0.3.0.20161122-1051"/>
-            <unit id="org.eclipse.rap.examples.pages.ckeditor" version="0.2.0.20150623-1041"/>
-            <unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
-            <unit id="org.eclipse.rap.gef.feature.feature.group" version="0.1.0.20170612-1850"/>
-            <unit id="org.eclipse.rap.pde.feature.feature.group" version="0.1.0.20170322-1101"/>
-            <unit id="org.eclipse.rap.richtext.feature.feature.group" version="0.2.0.20150623-1041"/>
-            <unit id="org.eclipse.rap.tabbed-properties.feature.feature.group" version="0.1.0.20140426-0943"/>
-            <unit id="org.eclipse.rap.visualization.feature.feature.group" version="1.5.0.20120725-0824"/>
-            <repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
-        </location>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-            <repository location="http://dslforge.org/downloads/runtime/repository/"/>
-        </location>
-        <location path="${eclipse_home}" type="Profile"/>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-            <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
-            <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
-            <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
-            <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
-            <repository location="http://download.eclipse.org/releases/oxygen"/>
-        </location>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-            <unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
-            <unit id="org.eclipse.gemini.jpa.samples.feature.feature.group" version="1.2.0.M1"/>
-            <repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
-        </location>
-    </locations>
-    <environment>
-        <os>macosx</os>
-        <ws>cocoa</ws>
-        <arch>x86_64</arch>
-        <nl>en_US</nl>
-    </environment>
-    <targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-    <launcherArgs>
-        <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dosgi.instance.area.default=@user.home/eclipse-workspace -XX:+UseG1GC -XX:+UseStringDeduplication --add-modules=ALL-SYSTEM -Dosgi.requiredJavaVersion=1.8 -Xms2256m -Xmx3024m --add-modules=ALL-SYSTEM</vmArgs>
-    </launcherArgs>
+<?pde version="3.8"?><target name="oxygenGamaWeb" sequenceNumber="246">
+<locations>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
+<unit id="org.eclipse.gemini.jpa.samples.feature.feature.group" version="1.2.0.M1"/>
+<repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.persistence.sdk.feature.group" version="2.7.1.v20171221-bd47e8f"/>
+<repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="ca.odell.glazedlists" version="1.9.0.v201303080712"/>
+<unit id="ca.odell.glazedlists.source" version="1.9.0.v201303080712"/>
+<unit id="cdi.api" version="1.0.0.v201105160744"/>
+<unit id="cdi.api.source" version="1.0.0.v201105160744"/>
+<unit id="ch.ethz.iks.slp" version="1.0.0.RC5_v20080820-1500"/>
+<unit id="ch.ethz.iks.slp.source" version="1.0.0.RC2_v20080604-1500"/>
+<unit id="ch.qos.logback.classic" version="1.0.7.v20121108-1250"/>
+<unit id="ch.qos.logback.classic.source" version="1.0.7.v20121108-1250"/>
+<unit id="ch.qos.logback.core" version="1.0.7.v20121108-1250"/>
+<unit id="ch.qos.logback.core.source" version="1.0.7.v20121108-1250"/>
+<unit id="ch.qos.logback.slf4j" version="1.0.7.v201505121915"/>
+<unit id="ch.qos.logback.slf4j.source" version="1.0.7.v201505121915"/>
+<unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.5.0.v201504151636"/>
+<unit id="com.fasterxml.jackson.core.jackson-core" version="2.5.0.v201504151636"/>
+<unit id="com.fasterxml.jackson.core.jackson-databind" version="2.5.0.v201504151636"/>
+<unit id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml" version="2.5.0.v201504151636"/>
+<unit id="com.fasterxml.jackson.datatype.jackson-datatype-guava" version="2.5.0.v201504151636"/>
+<unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" version="2.5.0.v201504171603"/>
+<unit id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" version="2.5.0.v201504171603"/>
+<unit id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" version="2.5.0.v201504151636"/>
+<unit id="com.google.gerrit.common" version="2.1.5.v201112241444"/>
+<unit id="com.google.gerrit.common.source" version="2.1.5.v201112241444"/>
+<unit id="com.google.gerrit.prettify" version="2.1.5.v201112241444"/>
+<unit id="com.google.gerrit.prettify.source" version="2.1.5.v201112241444"/>
+<unit id="com.google.gerrit.reviewdb" version="2.1.5.v201112241444"/>
+<unit id="com.google.gerrit.reviewdb.source" version="2.1.5.v201112241444"/>
+<unit id="com.google.gson" version="2.2.4.v201311231704"/>
+<unit id="com.google.gson.source" version="2.2.4.v201311231704"/>
+<unit id="com.google.guava" version="15.0.0.v201403281430"/>
+<unit id="com.google.guava.source" version="15.0.0.v201403281430"/>
+<unit id="com.google.gwt.servlet" version="2.1.0.v201111291940"/>
+<unit id="com.google.gwt.servlet.source" version="2.1.0.v201111291940"/>
+<unit id="com.google.gwt.user" version="2.1.0.v201505121915"/>
+<unit id="com.google.gwt.user.source" version="2.1.0.v201505121915"/>
+<unit id="com.google.gwtjsonrpc" version="1.2.5.v201112241444"/>
+<unit id="com.google.gwtjsonrpc.source" version="1.2.5.v201112241444"/>
+<unit id="com.google.gwtorm" version="1.1.4.v201112241444"/>
+<unit id="com.google.gwtorm.source" version="1.1.4.v201112241444"/>
+<unit id="com.google.inject" version="3.0.0.v201605172100"/>
+<unit id="com.google.inject.assistedinject" version="3.0.0.v201402270930"/>
+<unit id="com.google.inject.assistedinject.source" version="3.0.0.v201402270930"/>
+<unit id="com.google.inject.multibindings" version="3.0.0.v201605172100"/>
+<unit id="com.google.inject.multibindings.source" version="3.0.0.v201605172100"/>
+<unit id="com.google.inject.source" version="3.0.0.v201605172100"/>
+<unit id="com.google.protobuf" version="2.4.0.v201105131100"/>
+<unit id="com.google.protobuf.source" version="2.4.0.v201105131100"/>
+<unit id="com.ibm.icu" version="56.1.0.v201601250100"/>
+<unit id="com.ibm.icu.base" version="56.1.0.v201601250100"/>
+<unit id="com.ibm.icu.base.source" version="56.1.0.v201601250100"/>
+<unit id="com.ibm.icu.source" version="56.1.0.v201601250100"/>
+<unit id="com.jcraft.jsch" version="0.1.53.v201508180515"/>
+<unit id="com.jcraft.jsch.source" version="0.1.53.v201508180515"/>
+<unit id="com.jcraft.jzlib" version="1.1.1.v201205102305"/>
+<unit id="com.jcraft.jzlib.source" version="1.1.1.v201205102305"/>
+<unit id="com.kenai.jffi" version="1.2.7.v201505052040"/>
+<unit id="com.lowagie.text" version="2.1.7.v201004222200"/>
+<unit id="com.lowagie.text.source" version="2.1.7.v201004222200"/>
+<unit id="com.novell.ldap" version="2.3.30.v201112011400"/>
+<unit id="com.spotify.docker.client" version="3.1.1.v201605180100"/>
+<unit id="com.spotify.docker.client.source" version="3.1.1.v201605180100"/>
+<unit id="com.sun.el" version="2.2.0.v201303151357"/>
+<unit id="com.sun.el.source" version="2.2.0.v201303151357"/>
+<unit id="com.sun.jersey" version="1.17.0.v201503170330"/>
+<unit id="com.sun.jersey.source" version="1.17.0.v201503170330"/>
+<unit id="com.sun.syndication" version="0.9.0.v200803061811"/>
+<unit id="com.sun.syndication.source" version="0.9.0.v200803061811"/>
+<unit id="com.sun.xml.bind" version="2.2.0.v201505121915"/>
+<unit id="com.sun.xml.bind.source" version="2.2.0.v201505121915"/>
+<unit id="com.thoughtworks.qdox" version="1.6.3.v20081201-1400"/>
+<unit id="com.thoughtworks.qdox.source" version="1.6.3.v20081201-1400"/>
+<unit id="com.thoughtworks.selenium" version="2.25.0.v201212071504"/>
+<unit id="com.thoughtworks.selenium.source" version="2.25.0.v201212071504"/>
+<unit id="com.thoughtworks.xstream" version="1.3.1.v201111240924"/>
+<unit id="com.thoughtworks.xstream.source" version="1.3.1.v201111240924"/>
+<unit id="com.vaadin" version="6.5.3.v201111241034"/>
+<unit id="commonj.sdo" version="2.1.1.v201112051852"/>
+<unit id="commonj.sdo.source" version="2.1.1.v201112051852"/>
+<unit id="de.tuberlin.eecs.agg" version="2.1.0.v201512080800"/>
+<unit id="edu.emory.mathcs.backport" version="3.1.0.v201505121915"/>
+<unit id="edu.emory.mathcs.backport.source" version="3.1.0.v201505121915"/>
+<unit id="java_cup.runtime" version="0.10.0.v201005080400"/>
+<unit id="java_cup.runtime.source" version="0.10.0.v201005080400"/>
+<unit id="javaewah" version="0.7.9.v201605172130"/>
+<unit id="javaewah.source" version="0.7.9.v201605172130"/>
+<unit id="javassist" version="3.13.0.GA_v201209210905"/>
+<unit id="javassist.source" version="3.13.0.GA_v201209210905"/>
+<unit id="javax.activation" version="1.1.0.v201211130549"/>
+<unit id="javax.activation.source" version="1.1.0.v201211130549"/>
+<unit id="javax.annotation" version="1.2.0.v201602091430"/>
+<unit id="javax.annotation.source" version="1.2.0.v201602091430"/>
+<unit id="javax.ejb" version="3.1.1.v201204261316"/>
+<unit id="javax.ejb.source" version="3.1.1.v201204261316"/>
+<unit id="javax.el" version="2.2.0.v201303151357"/>
+<unit id="javax.el.source" version="2.2.0.v201303151357"/>
+<unit id="javax.inject" version="1.0.0.v20091030"/>
+<unit id="javax.inject.source" version="1.0.0.v20091030"/>
+<unit id="javax.jms" version="1.1.0.v201205091237"/>
+<unit id="javax.jms.source" version="1.1.0.v201205091237"/>
+<unit id="javax.jws" version="2.0.0.v201005080400"/>
+<unit id="javax.jws.source" version="2.0.0.v201005080400"/>
+<unit id="javax.mail" version="1.4.0.v201005080615"/>
+<unit id="javax.mail.glassfish" version="1.4.1.v201108011116"/>
+<unit id="javax.mail.glassfish.source" version="1.4.1.v201108011116"/>
+<unit id="javax.management" version="1.2.0.v20100427-1100"/>
+<unit id="javax.management.remote" version="1.0.0.v20100427-1100"/>
+<unit id="javax.persistence" version="1.0.0.v200905011740"/>
+<unit id="javax.persistence.source" version="1.0.0.v200905011740"/>
+<unit id="javax.resource" version="1.6.0.v201204270900"/>
+<unit id="javax.resource.source" version="1.6.0.v201204270900"/>
+<unit id="javax.security.auth.message" version="1.0.0.v201108011116"/>
+<unit id="javax.security.auth.message.source" version="1.0.0.v201108011116"/>
+<unit id="javax.security.jacc" version="1.4.0.v201205031350"/>
+<unit id="javax.security.jacc.source" version="1.4.0.v201205031350"/>
+<unit id="javax.servlet" version="3.1.0.v201410161800"/>
+<unit id="javax.servlet.jsp" version="2.2.0.v201112011158"/>
+<unit id="javax.servlet.jsp.jstl" version="1.2.0.v201105211821"/>
+<unit id="javax.servlet.jsp.jstl.impl" version="1.2.0.v201210211230"/>
+<unit id="javax.servlet.jsp.jstl.impl.source" version="1.2.0.v201210211230"/>
+<unit id="javax.servlet.jsp.jstl.source" version="1.2.0.v201105211821"/>
+<unit id="javax.servlet.jsp.source" version="2.2.0.v201112011158"/>
+<unit id="javax.servlet.source" version="3.1.0.v201410161800"/>
+<unit id="javax.transaction" version="1.1.1.v201105210645"/>
+<unit id="javax.transaction.source" version="1.1.1.v201105210645"/>
+<unit id="javax.validation" version="1.0.0.GA_v201205091237"/>
+<unit id="javax.validation.source" version="1.0.0.GA_v201205091237"/>
+<unit id="javax.websocket" version="1.0.0.v20140310-1603"/>
+<unit id="javax.websocket.source" version="1.0.0.v20140310-1603"/>
+<unit id="javax.ws.rs" version="2.0.1.v201504171603"/>
+<unit id="javax.wsdl" version="1.6.2.v201012040545"/>
+<unit id="javax.wsdl.source" version="1.6.2.v201012040545"/>
+<unit id="javax.xml" version="1.3.4.v201005080400"/>
+<unit id="javax.xml.bind" version="2.2.0.v201105210648"/>
+<unit id="javax.xml.bind.source" version="2.2.0.v201105210648"/>
+<unit id="javax.xml.rpc" version="1.1.0.v201209140446"/>
+<unit id="javax.xml.soap" version="1.3.0.v201105210645"/>
+<unit id="javax.xml.stream" version="1.0.1.v201004272200"/>
+<unit id="javax.xml.ws" version="2.1.0.v200902101523"/>
+<unit id="jnr.constants" version="0.8.6.v201505052040"/>
+<unit id="jnr.enxio" version="0.6.0.v201505052040"/>
+<unit id="jnr.ffi" version="2.0.1.v201505052040"/>
+<unit id="jnr.posix" version="3.0.9.v201505052040"/>
+<unit id="jnr.unixsocket" version="0.5.0.v201505052040"/>
+<unit id="jnr.x86asm" version="1.0.2.v201505052040"/>
+<unit id="lpg.runtime.java" version="2.0.17.v201004271640"/>
+<unit id="lpg.runtime.java.source" version="2.0.17.v201004271640"/>
+<unit id="me.prettyprint.hector" version="0.7.0.0022_v20110412-1025"/>
+<unit id="me.prettyprint.hector.source" version="0.7.0.0022_v20110412-1025"/>
+<unit id="net.miginfocom.layout" version="3.7.1.v200911230030"/>
+<unit id="net.miginfocom.layout.source" version="3.7.1.v200911230030"/>
+<unit id="net.miginfocom.layout.swing" version="3.7.1.v200911230030"/>
+<unit id="net.miginfocom.layout.swing.source" version="3.7.1.v200911230030"/>
+<unit id="net.miginfocom.layout.swt" version="3.7.1.v201505121915"/>
+<unit id="net.miginfocom.layout.swt.source" version="3.7.1.v201505121915"/>
+<unit id="net.sourceforge.lpg.lpgjavaruntime" version="1.1.0.v201004271650"/>
+<unit id="net.sourceforge.lpg.lpgjavaruntime.source" version="1.1.0.v201004271650"/>
+<unit id="net.sourceforge.mx4j" version="3.0.1.v20100427-1100"/>
+<unit id="net.sourceforge.mx4j.remote" version="3.0.1.v20100427-1100"/>
+<unit id="net.sourceforge.nattable.core" version="2.1.0.v201102231538"/>
+<unit id="net.sourceforge.nattable.core.source" version="2.1.0.v201102070845"/>
+<unit id="org.antlr.runtime" version="4.3.0.v201502022030"/>
+<unit id="org.antlr.runtime.source" version="4.3.0.v201502022030"/>
+<unit id="org.aopalliance" version="1.0.0.v201105210816"/>
+<unit id="org.apache.ant" version="1.9.6.v201510161327"/>
+<unit id="org.apache.ant.source" version="1.9.6.v201510161327"/>
+<unit id="org.apache.axis" version="1.4.0.v201411182030"/>
+<unit id="org.apache.batik.bridge" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.bridge.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.css" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.css.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.dom" version="1.7.1.v201505191845"/>
+<unit id="org.apache.batik.dom.source" version="1.7.1.v201505191845"/>
+<unit id="org.apache.batik.dom.svg" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.dom.svg.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.ext.awt" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.ext.awt.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.extension" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.extension.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.parser" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.parser.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.pdf" version="1.6.0.v201105071520"/>
+<unit id="org.apache.batik.svggen" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.svggen.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.swing" version="1.7.0.v201302011158"/>
+<unit id="org.apache.batik.swing.source" version="1.7.0.v201302011158"/>
+<unit id="org.apache.batik.transcoder" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.transcoder.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.util" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.util.gui" version="1.7.0.v200903091627"/>
+<unit id="org.apache.batik.util.gui.source" version="1.7.0.v200903091627"/>
+<unit id="org.apache.batik.util.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.xml" version="1.7.0.v201011041433"/>
+<unit id="org.apache.batik.xml.source" version="1.7.0.v201011041433"/>
+<unit id="org.apache.bcel" version="5.2.0.v201005080400"/>
+<unit id="org.apache.bcel.source" version="5.2.0.v201005080400"/>
+<unit id="org.apache.bsf" version="2.4.0.v201103030230"/>
+<unit id="org.apache.bsf.source" version="2.4.0.v201103030230"/>
+<unit id="org.apache.bval" version="0.3.0.v201205161050"/>
+<unit id="org.apache.bval.source" version="0.3.0.v201205161050"/>
+<unit id="org.apache.cassandra" version="0.7.0.v201503170330"/>
+<unit id="org.apache.cassandra.source" version="0.7.0.v201503170330"/>
+<unit id="org.apache.catalina" version="7.0.56.v201503170330"/>
+<unit id="org.apache.catalina.ha" version="7.0.56.v201412180755"/>
+<unit id="org.apache.catalina.ha.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.catalina.ha.translated_host_properties" version="7.0.56.v201412180755"/>
+<unit id="org.apache.catalina.source" version="7.0.56.v201503170330"/>
+<unit id="org.apache.catalina.tribes" version="7.0.56.v201412180755"/>
+<unit id="org.apache.catalina.tribes.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.commons.beanutils" version="1.8.0.v201205091237"/>
+<unit id="org.apache.commons.beanutils.source" version="1.8.0.v201205091237"/>
+<unit id="org.apache.commons.cli" version="1.2.0.v201404270220"/>
+<unit id="org.apache.commons.cli.source" version="1.2.0.v201404270220"/>
+<unit id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
+<unit id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
+<unit id="org.apache.commons.collections" version="3.2.2.v201511171945"/>
+<unit id="org.apache.commons.collections.source" version="3.2.2.v201511171945"/>
+<unit id="org.apache.commons.compress" version="1.6.0.v201310281400"/>
+<unit id="org.apache.commons.compress.source" version="1.6.0.v201310281400"/>
+<unit id="org.apache.commons.daemon" version="1.0.5.v20121125-0905"/>
+<unit id="org.apache.commons.daemon.source" version="1.0.5.v20121125-0905"/>
+<unit id="org.apache.commons.dbcp" version="1.4.0.v201204271417"/>
+<unit id="org.apache.commons.dbcp.source" version="1.4.0.v201204271417"/>
+<unit id="org.apache.commons.discovery" version="0.2.0.v201004190315"/>
+<unit id="org.apache.commons.exec" version="1.1.0.v201301240602"/>
+<unit id="org.apache.commons.exec.source" version="1.1.0.v201301240602"/>
+<unit id="org.apache.commons.fileupload" version="1.2.2.v20111214-1400"/>
+<unit id="org.apache.commons.fileupload.source" version="1.2.2.v20111214-1400"/>
+<unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
+<unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
+<unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<unit id="org.apache.commons.io.source" version="2.2.0.v201405211200"/>
+<unit id="org.apache.commons.jxpath" version="1.3.0.v200911051830"/>
+<unit id="org.apache.commons.jxpath.source" version="1.3.0.v200911051830"/>
+<unit id="org.apache.commons.lang" version="2.6.0.v201404270220"/>
+<unit id="org.apache.commons.lang.source" version="2.6.0.v201404270220"/>
+<unit id="org.apache.commons.lang3" version="3.1.0.v201403281430"/>
+<unit id="org.apache.commons.lang3.source" version="3.1.0.v201403281430"/>
+<unit id="org.apache.commons.logging" version="1.1.1.v201101211721"/>
+<unit id="org.apache.commons.logging.source" version="1.1.1.v201101211721"/>
+<unit id="org.apache.commons.math" version="2.1.0.v201105210652"/>
+<unit id="org.apache.commons.math.source" version="2.1.0.v201105210652"/>
+<unit id="org.apache.commons.net" version="3.2.0.v201305141515"/>
+<unit id="org.apache.commons.net.source" version="3.2.0.v201305141515"/>
+<unit id="org.apache.commons.pool" version="1.6.0.v201204271246"/>
+<unit id="org.apache.commons.pool.source" version="1.6.0.v201204271246"/>
+<unit id="org.apache.coyote" version="7.0.56.v201412180755"/>
+<unit id="org.apache.coyote.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.coyote.translated_host_properties" version="7.0.56.v201412180755"/>
+<unit id="org.apache.derby" version="10.11.1.1_v201605202053"/>
+<unit id="org.apache.derby.source" version="10.11.1.1_v201605202053"/>
+<unit id="org.apache.el" version="7.0.56.v201412180755"/>
+<unit id="org.apache.el.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.felix.gogo.command" version="0.10.0.v201209301215"/>
+<unit id="org.apache.felix.gogo.command.source" version="0.10.0.v201209301215"/>
+<unit id="org.apache.felix.gogo.runtime" version="0.10.0.v201209301036"/>
+<unit id="org.apache.felix.gogo.runtime.source" version="0.10.0.v201209301036"/>
+<unit id="org.apache.felix.gogo.shell" version="0.10.0.v201212101605"/>
+<unit id="org.apache.felix.gogo.shell.source" version="0.10.0.v201212101605"/>
+<unit id="org.apache.geronimo.components.connector" version="3.1.1.v201205170953"/>
+<unit id="org.apache.geronimo.components.connector.source" version="3.1.1.v201205170953"/>
+<unit id="org.apache.geronimo.components.transaction" version="3.1.1.v201205170710"/>
+<unit id="org.apache.geronimo.components.transaction.source" version="3.1.1.v201205170710"/>
+<unit id="org.apache.geronimo.specs.j2ee.management" version="1.0.0.v201205091237"/>
+<unit id="org.apache.geronimo.specs.j2ee.management.source" version="1.0.0.v201205091237"/>
+<unit id="org.apache.geronimo.specs.osgi.locator" version="1.1.0.v201205170953"/>
+<unit id="org.apache.geronimo.specs.osgi.locator.source" version="1.1.0.v201205170953"/>
+<unit id="org.apache.geronimo.specs.osgi.registry" version="1.1.0.v201205170710"/>
+<unit id="org.apache.geronimo.specs.osgi.registry.source" version="1.1.0.v201205170710"/>
+<unit id="org.apache.hadoop.zookeeper" version="3.4.5.v20121214-1350"/>
+<unit id="org.apache.hadoop.zookeeper.source" version="3.4.5.v20121214-1350"/>
+<unit id="org.apache.httpcomponents.httpclient" version="4.3.6.v201511171540"/>
+<unit id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
+<unit id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
+<unit id="org.apache.httpcomponents.httpcore.nio" version="4.1.0.v201101201700"/>
+<unit id="org.apache.httpcomponents.httpcore.nio.source" version="4.1.0.v201101201700"/>
+<unit id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
+<unit id="org.apache.jasper" version="7.0.56.v201412180755"/>
+<unit id="org.apache.jasper.glassfish" version="2.2.2.v201501141630"/>
+<unit id="org.apache.jasper.glassfish.source" version="2.2.2.v201501141630"/>
+<unit id="org.apache.jasper.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.juli.extras" version="7.0.56.v201412180755"/>
+<unit id="org.apache.juli.extras.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<unit id="org.apache.log4j.source" version="1.2.15.v201012070815"/>
+<unit id="org.apache.lucene" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.analysis" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.analysis.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.core.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.grouping" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.grouping.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.highlighter" version="3.5.0.v20121015-1317"/>
+<unit id="org.apache.lucene.highlighter.source" version="3.5.0.v20121015-1317"/>
+<unit id="org.apache.lucene.memory" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.memory.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.misc" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.misc.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.queries" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.queries.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.spatial" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.spatial.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.spellchecker" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.lucene.spellchecker.source" version="3.5.0.v20120725-1805"/>
+<unit id="org.apache.mina.core" version="2.0.7.v201401071602"/>
+<unit id="org.apache.mina.core.source" version="2.0.7.v201401071602"/>
+<unit id="org.apache.mina.filter.compression" version="2.0.7.v201401141305"/>
+<unit id="org.apache.mina.filter.compression.source" version="2.0.7.v201401141305"/>
+<unit id="org.apache.neethi" version="2.0.4.1"/>
+<unit id="org.apache.olingo" version="2.0.3.v201605172220"/>
+<unit id="org.apache.openejb.api" version="4.0.0.beta-2_v201205041047"/>
+<unit id="org.apache.openejb.api.source" version="4.0.0.beta-2_v201205041047"/>
+<unit id="org.apache.openejb.core" version="4.0.0.beta-2_v201205260545"/>
+<unit id="org.apache.openejb.core.source" version="4.0.0.beta-2_v201205260545"/>
+<unit id="org.apache.openejb.javaagent" version="4.0.0.beta-2_v201205041047"/>
+<unit id="org.apache.openejb.javaagent.source" version="4.0.0.beta-2_v201205041047"/>
+<unit id="org.apache.openejb.jee" version="4.0.0.beta-2_v201205041336"/>
+<unit id="org.apache.openejb.jee.source" version="4.0.0.beta-2_v201205041336"/>
+<unit id="org.apache.openejb.loader" version="4.0.0.beta-2_v201304191030"/>
+<unit id="org.apache.openejb.loader.source" version="4.0.0.beta-2_v201304191030"/>
+<unit id="org.apache.openwebbeans.ee" version="1.1.7.v201304200545"/>
+<unit id="org.apache.openwebbeans.ee.common" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.ee.common.source" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.ee.source" version="1.1.7.v201304200545"/>
+<unit id="org.apache.openwebbeans.ejb" version="1.1.7.v201304200545"/>
+<unit id="org.apache.openwebbeans.ejb.source" version="1.1.7.v201304200545"/>
+<unit id="org.apache.openwebbeans.impl" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.impl.source" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.jsf" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.jsf.source" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.spi" version="1.1.7.v201505121400"/>
+<unit id="org.apache.openwebbeans.spi.source" version="1.1.7.v201505121400"/>
+<unit id="org.apache.openwebbeans.tomcat7" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.tomcat7.source" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.web" version="1.1.7.v201304201405"/>
+<unit id="org.apache.openwebbeans.web.source" version="1.1.7.v201304201405"/>
+<unit id="org.apache.oro" version="2.0.8.v201005080400"/>
+<unit id="org.apache.oro.source" version="2.0.8.v201005080400"/>
+<unit id="org.apache.poi" version="3.9.0.v201405241750"/>
+<unit id="org.apache.poi.ooxml" version="3.9.0.v201405241905"/>
+<unit id="org.apache.poi.ooxml.schemas" version="3.9.0.v201405241750"/>
+<unit id="org.apache.poi.ooxml.schemas.source" version="3.9.0.v201405241750"/>
+<unit id="org.apache.poi.ooxml.source" version="3.9.0.v201405241905"/>
+<unit id="org.apache.poi.source" version="3.9.0.v201405241750"/>
+<unit id="org.apache.solr.client.solrj" version="3.5.0.v20150506-0844"/>
+<unit id="org.apache.solr.client.solrj.source" version="3.5.0.v20150506-0844"/>
+<unit id="org.apache.solr.core" version="3.5.0.v20150506-0844"/>
+<unit id="org.apache.solr.core.source" version="3.5.0.v20150506-0844"/>
+<unit id="org.apache.sshd.core" version="0.7.0.v201303101611"/>
+<unit id="org.apache.sshd.core.source" version="0.7.0.v201303101611"/>
+<unit id="org.apache.taglibs.standard.glassfish" version="1.2.0.v201112081803"/>
+<unit id="org.apache.taglibs.standard.glassfish.source" version="1.2.0.v201112081803"/>
+<unit id="org.apache.thrift" version="0.5.0.v20110412-1025"/>
+<unit id="org.apache.thrift.source" version="0.5.0.v20110412-1025"/>
+<unit id="org.apache.tika.core" version="1.3.0.v201505121915"/>
+<unit id="org.apache.tika.core.source" version="1.3.0.v201505121915"/>
+<unit id="org.apache.tika.parsers" version="1.3.0.v201605180015"/>
+<unit id="org.apache.tika.parsers.source" version="1.3.0.v201605180015"/>
+<unit id="org.apache.tomcat.api" version="7.0.56.v201412180755"/>
+<unit id="org.apache.tomcat.api.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.tomcat.util" version="7.0.56.v201412180755"/>
+<unit id="org.apache.tomcat.util.source" version="7.0.56.v201412180755"/>
+<unit id="org.apache.tomcat.util.translated_host_properties" version="7.0.56.v201412180755"/>
+<unit id="org.apache.velocity" version="1.5.0.v200905192330"/>
+<unit id="org.apache.ws.commons.schema" version="1.4.2.v201003051240"/>
+<unit id="org.apache.ws.commons.util" version="1.0.1.v20100518-1140"/>
+<unit id="org.apache.ws.jaxme" version="0.5.1.v20100427-1100"/>
+<unit id="org.apache.wsil4j" version="1.0.0.v200901211807"/>
+<unit id="org.apache.xalan" version="2.7.1.v201005080400"/>
+<unit id="org.apache.xbean.asm" version="3.12.0.v201304200545"/>
+<unit id="org.apache.xbean.bundleutils" version="3.12.0.v201304200545"/>
+<unit id="org.apache.xbean.bundleutils.source" version="3.12.0.v201304200545"/>
+<unit id="org.apache.xbean.finder" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xbean.finder.source" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xbean.naming" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xbean.naming.source" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xbean.reflect" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xbean.reflect.source" version="3.12.0.v201304201405"/>
+<unit id="org.apache.xerces" version="2.9.0.v201101211617"/>
+<unit id="org.apache.xml.resolver" version="1.2.0.v201005080400"/>
+<unit id="org.apache.xml.security" version="1.4.2.v201005080400"/>
+<unit id="org.apache.xml.serializer" version="2.7.1.v201005080400"/>
+<unit id="org.apache.xmlbeans" version="2.3.0.v201605172150"/>
+<unit id="org.apache.xmlbeans.source" version="2.3.0.v201605172150"/>
+<unit id="org.apache.xmlgraphics" version="1.4.0.v201301251218"/>
+<unit id="org.apache.xmlrpc" version="3.0.0.v20100427-1100"/>
+<unit id="org.bouncycastle.bcpkix" version="1.51.0.v201505131810"/>
+<unit id="org.bouncycastle.bcpkix.source" version="1.51.0.v201505131810"/>
+<unit id="org.bouncycastle.bcprov" version="1.51.0.v201505131810"/>
+<unit id="org.bouncycastle.bcprov.source" version="1.51.0.v201505131810"/>
+<unit id="org.ccil.cowan.tagsoup" version="1.2.0.v201202211000"/>
+<unit id="org.cliffc.high_scale_lib" version="1.1.2.v20110412-1025"/>
+<unit id="org.cliffc.high_scale_lib.source" version="1.1.2.v20110412-1025"/>
+<unit id="org.codehaus.jackson.core" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.core.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.jaxrs" version="1.6.0.v20101005-1100"/>
+<unit id="org.codehaus.jackson.jaxrs.source" version="1.6.0.v20101005-1100"/>
+<unit id="org.codehaus.jackson.mapper" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.mapper.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.smile" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.smile.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.xc" version="1.6.0.v20101005-0925"/>
+<unit id="org.codehaus.jackson.xc.source" version="1.6.0.v20101005-0925"/>
+<unit id="org.custommonkey.xmlunit" version="1.3.0.v201605172130"/>
+<unit id="org.custommonkey.xmlunit.source" version="1.3.0.v201605172130"/>
+<unit id="org.cyberneko.html" version="1.9.14.v201105210654"/>
+<unit id="org.dojotoolkit" version="1.6.1.v201108161253"/>
+<unit id="org.dom4j" version="1.6.1.v201312101416"/>
+<unit id="org.dom4j.source" version="1.6.1.v201312101416"/>
+<unit id="org.easymock" version="2.4.0.v20090202-0900"/>
+<unit id="org.easymock.source" version="2.4.0.v20090202-0900"/>
+<unit id="org.eclipse.orbit.mongodb" version="2.10.1.v20130422-1135"/>
+<unit id="org.eclipse.orbit.mongodb.source" version="2.10.1.v20130422-1135"/>
+<unit id="org.glassfish.com.sun.faces" version="2.1.18.v201304210537"/>
+<unit id="org.glassfish.com.sun.faces.source" version="2.1.18.v201304210537"/>
+<unit id="org.glassfish.hk2.api" version="2.3.0.b10_v201508191500"/>
+<unit id="org.glassfish.hk2.locator" version="2.3.0.b10_v201508191500"/>
+<unit id="org.glassfish.hk2.osgi-resource-locator" version="2.3.0.b10_v201508191500"/>
+<unit id="org.glassfish.hk2.utils" version="2.3.0.b10_v201508191500"/>
+<unit id="org.glassfish.javax.faces" version="2.1.18.v201304200545"/>
+<unit id="org.glassfish.javax.faces.source" version="2.1.18.v201304200545"/>
+<unit id="org.glassfish.jersey.apache.connector" version="2.14.0.v201504171603"/>
+<unit id="org.glassfish.jersey.bundles.repackaged.jersey-guava" version="2.14.0.v201504151636"/>
+<unit id="org.glassfish.jersey.core.jersey-client" version="2.14.0.v201504211925"/>
+<unit id="org.glassfish.jersey.core.jersey-common" version="2.14.0.v201504171603"/>
+<unit id="org.glassfish.jersey.media.jersey-media-json-jackson" version="2.14.0.v201504171603"/>
+<unit id="org.h2" version="1.3.168.v201212121212"/>
+<unit id="org.h2.source" version="1.3.168.v201212121212"/>
+<unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.core" version="1.3.0.v201303031735"/>
+<unit id="org.hamcrest.core.source" version="1.3.0.v201303031735"/>
+<unit id="org.hamcrest.generator" version="1.3.0.v201305210900"/>
+<unit id="org.hamcrest.generator.source" version="1.3.0.v201305210900"/>
+<unit id="org.hamcrest.integration" version="1.3.0.v201305210900"/>
+<unit id="org.hamcrest.integration.source" version="1.3.0.v201305210900"/>
+<unit id="org.hamcrest.library" version="1.3.0.v201505072020"/>
+<unit id="org.hamcrest.library.source" version="1.3.0.v201505072020"/>
+<unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.text.source" version="1.1.0.v20090501071000"/>
+<unit id="org.jdom" version="1.1.1.v201101151400"/>
+<unit id="org.jdom.source" version="1.1.1.v201101151400"/>
+<unit id="org.jmock" version="1.2.0.v201303080310"/>
+<unit id="org.json" version="1.0.0.v201011060100"/>
+<unit id="org.jsoup" version="1.7.2.v201411291515"/>
+<unit id="org.jsoup.source" version="1.7.2.v201411291515"/>
+<unit id="org.junit" version="4.12.0.v201504281640"/>
+<unit id="org.junit.source" version="4.12.0.v201504281640"/>
+<unit id="org.kohsuke.args4j" version="2.0.21.v201301150030"/>
+<unit id="org.kohsuke.args4j.source" version="2.0.21.v201301150030"/>
+<unit id="org.mockito" version="1.9.5.v201605172210"/>
+<unit id="org.mockito.source" version="1.9.5.v201605172210"/>
+<unit id="org.mozilla.javascript" version="1.7.5.v201504281450"/>
+<unit id="org.mozilla.javascript.source" version="1.7.5.v201504281450"/>
+<unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.analysis" version="5.0.1.v201505121915"/>
+<unit id="org.objectweb.asm.analysis.source" version="5.0.1.v201505121915"/>
+<unit id="org.objectweb.asm.commons" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.commons.source" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.source" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.tree" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.tree.source" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.util" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.util.source" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.xml" version="5.0.1.v201404251740"/>
+<unit id="org.objectweb.asm.xml.source" version="5.0.1.v201404251740"/>
+<unit id="org.objenesis" version="1.0.0.v201505121915"/>
+<unit id="org.objenesis.source" version="1.0.0.v201505121915"/>
+<unit id="org.openid4java" version="0.9.5.v201105210655"/>
+<unit id="org.opensaml" version="1.1.0.v201105210827"/>
+<unit id="org.ow2.jotm.jotm-core" version="2.1.9.v201204271116"/>
+<unit id="org.ow2.jotm.jotm-core.source" version="2.1.9.v201204271116"/>
+<unit id="org.prefuse" version="0.1.0.v20100514-1000"/>
+<unit id="org.prefuse.source" version="0.1.0.v20100514-1000"/>
+<unit id="org.pushingpixels.trident" version="1.2.0.v201305152020"/>
+<unit id="org.pushingpixels.trident.source" version="1.2.0.v201305152020"/>
+<unit id="org.quartz" version="1.8.3.v20110329-1420"/>
+<unit id="org.quartz.source" version="1.8.3.v20110329-1420"/>
+<unit id="org.restlet" version="2.0.5.v201605172130"/>
+<unit id="org.restlet.ext.servlet" version="2.0.5.v201605172130"/>
+<unit id="org.restlet.ext.servlet.source" version="2.0.5.v201605172130"/>
+<unit id="org.restlet.source" version="2.0.5.v201605172130"/>
+<unit id="org.sat4j.core" version="2.3.5.v201308161310"/>
+<unit id="org.sat4j.pb" version="2.3.5.v201404071733"/>
+<unit id="org.slf4j.api" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.api.source" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.ext" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.ext.source" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.impl.log4j12" version="1.7.2.v20131105-2200"/>
+<unit id="org.slf4j.impl.log4j12.source" version="1.7.2.v20131105-2200"/>
+<unit id="org.slf4j.jcl" version="1.7.2.v20130115-1340"/>
+<unit id="org.slf4j.jcl.source" version="1.7.2.v20130115-1340"/>
+<unit id="org.slf4j.jul" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.jul.source" version="1.7.2.v20121108-1250"/>
+<unit id="org.slf4j.log4j" version="1.7.2.v20130115-1340"/>
+<unit id="org.slf4j.log4j.source" version="1.7.2.v20130115-1340"/>
+<unit id="org.slf4j.nop" version="1.7.2.v201212060727"/>
+<unit id="org.slf4j.nop.source" version="1.7.2.v201212060727"/>
+<unit id="org.swtchart" version="0.10.0.v201605200358"/>
+<unit id="org.swtchart.source" version="0.10.0.v201605200358"/>
+<unit id="org.tukaani.xz" version="1.3.0.v201308270617"/>
+<unit id="org.tukaani.xz.source" version="1.3.0.v201308270617"/>
+<unit id="org.uddi4j" version="2.0.5.v200805270300"/>
+<unit id="org.w3c.css.sac" version="1.3.1.v200903091627"/>
+<unit id="org.w3c.css.sac.source" version="1.3.1.v200903091627"/>
+<unit id="org.w3c.dom.events" version="3.0.0.draft20060413_v201105210656"/>
+<unit id="org.w3c.dom.events.source" version="3.0.0.draft20060413_v201105210656"/>
+<unit id="org.w3c.dom.smil" version="1.0.1.v200903091627"/>
+<unit id="org.w3c.dom.smil.source" version="1.0.1.v200903091627"/>
+<unit id="org.w3c.dom.svg" version="1.1.0.v201011041433"/>
+<unit id="org.w3c.dom.svg.source" version="1.1.0.v201011041433"/>
+<unit id="org.xbill.dns" version="2.0.8.v201112050911"/>
+<unit id="org.xbill.dns.source" version="2.0.8.v201112050911"/>
+<unit id="org.xmlpull" version="1.1.3.4_v201201052148"/>
+<unit id="org.yaml.snakeyaml" version="1.14.0.v201604211500"/>
+<unit id="osgi.enterprise" version="4.2.0.v201108120515"/>
+<unit id="osgi.enterprise.source" version="4.2.0.v201108120515"/>
+<unit id="scannotation" version="1.0.2.v201205170710"/>
+<unit id="scannotation.source" version="1.0.2.v201205170710"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.addons.chart.demo" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.chart.demo.source" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.chart.feature.feature.group" version="0.1.0.20160622-0732"/>
+<unit id="org.eclipse.rap.addons.dropdown.demo.examples" version="1.0.0.20160126-1309"/>
+<unit id="org.eclipse.rap.clientscripting.examples.feature.feature.group" version="0.2.0.20140425-1548"/>
+<unit id="org.eclipse.rap.clientscripting.feature.feature.group" version="0.2.0.20140425-1548"/>
+<unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
+<unit id="org.eclipse.rap.demo.ckeditor" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.dropdown.feature.feature.group" version="0.3.0.20161122-1051"/>
+<unit id="org.eclipse.rap.examples.pages.ckeditor" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
+<unit id="org.eclipse.rap.gef.feature.feature.group" version="0.1.0.20170612-1850"/>
+<unit id="org.eclipse.rap.pde.feature.feature.group" version="0.1.0.20170322-1101"/>
+<unit id="org.eclipse.rap.richtext.feature.feature.group" version="0.2.0.20150623-1041"/>
+<unit id="org.eclipse.rap.tabbed-properties.feature.feature.group" version="0.1.0.20140426-0943"/>
+<unit id="org.eclipse.rap.visualization.feature.feature.group" version="1.5.0.20120725-0824"/>
+<repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
+<repository location="http://dslforge.org/downloads/runtime/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.rap.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.4.0.20171204-1005"/>
+<unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
+<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.4.0.20171130-0837"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
+</location>
+<location path="${eclipse_home}" type="Profile"/>
+</locations>
+<includeBundles>
+<plugin id="ca.odell.glazedlists"/>
+<plugin id="ca.odell.glazedlists.source"/>
+<plugin id="cdi.api"/>
+<plugin id="cdi.api.source"/>
+<plugin id="ch.ethz.iks.slp"/>
+<plugin id="ch.ethz.iks.slp.source"/>
+<plugin id="ch.qos.logback.classic" version="1.0.7.v20121108-1250"/>
+<plugin id="ch.qos.logback.classic.source"/>
+<plugin id="ch.qos.logback.core" version="1.0.7.v20121108-1250"/>
+<plugin id="ch.qos.logback.core.source"/>
+<plugin id="ch.qos.logback.slf4j" version="1.0.7.v201505121915"/>
+<plugin id="ch.qos.logback.slf4j.source"/>
+<plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
+<plugin id="com.fasterxml.jackson.core.jackson-core"/>
+<plugin id="com.fasterxml.jackson.core.jackson-databind"/>
+<plugin id="com.fasterxml.jackson.dataformat.jackson-dataformat-yaml"/>
+<plugin id="com.fasterxml.jackson.datatype.jackson-datatype-guava"/>
+<plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
+<plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
+<plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
+<plugin id="com.google.gerrit.common"/>
+<plugin id="com.google.gerrit.common.source"/>
+<plugin id="com.google.gerrit.prettify"/>
+<plugin id="com.google.gerrit.prettify.source"/>
+<plugin id="com.google.gerrit.reviewdb"/>
+<plugin id="com.google.gerrit.reviewdb.source"/>
+<plugin id="com.google.gson" version="2.2.4.v201311231704"/>
+<plugin id="com.google.gson" version="2.7.0.v20170129-0911"/>
+<plugin id="com.google.gson.source"/>
+<plugin id="com.google.guava" version="15.0.0.v201403281430"/>
+<plugin id="com.google.guava" version="21.0.0.v20170206-1425"/>
+<plugin id="com.google.guava.source"/>
+<plugin id="com.google.gwt.servlet"/>
+<plugin id="com.google.gwt.servlet.source"/>
+<plugin id="com.google.gwt.user"/>
+<plugin id="com.google.gwt.user.source"/>
+<plugin id="com.google.gwtjsonrpc"/>
+<plugin id="com.google.gwtjsonrpc.source"/>
+<plugin id="com.google.gwtorm"/>
+<plugin id="com.google.gwtorm.source"/>
+<plugin id="com.google.inject" version="3.0.0.v201312141243"/>
+<plugin id="com.google.inject" version="3.0.0.v201605172100"/>
+<plugin id="com.google.inject.assistedinject"/>
+<plugin id="com.google.inject.assistedinject.source"/>
+<plugin id="com.google.inject.multibindings"/>
+<plugin id="com.google.inject.multibindings.source"/>
+<plugin id="com.google.inject.source"/>
+<plugin id="com.google.protobuf"/>
+<plugin id="com.google.protobuf.source"/>
+<plugin id="com.gradleware.tooling.client"/>
+<plugin id="com.gradleware.tooling.model"/>
+<plugin id="com.gradleware.tooling.utils"/>
+<plugin id="com.ibm.icu" version="58.2.0.v20170418-1837"/>
+<plugin id="com.ibm.icu" version="56.1.0.v201601250100"/>
+<plugin id="com.ibm.icu.base" version="58.2.0.v20170418-1837"/>
+<plugin id="com.ibm.icu.base" version="56.1.0.v201601250100"/>
+<plugin id="com.ibm.icu.base.source" version="56.1.0.v201601250100"/>
+<plugin id="com.ibm.icu.base.source" version="58.2.0.v20170418-1837"/>
+<plugin id="com.ibm.icu.source" version="56.1.0.v201601250100"/>
+<plugin id="com.ibm.icu.source" version="58.2.0.v20170418-1837"/>
+<plugin id="com.jcraft.jsch" version="0.1.53.v201508180515"/>
+<plugin id="com.jcraft.jsch" version="0.1.54.v20170116-1932"/>
+<plugin id="com.jcraft.jsch.source" version="0.1.53.v201508180515"/>
+<plugin id="com.jcraft.jsch.source" version="0.1.54.v20170116-1932"/>
+<plugin id="com.jcraft.jzlib"/>
+<plugin id="com.jcraft.jzlib.source"/>
+<plugin id="com.kenai.jffi"/>
+<plugin id="com.lowagie.text"/>
+<plugin id="com.lowagie.text.source"/>
+<plugin id="com.novell.ldap"/>
+<plugin id="com.spotify.docker.client"/>
+<plugin id="com.spotify.docker.client.source"/>
+<plugin id="com.sun.el" version="2.2.0.v201303151357"/>
+<plugin id="com.sun.el.source" version="2.2.0.v201303151357"/>
+<plugin id="com.sun.jersey"/>
+<plugin id="com.sun.jersey.source"/>
+<plugin id="com.sun.jna"/>
+<plugin id="com.sun.jna.platform"/>
+<plugin id="com.sun.syndication"/>
+<plugin id="com.sun.syndication.source"/>
+<plugin id="com.sun.xml.bind"/>
+<plugin id="com.sun.xml.bind.source"/>
+<plugin id="com.thoughtworks.qdox"/>
+<plugin id="com.thoughtworks.qdox.source"/>
+<plugin id="com.thoughtworks.selenium"/>
+<plugin id="com.thoughtworks.selenium.source"/>
+<plugin id="com.thoughtworks.xstream"/>
+<plugin id="com.thoughtworks.xstream.source"/>
+<plugin id="com.vaadin"/>
+<plugin id="commonj.sdo" version="2.1.1.v201112051852"/>
+<plugin id="commonj.sdo.source" version="2.1.1.v201112051852"/>
+<plugin id="de.tuberlin.eecs.agg"/>
+<plugin id="edu.emory.mathcs.backport"/>
+<plugin id="edu.emory.mathcs.backport.source"/>
+<plugin id="java_cup.runtime"/>
+<plugin id="java_cup.runtime.source"/>
+<plugin id="javaewah" version="0.7.9.v201605172130"/>
+<plugin id="javaewah" version="1.1.6.v20160919-1400"/>
+<plugin id="javaewah.source"/>
+<plugin id="javassist"/>
+<plugin id="javassist.source"/>
+<plugin id="javax.activation" version="1.1.0.v201211130549"/>
+<plugin id="javax.activation.source"/>
+<plugin id="javax.annotation" version="1.2.0.v201602091430"/>
+<plugin id="javax.annotation.source" version="1.2.0.v201602091430"/>
+<plugin id="javax.ejb"/>
+<plugin id="javax.ejb.source"/>
+<plugin id="javax.el" version="2.2.0.v201303151357"/>
+<plugin id="javax.el.source" version="2.2.0.v201303151357"/>
+<plugin id="javax.inject" version="1.0.0.v20091030"/>
+<plugin id="javax.inject.source" version="1.0.0.v20091030"/>
+<plugin id="javax.jms"/>
+<plugin id="javax.jms.source"/>
+<plugin id="javax.jws"/>
+<plugin id="javax.jws.source"/>
+<plugin id="javax.mail" version="1.4.0.v201005080615"/>
+<plugin id="javax.mail.glassfish"/>
+<plugin id="javax.mail.glassfish.source"/>
+<plugin id="javax.management"/>
+<plugin id="javax.management.remote"/>
+<plugin id="javax.persistence" version="1.0.0.v200905011740"/>
+<plugin id="javax.persistence" version="2.2.0.v201708071007"/>
+<plugin id="javax.persistence.source" version="2.2.0.v201708071007"/>
+<plugin id="javax.persistence.source" version="1.0.0.v200905011740"/>
+<plugin id="javax.resource"/>
+<plugin id="javax.resource.source"/>
+<plugin id="javax.security.auth.message"/>
+<plugin id="javax.security.auth.message.source"/>
+<plugin id="javax.security.jacc"/>
+<plugin id="javax.security.jacc.source"/>
+<plugin id="javax.servlet" version="3.1.0.v201410161800"/>
+<plugin id="javax.servlet" version="2.4.0.v200806031604"/>
+<plugin id="javax.servlet.jsp" version="2.2.0.v201112011158"/>
+<plugin id="javax.servlet.jsp.jstl"/>
+<plugin id="javax.servlet.jsp.jstl.impl"/>
+<plugin id="javax.servlet.jsp.jstl.impl.source"/>
+<plugin id="javax.servlet.jsp.jstl.source"/>
+<plugin id="javax.servlet.jsp.source" version="2.2.0.v201112011158"/>
+<plugin id="javax.servlet.source" version="3.1.0.v201410161800"/>
+<plugin id="javax.transaction"/>
+<plugin id="javax.transaction.source"/>
+<plugin id="javax.validation"/>
+<plugin id="javax.validation.source"/>
+<plugin id="javax.websocket"/>
+<plugin id="javax.websocket.source"/>
+<plugin id="javax.ws.rs" version="2.0.1.v201504171603"/>
+<plugin id="javax.wsdl" version="1.6.2.v201012040545"/>
+<plugin id="javax.wsdl.source" version="1.6.2.v201012040545"/>
+<plugin id="javax.xml" version="1.3.4.v201005080400"/>
+<plugin id="javax.xml.bind" version="2.2.12.v201410011542"/>
+<plugin id="javax.xml.bind" version="2.2.0.v201105210648"/>
+<plugin id="javax.xml.bind.source"/>
+<plugin id="javax.xml.rpc"/>
+<plugin id="javax.xml.soap"/>
+<plugin id="javax.xml.stream"/>
+<plugin id="javax.xml.ws"/>
+<plugin id="jaxb-core" version="2.2.11.v201407311112"/>
+<plugin id="jaxb-xjc" version="2.2.11.v201407311112"/>
+<plugin id="jnr.constants"/>
+<plugin id="jnr.enxio"/>
+<plugin id="jnr.ffi"/>
+<plugin id="jnr.posix"/>
+<plugin id="jnr.unixsocket"/>
+<plugin id="jnr.x86asm"/>
+<plugin id="lpg.runtime.java"/>
+<plugin id="lpg.runtime.java.source"/>
+<plugin id="me.prettyprint.hector"/>
+<plugin id="me.prettyprint.hector.source"/>
+<plugin id="net.miginfocom.layout"/>
+<plugin id="net.miginfocom.layout.source"/>
+<plugin id="net.miginfocom.layout.swing"/>
+<plugin id="net.miginfocom.layout.swing.source"/>
+<plugin id="net.miginfocom.layout.swt"/>
+<plugin id="net.miginfocom.layout.swt.source"/>
+<plugin id="net.sourceforge.lpg.lpgjavaruntime"/>
+<plugin id="net.sourceforge.lpg.lpgjavaruntime.source"/>
+<plugin id="net.sourceforge.mx4j"/>
+<plugin id="net.sourceforge.mx4j.remote"/>
+<plugin id="net.sourceforge.nattable.core"/>
+<plugin id="net.sourceforge.nattable.core.source"/>
+<plugin id="org.antlr.runtime" version="3.2.0.v201101311130"/>
+<plugin id="org.antlr.runtime.source"/>
+<plugin id="org.aopalliance"/>
+<plugin id="org.apache.ant" version="1.10.1.v20170504-0840"/>
+<plugin id="org.apache.ant" version="1.9.6.v201510161327"/>
+<plugin id="org.apache.ant.source" version="1.10.1.v20170504-0840"/>
+<plugin id="org.apache.ant.source" version="1.9.6.v201510161327"/>
+<plugin id="org.apache.axis"/>
+<plugin id="org.apache.batik.bridge"/>
+<plugin id="org.apache.batik.bridge.source"/>
+<plugin id="org.apache.batik.css" version="1.7.0.v201011041433"/>
+<plugin id="org.apache.batik.css" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.css.source" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.css.source" version="1.7.0.v201011041433"/>
+<plugin id="org.apache.batik.dom"/>
+<plugin id="org.apache.batik.dom.source"/>
+<plugin id="org.apache.batik.dom.svg"/>
+<plugin id="org.apache.batik.dom.svg.source"/>
+<plugin id="org.apache.batik.ext.awt"/>
+<plugin id="org.apache.batik.ext.awt.source"/>
+<plugin id="org.apache.batik.extension"/>
+<plugin id="org.apache.batik.extension.source"/>
+<plugin id="org.apache.batik.parser"/>
+<plugin id="org.apache.batik.parser.source"/>
+<plugin id="org.apache.batik.pdf"/>
+<plugin id="org.apache.batik.svggen"/>
+<plugin id="org.apache.batik.svggen.source"/>
+<plugin id="org.apache.batik.swing"/>
+<plugin id="org.apache.batik.swing.source"/>
+<plugin id="org.apache.batik.transcoder"/>
+<plugin id="org.apache.batik.transcoder.source"/>
+<plugin id="org.apache.batik.util" version="1.7.0.v201011041433"/>
+<plugin id="org.apache.batik.util" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.util.gui" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.util.gui" version="1.7.0.v200903091627"/>
+<plugin id="org.apache.batik.util.gui.source" version="1.7.0.v200903091627"/>
+<plugin id="org.apache.batik.util.gui.source" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.util.source" version="1.7.0.v201011041433"/>
+<plugin id="org.apache.batik.util.source" version="1.8.0.v20170214-1941"/>
+<plugin id="org.apache.batik.xml"/>
+<plugin id="org.apache.batik.xml.source"/>
+<plugin id="org.apache.bcel"/>
+<plugin id="org.apache.bcel.source"/>
+<plugin id="org.apache.bsf"/>
+<plugin id="org.apache.bsf.source"/>
+<plugin id="org.apache.bval"/>
+<plugin id="org.apache.bval.source"/>
+<plugin id="org.apache.cassandra"/>
+<plugin id="org.apache.cassandra.source"/>
+<plugin id="org.apache.catalina"/>
+<plugin id="org.apache.catalina.ha"/>
+<plugin id="org.apache.catalina.ha.source"/>
+<plugin id="org.apache.catalina.source"/>
+<plugin id="org.apache.catalina.tribes"/>
+<plugin id="org.apache.catalina.tribes.source"/>
+<plugin id="org.apache.commons.beanutils"/>
+<plugin id="org.apache.commons.beanutils.source"/>
+<plugin id="org.apache.commons.cli" version="1.2.0.v201404270220"/>
+<plugin id="org.apache.commons.cli.source"/>
+<plugin id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
+<plugin id="org.apache.commons.codec" version="1.9.0.v20170208-1614"/>
+<plugin id="org.apache.commons.codec.source" version="1.6.0.v201305230611"/>
+<plugin id="org.apache.commons.codec.source" version="1.9.0.v20170208-1614"/>
+<plugin id="org.apache.commons.collections"/>
+<plugin id="org.apache.commons.collections.source"/>
+<plugin id="org.apache.commons.compress" version="1.6.0.v201310281400"/>
+<plugin id="org.apache.commons.compress.source"/>
+<plugin id="org.apache.commons.daemon"/>
+<plugin id="org.apache.commons.daemon.source"/>
+<plugin id="org.apache.commons.dbcp"/>
+<plugin id="org.apache.commons.dbcp.source"/>
+<plugin id="org.apache.commons.discovery"/>
+<plugin id="org.apache.commons.exec"/>
+<plugin id="org.apache.commons.exec.source"/>
+<plugin id="org.apache.commons.fileupload" version="1.3.1.201405120000"/>
+<plugin id="org.apache.commons.fileupload" version="1.3.2.v20170320-2229"/>
+<plugin id="org.apache.commons.fileupload" version="1.2.2.v20111214-1400"/>
+<plugin id="org.apache.commons.fileupload.source"/>
+<plugin id="org.apache.commons.httpclient"/>
+<plugin id="org.apache.commons.httpclient.source"/>
+<plugin id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<plugin id="org.apache.commons.io" version="2.2.0.201405120000"/>
+<plugin id="org.apache.commons.io.source" version="2.2.0.v201405211200"/>
+<plugin id="org.apache.commons.jxpath" version="1.3.0.v200911051830"/>
+<plugin id="org.apache.commons.jxpath.source" version="1.3.0.v200911051830"/>
+<plugin id="org.apache.commons.lang" version="2.6.0.v201404270220"/>
+<plugin id="org.apache.commons.lang.source"/>
+<plugin id="org.apache.commons.lang3" version="3.1.0.v201403281430"/>
+<plugin id="org.apache.commons.lang3.source"/>
+<plugin id="org.apache.commons.logging" version="1.1.1.v201101211721"/>
+<plugin id="org.apache.commons.logging.source" version="1.1.1.v201101211721"/>
+<plugin id="org.apache.commons.math"/>
+<plugin id="org.apache.commons.math.source"/>
+<plugin id="org.apache.commons.net"/>
+<plugin id="org.apache.commons.net.source"/>
+<plugin id="org.apache.commons.pool"/>
+<plugin id="org.apache.commons.pool.source"/>
+<plugin id="org.apache.coyote"/>
+<plugin id="org.apache.coyote.source"/>
+<plugin id="org.apache.derby"/>
+<plugin id="org.apache.derby.source"/>
+<plugin id="org.apache.el"/>
+<plugin id="org.apache.el.source"/>
+<plugin id="org.apache.felix.gogo.command" version="0.10.0.v201209301215"/>
+<plugin id="org.apache.felix.gogo.command.source" version="0.10.0.v201209301215"/>
+<plugin id="org.apache.felix.gogo.runtime" version="0.10.0.v201209301036"/>
+<plugin id="org.apache.felix.gogo.runtime.source" version="0.10.0.v201209301036"/>
+<plugin id="org.apache.felix.gogo.shell" version="0.10.0.v201212101605"/>
+<plugin id="org.apache.felix.gogo.shell.source" version="0.10.0.v201212101605"/>
+<plugin id="org.apache.felix.scr" version="2.0.10.v20170501-2007"/>
+<plugin id="org.apache.felix.scr.source" version="2.0.10.v20170501-2007"/>
+<plugin id="org.apache.geronimo.components.connector"/>
+<plugin id="org.apache.geronimo.components.connector.source"/>
+<plugin id="org.apache.geronimo.components.transaction"/>
+<plugin id="org.apache.geronimo.components.transaction.source"/>
+<plugin id="org.apache.geronimo.specs.j2ee.management"/>
+<plugin id="org.apache.geronimo.specs.j2ee.management.source"/>
+<plugin id="org.apache.geronimo.specs.osgi.locator"/>
+<plugin id="org.apache.geronimo.specs.osgi.locator.source"/>
+<plugin id="org.apache.geronimo.specs.osgi.registry"/>
+<plugin id="org.apache.geronimo.specs.osgi.registry.source"/>
+<plugin id="org.apache.hadoop.zookeeper"/>
+<plugin id="org.apache.hadoop.zookeeper.source"/>
+<plugin id="org.apache.httpcomponents.httpclient" version="4.5.2.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpclient" version="4.3.6.v201511171540"/>
+<plugin id="org.apache.httpcomponents.httpclient.source" version="4.3.6.v201511171540"/>
+<plugin id="org.apache.httpcomponents.httpclient.source" version="4.5.2.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpclient.win"/>
+<plugin id="org.apache.httpcomponents.httpcore" version="4.3.3.v201411290715"/>
+<plugin id="org.apache.httpcomponents.httpcore" version="4.4.6.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpcore.nio"/>
+<plugin id="org.apache.httpcomponents.httpcore.nio.source"/>
+<plugin id="org.apache.httpcomponents.httpcore.source" version="4.3.3.v201411290715"/>
+<plugin id="org.apache.httpcomponents.httpcore.source" version="4.4.6.v20170210-0925"/>
+<plugin id="org.apache.jasper"/>
+<plugin id="org.apache.jasper.glassfish" version="2.2.2.v201501141630"/>
+<plugin id="org.apache.jasper.glassfish.source" version="2.2.2.v201501141630"/>
+<plugin id="org.apache.jasper.source"/>
+<plugin id="org.apache.juli.extras"/>
+<plugin id="org.apache.juli.extras.source"/>
+<plugin id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<plugin id="org.apache.log4j.source"/>
+<plugin id="org.apache.lucene"/>
+<plugin id="org.apache.lucene.analysis"/>
+<plugin id="org.apache.lucene.analysis.source"/>
+<plugin id="org.apache.lucene.analyzers-common"/>
+<plugin id="org.apache.lucene.analyzers-common.source"/>
+<plugin id="org.apache.lucene.analyzers-smartcn"/>
+<plugin id="org.apache.lucene.analyzers-smartcn.source"/>
+<plugin id="org.apache.lucene.core" version="3.5.0.v20120725-1805"/>
+<plugin id="org.apache.lucene.core" version="6.1.0.v20170814-1820"/>
+<plugin id="org.apache.lucene.core.source" version="3.5.0.v20120725-1805"/>
+<plugin id="org.apache.lucene.core.source" version="6.1.0.v20170814-1820"/>
+<plugin id="org.apache.lucene.grouping"/>
+<plugin id="org.apache.lucene.grouping.source"/>
+<plugin id="org.apache.lucene.highlighter"/>
+<plugin id="org.apache.lucene.highlighter.source"/>
+<plugin id="org.apache.lucene.memory"/>
+<plugin id="org.apache.lucene.memory.source"/>
+<plugin id="org.apache.lucene.misc" version="3.5.0.v20120725-1805"/>
+<plugin id="org.apache.lucene.misc" version="6.1.0.v20161115-1612"/>
+<plugin id="org.apache.lucene.misc.source" version="3.5.0.v20120725-1805"/>
+<plugin id="org.apache.lucene.misc.source" version="6.1.0.v20161115-1612"/>
+<plugin id="org.apache.lucene.queries"/>
+<plugin id="org.apache.lucene.queries.source"/>
+<plugin id="org.apache.lucene.source"/>
+<plugin id="org.apache.lucene.spatial"/>
+<plugin id="org.apache.lucene.spatial.source"/>
+<plugin id="org.apache.lucene.spellchecker"/>
+<plugin id="org.apache.lucene.spellchecker.source"/>
+<plugin id="org.apache.mina.core"/>
+<plugin id="org.apache.mina.core.source"/>
+<plugin id="org.apache.mina.filter.compression"/>
+<plugin id="org.apache.mina.filter.compression.source"/>
+<plugin id="org.apache.neethi"/>
+<plugin id="org.apache.olingo"/>
+<plugin id="org.apache.openejb.api"/>
+<plugin id="org.apache.openejb.api.source"/>
+<plugin id="org.apache.openejb.core"/>
+<plugin id="org.apache.openejb.core.source"/>
+<plugin id="org.apache.openejb.javaagent"/>
+<plugin id="org.apache.openejb.javaagent.source"/>
+<plugin id="org.apache.openejb.jee"/>
+<plugin id="org.apache.openejb.jee.source"/>
+<plugin id="org.apache.openejb.loader"/>
+<plugin id="org.apache.openejb.loader.source"/>
+<plugin id="org.apache.openwebbeans.ee"/>
+<plugin id="org.apache.openwebbeans.ee.common"/>
+<plugin id="org.apache.openwebbeans.ee.common.source"/>
+<plugin id="org.apache.openwebbeans.ee.source"/>
+<plugin id="org.apache.openwebbeans.ejb"/>
+<plugin id="org.apache.openwebbeans.ejb.source"/>
+<plugin id="org.apache.openwebbeans.impl"/>
+<plugin id="org.apache.openwebbeans.impl.source"/>
+<plugin id="org.apache.openwebbeans.jsf"/>
+<plugin id="org.apache.openwebbeans.jsf.source"/>
+<plugin id="org.apache.openwebbeans.spi"/>
+<plugin id="org.apache.openwebbeans.spi.source"/>
+<plugin id="org.apache.openwebbeans.tomcat7"/>
+<plugin id="org.apache.openwebbeans.tomcat7.source"/>
+<plugin id="org.apache.openwebbeans.web"/>
+<plugin id="org.apache.openwebbeans.web.source"/>
+<plugin id="org.apache.oro"/>
+<plugin id="org.apache.oro.source"/>
+<plugin id="org.apache.poi"/>
+<plugin id="org.apache.poi.ooxml"/>
+<plugin id="org.apache.poi.ooxml.schemas"/>
+<plugin id="org.apache.poi.ooxml.schemas.source"/>
+<plugin id="org.apache.poi.ooxml.source"/>
+<plugin id="org.apache.poi.source"/>
+<plugin id="org.apache.solr.client.solrj"/>
+<plugin id="org.apache.solr.client.solrj.source"/>
+<plugin id="org.apache.solr.core"/>
+<plugin id="org.apache.solr.core.source"/>
+<plugin id="org.apache.sshd.core"/>
+<plugin id="org.apache.sshd.core.source"/>
+<plugin id="org.apache.taglibs.standard.glassfish"/>
+<plugin id="org.apache.taglibs.standard.glassfish.source"/>
+<plugin id="org.apache.thrift"/>
+<plugin id="org.apache.thrift.source"/>
+<plugin id="org.apache.tika.core"/>
+<plugin id="org.apache.tika.core.source"/>
+<plugin id="org.apache.tika.parsers"/>
+<plugin id="org.apache.tika.parsers.source"/>
+<plugin id="org.apache.tomcat.api"/>
+<plugin id="org.apache.tomcat.api.source"/>
+<plugin id="org.apache.tomcat.util"/>
+<plugin id="org.apache.tomcat.util.source"/>
+<plugin id="org.apache.velocity"/>
+<plugin id="org.apache.ws.commons.schema"/>
+<plugin id="org.apache.ws.commons.util"/>
+<plugin id="org.apache.ws.jaxme"/>
+<plugin id="org.apache.wsil4j"/>
+<plugin id="org.apache.xalan"/>
+<plugin id="org.apache.xbean.asm"/>
+<plugin id="org.apache.xbean.bundleutils"/>
+<plugin id="org.apache.xbean.bundleutils.source"/>
+<plugin id="org.apache.xbean.finder"/>
+<plugin id="org.apache.xbean.finder.source"/>
+<plugin id="org.apache.xbean.naming"/>
+<plugin id="org.apache.xbean.naming.source"/>
+<plugin id="org.apache.xbean.reflect"/>
+<plugin id="org.apache.xbean.reflect.source"/>
+<plugin id="org.apache.xerces" version="2.9.0.v201101211617"/>
+<plugin id="org.apache.xml.resolver" version="1.2.0.v201005080400"/>
+<plugin id="org.apache.xml.security"/>
+<plugin id="org.apache.xml.serializer" version="2.7.1.v201005080400"/>
+<plugin id="org.apache.xmlbeans"/>
+<plugin id="org.apache.xmlbeans.source"/>
+<plugin id="org.apache.xmlgraphics"/>
+<plugin id="org.apache.xmlrpc"/>
+<plugin id="org.apiguardian"/>
+<plugin id="org.apiguardian.source"/>
+<plugin id="org.bouncycastle.bcpkix"/>
+<plugin id="org.bouncycastle.bcpkix.source"/>
+<plugin id="org.bouncycastle.bcprov"/>
+<plugin id="org.bouncycastle.bcprov.source"/>
+<plugin id="org.ccil.cowan.tagsoup"/>
+<plugin id="org.cliffc.high_scale_lib"/>
+<plugin id="org.cliffc.high_scale_lib.source"/>
+<plugin id="org.codehaus.jackson.core"/>
+<plugin id="org.codehaus.jackson.core.source"/>
+<plugin id="org.codehaus.jackson.jaxrs"/>
+<plugin id="org.codehaus.jackson.jaxrs.source"/>
+<plugin id="org.codehaus.jackson.mapper"/>
+<plugin id="org.codehaus.jackson.mapper.source"/>
+<plugin id="org.codehaus.jackson.smile"/>
+<plugin id="org.codehaus.jackson.smile.source"/>
+<plugin id="org.codehaus.jackson.xc"/>
+<plugin id="org.codehaus.jackson.xc.source"/>
+<plugin id="org.custommonkey.xmlunit"/>
+<plugin id="org.custommonkey.xmlunit.source"/>
+<plugin id="org.cyberneko.html"/>
+<plugin id="org.dojotoolkit"/>
+<plugin id="org.dom4j"/>
+<plugin id="org.dom4j.source"/>
+<plugin id="org.dslforge.common.logging"/>
+<plugin id="org.dslforge.styledtext"/>
+<plugin id="org.dslforge.texteditor"/>
+<plugin id="org.dslforge.texteditor.demo"/>
+<plugin id="org.dslforge.workspace"/>
+<plugin id="org.dslforge.workspace.config"/>
+<plugin id="org.dslforge.workspace.jpa"/>
+<plugin id="org.dslforge.workspace.ui"/>
+<plugin id="org.dslforge.xtext.common"/>
+<plugin id="org.easymock"/>
+<plugin id="org.easymock.source"/>
+<plugin id="org.eclipse.ant.core"/>
+<plugin id="org.eclipse.ant.core.source"/>
+<plugin id="org.eclipse.ant.launching"/>
+<plugin id="org.eclipse.ant.launching.source"/>
+<plugin id="org.eclipse.ant.ui"/>
+<plugin id="org.eclipse.ant.ui.source"/>
+<plugin id="org.eclipse.buildship.branding"/>
+<plugin id="org.eclipse.buildship.core"/>
+<plugin id="org.eclipse.buildship.stsmigration"/>
+<plugin id="org.eclipse.buildship.ui"/>
+<plugin id="org.eclipse.compare"/>
+<plugin id="org.eclipse.compare.core"/>
+<plugin id="org.eclipse.compare.core.source"/>
+<plugin id="org.eclipse.compare.source"/>
+<plugin id="org.eclipse.compare.win32"/>
+<plugin id="org.eclipse.compare.win32.source"/>
+<plugin id="org.eclipse.core.commands" version="3.9.0.v20170530-1048"/>
+<plugin id="org.eclipse.core.commands.source" version="3.9.0.v20170530-1048"/>
+<plugin id="org.eclipse.core.contenttype" version="3.6.0.v20170207-1037"/>
+<plugin id="org.eclipse.core.contenttype.source" version="3.6.0.v20170207-1037"/>
+<plugin id="org.eclipse.core.databinding" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.databinding.beans" version="1.4.0.v20170210-0856"/>
+<plugin id="org.eclipse.core.databinding.beans.source" version="1.4.0.v20170210-0856"/>
+<plugin id="org.eclipse.core.databinding.observable" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.databinding.observable.source" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.databinding.property" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.databinding.property.source" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.databinding.source" version="1.6.100.v20170515-1119"/>
+<plugin id="org.eclipse.core.expressions" version="3.6.0.v20170207-1037"/>
+<plugin id="org.eclipse.core.expressions.source" version="3.6.0.v20170207-1037"/>
+<plugin id="org.eclipse.core.externaltools"/>
+<plugin id="org.eclipse.core.externaltools.source"/>
+<plugin id="org.eclipse.core.filebuffers"/>
+<plugin id="org.eclipse.core.filebuffers.source"/>
+<plugin id="org.eclipse.core.filesystem"/>
+<plugin id="org.eclipse.core.filesystem.source"/>
+<plugin id="org.eclipse.core.filesystem.win32.x86_64"/>
+<plugin id="org.eclipse.core.jobs" version="3.9.2.v20171030-1027"/>
+<plugin id="org.eclipse.core.jobs.source" version="3.9.2.v20171030-1027"/>
+<plugin id="org.eclipse.core.net"/>
+<plugin id="org.eclipse.core.net.source"/>
+<plugin id="org.eclipse.core.net.win32.x86_64"/>
+<plugin id="org.eclipse.core.resources"/>
+<plugin id="org.eclipse.core.resources.source"/>
+<plugin id="org.eclipse.core.resources.win32.x86_64"/>
+<plugin id="org.eclipse.core.runtime" version="3.13.0.v20170207-1030"/>
+<plugin id="org.eclipse.core.runtime.source" version="3.13.0.v20170207-1030"/>
+<plugin id="org.eclipse.core.variables"/>
+<plugin id="org.eclipse.core.variables.source"/>
+<plugin id="org.eclipse.cvs"/>
+<plugin id="org.eclipse.debug.core"/>
+<plugin id="org.eclipse.debug.core.source"/>
+<plugin id="org.eclipse.debug.ui"/>
+<plugin id="org.eclipse.debug.ui.source"/>
+<plugin id="org.eclipse.draw2d"/>
+<plugin id="org.eclipse.e4.core.commands"/>
+<plugin id="org.eclipse.e4.core.commands.source"/>
+<plugin id="org.eclipse.e4.core.contexts"/>
+<plugin id="org.eclipse.e4.core.contexts.source"/>
+<plugin id="org.eclipse.e4.core.di"/>
+<plugin id="org.eclipse.e4.core.di.annotations"/>
+<plugin id="org.eclipse.e4.core.di.annotations.source"/>
+<plugin id="org.eclipse.e4.core.di.extensions"/>
+<plugin id="org.eclipse.e4.core.di.extensions.source"/>
+<plugin id="org.eclipse.e4.core.di.extensions.supplier"/>
+<plugin id="org.eclipse.e4.core.di.extensions.supplier.source"/>
+<plugin id="org.eclipse.e4.core.di.source"/>
+<plugin id="org.eclipse.e4.core.services"/>
+<plugin id="org.eclipse.e4.core.services.source"/>
+<plugin id="org.eclipse.e4.emf.xpath"/>
+<plugin id="org.eclipse.e4.emf.xpath.source"/>
+<plugin id="org.eclipse.e4.ui.bindings"/>
+<plugin id="org.eclipse.e4.ui.bindings.source"/>
+<plugin id="org.eclipse.e4.ui.css.core"/>
+<plugin id="org.eclipse.e4.ui.css.core.source"/>
+<plugin id="org.eclipse.e4.ui.css.swt"/>
+<plugin id="org.eclipse.e4.ui.css.swt.source"/>
+<plugin id="org.eclipse.e4.ui.css.swt.theme"/>
+<plugin id="org.eclipse.e4.ui.css.swt.theme.source"/>
+<plugin id="org.eclipse.e4.ui.di"/>
+<plugin id="org.eclipse.e4.ui.di.source"/>
+<plugin id="org.eclipse.e4.ui.dialogs"/>
+<plugin id="org.eclipse.e4.ui.dialogs.source"/>
+<plugin id="org.eclipse.e4.ui.model.workbench"/>
+<plugin id="org.eclipse.e4.ui.model.workbench.source"/>
+<plugin id="org.eclipse.e4.ui.services"/>
+<plugin id="org.eclipse.e4.ui.services.source"/>
+<plugin id="org.eclipse.e4.ui.widgets"/>
+<plugin id="org.eclipse.e4.ui.widgets.source"/>
+<plugin id="org.eclipse.e4.ui.workbench"/>
+<plugin id="org.eclipse.e4.ui.workbench.addons.swt"/>
+<plugin id="org.eclipse.e4.ui.workbench.addons.swt.source"/>
+<plugin id="org.eclipse.e4.ui.workbench.renderers.swt"/>
+<plugin id="org.eclipse.e4.ui.workbench.renderers.swt.source"/>
+<plugin id="org.eclipse.e4.ui.workbench.source"/>
+<plugin id="org.eclipse.e4.ui.workbench.swt"/>
+<plugin id="org.eclipse.e4.ui.workbench.swt.source"/>
+<plugin id="org.eclipse.e4.ui.workbench3"/>
+<plugin id="org.eclipse.e4.ui.workbench3.source"/>
+<plugin id="org.eclipse.ecf"/>
+<plugin id="org.eclipse.ecf.filetransfer"/>
+<plugin id="org.eclipse.ecf.filetransfer.source"/>
+<plugin id="org.eclipse.ecf.identity"/>
+<plugin id="org.eclipse.ecf.identity.source"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.httpclient4"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.httpclient4.source"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.httpclient4.ssl"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.httpclient4.ssl.source"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.source"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.ssl"/>
+<plugin id="org.eclipse.ecf.provider.filetransfer.ssl.source"/>
+<plugin id="org.eclipse.ecf.source"/>
+<plugin id="org.eclipse.ecf.ssl"/>
+<plugin id="org.eclipse.ecf.ssl.source"/>
+<plugin id="org.eclipse.egit"/>
+<plugin id="org.eclipse.egit.core"/>
+<plugin id="org.eclipse.egit.doc"/>
+<plugin id="org.eclipse.egit.ui"/>
+<plugin id="org.eclipse.emf"/>
+<plugin id="org.eclipse.emf.ant"/>
+<plugin id="org.eclipse.emf.ant.source"/>
+<plugin id="org.eclipse.emf.cheatsheets"/>
+<plugin id="org.eclipse.emf.cheatsheets.source"/>
+<plugin id="org.eclipse.emf.codegen"/>
+<plugin id="org.eclipse.emf.codegen.ecore"/>
+<plugin id="org.eclipse.emf.codegen.ecore.source"/>
+<plugin id="org.eclipse.emf.codegen.ecore.ui"/>
+<plugin id="org.eclipse.emf.codegen.ecore.ui.source"/>
+<plugin id="org.eclipse.emf.codegen.ecore.xtext"/>
+<plugin id="org.eclipse.emf.codegen.ecore.xtext.source"/>
+<plugin id="org.eclipse.emf.codegen.ecore.xtext.ui"/>
+<plugin id="org.eclipse.emf.codegen.ecore.xtext.ui.source"/>
+<plugin id="org.eclipse.emf.codegen.source"/>
+<plugin id="org.eclipse.emf.codegen.ui"/>
+<plugin id="org.eclipse.emf.codegen.ui.source"/>
+<plugin id="org.eclipse.emf.common" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.common.source" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.common.ui"/>
+<plugin id="org.eclipse.emf.common.ui.source"/>
+<plugin id="org.eclipse.emf.converter"/>
+<plugin id="org.eclipse.emf.converter.source"/>
+<plugin id="org.eclipse.emf.databinding"/>
+<plugin id="org.eclipse.emf.databinding.edit"/>
+<plugin id="org.eclipse.emf.databinding.edit.source"/>
+<plugin id="org.eclipse.emf.databinding.source"/>
+<plugin id="org.eclipse.emf.doc"/>
+<plugin id="org.eclipse.emf.ecore" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.ecore.change" version="2.11.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.ecore.change.edit" version="2.6.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.ecore.change.edit.source" version="2.6.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.ecore.change.source" version="2.11.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.ecore.edit" version="2.9.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.ecore.edit.source" version="2.9.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.ecore.editor"/>
+<plugin id="org.eclipse.emf.ecore.editor.source"/>
+<plugin id="org.eclipse.emf.ecore.source" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.ecore.xcore"/>
+<plugin id="org.eclipse.emf.ecore.xcore.edit"/>
+<plugin id="org.eclipse.emf.ecore.xcore.edit.source"/>
+<plugin id="org.eclipse.emf.ecore.xcore.exporter"/>
+<plugin id="org.eclipse.emf.ecore.xcore.exporter.source"/>
+<plugin id="org.eclipse.emf.ecore.xcore.importer"/>
+<plugin id="org.eclipse.emf.ecore.xcore.importer.source"/>
+<plugin id="org.eclipse.emf.ecore.xcore.lib"/>
+<plugin id="org.eclipse.emf.ecore.xcore.lib.source"/>
+<plugin id="org.eclipse.emf.ecore.xcore.source"/>
+<plugin id="org.eclipse.emf.ecore.xcore.ui"/>
+<plugin id="org.eclipse.emf.ecore.xcore.ui.source"/>
+<plugin id="org.eclipse.emf.ecore.xmi" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.ecore.xmi.source" version="2.13.0.v20170609-0707"/>
+<plugin id="org.eclipse.emf.edit" version="2.12.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.edit.source" version="2.12.0.v20170609-0928"/>
+<plugin id="org.eclipse.emf.edit.ui"/>
+<plugin id="org.eclipse.emf.edit.ui.source"/>
+<plugin id="org.eclipse.emf.example.installer"/>
+<plugin id="org.eclipse.emf.exporter"/>
+<plugin id="org.eclipse.emf.exporter.source"/>
+<plugin id="org.eclipse.emf.importer"/>
+<plugin id="org.eclipse.emf.importer.ecore"/>
+<plugin id="org.eclipse.emf.importer.ecore.source"/>
+<plugin id="org.eclipse.emf.importer.java"/>
+<plugin id="org.eclipse.emf.importer.java.source"/>
+<plugin id="org.eclipse.emf.importer.rose"/>
+<plugin id="org.eclipse.emf.importer.rose.source"/>
+<plugin id="org.eclipse.emf.importer.source"/>
+<plugin id="org.eclipse.emf.mapping"/>
+<plugin id="org.eclipse.emf.mapping.ecore"/>
+<plugin id="org.eclipse.emf.mapping.ecore.editor"/>
+<plugin id="org.eclipse.emf.mapping.ecore2ecore"/>
+<plugin id="org.eclipse.emf.mapping.ecore2ecore.editor"/>
+<plugin id="org.eclipse.emf.mapping.ecore2ecore.editor.source"/>
+<plugin id="org.eclipse.emf.mapping.ecore2ecore.source"/>
+<plugin id="org.eclipse.emf.mapping.ecore2xml"/>
+<plugin id="org.eclipse.emf.mapping.ecore2xml.source"/>
+<plugin id="org.eclipse.emf.mapping.ecore2xml.ui"/>
+<plugin id="org.eclipse.emf.mapping.ecore2xml.ui.source"/>
+<plugin id="org.eclipse.emf.mapping.source"/>
+<plugin id="org.eclipse.emf.mapping.ui"/>
+<plugin id="org.eclipse.emf.mapping.ui.source"/>
+<plugin id="org.eclipse.emf.mwe.core"/>
+<plugin id="org.eclipse.emf.mwe.utils"/>
+<plugin id="org.eclipse.emf.mwe2.language"/>
+<plugin id="org.eclipse.emf.mwe2.language.source"/>
+<plugin id="org.eclipse.emf.mwe2.language.ui"/>
+<plugin id="org.eclipse.emf.mwe2.language.ui.source"/>
+<plugin id="org.eclipse.emf.mwe2.launch"/>
+<plugin id="org.eclipse.emf.mwe2.launch.source"/>
+<plugin id="org.eclipse.emf.mwe2.launch.ui"/>
+<plugin id="org.eclipse.emf.mwe2.launch.ui.source"/>
+<plugin id="org.eclipse.emf.mwe2.lib"/>
+<plugin id="org.eclipse.emf.mwe2.lib.source"/>
+<plugin id="org.eclipse.emf.mwe2.runtime"/>
+<plugin id="org.eclipse.emf.mwe2.runtime.source"/>
+<plugin id="org.eclipse.emf.rap"/>
+<plugin id="org.eclipse.emf.rap.common.ui"/>
+<plugin id="org.eclipse.emf.rap.common.ui.source"/>
+<plugin id="org.eclipse.emf.rap.edit.ui"/>
+<plugin id="org.eclipse.emf.rap.edit.ui.source"/>
+<plugin id="org.eclipse.epp.logging.aeri.core"/>
+<plugin id="org.eclipse.epp.logging.aeri.ide"/>
+<plugin id="org.eclipse.epp.mpc.core"/>
+<plugin id="org.eclipse.epp.mpc.core.win32"/>
+<plugin id="org.eclipse.epp.mpc.help.ui"/>
+<plugin id="org.eclipse.epp.mpc.ui"/>
+<plugin id="org.eclipse.epp.package.common"/>
+<plugin id="org.eclipse.epp.package.dsl"/>
+<plugin id="org.eclipse.equinox.app" version="1.3.400.v20150715-1528"/>
+<plugin id="org.eclipse.equinox.app.source" version="1.3.400.v20150715-1528"/>
+<plugin id="org.eclipse.equinox.bidi"/>
+<plugin id="org.eclipse.equinox.bidi.source"/>
+<plugin id="org.eclipse.equinox.cm"/>
+<plugin id="org.eclipse.equinox.cm.source"/>
+<plugin id="org.eclipse.equinox.common" version="3.9.0.v20170207-1454"/>
+<plugin id="org.eclipse.equinox.common.source" version="3.9.0.v20170207-1454"/>
+<plugin id="org.eclipse.equinox.concurrent"/>
+<plugin id="org.eclipse.equinox.console" version="1.1.300.v20170512-2111"/>
+<plugin id="org.eclipse.equinox.console.source" version="1.1.300.v20170512-2111"/>
+<plugin id="org.eclipse.equinox.ds"/>
+<plugin id="org.eclipse.equinox.ds.source"/>
+<plugin id="org.eclipse.equinox.event" version="1.4.0.v20170105-1446"/>
+<plugin id="org.eclipse.equinox.event.source" version="1.4.0.v20170105-1446"/>
+<plugin id="org.eclipse.equinox.frameworkadmin"/>
+<plugin id="org.eclipse.equinox.frameworkadmin.equinox"/>
+<plugin id="org.eclipse.equinox.frameworkadmin.equinox.source"/>
+<plugin id="org.eclipse.equinox.frameworkadmin.source"/>
+<plugin id="org.eclipse.equinox.http.jetty" version="3.4.0.v20170503-2025"/>
+<plugin id="org.eclipse.equinox.http.jetty.source" version="3.4.0.v20170503-2025"/>
+<plugin id="org.eclipse.equinox.http.registry" version="1.1.400.v20150715-1528"/>
+<plugin id="org.eclipse.equinox.http.registry.source" version="1.1.400.v20150715-1528"/>
+<plugin id="org.eclipse.equinox.http.servlet" version="1.4.0.v20170524-1452"/>
+<plugin id="org.eclipse.equinox.http.servlet.source" version="1.4.0.v20170524-1452"/>
+<plugin id="org.eclipse.equinox.http.servletbridge"/>
+<plugin id="org.eclipse.equinox.http.servletbridge.source"/>
+<plugin id="org.eclipse.equinox.jsp.jasper"/>
+<plugin id="org.eclipse.equinox.jsp.jasper.registry"/>
+<plugin id="org.eclipse.equinox.jsp.jasper.registry.source"/>
+<plugin id="org.eclipse.equinox.jsp.jasper.source"/>
+<plugin id="org.eclipse.equinox.launcher"/>
+<plugin id="org.eclipse.equinox.launcher.source"/>
+<plugin id="org.eclipse.equinox.launcher.win32.win32.x86_64"/>
+<plugin id="org.eclipse.equinox.p2.artifact.repository"/>
+<plugin id="org.eclipse.equinox.p2.artifact.repository.source"/>
+<plugin id="org.eclipse.equinox.p2.console"/>
+<plugin id="org.eclipse.equinox.p2.console.source"/>
+<plugin id="org.eclipse.equinox.p2.core"/>
+<plugin id="org.eclipse.equinox.p2.core.source"/>
+<plugin id="org.eclipse.equinox.p2.director"/>
+<plugin id="org.eclipse.equinox.p2.director.app"/>
+<plugin id="org.eclipse.equinox.p2.director.app.source"/>
+<plugin id="org.eclipse.equinox.p2.director.source"/>
+<plugin id="org.eclipse.equinox.p2.directorywatcher"/>
+<plugin id="org.eclipse.equinox.p2.directorywatcher.source"/>
+<plugin id="org.eclipse.equinox.p2.discovery"/>
+<plugin id="org.eclipse.equinox.p2.discovery.compatibility"/>
+<plugin id="org.eclipse.equinox.p2.engine"/>
+<plugin id="org.eclipse.equinox.p2.engine.source"/>
+<plugin id="org.eclipse.equinox.p2.extensionlocation"/>
+<plugin id="org.eclipse.equinox.p2.extensionlocation.source"/>
+<plugin id="org.eclipse.equinox.p2.garbagecollector"/>
+<plugin id="org.eclipse.equinox.p2.garbagecollector.source"/>
+<plugin id="org.eclipse.equinox.p2.jarprocessor"/>
+<plugin id="org.eclipse.equinox.p2.jarprocessor.source"/>
+<plugin id="org.eclipse.equinox.p2.metadata"/>
+<plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+<plugin id="org.eclipse.equinox.p2.metadata.repository.source"/>
+<plugin id="org.eclipse.equinox.p2.metadata.source"/>
+<plugin id="org.eclipse.equinox.p2.operations"/>
+<plugin id="org.eclipse.equinox.p2.operations.source"/>
+<plugin id="org.eclipse.equinox.p2.publisher"/>
+<plugin id="org.eclipse.equinox.p2.publisher.eclipse"/>
+<plugin id="org.eclipse.equinox.p2.publisher.eclipse.source"/>
+<plugin id="org.eclipse.equinox.p2.publisher.source"/>
+<plugin id="org.eclipse.equinox.p2.reconciler.dropins"/>
+<plugin id="org.eclipse.equinox.p2.reconciler.dropins.source"/>
+<plugin id="org.eclipse.equinox.p2.repository"/>
+<plugin id="org.eclipse.equinox.p2.repository.source"/>
+<plugin id="org.eclipse.equinox.p2.repository.tools"/>
+<plugin id="org.eclipse.equinox.p2.repository.tools.source"/>
+<plugin id="org.eclipse.equinox.p2.touchpoint.eclipse"/>
+<plugin id="org.eclipse.equinox.p2.touchpoint.eclipse.source"/>
+<plugin id="org.eclipse.equinox.p2.touchpoint.natives"/>
+<plugin id="org.eclipse.equinox.p2.touchpoint.natives.source"/>
+<plugin id="org.eclipse.equinox.p2.transport.ecf"/>
+<plugin id="org.eclipse.equinox.p2.transport.ecf.source"/>
+<plugin id="org.eclipse.equinox.p2.ui"/>
+<plugin id="org.eclipse.equinox.p2.ui.discovery"/>
+<plugin id="org.eclipse.equinox.p2.ui.importexport"/>
+<plugin id="org.eclipse.equinox.p2.ui.importexport.source"/>
+<plugin id="org.eclipse.equinox.p2.ui.sdk"/>
+<plugin id="org.eclipse.equinox.p2.ui.sdk.scheduler"/>
+<plugin id="org.eclipse.equinox.p2.ui.sdk.scheduler.source"/>
+<plugin id="org.eclipse.equinox.p2.ui.sdk.source"/>
+<plugin id="org.eclipse.equinox.p2.ui.source"/>
+<plugin id="org.eclipse.equinox.p2.updatechecker"/>
+<plugin id="org.eclipse.equinox.p2.updatechecker.source"/>
+<plugin id="org.eclipse.equinox.p2.updatesite"/>
+<plugin id="org.eclipse.equinox.p2.updatesite.source"/>
+<plugin id="org.eclipse.equinox.preferences" version="3.7.0.v20170126-2132"/>
+<plugin id="org.eclipse.equinox.preferences.source" version="3.7.0.v20170126-2132"/>
+<plugin id="org.eclipse.equinox.registry" version="3.7.0.v20170222-1344"/>
+<plugin id="org.eclipse.equinox.registry.source" version="3.7.0.v20170222-1344"/>
+<plugin id="org.eclipse.equinox.security"/>
+<plugin id="org.eclipse.equinox.security.source"/>
+<plugin id="org.eclipse.equinox.security.ui"/>
+<plugin id="org.eclipse.equinox.security.ui.source"/>
+<plugin id="org.eclipse.equinox.security.win32.x86_64"/>
+<plugin id="org.eclipse.equinox.security.win32.x86_64.source"/>
+<plugin id="org.eclipse.equinox.servletbridge"/>
+<plugin id="org.eclipse.equinox.servletbridge.source"/>
+<plugin id="org.eclipse.equinox.simpleconfigurator"/>
+<plugin id="org.eclipse.equinox.simpleconfigurator.manipulator"/>
+<plugin id="org.eclipse.equinox.simpleconfigurator.manipulator.source"/>
+<plugin id="org.eclipse.equinox.simpleconfigurator.source"/>
+<plugin id="org.eclipse.equinox.util"/>
+<plugin id="org.eclipse.equinox.util.source"/>
+<plugin id="org.eclipse.gef"/>
+<plugin id="org.eclipse.gemini.jpa" version="1.2.0.M1"/>
+<plugin id="org.eclipse.gemini.jpa.sample.basic" version="1.2.0.M1"/>
+<plugin id="org.eclipse.gemini.jpa.sample.configadmin" version="1.2.0.M1"/>
+<plugin id="org.eclipse.gemini.jpa.sample.configadmin.gen" version="1.2.0.M1"/>
+<plugin id="org.eclipse.gemini.jpa.sample.configadmin.pu" version="1.2.0.M1"/>
+<plugin id="org.eclipse.help" version="3.8.1.v20170815-1448"/>
+<plugin id="org.eclipse.help.base"/>
+<plugin id="org.eclipse.help.base.source"/>
+<plugin id="org.eclipse.help.source" version="3.8.1.v20170815-1448"/>
+<plugin id="org.eclipse.help.ui"/>
+<plugin id="org.eclipse.help.ui.source"/>
+<plugin id="org.eclipse.help.webapp"/>
+<plugin id="org.eclipse.help.webapp.source"/>
+<plugin id="org.eclipse.jdt"/>
+<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
+<plugin id="org.eclipse.jdt.annotation" version="1.1.100.v20160418-1457"/>
+<plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
+<plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
+<plugin id="org.eclipse.jdt.apt.core"/>
+<plugin id="org.eclipse.jdt.apt.core.source"/>
+<plugin id="org.eclipse.jdt.apt.pluggable.core"/>
+<plugin id="org.eclipse.jdt.apt.pluggable.core.source"/>
+<plugin id="org.eclipse.jdt.apt.ui"/>
+<plugin id="org.eclipse.jdt.apt.ui.source"/>
+<plugin id="org.eclipse.jdt.compiler.apt"/>
+<plugin id="org.eclipse.jdt.compiler.apt.source"/>
+<plugin id="org.eclipse.jdt.compiler.tool"/>
+<plugin id="org.eclipse.jdt.compiler.tool.source"/>
+<plugin id="org.eclipse.jdt.core"/>
+<plugin id="org.eclipse.jdt.core.manipulation"/>
+<plugin id="org.eclipse.jdt.core.manipulation.source"/>
+<plugin id="org.eclipse.jdt.core.source"/>
+<plugin id="org.eclipse.jdt.debug"/>
+<plugin id="org.eclipse.jdt.debug.source"/>
+<plugin id="org.eclipse.jdt.debug.ui"/>
+<plugin id="org.eclipse.jdt.debug.ui.source"/>
+<plugin id="org.eclipse.jdt.doc.isv"/>
+<plugin id="org.eclipse.jdt.doc.user"/>
+<plugin id="org.eclipse.jdt.junit"/>
+<plugin id="org.eclipse.jdt.junit.core"/>
+<plugin id="org.eclipse.jdt.junit.core.source"/>
+<plugin id="org.eclipse.jdt.junit.runtime" version="3.4.651.v20171130-0906"/>
+<plugin id="org.eclipse.jdt.junit.runtime.source" version="3.4.651.v20171130-0906"/>
+<plugin id="org.eclipse.jdt.junit.source"/>
+<plugin id="org.eclipse.jdt.junit4.runtime"/>
+<plugin id="org.eclipse.jdt.junit4.runtime.source"/>
+<plugin id="org.eclipse.jdt.junit5.runtime"/>
+<plugin id="org.eclipse.jdt.junit5.runtime.source"/>
+<plugin id="org.eclipse.jdt.launching"/>
+<plugin id="org.eclipse.jdt.launching.source"/>
+<plugin id="org.eclipse.jdt.ui"/>
+<plugin id="org.eclipse.jdt.ui.source"/>
+<plugin id="org.eclipse.jem.util"/>
+<plugin id="org.eclipse.jetty.continuation" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.continuation.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.http" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.http.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.io" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.io.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.security" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.security.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.server" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.server.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.servlet" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.servlet.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.util" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.util.source" version="9.4.7.v20170914"/>
+<plugin id="org.eclipse.jetty.webapp"/>
+<plugin id="org.eclipse.jetty.xml"/>
+<plugin id="org.eclipse.jface"/>
+<plugin id="org.eclipse.jface.databinding"/>
+<plugin id="org.eclipse.jface.databinding.source"/>
+<plugin id="org.eclipse.jface.source"/>
+<plugin id="org.eclipse.jface.text"/>
+<plugin id="org.eclipse.jface.text.source"/>
+<plugin id="org.eclipse.jgit"/>
+<plugin id="org.eclipse.jgit.archive"/>
+<plugin id="org.eclipse.jsch.core"/>
+<plugin id="org.eclipse.jsch.core.source"/>
+<plugin id="org.eclipse.jsch.ui"/>
+<plugin id="org.eclipse.jsch.ui.source"/>
+<plugin id="org.eclipse.ltk.core.refactoring"/>
+<plugin id="org.eclipse.ltk.core.refactoring.source"/>
+<plugin id="org.eclipse.ltk.ui.refactoring"/>
+<plugin id="org.eclipse.ltk.ui.refactoring.source"/>
+<plugin id="org.eclipse.m2e.archetype.common"/>
+<plugin id="org.eclipse.m2e.core"/>
+<plugin id="org.eclipse.m2e.core.ui"/>
+<plugin id="org.eclipse.m2e.discovery"/>
+<plugin id="org.eclipse.m2e.editor"/>
+<plugin id="org.eclipse.m2e.editor.xml"/>
+<plugin id="org.eclipse.m2e.importer"/>
+<plugin id="org.eclipse.m2e.jdt"/>
+<plugin id="org.eclipse.m2e.jdt.ui"/>
+<plugin id="org.eclipse.m2e.launching"/>
+<plugin id="org.eclipse.m2e.lifecyclemapping.defaults"/>
+<plugin id="org.eclipse.m2e.logback.appender"/>
+<plugin id="org.eclipse.m2e.logback.configuration"/>
+<plugin id="org.eclipse.m2e.maven.indexer"/>
+<plugin id="org.eclipse.m2e.maven.runtime"/>
+<plugin id="org.eclipse.m2e.maven.runtime.slf4j.simple"/>
+<plugin id="org.eclipse.m2e.model.edit"/>
+<plugin id="org.eclipse.m2e.profiles.core"/>
+<plugin id="org.eclipse.m2e.profiles.ui"/>
+<plugin id="org.eclipse.m2e.refactoring"/>
+<plugin id="org.eclipse.m2e.scm"/>
+<plugin id="org.eclipse.m2e.workspace.cli"/>
+<plugin id="org.eclipse.mylyn.commons.core"/>
+<plugin id="org.eclipse.mylyn.commons.notifications.core"/>
+<plugin id="org.eclipse.mylyn.commons.notifications.ui"/>
+<plugin id="org.eclipse.mylyn.commons.screenshots"/>
+<plugin id="org.eclipse.mylyn.commons.ui"/>
+<plugin id="org.eclipse.mylyn.commons.workbench"/>
+<plugin id="org.eclipse.nebula.widgets.tablecombo"/>
+<plugin id="org.eclipse.oomph.base"/>
+<plugin id="org.eclipse.oomph.base.edit"/>
+<plugin id="org.eclipse.oomph.extractor.lib"/>
+<plugin id="org.eclipse.oomph.jreinfo"/>
+<plugin id="org.eclipse.oomph.jreinfo.ui"/>
+<plugin id="org.eclipse.oomph.jreinfo.win32.x86_64"/>
+<plugin id="org.eclipse.oomph.p2"/>
+<plugin id="org.eclipse.oomph.p2.core"/>
+<plugin id="org.eclipse.oomph.p2.doc"/>
+<plugin id="org.eclipse.oomph.p2.edit"/>
+<plugin id="org.eclipse.oomph.p2.ui"/>
+<plugin id="org.eclipse.oomph.predicates"/>
+<plugin id="org.eclipse.oomph.predicates.edit"/>
+<plugin id="org.eclipse.oomph.preferences"/>
+<plugin id="org.eclipse.oomph.resources"/>
+<plugin id="org.eclipse.oomph.resources.edit"/>
+<plugin id="org.eclipse.oomph.setup"/>
+<plugin id="org.eclipse.oomph.setup.core"/>
+<plugin id="org.eclipse.oomph.setup.doc"/>
+<plugin id="org.eclipse.oomph.setup.edit"/>
+<plugin id="org.eclipse.oomph.setup.editor"/>
+<plugin id="org.eclipse.oomph.setup.p2"/>
+<plugin id="org.eclipse.oomph.setup.p2.edit"/>
+<plugin id="org.eclipse.oomph.setup.sync"/>
+<plugin id="org.eclipse.oomph.setup.ui"/>
+<plugin id="org.eclipse.oomph.setup.ui.questionnaire"/>
+<plugin id="org.eclipse.oomph.ui"/>
+<plugin id="org.eclipse.oomph.util"/>
+<plugin id="org.eclipse.oomph.workingsets"/>
+<plugin id="org.eclipse.oomph.workingsets.edit"/>
+<plugin id="org.eclipse.oomph.workingsets.editor"/>
+<plugin id="org.eclipse.orbit.mongodb"/>
+<plugin id="org.eclipse.orbit.mongodb.source"/>
+<plugin id="org.eclipse.osgi" version="3.12.50.v20170928-1321"/>
+<plugin id="org.eclipse.osgi.compatibility.state"/>
+<plugin id="org.eclipse.osgi.compatibility.state.source"/>
+<plugin id="org.eclipse.osgi.services" version="3.6.0.v20170228-1906"/>
+<plugin id="org.eclipse.osgi.services.source" version="3.6.0.v20170228-1906"/>
+<plugin id="org.eclipse.osgi.source" version="3.12.50.v20170928-1321"/>
+<plugin id="org.eclipse.osgi.util" version="3.4.0.v20170111-1608"/>
+<plugin id="org.eclipse.osgi.util.source" version="3.4.0.v20170111-1608"/>
+<plugin id="org.eclipse.pde"/>
+<plugin id="org.eclipse.pde.api.tools"/>
+<plugin id="org.eclipse.pde.api.tools.annotations"/>
+<plugin id="org.eclipse.pde.api.tools.annotations.source"/>
+<plugin id="org.eclipse.pde.api.tools.source"/>
+<plugin id="org.eclipse.pde.api.tools.ui"/>
+<plugin id="org.eclipse.pde.api.tools.ui.source"/>
+<plugin id="org.eclipse.pde.build"/>
+<plugin id="org.eclipse.pde.build.source"/>
+<plugin id="org.eclipse.pde.core"/>
+<plugin id="org.eclipse.pde.core.source"/>
+<plugin id="org.eclipse.pde.doc.user"/>
+<plugin id="org.eclipse.pde.ds.annotations"/>
+<plugin id="org.eclipse.pde.ds.annotations.source"/>
+<plugin id="org.eclipse.pde.ds.core"/>
+<plugin id="org.eclipse.pde.ds.core.source"/>
+<plugin id="org.eclipse.pde.ds.lib"/>
+<plugin id="org.eclipse.pde.ds.lib.source"/>
+<plugin id="org.eclipse.pde.ds.ui"/>
+<plugin id="org.eclipse.pde.ds.ui.source"/>
+<plugin id="org.eclipse.pde.ds1_2.lib"/>
+<plugin id="org.eclipse.pde.ds1_2.lib.source"/>
+<plugin id="org.eclipse.pde.genericeditor.extension"/>
+<plugin id="org.eclipse.pde.genericeditor.extension.source"/>
+<plugin id="org.eclipse.pde.junit.runtime"/>
+<plugin id="org.eclipse.pde.junit.runtime.source"/>
+<plugin id="org.eclipse.pde.launching"/>
+<plugin id="org.eclipse.pde.launching.source"/>
+<plugin id="org.eclipse.pde.runtime"/>
+<plugin id="org.eclipse.pde.runtime.source"/>
+<plugin id="org.eclipse.pde.ua.core"/>
+<plugin id="org.eclipse.pde.ua.core.source"/>
+<plugin id="org.eclipse.pde.ua.ui"/>
+<plugin id="org.eclipse.pde.ua.ui.source"/>
+<plugin id="org.eclipse.pde.ui"/>
+<plugin id="org.eclipse.pde.ui.source"/>
+<plugin id="org.eclipse.pde.ui.templates"/>
+<plugin id="org.eclipse.pde.ui.templates.source"/>
+<plugin id="org.eclipse.persistence.antlr" version="3.5.2.v201605171345"/>
+<plugin id="org.eclipse.persistence.antlr.source" version="3.5.2.v201605171345"/>
+<plugin id="org.eclipse.persistence.asm" version="6.0.0.v201710052159"/>
+<plugin id="org.eclipse.persistence.asm.source" version="6.0.0.v201710052159"/>
+<plugin id="org.eclipse.persistence.core" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.core.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.dbws" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.dbws.builder" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.dbws.builder.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.dbws.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.jpa" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.jpa.jpql" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.jpa.jpql.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.jpa.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.moxy" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.moxy.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.nosql" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.nosql.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.oracle" version="2.7.0.v20170811-0b2932f74d"/>
+<plugin id="org.eclipse.persistence.oracle.nosql" version="2.7.0.v20170630-9d93b0e80a"/>
+<plugin id="org.eclipse.persistence.oracle.nosql.source" version="2.7.0.v20170630-9d93b0e80a"/>
+<plugin id="org.eclipse.persistence.oracle.source" version="2.7.0.v20170811-0b2932f74d"/>
+<plugin id="org.eclipse.persistence.oracleddlparser" version="1.0.0.v20150306"/>
+<plugin id="org.eclipse.persistence.oracleddlparser.source" version="1.0.0.v20150306"/>
+<plugin id="org.eclipse.persistence.sdo" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.persistence.sdo.source" version="2.7.1.v20171221-bd47e8f"/>
+<plugin id="org.eclipse.platform"/>
+<plugin id="org.eclipse.platform.doc.isv"/>
+<plugin id="org.eclipse.platform.doc.user"/>
+<plugin id="org.eclipse.platform.source"/>
+<plugin id="org.eclipse.rap.addons.autosuggest"/>
+<plugin id="org.eclipse.rap.addons.autosuggest.source"/>
+<plugin id="org.eclipse.rap.addons.chart"/>
+<plugin id="org.eclipse.rap.addons.chart.demo"/>
+<plugin id="org.eclipse.rap.addons.chart.demo.source"/>
+<plugin id="org.eclipse.rap.addons.chart.source"/>
+<plugin id="org.eclipse.rap.addons.ckeditor"/>
+<plugin id="org.eclipse.rap.addons.ckeditor.source"/>
+<plugin id="org.eclipse.rap.addons.dropdown.demo.examples"/>
+<plugin id="org.eclipse.rap.addons.filedialog"/>
+<plugin id="org.eclipse.rap.addons.filedialog.source"/>
+<plugin id="org.eclipse.rap.addons.fileupload"/>
+<plugin id="org.eclipse.rap.addons.fileupload.source"/>
+<plugin id="org.eclipse.rap.clientscripting"/>
+<plugin id="org.eclipse.rap.clientscripting.source"/>
+<plugin id="org.eclipse.rap.demo"/>
+<plugin id="org.eclipse.rap.demo.ckeditor"/>
+<plugin id="org.eclipse.rap.demo.clientscripting"/>
+<plugin id="org.eclipse.rap.demo.clientscripting.source"/>
+<plugin id="org.eclipse.rap.demo.controls"/>
+<plugin id="org.eclipse.rap.demo.controls.source"/>
+<plugin id="org.eclipse.rap.demo.databinding"/>
+<plugin id="org.eclipse.rap.demo.databinding.source"/>
+<plugin id="org.eclipse.rap.demo.source"/>
+<plugin id="org.eclipse.rap.design.example"/>
+<plugin id="org.eclipse.rap.design.example.source"/>
+<plugin id="org.eclipse.rap.doc"/>
+<plugin id="org.eclipse.rap.draw2d"/>
+<plugin id="org.eclipse.rap.draw2d.compatibility"/>
+<plugin id="org.eclipse.rap.draw2d.compatibility.source"/>
+<plugin id="org.eclipse.rap.draw2d.source"/>
+<plugin id="org.eclipse.rap.examples"/>
+<plugin id="org.eclipse.rap.examples.pages"/>
+<plugin id="org.eclipse.rap.examples.pages.ckeditor"/>
+<plugin id="org.eclipse.rap.examples.pages.source"/>
+<plugin id="org.eclipse.rap.examples.source"/>
+<plugin id="org.eclipse.rap.filedialog"/>
+<plugin id="org.eclipse.rap.filedialog.demo.examples"/>
+<plugin id="org.eclipse.rap.filedialog.demo.examples.source"/>
+<plugin id="org.eclipse.rap.filedialog.source"/>
+<plugin id="org.eclipse.rap.fileupload"/>
+<plugin id="org.eclipse.rap.fileupload.source"/>
+<plugin id="org.eclipse.rap.gef"/>
+<plugin id="org.eclipse.rap.gef.source"/>
+<plugin id="org.eclipse.rap.incubator.basictext"/>
+<plugin id="org.eclipse.rap.incubator.texteditor"/>
+<plugin id="org.eclipse.rap.incubator.texteditor.css"/>
+<plugin id="org.eclipse.rap.incubator.texteditor.html"/>
+<plugin id="org.eclipse.rap.incubator.texteditor.java"/>
+<plugin id="org.eclipse.rap.incubator.texteditor.javascript"/>
+<plugin id="org.eclipse.rap.incubator.texteditor.json"/>
+<plugin id="org.eclipse.rap.jface"/>
+<plugin id="org.eclipse.rap.jface.databinding"/>
+<plugin id="org.eclipse.rap.jface.databinding.source"/>
+<plugin id="org.eclipse.rap.jface.source"/>
+<plugin id="org.eclipse.rap.nebula.jface.gridviewer"/>
+<plugin id="org.eclipse.rap.nebula.jface.gridviewer.source"/>
+<plugin id="org.eclipse.rap.nebula.widgets.grid"/>
+<plugin id="org.eclipse.rap.nebula.widgets.grid.demo.examples"/>
+<plugin id="org.eclipse.rap.nebula.widgets.grid.demo.examples.source"/>
+<plugin id="org.eclipse.rap.nebula.widgets.grid.source"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext.demo.examples"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext.demo.examples.source"/>
+<plugin id="org.eclipse.rap.nebula.widgets.richtext.source"/>
+<plugin id="org.eclipse.rap.pde.runtime"/>
+<plugin id="org.eclipse.rap.pde.runtime.source"/>
+<plugin id="org.eclipse.rap.rwt"/>
+<plugin id="org.eclipse.rap.rwt.excanvas"/>
+<plugin id="org.eclipse.rap.rwt.excanvas.source"/>
+<plugin id="org.eclipse.rap.rwt.osgi"/>
+<plugin id="org.eclipse.rap.rwt.osgi.source"/>
+<plugin id="org.eclipse.rap.rwt.source"/>
+<plugin id="org.eclipse.rap.rwt.testfixture"/>
+<plugin id="org.eclipse.rap.rwt.testfixture.source"/>
+<plugin id="org.eclipse.rap.rwt.visualization.google"/>
+<plugin id="org.eclipse.rap.rwt.visualization.google.demo"/>
+<plugin id="org.eclipse.rap.rwt.visualization.google.source"/>
+<plugin id="org.eclipse.rap.rwt.visualization.jit"/>
+<plugin id="org.eclipse.rap.rwt.visualization.jit.demo"/>
+<plugin id="org.eclipse.rap.rwt.visualization.jit.source"/>
+<plugin id="org.eclipse.rap.tools.intro"/>
+<plugin id="org.eclipse.rap.tools.intro.source"/>
+<plugin id="org.eclipse.rap.tools.launch"/>
+<plugin id="org.eclipse.rap.tools.launch.rwt"/>
+<plugin id="org.eclipse.rap.tools.launch.rwt.source"/>
+<plugin id="org.eclipse.rap.tools.launch.source"/>
+<plugin id="org.eclipse.rap.tools.templates"/>
+<plugin id="org.eclipse.rap.tools.templates.source"/>
+<plugin id="org.eclipse.rap.ui"/>
+<plugin id="org.eclipse.rap.ui.cheatsheets"/>
+<plugin id="org.eclipse.rap.ui.cheatsheets.source"/>
+<plugin id="org.eclipse.rap.ui.forms"/>
+<plugin id="org.eclipse.rap.ui.forms.source"/>
+<plugin id="org.eclipse.rap.ui.navigator"/>
+<plugin id="org.eclipse.rap.ui.navigator.source"/>
+<plugin id="org.eclipse.rap.ui.source"/>
+<plugin id="org.eclipse.rap.ui.views"/>
+<plugin id="org.eclipse.rap.ui.views.log"/>
+<plugin id="org.eclipse.rap.ui.views.log.source"/>
+<plugin id="org.eclipse.rap.ui.views.properties.tabbed"/>
+<plugin id="org.eclipse.rap.ui.views.properties.tabbed.source"/>
+<plugin id="org.eclipse.rap.ui.views.source"/>
+<plugin id="org.eclipse.rap.ui.workbench"/>
+<plugin id="org.eclipse.rap.ui.workbench.source"/>
+<plugin id="org.eclipse.rap.zest.core"/>
+<plugin id="org.eclipse.rap.zest.core.source"/>
+<plugin id="org.eclipse.rap.zest.layouts"/>
+<plugin id="org.eclipse.rap.zest.layouts.source"/>
+<plugin id="org.eclipse.rcp"/>
+<plugin id="org.eclipse.sdk"/>
+<plugin id="org.eclipse.search"/>
+<plugin id="org.eclipse.search.source"/>
+<plugin id="org.eclipse.swt"/>
+<plugin id="org.eclipse.swt.win32.win32.x86_64"/>
+<plugin id="org.eclipse.swt.win32.win32.x86_64.source"/>
+<plugin id="org.eclipse.team.core"/>
+<plugin id="org.eclipse.team.core.source"/>
+<plugin id="org.eclipse.team.cvs.core"/>
+<plugin id="org.eclipse.team.cvs.core.source"/>
+<plugin id="org.eclipse.team.cvs.ssh2"/>
+<plugin id="org.eclipse.team.cvs.ssh2.source"/>
+<plugin id="org.eclipse.team.cvs.ui"/>
+<plugin id="org.eclipse.team.cvs.ui.source"/>
+<plugin id="org.eclipse.team.genericeditor.diff.extension"/>
+<plugin id="org.eclipse.team.genericeditor.diff.extension.source"/>
+<plugin id="org.eclipse.team.ui"/>
+<plugin id="org.eclipse.team.ui.source"/>
+<plugin id="org.eclipse.text"/>
+<plugin id="org.eclipse.text.source"/>
+<plugin id="org.eclipse.tools.layout.spy"/>
+<plugin id="org.eclipse.tools.layout.spy.source"/>
+<plugin id="org.eclipse.ui"/>
+<plugin id="org.eclipse.ui.browser"/>
+<plugin id="org.eclipse.ui.browser.source"/>
+<plugin id="org.eclipse.ui.cheatsheets"/>
+<plugin id="org.eclipse.ui.cheatsheets.source"/>
+<plugin id="org.eclipse.ui.console"/>
+<plugin id="org.eclipse.ui.console.source"/>
+<plugin id="org.eclipse.ui.editors"/>
+<plugin id="org.eclipse.ui.editors.source"/>
+<plugin id="org.eclipse.ui.externaltools"/>
+<plugin id="org.eclipse.ui.externaltools.source"/>
+<plugin id="org.eclipse.ui.forms"/>
+<plugin id="org.eclipse.ui.forms.source"/>
+<plugin id="org.eclipse.ui.genericeditor"/>
+<plugin id="org.eclipse.ui.genericeditor.source"/>
+<plugin id="org.eclipse.ui.ide"/>
+<plugin id="org.eclipse.ui.ide.application"/>
+<plugin id="org.eclipse.ui.ide.application.source"/>
+<plugin id="org.eclipse.ui.ide.source"/>
+<plugin id="org.eclipse.ui.intro"/>
+<plugin id="org.eclipse.ui.intro.quicklinks"/>
+<plugin id="org.eclipse.ui.intro.quicklinks.source"/>
+<plugin id="org.eclipse.ui.intro.source"/>
+<plugin id="org.eclipse.ui.intro.universal"/>
+<plugin id="org.eclipse.ui.intro.universal.source"/>
+<plugin id="org.eclipse.ui.monitoring"/>
+<plugin id="org.eclipse.ui.monitoring.source"/>
+<plugin id="org.eclipse.ui.navigator"/>
+<plugin id="org.eclipse.ui.navigator.resources"/>
+<plugin id="org.eclipse.ui.navigator.resources.source"/>
+<plugin id="org.eclipse.ui.navigator.source"/>
+<plugin id="org.eclipse.ui.net"/>
+<plugin id="org.eclipse.ui.net.source"/>
+<plugin id="org.eclipse.ui.source"/>
+<plugin id="org.eclipse.ui.themes"/>
+<plugin id="org.eclipse.ui.themes.source"/>
+<plugin id="org.eclipse.ui.trace"/>
+<plugin id="org.eclipse.ui.trace.source"/>
+<plugin id="org.eclipse.ui.views"/>
+<plugin id="org.eclipse.ui.views.log"/>
+<plugin id="org.eclipse.ui.views.log.source"/>
+<plugin id="org.eclipse.ui.views.properties.tabbed"/>
+<plugin id="org.eclipse.ui.views.properties.tabbed.source"/>
+<plugin id="org.eclipse.ui.views.source"/>
+<plugin id="org.eclipse.ui.win32"/>
+<plugin id="org.eclipse.ui.win32.source"/>
+<plugin id="org.eclipse.ui.workbench"/>
+<plugin id="org.eclipse.ui.workbench.source"/>
+<plugin id="org.eclipse.ui.workbench.texteditor"/>
+<plugin id="org.eclipse.ui.workbench.texteditor.source"/>
+<plugin id="org.eclipse.update.configurator"/>
+<plugin id="org.eclipse.update.configurator.source"/>
+<plugin id="org.eclipse.userstorage"/>
+<plugin id="org.eclipse.userstorage.oauth"/>
+<plugin id="org.eclipse.userstorage.ui"/>
+<plugin id="org.eclipse.wst.common.core"/>
+<plugin id="org.eclipse.wst.common.emf"/>
+<plugin id="org.eclipse.wst.common.emfworkbench.integration"/>
+<plugin id="org.eclipse.wst.common.environment"/>
+<plugin id="org.eclipse.wst.common.frameworks"/>
+<plugin id="org.eclipse.wst.common.frameworks.ui"/>
+<plugin id="org.eclipse.wst.common.infopop"/>
+<plugin id="org.eclipse.wst.common.modulecore"/>
+<plugin id="org.eclipse.wst.common.modulecore.ui"/>
+<plugin id="org.eclipse.wst.common.project.facet.core"/>
+<plugin id="org.eclipse.wst.common.snippets"/>
+<plugin id="org.eclipse.wst.common.ui"/>
+<plugin id="org.eclipse.wst.common.uriresolver"/>
+<plugin id="org.eclipse.wst.dtd.core"/>
+<plugin id="org.eclipse.wst.dtd.ui"/>
+<plugin id="org.eclipse.wst.dtd.ui.infopop"/>
+<plugin id="org.eclipse.wst.dtdeditor.doc.user"/>
+<plugin id="org.eclipse.wst.internet.cache"/>
+<plugin id="org.eclipse.wst.sse.core"/>
+<plugin id="org.eclipse.wst.sse.doc.user"/>
+<plugin id="org.eclipse.wst.sse.ui"/>
+<plugin id="org.eclipse.wst.sse.ui.infopop"/>
+<plugin id="org.eclipse.wst.standard.schemas"/>
+<plugin id="org.eclipse.wst.validation"/>
+<plugin id="org.eclipse.wst.validation.infopop"/>
+<plugin id="org.eclipse.wst.validation.ui"/>
+<plugin id="org.eclipse.wst.xml.core"/>
+<plugin id="org.eclipse.wst.xml.ui"/>
+<plugin id="org.eclipse.wst.xml.ui.infopop"/>
+<plugin id="org.eclipse.wst.xmleditor.doc.user"/>
+<plugin id="org.eclipse.wst.xsd.core"/>
+<plugin id="org.eclipse.wst.xsd.ui"/>
+<plugin id="org.eclipse.wst.xsdeditor.doc.user"/>
+<plugin id="org.eclipse.xpand"/>
+<plugin id="org.eclipse.xsd"/>
+<plugin id="org.eclipse.xsd.edit"/>
+<plugin id="org.eclipse.xtend"/>
+<plugin id="org.eclipse.xtend.core"/>
+<plugin id="org.eclipse.xtend.core.source"/>
+<plugin id="org.eclipse.xtend.doc"/>
+<plugin id="org.eclipse.xtend.examples"/>
+<plugin id="org.eclipse.xtend.ide"/>
+<plugin id="org.eclipse.xtend.ide.common"/>
+<plugin id="org.eclipse.xtend.ide.common.source"/>
+<plugin id="org.eclipse.xtend.ide.source"/>
+<plugin id="org.eclipse.xtend.lib"/>
+<plugin id="org.eclipse.xtend.lib.macro"/>
+<plugin id="org.eclipse.xtend.lib.macro.source"/>
+<plugin id="org.eclipse.xtend.lib.source"/>
+<plugin id="org.eclipse.xtend.m2e"/>
+<plugin id="org.eclipse.xtend.m2e.source"/>
+<plugin id="org.eclipse.xtend.standalone"/>
+<plugin id="org.eclipse.xtend.standalone.source"/>
+<plugin id="org.eclipse.xtend.typesystem.emf"/>
+<plugin id="org.eclipse.xtext"/>
+<plugin id="org.eclipse.xtext.activities"/>
+<plugin id="org.eclipse.xtext.activities.source"/>
+<plugin id="org.eclipse.xtext.builder"/>
+<plugin id="org.eclipse.xtext.builder.source"/>
+<plugin id="org.eclipse.xtext.builder.standalone"/>
+<plugin id="org.eclipse.xtext.builder.standalone.source"/>
+<plugin id="org.eclipse.xtext.common.types"/>
+<plugin id="org.eclipse.xtext.common.types.edit"/>
+<plugin id="org.eclipse.xtext.common.types.edit.source"/>
+<plugin id="org.eclipse.xtext.common.types.shared"/>
+<plugin id="org.eclipse.xtext.common.types.shared.jdt38"/>
+<plugin id="org.eclipse.xtext.common.types.shared.jdt38.source"/>
+<plugin id="org.eclipse.xtext.common.types.shared.source"/>
+<plugin id="org.eclipse.xtext.common.types.source"/>
+<plugin id="org.eclipse.xtext.common.types.ui"/>
+<plugin id="org.eclipse.xtext.common.types.ui.source"/>
+<plugin id="org.eclipse.xtext.doc"/>
+<plugin id="org.eclipse.xtext.ecore"/>
+<plugin id="org.eclipse.xtext.ecore.source"/>
+<plugin id="org.eclipse.xtext.generator"/>
+<plugin id="org.eclipse.xtext.generator.source"/>
+<plugin id="org.eclipse.xtext.ide"/>
+<plugin id="org.eclipse.xtext.ide.source"/>
+<plugin id="org.eclipse.xtext.idea.generator"/>
+<plugin id="org.eclipse.xtext.idea.generator.source"/>
+<plugin id="org.eclipse.xtext.java"/>
+<plugin id="org.eclipse.xtext.java.source"/>
+<plugin id="org.eclipse.xtext.junit4"/>
+<plugin id="org.eclipse.xtext.junit4.source"/>
+<plugin id="org.eclipse.xtext.logging"/>
+<plugin id="org.eclipse.xtext.logging.source"/>
+<plugin id="org.eclipse.xtext.m2e"/>
+<plugin id="org.eclipse.xtext.m2e.source"/>
+<plugin id="org.eclipse.xtext.purexbase"/>
+<plugin id="org.eclipse.xtext.purexbase.ide"/>
+<plugin id="org.eclipse.xtext.purexbase.ide.source"/>
+<plugin id="org.eclipse.xtext.purexbase.source"/>
+<plugin id="org.eclipse.xtext.purexbase.ui"/>
+<plugin id="org.eclipse.xtext.purexbase.ui.source"/>
+<plugin id="org.eclipse.xtext.smap"/>
+<plugin id="org.eclipse.xtext.smap.source"/>
+<plugin id="org.eclipse.xtext.source"/>
+<plugin id="org.eclipse.xtext.testing"/>
+<plugin id="org.eclipse.xtext.testing.source"/>
+<plugin id="org.eclipse.xtext.ui"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates.ide"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates.ide.source"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates.source"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates.ui"/>
+<plugin id="org.eclipse.xtext.ui.codetemplates.ui.source"/>
+<plugin id="org.eclipse.xtext.ui.ecore"/>
+<plugin id="org.eclipse.xtext.ui.ecore.source"/>
+<plugin id="org.eclipse.xtext.ui.shared"/>
+<plugin id="org.eclipse.xtext.ui.shared.source"/>
+<plugin id="org.eclipse.xtext.ui.source"/>
+<plugin id="org.eclipse.xtext.ui.testing"/>
+<plugin id="org.eclipse.xtext.ui.testing.source"/>
+<plugin id="org.eclipse.xtext.util"/>
+<plugin id="org.eclipse.xtext.util.source"/>
+<plugin id="org.eclipse.xtext.xbase"/>
+<plugin id="org.eclipse.xtext.xbase.ide"/>
+<plugin id="org.eclipse.xtext.xbase.ide.source"/>
+<plugin id="org.eclipse.xtext.xbase.junit"/>
+<plugin id="org.eclipse.xtext.xbase.junit.source"/>
+<plugin id="org.eclipse.xtext.xbase.lib"/>
+<plugin id="org.eclipse.xtext.xbase.lib.source"/>
+<plugin id="org.eclipse.xtext.xbase.source"/>
+<plugin id="org.eclipse.xtext.xbase.testing"/>
+<plugin id="org.eclipse.xtext.xbase.testing.source"/>
+<plugin id="org.eclipse.xtext.xbase.ui"/>
+<plugin id="org.eclipse.xtext.xbase.ui.source"/>
+<plugin id="org.eclipse.xtext.xbase.ui.testing"/>
+<plugin id="org.eclipse.xtext.xbase.ui.testing.source"/>
+<plugin id="org.eclipse.xtext.xtext.generator"/>
+<plugin id="org.eclipse.xtext.xtext.generator.source"/>
+<plugin id="org.eclipse.xtext.xtext.ide"/>
+<plugin id="org.eclipse.xtext.xtext.ide.source"/>
+<plugin id="org.eclipse.xtext.xtext.ui"/>
+<plugin id="org.eclipse.xtext.xtext.ui.examples"/>
+<plugin id="org.eclipse.xtext.xtext.ui.graph"/>
+<plugin id="org.eclipse.xtext.xtext.ui.graph.source"/>
+<plugin id="org.eclipse.xtext.xtext.ui.source"/>
+<plugin id="org.eclipse.xtext.xtext.wizard"/>
+<plugin id="org.eclipse.xtext.xtext.wizard.source"/>
+<plugin id="org.glassfish.com.sun.faces"/>
+<plugin id="org.glassfish.com.sun.faces.source"/>
+<plugin id="org.glassfish.hk2.api"/>
+<plugin id="org.glassfish.hk2.locator"/>
+<plugin id="org.glassfish.hk2.osgi-resource-locator"/>
+<plugin id="org.glassfish.hk2.utils"/>
+<plugin id="org.glassfish.javax.faces"/>
+<plugin id="org.glassfish.javax.faces.source"/>
+<plugin id="org.glassfish.javax.json" version="1.0.4.v201311181159"/>
+<plugin id="org.glassfish.jersey.apache.connector"/>
+<plugin id="org.glassfish.jersey.bundles.repackaged.jersey-guava"/>
+<plugin id="org.glassfish.jersey.core.jersey-client"/>
+<plugin id="org.glassfish.jersey.core.jersey-common"/>
+<plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
+<plugin id="org.gradle.toolingapi"/>
+<plugin id="org.h2"/>
+<plugin id="org.h2.source"/>
+<plugin id="org.hamcrest"/>
+<plugin id="org.hamcrest.core" version="1.3.0.v201303031735"/>
+<plugin id="org.hamcrest.core.source" version="1.3.0.v201303031735"/>
+<plugin id="org.hamcrest.generator"/>
+<plugin id="org.hamcrest.generator.source"/>
+<plugin id="org.hamcrest.integration"/>
+<plugin id="org.hamcrest.integration.source"/>
+<plugin id="org.hamcrest.library"/>
+<plugin id="org.hamcrest.library.source"/>
+<plugin id="org.hamcrest.text"/>
+<plugin id="org.hamcrest.text.source"/>
+<plugin id="org.jdom"/>
+<plugin id="org.jdom.source"/>
+<plugin id="org.jmock"/>
+<plugin id="org.json"/>
+<plugin id="org.jsoup"/>
+<plugin id="org.jsoup.source"/>
+<plugin id="org.junit" version="4.12.0.v201504281640"/>
+<plugin id="org.junit.jupiter.api"/>
+<plugin id="org.junit.jupiter.api.source"/>
+<plugin id="org.junit.jupiter.engine"/>
+<plugin id="org.junit.jupiter.engine.source"/>
+<plugin id="org.junit.jupiter.migrationsupport"/>
+<plugin id="org.junit.jupiter.migrationsupport.source"/>
+<plugin id="org.junit.jupiter.params"/>
+<plugin id="org.junit.jupiter.params.source"/>
+<plugin id="org.junit.platform.commons"/>
+<plugin id="org.junit.platform.commons.source"/>
+<plugin id="org.junit.platform.engine"/>
+<plugin id="org.junit.platform.engine.source"/>
+<plugin id="org.junit.platform.launcher"/>
+<plugin id="org.junit.platform.launcher.source"/>
+<plugin id="org.junit.platform.runner"/>
+<plugin id="org.junit.platform.runner.source"/>
+<plugin id="org.junit.platform.suite.api"/>
+<plugin id="org.junit.platform.suite.api.source"/>
+<plugin id="org.junit.source" version="4.12.0.v201504281640"/>
+<plugin id="org.junit.vintage.engine"/>
+<plugin id="org.junit.vintage.engine.source"/>
+<plugin id="org.kohsuke.args4j"/>
+<plugin id="org.kohsuke.args4j.source"/>
+<plugin id="org.mockito"/>
+<plugin id="org.mockito.source"/>
+<plugin id="org.mongodb.mongo-java-driver" version="3.2.0"/>
+<plugin id="org.mozilla.javascript"/>
+<plugin id="org.mozilla.javascript.source"/>
+<plugin id="org.objectweb.asm" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.analysis"/>
+<plugin id="org.objectweb.asm.analysis.source"/>
+<plugin id="org.objectweb.asm.commons"/>
+<plugin id="org.objectweb.asm.commons.source"/>
+<plugin id="org.objectweb.asm.source" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.tree" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.tree.source" version="5.0.1.v201404251740"/>
+<plugin id="org.objectweb.asm.util"/>
+<plugin id="org.objectweb.asm.util.source"/>
+<plugin id="org.objectweb.asm.xml"/>
+<plugin id="org.objectweb.asm.xml.source"/>
+<plugin id="org.objenesis"/>
+<plugin id="org.objenesis.source"/>
+<plugin id="org.openid4java"/>
+<plugin id="org.opensaml"/>
+<plugin id="org.opentest4j"/>
+<plugin id="org.opentest4j.source"/>
+<plugin id="org.ow2.jotm.jotm-core"/>
+<plugin id="org.ow2.jotm.jotm-core.source"/>
+<plugin id="org.prefuse"/>
+<plugin id="org.prefuse.source"/>
+<plugin id="org.pushingpixels.trident"/>
+<plugin id="org.pushingpixels.trident.source"/>
+<plugin id="org.quartz"/>
+<plugin id="org.quartz.source"/>
+<plugin id="org.restlet"/>
+<plugin id="org.restlet.ext.servlet"/>
+<plugin id="org.restlet.ext.servlet.source"/>
+<plugin id="org.restlet.source"/>
+<plugin id="org.sat4j.core" version="2.3.5.v201308161310"/>
+<plugin id="org.sat4j.pb" version="2.3.5.v201404071733"/>
+<plugin id="org.slf4j.api" version="1.7.2.v20121108-1250"/>
+<plugin id="org.slf4j.api.source"/>
+<plugin id="org.slf4j.ext"/>
+<plugin id="org.slf4j.ext.source"/>
+<plugin id="org.slf4j.impl.log4j12" version="1.7.2.v20131105-2200"/>
+<plugin id="org.slf4j.impl.log4j12.source"/>
+<plugin id="org.slf4j.jcl"/>
+<plugin id="org.slf4j.jcl.source"/>
+<plugin id="org.slf4j.jul"/>
+<plugin id="org.slf4j.jul.source"/>
+<plugin id="org.slf4j.log4j"/>
+<plugin id="org.slf4j.log4j.source"/>
+<plugin id="org.slf4j.nop"/>
+<plugin id="org.slf4j.nop.source"/>
+<plugin id="org.swtchart"/>
+<plugin id="org.swtchart.source"/>
+<plugin id="org.tukaani.xz" version="1.5.0.v20170111-1717"/>
+<plugin id="org.tukaani.xz" version="1.3.0.v201308270617"/>
+<plugin id="org.tukaani.xz.source" version="1.3.0.v201308270617"/>
+<plugin id="org.tukaani.xz.source" version="1.5.0.v20170111-1717"/>
+<plugin id="org.uddi4j"/>
+<plugin id="org.w3c.css.sac" version="1.3.1.v200903091627"/>
+<plugin id="org.w3c.css.sac.source" version="1.3.1.v200903091627"/>
+<plugin id="org.w3c.dom.events" version="3.0.0.draft20060413_v201105210656"/>
+<plugin id="org.w3c.dom.events.source" version="3.0.0.draft20060413_v201105210656"/>
+<plugin id="org.w3c.dom.smil" version="1.0.1.v200903091627"/>
+<plugin id="org.w3c.dom.smil.source" version="1.0.1.v200903091627"/>
+<plugin id="org.w3c.dom.svg" version="1.1.0.v201011041433"/>
+<plugin id="org.w3c.dom.svg.source" version="1.1.0.v201011041433"/>
+<plugin id="org.xbill.dns"/>
+<plugin id="org.xbill.dns.source"/>
+<plugin id="org.xmlpull"/>
+<plugin id="org.yaml.snakeyaml"/>
+<plugin id="osgi.enterprise" version="4.2.0.v201108120515"/>
+<plugin id="osgi.enterprise.source"/>
+<plugin id="scannotation"/>
+<plugin id="scannotation.source"/>
+</includeBundles>
+<environment>
+<os>win32</os>
+<ws>win32</ws>
+<arch>x86_64</arch>
+<nl>en_US</nl>
+</environment>
+<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 </target>

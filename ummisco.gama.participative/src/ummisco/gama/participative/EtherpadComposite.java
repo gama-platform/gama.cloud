@@ -37,11 +37,7 @@ public class EtherpadComposite extends Composite {
    private final String[] FILENAMES = {  "etherpadjs.css",  
 		   "etherpadjs.js" ,
 		   "load-css-file.js" , 
-		   "rap-handler.js",
-		   "Gaml.js",
-		   "GamlLexer.js",
-		   "GamlParser.js"
-		   
+		   "rap-handler.js",		   
 		   };
  
    private final OperationHandler operationHandler = new AbstractOperationHandler() {
@@ -139,17 +135,6 @@ public class EtherpadComposite extends Composite {
         jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
                   + "rap-handler.js"));
  
-        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-                + "Gaml.js"));
-        
-        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-                + "GamlLexer.js"));
-        
-        jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-                + "GamlParser.js"));
-        
-      
-
    }
  
    private void registerResources() throws IOException {

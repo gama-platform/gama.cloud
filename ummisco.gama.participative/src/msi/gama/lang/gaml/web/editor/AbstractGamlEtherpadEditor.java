@@ -16,7 +16,6 @@ import org.eclipse.xtext.resource.XtextResource;
 
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
-import msi.gama.lang.gaml.web.editor.widget.Gaml;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.XtextContentAssistEnabledEtherpadEditor;
 
