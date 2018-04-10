@@ -1,9 +1,12 @@
 package msi.gama.lang.gaml.web.editor.participative;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.dslforge.styledtext.Annotation;
 import org.dslforge.styledtext.jface.ITextViewer;
@@ -45,6 +48,7 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListene
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListenerEtherpad;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
+import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.participative.EtherpadComposite;
 import ummisco.gama.participative.texteditor.EtherpadBasicTextEditor;
 import ummisco.gama.ui.controls.FlatButton;
@@ -122,6 +126,52 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 			}
 		}
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
+	/*	
+		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
+		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+		System.out.println(" -->-->- Open an editor  ");
+		
+		String filePath =  xtextResource.getURI().toFileString();
+		int lastSlashPosition =  filePath.lastIndexOf("/");
+		filePath = filePath.substring(lastSlashPosition+1, filePath.length());
+		
+		System.out.println(" ----------------> --> xtextResource URI " +filePath);
+		
+		
+		try {
+			String content = this.readFromFile();
+			Map padList = epClient.listAllPads();
+			
+			String value = (String) padList.get(filePath);
+	//		System.out.println(" ----------------> --> xtextResource URI " +value);
+			if (!padList.containsKey(filePath) ) {
+				System.out.println(" ----------------> --> Pad dosn't exists " +filePath);
+				epClient.createPad(value);
+				epClient.setText(value, content);
+			}else {
+				System.out.println(" ------------------------->>>>--------- Pad exists "+filePath);
+			}
+			
+		
+		//	if (padList.containsKey(filePath) ) {
+		//		epClient.deletePad(value);
+		//		System.out.println(" ----------------> --> Pad exists " +filePath);
+		//	}
+			
+			
+			
+	
+			//String text = epClient.getText(value).get("text").toString();
+			//System.out.println(" The pad content is :"+ text);
+			
+			System.out.println(" --->>>>____>>>>--->>> The end");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	*/
+		
 
 	}
 

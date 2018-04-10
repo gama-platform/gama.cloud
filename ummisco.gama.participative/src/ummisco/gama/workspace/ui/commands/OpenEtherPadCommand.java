@@ -16,6 +16,10 @@
 package ummisco.gama.workspace.ui.commands;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 import org.apache.log4j.Logger;
 import org.dslforge.texteditor.PathEditorInput;
@@ -35,6 +39,15 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.registry.EditorRegistry;
+
+import net.gjerull.etherpad.client.EPLiteClient;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 
@@ -94,10 +107,56 @@ public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 					IWorkbench workbench = PlatformUI.getWorkbench();
 					if (openEtherPadEditor(workbench, new Path(absolutePath)) != null) {
 						logger.info("Opened form editor on file " + absolutePath);
+						
+						openEtherpaEditor(file);
+						System.out.println(" EDITOR OPENED ON ===>>>" + file.getName());
 					}
 				}
 			}
 		});
 		return true;
+	}
+	
+
+	public void openEtherpaEditor(final File file) {
+		String absolutePath = file.getAbsolutePath();
+		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
+		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+		System.out.println(" -->-->- Open an editor  ");
+		
+		
+		
+		try {
+			String content = new String(Files.readAllBytes(Paths.get(absolutePath)));
+			Map padList = epClient.listAllPads();
+		//	Iterator entries = Map.entrySet().iterator();
+	
+			String text = null;
+			try {
+				text = epClient.getText(file.getName()).get("text").toString();
+			}catch(Exception e){
+				
+			}
+			
+			
+			if(text !=null) {
+				System.out.println(" ----------------> --> Pad exists " +file.getName());
+			}else{
+				System.out.println(" ----------------> --> Pad dosn't exists " +file.getName());
+				epClient.createPad(file.getName());
+				epClient.setText(file.getName(), content);
+				
+				String padContent = epClient.getText(file.getName()).get("text").toString();
+				System.out.println(" The pad content is :"+ padContent);
+			}
+			
+	
+			
+			System.out.println(" --->>>>____>>>>--->>> The end");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
