@@ -193,65 +193,64 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 	@Override
 	public void createPartControl(final Composite compo) {
 		configureTabFolder(compo);
-		Composite toolbarParent = GamaToolbarFactory.createToolbars(this, compo);
-		final GridLayout layout = new GridLayout(1, false);
-		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
-		layout.marginWidth = 0;
-		layout.marginHeight = 0;
-		layout.marginLeft = 0; //0
-		layout.marginRight = -5;
+		Composite toolbarParent 	= GamaToolbarFactory.createToolbars(this, compo);
+		final GridLayout layout 	= new GridLayout(1, false);
+		layout.horizontalSpacing 	= 0;
+		layout.verticalSpacing 		= 0;
+		layout.marginWidth 			= 0;
+		layout.marginHeight 		= 0;
+		layout.marginLeft 			= 0; //0
+		layout.marginRight 			= -5;
 		toolbarParent.setLayout(layout);
 		toolbarParent.setBackground(IGamaColors.WHITE.color());
 
-				
 		// Asking the editor to fill the rest
 		epEditor=new EtherpadComposite(toolbarParent,SWT.BORDER);
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		
-		System.out.println("TEST --> 0 ");
+		System.out.println(" TEST --> 0 ");
 		epEditor.setLayoutData(data);
 		
-		System.out.println("TEST -->  1");
+		System.out.println(" TEST -->  1 ");
 		epEditor.setLayout(new FillLayout());
 		
-		System.out.println("TEST -->  2");
+		System.out.println(" TEST -->  2 ");
 		super.createPartControl(epEditor);
 		
-		
-		System.out.println("TEST -->  3");
+		System.out.println(" TEST -->  3 ");
 		setResourceListener(this);
 		
-		System.out.println("TEST -->  4");
+		System.out.println(" TEST -->  4 ");
 		validateResource();
 		
-		System.out.println("TEST -->  5");
+		System.out.println(" TEST -->  5 ");
 		
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		
-		System.out.println("TEST -->  6");
+		System.out.println(" TEST -->  6 ");
 		
 		epEditor.layout();
-		System.out.println("TEST -->  7");
+		System.out.println(" TEST -->  7 ");
 		
 		//super.createPartControl(epEditor);
 		//setResourceListener(this);
 		//validateResource();
 		//epEditor.layout();
-		System.out.println("TEST -->  8");
+		
+		System.out.println(" TEST -->  8 ");
 		toolbarParent.layout();
 		
 		
 		
 		thetoolbarParent.put(uid, toolbarParent);
-		System.out.println("TEST -->  9");
+		System.out.println("TEST -->  9 ");
 //		installGestures();
 		CollaboratingUserControlsEtherpad collaboratingControl=new CollaboratingUserControlsEtherpad(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
 		thecollaboratingControl.put(uid, collaboratingControl);
 		
 		System.out.println("TEST --> 10 ");
 		epEditor.clearAll();
-		System.out.println("TEST --> 11");
+		System.out.println("TEST --> 11 ");
 		
 		
 		
@@ -295,7 +294,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		System.out.println("ICI --> 8");
 		
 		
-		/////////////
+	////////////
 		
 		
 		
@@ -309,9 +308,11 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		
 		//super.getViewer().getDocument();
-//		epEditor.setText(uid, super.getViewer().getDocument().toString(),  getFilePath().toFile().getName().toString());
+		//	epEditor.setText(uid, super.getViewer().getDocument().toString(),  getFilePath().toFile().getName().toString());
 
 		//epEditor.setText(uid, super.getViewer().toString(),  getFilePath().toFile().getName().toString());
+		
+		
 		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 		
 		
@@ -319,8 +320,6 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		
 		/*
-		
-		
 		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
 		final GridData dataEd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		editor.setLayoutData(dataEd);
