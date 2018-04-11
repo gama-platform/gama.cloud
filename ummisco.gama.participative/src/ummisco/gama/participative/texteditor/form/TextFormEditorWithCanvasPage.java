@@ -57,6 +57,7 @@ public class TextFormEditorWithCanvasPage extends BasicTextFormEditorPage {
 		createEditorSection(body, toolkit);
 		createPanelSection(body, toolkit);
 		createCanvasSection(body, toolkit);
+		
 	}
 
 	protected void createPanelSection(Composite body, FormToolkit toolkit) {

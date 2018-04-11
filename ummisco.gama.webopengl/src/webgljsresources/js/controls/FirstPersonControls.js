@@ -53,6 +53,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	if ( this.domElement !== document ) {
 
 		this.domElement.setAttribute( 'tabindex', - 1 );
+		
 
 	}
 

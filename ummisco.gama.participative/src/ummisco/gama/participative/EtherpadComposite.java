@@ -74,7 +74,7 @@ public class EtherpadComposite extends Composite {
    public EtherpadComposite(Composite parent, int style) {
        super(parent, style);
  
-       System.out.println("Ceci est un test de composite Etherpad depuis la classe EtherpadComposite!");
+       System.out.println("------>>>>>>----- Création d'un Obejet ------->>>>>>>------- : from EtherpadComposite!");
        // Note: Catching error when viewed on WindowBuilder
        try {
            registerResources();
@@ -106,6 +106,9 @@ public class EtherpadComposite extends Composite {
  
    // Load the js files required at Client.
    private void loadJavaScript() {
+	   
+
+	    
        JavaScriptLoader jsLoader = RWT.getClient().getService(
                JavaScriptLoader.class);
        ResourceManager resourceManager = RWT.getResourceManager();

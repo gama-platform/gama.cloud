@@ -1,9 +1,24 @@
 
 function EtherpadJS(element)  {
 	
+	console.log("Create the Div element");
    this.div = document.createElement("div");    
    this.div.className = "etherpaddiv";
    this.div.setAttribute("id","etherpaddiv");
+   
+ 
+ /*  */
+/*
+	
+	
+*/
+   
+//	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];
+//   console.log("Good! The document is ");
+//   this.div[0].setAttribute("id","etherpaddiv");
+//    console.log("Get the dic id "+ this.div[0].getAttribute("id"));
+   
+   
    var userId ='';
    var padId='';
 
@@ -148,9 +163,10 @@ function EtherpadJS(element)  {
 	   
 //	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true', 'showLineNumbers':'true'}); 
 //	    $('#etherpaddiv').pad({'padId':'SKLAB','height':500,'showChat':'true'}); 
-	    $('#etherpaddiv').pad({'padId':padId,'height':500,'showChat':'true'});
+	   // $('#etherpaddiv').pad({'padId':padId,'height':500,'showChat':'true'});
+	    $('#etherpaddiv').pad({'padId':padId,'height':800,'showChat':'true'});
 
-
+	    
 
 	};
 
@@ -158,13 +174,14 @@ function EtherpadJS(element)  {
    this.appendInfo = function(text, user)  {        
 	     // The most basic example
 	   	userId = user;
-	    console.log("test in appendInfo user Id: "+ userId);
+	    console.log("Test in appendInfo user Id (etherpad.js): "+ userId);
 	   // 
 	 //  loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
        this.div.innerHTML = this.div.innerHTML
         + "<p class='info'>"+ text +"</p>";
 
-	   console.log("test appendInfo ");
+     
+	   
 
    };
    
@@ -172,14 +189,19 @@ function EtherpadJS(element)  {
 	     // The most basic example
 	 userId = user;
 	 padId = pad;
-	 console.log("test in appendInfo user Id: "+ userId+ " and pad : "+pad);
+	 console.log("Test in setText -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
 	 
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
      this.div.innerHTML = this.div.innerHTML
       + "<p class='info'>"+ text +"</p>";
 
-	   console.log("test appendInfo ");
-
+     console.log("Set the Text from (etherpad.js)");
+     
+     console.log("Good! let's see what this gives");
+     var nbr = document.getElementsByClassName("gr__localhost").length;
+    // var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
+     console.log("There is Elements: "+nbr);
+     
  };
     
    this.appendErr = function(text)  {  

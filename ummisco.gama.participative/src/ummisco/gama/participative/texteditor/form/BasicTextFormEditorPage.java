@@ -183,6 +183,7 @@ public class BasicTextFormEditorPage extends FormPage {
 		layoutData.grabExcessVerticalSpace = true;
 		body.setLayoutData(layoutData);
 		createEditorSection(body, toolkit);
+		
 	}
 
 	protected void createEditorSection(Composite parent, FormToolkit toolkit) {

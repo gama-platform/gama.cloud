@@ -1,7 +1,9 @@
 package msi.gama.lang.gaml.web.editor.participative;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -92,6 +94,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		System.out.println("--->>>>  ---  super() from ---->>>>    EtherpadEditor ");
 	}
 
+	
 	public static HashMap<String,GamaToolbar2> thetoolbar=new HashMap<String,GamaToolbar2>();
 	public static HashMap<String,Composite> thetoolbarParent=new HashMap<String,Composite>();
 //	private EditorSearchControls findControl;
@@ -126,52 +129,9 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 			}
 		}
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
-	/*	
-		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
-		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
-		System.out.println(" -->-->- Open an editor  ");
-		
-		String filePath =  xtextResource.getURI().toFileString();
-		int lastSlashPosition =  filePath.lastIndexOf("/");
-		filePath = filePath.substring(lastSlashPosition+1, filePath.length());
-		
-		System.out.println(" ----------------> --> xtextResource URI " +filePath);
-		
-		
-		try {
-			String content = this.readFromFile();
-			Map padList = epClient.listAllPads();
-			
-			String value = (String) padList.get(filePath);
-	//		System.out.println(" ----------------> --> xtextResource URI " +value);
-			if (!padList.containsKey(filePath) ) {
-				System.out.println(" ----------------> --> Pad dosn't exists " +filePath);
-				epClient.createPad(value);
-				epClient.setText(value, content);
-			}else {
-				System.out.println(" ------------------------->>>>--------- Pad exists "+filePath);
-			}
-			
-		
-		//	if (padList.containsKey(filePath) ) {
-		//		epClient.deletePad(value);
-		//		System.out.println(" ----------------> --> Pad exists " +filePath);
-		//	}
-			
-			
-			
 	
-			//String text = epClient.getText(value).get("text").toString();
-			//System.out.println(" The pad content is :"+ text);
-			
-			System.out.println(" --->>>>____>>>>--->>> The end");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-	*/
-		
+		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: fin de init");
 
 	}
 
@@ -242,6 +202,9 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 
 	@Override
 	public void createPartControl(final Composite compo) {
+		
+		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: begin createPartControl");
+		
 		configureTabFolder(compo);
 		Composite toolbarParent 	= GamaToolbarFactory.createToolbars(this, compo);
 		final GridLayout layout 	= new GridLayout(1, false);
@@ -299,7 +262,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		thecollaboratingControl.put(uid, collaboratingControl);
 		
 		System.out.println("TEST --> 10 ");
-		epEditor.clearAll();
+	//	epEditor.clearAll();
 		System.out.println("TEST --> 11 ");
 		
 		
@@ -311,7 +274,6 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		
 		//////////
-		EtherpadBasicTextEditor basic = new EtherpadBasicTextEditor();
 		System.out.println("ICI --> 1 ");
 		IResourceValidator resourceValidator = xtextResource.getResourceServiceProvider()
 							.getResourceValidator();
@@ -337,25 +299,9 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		}
 		System.out.println("ICI --> 7");
-	//	getViewer().getTextWidget().setAnnotations(annotations);
+	
 		
-		ITextViewer viewer = basic.getViewer();
-	//	viewer.getTextWidget().setText(" ");
-		System.out.println("ICI --> 8");
-		
-		
-	////////////
-		
-		
-		
-		
-		
-		
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		System.out.println("ICI --> 9");
-		
-
-		
+	
 		
 		//super.getViewer().getDocument();
 		//	epEditor.setText(uid, super.getViewer().getDocument().toString(),  getFilePath().toFile().getName().toString());
@@ -363,7 +309,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		//epEditor.setText(uid, super.getViewer().toString(),  getFilePath().toFile().getName().toString());
 		
 		
-		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+		// epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 		
 		
 		
@@ -381,9 +327,61 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 
 		*/
 		
+		
+		
+		
+		
+		
+		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: fin de  createPartControl");
+		
+		openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
+		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+		
 	}
 	
 
+
+public void openEtherpaEditor(final String absolutePath, final String fileName) {
+		
+		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
+		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+		System.out.println(" -->-->- Open an editor  ");
+		
+		
+		
+		try {
+			String content = new String(Files.readAllBytes(Paths.get(absolutePath)));
+			Map padList = epClient.listAllPads();
+		//	Iterator entries = Map.entrySet().iterator();
+	
+			String text = null;
+			try {
+				text = epClient.getText(fileName).get("text").toString();
+			}catch(Exception e){
+				
+			}
+			
+			
+			if(text !=null) {
+				System.out.println(" ----------------> --> Pad exists " +fileName);
+			}else{
+				System.out.println(" ----------------> --> Pad dosn't exists " +fileName);
+				epClient.createPad(fileName);
+				epClient.setText(fileName, content);
+				
+				String padContent = epClient.getText(fileName).get("text").toString();
+				System.out.println(" The pad content is :"+ padContent);
+			}
+			
+	
+			
+			System.out.println(" --->>>>____>>>>--->>> The end");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@Override
 	protected synchronized void handleTextChanged(JsonObject object) {

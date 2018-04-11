@@ -3,7 +3,7 @@ function LogJS(element)  {
 	
    this.div = document.createElement("div");    
    this.div.className = 'logjs';    
-   element.appendChild(this.div);
+   element.appendChild(this.div); 
    this.div.innerHTML = "";
    
 			
