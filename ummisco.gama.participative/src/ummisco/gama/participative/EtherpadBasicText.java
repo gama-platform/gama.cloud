@@ -20,8 +20,8 @@ import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 
-import msi.gama.lang.gaml.web.editor.widget.Gaml;
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -34,18 +34,16 @@ public class EtherpadBasicText extends BasicText {
 
 	private static final long serialVersionUID = 131001464693386296L;
 
-	//private static final String REMOTE_TYPE = "ummisco.gama.participative.EtherpadBasicText";
-	private static final String REMOTE_TYPE = "o7planning.EtherpadComposite";
+	private static final String REMOTE_TYPE = "ummisco.gama.participative.EtherpadBasicText";
+	private static final String RREMOTE_TYPE = "o7planning.EtherpadComposite";
 	
-	private RemoteObject remoteObject;
+	private RemoteObject rObject;
 
 	// The directory containing the file js, css.
 	private static final String REAL_RESOURCE_PATH = "etherpadjsresources";
 
 	private static final String REGISTER_PATH = "etherpadjs";
 
-
-	
 	public EtherpadBasicText(Composite parent, int style) {
 		super(parent, style);
 		
@@ -57,13 +55,13 @@ public class EtherpadBasicText extends BasicText {
 
 					
 		        Connection connection = RWT.getUISession().getConnection();
-		        remoteObject = connection.createRemoteObject(REMOTE_TYPE);
-		        remoteObject.setHandler(operationHandler);
+		        rObject = connection.createRemoteObject(RREMOTE_TYPE);
+		        rObject.setHandler(operationHandler);
 
 		        //
-		        remoteObject.set("parent", WidgetUtil.getId(this));
-		        
-		        setText("admin", "test", "test");
+		        rObject.set("parent", WidgetUtil.getId(this));
+//		        
+//		        setText("admin", "test", "test");
 
 		    } catch (Exception e) {
 		        e.printStackTrace();
@@ -90,13 +88,22 @@ public class EtherpadBasicText extends BasicText {
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/antlr-all-min.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlParser.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlLexer.js"));
+		
+//		languageResources.add(new Path("src-js/etherpadjsresources/etherpadjs.css"));
+
+//		languageResources.add(new Path("src-js/etherpadjsresources/etherpadjs.js"));
+//
+//		languageResources.add(new Path("src-js/etherpadjsresources/load-css-file.js"));
+//
+//		languageResources.add(new Path("src-js/etherpadjsresources/rap-handler.js"));
+
 		registerJsResources(languageResources, getClassLoader());
 		loadJsResources(languageResources);
 	}
 
 	@Override
 	protected ClassLoader getClassLoader() {
-		ClassLoader classLoader = Gaml.class.getClassLoader();
+		ClassLoader classLoader = EtherpadBasicText.class.getClassLoader();
 		return classLoader;
 	}
 	
@@ -139,11 +146,11 @@ public class EtherpadBasicText extends BasicText {
 	};
 
 
-	@Override
-	public void dispose()  {
-	    super.dispose();        
-	    remoteObject.destroy();
-	}
+//	@Override
+//	public void dispose()  {
+//	    super.dispose();        
+//	    remoteObject.destroy();
+//	}
 
 
 	//Load the js files required at Client.
@@ -207,20 +214,20 @@ public class EtherpadBasicText extends BasicText {
 		
 	}
 
-	public void appendWarn(String text) {
-//	    System.out.println("appendWarn");
-	    JsonObject obj= new JsonObject();
-	    obj.add("text", text);
-	    this.remoteObject.call("appendWarn", obj);
-	    
-	}
+//	public void appendWarn(String text) {
+////	    System.out.println("appendWarn");
+//	    JsonObject obj= new JsonObject();
+//	    obj.add("text", text);
+//	    this.remoteObject.call("appendWarn", obj);
+//	    
+//	}
 	 
-	public void appendErr(String text) {
-
-	    JsonObject obj= new JsonObject();
-	    obj.add("text", text);       
-	    this.remoteObject.call("appendErr", obj);
-	}
+//	public void appendErr(String text) {
+//
+//	    JsonObject obj= new JsonObject();
+//	    obj.add("text", text);       
+//	    this.remoteObject.call("appendErr", obj);
+//	}
 	 
 	public void setText(final String uid, String text, String padId) {
 			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
@@ -230,7 +237,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text);
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
-			          remoteObject.call("setText", obj);	 
+			         rObject.call("setText", obj);	 
 			      }
 			    } );
 	}
@@ -243,7 +250,7 @@ public class EtherpadBasicText extends BasicText {
 		          obj.add("text", text);
 		          obj.add("userId", uid);
 		          obj.add("padId", padId);
-		          remoteObject.call("createAndMergeEditors", obj);	 
+//		          remoteObject.call("createAndMergeEditors", obj);	 
 		      }
 		    } );
 	}
@@ -261,7 +268,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text);
 			          obj.add("userId", uid);
 			          
-			          remoteObject.call("appendInfo", obj);	 
+//			          remoteObject.call("appendInfo", obj);	 
 			        
 			      }
 			    } );
@@ -275,7 +282,7 @@ public class EtherpadBasicText extends BasicText {
 		    uiSession.exec( new Runnable() {
 		      public void run() {
 
-		          remoteObject.call("clearAll", new JsonObject());
+//		          remoteObject.call("clearAll", new JsonObject());
 		        
 		      }
 		    } );

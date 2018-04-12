@@ -1,6 +1,6 @@
 
 function EtherpadJS(element)  {
-	
+	/**/
 console.log("Create the Div element");
    this.div = document.createElement("div");    
   // this.div.className = "etherpaddiv";
@@ -13,12 +13,13 @@ console.log("Create the Div element");
 	
 	
 */
-   
-//	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];
-//   console.log("Good! The document is ");
-//   this.div[0].setAttribute("id","etherpaddiv");
-//    console.log("Get the dic id "+ this.div[0].getAttribute("id"));
-   
+/*
+   alert(document.getElementsByClassName("ace_layer ace_text-layer").length)
+	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];
+   console.log("Good! The document is ");
+   this.div[0].setAttribute("id","etherpaddiv");
+    console.log("Get the dic id "+ this.div[0].getAttribute("id"));
+   */
    
    var userId ='';
    var padId='';
@@ -199,8 +200,8 @@ console.log("Create the Div element");
      console.log("Set the Text from (etherpad.js)");
      
      console.log("Good! let's see what this gives");
-     var nbr = document.getElementsByClassName("gr__localhost").length;
-    // var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
+     //var nbr = document.getElementsByClassName("gr__localhost").length;
+     var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
      console.log("There is Elements: "+nbr);
      
  };

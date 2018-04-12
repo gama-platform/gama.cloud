@@ -51,6 +51,7 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListenerE
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 import net.gjerull.etherpad.client.EPLiteClient;
+import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.EtherpadComposite;
 import ummisco.gama.participative.texteditor.EtherpadBasicTextEditor;
 import ummisco.gama.ui.controls.FlatButton;
@@ -321,7 +322,7 @@ public void createMergeEditors() {
 public void openEtherpaEditor(final String absolutePath, final String fileName) {
 		
 		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
-		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "da48e5ff6425eddbe2b814b2319ee1b40b472cb02cb7720632619d9def680fb4");
 		System.out.println(" -->-->- Open an editor  ");
 		
 		
@@ -365,7 +366,8 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
 //		System.out.println(uid+" at "+offset+" : ");
-		
+		String value = object.get("value") != null ? object.get("value").asString() : null;	
+		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, "Dummy.gaml");
 
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {

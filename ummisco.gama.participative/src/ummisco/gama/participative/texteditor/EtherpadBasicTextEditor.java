@@ -137,12 +137,11 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public void handleTextChanged(TextChangedEvent arg0) {
-			// TODO Auto-generated method stub
-			
+		public void handleTextChanged(TextChangedEvent e) {
+			setDirty(true);
+			JsonObject object = (JsonObject) e.data;
+			EtherpadBasicTextEditor.this.handleTextChanged(object);
 		}
-
-
 	};
 	
 	protected void handleTextChanged(JsonObject object) {
@@ -163,7 +162,6 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 				try{
 					int offset = viewer.getTextWidget().getOffsetAtPosition(row, column);
 					viewer.getDocument().set(text);
-					System.out.println("-->>-->>- viewer.getDocument().set(text) from  EtherpadBasicTextEditor");
 					createCompletionProposals(offset);
 				} catch (Exception ex) {
 					// FIXME: live completer too fast
@@ -304,15 +302,11 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 
 	@Override
 	public void createPartControl(Composite parent) {
-		System.out.println("Class was called !! Good ---------------------------------_>>><>>>>>>>>>>>>_-----------------");
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 1;
 		parent.setLayout(gridLayout);
 		viewer = createTextViewer(parent, SWT.FILL);
-		viewer.setDocument(createEmptyDocument());
-		
-		
-		
+		viewer.setDocument(createEmptyDocument());		
 		getSite().setSelectionProvider(new ISelectionProvider() {
 			@Override
 			public void addSelectionChangedListener(ISelectionChangedListener listener) {
@@ -355,7 +349,6 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		textLayoutData.grabExcessHorizontalSpace = true;
 		textLayoutData.grabExcessVerticalSpace = true;
 		textWidget.setLayoutData(textLayoutData);
-		System.out.println("-->>-->>- from BasicTextEditor");
 		// set font
 		Font font = new Font(Display.getCurrent(), new FontData(DEFAULT_TEXT_FONT, 14, SWT.NORMAL));
 		textWidget.setFont(font);
