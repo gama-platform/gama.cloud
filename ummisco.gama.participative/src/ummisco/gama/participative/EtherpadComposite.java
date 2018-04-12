@@ -208,6 +208,19 @@ public class EtherpadComposite extends Composite {
 		    } );
 }
    
+ public void createAndMergeEditors(final String uid, String text, String padId) {
+	    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+	    uiSession.exec( new Runnable() {
+	      public void run() {
+	          JsonObject obj= new JsonObject();
+	          obj.add("text", text);
+	          obj.add("userId", uid);
+	          obj.add("padId", padId);
+	          remoteObject.call("createAndMergeEditors", obj);	 
+	      }
+	    } );
+}
+   
    public void appendInfo(final IScope scope, String text) {
 ////      System.out.println("appendInfo");
 //       JsonObject obj= new JsonObject();

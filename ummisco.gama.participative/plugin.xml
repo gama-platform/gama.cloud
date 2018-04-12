@@ -44,6 +44,16 @@
           id="ummisco.gama.workspace.ui.commands.openEtherPad"
           name="OpenEtherPad">
     </command>
+    
+     <command
+          defaultHandler="ummisco.gama.workspace.ui.commands.OpenMergeEtherPadCommand"
+          description="Open Merge EtherPad Editor"
+          helpContextId="OpenMergeEtherPad"
+          id="ummisco.gama.workspace.ui.commands.openMergeEtherPad"
+          name="OpenMergeEtherPad">
+    </command>
+    
+    
  </extension>
  <extension
        point="org.eclipse.ui.menus">
@@ -60,6 +70,15 @@
                 icon="icons/model.png"
                 id="ummisco.gama.workspace.menu.open.etherpad"
                 label="EtherPad Editor"
+                style="push"
+                tooltip="Open with EtherPad editor">
+          </command>
+          <command
+                commandId="ummisco.gama.workspace.ui.commands.openMergeEtherPad"
+                helpContextId="OpenAndMergeEditors"
+                icon="icons/model.png"
+                id="ummisco.gama.workspace.menu.open.etherpadMerge"
+                label="Merge Gaml and Etherpad editors"
                 style="push"
                 tooltip="Open with EtherPad editor">
           </command>

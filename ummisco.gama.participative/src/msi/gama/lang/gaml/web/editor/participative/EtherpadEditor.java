@@ -71,7 +71,7 @@ import ummisco.gama.ui.views.toolbar.Selector;
  *
  * @author drogoul
  *
- * @since 4 mars 2012
+ * @since 4 mars 2012 
  */
 @SuppressWarnings ("all")
 public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGamlBuilderListener, IToolbarDecoratedView {
@@ -87,7 +87,9 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
 	static final String EDITOR_ID = "msi.gama.lang.gaml.web.editor.EtherpadEditor";
-	private EtherpadComposite epEditor;
+	//private EtherpadComposite epEditor;
+	private Composite epEditor;
+	
 
 	public EtherpadEditor() {
 		super();
@@ -107,6 +109,11 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 //		return (org.dslforge.styledtext.jface.TextViewer) new GamaTextViewer(textWidget, parent, styles,xtextResource);
 //	}
 
+	
+	public Composite getComposite() {
+	
+		return epEditor;
+	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
@@ -218,7 +225,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		toolbarParent.setBackground(IGamaColors.WHITE.color());
 
 		// Asking the editor to fill the rest
-		epEditor=new EtherpadComposite(toolbarParent,SWT.BORDER);
+		epEditor=new Composite(toolbarParent,SWT.BORDER);
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		
 		System.out.println(" TEST --> 0 ");
@@ -244,11 +251,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		epEditor.layout();
 		System.out.println(" TEST -->  7 ");
-		
-		//super.createPartControl(epEditor);
-		//setResourceListener(this);
-		//validateResource();
-		//epEditor.layout();
+	
 		
 		System.out.println(" TEST -->  8 ");
 		toolbarParent.layout();
@@ -257,21 +260,11 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		thetoolbarParent.put(uid, toolbarParent);
 		System.out.println("TEST -->  9 ");
-//		installGestures();
 		CollaboratingUserControlsEtherpad collaboratingControl=new CollaboratingUserControlsEtherpad(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
 		thecollaboratingControl.put(uid, collaboratingControl);
 		
 		System.out.println("TEST --> 10 ");
-	//	epEditor.clearAll();
-		System.out.println("TEST --> 11 ");
-		
-		
-		
-//		System.out.println("--> Going to sleep! see you soon!");
-//		try { Thread.sleep(10000); } catch (InterruptedException e) { e.printStackTrace(); }
 
-		
-		
 		
 		//////////
 		System.out.println("ICI --> 1 ");
@@ -301,43 +294,27 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		System.out.println("ICI --> 7");
 	
 		
-	
-		
-		//super.getViewer().getDocument();
-		//	epEditor.setText(uid, super.getViewer().getDocument().toString(),  getFilePath().toFile().getName().toString());
-
-		//epEditor.setText(uid, super.getViewer().toString(),  getFilePath().toFile().getName().toString());
-		
-		
-		// epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
-		
-		
-		
-		
-		
-		/*
-		final Composite editor = new Composite(toolbarParent, SWT.BORDER);
-		final GridData dataEd = new GridData(SWT.FILL, SWT.FILL, true, true);
-		editor.setLayoutData(dataEd);
-		editor.setLayout(new FillLayout());
-		super.createPartControl(editor);
-		setResourceListener(this);
-		validateResource();
-		editor.setVisible(true);
-
-		*/
-		
-		
-		
-		
 		
 		
 		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: fin de  createPartControl");
 		
-		openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
-		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+//		createMergeEditors();
+		
+	//	openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
+	//	epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+	//	epEditor.createAndMergeEditors(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+		
 		
 	}
+	
+
+public void createMergeEditors() {
+		//_________ Aded Code 
+		openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
+		String uid=RWT.getUISession().getAttribute("user").toString();
+//		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+		//epEditor.createAndMergeEditors(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
+}
 	
 
 
@@ -373,8 +350,6 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 				System.out.println(" The pad content is :"+ padContent);
 			}
 			
-	
-			
 			System.out.println(" --->>>>____>>>>--->>> The end");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -401,6 +376,8 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 		}
 
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
+		
+		
 	}
 
 	private synchronized void enableButton(final int index, final String text, final SelectionListener listener) {
@@ -470,7 +447,7 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 
 		});
 //		}
-
+	
 	}
 
 	@Override
@@ -483,7 +460,16 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 			updateToolbar(newState, false);
 			state = newState;
 		}
+		
+		
+		
+		
+		
 	}
+	
+
+
+	
 
 
 //	public GamlTemplateStore getTemplateStore() {

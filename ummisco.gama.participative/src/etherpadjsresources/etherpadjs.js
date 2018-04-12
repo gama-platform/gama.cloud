@@ -1,9 +1,10 @@
 
 function EtherpadJS(element)  {
 	
-	console.log("Create the Div element");
+console.log("Create the Div element");
    this.div = document.createElement("div");    
-   this.div.className = "etherpaddiv";
+  // this.div.className = "etherpaddiv";
+   this.div.className = "ace_layer ace_text-layer";
    this.div.setAttribute("id","etherpaddiv");
    
  
@@ -203,6 +204,30 @@ function EtherpadJS(element)  {
      console.log("There is Elements: "+nbr);
      
  };
+ 
+ 
+ this.createAndMergeEditors = function(text, user, pad)  {        
+     // The most basic example
+ userId = user;
+ padId = pad;
+ console.log("Test in createMergeEditors -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
+ 
+ 	console.log("Get the Div element with class name: ace_layer ace_text-layer");
+ 	var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
+    console.log("There is "+nbr +" Elements with class name = ace_layer ace_text-layer");
+	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];   
+//	this.div.setAttribute("id","etherpaddiv");
+ 
+	
+
+ console.log("Set the Text in the inserted Etherpad Editor from (etherpad.js)");
+ 
+ loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
+	this.div.innerHTML = this.div.innerHTML
++ "<p class='info'>"+ text +"</p>";
+
+ 
+};
     
    this.appendErr = function(text)  {  
        this.div.innerHTML = this.div.innerHTML

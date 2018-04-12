@@ -1,10 +1,15 @@
 (function() {
    'use strict';
- 
+   console.log("Loaded! --> rap-handler.js");
    rap.registerTypeHandler("o7planning.EtherpadComposite", {
+  // rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
+	   
  
+	   
+	   
        factory : function(properties) {
            return new o7planning.EtherpadComposite(properties);
+   //        return new ummisco.gama.participative.EtherpadBasicText(properties);
        },
  
        destructor : "destroy",
@@ -13,7 +18,7 @@
  
        events : [],
  
-       methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'setText', 'clearAll' ]
+       methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'setText', 'createAndMergeEditors', 'clearAll' ]
  
    });
  
@@ -124,6 +129,14 @@
            var userId= json["userId"];
            var padId= json["padId"];
            this.etherpadjs.setText(text, userId, padId);
+           //alert('13');
+       },
+       
+       createAndMergeEditors : function(json) {  
+           var text= json["text"];
+           var userId= json["userId"];
+           var padId= json["padId"];
+           this.etherpadjs.createAndMergeEditors(text, userId, padId);
            //alert('13');
        },
        
