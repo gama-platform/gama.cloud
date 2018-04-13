@@ -238,6 +238,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
 			         rObject.call("setText", obj);	 
+			         System.out.println("Ici ---------------------> setText from EtherpadBasicText ");
 			      }
 			    } );
 	}

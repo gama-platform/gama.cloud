@@ -1,9 +1,14 @@
 
 function EtherpadJS(element)  {
 	/**/
-console.log("Create the Div element");
+   console.log("Create the Div element");
+   var passage = 0;
+   var divClassName ="ace_layer ace_text-layer";
+   var nbr = document.getElementsByClassName(divClassName).length;
+   console.log("There is "+nbr+" Elements of "+ divClassName);
+   
    this.div = document.createElement("div");    
-  // this.div.className = "etherpaddiv";
+   // this.div.className = "etherpaddiv";
    this.div.className = "ace_layer ace_text-layer";
    this.div.setAttribute("id","etherpaddiv");
    
@@ -28,6 +33,7 @@ console.log("Create the Div element");
    this.div.innerHTML = "";
    function loadScript(url, callback)
    {
+	   console.log("(etherpad.js) Call from -->     loadScript");
        // Adding the script tag to the head as suggested before
        var head = document.getElementsByTagName('head')[0];
        var script = document.createElement('script');
@@ -45,7 +51,7 @@ console.log("Create the Div element");
    }
    var myPrettyCode = function() {
 
-
+	   console.log("(etherpad.js) Call from -->     myPrettyCode");
 	   (function( $ ){
 
 		   $.fn.pad = function( options ) {
@@ -173,7 +179,8 @@ console.log("Create the Div element");
 	};
 
 	//   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
-   this.appendInfo = function(text, user)  {        
+   this.appendInfo = function(text, user)  { 
+	   console.log("(etherpad.js) Call from -->    appendInfo ");
 	     // The most basic example
 	   	userId = user;
 	    console.log("Test in appendInfo user Id (etherpad.js): "+ userId);
@@ -187,8 +194,41 @@ console.log("Create the Div element");
 
    };
    
-   this.setText = function(text, user, pad)  {        
-	     // The most basic example
+this.setText = function(text, user, pad)  { 
+	 console.log("(etherpad.js) Call from -->     setText");
+	 
+	 nbr = document.getElementsByClassName(divClassName).length;
+	 if(nbr > 1 ){
+		 
+		 console.log(" There are 2, let's delete it ");
+		 this.div = document.getElementsByClassName(divClassName)[1]; 
+		 console.log("Got it ");
+		 this.div.parentNode.removeChild(this.div);
+		 console.log(" Deleted it");
+		 this.div = document.getElementsByClassName(divClassName)[0]; 	
+		 console.log(" Got the second");
+		 passage = 1;
+	 }
+	 
+	 if(passage == 1 ){
+		 console.log("-------------------_>>>>>>-- Il faut modifier ici ");
+		 this.div = document.getElementsByClassName(divClassName)[0];
+		 var elt  = document.getElementsByClassName("ace_content")[0]; 
+		 //element.appendChild(this.div);
+		 elt.appendChild(this.div);
+		 // this.div.innerHTML = "";
+		 passage = 2;
+	 }
+	 
+	 if(passage ==2){
+		 console.log("------------------->>>>>>-- Il faire une translation ici ");
+		 var eltText = document.getElementsByClassName(divClassName)[0];
+	 }
+	   
+	   nbr = document.getElementsByClassName(divClassName).length;
+	   console.log("It remaiins "+nbr+" Elements of "+ divClassName);
+	   
+	 // The most basic example
 	 userId = user;
 	 padId = pad;
 	 console.log("Test in setText -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
@@ -199,15 +239,16 @@ console.log("Create the Div element");
 
      console.log("Set the Text from (etherpad.js)");
      
-     console.log("Good! let's see what this gives");
+
      //var nbr = document.getElementsByClassName("gr__localhost").length;
-     var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
+     var nbr = document.getElementsByClassName(divClassName).length;
      console.log("There is Elements: "+nbr);
      
  };
  
  
- this.createAndMergeEditors = function(text, user, pad)  {        
+ this.createAndMergeEditors = function(text, user, pad)  { 
+	 console.log("(etherpad.js) Call from -->     createAndMergeEditors");
      // The most basic example
  userId = user;
  padId = pad;
@@ -231,16 +272,19 @@ console.log("Create the Div element");
 };
     
    this.appendErr = function(text)  {  
+	   console.log("(etherpad.js) Call from -->     appendErr");
        this.div.innerHTML = this.div.innerHTML
         + "<p class='err'>ERROR: "+ text +"</p>";
    };
     
-   this.appendWarn = function(text)  {        
+   this.appendWarn = function(text)  {
+	   console.log("(etherpad.js) Call from -->     appendWarn");
        this.div.innerHTML = this.div.innerHTML
         + "<p class='warn'>WARN: "+ text +"</p>";
    };
                 
-   this.clearAll = function()  {  
+   this.clearAll = function()  { 
+	   console.log("(etherpad.js) Call from -->     clearAll");
        this.div.innerHTML = "";
    };
    
