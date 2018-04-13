@@ -55,7 +55,7 @@ public class EtherpadBasicText extends BasicText {
 
 					
 		        Connection connection = RWT.getUISession().getConnection();
-		        rObject = connection.createRemoteObject(RREMOTE_TYPE);
+		        rObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
 		        rObject.setHandler(operationHandler);
 
 		        //

@@ -212,7 +212,7 @@ this.setText = function(text, user, pad)  {
 	 
 	 if(passage == 1 ){
 		 console.log("-------------------_>>>>>>-- Il faut modifier ici ");
-		 this.div = document.getElementsByClassName(divClassName)[0];
+		 this.div = document.getElementsByClassName(divClassName)[0]; 
 		 var elt  = document.getElementsByClassName("ace_content")[0]; 
 		 //element.appendChild(this.div);
 		 elt.appendChild(this.div);
@@ -223,6 +223,10 @@ this.setText = function(text, user, pad)  {
 	 if(passage ==2){
 		 console.log("------------------->>>>>>-- Il faire une translation ici ");
 		 var eltText = document.getElementsByClassName(divClassName)[0];
+		 var textValue = eltText.innerText || eltText.textContent;
+		 console.log("------------------------------ Content  - ");
+		 console.log("The content length is: "+textValue.length);
+		 console.log("------------------------------ End Content - ");
 	 }
 	   
 	   nbr = document.getElementsByClassName(divClassName).length;
@@ -231,6 +235,7 @@ this.setText = function(text, user, pad)  {
 	 // The most basic example
 	 userId = user;
 	 padId = pad;
+	 //this.div.innerHTML = "";
 	 console.log("Test in setText -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
 	 
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
