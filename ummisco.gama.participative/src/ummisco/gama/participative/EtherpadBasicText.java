@@ -55,7 +55,7 @@ public class EtherpadBasicText extends BasicText {
 
 					
 		        Connection connection = RWT.getUISession().getConnection();
-		        rObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
+		        rObject = connection.createRemoteObject(REMOTE_TYPE); // RREMOTE_TYPE 
 		        rObject.setHandler(operationHandler);
 
 		        //
@@ -116,7 +116,7 @@ public class EtherpadBasicText extends BasicText {
 	private final String[] FILENAMES = {  "etherpadjs.css",  
 			   "etherpadjs.js" ,
 			   "load-css-file.js" , 
-			   "rap-handler.js",		   
+	//		   "rap-handler.js"		   
 			   };
 
 
@@ -166,8 +166,8 @@ public class EtherpadBasicText extends BasicText {
 		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
 		         + "load-css-file.js"));
 		
-		  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-		            + "rap-handler.js"));
+//		  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//		            + "rap-handler.js"));
 
 	}
 

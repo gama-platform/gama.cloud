@@ -9,7 +9,7 @@ function EtherpadJS(element)  {
    
    this.div = document.createElement("div");    
    // this.div.className = "etherpaddiv";
-   this.div.className = "ace_layer ace_text-layer";
+   this.div.className = divClassName;
    this.div.setAttribute("id","etherpaddiv");
    
  
@@ -259,10 +259,10 @@ this.setText = function(text, user, pad)  {
  padId = pad;
  console.log("Test in createMergeEditors -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
  
- 	console.log("Get the Div element with class name: ace_layer ace_text-layer");
- 	var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
-    console.log("There is "+nbr +" Elements with class name = ace_layer ace_text-layer");
-	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];   
+ 	console.log("Get the Div element with class name: "+divClassName);
+ 	var nbr = document.getElementsByClassName(divClassName).length;
+    console.log("There is "+nbr +" Elements with class name = "+divClassName);
+	this.div = document.getElementsByClassName(divClassName)[0];   
 //	this.div.setAttribute("id","etherpaddiv");
  
 	
