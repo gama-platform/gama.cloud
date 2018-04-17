@@ -9,7 +9,7 @@ function EtherpadJS(element)  {
    
    this.div = document.createElement("div");    
    // this.div.className = "etherpaddiv";
-   this.div.className = divClassName;
+   this.div.className = "ace_layer ace_text-layer";
    this.div.setAttribute("id","etherpaddiv");
    
  
@@ -195,7 +195,7 @@ function EtherpadJS(element)  {
    };
    
 this.setText = function(text, user, pad)  { 
-	 console.log("(etherpad.js) Call from -->     setText");
+	 console.log("(etherpad.js) Call from -->   +++  setText padId is: "+pad);
 	 
 	 nbr = document.getElementsByClassName(divClassName).length;
 	 if(nbr > 1 ){
@@ -235,12 +235,31 @@ this.setText = function(text, user, pad)  {
 	 // The most basic example
 	 userId = user;
 	 padId = pad;
+	 padId = 'Ant_Foraging_(3D_View).gaml';
 	 //this.div.innerHTML = "";
 	 console.log("Test in setText -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
 	 
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
-     this.div.innerHTML = this.div.innerHTML
-      + "<p class='info'>"+ text +"</p>";
+	 var eltClass = 'info';
+	 nbr = document.getElementsByClassName(eltClass).length;
+	 console.log("There is "+nbr+" Elements of class: "+ eltClass);
+	 
+	 if(nbr==0){
+		 console.log("Need to Create an element info !");
+		 this.div.innerHTML = this.div.innerHTML
+	      + "<p class='info' >"+ text +"</p>";
+	 }else{
+		 console.log("no need to create an element info !");
+		 var eltClasseInfo = document.getElementsByClassName(eltClass)[0];
+		// this.div.innerHTML = "";
+		// this.div.innerHTML = "<p class='info' >"+ text +"</p>";
+		 eltClasseInfo.innerHTML=text;
+	 }
+	   
+	 
+//	 this.div.innerHTML = "<p class='info' >"+ text +"</p>";
+	 
+    
 
      console.log("Set the Text from (etherpad.js)");
      
@@ -259,10 +278,10 @@ this.setText = function(text, user, pad)  {
  padId = pad;
  console.log("Test in createMergeEditors -> (etherpad.js) user Id : "+ userId+ " and pad : "+pad);
  
- 	console.log("Get the Div element with class name: "+divClassName);
- 	var nbr = document.getElementsByClassName(divClassName).length;
-    console.log("There is "+nbr +" Elements with class name = "+divClassName);
-	this.div = document.getElementsByClassName(divClassName)[0];   
+ 	console.log("Get the Div element with class name: ace_layer ace_text-layer");
+ 	var nbr = document.getElementsByClassName("ace_layer ace_text-layer").length;
+    console.log("There is "+nbr +" Elements with class name = ace_layer ace_text-layer");
+	this.div = document.getElementsByClassName('ace_layer ace_text-layer')[0];   
 //	this.div.setAttribute("id","etherpaddiv");
  
 	

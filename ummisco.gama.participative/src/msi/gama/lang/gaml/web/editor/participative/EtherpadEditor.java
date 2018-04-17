@@ -91,6 +91,8 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 	//private EtherpadComposite epEditor;
 	private Composite epEditor;
 	
+	private String etherpadID ="initialValue";
+	private EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
 
 	public EtherpadEditor() {
 		super();
@@ -297,11 +299,11 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		
 		
 		
-		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: fin de  createPartControl");
+		System.out.println("------------------->- Open Editor ");
 		
 //		createMergeEditors();
 		
-	//	openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
+		openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
 	//	epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 	//	epEditor.createAndMergeEditors(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 		
@@ -322,10 +324,8 @@ public void createMergeEditors() {
 public void openEtherpaEditor(final String absolutePath, final String fileName) {
 		
 		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
-		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "da48e5ff6425eddbe2b814b2319ee1b40b472cb02cb7720632619d9def680fb4");
-		System.out.println(" -->-->- Open an editor  ");
-		
-		
+		etherpadID = fileName;
+		System.out.println(" -->--------->- etherpadID value is :  "+etherpadID);
 		
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(absolutePath)));
@@ -346,17 +346,13 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 				System.out.println(" ----------------> --> Pad dosn't exists " +fileName);
 				epClient.createPad(fileName);
 				epClient.setText(fileName, content);
-				
 				String padContent = epClient.getText(fileName).get("text").toString();
 				System.out.println(" The pad content is :"+ padContent);
 			}
-			
-			System.out.println(" --->>>>____>>>>--->>> The end");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@Override
@@ -367,7 +363,9 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
 //		System.out.println(uid+" at "+offset+" : ");
 		String value = object.get("value") != null ? object.get("value").asString() : null;	
-		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, "Dummy.gaml");
+		
+		System.out.println("uID "+uid+" -----------------------------------> handleTextChanged : from EtherpadEditor padId "+etherpadID);
+		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, etherpadID);
 
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {

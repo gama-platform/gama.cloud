@@ -37,7 +37,8 @@ public class EtherpadBasicText extends BasicText {
 	private static final String REMOTE_TYPE = "ummisco.gama.participative.EtherpadBasicText";
 	private static final String RREMOTE_TYPE = "o7planning.EtherpadComposite";
 	
-	private RemoteObject rObject;
+	private RemoteObject remoteObject;
+	private RemoteObject remoteObjectEtherpad;
 
 	// The directory containing the file js, css.
 	private static final String REAL_RESOURCE_PATH = "etherpadjsresources";
@@ -55,11 +56,10 @@ public class EtherpadBasicText extends BasicText {
 
 					
 		        Connection connection = RWT.getUISession().getConnection();
-		        rObject = connection.createRemoteObject(REMOTE_TYPE); // RREMOTE_TYPE 
-		        rObject.setHandler(operationHandler);
-
-		        //
-		        rObject.set("parent", WidgetUtil.getId(this));
+		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
+		        remoteObject.setHandler(operationHandler);
+		        remoteObject.set("parent", WidgetUtil.getId(this));
+		   
 //		        
 //		        setText("admin", "test", "test");
 
@@ -71,11 +71,12 @@ public class EtherpadBasicText extends BasicText {
 	}
 	
 
-	
+	/*
 	@Override
 	protected RemoteObject createRemoteObject(Connection connection) {
 		return connection.createRemoteObject(REMOTE_TYPE);
 	}
+	*/
 	
 	@Override 
 	protected void setupClient() {
@@ -116,7 +117,7 @@ public class EtherpadBasicText extends BasicText {
 	private final String[] FILENAMES = {  "etherpadjs.css",  
 			   "etherpadjs.js" ,
 			   "load-css-file.js" , 
-	//		   "rap-handler.js"		   
+	//		   "rap-handler.js",		   
 			   };
 
 
@@ -166,8 +167,8 @@ public class EtherpadBasicText extends BasicText {
 		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
 		         + "load-css-file.js"));
 		
-//		  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-//		            + "rap-handler.js"));
+	//	  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+	//	            + "rap-handler.js"));
 
 	}
 
@@ -237,8 +238,12 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text);
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
-			         rObject.call("setText", obj);	 
-			         System.out.println("Ici ---------------------> setText from EtherpadBasicText ");
+			          remoteObject.call("setText", obj);	 
+			         System.out.println("Ici ---------------------> setText from EtherpadBasicText with pad "+padId);
+			         System.out.println("-->-> remoteObject.getId() : "+remoteObject.getId());
+			         
+			       //  System.out.println("-->-> remoteObject.getId() : "+remoteObject);
+			         
 			      }
 			    } );
 	}
