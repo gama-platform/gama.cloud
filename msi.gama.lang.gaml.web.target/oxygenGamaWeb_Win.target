@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="336">
+<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="346">
 <locations>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-<repository location="http://dslforge.org/downloads/runtime/repository/"/>
-</location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
@@ -22,6 +18,11 @@
 <repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
 </location>
 <location path="${eclipse_home}" type="Profile"/>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
+<unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
+<repository location="http://dslforge.org/downloads/runtime/repository/"/>
+</location>
 </locations>
 <includeBundles>
 <plugin id="ch.qos.logback.classic"/>
@@ -110,14 +111,7 @@
 <plugin id="org.apache.xml.serializer"/>
 <plugin id="org.apiguardian"/>
 <plugin id="org.apiguardian.source"/>
-<plugin id="org.dslforge.ace.generator"/>
-<plugin id="org.dslforge.ace.generator.ui"/>
-<plugin id="org.dslforge.antlr"/>
-<plugin id="org.dslforge.antlr.ui"/>
-<plugin id="org.dslforge.common"/>
-<plugin id="org.dslforge.common.logging" version="0.9.1.201708202014"/>
-<plugin id="org.dslforge.common.logging" version="0.9.1.201703182122"/>
-<plugin id="org.dslforge.common.ui"/>
+<plugin id="org.dslforge.common.logging"/>
 <plugin id="org.dslforge.styledtext"/>
 <plugin id="org.dslforge.texteditor"/>
 <plugin id="org.dslforge.texteditor.demo"/>
@@ -126,8 +120,6 @@
 <plugin id="org.dslforge.workspace.jpa"/>
 <plugin id="org.dslforge.workspace.ui"/>
 <plugin id="org.dslforge.xtext.common"/>
-<plugin id="org.dslforge.xtext.generator"/>
-<plugin id="org.dslforge.xtext.generator.ui"/>
 <plugin id="org.eclipse.ant.core"/>
 <plugin id="org.eclipse.ant.core.source"/>
 <plugin id="org.eclipse.ant.launching"/>
@@ -509,9 +501,7 @@
 <plugin id="org.eclipse.jdt.junit5.runtime"/>
 <plugin id="org.eclipse.jdt.junit5.runtime.source"/>
 <plugin id="org.eclipse.jdt.launching" version="3.9.100.v20180323-1351"/>
-<plugin id="org.eclipse.jdt.launching" version="3.9.52.v20180129-0600"/>
 <plugin id="org.eclipse.jdt.launching.source" version="3.9.100.v20180323-1351"/>
-<plugin id="org.eclipse.jdt.launching.source" version="3.9.52.v20180129-0600"/>
 <plugin id="org.eclipse.jdt.ui"/>
 <plugin id="org.eclipse.jdt.ui.source"/>
 <plugin id="org.eclipse.jem.util"/>
@@ -861,14 +851,14 @@
 <plugin id="org.eclipse.xtend.ide.common"/>
 <plugin id="org.eclipse.xtend.ide.common.source"/>
 <plugin id="org.eclipse.xtend.ide.source"/>
-<plugin id="org.eclipse.xtend.lib" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib" version="2.13.0.v20171020-0659"/>
+<plugin id="org.eclipse.xtend.lib" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.macro" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.macro" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtend.lib.macro.source" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.macro.source" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtend.lib.source" version="2.12.0.v20170518-0757"/>
+<plugin id="org.eclipse.xtend.lib.macro.source" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.source" version="2.13.0.v20171020-0659"/>
+<plugin id="org.eclipse.xtend.lib.source" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.m2e"/>
 <plugin id="org.eclipse.xtend.m2e.source"/>
 <plugin id="org.eclipse.xtend.source"/>
@@ -987,8 +977,6 @@
 <plugin id="org.junit.source" version="4.12.0.v201504281640"/>
 <plugin id="org.junit.vintage.engine"/>
 <plugin id="org.junit.vintage.engine.source"/>
-<plugin id="org.objectweb.asm" version="6.0.0.v20180116-1719"/>
-<plugin id="org.objectweb.asm" version="5.2.0.v20170126-0011"/>
 <plugin id="org.objectweb.asm.source"/>
 <plugin id="org.objectweb.asm.tree"/>
 <plugin id="org.objectweb.asm.tree.source"/>
