@@ -27,7 +27,7 @@ var textureArray=null;
 var then = 0;
 var deltaTime;
 function consolelog(str){
-	console.log(str);
+	//console.log(str);
 }
 function WebGLJS(e) {
 
@@ -36,7 +36,6 @@ function WebGLJS(e) {
 
 	this.div = document.createElement("canvas");
 	this.div.className = 'webgljs';
-
 	canvas = this.div;
 
 	initialized = 0;
@@ -324,30 +323,35 @@ UVMAPPING_IDX = gl.createBuffer();//40
             rotateX(mo_matrix, PHI);
 					
             time_old = time; 
-            gl.enable(gl.DEPTH_TEST);
-					
-            // gl.depthFunc(gl.LEQUAL);
 					/*
             gl.clearColor(0.0, 0.0, 0.0, 0.0);
             gl.clearDepth(1.0);
             gl.viewport(0.0, 0.0, canvas.width, canvas.height);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-*/	
+
             gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
             gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
             gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 
-            //gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-            gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+          gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 				
-            window.requestAnimationFrame(animate);
+            window.requestAnimationFrame(animate);*/
+             
+             
+           
          }
 
 			 
 		gl.viewport(0,0,canvas.width,canvas.height);
 			 
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-			 
+
+        gl.enable(gl.DEPTH_TEST);
+				
+         gl.depthFunc(gl.LEQUAL);
+        animate(0);
+
 	this.appendInfo = function(text) {
 
 			  

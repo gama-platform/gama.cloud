@@ -119,8 +119,8 @@ public class LayerObject {
 			for (final AbstractObject list : currentList) {
 				alpha = isFading ? originalAlpha * (alpha + delta) : originalAlpha;
 				final AgentIdentifier id = list.attributes.getAgentIdentifier();
-				if (id != null)
-					System.out.println(id.getAgent(GAMAHelper.getRuntimeScope()));
+//				if (id != null)
+//					System.out.println(id.getAgent(GAMAHelper.getRuntimeScope()));
 				
 				synchronized (list) {
 //					for (final AbstractObject object : list) {
@@ -133,17 +133,27 @@ public class LayerObject {
 								de.enableOverlay(true);
 							}
 						}
-						if (drawingEntity != null)
+						if (drawingEntity != null) {
+
+//							for (final DrawingEntity de : drawingEntity) {
+//								System.out.println(de);
+//								}							
 							renderer.getDrawer().addDrawingEntities(drawingEntity);
+						}
 //					}
 				}
 			}
 			renderer.getDrawer().redraw();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			sceneIsInitialized = true;
 		} else {
 			renderer.getDrawer().refresh(this);
 		}
-
 	}
 
 	private void drawWithoutShader(final OpenGL gl) {

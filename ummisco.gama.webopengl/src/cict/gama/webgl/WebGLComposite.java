@@ -55,8 +55,7 @@ public class WebGLComposite extends GLCanvas {
 
 	private static final String REMOTE_TYPE = "webopengl.WebGLComposite";
 
-	private final String[] FILENAMES = { "webgljs.css", "webgljs.js", "load-css-file.js", "rap-handler.js", "three.js",
-			"gl-matrix.js", "cubetexture.png" };
+	private final String[] FILENAMES = { "webgljs.css", "webgljs.js", "load-css-file.js", "rap-handler.js" };
 
 	private final OperationHandler operationHandler = new AbstractOperationHandler() {
 
@@ -141,7 +140,7 @@ public class WebGLComposite extends GLCanvas {
 
 			// Load file three.js into page
 
-			jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "three.js"));
+			//jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "three.js"));
 
 
 			// Load file webgljs.js into page
@@ -158,7 +157,7 @@ public class WebGLComposite extends GLCanvas {
 
 			// Load file gl-matrix.js into page.
 
-			jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "gl-matrix.js"));
+			//jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "gl-matrix.js"));
 			// System.out.println(resourceManager.getLocation(REGISTER_PATH +
 			// "/" + "cubetexture.png"));
 		}

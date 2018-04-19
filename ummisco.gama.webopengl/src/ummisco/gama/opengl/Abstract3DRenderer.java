@@ -176,6 +176,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		cap.setSampleBuffers(true);
 		cap.setAlphaBits(8);
 		cap.setNumSamples(8);
+
 		canvas = new WebGLComposite(parent, SWT.NONE);
 		canvas.setAutoSwapBufferMode(true);
 //		final SWTGLAnimator animator = new SWTGLAnimator(canvas);

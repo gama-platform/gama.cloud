@@ -9,7 +9,7 @@ if (!document.getElementById(cssId))
    link.id   = cssId;
    link.rel  = 'stylesheet';
    link.type = 'text/css';
-   link.href = '/rwt-resources/logjs/logjs.css';
+   link.href = './rwt-resources/logjs/logjs.css';
    link.media = 'all';
    head.appendChild(link);
 }
