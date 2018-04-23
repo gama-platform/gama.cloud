@@ -522,7 +522,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 //		}
 	}
 
-	final Runnable cleanup = () -> WorkbenchHelper.asyncRun("admin",() -> renderer.getPickingState().setPicking(false));
+//	final Runnable cleanup = () -> WorkbenchHelper.asyncRun("admin",() -> renderer.getPickingState().setPicking(false));
 
 	/**
 	 * Method selectAgents()
@@ -546,12 +546,12 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				if (id != null)
 					ag = id.getAgent(scope);
 			}
-		if (withHighlight)
-			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
-					cleanup, AgentsMenu.getHighlightActionFor(ag));
-		else
-			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
-					cleanup);
+//		if (withHighlight)
+//			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
+//					cleanup, AgentsMenu.getHighlightActionFor(ag));
+//		else
+//			menuManager.buildMenu(renderer.camera.getMousePosition().x, renderer.camera.getMousePosition().y, ag,
+//					cleanup);
 	}
 
 	/**

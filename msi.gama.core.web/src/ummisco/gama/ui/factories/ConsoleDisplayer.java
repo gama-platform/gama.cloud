@@ -68,12 +68,17 @@ public class ConsoleDisplayer implements IConsoleDisplayer {
 //				null, IWorkbenchPage.VIEW_VISIBLE);
 //		if (icv != null)
 //			icv.append(null, agent, null);
-		final IGamaView.Console console =
-				(Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
-		if (consoleBuffer.length() > 0 && console != null) {
-			console.append(consoleBuffer.toString(), agent, null);
-			consoleBuffer.setLength(0);
-		}
+		
+		
+		
+		
+		
+//		final IGamaView.Console console =
+//				(Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
+//		if (consoleBuffer.length() > 0 && console != null) {
+//			console.append(consoleBuffer.toString(), agent, null);
+//			consoleBuffer.setLength(0);
+//		}
 
 	}
 }
