@@ -45,10 +45,10 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 
 		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			try {
+				getSite().getPage().hideView(SWTDisplayView.this);
 				if (getDisplaySurface() != null) {
 					getDisplaySurface().dispose();
 				}
-				getSite().getPage().hideView(SWTDisplayView.this);
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}

@@ -95,13 +95,13 @@ public class LayeredDisplayMultiListener implements MenuDetectListener, MouseLis
 	public void dispose() {
 		if (control == null || control.isDisposed())
 			return;
-		control.removeKeyListener(this);
-		control.removeMouseListener(this);
-		control.removeMenuDetectListener(this);
-		control.removeDragDetectListener(this);
-//		control.removeMouseTrackListener(this);
-//		control.removeMouseMoveListener(this);
-		control.removeFocusListener(this);
+//		control.removeKeyListener(this);
+//		control.removeMouseListener(this);
+//		control.removeMenuDetectListener(this);
+//		control.removeDragDetectListener(this);
+////		control.removeMouseTrackListener(this);
+////		control.removeMouseMoveListener(this);
+//		control.removeFocusListener(this);
 	}
 
 	@Override

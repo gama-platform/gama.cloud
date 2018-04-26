@@ -45,7 +45,7 @@ class Agent {
 var buffer_type=0;
 var ag=null;
 function consolelog(str){
-	//console.log(str);
+//	console.log(str);
 }
 function WebGLJS(e) {
 
@@ -349,17 +349,22 @@ UVMAPPING_IDX = gl.createBuffer();//40
 */
 
 			for(var member of objects){
-				console.log("Sss "+member);
-				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 
 				//vertices=member.v;
 				
-				for(var sd of member.v){
-					var sd=new SubData(v,offset);
+				for(var sd of member.vl){
+					gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 					vertices=sd.v;		
 					gl.bufferData(34962, member.nb, 35044);  
 					gl.bufferSubData(gl.ARRAY_BUFFER, sd.offset, new Float32Array(vertices));//
-				}
+					
+		            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+
+		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+					gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
+				
 				/*
 				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
 				gl.bufferData(34962, member.nb, 35044);  
@@ -375,9 +380,10 @@ UVMAPPING_IDX = gl.createBuffer();//40
 	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
 	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-	
+
 	            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+				}
 			
 			}							
             window.requestAnimationFrame(animate);
@@ -386,6 +392,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
            
          }
 
+         animate(0);
 			 
 		gl.viewport(0,0,canvas.width,canvas.height);
 			 
@@ -394,7 +401,6 @@ UVMAPPING_IDX = gl.createBuffer();//40
         gl.enable(gl.DEPTH_TEST);
 				
          gl.depthFunc(gl.LEQUAL);
-        //animate(0);
 
 	this.appendInfo = function(text) {
 
@@ -463,7 +469,6 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		consolelog("appendErr ");
 	};
 
-	animate(0);
 	this.glDrawElements = function(glTriangles, i, glUnsignedInt, j) {
 		
 
@@ -473,7 +478,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
-		
+
 		indices=i;
 		var obj_copy = Object.create(ag);
 		objects.push(obj_copy);
@@ -642,7 +647,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		/**/
 		//console.log(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+ vertices+");");
         //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-		consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//"+ offset+","+ new Float32Array(v) );
+		consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//");//+ offset+","+ new Float32Array(v) );
 		var sd=new SubData(v,offset);
 		ag.vl.push(sd);
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));
