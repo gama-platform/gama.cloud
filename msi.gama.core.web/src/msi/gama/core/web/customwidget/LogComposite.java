@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.WorkbenchHelper;
+
  
 public class LogComposite extends Composite {
  
