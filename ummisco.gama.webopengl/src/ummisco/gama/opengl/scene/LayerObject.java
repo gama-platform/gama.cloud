@@ -144,12 +144,12 @@ public class LayerObject {
 				}
 			}
 			renderer.getDrawer().redraw();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			sceneIsInitialized = true;
 		} else {
 			renderer.getDrawer().refresh(this);

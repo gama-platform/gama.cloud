@@ -232,10 +232,11 @@ UVMAPPING_IDX = gl.createBuffer();//40
 	         var view_matrix = [ 1,0,0,0,    0,1,-1,0,   0,0,1,1,     -(canvas.width/6),-(canvas.height/16),-70,1];
 
 			/**/
-		
-         var proj_matrix = get_projection(90, canvas.width/canvas.height, 1, 200);
+
+	         var zoomFactor=100;
+         var proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
          var mo_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ];
-         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,    -(canvas.width/6),-(canvas.height/3),-200,1 ];
+         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,1,    -(canvas.width/6),-(canvas.height/3),-300,-10 ];
 
 		
 			
@@ -246,7 +247,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 			
          /*================= Mouse events ======================*/
 
-         var AMORTIZATION = 0.95;
+         var AMORTIZATION = 0;
          var drag = false;
          var old_x, old_y;
          var dX = 0, dY = 0;
@@ -271,7 +272,13 @@ UVMAPPING_IDX = gl.createBuffer();//40
             old_x = e.pageX, old_y = e.pageY;
             e.preventDefault();
          };
-         
+
+         var mouseWheel = function(e){   
+        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.91  : 1.1;
+         };
+
+         canvas.addEventListener("DOMMouseScroll", mouseWheel, false);
+         canvas.addEventListener("mousewheel", mouseWheel, false);
          canvas.addEventListener("mousedown", mouseDown, false);
          canvas.addEventListener("mouseup", mouseUp, false);
          canvas.addEventListener("mouseout", mouseUp, false);
@@ -347,15 +354,14 @@ UVMAPPING_IDX = gl.createBuffer();//40
             gl.viewport(0.0, 0.0, canvas.width, canvas.height);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 */
+            proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
+			for(var an_agent of objects){
 
-			for(var member of objects){
-
-				//vertices=member.v;
 				
-				for(var sd of member.vl){
+				for(var sd of an_agent.vl){
 					gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 					vertices=sd.v;		
-					gl.bufferData(34962, member.nb, 35044);  
+					gl.bufferData(34962, an_agent.nb, 35044);  
 					gl.bufferSubData(gl.ARRAY_BUFFER, sd.offset, new Float32Array(vertices));//
 					
 		            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
@@ -365,15 +371,8 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 					gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
 				
-				/*
-				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-				gl.bufferData(34962, member.nb, 35044);  
-				colors=member.c;
-				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));//0,
-*/
-
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-				indices=member.idx;
+				indices=an_agent.idx;
 				
 				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
 
@@ -404,36 +403,51 @@ UVMAPPING_IDX = gl.createBuffer();//40
 
 	this.appendInfo = function(text) {
 
+				if(ag==null){
+					objects=[];
+					ag=new Agent();
+				}
+		
+				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
+		
+				gl.bufferData(34962, 1152, 35044);  
+				vertices=[25,75,0,75,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,25,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,75,75,50,25,75,50,25,75,0,75,25,0,75,25,50,25,25,0,25,25,50
+		
+				];
+				ag.vl=[];
+				var sd=new SubData(vertices,0);
+				ag.nb=1152;
+				ag.vl.push(sd);
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
+		
+				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+				gl.bufferData(34962, 1152, 35044);  
+				colors=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+				ag.c=colors;
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));//0,
+		
+		
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+				indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
+				ag.idx=indices;
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
+		
+						gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+						gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+						gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);//144
+				
+				
 
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
-
-		gl.bufferData(34962, 1152, 35044);  
-		vertices=[25,75,0,75,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,25,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,75,75,50,25,75,50,25,75,0,75,25,0,75,25,50,25,25,0,25,25,50
-
-		];
-		gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-		gl.bufferData(34962, 1152, 35044);  
-		colors=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
-		gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));//0,
-
-
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-		indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
-		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
-
-				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);//144
+				var obj_copy = Object.create(ag);
+				objects.push(obj_copy);
+				ag=null;
 /*						/*	*/
 				
-         animate(0);
-		 
-				
-		consolelog("appendinfo ");
+		        // animate(0);
+				 
+						
+				consolelog("appendinfo ");
 	};
 
 
