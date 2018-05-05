@@ -45,7 +45,7 @@ class Agent {
 var buffer_type=0;
 var ag=null;
 function consolelog(str){
-//	console.log(str);
+	//console.log(str);
 }
 function WebGLJS(e) {
 
@@ -138,8 +138,8 @@ function WebGLJS(e) {
 				'uniform mat4    Vmatrix;'+
 
 				'attribute vec3  position;'+
-				'attribute vec3  color;'+
-				'varying vec3    vColor;'+
+				'attribute vec4  color;'+
+				'varying vec4    vColor;'+
 				''+
 				'void main(void)'+
 				'{'+
@@ -151,11 +151,13 @@ function WebGLJS(e) {
 				'	gl_Position = Pmatrix * modelView * vec4(position,1.0);'+
 				'}';
 	         var fragCode = 'precision mediump float;'+
-	            'varying vec3 vColor;'+
+	            'varying vec4 vColor;'+
 	            'void main(void) {'+
-	               'gl_FragColor = vec4(vColor, 1.);'+
+	               'gl_FragColor =vColor ;'+
 	            '}';
-
+	         
+	         
+	         
 	         var vertShader = gl.createShader(gl.VERTEX_SHADER);
 	         gl.shaderSource(vertShader, vertCode);
 	         gl.compileShader(vertShader);
@@ -197,7 +199,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 
 	         gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
 	         var _color = gl.getAttribLocation(shaderProgram, "color");
-	         gl.vertexAttribPointer(_color, 3, gl.FLOAT, false,0,0) ;
+	         gl.vertexAttribPointer(_color, 4, gl.FLOAT, false,0,0) ;
 	         gl.enableVertexAttribArray(_color);
 			 
 	         function get_projection(angle, a, zMin, zMax) {
@@ -410,19 +412,24 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		
 				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 		
-				gl.bufferData(34962, 1152, 35044);  
-				vertices=[25,75,0,75,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,25,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,75,75,50,25,75,50,25,75,0,75,25,0,75,25,50,25,25,0,25,25,50
-		
+				gl.bufferData(34962, 288, 35044);  
+				//vertices=[25,75,0,75,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,25,75,0,75,25,0,25,25,0,25,75,50,75,75,50,75,25,50,25,25,50,75,75,0,75,75,50,25,75,50,25,75,0,75,25,0,75,25,50,25,25,0,25,25,50
+				//];
+				
+				vertices=[
+					52.66321563720703,50.520530700683594,0,102.66321563720703,50.520530700683594,0,102.66321563720703,0.5205326080322266,0,52.66321563720703,0.5205326080322266,0,52.66321563720703,50.520530700683594,50,102.66321563720703,50.520530700683594,50,102.66321563720703,0.5205326080322266,50,52.66321563720703,0.5205326080322266,50,102.66321563720703,50.520530700683594,0,52.66321563720703,50.520530700683594,0,102.66321563720703,0.5205326080322266,0,52.66321563720703,0.5205326080322266,0,52.66321563720703,50.520530700683594,50,102.66321563720703,50.520530700683594,50,102.66321563720703,0.5205326080322266,50,52.66321563720703,0.5205326080322266,50,102.66321563720703,50.520530700683594,0,102.66321563720703,50.520530700683594,50,52.66321563720703,50.520530700683594,50,52.66321563720703,50.520530700683594,0,102.66321563720703,0.5205326080322266,0,102.66321563720703,0.5205326080322266,50,52.66321563720703,0.5205326080322266,0,52.66321563720703,0.5205326080322266,50
 				];
 				ag.vl=[];
 				var sd=new SubData(vertices,0);
-				ag.nb=1152;
+				ag.nb=384;
 				ag.vl.push(sd);
 				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
 		
 				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-				gl.bufferData(34962, 1152, 35044);  
-				colors=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+				gl.bufferData(34962, 384, 35044);  
+				//colors=[0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0];
+				colors=[1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1
+					];
 				ag.c=colors;
 				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));//0,
 		
@@ -551,41 +558,14 @@ UVMAPPING_IDX = gl.createBuffer();//40
 	};
 
 	this.glBindRenderbuffer = function(glRenderbuffer, i) {
-// gl.glBindRenderbuffer(depthBufferArray, i);
-		//consolelog("gl.bindRenderbuffer ("+glRenderbuffer+", depthBufferArray);//"+i);
-		//gl.bindRenderbuffer(gl.RENDERBUFFER, depthBufferArray);
 	};
-
 	this.glRenderbufferStorage = function(glRenderbuffer, glDepthComponent, width, height) {
-// gl.renderbufferStorage(glRenderbuffer, glDepthComponent, width, height);//not use
-
-//		gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600);
-		//consolelog("gl.renderbufferStorage(gl.RENDERBUFFER, gl.RBGA4, 800, 600) = "+glRenderbuffer);
 	};
-	this.glFramebufferRenderbuffer = function(glFramebuffer, glDepthAttachment, glRenderbuffer, i) {
-// gl.framebufferRenderbuffer(glFramebuffer, glDepthAttachment, glRenderbuffer,
-// i);
-//		gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray);
-//		consolelog("gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, depthBufferArray); = "+depthBufferArray);
+	this.glFramebufferRenderbuffer = function(glFramebuffer, glDepthAttachment, glRenderbuffer, i) {		
 	};
-
-
 	this.glGenFramebuffers = function(i,f,j) {
-		/*
-		if(frameBufferArray==null){
-			consolelog("frameBufferArray= gl.createFramebuffer();  ");
-			frameBufferArray= gl.createFramebuffer();
-		}
-		/**/
 	};
-
 	this.glGenBuffers = function(i,vboHandles,j) {
-		/*
-		if(bufferArray==null){
-			consolelog("bufferArray= gl.createBuffer(); ");
-			bufferArray= gl.createBuffer();
-		}
-		/**/
 	};
 
 	this.glBufferData = function(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw) {	  
@@ -661,7 +641,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		/**/
 		//console.log(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+ vertices+");");
         //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-		consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//");//+ offset+","+ new Float32Array(v) );
+		consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//"+ offset+","+ new Float32Array(v) );
 		var sd=new SubData(v,offset);
 		ag.vl.push(sd);
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));

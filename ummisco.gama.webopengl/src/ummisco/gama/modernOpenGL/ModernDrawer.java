@@ -553,13 +553,13 @@ public class ModernDrawer {
 			final AbstractShader shader) {
 
 		final ArrayList<float[]> listVertices = new ArrayList<float[]>();
-//		final ArrayList<float[]> listColors = new ArrayList<float[]>();
+		final ArrayList<float[]> listColors = new ArrayList<float[]>();
 		final ArrayList<float[]> listIdxBuffer = new ArrayList<float[]>();
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
 		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
 		for (final DrawingEntity entity : listEntities) {
 			listVertices.add(entity.getVertices());
-//			listColors.add(entity.getColors());
+			listColors.add(entity.getColors());
 			listIdxBuffer.add(entity.getIndices());
 			listNormals.add(entity.getNormals());
 			if (entity.getUvMapping() != null)
@@ -595,19 +595,20 @@ public class ModernDrawer {
 //			System.out.println( );
 //		}
 		// COLORS BUFFER
-//		storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
+		storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
 
 		// UV MAPPING (If a texture is defined)
-		if (listUvMapping.size() != 0) {
-			storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
-					shaderNumber);
-			gl.glActiveTexture(GL.GL_TEXTURE0);
-			gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
-		}
+//		if (listUvMapping.size() != 0) {
+//			storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
+//					shaderNumber);
+//			gl.glActiveTexture(GL.GL_TEXTURE0);
+//			gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
+//		}
 
 		// NORMAL BUFFER
-		if (shader.useNormal())
-			storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
+		//hqn88 for texture 
+//		if (shader.useNormal())
+//			storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
 
 		// INDEX BUFFER
 		int sizeIdxBuffer = 0;
