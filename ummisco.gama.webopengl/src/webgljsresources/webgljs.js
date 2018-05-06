@@ -163,13 +163,11 @@ function WebGLJS(e) {
                'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.0);'+
                'vColor = color;'+
             '}';
-
 	         var fragCode = 'precision mediump float;'+
 	            'varying vec4 vColor;'+
 	            'void main(void) {'+
 	               'gl_FragColor =vColor ;'+
 	            '}';
-	         
 	         
 	         
 	         var vertShader = gl.createShader(gl.VERTEX_SHADER);
@@ -250,13 +248,27 @@ UVMAPPING_IDX = gl.createBuffer();//40
 			/**/
 
 	         var zoomFactor=40;
-	         var translateX=(canvas.width/4);
-	         var translateY=(canvas.height/4);
+	         var translateX=(canvas.width/6);
+	         var translateY=(canvas.height/3);
          var proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,100);
-         var mo_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ];
+         var mo_matrix = [ 
+             1,0,0,0, 
+         	0,1,0,0, 
+         	0,0,1,0, 
+         	0,0,0,1 
+       	];
+         
+         /*
+          * 
+
+            1 0 0 0
+            0 1 0 0
+            0 0 1 0
+            0 0 0 1
+          */
          var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
 //        	 -(canvas.width/8),-(canvas.height/3),-300,-10
-        	 -(translateX),-(translateY),-canvas.width,1
+        	 -(translateX),-(translateY),-canvas.width/2,1
         	 ];
 
 		
@@ -365,22 +377,23 @@ UVMAPPING_IDX = gl.createBuffer();//40
             }
                
             //set model matrix to I4
-					
-            mo_matrix[0] = 1, mo_matrix[1] = 0, mo_matrix[2] = 0,
-            mo_matrix[3] = 0,
-					
-            mo_matrix[4] = 0, mo_matrix[5] = 1, mo_matrix[6] = 0,
-            mo_matrix[7] = 0,
-					
-            mo_matrix[8] = 0, mo_matrix[9] = 0, mo_matrix[10] = 1,
-            mo_matrix[11] = 0,
-					
-            mo_matrix[12] = 0, mo_matrix[13] = 0, mo_matrix[14] = 0,
-            mo_matrix[15] = 1;
-
+            mo_matrix = [
+               1,0,0,0, 
+            	0,1,0,0, 
+            	0,0,1,0, 
+            	0,0,0,1 
+            	
+            	];
+            /*
+             * 
+0.9999451693655121,    -0.010195108091019157, -0.002391241014555666, 0,
+            	0, 0.22835087011065547,-0.9735789028731603,0,
+            	 0.010471784116245783,0.9735255209241918, 0.22833834948756146, 0,
+            	0,0,0,1
+            	
+             */
             rotateY(mo_matrix, THETA);
             rotateX(mo_matrix, PHI);
-					
             time_old = time; 
 					/*
             gl.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -391,7 +404,7 @@ UVMAPPING_IDX = gl.createBuffer();//40
             proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
             view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
 //           	 -(canvas.width/8),-(canvas.height/3),-300,-10
-           	 -(translateX),-(translateY),-canvas.width,1
+           	 -(translateX),-(translateY),-canvas.width/2,1
            	 ];
             for(var an_agent of objects){
 

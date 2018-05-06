@@ -94,11 +94,11 @@ public class LayerObject {
 
 	public void draw(final OpenGL gl) {
 		if (isInvalid()) { return; }
-		if (renderer.useShader()) {
+//		if (renderer.useShader()) {
 			drawWithShader(gl.getGL());
-		} else {
-			drawWithoutShader(gl);
-		}
+//		} else {
+//			drawWithoutShader(gl);
+//		}
 	}
 
 	private void drawWithShader(final GL2 gl) {

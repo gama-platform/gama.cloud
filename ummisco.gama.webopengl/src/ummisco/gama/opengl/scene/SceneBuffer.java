@@ -41,13 +41,13 @@ public class SceneBuffer {
 		// If we are syncrhonized with the simulation and a backScene exists, we
 		// wait until it has been updated (put to null at the end of
 		// endUpdatingScene)
-		while (renderer.data.isSynchronized() && backScene != null) {
-			try {
-				Thread.sleep(20);
-			} catch (final InterruptedException e) {
-				return false;
-			}
-		}
+//		while (renderer.data.isSynchronized() && backScene != null) {
+//			try {
+//				Thread.sleep(20);
+//			} catch (final InterruptedException e) {
+//				return false;
+//			}
+//		}
 		// If we are not synchronized (or if the wait is over), we verify that
 		// backScene is null and create a new one
 		if (backScene != null) {

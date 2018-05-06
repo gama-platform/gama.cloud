@@ -570,26 +570,16 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	@Override
 	public boolean beginDrawingLayers() {
-		while (!inited) {
+//		while (!inited) {
 			init(canvas);
-			try {
-				Thread.sleep(10);
-			} catch (final InterruptedException e) {
-				return false;
-			}
-		}
+//			try {
+//				Thread.sleep(10);
+//			} catch (final InterruptedException e) {
+//				return false;
+//			}
+//		}
 		return sceneBuffer.beginUpdatingScene();
 
-	}
-
-	@Override
-	public boolean isNotReadyToUpdate() {
-		if (data.isSynchronized())
-			return false;
-		if(sceneBuffer.isNotReadyToUpdate()) {
-			display(canvas);
-		}
-		return sceneBuffer.isNotReadyToUpdate();
 	}
 
 	@Override
@@ -630,6 +620,25 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		}
 	}
 
+	@Override
+	public void endDrawingLayer(ILayer layer) {
+		super.endDrawingLayer(layer);
+//		if(sceneBuffer.isNotReadyToUpdate()) {
+			display(canvas);
+//		}
+	}
+	
+
+
+	@Override
+	public boolean isNotReadyToUpdate() {
+		if (data.isSynchronized())
+			return false;
+//		if(sceneBuffer.isNotReadyToUpdate()) {
+//			display(canvas);
+//		}
+		return sceneBuffer.isNotReadyToUpdate();
+	}
 	/**
 	 * Method endDrawingLayers()
 	 * 

@@ -233,8 +233,8 @@ public class ModernRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL.GL_DEPTH_TEST); // enables depth testing
 		gl.glDepthFunc(GL.GL_LEQUAL); // the type of depth test to do
 
-		updateCameraPosition();
-		updatePerspective();
+//		updateCameraPosition();
+//		updatePerspective();
 
 		rotateModel();
 		drawScene();

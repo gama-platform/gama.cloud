@@ -56,9 +56,9 @@ public class ModelScene {
 
 	public ModelScene(final Abstract3DRenderer renderer, final boolean withWorld) {
 		this.renderer = renderer;
-		if (withWorld) {
-			initWorld();
-		}
+//		if (withWorld) {
+//			initWorld();
+//		}
 	}
 
 	protected void initWorld() {
@@ -93,15 +93,15 @@ public class ModelScene {
 
 	public void draw(final OpenGL gl) {
 
-		if (renderer.useShader()) {
-			// if the rotation helper layer exists, put it at the end of the map
-			// (otherwise, transparency issues)
-			final LayerObject rotLayer = layers.get(ROTATION_HELPER_KEY);
-			if (rotLayer != null) {
-				layers.remove(ROTATION_HELPER_KEY);
-				layers.put(ROTATION_HELPER_KEY, rotLayer);
-			}
-		}
+//		if (renderer.useShader()) {
+//			// if the rotation helper layer exists, put it at the end of the map
+//			// (otherwise, transparency issues)
+//			final LayerObject rotLayer = layers.get(ROTATION_HELPER_KEY);
+//			if (rotLayer != null) {
+//				layers.remove(ROTATION_HELPER_KEY);
+//				layers.put(ROTATION_HELPER_KEY, rotLayer);
+//			}
+//		}
 		gl.pushMatrix();
 		gl.setZIncrement(zIncrement);
 
@@ -193,7 +193,7 @@ public class ModelScene {
 			l.unlock();
 		}
 		dispose();
-		initWorld();
+//		initWorld();
 	}
 
 	public void hideLayer(final String name) {
