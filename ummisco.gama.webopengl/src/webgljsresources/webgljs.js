@@ -132,6 +132,7 @@ function WebGLJS(e) {
 	               'vColor = color;'+
 	            '}';
 				/**/
+	/*
 			var vertCode =
 				'uniform mat4    Mmatrix;'+
 				'uniform mat4    Pmatrix;'+
@@ -150,6 +151,19 @@ function WebGLJS(e) {
 				'		'+
 				'	gl_Position = Pmatrix * modelView * vec4(position,1.0);'+
 				'}';
+			*/
+			
+			var vertCode = 'attribute vec3 position;'+
+            'uniform mat4 Pmatrix;'+
+            'uniform mat4 Vmatrix;'+
+            'uniform mat4 Mmatrix;'+
+            'attribute vec4 color;'+//the color of the point
+            'varying vec4 vColor;'+
+            'void main(void) { '+//pre-built function
+               'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.0);'+
+               'vColor = color;'+
+            '}';
+
 	         var fragCode = 'precision mediump float;'+
 	            'varying vec4 vColor;'+
 	            'void main(void) {'+
@@ -235,10 +249,15 @@ UVMAPPING_IDX = gl.createBuffer();//40
 
 			/**/
 
-	         var zoomFactor=100;
-         var proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
+	         var zoomFactor=40;
+	         var translateX=(canvas.width/4);
+	         var translateY=(canvas.height/4);
+         var proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,100);
          var mo_matrix = [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ];
-         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,1,    -(canvas.width/6),-(canvas.height/3),-300,-10 ];
+         var view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
+//        	 -(canvas.width/8),-(canvas.height/3),-300,-10
+        	 -(translateX),-(translateY),-canvas.width,1
+        	 ];
 
 		
 			
@@ -264,15 +283,28 @@ UVMAPPING_IDX = gl.createBuffer();//40
          var mouseUp = function(e){
             drag = false;
          };
-         
+
+
+         var translationFactor = 0.25;
          var mouseMove = function(e) {
+
             if (!drag) return false;
-            dX = (e.pageX-old_x)*Math.PI/canvas.width,
-            dY = (e.pageY-old_y)*Math.PI/canvas.height;
-            THETA+= dX;
-            PHI+=dY;
-            old_x = e.pageX, old_y = e.pageY;
-            e.preventDefault();
+
+            if (e.ctrlKey) {
+            	dX = (e.pageX-old_x)*Math.PI/canvas.width,
+            	dY = (e.pageY-old_y)*Math.PI/canvas.height;
+            	THETA+= dX;
+            	PHI+=dY;
+            	old_x = e.pageX, old_y = e.pageY;
+            }else{
+
+            	translateX -=( (e.pageX-old_x))*translationFactor;
+            	translateY +=( (e.pageY-old_y))*translationFactor;
+
+            	old_x = e.pageX, old_y = e.pageY;
+//                mat4.translate(_Mmatrix, _Mmatrix,[dX * translationFactor, -dY * translationFactor, 0]);
+            }
+        	e.preventDefault();
          };
 
          var mouseWheel = function(e){   
@@ -357,7 +389,11 @@ UVMAPPING_IDX = gl.createBuffer();//40
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 */
             proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
-			for(var an_agent of objects){
+            view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
+//           	 -(canvas.width/8),-(canvas.height/3),-300,-10
+           	 -(translateX),-(translateY),-canvas.width,1
+           	 ];
+            for(var an_agent of objects){
 
 				
 				for(var sd of an_agent.vl){
@@ -373,17 +409,20 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 					gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
 				
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-				indices=an_agent.idx;
-				
-				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
-
-	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-
-	            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+					
+					
+					
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+					indices=an_agent.idx;
+					
+					gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
+	
+		            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+		            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+		            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+	
+		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+					gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 				}
 			
 			}							
