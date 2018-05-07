@@ -590,6 +590,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	@Override
 	public void beginDrawingLayer(final ILayer layer) {
+		layer.reloadOn(surface);
 		super.beginDrawingLayer(layer);
 		GamaPoint currentOffset, currentScale;
 		if (!layer.isOverlay()) {
@@ -623,9 +624,9 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	@Override
 	public void endDrawingLayer(ILayer layer) {
 		super.endDrawingLayer(layer);
-//		if(sceneBuffer.isNotReadyToUpdate()) {
+		if(sceneBuffer.isNotReadyToUpdate()) {
 			display(canvas);
-//		}
+		}
 	}
 	
 
@@ -637,7 +638,8 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 //		if(sceneBuffer.isNotReadyToUpdate()) {
 //			display(canvas);
 //		}
-		return sceneBuffer.isNotReadyToUpdate();
+//		return sceneBuffer.isNotReadyToUpdate();
+		return false;
 	}
 	/**
 	 * Method endDrawingLayers()
