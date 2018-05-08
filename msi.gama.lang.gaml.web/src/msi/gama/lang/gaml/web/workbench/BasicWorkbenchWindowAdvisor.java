@@ -44,9 +44,9 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		getWindowConfigurer().setShowCoolBar( true );	
 		if(RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession())!=null) {
 			GoogleCredential credential=(GoogleCredential) RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession());			
-			getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+credential.hashCode());
+			getWindowConfigurer().setTitle("Welcome to GAMA platform, "+credential.hashCode());
 		}else {
-			getWindowConfigurer().setTitle("GAML Web Editor on DSL Forge Workbench v0.9.1 "+RWT.getUISession().getAttribute("user"));
+			getWindowConfigurer().setTitle("Welcome to GAMA platform, "+RWT.getUISession().getAttribute("user"));
 		}
 		getWindowConfigurer().setShellStyle(SWT.TITLE | SWT.RESIZE | SWT.MAX);
 		Rectangle bounds = Display.getCurrent().getBounds();

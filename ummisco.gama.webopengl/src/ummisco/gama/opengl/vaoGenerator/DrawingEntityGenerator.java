@@ -93,9 +93,9 @@ public class DrawingEntityGenerator {
 			// final String[] texturePaths = geomObj.getTexturePaths(scope);
 			// final int[] textureIDs = texturePaths == null ? null : new int[texturePaths.length];
 			int[] ids = null;
-			if (computeTextureIds) {
-				ids = geomObj.getTexturesId(renderer.getOpenGLHelper());
-			}
+//			if (computeTextureIds) {
+//				ids = geomObj.getTexturesId(renderer.getOpenGLHelper());
+//			}
 			transformer = new GeometryObjectTransformer(geomObj, ids, layer.isLightInteraction(), layer.isOverlay(),
 					renderer.data.isWireframe(), renderer.getOpenGLHelper().getCurrentObjectAlpha());
 		}

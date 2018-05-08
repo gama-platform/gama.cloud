@@ -367,7 +367,9 @@ UVMAPPING_IDX = gl.createBuffer();//40
          var THETA = 0,
          PHI = 0;
          var time_old = 0;
-				
+		 var fps = 25;
+		 
+		 
          var animate = function(time) {
             var dt = time-time_old;
 					
@@ -439,8 +441,11 @@ UVMAPPING_IDX = gl.createBuffer();//40
 				}
 			
 			}							
-            window.requestAnimationFrame(animate);
+            //window.requestAnimationFrame(animate);
              
+		  setTimeout(function() {
+            window.requestAnimationFrame(animate);
+		  }, 2000 / fps);
              
            
          }

@@ -15,6 +15,7 @@ public class StatusDisplayer implements IStatusDisplayer {
 	private final ThreadedUpdater<IStatusMessage> status = new ThreadedUpdater<>("Status refresh");
 
 	public StatusDisplayer(String uid) {
+		if(!uid.equals("null"))
 		status.setTarget(StatusControlContribution.getInstance(uid), null);
 	}
 

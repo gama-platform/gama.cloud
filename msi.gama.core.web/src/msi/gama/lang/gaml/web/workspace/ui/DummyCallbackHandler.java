@@ -43,7 +43,7 @@ public class DummyCallbackHandler extends AbstractLoginDialog {
 	}
 
 	protected Point getInitialSize() {
-		return new Point(450, 350);
+		return new Point(450, 330);
 	}
 
 	/*

@@ -502,6 +502,7 @@ public class WebGui implements IGui {
 	public void updateSpeedDisplay(IScope scope, final Double d, final boolean notify) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		if(uid==null) return;
 		final ISpeedDisplayer speedStatus = WorkbenchHelper.getService(uid, ISpeedDisplayer.class);
 		if (speedStatus != null) {
 			WorkbenchHelper.asyncRun(uid, () -> speedStatus.setInit(d, notify));
@@ -610,10 +611,10 @@ public class WebGui implements IGui {
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }
 
-		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
 		// System.out.println("getstatus of "+uid);
 
-		return StatusDisplayerFactory.displayer.get(uid);// = new
+		return StatusDisplayerFactory.displayer.get(""+uid);// = new
 															// StatusDisplayer();;//WorkbenchHelper.getService(IStatusDisplayer.class);
 		// return WorkbenchHelper.getService(IStatusDisplayer.class);
 	}

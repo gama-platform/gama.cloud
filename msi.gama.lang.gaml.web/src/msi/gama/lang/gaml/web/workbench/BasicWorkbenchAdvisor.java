@@ -120,6 +120,10 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			GAMAHelper.setRegularGui(new WebGui());
 		}
 		System.out.println("postStartup of " + loggedUser);
+		if(StatusDisplayerFactory.displayer.get("null")==null) {
+			StatusDisplayerFactory.displayer.put("null", new StatusDisplayer("null"));
+			ConsoleDisplayerFactory.displayer.put("null", new ConsoleDisplayer("null"));
+		}
 		StatusDisplayerFactory.displayer.put(loggedUser, new StatusDisplayer(loggedUser));
 		ConsoleDisplayerFactory.displayer.put(loggedUser, new ConsoleDisplayer(loggedUser));
 //		StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());

@@ -1246,7 +1246,7 @@
       <navigatorContent
             activeByDefault="true"
             contentProvider="msi.gama.lang.gaml.web.workspace.ui.GamaFileSystemContentProvider"
-            id="org.dslforge.navigator.fileContent"
+            id="msi.gama.navigator.fileContent"
             labelProvider="org.dslforge.workspace.ui.FileSystemLabelProvider"
             name="Workspace Content"
             priority="high">

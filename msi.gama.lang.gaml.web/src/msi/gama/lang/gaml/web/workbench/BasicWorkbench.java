@@ -101,7 +101,10 @@ public class BasicWorkbench implements EntryPoint {
 
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
-
+		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
+		RWT.getClient().getService(JavaScriptExecutor.class)
+				.execute("document.body.style.background  = \"url('"+splash+"') center center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
+			
 		try {
 			String uid = enableLoggin?"":"admin"; 
 

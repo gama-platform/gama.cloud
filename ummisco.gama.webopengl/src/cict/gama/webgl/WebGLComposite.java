@@ -240,13 +240,16 @@ public class WebGLComposite extends GLCanvas {
 		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 		uiSession.exec(new Runnable() {
 			public synchronized void run() {
-
-				remoteObject.call(func, obj);
+//				try {					
+					remoteObject.call(func, obj);
+//				}catch(Exception ex) {
+//					ex.printStackTrace();
+//				}
 			}
 		});
 		try {
 			Thread.sleep(10);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -138,7 +138,7 @@
          <includes>
             <contentExtension
                   isRoot="true"
-                  pattern="org.dslforge.navigator.fileContent">
+                  pattern="msi.gama.navigator.fileContent">
             </contentExtension>
             <contentExtension
                   pattern="org.dslforge.navigator.*">

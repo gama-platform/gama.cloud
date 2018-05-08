@@ -130,6 +130,8 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 
 	@Override
 	public boolean isDisposed() {
+		if(label==null)
+				return true;
 		return label.isDisposed();
 	}
 
