@@ -330,6 +330,17 @@ UVMAPPING_IDX = gl.createBuffer();//40
          canvas.addEventListener("mouseout", mouseUp, false);
          canvas.addEventListener("mousemove", mouseMove, false);
 
+         canvas.addEventListener("pointerdown", mouseDown, false);
+         canvas.addEventListener("touchstart", mouseDown, false);
+	
+         canvas.addEventListener("pointermove", mouseMove, false);
+         canvas.addEventListener("touchmove", mouseMove, false);
+	
+         canvas.addEventListener("pointerup", mouseUp, false);
+         canvas.addEventListener("touchend", mouseUp, false);
+
+         
+
          /*=========================rotation================*/
 
          function rotateX(m, angle) {
