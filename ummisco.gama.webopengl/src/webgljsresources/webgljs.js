@@ -419,6 +419,90 @@ UVMAPPING_IDX = gl.createBuffer();//40
 //           	 -(canvas.width/8),-(canvas.height/3),-300,-10
            	 -(translateX),-(translateY),-canvas.width/2,1
            	 ];
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+			
+		
+			
+			
+			gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
+			
+			var totalnb=0;
+            for(var an_agent of objects){
+				totalnb+=an_agent.nb;
+			}
+			gl.bufferData(34962, totalnb, 35044);  
+		
+			var xoffset=0;
+//			var listV=[];
+			
+            for(var an_agent of objects){			
+				for(var sd of an_agent.vl){
+					vertices=sd.v;		
+//					listV.push.apply(listV,vertices);
+					gl.bufferSubData(gl.ARRAY_BUFFER,xoffset, new Float32Array(vertices));//
+					xoffset+=vertices.length;
+				}
+			}			
+			
+			
+			
+			
+			
+			indices=[];
+            for(var an_agent of objects){				
+				indices.push.apply(indices,an_agent.idx);
+//            	indices=an_agent.idx;
+			}
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
+			gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+			gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+			gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+			gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+			
+			
+
+			 
+			
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /*
             for(var an_agent of objects){
 
 				
@@ -428,13 +512,13 @@ UVMAPPING_IDX = gl.createBuffer();//40
 					gl.bufferData(34962, an_agent.nb, 35044);  
 					gl.bufferSubData(gl.ARRAY_BUFFER, sd.offset, new Float32Array(vertices));//
 					
-		            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-		            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-		            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-
-		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-					gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
-				
+					
+//		            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+//		            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+//		            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+//
+//		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+//					gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
 					
 					
 					
@@ -447,11 +531,15 @@ UVMAPPING_IDX = gl.createBuffer();//40
 		            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 		            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 	
-		            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+		          //  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 					gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 				}
 			
-			}							
+			}		
+		*/
+
+
+
             //window.requestAnimationFrame(animate);
              
 		  setTimeout(function() {
