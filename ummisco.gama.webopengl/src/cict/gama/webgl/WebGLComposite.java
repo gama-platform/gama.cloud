@@ -121,6 +121,10 @@ public class WebGLComposite extends GLCanvas {
 		super.dispose();
 		//
 		// // Call destroy() function in rap-handler.js
+
+		JsonObject obj = new JsonObject();
+		obj.add("text", "");
+		execJS("webgl_destroy",  obj);
 		remoteObject.destroy();
 
 		// if (layerManager != null) {

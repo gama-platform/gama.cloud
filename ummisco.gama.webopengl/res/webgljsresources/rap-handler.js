@@ -34,6 +34,7 @@
 			'glFramebufferRenderbuffer',
 			'glEnableVertexAttribArray',
 			'glBufferSubData',
+			'webgl_destroy',
 			'clearAll' 
 			]
 
@@ -270,6 +271,10 @@
 			},
 			
 
+			webgl_destroy : function(json) {
+				var text = json["text"];
+				this.webgljs.webgl_destroy(text);
+			},
 
 			glFrontFace : function(json) {
 				var text = json["text"];
