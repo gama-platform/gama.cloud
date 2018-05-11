@@ -315,6 +315,7 @@ public void createMergeEditors() {
 		//_________ Aded Code 
 		openEtherpaEditor(getFilePath().toString() , getFilePath().toFile().getName().toString());
 		String uid=RWT.getUISession().getAttribute("user").toString();
+		
 //		epEditor.setText(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 		//epEditor.createAndMergeEditors(uid, getFilePath().toString(), getFilePath().toFile().getName().toString());
 }
@@ -323,7 +324,7 @@ public void createMergeEditors() {
 
 public void openEtherpaEditor(final String absolutePath, final String fileName) {
 		
-		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
+		System.out.println(" -->> Trying to connect to etherpad. From "+getClass().toString());
 		etherpadID = fileName;
 		System.out.println(" -->--------->- etherpadID value is :  "+etherpadID);
 		

@@ -126,7 +126,7 @@ public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 	public void openEtherpaEditor(final File file) {
 		
 		String absolutePath = file.getAbsolutePath();
-		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
+		System.out.println(" >- Trying to connect to etherpad. From "+getClass().toString());
 		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "da48e5ff6425eddbe2b814b2319ee1b40b472cb02cb7720632619d9def680fb4");
 		System.out.println(" -->-->- Open an editor  ");
 		

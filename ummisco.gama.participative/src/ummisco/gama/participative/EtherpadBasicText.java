@@ -1,9 +1,13 @@
 package ummisco.gama.participative;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.dslforge.styledtext.BasicText;
 import org.eclipse.core.runtime.IPath;
@@ -23,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 
 import msi.gama.runtime.IScope;
+import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 
@@ -59,10 +64,7 @@ public class EtherpadBasicText extends BasicText {
 		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
 		        remoteObject.setHandler(operationHandler);
 		        remoteObject.set("parent", WidgetUtil.getId(this));
-		   
-//		        
-//		        setText("admin", "test", "test");
-
+		
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		        // throw new RuntimeException(e);
@@ -71,12 +73,7 @@ public class EtherpadBasicText extends BasicText {
 	}
 	
 
-	/*
-	@Override
-	protected RemoteObject createRemoteObject(Connection connection) {
-		return connection.createRemoteObject(REMOTE_TYPE);
-	}
-	*/
+
 	
 	@Override 
 	protected void setupClient() {
@@ -246,7 +243,10 @@ public class EtherpadBasicText extends BasicText {
 			         System.out.println("-->-> remoteObject.getId() : "+remoteObject.getId());
 			         
 			       //  System.out.println("-->-> remoteObject.getId() : "+remoteObject);
-			         
+			        
+			         String fileName ="Example1.gaml";
+			       EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+			       epClient.setText(padId, text);
 			      }
 			    } );
 	}
@@ -297,9 +297,15 @@ public class EtherpadBasicText extends BasicText {
 		    } );
 	}
 
-		
+	
+	
 	// -------------------------------------------------------------- fin added methods
-		
+	
+	
+	
+	
+ // New method	
+	
 	
 }
 
