@@ -115,7 +115,8 @@ public class SceneBuffer {
 	private ModelScene createSceneFrom(final ModelScene existing) {
 		ModelScene newScene;
 		if (existing == null) {
-			newScene = new ModelScene(renderer, true);
+			//hqn88
+			newScene = new ModelScene(renderer, false);
 		} else {
 			newScene = existing.copyStatic();
 		}

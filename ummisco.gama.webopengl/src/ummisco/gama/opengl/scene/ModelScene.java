@@ -56,9 +56,9 @@ public class ModelScene {
 
 	public ModelScene(final Abstract3DRenderer renderer, final boolean withWorld) {
 		this.renderer = renderer;
-//		if (withWorld) {
-//			initWorld();
-//		}
+		if (withWorld) {
+			initWorld();
+		}
 	}
 
 	protected void initWorld() {
@@ -193,7 +193,7 @@ public class ModelScene {
 			l.unlock();
 		}
 		dispose();
-//		initWorld();
+		initWorld();
 	}
 
 	public void hideLayer(final String name) {
