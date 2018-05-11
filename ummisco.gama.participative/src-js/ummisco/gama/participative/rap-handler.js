@@ -2,9 +2,11 @@
    'use strict';
    console.log("Loaded! --> rap-handler.js");
    rap.registerTypeHandler("o7planning.EtherpadComposite", {
-	   
-       factory : function(properties) {
-           return new o7planning.EtherpadComposite(properties);
+   //rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
+	   factory : function(properties) {
+    	   console.log(" --> rap.registerTypeHandler(o7planning.EtherpadComposite   -> from rap-handler.js");
+    	// return new ummisco.gama.participative.EtherpadBasicText(properties);
+    	 return new o7planning.EtherpadComposite(properties);
        },
  
        destructor : "destroy",
@@ -22,6 +24,7 @@
    }
  
    // Constructor
+   //ummisco.gama.participative.EtherpadBasicText = function(properties) {
    o7planning.EtherpadComposite = function(properties) {
  
        bindAll(this, [ "layout", "onReady", "onSend", "onRender", "onChange" ]);// @custom
@@ -36,9 +39,9 @@
        rap.on("render", this.onRender);
       
    };
- 
-   o7planning.EtherpadComposite.prototype = {
- 
+  o7planning.EtherpadComposite.prototype = { 
+  //ummisco.gama.participative.EtherpadBasicText = {
+		   
        ready : false,
  
        onChange : function() {

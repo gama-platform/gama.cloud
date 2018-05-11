@@ -2,6 +2,7 @@
  * @Generated
  */
 (function() {
+	console.log("Loaded! --> EtherGaml.js");
 	rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
 		
 		factory : function(properties) {

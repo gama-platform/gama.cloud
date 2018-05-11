@@ -90,13 +90,12 @@ public class EtherpadBasicText extends BasicText {
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlParser.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlLexer.js"));
 		
-//		languageResources.add(new Path("src-js/etherpadjsresources/etherpadjs.css"));
 
-//		languageResources.add(new Path("src-js/etherpadjsresources/etherpadjs.js"));
-//
-//		languageResources.add(new Path("src-js/etherpadjsresources/load-css-file.js"));
-//
-//		languageResources.add(new Path("src-js/etherpadjsresources/rap-handler.js"));
+		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.css"));
+		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.js"));
+		languageResources.add(new Path("src-js/ummisco/gama/participative/load-css-file.js"));
+		languageResources.add(new Path("src-js/ummisco/gama/participative/rap-handler.js"));
+		languageResources.add(new Path("src-js/ummisco/gama/participative/EtherGaml.js"));
 
 		registerJsResources(languageResources, getClassLoader());
 		loadJsResources(languageResources);
@@ -114,10 +113,11 @@ public class EtherpadBasicText extends BasicText {
 	//---------------------------------------------------------------------------------- Added method
 		
 	//  private final String[] FILENAMES = {  "etherpadjs.css",  "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js"};
-	private final String[] FILENAMES = {  "etherpadjs.css",  
-			   "etherpadjs.js" ,
-			   "load-css-file.js" , 
-			   "rap-handler.js",		   
+	private final String[] FILENAMES = { 
+			// "etherpadjs.css",  
+	//		   "etherpadjs.js" ,
+	//		   "load-css-file.js" , 
+	//		   "rap-handler.js",		   
 			   };
 
 
@@ -157,18 +157,21 @@ public class EtherpadBasicText extends BasicText {
 	//Load the js files required at Client.
 	private void loadJavaScript() {
 		    
-		 JavaScriptLoader jsLoader = RWT.getClient().getService(
-		         JavaScriptLoader.class);
-		 ResourceManager resourceManager = RWT.getResourceManager();
+	//	 JavaScriptLoader jsLoader = RWT.getClient().getService(
+	//	         JavaScriptLoader.class);
+	//	 ResourceManager resourceManager = RWT.getResourceManager();
 		
-		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-		         + "etherpadjs.js"));
+//		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//		         + "etherpadjs.js"));
 		
-		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-		         + "load-css-file.js"));
+//		 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+//		         + "load-css-file.js"));
 		
-		  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-		            + "rap-handler.js"));
+	//	  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+	//	            + "rap-handler.js"));
+		 
+		//	  jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
+		//	            + "rap-handler.js"));
 
 	}
 
