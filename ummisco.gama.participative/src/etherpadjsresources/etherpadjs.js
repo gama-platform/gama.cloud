@@ -221,11 +221,12 @@ this.setText = function(text, user, pad)  {
 	 }
 	 
 	 if(passage ==2){
-		 console.log("------------------->>>>>>-- Il faire une translation ici ");
+		 console.log("------------------->>>>>>-- Il faut faire une translation ici ");
 		 var eltText = document.getElementsByClassName(divClassName)[0];
 		 var textValue = eltText.innerText || eltText.textContent;
 		 console.log("------------------------------ Content  - ");
 		 console.log("The content length is: "+textValue.length);
+		// console.log("The content : "+textValue);
 		 console.log("------------------------------ End Content - ");
 	 }
 	   

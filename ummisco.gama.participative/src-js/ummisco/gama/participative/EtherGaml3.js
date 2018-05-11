@@ -9,22 +9,31 @@
 			return new ummisco.gama.participative.EtherpadBasicText(properties);
 		},
 		destructor : "destroy",
-		properties : [ "url", "text", "editable", "status", "annotations", "scope", "proposals", "font", "dirty", "markers", "background", "abc"],
+		properties : [ "url", "text", "editable", "status", "annotations", "scope", "proposals", "font", "dirty", "markers", "background"],
 		events : ["Modify", "TextChanged", "Save", "FocusIn", "FocusOut", "Selection", "CaretEvent", "ContentAssist"],
-		methods : ["setSelection", "addMarker", "removeMarker", "clearMarkers", "insertText", "removeText", "setProposals", "moveCursorFileStart","moveCursorFileEnd", "appendWarn", "appendErr", "appendInfo", "setText", "createAndMergeEditors", "clearAll" ]
+		methods : ["setSelection", "addMarker", "removeMarker", "clearMarkers", "insertText", "removeText", "setProposals", "moveCursorFileStart","moveCursorFileEnd"]
 	});
 	
 //------ begin of the Added Code -------------------------------------------------------------------------------
-
+	rap.registerTypeHandler("o7planning.EtherpadComposite", {
+		
+		   factory : function(properties) {
+			   console.log(" --> rap.registerTypeHandler(o7planning.EtherpadComposite   -> from Ether");
+	          return new o7planning.EtherpadComposite(properties);
+		   },
+		   destructor : "destroyEtherpad",
+		   properties : [ "abc" ],
+		   events : [],
+		   methods : [ 'appendWarn', 'appendErr', 'appendInfo', 'setText', 'createAndMergeEditors', 'clearAll' ]
+		});
 
 	   if (!window.o7planning) {
 		   console.log(" --> ");
 	       window.o7planning = {};
 	   }
-
 	   
 	   // Constructor
-	   ummisco.gama.participative.EtherpadBasicText = function(properties) {
+	   o7planning.EtherpadComposite = function(properties) {
 		   console.log(" --> o7planning.EtherpadComposite = function(properties)    -> from Ether");
 	       bindAll(this, [ "layout", "onReady", "onSend", "onRender", "onChange" ]);// @custom
 	       this.parent = rap.getObject(properties.parent);
@@ -35,10 +44,12 @@
 	       this.etherpadjs = new EtherpadJS(this.element);
 	       // Render interface
 	       rap.on("render", this.onRender);
+	    
+	      
 	   };
 
 	   
-	   ummisco.gama.participative.EtherpadBasicText.prototype = {
+	   o7planning.EtherpadComposite.prototype = {
 			  
 		       ready : false,
 		       onChange : function() {      },
@@ -245,12 +256,7 @@
 				 	editor.on("input", function() {
 				 		console.log(" --> editor.on input   -> from Gaml");
 						if (!editor.getSession().getUndoManager().isClean())
-							
-							
-						
-						
-						
-			               	self.onModify();
+							self.onModify();
 				 	});
 				 	editor.getSession().getSelection().on('changeCursor', function() {
 				 		console.log(" --> editor.getSession().getSelection().on   -> from Gaml");

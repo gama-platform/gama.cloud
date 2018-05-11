@@ -2,14 +2,9 @@
    'use strict';
    console.log("Loaded! --> rap-handler.js");
    rap.registerTypeHandler("o7planning.EtherpadComposite", {
-  // rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
-	   
- 
-	   
 	   
        factory : function(properties) {
            return new o7planning.EtherpadComposite(properties);
-   //        return new ummisco.gama.participative.EtherpadBasicText(properties);
        },
  
        destructor : "destroy",
@@ -26,7 +21,6 @@
        window.o7planning = {};
    }
  
- 
    // Constructor
    o7planning.EtherpadComposite = function(properties) {
  
@@ -37,7 +31,6 @@
        this.parent.addListener("Resize", this.layout);
  
        this.etherpadjs = new EtherpadJS(this.element);
-        
     
        // Render interface
        rap.on("render", this.onRender);
