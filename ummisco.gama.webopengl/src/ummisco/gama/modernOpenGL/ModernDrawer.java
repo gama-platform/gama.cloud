@@ -607,8 +607,8 @@ public class ModernDrawer {
 
 		// NORMAL BUFFER
 		//hqn88 for texture 
-//		if (shader.useNormal())
-//			storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
+		if (shader.useNormal())
+			storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
 
 		// INDEX BUFFER
 		int sizeIdxBuffer = 0;
@@ -698,7 +698,7 @@ public class ModernDrawer {
 				break; // s, t, r, q for textureRendering, u, v otherwise
 		}
 		// Select the VBO, GPU memory data, to use for data
-			if (bufferAttributeNumber==3) {bufferAttributeNumber=0;}
+			//if (bufferAttributeNumber==3) {bufferAttributeNumber=0;}
 			if (!isRenderingToTexture)
 				gl.glBindBuffer(GL2.GL_ARRAY_BUFFER,
 						layerStructureMap.get(currentLayer).vboHandles[bufferAttributeNumber]);//[shaderNumber * 5 + bufferAttributeNumber]);

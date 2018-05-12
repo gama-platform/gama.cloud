@@ -62,17 +62,17 @@ public class ModelScene {
 	}
 
 	protected void initWorld() {
-		if (renderer.data.isDrawEnv()) {
-			layers.put(FRAME_KEY, new FrameLayerObject(renderer));
-			layers.put(AXES_KEY, new AxesLayerObject(renderer));
-		}
-		if (renderer.useShader()) {
-			layers.put(ROTATION_HELPER_KEY, new RotationHelperLayerObject(renderer));
-//			layers.put(KEYSTONE_HELPER_KEY, new KeystoneHelperLayerObject(renderer));
-			layers.put(LIGHTS_KEY, new LightsLayerObject(renderer));
-			if (renderer.data.isShowfps())
-				layers.put(FPS_KEY, new FPSLayerObject(renderer));
-		}
+//		if (renderer.data.isDrawEnv()) {
+//			layers.put(FRAME_KEY, new FrameLayerObject(renderer));
+//			layers.put(AXES_KEY, new AxesLayerObject(renderer));
+//		}
+//		if (renderer.useShader()) {
+//			layers.put(ROTATION_HELPER_KEY, new RotationHelperLayerObject(renderer));
+////			layers.put(KEYSTONE_HELPER_KEY, new KeystoneHelperLayerObject(renderer));
+//			layers.put(LIGHTS_KEY, new LightsLayerObject(renderer));
+//			if (renderer.data.isShowfps())
+//				layers.put(FPS_KEY, new FPSLayerObject(renderer));
+//		}
 	}
 
 	/**

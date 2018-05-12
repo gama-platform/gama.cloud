@@ -55,7 +55,7 @@ public class WebGLComposite extends GLCanvas {
 
 	private static final String REMOTE_TYPE = "webopengl.WebGLComposite";
 
-	private final String[] FILENAMES = { "webgljs.css", "webgljs.js", "load-css-file.js", "rap-handler.js" };
+	private final String[] FILENAMES = { "webgljs.css", "m4.js", "webgljs.js", "load-css-file.js", "rap-handler.js" };
 
 	private final OperationHandler operationHandler = new AbstractOperationHandler() {
 
@@ -147,6 +147,9 @@ public class WebGLComposite extends GLCanvas {
 			//jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "three.js"));
 
 
+			// Load file m4.js into page
+
+			jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "m4.js"));
 			// Load file webgljs.js into page
 
 			jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "webgljs.js"));
