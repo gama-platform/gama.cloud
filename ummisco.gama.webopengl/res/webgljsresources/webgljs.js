@@ -49,7 +49,7 @@ class Agent {
 var buffer_type=0;
 var ag=null;
 function consolelog(str){
-	console.log(str);
+// console.log(str);
 }
 function handleContextLost(event) {
     event.preventDefault();
@@ -88,25 +88,25 @@ function WebGLJS(e) {
             'uniform mat4 Pmatrix;'+
             'uniform mat4 Vmatrix;'+
             'uniform mat4 Mmatrix;'+
-//            'attribute vec4 color;'+// the color of the point
+ 'attribute vec4 color;'+// the color of the point
             'attribute vec3 a_normal;'+// the color of the point
-//            'varying vec4 vColor;'+
+ 'varying vec4 vColor;'+
             'varying vec3 v_normal;'+
             'void main(void) { '+// pre-built function
                'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.0);'+
-//               'vColor = color;'+
+ 'vColor = color;'+
                'v_normal = a_normal;'+
             '}';
 	         var fragCode = 'precision mediump float;'+
-//	            'varying vec4 vColor;'+
+ 'varying vec4 vColor;'+
 	            'varying vec3 v_normal;'+
 	            'uniform vec3 u_reverseLightDirection;'+
-	            'uniform vec4 u_color;'+
+//	            'uniform vec4 u_color;'+
 	            'void main(void) {'+
-//	               'gl_FragColor =vColor ;'+
 	               'vec3 normal = normalize(v_normal);'+
 	               'float light = dot(normal, u_reverseLightDirection);'+
-	               'gl_FragColor = u_color;'+
+	               'gl_FragColor =vColor ;'+
+//	               'gl_FragColor = u_color;'+
 	               'gl_FragColor.rgb *= light;'+
 	            '}';
 	         
@@ -135,7 +135,7 @@ function WebGLJS(e) {
 	         var _Pmatrix = gl.getUniformLocation(shaderProgram, "Pmatrix");
 	         var _Vmatrix = gl.getUniformLocation(shaderProgram, "Vmatrix");
 	         var _Mmatrix = gl.getUniformLocation(shaderProgram, "Mmatrix");
-	         var colorLocation = gl.getUniformLocation(shaderProgram, "u_color");
+//	         var colorLocation = gl.getUniformLocation(shaderProgram, "u_color");
 	         var reverseLightDirectionLocation = gl.getUniformLocation(shaderProgram, "u_reverseLightDirection");
 
 	         gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);
@@ -146,19 +146,22 @@ function WebGLJS(e) {
 	         var normalLocation = gl.getAttribLocation(shaderProgram, "a_normal");
 	      // Turn on the normal attribute
 	         gl.enableVertexAttribArray(normalLocation);
-	         // Tell the attribute how to get data out of normalBuffer (ARRAY_BUFFER)
+	         // Tell the attribute how to get data out of normalBuffer
+				// (ARRAY_BUFFER)
 	         var size = 3;          // 3 components per iteration
 	         var type = gl.FLOAT;   // the data is 32bit floating point values
-	         var normalize = false; // normalize the data (convert from 0-255 to 0-1)
-	         var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+	         var normalize = false; // normalize the data (convert from 0-255 to
+									// 0-1)
+	         var stride = 0;        // 0 = move forward size * sizeof(type) each
+									// iteration to get the next position
 	         var offset = 0;        // start at the beginning of the buffer
 	         gl.vertexAttribPointer(
 	             normalLocation, size, type, normalize, stride, offset)
 	         
-//	         gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
-//	         var _color = gl.getAttribLocation(shaderProgram, "color");
-//	         gl.vertexAttribPointer(_color, 4, gl.FLOAT, false,0,0) ;
-//	         gl.enableVertexAttribArray(_color);
+			 gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
+			 var _color = gl.getAttribLocation(shaderProgram, "color");
+			 gl.vertexAttribPointer(_color, 4, gl.FLOAT, false,0,0) ;
+			 gl.enableVertexAttribArray(_color);
 			 
 	         function get_projection(angle, a, zMin, zMax) {
 	            var ang = Math.tan((angle*.5)*Math.PI/180);// angle*.5
@@ -240,7 +243,7 @@ function WebGLJS(e) {
          };
 
          var mouseWheel = function(e){   
-        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.91  : 1.1;
+        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.96  : 1.05;
          };
 
          canvas.addEventListener("DOMMouseScroll", mouseWheel, false);
@@ -344,15 +347,15 @@ function WebGLJS(e) {
             
             
             /*
-    
-		gl.viewport(0,0,canvas.width,canvas.height);
-			 
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        gl.enable(gl.DEPTH_TEST);
-				
-         gl.depthFunc(gl.LEQUAL);
-            */
+			 * 
+			 * gl.viewport(0,0,canvas.width,canvas.height);
+			 * 
+			 * gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+			 * 
+			 * gl.enable(gl.DEPTH_TEST);
+			 * 
+			 * gl.depthFunc(gl.LEQUAL);
+			 */
             
             
             
@@ -378,12 +381,12 @@ function WebGLJS(e) {
 // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 // gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
 					
-//				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-//				gl.bufferData(34962, an_agent.nbc, 35044);  
-//				for(var sd1 of an_agent.c){
-//					vertices=sd1.v;		
-//					gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//				
-//				}
+// gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+// gl.bufferData(34962, an_agent.nbc, 35044);
+// for(var sd1 of an_agent.c){
+// vertices=sd1.v;
+// gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
+// }
 					
 				gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// 36
 				gl.bufferData(34962, an_agent.nbnm, 35044);  
@@ -401,10 +404,10 @@ function WebGLJS(e) {
 				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 				  // Set the color to use
-				  gl.uniform4fv(colorLocation, [0.2, 1, 0.2, 1]); // green
+//				  gl.uniform4fv(colorLocation, [0.2, 1, 0.2, 1]); // green
 				 
 				  // set the light direction.
-				  gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.5, 0.7, 0.5]));
+				  gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
 
 			  // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
@@ -450,7 +453,7 @@ function WebGLJS(e) {
 				  
 				  
 				vertices=[
-					9.5,68.5,0,68.5,68.5,0,68.5,9.5,0,9.5,9.5,0,9.5,68.5,59,68.5,68.5,59,68.5,9.5,59,9.5,9.5,59,68.5,68.5,0,9.5,68.5,0,68.5,9.5,0,9.5,9.5,0,9.5,68.5,59,68.5,68.5,59,68.5,9.5,59,9.5,9.5,59,68.5,68.5,0,68.5,68.5,59,9.5,68.5,59,9.5,68.5,0,68.5,9.5,0,68.5,9.5,59,9.5,9.5,0,9.5,9.5,59
+					33.19456100463867,31.732711791992188,0,43.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,0,33.19456100463867,31.732711791992188,10,43.19456100463867,31.732711791992188,10,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,10,43.19456100463867,31.732711791992188,0,33.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,0,33.19456100463867,31.732711791992188,10,43.19456100463867,31.732711791992188,10,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,10,43.19456100463867,31.732711791992188,0,43.19456100463867,31.732711791992188,10,33.19456100463867,31.732711791992188,10,33.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,10
 				];		
 				var sd=new SubData(vertices,0);
 				ag.vl.push(sd);
@@ -458,25 +461,16 @@ function WebGLJS(e) {
 				
 				
 				
+				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
 				
-				
-				
-				
-				
-				
-				
-				
-		
-//				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-//		
-//				ag.nbc=384;
-//				gl.bufferData(34962, 384, 35044);  
-//				colors=[
-//					0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1
-//				];				
-//				var sd=new SubData(colors,0);
-//				ag.c.push(sd);
-//				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));// 0,
+				ag.nbc=384;
+				gl.bufferData(34962, 384, 35044);  
+				colors=[
+					0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1
+				];				
+				var sd=new SubData(colors,0);
+				ag.c.push(sd);
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));// 0,
 				
 				
 				
@@ -501,8 +495,6 @@ function WebGLJS(e) {
 				
 				
 				
-				
-		
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 				// indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
 				indices=[
@@ -520,6 +512,12 @@ function WebGLJS(e) {
 		
 		
 		
+
+		
+		
+		
+
+				
 				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
 				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
@@ -535,16 +533,8 @@ function WebGLJS(e) {
 				
 				
 				
-				/*
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
+
 				
 				ag=new Agent();
 
@@ -624,7 +614,6 @@ function WebGLJS(e) {
 				var obj_copy = Object.create(ag);
 				objects.push(obj_copy);
 				ag=null;
-				*/
 		        // animate(0);
 				 
 						
@@ -643,7 +632,7 @@ function WebGLJS(e) {
 	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
-//		animate(0);
+// animate(0);
 		indices=i;
 		var obj_copy = Object.create(ag);
 		objects.push(obj_copy);
@@ -680,7 +669,7 @@ function WebGLJS(e) {
 		// consolelog("gl.bindBuffer ("+glElementArrayBuffer+", bufferArray );//
 		// "+i);
 		if(ag==null){
-			//objects=[];
+			// objects=[];
 			ag=new Agent();
 		}
 		buffer_type=i;
@@ -772,14 +761,14 @@ function WebGLJS(e) {
 
 		v=v.map(function(i){return parseFloat(i);});
 		/*
-
-		 var min=Math.min(...v);
-		 
-		 var max=Math.max(...v);
-		 
-		 
-		 for(var i=0; i<v.length; i++) { v[i] *= ((4.0/(max-min))); } 
-		
+		 * 
+		 * var min=Math.min(...v);
+		 * 
+		 * var max=Math.max(...v);
+		 * 
+		 * 
+		 * for(var i=0; i<v.length; i++) { v[i] *= ((4.0/(max-min))); }
+		 * 
 		 */
 		// console.log(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+
 		// vertices+");");
