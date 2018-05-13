@@ -432,7 +432,7 @@ public class ModernDrawer {
 	}
 
 	private void drawVBO(final int[] typeOfDrawing) {
-		gl.glDrawElements(typeOfDrawing[0], typeOfDrawing[1], GL2.GL_UNSIGNED_INT, 0);
+//		gl.glDrawElements(typeOfDrawing[0], typeOfDrawing[1], GL2.GL_UNSIGNED_INT, 0);
 	}
 
 	private void updateTransformationMatrix(final AbstractShader shaderProgram) {
@@ -556,103 +556,90 @@ public class ModernDrawer {
 		final ArrayList<float[]> listColors = new ArrayList<float[]>();
 		final ArrayList<float[]> listIdxBuffer = new ArrayList<float[]>();
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
-		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
+//		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
 		for (final DrawingEntity entity : listEntities) {
+
+			listVertices.clear();
+			listColors.clear();
+			listIdxBuffer.clear();
+			listNormals.clear();
+//			if (entity.getUvMapping() != null)
+//				listUvMapping.clear();
+			
+			
+			
 			listVertices.add(entity.getVertices());
 			listColors.add(entity.getColors());
 			listIdxBuffer.add(entity.getIndices());
 			listNormals.add(entity.getNormals());
-			if (entity.getUvMapping() != null)
-				listUvMapping.add(entity.getUvMapping());
-		}
+//			if (entity.getUvMapping() != null)
+//				listUvMapping.add(entity.getUvMapping());
+			
+			
 
-		// VERTICES POSITIONS BUFFER
-		storeDataInAttributeList(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, listVertices, shaderNumber);
-		
-//		System.out.println();
-//		System.out.println("vertices");
-//		for(int i=0; i<listVertices.size(); i++) {
-//			for(int j=0; j<listVertices.get(i).length; j++) {
-//				System.out.print(listVertices.get(i)[j]+",");
-//			}
-//			System.out.println( );
-//		}
-//		
-//		System.out.println();
-//		System.out.println("colors");
-//		for(int i=0; i<listColors.size(); i++) {
-//			for(int j=0; j<listColors.get(i).length; j++) {
-//				System.out.print(listColors.get(i)[j]+",");
-//			}
-//			System.out.println( );
-//		}
-//		System.out.println();
-//		System.out.println("indices");
-//		for(int i=0; i<listIdxBuffer.size(); i++) {
-//			for(int j=0; j<listIdxBuffer.get(i).length; j++) {
-//				System.out.print(listIdxBuffer.get(i)[j]+",");
-//			}
-//			System.out.println( );
-//		}
-		// COLORS BUFFER
-		storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
-
-		// UV MAPPING (If a texture is defined)
-//		if (listUvMapping.size() != 0) {
-//			storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
-//					shaderNumber);
-//			gl.glActiveTexture(GL.GL_TEXTURE0);
-//			gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
-//		}
-
-		// NORMAL BUFFER
-		//hqn88 for texture 
-		if (shader.useNormal())
-			storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
-
-		// INDEX BUFFER
-		int sizeIdxBuffer = 0;
-		for (final float[] idxBuffer : listIdxBuffer) {
-			sizeIdxBuffer += idxBuffer.length;
-		}
-		final int[] intIdxBuffer = new int[sizeIdxBuffer];
-
-		int cpt = 0;
-		int offset = 0;
-		for (int i = 0; i < listIdxBuffer.size(); i++) {
-			final float[] idxBuffer = listIdxBuffer.get(i);
-			int maxIdx = 0;
-			for (int j = 0; j < idxBuffer.length; j++) {
-				if ((int) idxBuffer[j] > maxIdx) {
-					maxIdx = (int) idxBuffer[j];
-				}
-				intIdxBuffer[offset + j] = (int) idxBuffer[j] + cpt;
+			// VERTICES POSITIONS BUFFER
+			storeDataInAttributeList(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, listVertices, shaderNumber);
+			// COLORS BUFFER
+			storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
+			// UV MAPPING (If a texture is defined)
+	//		if (listUvMapping.size() != 0) {
+	//			storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
+	//					shaderNumber);
+	//			gl.glActiveTexture(GL.GL_TEXTURE0);
+	//			gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
+	//		}
+	
+			// NORMAL BUFFER
+			//hqn88 for texture 
+			if (shader.useNormal())
+				storeDataInAttributeList(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, listNormals, shaderNumber);
+	
+			// INDEX BUFFER
+			int sizeIdxBuffer = 0;
+			for (final float[] idxBuffer : listIdxBuffer) {
+				sizeIdxBuffer += idxBuffer.length;
 			}
-			offset += idxBuffer.length;
-			cpt += maxIdx + 1;
-		}
-		final IntBuffer ibIdxBuff = Buffers.newDirectIntBuffer(intIdxBuffer);
-		// Select the VBO, GPU memory data, to use for colors
-		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
-				layerStructureMap.get(currentLayer).vboHandles[4]);
-		final int numBytes = intIdxBuffer.length * 4;
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
-		ibIdxBuff.rewind();
+			final int[] intIdxBuffer = new int[sizeIdxBuffer];
+	
+			int cpt = 0;
+			int offset = 0;
+			for (int i = 0; i < listIdxBuffer.size(); i++) {
+				final float[] idxBuffer = listIdxBuffer.get(i);
+				int maxIdx = 0;
+				for (int j = 0; j < idxBuffer.length; j++) {
+					if ((int) idxBuffer[j] > maxIdx) {
+						maxIdx = (int) idxBuffer[j];
+					}
+					intIdxBuffer[offset + j] = (int) idxBuffer[j] + cpt;
+				}
+				offset += idxBuffer.length;
+				cpt += maxIdx + 1;
+			}
+			final IntBuffer ibIdxBuff = Buffers.newDirectIntBuffer(intIdxBuffer);
+			// Select the VBO, GPU memory data, to use for colors
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
+					layerStructureMap.get(currentLayer).vboHandles[4]);
+			final int numBytes = intIdxBuffer.length * 4;
+			gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, numBytes, intIdxBuffer, GL2.GL_STATIC_DRAW);
+			ibIdxBuff.rewind();
+	
+			final int[] newElement = new int[3];
+			if (drawingType.equals(DrawingEntity.Type.POINT.toString())) {
+				// particular case : drawing just a point
+				newElement[0] = GL2.GL_POINTS;
+			} else if (drawingType.equals(DrawingEntity.Type.LINE.toString())) {
+				// draw border (lines)
+				newElement[0] = GL2.GL_LINES;
+			} else {
+				// draw triangles
+				newElement[0] = GL2.GL_TRIANGLES;
+			}
+			newElement[1] = intIdxBuffer.length;
+			newElement[2] = shaderNumber;
+			typeOfDrawingMap.put(listEntities.get(0).getShader(), newElement);
+			gl.glDrawElements(0, intIdxBuffer.length, GL2.GL_UNSIGNED_INT, 0);
 
-		final int[] newElement = new int[3];
-		if (drawingType.equals(DrawingEntity.Type.POINT.toString())) {
-			// particular case : drawing just a point
-			newElement[0] = GL2.GL_POINTS;
-		} else if (drawingType.equals(DrawingEntity.Type.LINE.toString())) {
-			// draw border (lines)
-			newElement[0] = GL2.GL_LINES;
-		} else {
-			// draw triangles
-			newElement[0] = GL2.GL_TRIANGLES;
 		}
-		newElement[1] = intIdxBuffer.length;
-		newElement[2] = shaderNumber;
-		typeOfDrawingMap.put(listEntities.get(0).getShader(), newElement);
 	}
 
 	private void storeDataInAttributeList(final int shaderAttributeNumber, final int bufferAttributeNumber,
