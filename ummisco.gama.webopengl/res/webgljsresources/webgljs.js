@@ -479,16 +479,12 @@ function WebGLJS(e) {
 
 		
 				ag.nbnm=288;
-
 				normals=[
 					0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0
 				];				
 				var sd=new SubData(normals,0);
 				ag.nm.push(sd);
 
-				
-				
-				
 
 
 				indices=[
@@ -500,34 +496,11 @@ function WebGLJS(e) {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-
-		
-		
-		
-
-				
-//				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-//				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-//				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-//				gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
-//				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);// 144
-				
-				
 
 				var obj_copy = Object.create(ag);
 				objects.push(obj_copy);
 				ag=null;
-				
-				
-				
-				
-				
+
 
 
 				
@@ -538,11 +511,9 @@ function WebGLJS(e) {
 				ag.c=[];
 				ag.nm=[];
 				
-//				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 		
 						
 				ag.nb=288;// 384;
-//				gl.bufferData(34962, ag.nb, 35044);
 				  
 				  
 				  
@@ -551,7 +522,6 @@ function WebGLJS(e) {
 				];		
 				var sd=new SubData(vertices,0);
 				ag.vl.push(sd);
-//				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
 				
 				
 				
@@ -563,8 +533,6 @@ function WebGLJS(e) {
 				
 				
 				
-		
-//				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
 		
 				ag.nbc=384;
 				gl.bufferData(34962, ag.nbc, 35044);  
@@ -573,7 +541,6 @@ function WebGLJS(e) {
 				];				
 				var sd=new SubData(colors,0);
 				ag.c.push(sd);
-//				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));// 0,
 				
 				
 				
@@ -581,27 +548,20 @@ function WebGLJS(e) {
 				
 				
 
-				
-//				gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// 39
 		
 				ag.nbnm=288;
-//				gl.bufferData(34962, ag.nbnm, 35044);  
 				normals=[
 					0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0
 				];				
 				var sd=new SubData(normals,0);
 				ag.nm.push(sd);
-//				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(normals));// 0,
 				
 				
 		
-//				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-				// indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
 				indices=[
 					0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22
 				];
 				ag.idx=indices;
-//				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
 		
 		
 		
@@ -610,15 +570,6 @@ function WebGLJS(e) {
 		
 		
 		
-		
-//		
-//				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-//				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-//				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-//				gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
-//				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);// 144
-				
-				
 
 				var obj_copy = Object.create(ag);
 				objects.push(obj_copy);
