@@ -27,7 +27,7 @@ var depthBufferTextureArray=null;
 var textureArray=null;
 var then = 0;
 var deltaTime;
-var animate_paused=false;
+//var animate_paused=false;
 
 class SubData{
   constructor(v,offset) {
@@ -323,11 +323,11 @@ function WebGLJS(e) {
          var THETA = 0,
          PHI = 0;
          var time_old = 0;
-		 var fps = 25;
+		 var fps = 60;
 		 
 		 
          var animate = function(time) {
-        	 if(!animate_paused) {
+//        	 if(!animate_paused) {
 		            var dt = time-time_old;
 							
 		            if (!drag) {
@@ -352,8 +352,6 @@ function WebGLJS(e) {
 		// -(canvas.width/8),-(canvas.height/3),-300,-10
 		           	 -(translateX),-(translateY),-canvas.width/2,1
 		           	 ];
-		            
-		            
 		            
 		            
 		            
@@ -413,13 +411,13 @@ function WebGLJS(e) {
 					}		
 		
 
-        	 }
+//        	 }
 
             // window.requestAnimationFrame(animate);
              
 		  setTimeout(function() {
 			  requestId = window.requestAnimationFrame(animate);
-		  },3000 / fps);
+		  },1000 / fps);
              
            
          }
@@ -659,14 +657,14 @@ function WebGLJS(e) {
 
 	this.glDrawElements = function(glTriangles, i, glUnsignedInt, j) {
 		
-		animate_paused=false;
+//		animate_paused=false;
 		if(debug){consolelog("gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);//"+i);}
 		
-	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-//				gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
-		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
+//	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+//	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+//	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+////				gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
+//		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
 // animate(0);
 		indices=i;
 		var obj_copy = Object.create(ag);
@@ -695,7 +693,7 @@ function WebGLJS(e) {
 				consolelog(max);
 			}
 		}
-        animate_paused=true;
+//        animate_paused=true;
 		objects=[];
 		// consolelog("gl.bindFramebuffer ("+glFramebuffer+","+i+"); ");
 		// gl.bindFramebuffer(glFramebuffer, frameBufferArray);

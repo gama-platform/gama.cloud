@@ -12,7 +12,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-public class InternalGamlLexer extends Lexer {
+public class InternalGamlLexerWeb extends Lexer {
     public static final int EOF=-1;
     public static final int T__15=15;
     public static final int T__16=16;
@@ -167,11 +167,11 @@ public class InternalGamlLexer extends Lexer {
     // delegates
     // delegators
 
-    public InternalGamlLexer() {;} 
-    public InternalGamlLexer(CharStream input) {
+    public InternalGamlLexerWeb() {;} 
+    public InternalGamlLexerWeb(CharStream input) {
         this(input, new RecognizerSharedState());
     }
-    public InternalGamlLexer(CharStream input, RecognizerSharedState state) {
+    public InternalGamlLexerWeb(CharStream input, RecognizerSharedState state) {
         super(input,state);
 
     }

@@ -15,16 +15,30 @@ import com.google.inject.Inject;
 
 import msi.gama.lang.gaml.services.GamlGrammarAccess;
 
-public class GamlParser extends AbstractContentAssistParser {
+public class GamlParserWeb extends AbstractContentAssistParser {
 	
 	@Inject
 	private GamlGrammarAccess grammarAccess;
 	
 	private Map<AbstractElement, String> nameMappings;
 	
+	
+	
 	@Override
-	protected msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParser createParser() {
-		msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParser result = new msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParser(null);
+	public Collection<FollowElement> getFollowElements(FollowElement element) {
+		// TODO Auto-generated method stub
+		return super.getFollowElements(element);
+	}
+
+	@Override
+	public Collection<FollowElement> getFollowElements(String input, boolean strict) {
+		// TODO Auto-generated method stub
+		return super.getFollowElements(input, strict);
+	}
+
+	@Override
+	protected msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParserWeb createParser() {
+		msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParserWeb result = new msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParserWeb(null);
 		result.setGrammarAccess(grammarAccess);
 		return result;
 	}
@@ -464,7 +478,7 @@ public class GamlParser extends AbstractContentAssistParser {
 	@Override
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
-			msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParser typedParser = (msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParser) parser;
+			msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParserWeb typedParser = (msi.gama.lang.gaml.web.contentassist.antlr.internal.InternalGamlParserWeb) parser;
 			typedParser.entryRuleEntry();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {

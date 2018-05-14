@@ -13,8 +13,7 @@ import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.DFA;
 import msi.gama.lang.gaml.services.GamlGrammarAccess;
-
-
+import msi.gama.lang.gaml.services.GamlGrammarAccess.S_TryElements;
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-public class InternalGamlParser extends AbstractInternalContentAssistParser {
+public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INTEGER", "RULE_DOUBLE", "RULE_COLOR", "RULE_BOOLEAN", "RULE_KEYWORD", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'equation'", "'solve'", "'experiment'", "'do'", "'var:'", "';'", "'value:'", "'<-'", "'species'", "'grid'", "'ask'", "'release'", "'capture'", "'create'", "'write'", "'error'", "'warn'", "'exception'", "'save'", "'assert'", "'inspect'", "'browse'", "'draw'", "'using'", "'switch'", "'put'", "'add'", "'remove'", "'match'", "'match_between'", "'match_one'", "'parameter'", "'status'", "'highlight'", "'focus_on'", "'light'", "'camera'", "'text'", "'image'", "'data'", "'chart'", "'agents'", "'graphics'", "'display_population'", "'display_grid'", "'quadtree'", "'event'", "'overlay'", "'datalist'", "'var'", "'const'", "'let'", "'arg'", "'init'", "'reflex'", "'aspect'", "'<<'", "'<<+'", "'+<-'", "'<+'", "'>-'", "'name:'", "'returns:'", "'as:'", "'of:'", "'parent:'", "'species:'", "'type:'", "'data:'", "'const:'", "'topology:'", "'item:'", "'init:'", "'message:'", "'control:'", "'environment:'", "'text:'", "'image:'", "'using:'", "'parameter:'", "'aspect:'", "'light:'", "'action:'", "'on_change:'", "'!='", "'='", "'>='", "'<='", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", "'#'", "'!'", "'my'", "'the'", "'not'", "'__synthetic__'", "'model'", "'import'", "'as'", "'@'", "'model:'", "'else'", "'when'", "':'", "'('", "')'", "'{'", "'}'", "','", "'::'", "']'", "'['", "'**unit*'", "'**type*'", "'**action*'", "'**skill*'", "'**var*'", "'**equation*'", "'global'", "'loop'", "'if'", "'condition:'", "'return'", "'action'", "'set'", "'equation:'", "'display'", "'function:'", "'->'", "'?'", "'or'", "'and'", "'^'", "'.'"
     };
@@ -181,16 +180,16 @@ public class InternalGamlParser extends AbstractInternalContentAssistParser {
     // delegators
 
 
-        public InternalGamlParser(TokenStream input) {
+        public InternalGamlParserWeb(TokenStream input) {
             this(input, new RecognizerSharedState());
         }
-        public InternalGamlParser(TokenStream input, RecognizerSharedState state) {
+        public InternalGamlParserWeb(TokenStream input, RecognizerSharedState state) {
             super(input, state);
              
         }
         
 
-    public String[] getTokenNames() { return InternalGamlParser.tokenNames; }
+    public String[] getTokenNames() { return InternalGamlParserWeb.tokenNames; }
     public String getGrammarFileName() { return "D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g"; }
 
 
@@ -6232,6 +6231,131 @@ public class InternalGamlParser extends AbstractInternalContentAssistParser {
     }
     // $ANTLR end "entryRuleAddition"
 
+    // $ANTLR start "ruleS_Try"
+    // InternalGaml.g:1651:1: ruleS_Try returns [EObject current=null] : ( ( (lv_key_0_0= 'try' ) ) ( (lv_block_1_0= ruleBlock ) ) ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )? ) ;
+    public final EObject ruleS_Try() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_key_0_0=null;
+        Token otherlv_2=null;
+        EObject lv_block_1_0 = null;
+
+        EObject lv_catch_3_0 = null;
+
+
+
+
+        try {
+            // InternalGaml.g:1657:2: ( ( ( (lv_key_0_0= 'try' ) ) ( (lv_block_1_0= ruleBlock ) ) ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )? ) )
+            // InternalGaml.g:1658:2: ( ( (lv_key_0_0= 'try' ) ) ( (lv_block_1_0= ruleBlock ) ) ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )? )
+            {
+            // InternalGaml.g:1658:2: ( ( (lv_key_0_0= 'try' ) ) ( (lv_block_1_0= ruleBlock ) ) ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )? )
+            // InternalGaml.g:1659:3: ( (lv_key_0_0= 'try' ) ) ( (lv_block_1_0= ruleBlock ) ) ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )?
+            {
+            // InternalGaml.g:1659:3: ( (lv_key_0_0= 'try' ) )
+            // InternalGaml.g:1660:4: (lv_key_0_0= 'try' )
+            {
+            // InternalGaml.g:1660:4: (lv_key_0_0= 'try' )
+            // InternalGaml.g:1661:5: lv_key_0_0= 'try'
+            {
+            if ( state.backtracking==0 ) {
+
+            }
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              					}
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalGaml.g:1673:3: ( (lv_block_1_0= ruleBlock ) )
+            // InternalGaml.g:1674:4: (lv_block_1_0= ruleBlock )
+            {
+            // InternalGaml.g:1674:4: (lv_block_1_0= ruleBlock )
+            // InternalGaml.g:1675:5: lv_block_1_0= ruleBlock
+            {
+            if ( state.backtracking==0 ) {
+
+            }
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              					}
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalGaml.g:1692:3: ( ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) ) )?
+            int alt36=2;
+            int LA36_0 = input.LA(1);
+
+            switch (alt36) {
+                case 1 :
+                    // InternalGaml.g:1693:4: ( ( 'catch' )=>otherlv_2= 'catch' ) ( (lv_catch_3_0= ruleBlock ) )
+                    {
+                    // InternalGaml.g:1693:4: ( ( 'catch' )=>otherlv_2= 'catch' )
+                    // InternalGaml.g:1694:5: ( 'catch' )=>otherlv_2= 'catch'
+                    {
+                    if ( state.backtracking==0 ) {
+                    }
+
+                    }
+
+                    // InternalGaml.g:1700:4: ( (lv_catch_3_0= ruleBlock ) )
+                    // InternalGaml.g:1701:5: (lv_catch_3_0= ruleBlock )
+                    {
+                    // InternalGaml.g:1701:5: (lv_catch_3_0= ruleBlock )
+                    // InternalGaml.g:1702:6: lv_catch_3_0= ruleBlock
+                    {
+                    if ( state.backtracking==0 ) {
+
+                    }
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+
+            }
+        }
+        finally {
+        }
+        return current;
+    }
 
     // $ANTLR start "ruleAddition"
     // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-gen\\msi\\gama\\lang\\gaml\\web\\contentassist\\antlr\\internal\\InternalGaml.g:2066:1: ruleAddition : ( ( rule__Addition__Group__0 ) ) ;
