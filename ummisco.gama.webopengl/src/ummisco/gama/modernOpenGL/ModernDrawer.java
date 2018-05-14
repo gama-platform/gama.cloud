@@ -637,7 +637,7 @@ public class ModernDrawer {
 			newElement[1] = intIdxBuffer.length;
 			newElement[2] = shaderNumber;
 			typeOfDrawingMap.put(listEntities.get(0).getShader(), newElement);
-			gl.glDrawElements(0, intIdxBuffer.length, GL2.GL_UNSIGNED_INT, 0);
+			gl.glDrawElements(newElement[0], intIdxBuffer.length, GL2.GL_UNSIGNED_INT, 0);
 
 		}
 	}
