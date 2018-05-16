@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="oxygenGamaWeb_MacOS" sequenceNumber="452">
+<?pde version="3.8"?><target includeMode="feature" name="oxygenGamaWeb_MacOS" sequenceNumber="505">
     <locations>
         <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
             <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
@@ -8,21 +8,21 @@
             <repository location="http://download.eclipse.org/releases/oxygen"/>
         </location>
         <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-            <unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
-            <unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
-            <repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
+            <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
+            <unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
+            <repository location="http://dslforge.org/downloads/runtime/repository/"/>
         </location>
         <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
             <unit id="org.eclipse.gemini.jpa.feature.feature.group" version="1.2.0.M1"/>
             <unit id="org.eclipse.gemini.jpa.samples.feature.feature.group" version="1.2.0.M1"/>
             <repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
         </location>
-        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-            <unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-            <unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
-            <repository location="http://dslforge.org/downloads/runtime/repository/"/>
-        </location>
         <location path="${eclipse_home}" type="Profile"/>
+        <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+            <unit id="org.eclipse.rap.fileupload.feature.feature.group" version="2.3.0.20140731-1501"/>
+            <unit id="org.eclipse.rap.richtext.feature.feature.group" version="0.2.0.20150623-1041"/>
+            <repository location="http://download.eclipse.org/rt/rap/incubator/nightly/"/>
+        </location>
     </locations>
     <environment>
         <os>macosx</os>

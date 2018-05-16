@@ -88,6 +88,7 @@ public class EtherpadBasicText extends BasicText {
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlLexer.js"));
 		
 
+		languageResources.add(new Path("src-js/ummisco/gama/participative/EtherToGaml.js"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.css"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.js"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/load-css-file.js"));

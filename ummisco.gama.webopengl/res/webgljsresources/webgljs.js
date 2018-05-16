@@ -19,7 +19,6 @@ var UVMAPPING_IDX;// 40
 var programInfo;
 var cubeRotation = 0.0;
 
-var drawElementMode=0;
 var requestId;
 var bufferArray=null;
 var frameBufferArray=null;
@@ -28,7 +27,6 @@ var depthBufferTextureArray=null;
 var textureArray=null;
 var then = 0;
 var deltaTime;
-//var animate_paused=false;
 
 class SubData{
   constructor(v,offset) {
@@ -50,21 +48,12 @@ class Agent {
 }
 var buffer_type=0;
 var ag=null;
-var debug=false;
 function consolelog(str){
-	 console.log(str);
+	console.log(str);
 }
 function handleContextLost(event) {
     event.preventDefault();
-    window.cancelRequestAnimationFrame=( function() {
-    return window.cancelAnimationFrame          ||
-        window.webkitCancelRequestAnimationFrame    ||
-        window.mozCancelRequestAnimationFrame       ||
-        window.oCancelRequestAnimationFrame     ||
-        window.msCancelRequestAnimationFrame        ||
-        window.clearTimeout;
-} )();
-    	
+    window.cancelRequestAnimationFrame(requestId);
  }
 function WebGLJS(e) {
 
@@ -83,10 +72,10 @@ function WebGLJS(e) {
 	}
 	e.appendChild(canvas);
 
+	 canvas.addEventListener(
+		     'webglcontextlost', handleContextLost, false);
 	gl = canvas.getContext('webgl');
-	canvas.addEventListener(
-			'webglcontextlost', handleContextLost, false);
-	if(debug){consolelog("canvas.getContext "+gl); }
+	consolelog("canvas.getContext "+gl); 
 
 	if (!gl) {
 		alert("Unable to initialize WebGL. Your browser or machine may not support it.");
@@ -99,25 +88,25 @@ function WebGLJS(e) {
             'uniform mat4 Pmatrix;'+
             'uniform mat4 Vmatrix;'+
             'uniform mat4 Mmatrix;'+
- 'attribute vec4 color;'+// the color of the point
+//            'attribute vec4 color;'+// the color of the point
             'attribute vec3 a_normal;'+// the color of the point
- 'varying vec4 vColor;'+
+//            'varying vec4 vColor;'+
             'varying vec3 v_normal;'+
             'void main(void) { '+// pre-built function
                'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.0);'+
- 'vColor = color;'+
+//               'vColor = color;'+
                'v_normal = a_normal;'+
             '}';
 	         var fragCode = 'precision mediump float;'+
- 'varying vec4 vColor;'+
+//	            'varying vec4 vColor;'+
 	            'varying vec3 v_normal;'+
 	            'uniform vec3 u_reverseLightDirection;'+
-//	            'uniform vec4 u_color;'+
+	            'uniform vec4 u_color;'+
 	            'void main(void) {'+
+//	               'gl_FragColor =vColor ;'+
 	               'vec3 normal = normalize(v_normal);'+
 	               'float light = dot(normal, u_reverseLightDirection);'+
-	               'gl_FragColor =vColor ;'+
-//	               'gl_FragColor = u_color;'+
+	               'gl_FragColor = u_color;'+
 	               'gl_FragColor.rgb *= light;'+
 	            '}';
 	         
@@ -146,7 +135,7 @@ function WebGLJS(e) {
 	         var _Pmatrix = gl.getUniformLocation(shaderProgram, "Pmatrix");
 	         var _Vmatrix = gl.getUniformLocation(shaderProgram, "Vmatrix");
 	         var _Mmatrix = gl.getUniformLocation(shaderProgram, "Mmatrix");
-//	         var colorLocation = gl.getUniformLocation(shaderProgram, "u_color");
+	         var colorLocation = gl.getUniformLocation(shaderProgram, "u_color");
 	         var reverseLightDirectionLocation = gl.getUniformLocation(shaderProgram, "u_reverseLightDirection");
 
 	         gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);
@@ -157,22 +146,19 @@ function WebGLJS(e) {
 	         var normalLocation = gl.getAttribLocation(shaderProgram, "a_normal");
 	      // Turn on the normal attribute
 	         gl.enableVertexAttribArray(normalLocation);
-	         // Tell the attribute how to get data out of normalBuffer
-				// (ARRAY_BUFFER)
+	         // Tell the attribute how to get data out of normalBuffer (ARRAY_BUFFER)
 	         var size = 3;          // 3 components per iteration
 	         var type = gl.FLOAT;   // the data is 32bit floating point values
-	         var normalize = false; // normalize the data (convert from 0-255 to
-									// 0-1)
-	         var stride = 0;        // 0 = move forward size * sizeof(type) each
-									// iteration to get the next position
+	         var normalize = false; // normalize the data (convert from 0-255 to 0-1)
+	         var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
 	         var offset = 0;        // start at the beginning of the buffer
 	         gl.vertexAttribPointer(
 	             normalLocation, size, type, normalize, stride, offset)
 	         
-			 gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
-			 var _color = gl.getAttribLocation(shaderProgram, "color");
-			 gl.vertexAttribPointer(_color, 4, gl.FLOAT, false,0,0) ;
-			 gl.enableVertexAttribArray(_color);
+//	         gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);
+//	         var _color = gl.getAttribLocation(shaderProgram, "color");
+//	         gl.vertexAttribPointer(_color, 4, gl.FLOAT, false,0,0) ;
+//	         gl.enableVertexAttribArray(_color);
 			 
 	         function get_projection(angle, a, zMin, zMax) {
 	            var ang = Math.tan((angle*.5)*Math.PI/180);// angle*.5
@@ -234,7 +220,7 @@ function WebGLJS(e) {
 
          var translationFactor = 0.25;
          var mouseMove = function(e) {
-        	 canvas.width+=0;
+
             if (!drag) return false;
 
             if (e.ctrlKey) {
@@ -254,7 +240,7 @@ function WebGLJS(e) {
          };
 
          var mouseWheel = function(e){   
-        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.99  : 1.01;
+        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.91  : 1.1;
          };
 
          canvas.addEventListener("DOMMouseScroll", mouseWheel, false);
@@ -307,112 +293,125 @@ function WebGLJS(e) {
 		 
 		 
 
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
          /* =================== Drawing =================== */
 
          var THETA = 0,
          PHI = 0;
          var time_old = 0;
-		 var fps = 60;
+		 var fps = 25;
 		 
 		 
          var animate = function(time) {
-//        	 if(!animate_paused) {
-		            var dt = time-time_old;
-							
-		            if (!drag) {
-		               dX *= AMORTIZATION, dY*=AMORTIZATION;
-		               THETA+=dX, PHI+=dY;
-		            }
-		            mo_matrix = [
-		               1,0,0,0, 
-		            	0,1,0,0, 
-		            	0,0,1,0, 
-		            	0,0,0,1 
-		            	
-		            	];
-		            
-		            
-		            rotateY(mo_matrix, THETA);
-		            rotateX(mo_matrix, PHI);
-		            time_old = time; 
-		
-		            proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
-		            view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
-		// -(canvas.width/8),-(canvas.height/3),-300,-10
-		           	 -(translateX),-(translateY),-canvas.width/2,1
-		           	 ];
-		            
-		            
-		            
-		            
-		            
-		            
-		            objects.forEach(function(an_agent) {
-		
-						
-						gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
-						gl.bufferData(34962, an_agent.nb, 35044);  	
-						for(var sd1 of an_agent.vl){
-							vertices=sd1.v;		
-							gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//			
-						}
-							
-		// gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-		// gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-		// gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-		//
-		// gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-		// gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
-							
-						 gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
-						 gl.bufferData(34962, an_agent.nbc, 35044);
-						 for(var sd1 of an_agent.c){
-							 vertices=sd1.v;
-							 gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
-						 }
-							
-		//				gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// 36
-		//				gl.bufferData(34962, an_agent.nbnm, 35044);  
-		//				for(var sd1 of an_agent.nm){
-		//					vertices=sd1.v;		
-		//					gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//				
-		//				}
-							
-						gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-						indices=an_agent.idx;
-						
-						gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
-		
-						gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-						gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-						gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-						  // Set the color to use
-		//				  gl.uniform4fv(colorLocation, [0.2, 1, 0.2, 1]); // green
-						 
-						  // set the light direction.
-						  gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
-		
-					  // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
-						gl.drawElements(drawElementMode, indices.length, gl.UNSIGNED_SHORT , 0);
-		//				var max=Math.max(...indices);
-		//				consolelog(indices.length);
-		//				consolelog(max);
-		            });		
+            var dt = time-time_old;
+					
+            if (!drag) {
+               dX *= AMORTIZATION, dY*=AMORTIZATION;
+               THETA+=dX, PHI+=dY;
+            }
+               
+            // set model matrix to I4
+            mo_matrix = [
+               1,0,0,0, 
+            	0,1,0,0, 
+            	0,0,1,0, 
+            	0,0,0,1 
+            	
+            	];
+            /*
+			 * 
+			 * 0.9999451693655121, -0.010195108091019157, -0.002391241014555666,
+			 * 0, 0, 0.22835087011065547,-0.9735789028731603,0,
+			 * 0.010471784116245783,0.9735255209241918, 0.22833834948756146, 0,
+			 * 0,0,0,1
+			 * 
+			 */
+            rotateY(mo_matrix, THETA);
+            rotateX(mo_matrix, PHI);
+            time_old = time; 
+					/*
+					 * gl.clearColor(0.0, 0.0, 0.0, 0.0); gl.clearDepth(1.0);
+					 * gl.viewport(0.0, 0.0, canvas.width, canvas.height);
+					 * gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+					 */
+            proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
+            view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
+// -(canvas.width/8),-(canvas.height/3),-300,-10
+           	 -(translateX),-(translateY),-canvas.width/2,1
+           	 ];
+            
+            
+            
+            
+            
+            /*
+    
+		gl.viewport(0,0,canvas.width,canvas.height);
+			 
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        gl.enable(gl.DEPTH_TEST);
+				
+         gl.depthFunc(gl.LEQUAL);
+            */
+            
+            
+            
+            
+            
+            
+            
+            
+            for(var an_agent of objects){
+
+				
+				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
+				gl.bufferData(34962, an_agent.nb, 35044);  	
+				for(var sd1 of an_agent.vl){
+					vertices=sd1.v;		
+					gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//			
+				}
+					
+// gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+// gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+// gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+//
+// gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+// gl.drawElements(gl.TRIANGLES, vertices.length, gl.UNSIGNED_SHORT, 0);
+					
+//				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+//				gl.bufferData(34962, an_agent.nbc, 35044);  
+//				for(var sd1 of an_agent.c){
+//					vertices=sd1.v;		
+//					gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//				
+//				}
+					
+				gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// 36
+				gl.bufferData(34962, an_agent.nbnm, 35044);  
+				for(var sd1 of an_agent.nm){
+					vertices=sd1.v;		
+					gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//				
+				}
+					
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+				indices=an_agent.idx;
+				
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
+
+				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+				  // Set the color to use
+				  gl.uniform4fv(colorLocation, [0.2, 1, 0.2, 1]); // green
+				 
+				  // set the light direction.
+				  gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.5, 0.7, 0.5]));
+
+			  // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+			
+			}		
 		
 
-//        	 }
 
             // window.requestAnimationFrame(animate);
              
@@ -432,88 +431,132 @@ function WebGLJS(e) {
         gl.enable(gl.DEPTH_TEST);
 				
          gl.depthFunc(gl.LEQUAL);
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
 
 	this.appendInfo = function(text) {
-			drawElementMode=gl.TRIANGLES;
+
 				if(ag==null){
 					objects=[];
 					ag=new Agent();
 				}
 				ag.vl=[];				
 				ag.c=[];
-				ag.nm=[];
-
-
+				
+				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
+		
 						
 				ag.nb=288;// 384;
+				gl.bufferData(34962, 288, 35044);
+				  
+				  
+				  
 				vertices=[
-					33.19456100463867,31.732711791992188,0,43.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,0,33.19456100463867,31.732711791992188,10,43.19456100463867,31.732711791992188,10,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,10,43.19456100463867,31.732711791992188,0,33.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,0,33.19456100463867,31.732711791992188,10,43.19456100463867,31.732711791992188,10,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,10,43.19456100463867,31.732711791992188,0,43.19456100463867,31.732711791992188,10,33.19456100463867,31.732711791992188,10,33.19456100463867,31.732711791992188,0,43.19456100463867,21.732711791992188,0,43.19456100463867,21.732711791992188,10,33.19456100463867,21.732711791992188,0,33.19456100463867,21.732711791992188,10
+					9.5,68.5,0,68.5,68.5,0,68.5,9.5,0,9.5,9.5,0,9.5,68.5,59,68.5,68.5,59,68.5,9.5,59,9.5,9.5,59,68.5,68.5,0,9.5,68.5,0,68.5,9.5,0,9.5,9.5,0,9.5,68.5,59,68.5,68.5,59,68.5,9.5,59,9.5,9.5,59,68.5,68.5,0,68.5,68.5,59,9.5,68.5,59,9.5,68.5,0,68.5,9.5,0,68.5,9.5,59,9.5,9.5,0,9.5,9.5,59
 				];		
 				var sd=new SubData(vertices,0);
 				ag.vl.push(sd);
-
-
-
-				ag.nbc=384;
-
-				colors=[
-					0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1,0.9764705896377563,0.41960784792900085,0.8980392217636108,1
-				];				
-				var sd=new SubData(colors,0);
-				ag.c.push(sd);
-
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		
+//				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+//		
+//				ag.nbc=384;
+//				gl.bufferData(34962, 384, 35044);  
+//				colors=[
+//					0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1,0.32549020648002625,0.6039215922355652,0.6666666865348816,1
+//				];				
+//				var sd=new SubData(colors,0);
+//				ag.c.push(sd);
+//				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));// 0,
+				
+				
+				
+				
+				
+				
+				
+				
+		
+				gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// 39
 		
 				ag.nbnm=288;
+				gl.bufferData(34962, 288, 35044);  
 				normals=[
 					0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0
 				];				
 				var sd=new SubData(normals,0);
 				ag.nm.push(sd);
-
-
-
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(normals));// 0,
+				
+				
+				
+				
+				
+				
+		
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+				// indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
 				indices=[
 					0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22
 				];
 				ag.idx=indices;
-
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
 		
 		
 		
 		
+		
+		
+		
+		
+		
+		
+				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);// 144
+				
+				
 
 				var obj_copy = Object.create(ag);
 				objects.push(obj_copy);
 				ag=null;
-
-
-
+				
+				
+				
+				
+				
+				/*
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				ag=new Agent();
 
 
 				ag.vl=[];				
 				ag.c=[];
-				ag.nm=[];
 				
+				gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
 		
 						
 				ag.nb=288;// 384;
+				gl.bufferData(34962, 288, 35044);
 				  
 				  
 				  
@@ -522,6 +565,7 @@ function WebGLJS(e) {
 				];		
 				var sd=new SubData(vertices,0);
 				ag.vl.push(sd);
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices));//
 				
 				
 				
@@ -534,34 +578,32 @@ function WebGLJS(e) {
 				
 				
 		
+				gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// 36
+		
 				ag.nbc=384;
-				gl.bufferData(34962, ag.nbc, 35044);  
+				gl.bufferData(34962, 384, 35044);  
 				colors=[
 					0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1,0.3176470696926117,0.3686274588108063,0.24705882370471954,1
 				];				
 				var sd=new SubData(colors,0);
 				ag.c.push(sd);
+				gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors));// 0,
 				
 				
 				
 				
 				
 				
-
-		
-				ag.nbnm=288;
-				normals=[
-					0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,-1,0,0,1,0,0,1,0,1,0,0,0,-1,0,1,0,0,1,0,0,-1,0,0,-1,0,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0
-				];				
-				var sd=new SubData(normals,0);
-				ag.nm.push(sd);
 				
 				
 		
+				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
+				// indices=[0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22];
 				indices=[
 					0,3,2,2,1,0,7,4,5,5,6,7,9,8,13,13,12,9,16,10,14,14,17,16,20,11,15,15,21,20,22,19,18,18,23,22
 				];
 				ag.idx=indices;
+				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
 		
 		
 		
@@ -570,14 +612,23 @@ function WebGLJS(e) {
 		
 		
 		
+		
+		
+				gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+				gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+				gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);// 144
+				
+				
 
 				var obj_copy = Object.create(ag);
 				objects.push(obj_copy);
 				ag=null;
+				*/
 		        // animate(0);
 				 
 						
-				if(debug){consolelog("appendinfo ");}
+				consolelog("appendinfo ");
 	};
 
 
@@ -585,16 +636,14 @@ function WebGLJS(e) {
 
 	this.glDrawElements = function(glTriangles, i, glUnsignedInt, j) {
 		
-//		animate_paused=false;
-		if(debug){consolelog("gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);//"+i);}
+		disposed=false;
+		consolelog("gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);//"+i);
 		
-//	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
-//	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
-//	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
-////				gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
-//		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
-// animate(0);
-		drawElementMode=glTriangles;
+	            gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
+	            gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
+	            gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
+		gl.drawElements(gl.TRIANGLES, i, gl.UNSIGNED_SHORT, 0);
+//		animate(0);
 		indices=i;
 		var obj_copy = Object.create(ag);
 		objects.push(obj_copy);
@@ -611,18 +660,7 @@ function WebGLJS(e) {
 
 	};
 
-	this.glBindFramebuffer = function(glFramebuffer, i) {
-		
-		if(debug){			
-			for(var an_agent of objects){
-				consolelog(an_agent.vl.length);
-				var inds=an_agent.idx;
-				var max=Math.max(...inds);
-				consolelog(inds.length);
-				consolelog(max);
-			}
-		}
-//        animate_paused=true;
+	this.glBindFramebuffer = function(glFramebuffer, i) {	
 		objects=[];
 		// consolelog("gl.bindFramebuffer ("+glFramebuffer+","+i+"); ");
 		// gl.bindFramebuffer(glFramebuffer, frameBufferArray);
@@ -634,9 +672,6 @@ function WebGLJS(e) {
 		// //"+canvas.width+" "+canvas.height);
 		// gl.viewport(i,j,width, height);
 		// gl.viewport(0,0,canvas.width,canvas.height);
-
-		gl.viewport(0,0,canvas.width,canvas.height);
-			 
 	};
 
 	
@@ -645,24 +680,24 @@ function WebGLJS(e) {
 		// consolelog("gl.bindBuffer ("+glElementArrayBuffer+", bufferArray );//
 		// "+i);
 		if(ag==null){
-			// objects=[];
+			//objects=[];
 			ag=new Agent();
 		}
 		buffer_type=i;
 		if(i==36){			
-			if(debug){consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// "+i);}
+			consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);// "+i);
 			gl.bindBuffer(gl.ARRAY_BUFFER, COLOR_IDX);					
 		}
 		if(i==37){			
-			if(debug){consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// "+i);}
+			consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// "+i);
 			gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);
 		}
 		if(i==38){			
-			if(debug){consolelog("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// "+i);}
+			consolelog("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// "+i);
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
 		}
 		if(i==39){			
-			if(debug){consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// "+i);}
+			consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// "+i);
 			gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);
 		}
 		
@@ -697,8 +732,8 @@ function WebGLJS(e) {
 				// gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, numBytes,
 				// gl.STATIC_DRAW);
 			// }else{
-				if(debug){consolelog("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);");}
-				if(debug){consolelog("gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);// "+new Uint16Array(v));}
+				consolelog("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);");
+				consolelog("gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);// "+new Uint16Array(v));
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// 38
 				ag.idx=v;
 				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);
@@ -709,26 +744,15 @@ function WebGLJS(e) {
 
 			v=v.map(function(i){return parseFloat(i);});
 			if(isNaN(v[0])){
-				 if(debug){consolelog("gl.bufferData("+glElementArrayBuffer+", "+numBytes+", "+glStaticDraw+");  ");}
-						 
-				 	if(buffer_type==36){			
-						// COLOR_IDX);// "+i);
-					 	ag.nbc=numBytes;
-					}
-					if(buffer_type==37){			
-						// VERTICES_IDX);// "+i);
-					 	ag.nb=numBytes;
-					}
-					if(buffer_type==39){			
-						// NORMAL_IDX);// "+i);
-						ag.nbnm=numBytes;
-					}
-				 
-				 
-				 
+				 consolelog("gl.bufferData("+glElementArrayBuffer+", "+numBytes+", "+glStaticDraw+");  ");
+				 if(ag.nb==null){
+				 	ag.nb=numBytes;
+				 }else{				 
+				 	ag.nbc=numBytes;
+				 }
 				 gl.bufferData(gl.ARRAY_BUFFER, numBytes, gl.STATIC_DRAW);
 			}else{
-				if(debug){consolelog("gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);// "+new Float32Array(v));}
+				consolelog("gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);// "+new Float32Array(v));
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
 			}
 		}
@@ -748,20 +772,20 @@ function WebGLJS(e) {
 
 		v=v.map(function(i){return parseFloat(i);});
 		/*
-		 * 
-		 * var min=Math.min(...v);
-		 * 
-		 * var max=Math.max(...v);
-		 * 
-		 * 
-		 * for(var i=0; i<v.length; i++) { v[i] *= ((4.0/(max-min))); }
-		 * 
+
+		 var min=Math.min(...v);
+		 
+		 var max=Math.max(...v);
+		 
+		 
+		 for(var i=0; i<v.length; i++) { v[i] *= ((4.0/(max-min))); } 
+		
 		 */
-		// consolelog(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+
+		// console.log(i+"gl.bufferData("+glArrayBuffer+","+ offset+","+
 		// vertices+");");
         // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices),
 		// gl.STATIC_DRAW);
-		if(debug){consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//"+ offset+","+ new Float32Array(v) );}
+		consolelog("gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));//"+ offset+","+ new Float32Array(v) );
 		var sd=new SubData(v,offset);
 		
 		if(buffer_type==36){			
@@ -771,10 +795,6 @@ function WebGLJS(e) {
 		if(buffer_type==37){			
 			// VERTICES_IDX);// "+i);
 			ag.vl.push(sd);
-		}
-		if(buffer_type==39){			
-			// NORMAL_IDX);// "+i);
-			ag.nm.push(sd);
 		}
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));
 	    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
@@ -792,9 +812,7 @@ function WebGLJS(e) {
 		 
 	};
 
-	this.glClearColor = function(f,g,h,i) {
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	};
+	this.glClearColor = function(f,g,h,i) {	};
 
 
 
@@ -841,15 +859,15 @@ function WebGLJS(e) {
 	            gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
 				
 
-		 if(debug){consolelog("clearAll");}
+		 consolelog("clearAll");
 	};
 
 	this.appendErr = function(text) {		
-		if(debug){consolelog("appendErr ");}
+		consolelog("appendErr ");
 	};
 
 	this.appendWarn = function(text) {
-		 if(debug){consolelog("appendWarn ");}
+		 consolelog("appendWarn ");
 	};
 
 
