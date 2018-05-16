@@ -212,7 +212,8 @@ this.setText = function(text, user, pad)  {
 	 }
 	 
 	 if(passage == 1 ){
-		 console.log("-------------------_>>>>>>-- Il faut modifier ici ");
+		 
+		 console.log("-------------------_>>>>>>-- Il faut modifier ici qq");
 		 this.div = document.getElementsByClassName(divClassName)[0]; 
 		 var elt  = document.getElementsByClassName("ace_content")[0]; 
 		 //element.appendChild(this.div);
