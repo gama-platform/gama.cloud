@@ -45,11 +45,12 @@
        ready : false,
  
        onChange : function() {
-            //alert('1');
+    	   console.log('onChanged!');
+           
        },
  
        onReady : function() {
-    	   //alert('2');
+    	   console.log('--> onReady!');
        },
  
       
@@ -60,15 +61,14 @@
                 
                rap.on("render", this.onRender);
                rap.on("send", this.onSend);
-              
-               //alert('3');
+               console.log('--> onRender!');
            }
            //alert('4');
        },
  
        //  
        onSend : function() {
-    	   //alert('5');
+    	   console.log('--> onSend!');
        },
  
        destroy : function() {
@@ -110,14 +110,14 @@
        appendWarn : function(json) {  
            var text= json["text"];
            this.etherpadjs.appendWarn(text);
-           //alert('11');
+       //    console.log('--> appendWarn!'); 
        },
         
        appendInfo : function(json) {  
            var text= json["text"];
            var userId= json["userId"];
            this.etherpadjs.appendInfo(text, userId);
-           //alert('12');
+      //     console.log('--> appendInfo!'); 
        },
        
        setText : function(json) {  
@@ -126,7 +126,9 @@
            var padId= json["padId"];
            this.etherpadjs.setText(text, userId, padId);
            //alert('13');
+         //  console.log('--> setText!'); 
        },
+      
        
        createAndMergeEditors : function(json) {  
            var text= json["text"];
@@ -158,9 +160,10 @@
    };
  
    var async = function(context, func) {
-	   //alert('17');
+	   
        window.setTimeout(function() {
            func.apply(context);
+        //   console.log('--> async!');
        }, 0);
    };
  

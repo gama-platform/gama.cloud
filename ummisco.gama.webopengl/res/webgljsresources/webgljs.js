@@ -416,7 +416,7 @@ function WebGLJS(e) {
 
 	  		  setTimeout(function() {
 	  			  requestId = window.requestAnimationFrame(animate);
-	  		  },1000/ fps*((totalRequiredObject*totalRequiredObject)/100000));
+	  		  },1000/ fps);
          }
 
          animate(0);
