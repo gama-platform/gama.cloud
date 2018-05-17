@@ -34,6 +34,7 @@
 			'glFramebufferRenderbuffer',
 			'glEnableVertexAttribArray',
 			'glBufferSubData',
+			'totalObject',
 			'webgl_destroy',
 			'clearAll' 
 			]
@@ -124,6 +125,7 @@
 				var j = json["j"];
 				
 				this.webgljs.glDrawElements(glTriangles, i, glUnsignedInt, j);
+				this.layout();
 			},
 			
 
@@ -269,7 +271,12 @@
 				var fbData = json["fbData"];
 				this.webgljs.glBufferSubData(glArrayBuffer, offset, i, fbData);
 			},
-			
+
+
+			totalObject : function(json) {
+				var total = json["total"];
+				this.webgljs.totalObject(total);
+			},
 
 			webgl_destroy : function(json) {
 				var text = json["text"];

@@ -144,6 +144,7 @@ public class LayerObject {
 				}
 			}
 			renderer.getDrawer().redraw();
+			renderer.getDrawer().refresh(this);
 //			try {
 //				Thread.sleep(1000);
 //			} catch (InterruptedException e) {

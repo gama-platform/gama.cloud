@@ -7,11 +7,15 @@ import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
+import org.eclipse.rap.rwt.internal.remote.DeferredRemoteObject;
+import org.eclipse.rap.rwt.internal.remote.LifeCycleRemoteObject;
+import org.eclipse.rap.rwt.internal.remote.RemoteObjectImpl;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
 import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
 import org.eclipse.rap.rwt.remote.RemoteObject;
 import org.eclipse.rap.rwt.service.ResourceManager;
+import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
@@ -35,7 +39,7 @@ public class WebGLComposite extends GLCanvas {
 		// TODO Auto-generated method stub
 		return myGL;
 	}
-
+	public int delay=1;
 	public static IScope myscope;
 
 	// final Composite parent;
@@ -46,7 +50,7 @@ public class WebGLComposite extends GLCanvas {
 
 	private static final long serialVersionUID = -8590973451146216709L;
 
-	public static RemoteObject remoteObject;
+	public static DeferredRemoteObject remoteObject;
 
 	// The directory containing the file js, css.
 	private static final String REAL_RESOURCE_PATH = "./res/webgljsresources";
@@ -93,7 +97,7 @@ public class WebGLComposite extends GLCanvas {
 	public WebGLComposite(Composite parent, int style) {
 		super(parent, style);
 
-		myGL = new GL2();
+		myGL = new GL2(this);
 
 		mycontext=new GLContext(myGL);
 		// Note: Catching error when viewed on WindowBuilder
@@ -102,7 +106,7 @@ public class WebGLComposite extends GLCanvas {
 			loadJavaScript();
 
 			Connection connection = RWT.getUISession().getConnection();
-			remoteObject = connection.createRemoteObject(REMOTE_TYPE);
+			remoteObject = (DeferredRemoteObject) connection.createRemoteObject(REMOTE_TYPE);
 			remoteObject.setHandler(operationHandler);
 
 			//
@@ -233,7 +237,7 @@ public class WebGLComposite extends GLCanvas {
 
 	}
 
-	public static void execJS(String func, JsonObject obj) {
+	public  void execJS(String func, JsonObject obj) {
 		//// System.out.println("appendInfo");
 		// JsonObject obj= new JsonObject();
 		// obj.add("text", text);
@@ -244,22 +248,24 @@ public class WebGLComposite extends GLCanvas {
 //		if(!func.equals("appendErr")) return;
 		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 		
-		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-		uiSession.exec(new Runnable() {
-			public synchronized void run() {
-//				try {					
-					remoteObject.call(func, obj);
-//				}catch(Exception ex) {
-//					ex.printStackTrace();
-//				}
-			}
-		});
-		try {
-			Thread.sleep(10);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			  UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+				uiSession.exec(new Runnable() {
+					public  void run() {
+
+						if(!remoteObject.isDestroyed()) {
+							remoteObject.call(func, obj);
+							
+						}
+					}
+				});
+//				uiSession.getClient().notify();
+		
+		
+
+				for(long i=0;i< 1000*(delay);i++) {
+				}
+				
+		
 		// }
 		// };
 		// runnable.run();

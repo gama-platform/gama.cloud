@@ -221,7 +221,6 @@ public class ModernDrawer {
 					shaderProgram.enableOverlay(listOfEntities.get(0).isOverlay());
 					updateTransformationMatrix(shaderProgram);
 					prepareShader(listOfEntities.get(0), shaderProgram);
-
 					loadVBO(listOfEntities, key, currentShaderNumber, shaderProgram);
 					drawVBO(typeOfDrawingMap.get(shaderProgram));
 
@@ -557,6 +556,9 @@ public class ModernDrawer {
 		final ArrayList<float[]> listIdxBuffer = new ArrayList<float[]>();
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
 //		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
+
+		gl.totalObject(listEntities.size());
+		gl.webgl.delay=listEntities.size();
 		for (final DrawingEntity entity : listEntities) {
 
 			listVertices.clear();

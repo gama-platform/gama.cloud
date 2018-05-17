@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 import org.eclipse.rap.json.JsonObject;
 
+import com.jogamp.opengl.swt.GLCanvas;
+
 import cict.gama.webgl.WebGLComposite;
 
 public class GL2 extends GL2ES2 {
@@ -3879,9 +3881,10 @@ public class GL2 extends GL2ES2 {
 	public static final int GL_OFFSET_TEXTURE_2D_SCALE_NV = 0x86e2;
 
 	public static final int GL_DOUBLE = 0x140A;
-
-	public GL2() {
-
+	
+	public WebGLComposite webgl;
+	public GL2(final WebGLComposite w) {
+		webgl=w;
 	}
 
 	public void glBindTexture(int glTexture2d, int textureId) {
@@ -3899,7 +3902,7 @@ public class GL2 extends GL2ES2 {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 		JsonObject obj = new JsonObject();
 		obj.add("attributePosition", attributePosition);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4005,7 +4008,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("g", g);
 		obj.add("h", h);
 		obj.add("i", i);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4013,7 +4016,7 @@ public class GL2 extends GL2ES2 {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 		JsonObject obj = new JsonObject();
 		obj.add("i", i);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4032,11 +4035,18 @@ public class GL2 extends GL2ES2 {
 
 	}
 
+	public void totalObject(int total) {
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("total", total);
+		webgl.execJS(methodName, obj);
+	}
+
 	public void glEnable(int glDepthTest) {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 		JsonObject obj = new JsonObject();
 		obj.add("glDepthTest", glDepthTest);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glDepthFunc(int glLequal) {
@@ -4053,7 +4063,7 @@ public class GL2 extends GL2ES2 {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 		JsonObject obj = new JsonObject();
 		obj.add("glCw", glCw);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glHint(int glPerspectiveCorrectionHint, int glNicest) {
@@ -4088,7 +4098,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("j", j);
 		obj.add("width", width);
 		obj.add("height", height);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glGetIntegerv(int glViewport, int[] viewport, int i) {
@@ -4157,7 +4167,7 @@ public class GL2 extends GL2ES2 {
 		JsonObject obj = new JsonObject();
 		obj.add("glFramebuffer", glFramebuffer);
 		obj.add("i", 1);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glGenFramebuffers(int i, int[] frameBufferArray, int j) {
@@ -4166,14 +4176,14 @@ public class GL2 extends GL2ES2 {
 		obj.add("i", i);
 		obj.add("frameBufferArray", Arrays.toString(frameBufferArray));
 		obj.add("j", j);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glDrawBuffer(int glColorAttachment0) {
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
 		JsonObject obj = new JsonObject();
 		obj.add("glColorAttachment0", glColorAttachment0);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glGenTextures(int i, int[] textureArray, int j) {
@@ -4203,7 +4213,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("i", i);
 		obj.add("frameBufferArray", Arrays.toString(depthBufferArray));
 		obj.add("j", j);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glRenderbufferStorage(int glRenderbuffer, int glDepthComponent, int width, int height) {
@@ -4213,7 +4223,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("glDepthComponent", glDepthComponent);
 		obj.add("width", width);
 		obj.add("height", height);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4222,7 +4232,7 @@ public class GL2 extends GL2ES2 {
 		JsonObject obj = new JsonObject();
 		obj.add("glRenderbuffer", glRenderbuffer);
 		obj.add("i", i);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4233,7 +4243,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("glDepthAttachment", glDepthAttachment);
 		obj.add("glRenderbuffer", glRenderbuffer);
 		obj.add("i", i);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glDisableVertexAttribArray(int intValue) {
@@ -4251,7 +4261,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("i", i);
 		obj.add("vboHandles", Arrays.toString(vboHandles));
 		obj.add("j", j);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glActiveTexture(int glTexture0) {
@@ -4264,7 +4274,7 @@ public class GL2 extends GL2ES2 {
 		JsonObject obj = new JsonObject();
 		obj.add("glElementArrayBuffer", glElementArrayBuffer);
 		obj.add("i", i);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glBufferData(int glElementArrayBuffer, int numBytes, int[] intIdxBuffer, int glStaticDraw) {
@@ -4277,7 +4287,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("numBytes", numBytes);
 		obj.add("intIdxBuffer", Arrays.toString(intIdxBuffer));
 		obj.add("glStaticDraw", glStaticDraw);
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 
 	}
 
@@ -4289,8 +4299,8 @@ public class GL2 extends GL2ES2 {
 		obj.add("i", i);
 		obj.add("glUnsignedInt", glUnsignedInt);
 		obj.add("j", j);
-		WebGLComposite.execJS(methodName, obj);
-
+		webgl.execJS(methodName, obj);
+//		System.out.println("glDrawElements");
 //		WebGLComposite.execJS("appendErr", obj);
 	}
 
@@ -4303,7 +4313,7 @@ public class GL2 extends GL2ES2 {
 		obj.add("offset", offset);
 		obj.add("i", i);
 		obj.add("fbData", Arrays.toString(data));
-		WebGLComposite.execJS(methodName, obj);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glVertexAttribPointer(int shaderAttributeNumber, int coordinateSize, int glFloat, boolean b, int j,
