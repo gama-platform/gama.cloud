@@ -428,7 +428,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
 			xc = xc + renderer.getDrawable().getSurfaceWidth();
 			yc = yc + renderer.getDrawable().getSurfaceHeight();
-			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
+//			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
+			e.expandToInclude(new GamaPoint(xc,yc));
 			currentLayer.setVisibleRegion(e);
 		}
 		return e;

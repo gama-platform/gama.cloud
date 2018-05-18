@@ -190,7 +190,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 			try {
 				surfaceComposite.dispose();
 			} catch (final RuntimeException ex) {
-
+				ex.printStackTrace();
 			}
 		}
 		releaseLock();

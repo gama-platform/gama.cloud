@@ -58,6 +58,7 @@ function consolelog(str){
 function handleContextLost(event) {
     event.preventDefault();
     totalRequiredObject=0;
+    console.log("contextlost");
     window.cancelRequestAnimationFrame=( function() {
     return window.cancelAnimationFrame          ||
         window.webkitCancelRequestAnimationFrame    ||
@@ -335,7 +336,7 @@ function WebGLJS(e) {
 	         {
 	        		 if(!announced){
 	        			 announced=true;
-	        			 alert("Received "+objects.length+" objects");
+//	        			 alert("Received "+objects.length+" objects");
 	        		 }
 	         }
         	 {
@@ -416,7 +417,7 @@ function WebGLJS(e) {
 
 	  		  setTimeout(function() {
 	  			  requestId = window.requestAnimationFrame(animate);
-	  		  },1000/ fps);
+	  		  },1000/ fps + (totalRequiredObject/2500));
          }
 
          animate(0);
@@ -665,6 +666,9 @@ function WebGLJS(e) {
 
 
 	this.glBufferData = function(glElementArrayBuffer, numBytes, intIdxBuffer, glStaticDraw) {	  
+		if(ag==null){
+			ag=new Agent();
+		}
 		intIdxBuffer=JSON.stringify(intIdxBuffer).replace("NaN","-1").replace("-Infinity","-1");
 		
 		var v = intIdxBuffer.substr( 2, intIdxBuffer.length-2 ).split(',');
@@ -694,6 +698,7 @@ function WebGLJS(e) {
 				if(debug){consolelog("gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);");}
 				if(debug){consolelog("gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);// "+new Uint16Array(v));}
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);// 38
+				
 				ag.idx=v;
 				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(v), gl.STATIC_DRAW);
 			// }
@@ -731,6 +736,9 @@ function WebGLJS(e) {
 	};
 
 	this.glBufferSubData = function(glArrayBuffer, offset, i, fbData) {		
+		if(ag==null){
+			ag=new Agent();
+		}
 		fbData=JSON.stringify(fbData).replace("NaN","-1").replace("-Infinity","-1");
 		// consolelog("gl.bufferSubData("+gl.ARRAY_BUFFER+","+ 512, fbData); =
 		// "+glArrayBuffer+" fbData "+ new Float32Array(JSON.parse(fbData))+"

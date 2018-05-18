@@ -343,7 +343,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public GamaPoint getRealWorldPointFromWindowPoint(final Point windowPoint) {
 		// TODO
-		return null;
+		return new GamaPoint(-800,60);
 	}
 
 	/**

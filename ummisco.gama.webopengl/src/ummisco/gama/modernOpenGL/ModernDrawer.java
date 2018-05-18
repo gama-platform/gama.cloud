@@ -557,8 +557,8 @@ public class ModernDrawer {
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
 //		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
 
-		gl.totalObject(listEntities.size());
 		gl.webgl.delay=listEntities.size();
+		gl.totalObject(listEntities.size());
 		for (final DrawingEntity entity : listEntities) {
 
 			listVertices.clear();

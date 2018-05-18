@@ -8,26 +8,20 @@ import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
 import org.eclipse.rap.rwt.internal.remote.DeferredRemoteObject;
-import org.eclipse.rap.rwt.internal.remote.LifeCycleRemoteObject;
-import org.eclipse.rap.rwt.internal.remote.RemoteObjectImpl;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
 import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
-import org.eclipse.rap.rwt.remote.RemoteObject;
 import org.eclipse.rap.rwt.service.ResourceManager;
-import org.eclipse.rap.rwt.service.ServerPushSession;
-import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.swt.GLCanvas;
 
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
-import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class WebGLComposite extends GLCanvas {
@@ -39,7 +33,8 @@ public class WebGLComposite extends GLCanvas {
 		// TODO Auto-generated method stub
 		return myGL;
 	}
-	public int delay=1;
+
+	public int delay = 1;
 	public static IScope myscope;
 
 	// final Composite parent;
@@ -99,7 +94,7 @@ public class WebGLComposite extends GLCanvas {
 
 		myGL = new GL2(this);
 
-		mycontext=new GLContext(myGL);
+		mycontext = new GLContext(myGL);
 		// Note: Catching error when viewed on WindowBuilder
 		try {
 			registerResources();
@@ -128,7 +123,7 @@ public class WebGLComposite extends GLCanvas {
 
 		JsonObject obj = new JsonObject();
 		obj.add("text", "");
-		execJS("webgl_destroy",  obj);
+		execJS("webgl_destroy", obj);
 		remoteObject.destroy();
 
 		// if (layerManager != null) {
@@ -148,8 +143,8 @@ public class WebGLComposite extends GLCanvas {
 
 			// Load file three.js into page
 
-			//jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "three.js"));
-
+			// jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" +
+			// "three.js"));
 
 			// Load file m4.js into page
 
@@ -168,7 +163,8 @@ public class WebGLComposite extends GLCanvas {
 
 			// Load file gl-matrix.js into page.
 
-			//jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" + "gl-matrix.js"));
+			// jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/" +
+			// "gl-matrix.js"));
 			// System.out.println(resourceManager.getLocation(REGISTER_PATH +
 			// "/" + "cubetexture.png"));
 		}
@@ -210,34 +206,9 @@ public class WebGLComposite extends GLCanvas {
 		}
 	}
 
-	@Override
-	protected void checkSubclass() {
-	}
+	Boolean available = true;
 
-	public void appendWarn(String text) {
-		// System.out.println("appendWarn");
-		// JsonObject obj = new JsonObject();
-		// obj.add("text", text);
-		// this.remoteObject.call("appendWarn", obj);
-
-		JsonObject obj = new JsonObject();
-		obj.add("text", text);
-		execJS("appendWarn", obj);
-	}
-
-	public void appendErr(String text) {
-		// System.out.println("appendErr");
-		// JsonObject obj = new JsonObject();
-		// obj.add("text", text);
-		// this.remoteObject.call("appendErr", obj);
-
-		JsonObject obj = new JsonObject();
-		obj.add("text", "");
-		execJS("appendErr", obj);
-
-	}
-
-	public  void execJS(String func, JsonObject obj) {
+	public void execJS(String func, JsonObject obj) {
 		//// System.out.println("appendInfo");
 		// JsonObject obj= new JsonObject();
 		// obj.add("text", text);
@@ -245,48 +216,70 @@ public class WebGLComposite extends GLCanvas {
 
 		// final Runnable runnable = new Runnable() {
 		// public void run() {
-//		if(!func.equals("appendErr")) return;
+		// if(!func.equals("appendErr")) return;
+		
 		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 		
-			  UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-				uiSession.exec(new Runnable() {
-					public  void run() {
-
-						if(!remoteObject.isDestroyed()) {
-							remoteObject.call(func, obj);
-							
-						}
-					}
-				});
-//				uiSession.getClient().notify();
 		
 		
-
-				for(long i=0;i< 1000*(delay);i++) {
+		//solution 1
+//		available=false;
+		Display display = WorkbenchHelper.getDisplay(uid);
+		display.asyncExec(new Runnable() {
+			public void run() {
+				if (!remoteObject.isDestroyed()) {
+					remoteObject.call(func, obj);
+//					 available = true;
 				}
-				
+			}
+		});
+//		while(!available) {}
+
+		//solution 2
+//		available = false;
+//		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+//		uiSession.exec(new Runnable() {
+//			public void run() {
+//				if (!remoteObject.isDestroyed()) {
+//					remoteObject.call(func, obj);
+//
+//					available = true;
+//				}
+//			}
+//		});
+//
+//		while (!available) {
+//		}
 		
-		// }
-		// };
-		// runnable.run();
-		// new Thread( runnable ).start();
-	}
+		
+		
+		
+		//solution 3 
 
-	public void appendInfo(String param) {
+//		final ServerPushSession pushSession = new ServerPushSession();
+//		Runnable bgRunnable = new Runnable() {
+//			@Override
+//			public void run() {
+//				// do some background work ...
+//				// schedule the UI update
+//				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+//				uiSession.exec(new Runnable() {
+//					@Override
+//					public void run() {
+//						if (!remoteObject.isDestroyed()) {
+//							remoteObject.call(func, obj);
+//							for(long i=0; i<10000;i++) {}
+//							pushSession.stop();
+//						}
+//					}
+//				});
+//			}
+//		};
+//		pushSession.start();
+//		Thread bgThread = new Thread(bgRunnable);
+//		bgThread.setDaemon(true);
+//		bgThread.start();
 
-		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-		System.out.println("methodName = " + methodName);
-
-		JsonObject obj = new JsonObject();
-		obj.add("text", "");
-		execJS(methodName, obj);
-	}
-
-	public void clearAll() {
-
-		JsonObject obj = new JsonObject();
-		obj.add("text", "");
-		execJS("clearAll", obj);
 	}
 
 	public void setDisplayScope(final IScope scope) {
@@ -329,26 +322,6 @@ public class WebGLComposite extends GLCanvas {
 		// }
 		// });
 		return 600;
-	}
-
-	public boolean isRealized() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	public GLAnimatorControl getAnimator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void addGLEventListener(Abstract3DRenderer abstract3dRenderer) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setAutoSwapBufferMode(boolean b) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

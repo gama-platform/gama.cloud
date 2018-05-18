@@ -15,6 +15,8 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -98,7 +100,12 @@ public class BasicWorkbench implements EntryPoint {
 	
 	@Override
 	public int createUI() {
-
+//		try {
+//			enableLoggin=InetAddress.getLocalHost().getHostName().equals("dell3847")?false:true;
+//		} catch (UnknownHostException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
