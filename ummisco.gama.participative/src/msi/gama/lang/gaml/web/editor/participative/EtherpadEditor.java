@@ -52,7 +52,7 @@ import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.participative.EtherpadBasicText;
-import ummisco.gama.participative.EtherpadComposite;
+//import ummisco.gama.participative.EtherpadComposite;
 import ummisco.gama.participative.texteditor.EtherpadBasicTextEditor;
 import ummisco.gama.ui.controls.FlatButton;
 import ummisco.gama.ui.interfaces.IModelRunner;
@@ -85,6 +85,9 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 
 	}
 	GamlEditorState state = new GamlEditorState(null, Collections.EMPTY_LIST);
+	
+	
+	
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
 	static final String EDITOR_ID = "msi.gama.lang.gaml.web.editor.EtherpadEditor";

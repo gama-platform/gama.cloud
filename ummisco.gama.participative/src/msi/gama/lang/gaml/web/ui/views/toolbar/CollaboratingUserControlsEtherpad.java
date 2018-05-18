@@ -41,11 +41,14 @@ public class CollaboratingUserControlsEtherpad {
 
 	private static final String EMPTY = RWT.getUISession().getAttribute("user").toString(); //$NON-NLS-1$
 	private HashMap<User,ToolItem> collaborating=new HashMap<User,ToolItem>();
+	
+	
 	private int incrementalOffset = -1;
 	final EtherpadEditor editor;
 
 	public CollaboratingUserControlsEtherpad(final EtherpadEditor editor) {
 		this.editor = editor;
+		
 	}
 	
 	
@@ -57,6 +60,8 @@ public class CollaboratingUserControlsEtherpad {
 				collaborating.get(u).getControl().dispose();
 				collaborating.get(u).dispose();
 				collaborating.put(u, null);
+				
+				
 			}
 		}
 		for(User u : onlines) {
@@ -97,6 +102,7 @@ public class CollaboratingUserControlsEtherpad {
 				ToolItem t = toolbar.control(btn, u.getId().length() * 10);
 				// this.adjustEnablement(false, null);
 				collaborating.put(u, t);
+			
 			}
 		}
 

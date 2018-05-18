@@ -6,10 +6,14 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.dslforge.styledtext.BasicText;
+import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonObject;
@@ -24,12 +28,19 @@ import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.ui.internal.Workbench;
 
+import msi.gama.core.web.editor.parts.BasicWorkbenchPerspective;
+import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
+import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControlsEtherpad;
+import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
 import msi.gama.runtime.IScope;
 import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
+//import org.eclipse.rap.rwt.RWT.getClient;
 
 
 /**
@@ -49,6 +60,10 @@ public class EtherpadBasicText extends BasicText {
 	private static final String REAL_RESOURCE_PATH = "etherpadjsresources";
 
 	private static final String REGISTER_PATH = "etherpadjs";
+	
+	
+	
+	EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
 
 	public EtherpadBasicText(Composite parent, int style) {
 		super(parent, style);
@@ -70,6 +85,14 @@ public class EtherpadBasicText extends BasicText {
 		        // throw new RuntimeException(e);
 		    }
 		
+		    
+		    
+		    ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");;
+			if (listBt == null) {
+				listBt = new ArrayList<>();
+			}
+			listBt.add(this);
+		    RWT.getApplicationContext().setAttribute("editors", listBt);
 	}
 	
 
@@ -240,15 +263,85 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("padId", padId);
 			          remoteObject.call("setText", obj);	 
 			         System.out.println("Ici ---------------------> setText from EtherpadBasicText with pad "+padId);
+			         invoke("handleNotify", new JsonObject());
 			         System.out.println("-->-> remoteObject.getId() : "+remoteObject.getId());
-			         
+			        
+			        // getViewer().getTextWidget().setText(uid, "z", "a");
 			       //  System.out.println("-->-> remoteObject.getId() : "+remoteObject);
 			        
+			         
+			     //    CollaboratingUserControlsEtherpad.class.get 
+			      //   ((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, etherpadID);
+			       
+			        // BasicWorkbench.executor;
+			         
+			         
+			     //    ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+			         
+			         
+			         ArrayList<EtherpadBasicText> editorsList = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+			    	
+			         for(EtherpadBasicText bt : editorsList) {
+			        	 
+			        	 
+			    
+			        	   
+			        	            	   System.out.println("Le text : "+  bt.getText());
+			        
+			        	 
+			        	// System.out.println("Le text : "+  bt.getText());
+			        	
+			        	 //.setText(text,false);
+			         }
+			         
+			         
+			        /*	
+			         
+			         ArrayList<String> test = new ArrayList<String>();
+			         test.add("Test");
+			         test.add("Test2");
+			         
+			         RWT.getApplicationContext().setAttribute("Editors",test );
+			         
+			         for(User u : onlines) {
+			        	 
+			        	  System.out.println("user is : "+ u.getId());
+			        	  UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
+						    uiSession.exec( new Runnable() {
+						      public void run() {
+						    	  setText(text, false);
+						    	  
+						      }
+						   });
+						    
+					}
+			         
+			         
+			         
+			         ArrayList<String> editors= (ArrayList<String>) RWT.getApplicationContext().getAttribute("Editors");
+			         for(String ed : editors) {
+			        	 System.out.println("Stirng Editor : "+ ed);
+			         }
+			      //   RWT.getApplicationContext().
+			         
+			        */
+			         
+			         
+			       
+			         // setText from BasicText
+			        // if(text.length() != getText().length() )
+			      //  	 setText(text, false);
+			         
+			      
+			         
+			      //   getRemoteObject().set("text", text);
+			        
 			         String fileName ="Example1.gaml";
-			       EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+			       
 			       epClient.setText(padId, text);
 			      }
 			    } );
+			   
 	}
 
 	public void createAndMergeEditors(final String uid, String text, String padId) {
