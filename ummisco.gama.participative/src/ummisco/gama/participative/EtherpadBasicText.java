@@ -286,8 +286,9 @@ public class EtherpadBasicText extends BasicText {
 			        	 
 			    
 			        	   
-			        	            	   System.out.println("Le text : "+  bt.getText());
-			        
+			        	            	   System.out.println("Old text : "+  bt.getText());
+			        	            	   System.out.println("New text : "+  text);
+			        	            	   bt.setText(text,false);
 			        	 
 			        	// System.out.println("Le text : "+  bt.getText());
 			        	
