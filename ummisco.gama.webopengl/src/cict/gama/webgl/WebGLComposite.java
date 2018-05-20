@@ -48,7 +48,7 @@ public class WebGLComposite extends GLCanvas {
 	public static DeferredRemoteObject remoteObject;
 
 	// The directory containing the file js, css.
-	private static final String REAL_RESOURCE_PATH = "./res/webgljsresources";
+	private static final String REAL_RESOURCE_PATH = "webgljsresources";
 
 	private static final String REGISTER_PATH = "webgljs";
 
