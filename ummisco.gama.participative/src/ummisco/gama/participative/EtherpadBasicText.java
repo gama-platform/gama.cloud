@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.Client;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
@@ -280,10 +281,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
 			          remoteObject.call("setText", obj);	
-			          
-			          
-			          RWT.getUISession().getId();
-			          
+			           
 			         System.out.println("Ici ---------------------> setText from EtherpadBasicText with pad "+padId);
 			        
 			       //  invoke("handleNotify", new JsonObject());
@@ -291,11 +289,6 @@ public class EtherpadBasicText extends BasicText {
 			         
 			         System.out.println("Ici ---------------------> session ID : "+uiSession.getId());
 			    
-			         ArrayList<EtherpadBasicText> editorsList = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
-			    	
-			         
-		/*	   
-			         
 			         ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 					    
@@ -308,8 +301,8 @@ public class EtherpadBasicText extends BasicText {
 			     			for(User u : onlines) {
 			     				nbr2++;
 			     				if(nbr == nbr2) {
-	
-			     					 UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
+			     					
+			     					UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
 									    uiSession2.exec( new Runnable() {
 									      public void run() {
 									    	  
@@ -324,7 +317,7 @@ public class EtherpadBasicText extends BasicText {
 					     	 					
 					     	 					System.out.println("Ici ---------------------> session2 ID : "+uiSession2.getId());
 					     	 					
-					     	 					JavaScriptExecutor executor = uiSession2.getClient().getService(JavaScriptExecutor.class);
+					     	 				//	JavaScriptExecutor executor = uiSession2.getClient().getService(JavaScriptExecutor.class);
 					     	 				//	executor.execute("alert('Text changed to : "+text+"');");
 									      }
 									   });
@@ -336,74 +329,6 @@ public class EtherpadBasicText extends BasicText {
   
 			         }
 			         
-			     */    
-			         
-			         for(EtherpadBasicText bt : editorsList) {
-			        	 
-			        	 Display.getDefault().syncExec( new Runnable() {
-			        		 public void run() {
-			        		
-			          	 /*
-			        	 				if(bt.Localcounter != Localcounter) {
-			        	 	//				System.out.println(" call from client : "+ Localcounter  + " to apply changes on client "+bt.Localcounter);
-			        	 					JsonObject json = new JsonObject();
-			        				         json.add("text", Localcounter);
-			        				         json.add("userId", uid);
-			        				         json.add("padId", padId);
-			        	 	//				bt.remoteObject.call("setText", json);//.set("text", text);
-			        	 				}	
-			        	 */
-			        	   //         	   System.out.println("Old text : "+  bt.getText());
-			        	 //           	   System.out.println("New text from user : "+  text);
-			        	            	   bt.setText(text,false);
-			        	 
-			        		 }
-		        		 });
-
-			         }
-			         
-			        
-			         
-			         
-			         ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
-				    	
-			         for(EtherpadEditor ed : etherpadEditorsList) {
-			        	 
-			        	//            	   System.out.println("New text from user : "+  text);
-			        	            	 // ed.dispose();
-			       
-			         }
-			         
-			         
-			         
-			         
-			        
-			         
-			        
-			         /*
-			         
-			         
-			         ArrayList<String> editors= (ArrayList<String>) RWT.getApplicationContext().getAttribute("Editors");
-			         for(String ed : editors) {
-			        	 System.out.println("Stirng Editor : "+ ed);
-			         }
-			         
-			        // RWT.getApplicationContext().
-			         
-			        */
-			         
-			         
-			       
-			         // setText from BasicText
-			        // if(text.length() != getText().length() )
-			      //  	 setText(text, false);
-			         
-			      
-			         
-			      //   getRemoteObject().set("text", text);
-			        
-			         String fileName ="Example1.gaml";
-			       
 			       epClient.setText(padId, text);
 			      }
 			    } );

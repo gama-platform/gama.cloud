@@ -363,6 +363,8 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 		ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
 		
 		
+		
+		
         for(EtherpadEditor ed : etherpadEditorsList) {
         	for(User u:onlines) {
     			if(!u.getId().equals(uid)) {
