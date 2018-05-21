@@ -60,8 +60,6 @@ public class CollaboratingUserControlsEtherpad {
 				collaborating.get(u).getControl().dispose();
 				collaborating.get(u).dispose();
 				collaborating.put(u, null);
-				
-				
 			}
 		}
 		for(User u : onlines) {

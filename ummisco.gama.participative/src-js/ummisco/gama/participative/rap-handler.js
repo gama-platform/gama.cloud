@@ -125,8 +125,10 @@
            var userId= json["userId"];
            var padId= json["padId"];
            this.etherpadjs.setText(text, userId, padId);
-           //alert('13');
-         //  console.log('--> setText!'); 
+          // alert('13');
+           console.log('--> setText!   called with text : '+text); 
+           console.log('--> setText!   called with userId : '+userId); 
+           console.log('--> setText!   called with padId : '+padId); 
        },
       
        
@@ -140,7 +142,7 @@
        
        clearAll : function()  {  
            this.etherpadjs.clearAll();
-           //alert('14');
+             console.log('--> method clearAll    is called'); 
        }
    };
  

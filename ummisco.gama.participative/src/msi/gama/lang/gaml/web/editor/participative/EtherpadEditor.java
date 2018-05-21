@@ -16,6 +16,9 @@ import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.rap.rwt.remote.RemoteObject;
+import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -99,6 +102,15 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 
 	public EtherpadEditor() {
 		super();
+		
+		
+		  ArrayList<EtherpadEditor> listEtherpadEd = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");;
+			if (listEtherpadEd == null) {
+				listEtherpadEd = new ArrayList<>();
+			}
+			listEtherpadEd.add(this);
+		    RWT.getApplicationContext().setAttribute("etherpadEditors", listEtherpadEd);
+		
 		System.out.println("--->>>>  ---  super() from ---->>>>    EtherpadEditor ");
 	}
 
@@ -142,8 +154,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 			}
 		}
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
-	
-		
+
 		System.out.println("--->>>>>--->>>>>---->>>>>-->--  EtherpadEditor: fin de init");
 
 	}
@@ -234,59 +245,30 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		epEditor=new Composite(toolbarParent,SWT.BORDER);
 		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		
-		System.out.println(" TEST --> 0 ");
 		epEditor.setLayoutData(data);
-		
-		System.out.println(" TEST -->  1 ");
 		epEditor.setLayout(new FillLayout());
-		
-		System.out.println(" TEST -->  2 ");
 		super.createPartControl(epEditor);
-		
-		System.out.println(" TEST -->  3 ");
 		setResourceListener(this);
-		
-		System.out.println(" TEST -->  4 ");
 		validateResource();
-		
-		System.out.println(" TEST -->  5 ");
-		
 		String uid=RWT.getUISession().getAttribute("user").toString();
-		
-		System.out.println(" TEST -->  6 ");
-		
 		epEditor.layout();
-		System.out.println(" TEST -->  7 ");
-	
-		
-		System.out.println(" TEST -->  8 ");
 		toolbarParent.layout();
 		
 		
 		
 		thetoolbarParent.put(uid, toolbarParent);
-		System.out.println("TEST -->  9 ");
 		CollaboratingUserControlsEtherpad collaboratingControl=new CollaboratingUserControlsEtherpad(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
 		thecollaboratingControl.put(uid, collaboratingControl);
-		
-		System.out.println("TEST --> 10 ");
-
-		
-		//////////
-		System.out.println("ICI --> 1 ");
+	
 		IResourceValidator resourceValidator = xtextResource.getResourceServiceProvider()
 							.getResourceValidator();
-		System.out.println("ICI --> 2");	
+	
 		List<Issue> issues = resourceValidator.validate(xtextResource, CheckMode.NORMAL_AND_FAST,
 								CancelIndicator.NullImpl);
-		System.out.println("ICI --> 3");
 		
 	//	basic.createAnnotations(issues);
-		System.out.println("ICI --> 4");
 		List<Annotation> annotations = new ArrayList<Annotation>();
-		System.out.println("ICI --> 5");
 		for (Issue issue : issues) {
-			System.out.println("ICI --> 6");
 					Integer offset = issue.getOffset();
 					Integer line = issue.getLineNumber();
 					int lineNumber = line.intValue();
@@ -370,8 +352,48 @@ public void openEtherpaEditor(final String absolutePath, final String fileName) 
 		
 		System.out.println("uID "+uid+" -----------------------------------> handleTextChanged : from EtherpadEditor padId "+etherpadID);
 		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, etherpadID);
-
+	
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+		
+		
+		
+		
+		
+		// to delete
+		ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
+		
+		
+        for(EtherpadEditor ed : etherpadEditorsList) {
+        	for(User u:onlines) {
+    			if(!u.getId().equals(uid)) {
+		    		 UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
+					    uiSession2.exec( new Runnable() {
+					      public void run() {
+					    	  ((EtherpadBasicText)getViewer().getTextWidget()).setText2(u.getId(), value, etherpadID);
+					      }
+					    });
+    				}
+    			}
+      
+        }
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {
 				u.setOrganization(xtextResource.getURI().toFileString());

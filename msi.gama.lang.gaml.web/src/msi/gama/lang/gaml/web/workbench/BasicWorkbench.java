@@ -15,8 +15,6 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -64,6 +62,7 @@ public class BasicWorkbench implements EntryPoint {
 	//
 	// abstract void runInSession();
 	// }
+	
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
     
 	boolean enableLoggin=true;
@@ -86,7 +85,6 @@ public class BasicWorkbench implements EntryPoint {
 		// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
 		// "Information", "This account is currently used
 		// somewhere, RETRY!");
-		
 	}
 //		} 
 //		else {

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.dslforge.styledtext.BasicText;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
@@ -19,6 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
 import org.eclipse.rap.rwt.remote.Connection;
@@ -27,10 +30,12 @@ import org.eclipse.rap.rwt.remote.RemoteObject;
 import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.internal.Workbench;
+import org.json.simple.JSONObject;
 
 import msi.gama.core.web.editor.parts.BasicWorkbenchPerspective;
 import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
@@ -61,13 +66,16 @@ public class EtherpadBasicText extends BasicText {
 
 	private static final String REGISTER_PATH = "etherpadjs";
 	
+	public static int counter = 0;
+	public int Localcounter = 0;
 	
 	
 	EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
 
 	public EtherpadBasicText(Composite parent, int style) {
 		super(parent, style);
-		
+		counter++;
+		Localcounter = counter;
 		 System.out.println("------>>>>>>----- Création d'un Obejet ------->>>>>>>------- : from EtherpadBasicText!");
 		    // Note: Catching error when viewed on WindowBuilder
 		    try {
@@ -79,6 +87,15 @@ public class EtherpadBasicText extends BasicText {
 		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
 		        remoteObject.setHandler(operationHandler);
 		        remoteObject.set("parent", WidgetUtil.getId(this));
+		        
+		        
+		        ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");;
+				if (listRemoteObeject == null) {
+					listRemoteObeject = new ArrayList<>();
+				}
+				listRemoteObeject.add(remoteObject);
+			    RWT.getApplicationContext().setAttribute("remoteObject", listRemoteObeject);
+		        
 		
 		    } catch (Exception e) {
 		        e.printStackTrace();
@@ -149,6 +166,7 @@ public class EtherpadBasicText extends BasicText {
 	        JsonValue textValue = properties.get("text");
 	        if (textValue != null) {
 	            // text = textValue.asString();
+	        	 System.out.println("##### Text Value ===================> " + textValue);
 	        }
 	    }
 
@@ -258,72 +276,125 @@ public class EtherpadBasicText extends BasicText {
 			    uiSession.exec( new Runnable() {
 			      public void run() {
 			          JsonObject obj= new JsonObject();
-			          obj.add("text", text);
+			          obj.add("text", text+"\n fin<-");
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
-			          remoteObject.call("setText", obj);	 
+			          remoteObject.call("setText", obj);	
+			          
+			          
+			          RWT.getUISession().getId();
+			          
 			         System.out.println("Ici ---------------------> setText from EtherpadBasicText with pad "+padId);
-			         invoke("handleNotify", new JsonObject());
+			        
+			       //  invoke("handleNotify", new JsonObject());
 			         System.out.println("-->-> remoteObject.getId() : "+remoteObject.getId());
-			        
-			        // getViewer().getTextWidget().setText(uid, "z", "a");
-			       //  System.out.println("-->-> remoteObject.getId() : "+remoteObject);
-			        
 			         
-			     //    CollaboratingUserControlsEtherpad.class.get 
-			      //   ((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, etherpadID);
-			       
-			        // BasicWorkbench.executor;
-			         
-			         
-			     //    ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-			         
-			         
+			         System.out.println("Ici ---------------------> session ID : "+uiSession.getId());
+			    
 			         ArrayList<EtherpadBasicText> editorsList = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 			    	
+			         
+		/*	   
+			         
+			         ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");
+			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+					    
+				     int nbr = 0;
+			         for(RemoteObject ro : listRemoteObeject) {
+			        	 nbr++;
+			     		if(!ro.getId().equals(remoteObject.getId())) {
+			     			
+			     			int nbr2 = 0;
+			     			for(User u : onlines) {
+			     				nbr2++;
+			     				if(nbr == nbr2) {
+	
+			     					 UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
+									    uiSession2.exec( new Runnable() {
+									      public void run() {
+									    	  
+									    	  JsonObject json = new JsonObject();
+					     				         json.add("text", text);
+					     				         json.add("userId", u.getId());
+					     				         json.add("padId", padId);
+					     	 					 ro.call("setText", json); //.set("text", text);
+					     	 					 
+					     	 					System.out.println(" call from client : "+ Localcounter + " with remote Object: "+remoteObject.getId() + " to remote Object "+ ro.getId()
+					     	 					+ " and padId "+padId);
+					     	 					
+					     	 					System.out.println("Ici ---------------------> session2 ID : "+uiSession2.getId());
+					     	 					
+					     	 					JavaScriptExecutor executor = uiSession2.getClient().getService(JavaScriptExecutor.class);
+					     	 				//	executor.execute("alert('Text changed to : "+text+"');");
+									      }
+									   });
+			     				}
+			     			}
+     	 					
+     	 					
+     	 				}	
+  
+			         }
+			         
+			         
+			         
 			         for(EtherpadBasicText bt : editorsList) {
 			        	 
+			        	 Display.getDefault().syncExec( new Runnable() {
+			        		 public void run() {
+			        		
+			        	
+
 			        	 
-			    
-			        	   
-			        	            	   System.out.println("Old text : "+  bt.getText());
-			        	            	   System.out.println("New text : "+  text);
-			        	            	   bt.setText(text,false);
+			        	 
+			        	 				if(bt.Localcounter != Localcounter) {
+			        	 	//				System.out.println(" call from client : "+ Localcounter  + " to apply changes on client "+bt.Localcounter);
+			        	 					JsonObject json = new JsonObject();
+			        				         json.add("text", Localcounter);
+			        				         json.add("userId", uid);
+			        				         json.add("padId", padId);
+			        	 	//				bt.remoteObject.call("setText", json);//.set("text", text);
+			        	 				}	
+			        	   //         	   System.out.println("Old text : "+  bt.getText());
+			        	 //           	   System.out.println("New text from user : "+  text);
+			        	  //          	   bt.setText(text,false);
 			        	 
 			        	// System.out.println("Le text : "+  bt.getText());
 			        	
 			        	 //.setText(text,false);
+			        	 				
+			        		 }
+		        		 });
+
+			         }
+			         
+			      */   
+			         
+			         
+			         ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
+				    	
+			         for(EtherpadEditor ed : etherpadEditorsList) {
+			        	 
+			        	//            	   System.out.println("New text from user : "+  text);
+			        	            	 // ed.dispose();
+			       
 			         }
 			         
 			         
-			        /*	
 			         
-			         ArrayList<String> test = new ArrayList<String>();
-			         test.add("Test");
-			         test.add("Test2");
 			         
-			         RWT.getApplicationContext().setAttribute("Editors",test );
+			        
 			         
-			         for(User u : onlines) {
-			        	 
-			        	  System.out.println("user is : "+ u.getId());
-			        	  UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
-						    uiSession.exec( new Runnable() {
-						      public void run() {
-						    	  setText(text, false);
-						    	  
-						      }
-						   });
-						    
-					}
-			         
+			        
+			         /*
 			         
 			         
 			         ArrayList<String> editors= (ArrayList<String>) RWT.getApplicationContext().getAttribute("Editors");
 			         for(String ed : editors) {
 			        	 System.out.println("Stirng Editor : "+ ed);
 			         }
-			      //   RWT.getApplicationContext().
+			         
+			        // RWT.getApplicationContext().
 			         
 			        */
 			         
@@ -345,6 +416,27 @@ public class EtherpadBasicText extends BasicText {
 			   
 	}
 
+	
+	
+
+	public void setText2(final String uid, String text, String padId) {
+			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+			    uiSession.exec( new Runnable() {
+			      public void run() {
+			          JsonObject obj= new JsonObject();
+			          obj.add("text", text+"\n fin<-");
+			          obj.add("userId", uid);
+			          obj.add("padId", padId);
+			          remoteObject.call("setText", obj);
+			       epClient.setText(padId, text);
+			       
+			       System.out.println("This is from setText2 and user:->  "+uid);
+			      }
+			    } );
+			   
+	}
+
+	
 	public void createAndMergeEditors(final String uid, String text, String padId) {
 		    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 		    uiSession.exec( new Runnable() {

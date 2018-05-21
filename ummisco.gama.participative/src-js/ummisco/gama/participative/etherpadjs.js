@@ -40,8 +40,8 @@ function EtherpadJS(element)  {
 		    	'host'              : 'http://127.0.0.1:9001',
 		       'baseUrl'           : '/p/',
 		       'showControls'      : false,
-		       'showChat'          : true,
-		       'showLineNumbers'   : true,
+		       'showChat'          : false,
+		       'showLineNumbers'   : false,
 		      // 'userName'          : 'admin',
 		       'userName'          : userId,
 		       'lang'              : 'en',
@@ -50,8 +50,8 @@ function EtherpadJS(element)  {
 		       'userColor'         : false,
 		       'hideQRCode'        : false,
 		       'alwaysShowChat'    : false,
-		       'width'             : 100,
-		       'height'            : 100,
+		       'width'             : 1,
+		       'height'            : 1,
 		       'border'            : 0,
 		       'borderStyle'       : 'solid',
 		       'toggleTextOn'      : 'Disable Rich-text',
@@ -160,10 +160,7 @@ function EtherpadJS(element)  {
 	//   loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
    this.appendInfo = function(text, user)  {        
 	     // The most basic example
-	   	userId = user;
-	    console.log("test in appendInfo user Id: "+ userId);
-	   // 
-	 //  loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
+	   //  loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
        this.div.innerHTML = this.div.innerHTML
         + "<p class='info'>"+ text +"</p>";
 
@@ -172,16 +169,12 @@ function EtherpadJS(element)  {
    };
    
    this.setText = function(text, user, pad)  {        
-	     // The most basic example
-	 userId = user;
-	 padId = pad;
-	 console.log("test in appendInfo user Id: "+ userId+ " and pad : "+pad);
-	 
+	
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
      this.div.innerHTML = this.div.innerHTML
       + "<p class='info'>"+ text +"</p>";
 
-	   console.log("test appendInfo ");
+     console.log("--> run from setText user Id: "+ user+ " and pad : "+pad);
 
  };
     
