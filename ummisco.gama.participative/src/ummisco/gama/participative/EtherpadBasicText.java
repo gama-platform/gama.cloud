@@ -336,17 +336,14 @@ public class EtherpadBasicText extends BasicText {
   
 			         }
 			         
-			         
+			     */    
 			         
 			         for(EtherpadBasicText bt : editorsList) {
 			        	 
 			        	 Display.getDefault().syncExec( new Runnable() {
 			        		 public void run() {
 			        		
-			        	
-
-			        	 
-			        	 
+			          	 /*
 			        	 				if(bt.Localcounter != Localcounter) {
 			        	 	//				System.out.println(" call from client : "+ Localcounter  + " to apply changes on client "+bt.Localcounter);
 			        	 					JsonObject json = new JsonObject();
@@ -355,20 +352,17 @@ public class EtherpadBasicText extends BasicText {
 			        				         json.add("padId", padId);
 			        	 	//				bt.remoteObject.call("setText", json);//.set("text", text);
 			        	 				}	
+			        	 */
 			        	   //         	   System.out.println("Old text : "+  bt.getText());
 			        	 //           	   System.out.println("New text from user : "+  text);
-			        	  //          	   bt.setText(text,false);
+			        	            	   bt.setText(text,false);
 			        	 
-			        	// System.out.println("Le text : "+  bt.getText());
-			        	
-			        	 //.setText(text,false);
-			        	 				
 			        		 }
 		        		 });
 
 			         }
 			         
-			      */   
+			        
 			         
 			         
 			         ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
