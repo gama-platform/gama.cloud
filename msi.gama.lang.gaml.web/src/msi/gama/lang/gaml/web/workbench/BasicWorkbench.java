@@ -162,7 +162,7 @@ public class BasicWorkbench implements EntryPoint {
 				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
 				Display display = PlatformUI.createDisplay();
-
+				
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();

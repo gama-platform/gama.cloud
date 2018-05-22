@@ -29,9 +29,11 @@ import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
 import org.eclipse.rap.rwt.remote.RemoteObject;
 import org.eclipse.rap.rwt.service.ResourceManager;
+import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -289,6 +291,68 @@ public class EtherpadBasicText extends BasicText {
 			         
 			         System.out.println("Ici ---------------------> session ID : "+uiSession.getId());
 			    
+			         
+			      
+			         //Display display = WorkbenchHelper.getDisplay(uid);
+			         //display.getThread().run();
+			          
+			         
+			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");;
+			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+						
+			         int nbr = 0;
+			         for(EtherpadBasicText bt : listBt) {
+			        	 nbr++;
+			        	 int nbr2 = 0;
+			        	 for(User u : onlines) {
+			     				nbr2++;
+			     				if(nbr == nbr2) {
+			     					
+						        	 if(Localcounter != bt.Localcounter) {
+						        		// bt.setText(text);
+						        		 
+						        		 
+						        		 
+						        		 final ServerPushSession pushSession = new ServerPushSession();
+						        		 Runnable bgRunnable = new Runnable() {
+						        		   @Override
+						        		   public void run() {
+						        		     // do some background work ...
+						        		     // schedule the UI update
+						        			Display display =   WorkbenchHelper.getDisplay(u.getId());
+						        		     display.syncExec( new Runnable() {
+						        		       @Override
+						        		       public void run() {
+						        		    	  if(!bt.getText().equals(text)) {
+						        		    		  Cursor cr = bt.getCursor();
+						        		    		  bt.setText(text);
+						        		    		  bt.setCursor(cr);
+						        		    	  }
+						        		    		   
+						        		           pushSession.stop();
+						        		       }
+						        		     } );
+						        		   }
+						        		 };
+						        		 pushSession.start();
+						        		 Thread bgThread = new Thread( bgRunnable );
+						        		 bgThread.setDaemon( true );
+						        		 bgThread.start();
+						        	}
+			     			}
+			        	 }
+			         }
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         /*
+			         
 			         ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 					    
@@ -328,6 +392,21 @@ public class EtherpadBasicText extends BasicText {
      	 				}	
   
 			         }
+			         
+			         
+			         
+			         */
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
+			         
 			         
 			       epClient.setText(padId, text);
 			      }
