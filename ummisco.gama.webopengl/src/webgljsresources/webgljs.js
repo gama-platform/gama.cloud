@@ -5,8 +5,6 @@ var num = 0;
 var mesh;
 var objects = [];
 var initialized = 0;
-var xwidth, xheight;
-
 
 var gl; 
 var buffers;
@@ -69,19 +67,42 @@ function handleContextLost(event) {
 } )();
     	
  }
-function WebGLJS(e) {
 
-	xwidth= e.style.width.replace("px", "");
-	xheight= e.style.height.replace("px", "");
+
+
+function WebGLJS(e) {
 
 	this.div = document.createElement("canvas");
 	this.div.className = 'webgljs';
 	canvas = this.div;
-	canvas.width = 1024; 
-	canvas.height = 784;
+// var height = parseInt( e.style.height) || 0;
+	 var width = parseInt( e.style.width) || 0;
+	 var ratio = this.div.height/ this.div.width;
+// var width = height * ratio;
+	 var height = width * ratio;
+	  canvas.width = width;      // make sure bitmap is updated as well
+	  canvas.height = height;
 
-	canvas.style.width = "100%"; 
-	canvas.style.height  = "100%";
+	  canvas.style.width = width+'px';
+	  canvas.style.height = height+'px';
+	  window.addEventListener('resize', function(event){
+		  	var width = parseInt( e.style.width) || 0;
+			 var ratio =canvas.height/canvas.width;
+// var width = height * ratio;
+			 var height = width * ratio;
+			  canvas.width = width;      // make sure bitmap is updated as
+											// well
+			  canvas.height = height;
+
+			  canvas.style.width = width+'px';
+			  canvas.style.height = height+'px';
+		});
+	  
+// canvas.width = 1024;
+// canvas.height = 784;
+
+// canvas.style.width = "100%";
+// canvas.style.height = "100%";
 
 	initialized = 0;
 
