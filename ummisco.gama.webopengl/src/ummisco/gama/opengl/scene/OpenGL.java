@@ -721,8 +721,10 @@ public class OpenGL {
 
 	public static Texture buildTexture(final GL gl, final BufferedImage image) {
 		try {
-			final TextureData data = AWTTextureIO.newTextureData(gl.getGLProfile(),
-					correctImage(image, !Abstract3DRenderer.isNonPowerOf2TexturesAvailable), false);
+			Object glP=gl.getGLProfile();
+
+//			BufferedImage bf=correctImage(image, !Abstract3DRenderer.isNonPowerOf2TexturesAvailable);
+			final TextureData data = AWTTextureIO.newTextureData(glP,image, false);
 			final Texture texture = new Texture(gl, data);
 			data.flush();
 			return texture;

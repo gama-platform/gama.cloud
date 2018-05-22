@@ -678,7 +678,7 @@ public class GL extends GLBase{
     public static final int GL_UNSIGNED_INT_10F_11F_11F_REV = 0x8C3B;
 	public Object getGLProfile() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Object();
 	}
   
   // ---- End CustomJavaCode .cfg declarations
