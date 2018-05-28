@@ -5,44 +5,56 @@
  <script src="m4.js"></script>
  <script type="text/javascript" src="webgljs.js"></script>
  <script type="text/javascript" src="gl-matrix.js"></script>
- <script type="text/javascript" src="three.js"></script>
  <link rel="stylesheet" type="text/css" href="webgljs.css" />
  
  
 </head>
 <body>
+<div id="webgljs1" style="width: 743px; height: 823px;">
 
-   <div id="webgljs1" style="width:1050px; height:500px;"></div>
-   
+</div>
+
+   <!--
    <button onclick="appendInfo('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Info Line</button>
    <button onclick="appendWarn('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Warn Line</button>  
    <button onclick="appendErr('Starting Servlet Engine: Apache Tomcat/7.0.23')">Add Error Line</button>
    <button onclick="clearAll()">Clear</button>  
-  
+  -->
  
  
 		
    <br><br>
   
   <script type="text/javascript">
+     var p = document.getElementById('webgljs0');
      var element = document.getElementById('webgljs1');
-      
-     var logjs = new WebGLJS(element);  
+
+     class CompositeProxy {
+
+    	  constructor(width,height) {
+    	    this.height = height;
+    	    this.width = width;
+    	  }
+    	 getClientArea() {
+    	    return  [0,0,  this.width ,this.height];
+    	  }
+     }
+     var logjs = new WebGLJS(new CompositeProxy(1800,900),element);  
       
         logjs.appendInfo("s");     
-     function appendErr(text)  {  
-        logjs.appendErr(text);      
-     }  
-     function appendWarn(text)  {
-        logjs.appendWarn(text);      
-     }  
-      
-     function appendInfo(text)  {
-        logjs.appendInfo(text);      
-     }  
-     function clearAll()  {
-        logjs.clearAll();      
-     }  
+//     function appendErr(text)  {  
+//        logjs.appendErr(text);      
+//     }  
+//     function appendWarn(text)  {
+//        logjs.appendWarn(text);      
+//     }  
+//      
+//     function appendInfo(text)  {
+//        logjs.appendInfo(text);      
+//     }  
+//     function clearAll()  {
+//        logjs.clearAll();      
+//     }  
   </script>
  
  

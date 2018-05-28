@@ -69,33 +69,44 @@ function handleContextLost(event) {
  }
 
 
+var myparent;
+var mye;
+function WebGLJS(p,e) {
+	canvas = document.createElement("canvas");
+	myparent=p;
+	mye=e;
+	canvas.className = 'webgljs';
+// canvas = this.div;
+	
+	var area = myparent.getClientArea();
 
-function WebGLJS(e) {
-
-	this.div = document.createElement("canvas");
-	this.div.className = 'webgljs';
-	canvas = this.div;
-// var height = parseInt( e.style.height) || 0;
-	 var width = parseInt( e.style.width) || 0;
-	 var ratio = this.div.height/ this.div.width;
-// var width = height * ratio;
-	 var height = width * ratio;
-	  canvas.width = width;      // make sure bitmap is updated as well
-	  canvas.height = height;
-
-	  canvas.style.width = width+'px';
-	  canvas.style.height = height+'px';
+	  canvas.width = area[2];      // make sure bitmap is updated as well
+	  canvas.height = area[3];
+	  canvas.style.left = area[0] + "px";
+	  canvas.style.top = area[1] + "px";
+	  canvas.style.width = area[2]+'px';
+	  canvas.style.height = area[3]+'px';
 	  window.addEventListener('resize', function(event){
-		  	var width = parseInt( e.style.width) || 0;
-			 var ratio =canvas.height/canvas.width;
-// var width = height * ratio;
-			 var height = width * ratio;
-			  canvas.width = width;      // make sure bitmap is updated as
-											// well
-			  canvas.height = height;
+			var area = myparent.getClientArea();
+//			console.log(area);
 
-			  canvas.style.width = width+'px';
-			  canvas.style.height = height+'px';
+			 mye.width = area[2];      // make sure bitmap is updated as well
+			 mye.height = area[3];
+			 mye.style.left = area[0] + "px";
+			 mye.style.top = area[1] + "px";
+			 mye.style.width = area[2]+'px';
+			 mye.style.height = area[3]+'px';
+			 
+			  canvas.width = area[2];      // make sure bitmap is updated as
+											// well
+			  canvas.height = area[3];
+			  canvas.style.left = area[0] + "px";
+			  canvas.style.top = area[1] + "px";
+			  canvas.style.width = area[2]+'px';
+			  canvas.style.height = area[3]+'px';
+
+				gl.viewport(0,0,canvas.width,canvas.height);
+					 
 		});
 	  
 // canvas.width = 1024;
@@ -107,7 +118,7 @@ function WebGLJS(e) {
 	initialized = 0;
 
 	if (e.firstChild != null) {
-
+		e.firstChild=null;
 		e.removeChild(e.firstChild);
 	}
 	e.appendChild(canvas);
@@ -128,14 +139,17 @@ function WebGLJS(e) {
             'uniform mat4 Pmatrix;'+
             'uniform mat4 Vmatrix;'+
             'uniform mat4 Mmatrix;'+
+            'attribute vec2 a_texcoord;'+
             'attribute vec4 color;'+// the color of the point
             'attribute vec3 a_normal;'+// the color of the point
             'varying vec4 vColor;'+
             'varying vec3 v_normal;'+
+            'varying vec2 v_texcoord;'+
             'void main(void) { '+// pre-built function
                'gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.0);'+
                'vColor = color;'+
                'v_normal = a_normal;'+
+               '  v_texcoord = a_texcoord;'+
             '}';
 			
 			
@@ -145,12 +159,15 @@ function WebGLJS(e) {
 	         var fragCode = 'precision mediump float;'+
 	         'varying vec4 vColor;'+
 	            'varying vec3 v_normal;'+
+	            'varying vec2 v_texcoord;'+
 	            'uniform vec3 u_reverseLightDirection;'+
+	            'uniform sampler2D u_texture;'+
 // 'uniform vec4 u_color;'+
 	            'void main(void) {'+
 	               'vec3 normal = normalize(v_normal);'+
 	               'float light = dot(normal, u_reverseLightDirection);'+
-	               'gl_FragColor =vColor ;'+
+// 'gl_FragColor =vColor ;'+
+	               'gl_FragColor = texture2D(u_texture, v_texcoord);'+
 // 'gl_FragColor = u_color;'+
 	               'gl_FragColor.rgb *= light;'+
 	            '}';
@@ -187,7 +204,64 @@ function WebGLJS(e) {
 	         var _position = gl.getAttribLocation(shaderProgram, "position");
 	         gl.vertexAttribPointer(_position, 3, gl.FLOAT, false,0,0);
 	         gl.enableVertexAttribArray(_position);
-			 
+	         var texcoordLocation = gl.getAttribLocation(shaderProgram, "a_texcoord");
+	         var texbuffer = gl.createBuffer();
+	         gl.bindBuffer(gl.ARRAY_BUFFER, texbuffer);
+	         gl.enableVertexAttribArray(texcoordLocation);
+	         gl.vertexAttribPointer(texcoordLocation, 2, gl.FLOAT, false, 0, 0);
+	         gl.bufferData(
+	        	      gl.ARRAY_BUFFER,
+	        	      new Float32Array([
+	        	    	  // left column front
+// 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0
+
+// // top rung front
+// 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//
+// // middle rung front
+// 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//
+// // left column back
+// 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1,
+//
+// // top rung back
+// 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1,
+//
+// // middle rung back
+// 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1
+	        	          
+	        	          
+	        	          ]),
+	        	        gl.STATIC_DRAW);
+	         // Create a texture.
+	         var texture = gl.createTexture();
+	         gl.bindTexture(gl.TEXTURE_2D, texture);
+	          
+	         // Fill the texture with a 1x1 blue pixel.
+	         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+	                       new Uint8Array([0, 0, 255, 255]));
+	          
+	         // Asynchronously load an image
+	         var image = new Image();
+	         image.src = "https://raw.githubusercontent.com/mdn/webvr-tests/master/raw-webgl-controller-example/cubetexture.png";
+
+	         image.crossOrigin = "anonymous";  // This enables CORS
+	         image.addEventListener('load', function() {
+	           // Now that the image has loaded make copy it to the texture.
+	           gl.bindTexture(gl.TEXTURE_2D, texture);
+	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
+	           gl.generateMipmap(gl.TEXTURE_2D);
+	         });
+	         
+	         
+	         
+	         
 	         var normalLocation = gl.getAttribLocation(shaderProgram, "a_normal");
 	      // Turn on the normal attribute
 	         gl.enableVertexAttribArray(normalLocation);
@@ -459,9 +533,9 @@ function WebGLJS(e) {
 //			 
 // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-// gl.enable(gl.DEPTH_TEST);
+ gl.enable(gl.DEPTH_TEST);
 				
-// gl.depthFunc(gl.LEQUAL);
+ gl.depthFunc(gl.LEQUAL);
          
          
          

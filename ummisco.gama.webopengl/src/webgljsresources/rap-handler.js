@@ -59,7 +59,7 @@
 		this.parent.addListener("Resize", this.layout);
 
 		// console.log("this.element.style.width " + this.element.style.width );
-		this.webgljs = new WebGLJS(this.element);
+		this.webgljs = new WebGLJS(this.parent,this.element);
 
 		// Render interface
 		rap.on("render", this.onRender);
