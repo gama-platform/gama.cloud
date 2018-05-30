@@ -109,12 +109,8 @@ public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 						logger.info("Opened form editor on file " + absolutePath);
 						
 						openEtherpaEditor(file);
-						IEditorDescriptor[] ediDesc = workbench.getEditorRegistry().getEditors(file.getName());
-						IEditorDescriptor ediDesc1 = ediDesc[0];
-						ediDesc1.getId();
-						
-						System.out.println("-------->-" + ediDesc1.getId());
-						System.out.println(" EDITOR OPENED ON ===>>>" + file.getName());
+				
+						System.out.println(" EDITOR OPENED ON +===>>>" + file.getName());
 					}
 				}
 			}
@@ -127,8 +123,8 @@ public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 		
 		String absolutePath = file.getAbsolutePath();
 		System.out.println(" >- Trying to connect to etherpad. From "+getClass().toString());
-		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "da48e5ff6425eddbe2b814b2319ee1b40b472cb02cb7720632619d9def680fb4");
-		System.out.println(" -->-->- Open an editor  ");
+		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+		System.out.println(" -->-->- Open an editor  "); 
 		
 		
 		
