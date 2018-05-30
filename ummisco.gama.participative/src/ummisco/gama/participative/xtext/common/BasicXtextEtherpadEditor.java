@@ -92,6 +92,7 @@ public class BasicXtextEtherpadEditor extends EtherpadBasicTextEditor implements
 	@Override
 	protected EtherpadBasicText createTextWidget(Composite parent, int style) {
 		EtherpadBasicText textWidget = new EtherpadBasicText(parent, style);
+		
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;

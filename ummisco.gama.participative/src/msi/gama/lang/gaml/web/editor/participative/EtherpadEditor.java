@@ -242,7 +242,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		epEditor.layout();
 		toolbarParent.layout();
 		
-		
+	
 		
 		thetoolbarParent.put(uid, toolbarParent);
 		CollaboratingUserControlsEtherpad collaboratingControl=new CollaboratingUserControlsEtherpad(this).fill(thetoolbar.get(uid).getToolbar(SWT.RIGHT));
@@ -277,6 +277,8 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 	
 	
 
+
+
 public void openEtherpaEditor(final String absolutePath) {
 		
 	
@@ -293,6 +295,7 @@ public void openEtherpaEditor(final String absolutePath) {
 			}catch(Exception e){
 				
 			}
+			
 			
 			
 			if(text !=null) {
@@ -326,41 +329,6 @@ public void openEtherpaEditor(final String absolutePath) {
 		
 		
 		
-		/*
-		
-		// to delete
-		ArrayList<EtherpadEditor> etherpadEditorsList = (ArrayList<EtherpadEditor>) RWT.getApplicationContext().getAttribute("etherpadEditors");
-		
-		
-		
-		
-        for(EtherpadEditor ed : etherpadEditorsList) {
-        	for(User u:onlines) {
-    			if(!u.getId().equals(uid)) {
-		    		 UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
-					    uiSession2.exec( new Runnable() {
-					      public void run() {
-					    	  ((EtherpadBasicText)getViewer().getTextWidget()).setText2(u.getId(), value, etherpadID);
-					      }
-					    });
-    				}
-    			}
-      
-        }
-        
-        
-*/
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
 

@@ -339,6 +339,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	 */
 	protected ITextViewer createTextViewer(Composite parent, int styles) {
 		final EtherpadBasicText textWidget = createTextWidget(parent, styles);
+		
 		return new EtherpadTextViewer(textWidget, parent, styles);
 	}
 

@@ -74,6 +74,7 @@ public class EtherpadBasicText extends BasicText {
 	private int localCounter = 0;
 	
 	protected EPLiteClient epClient; 
+	protected String edPadId =null;
 	
 	
 	public EtherpadBasicText(Composite parent, int style) {
@@ -120,6 +121,9 @@ public class EtherpadBasicText extends BasicText {
 	}
 	
 
+	public void setEdPadId(String pad) {
+		//this.edPadId = pad;
+	}
 	
 	
 
@@ -304,7 +308,9 @@ public class EtherpadBasicText extends BasicText {
 	
 	 
 	public synchronized void setText(final String uid, String text, String padId) {
-			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+				setPadId(padId);
+				
+				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 			    uiSession.exec( new Runnable() {
 			      public void run() {
 			          JsonObject obj= new JsonObject();
@@ -338,10 +344,9 @@ public class EtherpadBasicText extends BasicText {
 						        		     display.syncExec( new Runnable() {
 						        		       @Override
 						        		       public void run() {
-						        		    	  if(!bt.getText().equals(text)) {
+						        		    	  if(!bt.getText().equals(text) && bt.edPadId.equals(padId)) {
 						        		    		 
 						        		    		  Cursor cr = bt.getCursor();
-						        		    		  
 						        		    		  bt.setText(text);
 						        		    		//  bt.setCursor(cr);
 						        		    		  //bt.handleCaretChanged(null);
@@ -356,10 +361,9 @@ public class EtherpadBasicText extends BasicText {
 						        		    		  event.text = text;
 						        		    		  event.data = curObj;
 						        		    		  
-						        		    		  
 						        		    		 bt.handleCaretChanged(event);
 						        		    		 bt.handleCaretChanged(event);
-						        		    		 */
+						        		    	  */
 						        		    		 
 						        		    	  }
 						        		           pushSession.stop();
@@ -375,130 +379,6 @@ public class EtherpadBasicText extends BasicText {
 			     			}
 			        	 }
 			         }
-			         
-			         
-			         
-			         
-			         
-			         
-			         /*  
-			         int nbr = 0;
-			         for(EtherpadBasicText bt : listBt) {
-			        	 nbr++;
-			        	 int nbr2 = 0;
-			        	 for(User u : onlines) {
-			     				nbr2++;
-			     				if(nbr == nbr2) {
-			     		        	 if(localCounter != bt.localCounter) {
-						        		// bt.setText(text);
-						        		 final ServerPushSession pushSession = new ServerPushSession();
-						        		 Runnable bgRunnable = new Runnable() {
-						        		   @Override
-						        		   public void run() {
-						        		     // do some background work ...
-						        		     // schedule the UI update
-						        			Display display =   WorkbenchHelper.getDisplay(u.getId());
-						        		     display.syncExec( new Runnable() {
-						        		       @Override
-						        		       public void run() {
-						        		    	  if(!bt.getText().equals(text)) {
-						        		    		 
-						        		    		  Cursor cr = bt.getCursor();
-						        		    		  
-						        		    		  bt.setText(text);
-						        		    		//  bt.setCursor(cr);
-						        		    		  //bt.handleCaretChanged(null);
-						        		    		
-						        		    		  Event event = new Event();
-						        		    		  JsonObject position= new JsonObject();
-						        		    		  position.add("row", 5);
-						        		    		  position.add("column", 100);
-						        		    		 
-						        		    		  JsonObject curObj= new JsonObject();
-						        		    		  curObj.add("value", position);
-						        		    		  event.text = text;
-						        		    		  event.data = curObj;
-						        		    		  
-						        		    		  
-						        		    		 bt.handleCaretChanged(event);
-						        		    		 bt.handleCaretChanged(event);
-						        		    		 
-						        		    		 
-						        		    	  }
-						        		           pushSession.stop();
-						        		       }
-						        		     } );
-						        		   }
-						        		 };
-						        		 pushSession.start();
-						        		 Thread bgThread = new Thread( bgRunnable );
-						        		 bgThread.setDaemon( true );
-						        		 bgThread.start();
-						        	}
-			     			}
-			        	 }
-			         }
-			         
-			        */ 
-			         
-			         
-			         
-			         
-			         
-			         
-			         
-			         /*
-			         
-			         ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");
-			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-					    
-				     int nbr = 0;
-			         for(RemoteObject ro : listRemoteObeject) {
-			        	 nbr++;
-			     		if(!ro.getId().equals(remoteObject.getId())) {
-			     			
-			     			int nbr2 = 0;
-			     			for(User u : onlines) {
-			     				nbr2++;
-			     				if(nbr == nbr2) {
-			     					
-			     					UISession uiSession2 = RWT.getUISession(WorkbenchHelper.getDisplay(u.getId()));
-									    uiSession2.exec( new Runnable() {
-									      public void run() {
-									    	  
-									    	  JsonObject json = new JsonObject();
-					     				         json.add("text", text);
-					     				         json.add("userId", u.getId());
-					     				         json.add("padId", padId);
-					     	 					 ro.call("setText", json); //.set("text", text);
-					     	 					 
-					     	 					System.out.println(" call from client : "+ localCounter + " with remote Object: "+remoteObject.getId() + " to remote Object "+ ro.getId()
-					     	 					+ " and padId "+padId);
-					     	 					
-					     	 					System.out.println("Ici ---------------------> session2 ID : "+uiSession2.getId());
-					     	 					
-					     	 				//	JavaScriptExecutor executor = uiSession2.getClient().getService(JavaScriptExecutor.class);
-					     	 				//	executor.execute("alert('Text changed to : "+text+"');");
-									      }
-									   });
-			     				}
-			     			}
-     	 					
-     	 					
-     	 				}	
-  
-			         }
-			         
-			         
-			         
-			         */
-			         
-			         
-			         
-			         
-			         
-			         
-			         
 			         
 			         
 			         
@@ -514,22 +394,11 @@ public class EtherpadBasicText extends BasicText {
 	public void setEpClient(EPLiteClient ep) {
 		this.epClient = ep;
 	}
+	
 
-	public void setText2(final String uid, String text, String padId) {
-			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-			    uiSession.exec( new Runnable() {
-			      public void run() {
-			          JsonObject obj= new JsonObject();
-			          obj.add("text", text+"\n fin<-");
-			          obj.add("userId", uid);
-			          obj.add("padId", padId);
-			          remoteObject.call("setText", obj);
-			       epClient.setText(padId, text);
-			       
-			       System.out.println("This is from setText2 and user:->  "+uid);
-			      }
-			    } );
-			   
+	//This method need to be reviewed. 
+	public void setPadId(String padId) {
+		if(this.edPadId== null) this.edPadId = padId;
 	}
 
 	

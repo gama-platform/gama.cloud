@@ -110,7 +110,7 @@ public static IEditorPart openCollaborativePadEditor(IWorkbench workbench, IPath
 					if (desc.getId().contains("EtherPadEditor")) {
 						PathEditorInput editorInput = new PathEditorInput(path);
 						IEditorPart editor = page.findEditor(editorInput);
-				
+						System.out.println("------------>>>>>>");
 						if (editor == null)
 							editor = page.openEditor(editorInput, desc.getId());
 						else
