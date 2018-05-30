@@ -17,6 +17,7 @@ package msi.gama.lang.gaml.web.workbench;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.security.auth.Subject;
 
@@ -139,9 +140,13 @@ public class BasicWorkbench implements EntryPoint {
 				User u = new User();
 				u.setId(uid);
 
+				
 				ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+				Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
+				//Map<String, ArrayList<String>>
 				if (onlines == null) {
 					onlines = new ArrayList<>();
+					listPads  = new HashMap<String, ArrayList<String>>();
 				}
 				boolean exist=false;
 				for(User s:onlines) {					
@@ -150,9 +155,13 @@ public class BasicWorkbench implements EntryPoint {
 						break;
 					}
 				}
-				if(!exist)
+				if(!exist) {
 					onlines.add(u);
+					listPads.put(uid, new ArrayList<>());
+				}
+					
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
+				RWT.getApplicationContext().setAttribute("listPads", listPads);
 				// JavaScriptExecutor js =
 				// RWT.getClient().getService(JavaScriptExecutor.class);
 				// if(u.getId().equals(""+uid)) {

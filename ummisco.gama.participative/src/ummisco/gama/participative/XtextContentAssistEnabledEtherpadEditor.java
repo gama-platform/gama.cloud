@@ -36,7 +36,6 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 
 	public XtextContentAssistEnabledEtherpadEditor() {
 		super();
-		System.out.println("--->>>>  ---  super() from ---->>>>    XtextContentAssistEnabledEtherpadEditor ");
 	}
 
 	@Override
@@ -48,6 +47,7 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 	@Override
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
 		EtherpadBasicText textWidget = new EtherpadBasicText(parent, SWT.FILL);
+		textWidget.setEpClient(epClient);
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;

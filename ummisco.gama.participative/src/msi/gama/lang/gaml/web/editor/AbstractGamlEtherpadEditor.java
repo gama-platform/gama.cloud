@@ -25,7 +25,6 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 
 	public AbstractGamlEtherpadEditor() {
 		super();
-		System.out.println("--->>>>  ---  super() from ---->>>>    AbstractGamlEtherpadEditor ");
 		xtextResourceFactory = new GamlResourceFactory();
 		setLanguageName(Activator.MSI_GAMA_LANG_GAML_GAML);
 		setInjector(Activator.getInstance().getInjector(Activator.MSI_GAMA_LANG_GAML_GAML));
@@ -35,6 +34,7 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 	@Override
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
 		EtherpadBasicText gamlWidget = new EtherpadBasicText(parent, styles);
+		gamlWidget.setEpClient(epClient);
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;
@@ -43,7 +43,6 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 		gamlWidget.setLayoutData(textLayoutData);
 		gamlWidget.setEditable(true);
 
-		System.out.println("----->>>>>>>>>>>------>>>>>>>--- > Passage par la: AbstractGamlEtherpadEditor ");
 		Color c = new Color(parent.getDisplay(), new RGB(0, 0, 250));
 		gamlWidget.setBackground(c);
 		return gamlWidget;
@@ -52,7 +51,6 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 	public void setResourceListener(final IGamlBuilderListener listener) {
 		this.resourceListener = listener;
 		GamlResourceServices.addResourceListener(xtextResource.getURI(), listener);
-		System.out.println("----->>>>>>>>>>>------>>>>>>>--- > Passage par la: AbstractGamlEtherpadEditor -> "+xtextResource.getURI());
 		// ((IXtextDocument) getDocument()).readOnly(new
 		// CancelableUnitOfWork<Object, XtextResource>() {
 		//

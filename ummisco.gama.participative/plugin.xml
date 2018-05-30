@@ -37,6 +37,7 @@
    </extension>
  <extension
        point="org.eclipse.ui.commands">
+  <!--
     <command
           defaultHandler="ummisco.gama.workspace.ui.commands.OpenEtherPadCommand"
           description="Open EtherPad Editor"
@@ -44,12 +45,12 @@
           id="ummisco.gama.workspace.ui.commands.openEtherPad"
           name="OpenEtherPad">
     </command>
-    
+  -->
      <command
-          defaultHandler="ummisco.gama.workspace.ui.commands.OpenMergeEtherPadCommand"
+          defaultHandler="ummisco.gama.workspace.ui.commands.OpenCollaborativePadCommand"
           description="Open Merge EtherPad Editor"
           helpContextId="OpenMergeEtherPad"
-          id="ummisco.gama.workspace.ui.commands.openMergeEtherPad"
+          id="ummisco.gama.workspace.ui.commands.openCollaborativePad"
           name="OpenMergeEtherPad">
     </command>
     
@@ -64,6 +65,7 @@
              id="org.dslforge.workspace.menu.openwith"
              label="Open With"
              tooltip="Open with">
+        <!--
           <command
                 commandId="ummisco.gama.workspace.ui.commands.openEtherPad"
                 helpContextId="OpenEtherPadEditor"
@@ -73,14 +75,15 @@
                 style="push"
                 tooltip="Open with EtherPad editor">
           </command>
+        -->
           <command
-                commandId="ummisco.gama.workspace.ui.commands.openMergeEtherPad"
-                helpContextId="OpenAndMergeEditors"
+                commandId="ummisco.gama.workspace.ui.commands.openCollaborativePad"
+                helpContextId="openCollaborativeEditor"
                 icon="icons/model.png"
-                id="ummisco.gama.workspace.menu.open.etherpadMerge"
-                label="Merge Gaml and Etherpad editors"
+                id="ummisco.gama.workspace.menu.open.collaborativeEditor"
+                label="Collaborative editor"
                 style="push"
-                tooltip="Open with EtherPad editor">
+                tooltip="Open collaborative editor">
           </command>
        </menu>
     </menuContribution>

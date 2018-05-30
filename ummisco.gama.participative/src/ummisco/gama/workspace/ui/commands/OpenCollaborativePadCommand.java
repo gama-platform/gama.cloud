@@ -51,11 +51,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class OpenMergeEtherPadCommand extends AbstractWorkspaceCommand  {
+public class OpenCollaborativePadCommand extends AbstractWorkspaceCommand  {
 
-	static final Logger logger = Logger.getLogger(OpenMergeEtherPadCommand.class);
+	static final Logger logger = Logger.getLogger(OpenCollaborativePadCommand.class);
 
-	public OpenMergeEtherPadCommand() {
+	public OpenCollaborativePadCommand() {
 		super();
 	}
 
@@ -63,14 +63,15 @@ public class OpenMergeEtherPadCommand extends AbstractWorkspaceCommand  {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		File file = unwrap(event, File.class);
 		if (file != null) {
-			openMergeWithEtherPadEditor(file);
+			openPadEditor(file);
 		}
 		return null;
 	}
 	
 	
 	
-public boolean openMergeWithEtherPadEditor(final File file) {
+	
+public boolean openPadEditor(final File file) {
 		final Display display = PlatformUI.getWorkbench().getDisplay();
 		display.asyncExec(new Runnable() {
 			@Override
@@ -78,23 +79,10 @@ public boolean openMergeWithEtherPadEditor(final File file) {
 				if (file.exists() && !file.isDirectory()) {
 					String absolutePath = file.getAbsolutePath();
 					IWorkbench workbench = PlatformUI.getWorkbench();
-					if (openMergeEtherPadEditor(workbench, new Path(absolutePath)) != null) {
+					if (openCollaborativePadEditor(workbench, new Path(absolutePath)) != null) {
 						logger.info("Opened form editor on file " + absolutePath);
-					
-					//	Faire attention, il ne faut pas l'appeler avec celle de EtherpadEditor
-					//	openAndMergeEditors(file);
-					/*	
-					
-						IEditorDescriptor[] ediDesc = workbench.getEditorRegistry().getEditors(absolutePath);
-						IEditorDescriptor ediDesc1  =  ediDesc[0];
-						IEditorDescriptor ediDesc2  =  ediDesc[1];
-						//ediDesc1.getId();
 						
-						System.out.println("-------->-" + ediDesc1.getId() + " Size of all editors "+ediDesc.length	);
-						System.out.println("-------->-" + ediDesc2.getId() + " Size of all editors "+ediDesc.length	);
-						System.out.println("-------->-" + ediDesc2.getClass().toString());
-					*/	
-						System.out.println(" EDITOR OPENED ON ===>>>" + file.getName());
+						System.out.println(" EDITOR OPENED ON ===>>>" + file.getName() +" from "+this.getClass());
 						
 					}
 				}
@@ -105,7 +93,8 @@ public boolean openMergeWithEtherPadEditor(final File file) {
 	
 	
 	
-public static IEditorPart openMergeEtherPadEditor(IWorkbench workbench, IPath path) {
+	
+public static IEditorPart openCollaborativePadEditor(IWorkbench workbench, IPath path) {
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		
@@ -121,10 +110,7 @@ public static IEditorPart openMergeEtherPadEditor(IWorkbench workbench, IPath pa
 					if (desc.getId().contains("EtherPadEditor")) {
 						PathEditorInput editorInput = new PathEditorInput(path);
 						IEditorPart editor = page.findEditor(editorInput);
-						
-						System.out.println(" editorInput.toString()  ===>>>" + editorInput.toString());
-						
-						
+				
 						if (editor == null)
 							editor = page.openEditor(editorInput, desc.getId());
 						else
@@ -144,52 +130,4 @@ public static IEditorPart openMergeEtherPadEditor(IWorkbench workbench, IPath pa
 
 	
 	
-	
-	
-	
-	
-	public void openAndMergeEditors(final File file) {
-		
-		System.out.println(" -->-->- Trying openAndMergeEditors From "+getClass().toString());
-		
-		String absolutePath = file.getAbsolutePath();
-		System.out.println(" -->-->- Trying to connect to etherpad. From "+getClass().toString());
-		EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
-		System.out.println(" -->-->- Open an editor  ");
-		
-		
-		
-		try {
-			String content = new String(Files.readAllBytes(Paths.get(absolutePath)));
-			Map padList = epClient.listAllPads();
-		//	Iterator entries = Map.entrySet().iterator();
-	
-			String text = null;
-			try {
-				text = epClient.getText(file.getName()).get("text").toString();
-			}catch(Exception e){
-				
-			}
-			
-			
-			if(text !=null) {
-				System.out.println(" ----------------> --> Pad exists " +file.getName());
-			}else{
-				System.out.println(" ----------------> --> Pad dosn't exists " +file.getName());
-				epClient.createPad(file.getName());
-				epClient.setText(file.getName(), content);
-				
-				String padContent = epClient.getText(file.getName()).get("text").toString();
-				System.out.println(" The pad content is :"+ padContent);
-			}
-			
-	
-			
-			System.out.println(" --->>>>____>>>>--->>> The end");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }

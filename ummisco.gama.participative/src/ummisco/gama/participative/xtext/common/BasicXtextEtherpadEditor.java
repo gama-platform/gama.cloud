@@ -84,7 +84,6 @@ public class BasicXtextEtherpadEditor extends EtherpadBasicTextEditor implements
 	 */
 	public BasicXtextEtherpadEditor() {
 		super();
-		System.out.println("--->>>>  ---  super() from ---->>>>    BasicXtextEtherpadEditor ");
 	}
 
 	/**

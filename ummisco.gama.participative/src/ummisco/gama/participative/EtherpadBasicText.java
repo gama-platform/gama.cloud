@@ -72,15 +72,8 @@ public class EtherpadBasicText extends BasicText {
 	
 	private static int counter = 0;
 	private int localCounter = 0;
-	private EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
-	//private final String padId;
 	
-	private class CollaborativeContext {
-		//final User userId; 
-		public CollaborativeContext() {
-			
-		}
-	}
+	protected EPLiteClient epClient; 
 	
 	
 	public EtherpadBasicText(Composite parent, int style) {
@@ -90,10 +83,8 @@ public class EtherpadBasicText extends BasicText {
 		
 		
 		counter++;
-		System.out.println("------>>>>>>----- Ceci est un BasicText numero: "+counter);
 		localCounter = counter;
-		 System.out.println("------>>>>>>----- Création d'un Obejet ------->>>>>>>------- : from EtherpadBasicText!");
-		    // Note: Catching error when viewed on WindowBuilder
+	    // Note: Catching error when viewed on WindowBuilder
 		    try {
 		        registerResources();
 		        loadJavaScript();
@@ -321,29 +312,19 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
 			          remoteObject.call("setText", obj);	
-			           
-			         System.out.println("Ici ---------------------> setText from EtherpadBasicText with pad "+padId);
-			        
-			       //  invoke("handleNotify", new JsonObject());
-			         System.out.println("-->-> remoteObject.getId() : "+remoteObject.getId());
-			         
-			         System.out.println("Ici ---------------------> session ID : "+uiSession.getId());
-			    
-			         
-			      
-			         //Display display = WorkbenchHelper.getDisplay(uid);
-			         //display.getThread().run();
 			          
-			         
+			         System.out.println(" --> setText On Pad (For etherpadUpdate) "+padId);
+			            
 			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");;
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-						
+			    
 			         int nbr = 0;
 			         for(EtherpadBasicText bt : listBt) {
 			        	 nbr++;
 			        	 int nbr2 = 0;
 			        	 for(User u : onlines) {
 			     				nbr2++;
+			     				
 			     				if(nbr == nbr2) {
 			     		        	 if(localCounter != bt.localCounter) {
 						        		// bt.setText(text);
@@ -396,6 +377,69 @@ public class EtherpadBasicText extends BasicText {
 			         }
 			         
 			         
+			         
+			         
+			         
+			         
+			         /*  
+			         int nbr = 0;
+			         for(EtherpadBasicText bt : listBt) {
+			        	 nbr++;
+			        	 int nbr2 = 0;
+			        	 for(User u : onlines) {
+			     				nbr2++;
+			     				if(nbr == nbr2) {
+			     		        	 if(localCounter != bt.localCounter) {
+						        		// bt.setText(text);
+						        		 final ServerPushSession pushSession = new ServerPushSession();
+						        		 Runnable bgRunnable = new Runnable() {
+						        		   @Override
+						        		   public void run() {
+						        		     // do some background work ...
+						        		     // schedule the UI update
+						        			Display display =   WorkbenchHelper.getDisplay(u.getId());
+						        		     display.syncExec( new Runnable() {
+						        		       @Override
+						        		       public void run() {
+						        		    	  if(!bt.getText().equals(text)) {
+						        		    		 
+						        		    		  Cursor cr = bt.getCursor();
+						        		    		  
+						        		    		  bt.setText(text);
+						        		    		//  bt.setCursor(cr);
+						        		    		  //bt.handleCaretChanged(null);
+						        		    		
+						        		    		  Event event = new Event();
+						        		    		  JsonObject position= new JsonObject();
+						        		    		  position.add("row", 5);
+						        		    		  position.add("column", 100);
+						        		    		 
+						        		    		  JsonObject curObj= new JsonObject();
+						        		    		  curObj.add("value", position);
+						        		    		  event.text = text;
+						        		    		  event.data = curObj;
+						        		    		  
+						        		    		  
+						        		    		 bt.handleCaretChanged(event);
+						        		    		 bt.handleCaretChanged(event);
+						        		    		 
+						        		    		 
+						        		    	  }
+						        		           pushSession.stop();
+						        		       }
+						        		     } );
+						        		   }
+						        		 };
+						        		 pushSession.start();
+						        		 Thread bgThread = new Thread( bgRunnable );
+						        		 bgThread.setDaemon( true );
+						        		 bgThread.start();
+						        	}
+			     			}
+			        	 }
+			         }
+			         
+			        */ 
 			         
 			         
 			         
@@ -460,14 +504,16 @@ public class EtherpadBasicText extends BasicText {
 			         
 			         
 			         
-			       epClient.setText(padId, text);
+			      epClient.setText(padId, text);
 			      }
 			    } );
 			   
 	}
 
 	
-	
+	public void setEpClient(EPLiteClient ep) {
+		this.epClient = ep;
+	}
 
 	public void setText2(final String uid, String text, String padId) {
 			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));

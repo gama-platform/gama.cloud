@@ -107,6 +107,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.EtherpadTextViewer;
 
@@ -128,6 +129,9 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	private ArrayList<String> index;
 	private TextEditorSavable fSavable;
 	private boolean isDirty;
+	protected String padId ="";
+	protected EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+	
 	
 	public EtherpadBasicTextEditor() {
 		super(); 
@@ -343,6 +347,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	 */
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
 		EtherpadBasicText textWidget = new EtherpadBasicText(parent, SWT.FILL);
+		textWidget.setEpClient(epClient);
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;

@@ -73,8 +73,6 @@ public class EtherpadComposite extends Composite {
     */
    public EtherpadComposite(Composite parent, int style) {
        super(parent, style);
- 
-       System.out.println("------>>>>>>----- Création d'un Obejet ------->>>>>>>------- : from EtherpadComposite!");
        // Note: Catching error when viewed on WindowBuilder
        try {
            registerResources();
