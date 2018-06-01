@@ -157,7 +157,7 @@ public class BasicWorkbench implements EntryPoint {
 				}
 				if(!exist) {
 					onlines.add(u);
-					listPads.put(uid, new ArrayList<>());
+					listPads.put(uid, new ArrayList<String>());
 				}
 					
 				RWT.getApplicationContext().setAttribute("onlines", onlines);

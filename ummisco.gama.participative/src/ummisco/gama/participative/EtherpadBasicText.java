@@ -75,12 +75,13 @@ public class EtherpadBasicText extends BasicText {
 	
 	protected EPLiteClient epClient; 
 	protected String edPadId =null;
+	protected String owner = (String) RWT.getUISession().getAttribute("user");
 	
 	
 	public EtherpadBasicText(Composite parent, int style) {
 		super(parent, style);
 		
-		
+	
 		
 		
 		counter++;
@@ -95,16 +96,7 @@ public class EtherpadBasicText extends BasicText {
 		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
 		        remoteObject.setHandler(operationHandler);
 		        remoteObject.set("parent", WidgetUtil.getId(this));
-		        
-		        
-		        ArrayList<RemoteObject> listRemoteObeject = (ArrayList<RemoteObject>) RWT.getApplicationContext().getAttribute("remoteObject");;
-				if (listRemoteObeject == null) {
-					listRemoteObeject = new ArrayList<>();
-				}
-				listRemoteObeject.add(remoteObject);
-			    RWT.getApplicationContext().setAttribute("remoteObject", listRemoteObeject);
-		        
-		
+		       
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		        // throw new RuntimeException(e);
@@ -112,17 +104,23 @@ public class EtherpadBasicText extends BasicText {
 		
 		    
 		    
-		    ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");;
-			if (listBt == null) {
+		    ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+		   
+		    if (listBt == null) {
 				listBt = new ArrayList<>();
 			}
 			listBt.add(this);
 		    RWT.getApplicationContext().setAttribute("editors", listBt);
+		    
 	}
 	
 
 	public void setEdPadId(String pad) {
-		//this.edPadId = pad;
+		this.edPadId = pad;
+	}
+	
+	public String getEdPadId() {
+		return this.edPadId; 
 	}
 	
 	
@@ -321,64 +319,78 @@ public class EtherpadBasicText extends BasicText {
 			          
 			         System.out.println(" --> setText On Pad (For etherpadUpdate) "+padId);
 			            
-			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");;
+			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+			         Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
+			         
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 			    
-			         int nbr = 0;
-			         for(EtherpadBasicText bt : listBt) {
-			        	 nbr++;
-			        	 int nbr2 = 0;
-			        	 for(User u : onlines) {
-			     				nbr2++;
-			     				
-			     				if(nbr == nbr2) {
-			     		        	 if(localCounter != bt.localCounter) {
-						        		// bt.setText(text);
-						        		 final ServerPushSession pushSession = new ServerPushSession();
-						        		 Runnable bgRunnable = new Runnable() {
-						        		   @Override
-						        		   public void run() {
-						        		     // do some background work ...
-						        		     // schedule the UI update
-						        			Display display =   WorkbenchHelper.getDisplay(u.getId());
-						        		     display.syncExec( new Runnable() {
-						        		       @Override
-						        		       public void run() {
-						        		    	  if(!bt.getText().equals(text) && bt.edPadId.equals(padId)) {
-						        		    		 
-						        		    		  Cursor cr = bt.getCursor();
-						        		    		  bt.setText(text);
-						        		    		//  bt.setCursor(cr);
-						        		    		  //bt.handleCaretChanged(null);
-						        		    		/* 
-						        		    		  Event event = new Event();
-						        		    		  JsonObject position= new JsonObject();
-						        		    		  position.add("row", 5);
-						        		    		  position.add("column", 100);
-						        		    		 
-						        		    		  JsonObject curObj= new JsonObject();
-						        		    		  curObj.add("value", position);
-						        		    		  event.text = text;
-						        		    		  event.data = curObj;
-						        		    		  
-						        		    		 bt.handleCaretChanged(event);
-						        		    		 bt.handleCaretChanged(event);
-						        		    	  */
-						        		    		 
-						        		    	  }
-						        		           pushSession.stop();
-						        		       }
-						        		     } );
-						        		   }
-						        		 };
-						        		 pushSession.start();
-						        		 Thread bgThread = new Thread( bgRunnable );
-						        		 bgThread.setDaemon( true );
-						        		 bgThread.start();
-						        	}
-			     			}
-			        	 }
-			         }
+			   
+			         
+			        for(User u : onlines) {
+			        	if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
+			        		ArrayList<String> padlist = listPads.get(u.getId());
+			        		if(padlist.contains(edPadId)) {
+			        			for(EtherpadBasicText bt : listBt) {
+			        				if(!owner.equals(bt.owner)) {
+			        					final ServerPushSession pushSession = new ServerPushSession();
+								        Runnable bgRunnable = new Runnable() {
+								        	@Override
+								        	public void run() {
+								        		Display display =   WorkbenchHelper.getDisplay(u.getId());
+								        	    display.syncExec( new Runnable() {
+								        	       @Override
+								        	       public void run() {
+								        	    	  if(bt.edPadId.equals(padId)) 
+									        	    	  if(!bt.getText().equals(text)) {
+									        	    		  Cursor cr = bt.getCursor();
+									        	    		  bt.setText(text);
+									        	    		  
+									        	    		  System.out.println("Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
+									        		    		//  bt.setCursor(cr);
+									        		    		//bt.handleCaretChanged(null);
+									        		    		/* 
+									        		    		  Event event = new Event();
+									        		    		  JsonObject position= new JsonObject();
+									        		    		  position.add("row", 5);
+									        		    		  position.add("column", 100);
+									        		    		 
+									        		    		  JsonObject curObj= new JsonObject();
+									        		    		  curObj.add("value", position);
+									        		    		  event.text = text;
+									        		    		  event.data = curObj;
+									        		    		  
+									        		    		 bt.handleCaretChanged(event);
+									        		    		 bt.handleCaretChanged(event);
+									        		    	  */
+									        		    		 
+									        		    	  }
+								        		           pushSession.stop();
+								        		       }
+								        		     } );
+								        		   }
+								        		 };
+								        		 pushSession.start();
+								        		 Thread bgThread = new Thread( bgRunnable );
+								        		 bgThread.setDaemon( true );
+								        		 bgThread.start();
+			        				}
+			        				
+			        			}
+						    }
+			     		}
+			        }
+			         
+			         
+			         
+			         
+			    	
+					// ArrayList<String> userPads = listPads.get(RWT.getUISession().getAttribute("user"));
+					
+					 for (Map.Entry<String, ArrayList<String>> entry : listPads.entrySet())
+					   	{
+					 	
+					   		 System.out.println("/\\--->>>>>>>>>>>>>  "+entry.getKey() + "/" + entry.getValue().toString());
+					   	}
 			         
 			         
 			         

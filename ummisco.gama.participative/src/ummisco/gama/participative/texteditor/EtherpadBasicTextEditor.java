@@ -135,6 +135,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	
 	public EtherpadBasicTextEditor() {
 		super(); 
+		
 	}
 	
 	ITextChangeListener iTextChangeListener = new ITextChangeListener() {
@@ -339,7 +340,8 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	 */
 	protected ITextViewer createTextViewer(Composite parent, int styles) {
 		final EtherpadBasicText textWidget = createTextWidget(parent, styles);
-		
+		textWidget.setPadId(padId);
+		System.out.println("---------------->>>>> test est "+padId);
 		return new EtherpadTextViewer(textWidget, parent, styles);
 	}
 
@@ -348,7 +350,6 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	 */
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
 		EtherpadBasicText textWidget = new EtherpadBasicText(parent, SWT.FILL);
-		textWidget.setEpClient(epClient);
 		GridData textLayoutData = new GridData();
 		textLayoutData.horizontalAlignment = SWT.FILL;
 		textLayoutData.verticalAlignment = SWT.FILL;
@@ -362,7 +363,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		Color color = new Color(parent.getDisplay(), new RGB(229, 242, 255));
 		textWidget.setBackground(color);
 		// set read/write access
-		textWidget.setEditable(true);		
+		textWidget.setEditable(true);	
 		return textWidget;
 	}
 	
@@ -442,10 +443,18 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 					} finally {
 						setTextViewer(content);
 						setURL(filePath.lastSegment().toString());
+						
 					}
 				}
 			});
 		}
+	}
+	
+	
+	protected void setPadId(String pad) {
+		// ici need translation methode
+		padId = pad;
+		System.out.println("---------> from setPadId from: EtherpadBasicTextEditor "+ padId);
 	}
 
 	protected void setTextViewer(String content) {
@@ -683,6 +692,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 
 	public void setFilePath(IPath path) {
 		this.filePath = path;
+		setPadId(filePath.lastSegment().toString());
 	}
 
 	@Override

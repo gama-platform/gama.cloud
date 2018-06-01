@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
 import msi.gaml.operators.Cast;
+import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 /**
@@ -43,6 +44,8 @@ public class CollaboratingUserControlsEtherpad {
 	private HashMap<User,ToolItem> collaborating=new HashMap<User,ToolItem>();
 	
 	
+	
+	
 	private int incrementalOffset = -1;
 	final EtherpadEditor editor;
 
@@ -55,6 +58,15 @@ public class CollaboratingUserControlsEtherpad {
 
 	public synchronized CollaboratingUserControlsEtherpad fill(final GamaToolbarSimple toolbar) {
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+		
+		//HashMap<User,ArrayList<EtherpadBasicText>> btList = new HashMap<User,ArrayList<EtherpadBasicText>>();
+		
+		// HashMap<User,ArrayList<EtherpadBasicText>> btList = (HashMap<User,ArrayList<EtherpadBasicText>>) RWT.getApplicationContext().getAttribute("editorsList"); 
+		// ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+		//	if (btList == null) {
+		//		btList = new HashMap<User,ArrayList<EtherpadBasicText>>();
+		//	}
+		
 		for(User u:collaborating.keySet()) {
 			if(collaborating.get(u)!=null && !collaborating.get(u).isDisposed() && !onlines.contains(u)) {
 				collaborating.get(u).getControl().dispose();

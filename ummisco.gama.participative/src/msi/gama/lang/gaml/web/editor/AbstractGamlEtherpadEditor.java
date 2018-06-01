@@ -5,8 +5,12 @@ package msi.gama.lang.gaml.web.editor;
 
 
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.dslforge.styledtext.BasicText;
 import org.dslforge.xtext.common.XtextContentAssistEnabledEditor;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -42,9 +46,11 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 		textLayoutData.grabExcessVerticalSpace = true;
 		gamlWidget.setLayoutData(textLayoutData);
 		gamlWidget.setEditable(true);
-
 		Color c = new Color(parent.getDisplay(), new RGB(0, 0, 250));
 		gamlWidget.setBackground(c);
+		gamlWidget.setPadId(this.padId);
+		updatePadList();
+		System.out.println("---------- > from -> AbstractGamlEtherpadEditor --> The padId is "+gamlWidget.getEdPadId());
 		return gamlWidget;
 	}
 
@@ -62,5 +68,11 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 		// return null;
 		// }
 		// });
+	}
+	
+	protected synchronized void updatePadList() {
+		 Map <String, ArrayList<String>> listEditors = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
+		 ArrayList<String> userEditor = listEditors.get(RWT.getUISession().getAttribute("user"));
+		 userEditor.add(this.padId);
 	}
 }

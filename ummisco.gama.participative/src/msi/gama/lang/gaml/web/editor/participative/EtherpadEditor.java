@@ -147,6 +147,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		}
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
 
+		
 	}
 
 	private void configureTabFolder(final Composite compo) {
@@ -327,12 +328,6 @@ public void openEtherpaEditor(final String absolutePath) {
 	
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		
-		
-		
-        
-        
-
-//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {
 				u.setOrganization(xtextResource.getURI().toFileString());

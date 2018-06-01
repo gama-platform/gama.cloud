@@ -43,6 +43,7 @@ public class EtherpadTextViewer extends Viewer implements ITextViewer{
 	public EtherpadTextViewer(EtherpadBasicText textWidget, Composite parent, int styles) {
 		fTextWidget = textWidget;
 		configure();
+
 	}
 	
 	/**
@@ -89,7 +90,6 @@ public class EtherpadTextViewer extends Viewer implements ITextViewer{
 	 */
 	protected EtherpadBasicText createTextWidget(Composite parent, int styles) {
 		EtherpadBasicText styledText= new EtherpadBasicText(parent, styles);
-		
 		return styledText;
 	}
 
