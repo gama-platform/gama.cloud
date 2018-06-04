@@ -125,7 +125,6 @@
       <plugin id="osgi.enterprise"/>
       <plugin id="simtools.gaml.extensions.physics"/>
       <plugin id="simtools.gaml.extensions.traffic"/>
-      <plugin id="simtools.graphanalysis"/>
       <plugin id="ummisco.gama.annotations"/>
       <plugin id="ummisco.gama.network"/>
       <plugin id="ummisco.gama.participative"/>
@@ -133,7 +132,6 @@
       <plugin id="ummisco.gama.web2d"/>
       <plugin id="ummisco.gama.webopengl"/>
       <plugin id="ummisco.gaml.extensions.maths"/>
-      <plugin id="ummisco.gaml.extensions.sound"/>
       <plugin id="ummisco.gaml.extensions.stats"/>
    </plugins>
 
