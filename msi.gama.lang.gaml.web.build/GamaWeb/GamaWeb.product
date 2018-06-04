@@ -26,6 +26,7 @@
       <plugin id="com.google.guava"/>
       <plugin id="com.google.inject"/>
       <plugin id="com.ibm.icu"/>
+      <plugin id="irit.gaml.extensions.database"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
       <plugin id="javax.xml"/>
@@ -35,6 +36,8 @@
       <plugin id="msi.gama.lang.gaml"/>
       <plugin id="msi.gama.lang.gaml.web"/>
       <plugin id="msi.gama.processor"/>
+      <plugin id="msi.gaml.architecture.simplebdi"/>
+      <plugin id="msi.gaml.extensions.fipa"/>
       <plugin id="org.apache.commons.cli"/>
       <plugin id="org.apache.commons.compress"/>
       <plugin id="org.apache.commons.io"/>
@@ -120,6 +123,9 @@
       <plugin id="org.hamcrest.core"/>
       <plugin id="org.objectweb.asm"/>
       <plugin id="osgi.enterprise"/>
+      <plugin id="simtools.gaml.extensions.physics"/>
+      <plugin id="simtools.gaml.extensions.traffic"/>
+      <plugin id="simtools.graphanalysis"/>
       <plugin id="ummisco.gama.annotations"/>
       <plugin id="ummisco.gama.network"/>
       <plugin id="ummisco.gama.participative"/>
@@ -127,6 +133,8 @@
       <plugin id="ummisco.gama.web2d"/>
       <plugin id="ummisco.gama.webopengl"/>
       <plugin id="ummisco.gaml.extensions.maths"/>
+      <plugin id="ummisco.gaml.extensions.sound"/>
+      <plugin id="ummisco.gaml.extensions.stats"/>
    </plugins>
 
    <configurations>
