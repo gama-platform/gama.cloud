@@ -32,7 +32,7 @@ global torus: torus_environment{
 	int bounds <- int(width_and_height_of_environment / 20); 
 	//Vector for the wind
 	point wind_vector <- {0,0}; 
-	list images of: image_file <- [file('../images/bird1.jpg'),file('../images/bird2.jpg'),file('../images/bird3.jpg')]; 
+	list images of: image_file <- [file('../images/bird1.png'),file('../images/bird2.png'),file('../images/bird3.png')]; 
 	int xmin <- bounds;   
 	int ymin <- bounds;  
 	int xmax <- (width_and_height_of_environment - bounds);     
@@ -133,6 +133,18 @@ species boids skills: [moving] {
 			} else if (location.y) > ymax {
 				velocity <- velocity - {0,bounds};
 			}
+		} else {
+			if (location.x) < 0.0 {
+				location <- {width_and_height_of_environment + location.x,location.y};
+			} else if (location.x) > width_and_height_of_environment {
+				location <- {location.x - width_and_height_of_environment ,location.y};
+			}
+			
+			if (location.y) < 0.0 {
+				location <- {location.x, width_and_height_of_environment + location.y};
+			} else if (location.y) > width_and_height_of_environment {
+				location <- {location.x,location.y - width_and_height_of_environment};
+			}
 			
 		}
 	}
@@ -158,6 +170,7 @@ species boids skills: [moving] {
 	//Reflex to apply the movement by calling the do_move action
 	reflex movement {
 		do do_move;
+		do bounding;
 	}
 	
 	aspect image {
@@ -216,7 +229,7 @@ experiment boids_gui type: gui {
 	float minimum_cycle_duration <- 0.01;
 
 	output {
-		display Sky  background: #blue { 
+		display Sky  background: #blue type: opengl { 
 			image '../images/sky.jpg' refresh: false;
 			species boids aspect: image trace: 10 fading: true ;
 			species boids_goal;

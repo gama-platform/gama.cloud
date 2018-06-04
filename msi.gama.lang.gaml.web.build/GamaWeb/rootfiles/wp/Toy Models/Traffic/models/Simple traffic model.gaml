@@ -81,15 +81,15 @@ species road {
 	int nb_people <- 0 update: length(people at_distance 1);
 	//Speed coefficient computed using the number of people on the road and the capicity of the road
 	float speed_coeff <- 1.0 update:  exp(-nb_people/capacity) min: 0.1;
-	
+	int buffer<-3;
 	aspect default {
-		draw (shape + 3 * speed_coeff) color: #red;
+		draw (shape + buffer * speed_coeff) color: #red;
 	}
 }
 experiment traffic type: gui {
 	float minimum_cycle_duration <- 0.01;
 	output {
-		display carte {//type: opengl{
+		display carte type: opengl{
 			species building refresh: false;
 			species road ;
 			species people ;

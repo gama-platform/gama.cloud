@@ -200,7 +200,7 @@ global {
       	}
       }
       //user command which allows the possibility to destroy the dyke for the user
-    //   user_command "Destroy dyke" action: break; 
+      user_command "Destroy dyke" action: break; 
    }
    //Grid cell to discretize space, initialized using the dem file
    grid cell file: dem_file neighbors: 8 frequency: 0  use_regular_agents: false use_individual_shapes: false use_neighbors_cache: false schedules: [] parallel: parallel {
@@ -282,7 +282,7 @@ experiment main_gui type: gui {
    parameter "Height of the dykes" var:dyke_height category:"Obstacles";
    parameter "Diffusion rate" var:diffusion_rate category:"Water dynamic";
    output { 
-      display map  {
+      display map type: opengl {
          grid cell triangulation: true;
          species buildings aspect: geometry refresh: false;
          species dyke aspect: geometry ;

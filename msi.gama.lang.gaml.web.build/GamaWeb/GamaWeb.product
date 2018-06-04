@@ -121,7 +121,9 @@
       <plugin id="org.objectweb.asm"/>
       <plugin id="osgi.enterprise"/>
       <plugin id="ummisco.gama.annotations"/>
+      <plugin id="ummisco.gama.network"/>
       <plugin id="ummisco.gama.participative"/>
+      <plugin id="ummisco.gama.serialize"/>
       <plugin id="ummisco.gama.web2d"/>
       <plugin id="ummisco.gama.webopengl"/>
       <plugin id="ummisco.gaml.extensions.maths"/>

@@ -104,19 +104,19 @@ species ant skills: [moving] control: fsm {
 		do pick(1);
 	}
 	//Initial state to make the ant wander 
-	thestate wandering initial: true {
+	state wandering initial: true {
 		do wander(amplitude: 90);
 		float pr <- (ant_grid(location)).road;
 		transition to: carryingFood when: has_food;
 		transition to: followingRoad when: (pr > 0.05) and (pr < 4);
 	}
 	//State to carry food once it has been found
-	thestate carryingFood {
+	state carryingFood {
 		do goto(target: center);
 		transition to: wandering when: !has_food;
 	}
 	//State to follow a pheromon road if once has been found
-	thestate followingRoad {
+	state followingRoad {
 		point next_place <- choose_best_place();
 		float pr <- (ant_grid(location)).road;
 		location <- next_place;
@@ -132,7 +132,7 @@ species ant skills: [moving] control: fsm {
 
 		draw circle(4) empty: true color: #white;
 		draw string(self as int) color: #white font: font("Helvetica", 12 * #zoom, #bold) at: my location - {1, 1, -0.5};
-		draw thisstate color: #yellow  font: font("Helvetica", 10 * #zoom, #plain) at: my location + { 1, 1, 0.5 } perspective: false;
+		draw state color: #yellow  font: font("Helvetica", 10 * #zoom, #plain) at: my location + { 1, 1, 0.5 } perspective: false;
 	}
 
 	aspect icon {
@@ -157,7 +157,7 @@ experiment Displays type: gui {
 	}
 
 	output {
-		display Ants background: #white {
+		display Ants background: #white type: opengl {
 			image '../images/soil.jpg' position: { pos, pos } size: quadrant_size;
 			agents "agents" transparency: 0.5 position: { pos, pos } size: quadrant_size value: (ant_grid as list) where ((each.food > 0) or (each.road > 0) or (each.is_nest));
 			species ant position: { pos, pos } size: quadrant_size aspect: icon;
@@ -208,7 +208,7 @@ experiment Complete type: gui {
 			overlay  transparency: 0.3 background: rgb (99, 85, 66,255)  position: {10°px, 10°px} size: {250°px, 150°px} border: rgb (99, 85, 66,255) rounded: true{
 				draw ant_shape_full at: {60°px, 70°px} size: {140°px, 100°px} rotate: -60;
 				draw ('Food foraged: ' + (((food_placed = 0 ? 0 : food_gathered / food_placed) * 100) with_precision 2) + '%') at: {40°px,70°px} font:font("Arial", 18, #bold) color: #white;
-				draw ('Carrying ants: ' + (((100 * ant count (each.has_food or each.thisstate = "followingRoad")) / length(ant)) with_precision 2) + '%') at: {40°px, 100°px} font:font("Arial", 18 , #bold) color: #white;
+				draw ('Carrying ants: ' + (((100 * ant count (each.has_food or each.state = "followingRoad")) / length(ant)) with_precision 2) + '%') at: {40°px, 100°px} font:font("Arial", 18 , #bold) color: #white;
 			}
 					
 		}
@@ -221,7 +221,7 @@ experiment Batch type: batch repeat: 4 keep_seed: true until: (food_gathered = f
 	parameter 'Number:' var: ants_number <- 10 among:[10,20,50] unit: 'ants'; 
 	parameter  'Evaporation:' var: evaporation_per_cycle <- 0.1 among: [0.1, 0.5, 2.0, 10.0] unit: 'units every cycle';
 	parameter  'Diffusion:' var: diffusion_rate min: 0.1 max: 1.0 unit: 'rate every cycle (1.0 means 100%)' step: 0.2;
-// 	method exhaustive maximize: food_gathered;
+	method exhaustive maximize: food_gathered;
 
 	
 	permanent {

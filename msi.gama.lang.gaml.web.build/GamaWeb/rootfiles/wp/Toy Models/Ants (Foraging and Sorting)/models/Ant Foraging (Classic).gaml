@@ -52,7 +52,7 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: 
 	
 }
 //Species ant that will move and follow a final state machine
-species ant skills: [moving] control: finitesm{
+species ant skills: [moving] control: fsm {
 	float speed <- 2.0 ;
 	ant_grid place update: ant_grid (location ); 
 	string im <- 'ant_shape_empty' ;
@@ -85,7 +85,7 @@ species ant skills: [moving] control: finitesm{
 			}
 	} 
 	//initial state of the ant that will make it wander until it finds food or a road
-	thestate wandering initial: true { 
+	state wandering initial: true { 
 		do wander amplitude:120 ;
 		transition to: carryingFood when: place.food > 0 {
 			
@@ -95,14 +95,14 @@ species ant skills: [moving] control: finitesm{
 		transition to: followingRoad when: place.road > 0.05 ; 
 	}
 	//State to carry food to the nest once it has been found
-	thestate carryingFood {
+	state carryingFood {
 		do goto target: center ;
 		transition to: wandering when: place.isNestLocation { 
 			do drop ;
 		}
 	}
 	//State to follow a pheromon road once it has been found
-	thestate followingRoad {
+	state followingRoad {
 		location <- (self choose_best_place()) as point ;
 		transition to: carryingFood when: place.food > 0 {
 			do pick ;
@@ -116,7 +116,7 @@ species ant skills: [moving] control: finitesm{
 			draw circle(1.0) empty: !hasFood color: rgb ('orange') ;
 		}
 		if display_state {
-			draw thisstate at: location + {-3,1.5} color: °white font: font("Helvetica", 14 * #zoom, #plain) perspective:true;
+			draw state at: location + {-3,1.5} color: °white font: font("Helvetica", 14 * #zoom, #plain) perspective:true;
 		}
 	} 
 	aspect default {
@@ -125,8 +125,13 @@ species ant skills: [moving] control: finitesm{
 }
 
 experiment Ant type: gui {
+	parameter 'Number of ants:' var: ants_number category: 'Model' ;
+	parameter 'Evaporation of the signal (unit/cycle):' var: evaporation_per_cycle category: 'Model' ;
+	parameter 'Rate of diffusion of the signal (%/cycle):' var: diffusion_rate category: 'Model' ;
+	parameter 'Use icons for the agents:' var: use_icons category: 'Display' ;
+	parameter 'Display state of agents:' var: display_state category: 'Display' ;
 	output {
-		display Ants   {
+		display Ants type: opengl  {
 			grid ant_grid ;
 			species ant aspect: text ;
 		}

@@ -169,7 +169,7 @@ experiment TraficGroup type: gui {
 		
 		// A monitor gives the number of cars on the road at every time step.
 		
-// 		monitor "Sum Concentrations" value: sum(section collect each.current_concentration);
+		monitor "Sum Concentrations" value: sum(section collect each.current_concentration);
 		
 		// A display shows the road. Section width depend on their concentration.
 		

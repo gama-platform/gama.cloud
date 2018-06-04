@@ -16,7 +16,7 @@ global {
 	//spatial graph representing the road network
 	graph road_graph; 
 	
-	//social graph (not spatial) representing the frienship links between people
+	//social graph (not spatial) representing the friendship links between people
 	graph friendship_graph <- graph([]);
 	
 	init {
@@ -86,7 +86,7 @@ species road  {
 
 experiment multigraph type: gui {
 	output {
-		display friendship {
+		display friendship type: opengl{
 			species road ;
 			species friendship_link ;
 			species people;

@@ -33,29 +33,31 @@ global
 species Switch
 {
 	int S <- 495;
-	int I <- 5;
+	int I <- 50;
 	int R <- 0;
 	reflex request_from_micro_model
 	{
 		//if the size of S population and I population are bigger than a threshold, use the EBM
 		if (S > threshold_to_Maths and I > threshold_to_Maths)
 		{
-				unknown call;
-				call <- first(SIR_1."Adapter").set_num_S_I_R(S, I, R);
-				ask first(SIR_1."Adapter").simulation
-				{
-					loop times: 1
+				if(first(SIR_1."Adapter")!=nil){					
+					unknown call;
+					call <- first(SIR_1."Adapter").set_num_S_I_R(S, I, R);
+					ask first(SIR_1."Adapter").simulation
 					{
-						do _step_;
+						loop times: 1
+						{
+							do _step_;
+						}
+	
 					}
-
+	
+					S <- first(SIR_1."Adapter").get_num_S();
+					I <- first(SIR_1."Adapter").get_num_I();
+					R <- first(SIR_1."Adapter").get_num_R();
 				}
-
-				S <- first(SIR_1."Adapter").get_num_S();
-				I <- first(SIR_1."Adapter").get_num_I();
-				R <- first(SIR_1."Adapter").get_num_R();
 		}
-		
+		else
 		//if the size of S population or  I population are smaller  than a threshold, use the ABM
 		if (I < threshold_to_IBM or S < threshold_to_IBM)
 		{
@@ -94,7 +96,7 @@ experiment Simple_exp type: gui
 			{
 				data 'S' value: first(Switch).S color: # green;
 				data 'I' value: first(Switch).I color: # red;
-				data 'R' value: first(Switch).R color: # yellow;
+				data 'R' value: first(Switch).R color: # blue;
 			}
 
 		}
