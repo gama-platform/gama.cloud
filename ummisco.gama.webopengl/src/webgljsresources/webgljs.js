@@ -329,7 +329,7 @@ function WebGLJS(p,e) {
          var drag = false;
          var old_x, old_y;
          var dX = 0, dY = 0;
-			
+         var released = true;
          var mouseDown = function(e) {
             drag = true;
             old_x = e.pageX, old_y = e.pageY;
@@ -339,6 +339,8 @@ function WebGLJS(p,e) {
          
          var mouseUp = function(e){
             drag = false;
+        	released = true;
+        	return false;
          };
 
 
