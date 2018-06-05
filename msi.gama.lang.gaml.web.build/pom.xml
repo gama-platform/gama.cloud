@@ -26,7 +26,7 @@
  		<module>../ummisco.gama.web2d</module>	
  		<module>../ummisco.gama.webopengl</module>	
 		 
-    	<module>GamaWeb</module>
+    	
   </modules>
 
   <groupId>msi.gama</groupId>
