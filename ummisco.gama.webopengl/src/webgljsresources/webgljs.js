@@ -329,7 +329,7 @@ function WebGLJS(p,e) {
          var drag = false;
          var old_x, old_y;
          var dX = 0, dY = 0;
-         var released = true;
+			
          var mouseDown = function(e) {
             drag = true;
             old_x = e.pageX, old_y = e.pageY;
@@ -339,8 +339,6 @@ function WebGLJS(p,e) {
          
          var mouseUp = function(e){
             drag = false;
-        	released = true;
-        	return false;
          };
 
 
@@ -373,7 +371,7 @@ function WebGLJS(p,e) {
          canvas.addEventListener("mousewheel", mouseWheel, false);
 //         canvas.addEventListener("mousedown", mouseDown, false);
 //         canvas.addEventListener("mouseup", mouseUp, false);
-//       canvas.addEventListener("mouseout", mouseUp, false);
+//         canvas.addEventListener("mouseout", mouseUp, false);
 //         canvas.addEventListener("mousemove", mouseMove, false);
 
          canvas.addEventListener("pointerdown", mouseDown, false);
