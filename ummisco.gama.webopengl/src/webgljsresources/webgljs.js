@@ -249,7 +249,7 @@ function WebGLJS(p,e) {
 	          
 	         // Asynchronously load an image
 	         var image = new Image();
-	         image.src = "https://raw.githubusercontent.com/mdn/webvr-tests/master/raw-webgl-controller-example/cubetexture.png";
+	         image.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/M03FireplaceBox.jpg";
 
 	         image.crossOrigin = "anonymous";  // This enables CORS
 	         image.addEventListener('load', function() {
