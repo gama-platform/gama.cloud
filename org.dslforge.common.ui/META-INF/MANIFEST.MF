@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DSL Forge Common UI
+Bundle-SymbolicName: org.dslforge.common.ui
+Bundle-Version: 0.9.1.qualifier
+Bundle-Activator: org.dslforge.common.ui.internal.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: org.dslforge.common.ui.internal
+Bundle-Vendor: PlugBee

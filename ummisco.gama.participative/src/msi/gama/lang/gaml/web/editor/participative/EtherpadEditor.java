@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dslforge.styledtext.Annotation;
+import org.dslforge.styledtext.Position;
 import org.dslforge.styledtext.jface.ITextViewer;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
@@ -327,7 +328,7 @@ public void openEtherpaEditor(final String absolutePath) {
 		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, this.padId);
 	
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		
+		getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {
 				u.setOrganization(xtextResource.getURI().toFileString());

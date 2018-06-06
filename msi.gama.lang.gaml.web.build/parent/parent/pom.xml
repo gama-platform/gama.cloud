@@ -313,7 +313,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
+		<!--pluginRepository>
 			<id>dslforge</id>
 			<url>http://dslforge.org/downloads/runtime/repository</url>
 			<releases>
@@ -322,7 +322,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</pluginRepository>
+		</pluginRepository-->
 		<pluginRepository>
 			<id>sonatype</id>
 			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>

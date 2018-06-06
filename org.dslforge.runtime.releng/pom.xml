@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.dslforge.runtime.releng</artifactId>
+	<version>0.9.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>./parent</module>
+		<module>../org.dslforge.runtime.target/neon</module>
+		<!-- Plug-ins -->
+		<module>../../plugins/org.dslforge.styledtext</module>
+		<module>../../plugins/org.dslforge.texteditor</module>
+		<module>../../plugins/org.dslforge.texteditor.demo</module>
+		<module>../../plugins/org.dslforge.workspace</module>
+		<module>../../plugins/org.dslforge.workspace.config</module>
+		<module>../../plugins/org.dslforge.workspace.jpa</module>
+		<module>../../plugins/org.dslforge.workspace.ui</module>
+		<module>../../plugins/org.dslforge.xtext.common</module>
+		<module>../../plugins/org.dslforge.common.logging</module>
+		<!-- RAP Styled Text (experimental)-->
+		
+		
+		
+		
+		
+		
+		
+					
+		<!-- Tests -->	
+		<!-- Documentation -->	
+		<!-- Features -->
+		<module>../../features/org.dslforge.runtime.feature</module>
+		<!-- Update Site -->
+		<module>./repository</module>
+	</modules>
+	<profiles>
+		<profile>
+			<id>platform-kepler</id>
+			<properties>
+				<platform.version.name>kepler</platform.version.name>
+			</properties>
+		</profile>
+		<profile>
+			<id>platform-luna</id>
+			<properties>
+				<platform.version.name>luna</platform.version.name>
+			</properties>
+		</profile>
+		<profile>
+			<id>platform-mars</id>
+			<properties>
+				<platform.version.name>mars</platform.version.name>
+			</properties>
+		</profile>
+		<profile>
+			<id>platform-neon</id>
+			<properties>
+				<platform.version.name>neon</platform.version.name>
+			</properties>
+		</profile>
+	</profiles>
+	<groupId>dslforge.releng</groupId>
+	<name>org.dslforge.runtime.releng</name>
+	<parent>
+		<groupId>dslforge.releng</groupId>
+		<artifactId>org.dslforge.runtime.releng.parent</artifactId>
+		<version>0.9.1-SNAPSHOT</version>
+		<relativePath>./parent/pom.xml</relativePath>
+	</parent>
+</project>

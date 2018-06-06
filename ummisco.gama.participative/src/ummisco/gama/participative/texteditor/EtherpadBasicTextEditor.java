@@ -45,6 +45,10 @@ import org.dslforge.styledtext.jface.ICompletionProposal;
 import org.dslforge.styledtext.jface.IDocument;
 import org.dslforge.styledtext.jface.ITextViewer;
 import org.dslforge.styledtext.jface.TextDocument;
+import org.dslforge.texteditor.IBasicTextEditor;
+import org.dslforge.texteditor.IBasicTextEditorActionConstants;
+import org.dslforge.texteditor.PathEditorPropertySource;
+import org.dslforge.texteditor.URIEditorPropertySource;
 import org.dslforge.texteditor.internal.Activator;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -111,8 +115,6 @@ import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.EtherpadTextViewer;
 
-import ummisco.gama.participative.texteditor.PathEditorPropertySource;
-import ummisco.gama.participative.texteditor.URIEditorPropertySource;
 
 public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSource, IBasicTextEditor {
 

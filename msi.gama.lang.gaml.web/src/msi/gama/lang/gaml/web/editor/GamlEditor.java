@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import org.dslforge.styledtext.Position;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
@@ -216,7 +217,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
 //		System.out.println(uid+" at "+offset+" : ");
 		
-
+		getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {

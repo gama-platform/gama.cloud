@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse RAP Workspace UI
+Bundle-SymbolicName: org.dslforge.workspace.ui;singleton:=true
+Bundle-Version: 0.9.1.qualifier
+Bundle-Activator: org.dslforge.workspace.ui.internal.Activator
+Require-Bundle: org.eclipse.rap.ui,
+ org.eclipse.rap.ui.views,
+ org.eclipse.rap.ui.navigator,
+ org.eclipse.core.expressions,
+ com.google.guava,
+ org.dslforge.texteditor,
+ org.dslforge.workspace,
+ org.dslforge.xtext.common,
+ org.eclipse.emf.common,
+ org.eclipse.emf.rap.edit.ui,
+ org.dslforge.workspace.config;bundle-version="0.9.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: org.dslforge.workspace.ui,
+ org.dslforge.workspace.ui.actions,
+ org.dslforge.workspace.ui.commands,
+ org.dslforge.workspace.ui.util,
+ org.dslforge.workspace.ui.wizards
+Bundle-Vendor: PlugBee
+Import-Package: org.apache.log4j
+Bundle-ClassPath: .

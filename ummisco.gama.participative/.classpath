@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="ummisco/gama/participative/xtext/common/SharedXtextResourceSetProvider.java|ummisco/gama/participative/xtext/common/IXtextResourceFactory.java" kind="src" path="src"/>
+	<classpathentry excluding="ummisco/gama/participative/xtext/common/SharedXtextResourceSetProvider.java|ummisco/gama/participative/xtext/common/IXtextResourceFactory.java|ummisco/gama/participative/texteditor/IBasicTextEditor.java|ummisco/gama/participative/texteditor/IBasicTextEditorActionConstants.java|ummisco/gama/participative/texteditor/PathEditorInput.java|ummisco/gama/participative/texteditor/PathEditorPropertySource.java|ummisco/gama/participative/texteditor/URIEditorPropertySource.java|ummisco/gama/participative/xtext/common/IBasicXtextEditor.java|ummisco/gama/participative/xtext/common/IXtextContentAssistProcessor.java|ummisco/gama/participative/xtext/common/IXtextResourceSetProvider.java|ummisco/gama/participative/xtext/common/SharedXtextResourceFactory.java|ummisco/gama/participative/xtext/common/XtextContentAssistEnabledEditor.java|ummisco/gama/participative/xtext/common/XtextResourceFactory.java|ummisco/gama/participative/xtext/common/XtextResourceSetProvider.java" kind="src" path="src"/>
 	<classpathentry kind="lib" path="/msi.gama.ext/graphstream 1.3/jars/gs-core-1.3.jar"/>
 	<classpathentry kind="src" path="src-js"/>
 	<classpathentry kind="src" path="gaml">

@@ -2,6 +2,7 @@ package ummisco.gama.participative.texteditor;
 
 import org.dslforge.styledtext.ITextSelection;
 import org.dslforge.styledtext.TextSelection;
+import org.dslforge.texteditor.IBasicTextEditor;
 import org.dslforge.texteditor.actions.CopyAction;
 import org.dslforge.texteditor.actions.CutAction;
 import org.dslforge.texteditor.actions.DeleteAction;

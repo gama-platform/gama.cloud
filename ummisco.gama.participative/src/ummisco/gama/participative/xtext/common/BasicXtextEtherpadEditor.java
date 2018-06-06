@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.dslforge.styledtext.Annotation;
 import org.dslforge.styledtext.Annotation.AceSeverity;
 import org.dslforge.styledtext.jface.IDocument;
+import org.dslforge.xtext.common.IBasicXtextEditor;
 import org.dslforge.xtext.common.IXtextResourceFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.Diagnostic;

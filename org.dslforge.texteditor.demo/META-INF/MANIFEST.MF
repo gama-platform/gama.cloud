@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse RAP Text Editor Demo
+Bundle-Vendor: PlugBee
+Bundle-Version: 0.9.1.qualifier
+Bundle-SymbolicName: org.dslforge.texteditor.demo;singleton:=true
+Bundle-Activator: org.dslforge.texteditor.demo.internal.Activator
+Require-Bundle: org.eclipse.rap.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.dslforge.texteditor.demo,
+ org.dslforge.texteditor.demo.actions,
+ org.dslforge.texteditor.demo.commands,
+ org.dslforge.texteditor.demo.internal,
+ org.dslforge.texteditor.demo.parts,
+ org.dslforge.texteditor.demo.presentation
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.log4j;version="1.2.15"
