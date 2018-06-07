@@ -253,7 +253,8 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</pluginRepository><pluginRepository>
+		</pluginRepository>
+		<pluginRepository>
 			<id>eclipse</id>
 			<url>http://download.eclipse.org/releases/oxygen</url>
 			<releases>

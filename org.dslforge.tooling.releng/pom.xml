@@ -15,9 +15,9 @@
 		<module>../org.dslforge.tooling.target/neon</module>
 
 		<!-- Plug-ins -->
-		<module>../../plugins/org.dslforge.common</module>
-		<module>../../plugins/org.dslforge.common.ui</module>
-		<module>../../plugins/org.dslforge.common.logging</module>
+		<module>../org.dslforge.common</module>
+		<module>../org.dslforge.common.ui</module>
+		<module>../org.dslforge.common.logging</module>
 		
 		
 		
@@ -25,11 +25,13 @@
 		
 		
 				
-		<!-- Features -->
+		<!-- Features 
 		<module>../../features/org.dslforge.tooling.feature</module>
+		-->
 		
-		<!-- Repository -->
+		<!-- Repository 
 		<module>./repository</module>
+		-->
 		
 		<!-- release modules -->
 		<!-- <module>../../releng/org.dslforge.tooling.product</module> -->

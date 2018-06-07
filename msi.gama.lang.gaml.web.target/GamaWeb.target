@@ -560,11 +560,6 @@
 <repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-<unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
-<repository location="http://dslforge.org/downloads/runtime/repository"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.persistence.dbws.feature.group" version="2.7.1.v20171221-bd47e8f"/>
 <unit id="org.eclipse.persistence.dbws.source.feature.group" version="2.7.1.v20171221-bd47e8f"/>
 <unit id="org.eclipse.persistence.dbwsbuilder.feature.group" version="2.7.1.v20171221-bd47e8f"/>
