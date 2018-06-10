@@ -343,10 +343,11 @@ public class EtherpadBasicText extends BasicText {
 								        	    	  if(bt.edPadId.equals(padId)) 
 									        	    	  if(!bt.getText().equals(text)) {
 									        	    		  Cursor cr = bt.getCursor();
-									        	    		  bt.setText(text);
+									        	    		  bt.setText(text, true);
 									        	    		  
 									        	    		  System.out.println("Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
 									        		    		//  bt.setCursor(cr);
+									        	    		 
 									        		    		//bt.handleCaretChanged(null);
 									        		    		/* 
 									        		    		  Event event = new Event();
