@@ -60,6 +60,7 @@ public class BasicText extends Composite {
 	
 	private static final String REMOTE_TYPE = "org.dslforge.styledtext.BasicText";
 	private static final int TextChanged = 47;
+	private static final int TextCollaborativeChanged = 470;
 	private static final int Save = 48;
 	private static final int CaretEvent = 49;
 	private static final int ContentAssist = 50;
@@ -113,6 +114,10 @@ public class BasicText extends Composite {
 			case TextChanged:
 				TextChangedEvent textChangedEvent = new TextChangedEvent(e);
 				((ITextChangeListener) eventListener).handleTextChanged(textChangedEvent);
+				break;
+			case TextCollaborativeChanged:
+				TextCollaborativeChangedEvent textCollaborativeChangedEvent = new TextCollaborativeChangedEvent(e);
+				((ITextCollaborativeChangeListener) eventListener).handleTextCollaborativeChanged(textCollaborativeChangedEvent);
 				break;
 			case ContentAssist:
 				VerifyEvent verifyEvent = new VerifyEvent(e);
@@ -785,6 +790,24 @@ public class BasicText extends Composite {
 		if (propagate)
 			getRemoteObject().set("text", text);
 	}
+	
+	
+	/**
+	 * Sets the widget text When colaborative editing. The client is
+	 * notified. The latter is used to avoid infinite notification loop between the client and
+	 * the server.
+	 * 
+	 * @param text
+	 */
+	public void setCollaborativeText(String text, int row, int column) {
+		checkWidget();
+		if (text == null) {
+			SWT.error(SWT.ERROR_NULL_ARGUMENT);
+		}
+		content.setText(text);
+		getRemoteObject().set("text", text);
+		setCursorPosition(row, column);
+	}
 
 	/**
 	 * Sets the widget text.
@@ -1215,9 +1238,24 @@ public class BasicText extends Composite {
 	public Position getCursorPosition() {
 		return cursorPosition;
 	}
+	
+
+	
 	public void setCursorPosition(final Position p) {
 		
 	}
+	
+	public void setCursorPosition(int row, int column) {
+		this.cursorPosition = new Position(row, column);
+		
+		System.out.println("Set Cursor Position Done From ! "+ this.getClass());
+		
+		JsonObject properties = new JsonObject();
+		properties.add("rowStart", this.cursorPosition.row);
+		properties.add("columnStart", this.cursorPosition.column);
+		getRemoteObject().call("setCursorPosition", properties);
+	}
+	
 	/**
 	 * Cuts the text identified by the text selection
 	 * 
@@ -1397,4 +1435,6 @@ public class BasicText extends Composite {
 		JsonObject properties = new JsonObject();
 		getRemoteObject().call("moveCursorFileEnd", properties);
 	}
+	
+
 }

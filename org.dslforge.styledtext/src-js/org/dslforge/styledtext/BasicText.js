@@ -21,7 +21,7 @@
 		destructor : "destroy",	 
 		properties : [ "url", "text", "editable", "status", "annotations", "scope", "proposals", "font", "dirty", "markers", "background"],
 		events : ["Modify", "TextChanged", "Save", "FocusIn", "FocusOut", "Selection", "CaretEvent", "ContentAssist"],
-		methods : ["setSelection", "addMarker", "removeMarker", "clearMarkers", "insertText", "removeText", "setProposals", "moveCursorFileStart","moveCursorFileEnd"]
+		methods : ["setSelection", "addMarker", "removeMarker", "clearMarkers", "insertText", "removeText", "setProposals", "moveCursorFileStart","moveCursorFileEnd", "setCursorPosition"]
 	});
 
 	rwt.qx.Class.define("org.dslforge.styledtext.BasicText", {
@@ -413,6 +413,19 @@
 					var position = { row:properties.rowStart, column:properties.columnStart};
 					var text = properties.text;
 					this.editor.getSession().insert(position, text);
+					
+				}
+			},
+			
+			
+			setCursorPosition : function(properties) {
+				if (this.ready) {
+				//	var position = { row:properties.rowStart, column:properties.columnStart};
+					var rowPosition = properties.rowStart;
+					var columnPosition = properties.columnStart;
+					this.editor.gotoLine(rowPosition,columnPosition,false);
+					console.log('Set the corsor position to row: '+rowPosition+' and column '+columnPosition);
+					
 				}
 			},
 
