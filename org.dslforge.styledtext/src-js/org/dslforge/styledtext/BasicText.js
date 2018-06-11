@@ -205,6 +205,10 @@
 				}	
 			},
 			
+			
+			
+			
+			
 			getOffset: function(properties) {
 				var row = properties.row;
 				var column = properties.column;
@@ -232,9 +236,11 @@
 					this.editor.setValue(text);	
 					this.editor.clearSelection(); 
 					this.editor.getSelection().moveCursorFileStart();
+					
 				}
 				else {
-			        this.text = text;
+					 this.text = text;
+					
 			    }
 			},
 		

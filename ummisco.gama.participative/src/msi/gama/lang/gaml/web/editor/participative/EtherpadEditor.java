@@ -325,7 +325,8 @@ public void openEtherpaEditor(final String absolutePath) {
 		String value = object.get("value") != null ? object.get("value").asString() : null;	
 		
 		System.out.println("uID "+uid+" --> handleTextChanged on padId: "+this.padId);
-		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, this.padId);
+		//((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, this.padId);
+		((EtherpadBasicText)getViewer().getTextWidget()).setCollaborativeText(uid, value, this.padId);
 	
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		//getViewer().getTextWidget().setCursorPosition(new Position(0, 0));

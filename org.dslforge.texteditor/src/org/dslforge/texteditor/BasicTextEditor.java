@@ -135,6 +135,7 @@ public class BasicTextEditor extends EditorPart implements ISaveablesSource, IBa
 		}
 	};
 	
+	
 	protected void handleTextChanged(JsonObject object) {
 		//override in subclasses.
 	}

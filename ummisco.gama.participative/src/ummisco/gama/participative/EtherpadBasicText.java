@@ -308,6 +308,26 @@ public class EtherpadBasicText extends BasicText {
 	 
 	public synchronized void setText(final String uid, String text, String padId) {
 				setPadId(padId);
+				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+			    uiSession.exec( new Runnable() {
+			      public void run() {
+			          JsonObject obj= new JsonObject();
+			          obj.add("text", text+"\n fin<-");
+			          obj.add("userId", uid);
+			          obj.add("padId", padId);
+			          remoteObject.call("setText", obj);	
+			      }
+			    } );
+			   
+	}
+
+	
+	
+	
+	
+	 
+	public synchronized void setCollaborativeText(final String uid, String text, String padId) {
+				setPadId(padId);
 				
 				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 			    uiSession.exec( new Runnable() {
@@ -316,6 +336,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text+"\n fin<-");
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
+			          obj.add("Collaborative", 1);
 			          remoteObject.call("setText", obj);	
 			          
 			         System.out.println(" --> setText On Pad (For etherpadUpdate) "+padId);
@@ -386,6 +407,19 @@ public class EtherpadBasicText extends BasicText {
 			   
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void setEpClient(EPLiteClient ep) {
 		this.epClient = ep;

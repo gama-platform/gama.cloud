@@ -147,7 +147,10 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		public void handleTextChanged(TextChangedEvent e) {
 			setDirty(true);
 			JsonObject object = (JsonObject) e.data;
+		//	if (object.get("collaborative") != null) { return; }
+		//	object.add("collaborative", 1);
 			EtherpadBasicTextEditor.this.handleTextChanged(object);
+			System.out.println(" handleTextChanged From ---> "+this.getClass());
 		}
 	};
 	
