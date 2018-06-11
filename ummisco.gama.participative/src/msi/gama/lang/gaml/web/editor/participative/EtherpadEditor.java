@@ -328,7 +328,8 @@ public void openEtherpaEditor(final String absolutePath) {
 		((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, this.padId);
 	
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
+		//getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
+		//((EtherpadBasicText)getViewer().getTextWidget()).setCursorPosition(2, 2);
 		for(User u:onlines) {
 			if(u.getId().equals(uid)) {
 				u.setOrganization(xtextResource.getURI().toFileString());

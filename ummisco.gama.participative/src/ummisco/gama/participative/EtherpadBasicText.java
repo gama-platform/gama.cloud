@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.dslforge.styledtext.BasicText;
+import org.dslforge.styledtext.Position;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -342,29 +343,11 @@ public class EtherpadBasicText extends BasicText {
 								        	       public void run() {
 								        	    	  if(bt.edPadId.equals(padId)) 
 									        	    	  if(!bt.getText().equals(text)) {
-									        	    		  Cursor cr = bt.getCursor();
-									        	    		  bt.setText(text, true);
-									        	    		  
-									        	    		  System.out.println("Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
-									        		    		//  bt.setCursor(cr);
+									        	    		  Position p = bt.getCursorPosition();
+									        	    		  bt.setCollaborativeText(text, p.row+1,p.column);
 									        	    		 
-									        		    		//bt.handleCaretChanged(null);
-									        		    		/* 
-									        		    		  Event event = new Event();
-									        		    		  JsonObject position= new JsonObject();
-									        		    		  position.add("row", 5);
-									        		    		  position.add("column", 100);
-									        		    		 
-									        		    		  JsonObject curObj= new JsonObject();
-									        		    		  curObj.add("value", position);
-									        		    		  event.text = text;
-									        		    		  event.data = curObj;
-									        		    		  
-									        		    		 bt.handleCaretChanged(event);
-									        		    		 bt.handleCaretChanged(event);
-									        		    	  */
-									        		    		 
-									        		    	  }
+									        	    		  System.out.println("--> Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
+									        	    	  }
 								        		           pushSession.stop();
 								        		       }
 								        		     } );
