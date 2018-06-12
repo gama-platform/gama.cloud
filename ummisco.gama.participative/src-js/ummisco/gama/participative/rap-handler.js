@@ -45,12 +45,12 @@
        ready : false,
  
        onChange : function() {
-    	   console.log('onChanged!');
+    	//   console.log('onChanged!');
            
        },
  
        onReady : function() {
-    	   console.log('--> onReady!');
+    	  // console.log('--> onReady!');
        },
  
       
@@ -61,14 +61,14 @@
                 
                rap.on("render", this.onRender);
                rap.on("send", this.onSend);
-               console.log('--> onRender!');
+           //    console.log('--> onRender!');
            }
            //alert('4');
        },
  
        //  
        onSend : function() {
-    	   console.log('--> onSend!');
+    	//   console.log('--> onSend!');
        },
  
        destroy : function() {
@@ -126,9 +126,9 @@
            var padId= json["padId"];
            this.etherpadjs.setText(text, userId, padId);
           // alert('13');
-           console.log('--> setText!   called with text : '+text); 
-           console.log('--> setText!   called with userId : '+userId); 
-           console.log('--> setText!   called with padId : '+padId); 
+        //   console.log('--> setText!   called with text : '+text); 
+        //   console.log('--> setText!   called with userId : '+userId); 
+        //   console.log('--> setText!   called with padId : '+padId); 
        },
       
        
@@ -142,7 +142,7 @@
        
        clearAll : function()  {  
            this.etherpadjs.clearAll();
-             console.log('--> method clearAll    is called'); 
+            
        }
    };
  

@@ -336,7 +336,6 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text+"\n fin<-");
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
-			          obj.add("Collaborative", 1);
 			          remoteObject.call("setText", obj);	
 			          
 			         System.out.println(" --> setText On Pad (For etherpadUpdate) "+padId);
@@ -395,7 +394,7 @@ public class EtherpadBasicText extends BasicText {
 					 for (Map.Entry<String, ArrayList<String>> entry : listPads.entrySet())
 					   	{
 					 	
-					   		 System.out.println("/\\--->>>>>>>>>>>>>  "+entry.getKey() + "/" + entry.getValue().toString());
+					   	//	 System.out.println("/\\--->>>>>>>>>>>>>  "+entry.getKey() + "/" + entry.getValue().toString());
 					   	}
 			         
 			         

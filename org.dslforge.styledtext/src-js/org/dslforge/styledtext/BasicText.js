@@ -198,8 +198,7 @@
 			},
 			
 			onModify : function() {
-				console.log(propagate+'     propagate--> onModify BasicText  ->  '+this.editor.getValue());
-				
+			//	console.log(propagate+'     propagate--> onModify BasicText  ->  '+this.editor.getValue());
 				var remoteObject = rap.getRemoteObject(this);
 				if (remoteObject && !this.initialContent) {
 					if(propagate){
@@ -252,7 +251,7 @@
 					var str = text.substring(0, 3);
 					
 					if(str.includes('$c$')) {
-						console.log(str+' --------------->>   Its a collaborative text change = New text is');
+					//	console.log(str+' --------------->>   Its a collaborative text change = New text is');
 						propagate = false;
 					}
 					
