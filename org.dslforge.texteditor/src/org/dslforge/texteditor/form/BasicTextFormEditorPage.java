@@ -273,6 +273,7 @@ public class BasicTextFormEditorPage extends FormPage {
 		public void handleTextChanged(TextChangedEvent e) {
 			JsonObject object = (JsonObject) e.data;
 			BasicTextFormEditorPage.this.handleTextChanged(object);
+			
 		}
 	};
 	

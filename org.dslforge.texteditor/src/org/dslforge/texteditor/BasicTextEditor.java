@@ -132,6 +132,7 @@ public class BasicTextEditor extends EditorPart implements ISaveablesSource, IBa
 			setDirty(true);
 			JsonObject object = (JsonObject) e.data;
 			BasicTextEditor.this.handleTextChanged(object);
+			
 		}
 	};
 	

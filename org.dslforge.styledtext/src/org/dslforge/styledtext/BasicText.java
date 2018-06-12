@@ -60,7 +60,6 @@ public class BasicText extends Composite {
 	
 	private static final String REMOTE_TYPE = "org.dslforge.styledtext.BasicText";
 	private static final int TextChanged = 47;
-	private static final int TextCollaborativeChanged = 470;
 	private static final int Save = 48;
 	private static final int CaretEvent = 49;
 	private static final int ContentAssist = 50;
@@ -113,11 +112,8 @@ public class BasicText extends Composite {
 				break;
 			case TextChanged:
 				TextChangedEvent textChangedEvent = new TextChangedEvent(e);
+				System.out.println("--------------- The event is "+e.toString());
 				((ITextChangeListener) eventListener).handleTextChanged(textChangedEvent);
-				break;
-			case TextCollaborativeChanged:
-				TextCollaborativeChangedEvent textCollaborativeChangedEvent = new TextCollaborativeChangedEvent(e);
-				((ITextCollaborativeChangeListener) eventListener).handleTextCollaborativeChanged(textCollaborativeChangedEvent);
 				break;
 			case ContentAssist:
 				VerifyEvent verifyEvent = new VerifyEvent(e);
@@ -806,6 +802,7 @@ public class BasicText extends Composite {
 		}
 		content.setText(text);
 		getRemoteObject().set("text", text);
+		
 		setCursorPosition(row, column);
 	}
 

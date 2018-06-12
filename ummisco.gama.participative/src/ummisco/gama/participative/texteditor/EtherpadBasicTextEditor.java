@@ -142,15 +142,15 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	
 	ITextChangeListener iTextChangeListener = new ITextChangeListener() {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public void handleTextChanged(TextChangedEvent e) {
 			setDirty(true);
 			JsonObject object = (JsonObject) e.data;
 		//	if (object.get("collaborative") != null) { return; }
-		//	object.add("collaborative", 1);
+			object.add("collaborative", 1);
 			EtherpadBasicTextEditor.this.handleTextChanged(object);
-			System.out.println(" handleTextChanged From ---> "+this.getClass());
+			System.out.println(" handleTextChanged From ---> "+this.getClass() + " le type est: "+e.toString());
 		}
 	};
 	

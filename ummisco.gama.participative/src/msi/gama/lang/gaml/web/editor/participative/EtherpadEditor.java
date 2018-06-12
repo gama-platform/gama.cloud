@@ -216,6 +216,7 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		return xtextResource;
 	}
 
+	
 	@Override
 	public void createPartControl(final Composite compo) {
 		
@@ -318,6 +319,7 @@ public void openEtherpaEditor(final String absolutePath) {
 	@Override
 	protected synchronized void handleTextChanged(JsonObject object) {
 		// TODO Auto-generated method stub
+		
 		super.handleTextChanged(object);
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		int offset=getViewer().getTextWidget().getOffsetAtCursorPosition();
