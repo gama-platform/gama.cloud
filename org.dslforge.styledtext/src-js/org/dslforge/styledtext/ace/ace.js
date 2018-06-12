@@ -36,6 +36,7 @@
 
 (function() {
 
+
 var ACE_NAMESPACE = "";
 
 var global = (function() { return this; })();
@@ -4025,6 +4026,7 @@ var KeyBinding = function(editor) {
     };
 
     this.onTextInput = function(text) {
+    
         var success = this.$callKeyboardHandlers(-1, text);
         if (!success)
             this.$editor.commands.exec("insertstring", this.$editor, text);
@@ -5954,7 +5956,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
     this.onChange = function(e) {
         var delta = e.data;
         var range = delta.range;
-
+        
         if (range.start.row == range.end.row && range.start.row != this.row)
             return;
 
@@ -6269,6 +6271,7 @@ var Document = function(text) {
             range: Range.fromPoints(position, end),
             text: text
         };
+       
         this._signal("change", { data: delta });
 
         return end;

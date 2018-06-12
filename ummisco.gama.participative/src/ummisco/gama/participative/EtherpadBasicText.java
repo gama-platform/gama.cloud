@@ -362,15 +362,16 @@ public class EtherpadBasicText extends BasicText {
 								        	    display.syncExec( new Runnable() {
 								        	       @Override
 								        	       public void run() {
-								        	    	  if(bt.edPadId.equals(padId)) 
+								        	    	  if(bt.edPadId.equals(padId)) {
 									        	    	  if(!bt.getText().equals(text)) {
 									        	    		  Position p = bt.getCursorPosition();
-									        	    		  bt.setCollaborativeText(text, p.row+1,p.column);
+									        	    		  bt.setCollaborativeText("$c$"+text, p.row+1,p.column);
 									        	    		 
 									        	    		  System.out.println("--> Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
 									        	    	  }
 								        		           pushSession.stop();
 								        		       }
+								        	    	 }
 								        		     } );
 								        		   }
 								        		 };

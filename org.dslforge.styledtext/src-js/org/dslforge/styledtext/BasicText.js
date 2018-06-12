@@ -14,6 +14,8 @@
  * </copyright>
  */
 (function() {
+	
+	var propagate = true;
 	rap.registerTypeHandler("org.dslforge.styledtext.BasicText", {
 		factory : function(properties) {
 			return new org.dslforge.styledtext.BasicText(properties);
@@ -136,6 +138,7 @@
 			},
 			
 			onBlur: function() {
+				
 				this.isFocused = false;
 				var remoteObject = rap.getRemoteObject(this);
 				if (remoteObject) {
@@ -173,6 +176,7 @@
 			},
 
 			onCompletionRequest : function(pos, prefix, callback) {
+				
 				if (this.isFocused) {
 					var remoteObject = rap.getRemoteObject(this);
 					if (remoteObject) {
@@ -194,9 +198,15 @@
 			},
 			
 			onModify : function() {
+				console.log(propagate+'     propagate--> onModify BasicText  ->  '+this.editor.getValue());
+				
 				var remoteObject = rap.getRemoteObject(this);
 				if (remoteObject && !this.initialContent) {
-					remoteObject.notify("TextChanged", { value : this.editor.getValue()});
+					if(propagate){
+						remoteObject.notify("TextChanged", { value : this.editor.getValue()});
+					}else{
+						propagate = true;
+					}
 				} else {
 					if (this.editable) {
 						this.initialContent=false;
@@ -204,6 +214,10 @@
 					}
 				}	
 			},
+			
+		    onChange : function() {
+		      // console.log('onChange!');
+		    },
 			
 			
 			
@@ -233,10 +247,18 @@
 			
 			setText : function(text) {
 				if (this.ready) {
+					
+					
+					var str = text.substring(0, 3);
+					
+					if(str.includes('$c$')) {
+						console.log(str+' --------------->>   Its a collaborative text change = New text is');
+						propagate = false;
+					}
+					
 					this.editor.setValue(text);	
 					this.editor.clearSelection(); 
 					this.editor.getSelection().moveCursorFileStart();
-					
 				}
 				else {
 					 this.text = text;
@@ -504,9 +526,17 @@
 				 		self.onBlur();
 				 	});
 				 	editor.on("input", function() {
-						if (!editor.getSession().getUndoManager().isClean())
+				 		if (!editor.getSession().getUndoManager().isClean())
 							self.onModify();
 				 	});
+				 	
+				 	
+			//	 	editor.on("change", function() {
+				 		//console.log('--> editor.on >change  ->  ');
+			//			if (!editor.getSession().getUndoManager().isClean())
+			//				self.onChange();
+			//	 	});
+				 	
 				 	editor.getSession().getSelection().on('changeCursor', function() { 
 				 	    self.onChangeCursor();
 				 	});

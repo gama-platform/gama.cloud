@@ -19,12 +19,10 @@
 	rwt.qx.Class.define("ummisco.gama.participative.EtherpadBasicText", {
 		extend :org.dslforge.styledtext.BasicText,
 		construct : function(properties) {
-			console.log(" --> rwt.qx.Class.define(    -> from Gaml");
 			this.base(arguments, properties);
 		},
 		members : {
 			createEditor : function() {
-				console.log(" --> createEditor : function()   -> from Gaml");
 				var basePath = 'rwt-resources/src-js/org/dslforge/styledtext/ace';
 				ace.require("ace/config").set("basePath", basePath);
 				var workerPath = 'rwt-resources/src-js/ummisco/gama/participative/ace';
@@ -62,7 +60,7 @@
 						    	item.docHTML = ["<div class=\"ace_line\" style=\"height:12px\"><span class=\"", self.typeToIcon(item.meta),"\">&nbsp;</span><span class=\"ace_\">","<b>", item.caption, "</b>","</span><span class=\"ace_rightAlignedText\"></span></div>", "<hr></hr>", item.meta].join("");
 							}
 						};
-						console.log(" --> editor.setOption   -> from Gaml");
+						
 			        	editor.setOption("enableServerCompleter", self.serverCompleter);
 			        	self.completers = editor.completers;
 						editor.setTheme("ace/theme/gaml");
@@ -74,7 +72,7 @@
 						editor.$blockScrolling = Infinity;
 			        });
 					//Session settings
-					console.log(" -->  //Session settings   -> from Gaml");
+					
 					var session = editor.getSession();
 					editor.getSession().setUseWrapMode(true);
 				    editor.getSession().setTabSize(4);
