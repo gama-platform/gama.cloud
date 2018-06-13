@@ -792,17 +792,29 @@ public class BasicText extends Composite {
 	 * notified. The latter is used to avoid infinite notification loop between the client and
 	 * the server.
 	 * 
-	 * @param text
+	 * @param text: the editor text  
+	 * @param propagate: whether to propagate the changes or not (to prevent loop among all editors) 
+	 * - for instance, when it is a collaborative text change, the source client has to propagate by 
+	 * 		informing its remote object that a text changed event has occurred, but the target clients 
+	 * 		must not propagate and do int notify their remote object that a text changed event has occurred. 
+	 * 		If not, there will be an infinite loop of changes. 
 	 */
-	public void setCollaborativeText(String text, int row, int column) {
+	public void setCollaborativeText(String text, boolean propagate) {
 		checkWidget();
 		if (text == null) {
 			SWT.error(SWT.ERROR_NULL_ARGUMENT);
 		}
-		content.setText(text);
-		getRemoteObject().set("text", text);
 		
-		setCursorPosition(row, column);
+		JsonObject obj= new JsonObject();
+        obj.add("contente", text);
+        obj.add("propagate", propagate);
+    
+	
+		
+		content.setText(text);
+		// update text on distant editor.
+		getRemoteObject().set("text", obj);  
+	
 	}
 
 	/**
@@ -1240,6 +1252,7 @@ public class BasicText extends Composite {
 	public void setCursorPosition(final Position p) {
 		
 	}
+	
 	
 	public void setCursorPosition(int row, int column) {
 		this.cursorPosition = new Position(row, column);

@@ -247,7 +247,8 @@
 			setText : function(text) {
 				if (this.ready) {
 					
-					
+					propagate = text.propagate;
+				/*	
 					var str = text.substring(0, 3);
 					
 					if(str.includes('$c$')) {
@@ -256,7 +257,12 @@
 					}
 					
 					var str2 = text.substring(3, text.length);
-					this.editor.setValue(str2);	
+					
+				*/
+					var str2 = text.contente;
+					console.log(' ------------------------------>>   '+str2);
+					console.log(' ------------------------------>>>   '+text.propagate);
+					this.editor.setValue(text.contente);	
 					this.editor.clearSelection(); 
 					this.editor.getSelection().moveCursorFileStart();
 				}

@@ -333,7 +333,7 @@ public class EtherpadBasicText extends BasicText {
 			    uiSession.exec( new Runnable() {
 			      public void run() {
 			          JsonObject obj= new JsonObject();
-			          obj.add("text", text+"\n fin<-");
+			          obj.add("text", text);
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
 			          remoteObject.call("setText", obj);	
@@ -363,8 +363,9 @@ public class EtherpadBasicText extends BasicText {
 								        	    	  if(bt.edPadId.equals(padId)) {
 									        	    	  if(!bt.getText().equals(text)) {
 									        	    		  Position p = bt.getCursorPosition();
-									        	    		  bt.setCollaborativeText("$c$"+text, p.row+1,p.column);
-									        	    		 
+									        	    		//  bt.setCollaborativeText("$c$"+text, p.row+1,p.column, true);
+									        	    		  bt.setCollaborativeText(text, false);
+									        	    		  bt.setCursorPosition(p.row+1, p.column);
 									        	    		  System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
 									        	    	  }
 								        		           pushSession.stop();
