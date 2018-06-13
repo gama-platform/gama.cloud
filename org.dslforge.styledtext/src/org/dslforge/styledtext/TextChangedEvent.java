@@ -38,7 +38,7 @@ public class TextChangedEvent extends TypedEvent {
 	public TextChangedEvent(Event source) {
 		
 		super(source);
-		System.out.println("Le type de la source est --------> "+source.type);
+		
 		
 	}
 }

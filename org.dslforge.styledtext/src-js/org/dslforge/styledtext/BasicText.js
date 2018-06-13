@@ -255,7 +255,8 @@
 						propagate = false;
 					}
 					
-					this.editor.setValue(text);	
+					var str2 = text.substring(3, text.length);
+					this.editor.setValue(str2);	
 					this.editor.clearSelection(); 
 					this.editor.getSelection().moveCursorFileStart();
 				}

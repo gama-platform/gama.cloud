@@ -338,8 +338,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("padId", padId);
 			          remoteObject.call("setText", obj);	
 			          
-			         System.out.println(" --> setText On Pad (For etherpadUpdate) "+padId);
-			            
+			         
 			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 			         Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
 			         
@@ -366,7 +365,7 @@ public class EtherpadBasicText extends BasicText {
 									        	    		  Position p = bt.getCursorPosition();
 									        	    		  bt.setCollaborativeText("$c$"+text, p.row+1,p.column);
 									        	    		 
-									        	    		  System.out.println("--> Updat from "+owner+ " to "+ bt.owner+ " about its pad: "+padId);
+									        	    		  System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
 									        	    	  }
 								        		           pushSession.stop();
 								        		       }

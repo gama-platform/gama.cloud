@@ -73,7 +73,6 @@ public class EtherpadEditorUtil {
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		final IEditorDescriptor descriptor = getDefaultEditor(path);
-		System.out.println(" ----------------->>>>>>>>>>  ----- This is the path: "+path.toOSString());
 		if (descriptor == null) {
 			MessageDialog.openError(workbenchWindow.getShell(), "Error",
 					"There is no editor registered for the file " + path.lastSegment());

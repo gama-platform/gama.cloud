@@ -50,7 +50,6 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 		gamlWidget.setBackground(c);
 		gamlWidget.setPadId(this.padId);
 		updatePadList();
-		System.out.println("---------- > from -> AbstractGamlEtherpadEditor --> The padId is "+gamlWidget.getEdPadId());
 		return gamlWidget;
 	}
 

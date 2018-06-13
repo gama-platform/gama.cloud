@@ -148,9 +148,9 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 			setDirty(true);
 			JsonObject object = (JsonObject) e.data;
 		//	if (object.get("collaborative") != null) { return; }
-			object.add("collaborative", 1);
+		
 			EtherpadBasicTextEditor.this.handleTextChanged(object);
-			System.out.println(" handleTextChanged From ---> "+this.getClass() + " le type est: "+e.toString());
+			
 		}
 	};
 	
@@ -346,7 +346,6 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	protected ITextViewer createTextViewer(Composite parent, int styles) {
 		final EtherpadBasicText textWidget = createTextWidget(parent, styles);
 		textWidget.setPadId(padId);
-		System.out.println("---------------->>>>> test est "+padId);
 		return new EtherpadTextViewer(textWidget, parent, styles);
 	}
 

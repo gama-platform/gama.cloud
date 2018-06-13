@@ -112,7 +112,6 @@ public class BasicText extends Composite {
 				break;
 			case TextChanged:
 				TextChangedEvent textChangedEvent = new TextChangedEvent(e);
-				System.out.println("--------------- The event is "+e.toString());
 				((ITextChangeListener) eventListener).handleTextChanged(textChangedEvent);
 				break;
 			case ContentAssist:
@@ -1244,8 +1243,6 @@ public class BasicText extends Composite {
 	
 	public void setCursorPosition(int row, int column) {
 		this.cursorPosition = new Position(row, column);
-		
-		System.out.println("Set Cursor Position Done From ! "+ this.getClass());
 		
 		JsonObject properties = new JsonObject();
 		properties.add("rowStart", this.cursorPosition.row);
