@@ -303,19 +303,58 @@ public void openEtherpaEditor(final String absolutePath) {
 			
 			
 			if(text !=null) {
+				
 				Map<String,Object> lastEdited = epClient.getLastEdited(this.padId);
 				Date date = new Date((long) lastEdited.get("lastEdited"));
 				
 				Map<String,Object> authorsList = epClient.listAuthorsOfPad(this.padId);
-				//Date date = new Date((long) authorsList.get("lastEdited")); listAuthorsOfPad
-				epClient.createAuthor((String) RWT.getUISession().getAttribute("user"));
+				
+				ArrayList listAuth = (ArrayList) authorsList.get("authorIDs"); 
+				System.out.println("----> Its athors Ids is: " +listAuth);
+				System.out.println("----> fisrt author is: " +listAuth.get(0));
+				
+			
+				for(int i=0; i<listAuth.size(); i++) {
+					System.out.println("	--> author name is: " +epClient.getAuthorName((String) listAuth.get(i)));
+				}
+				
+				// Permission d'accès
+				//System.out.println("----> Public status: " +epClient.getPublicStatus("g.C7oHLe55qqwqPBSc$Example3.gaml"));
+				//epClient.getPublicStatus(this.padId);
+				
+				//System.out.println("----> The last revision of the pad is "+epClient.getRevisionChangeset(this.padId));
+				
+				System.out.println("----> The liste of the users online are: "+epClient.padUsersCount(this.padId));
+				
+				Map<String,Object> userCount = epClient.padUsersCount(this.padId);
+				
+				int nbrUser = (int) (long) userCount.get("padUsersCount");
+				System.out.println("----> user Count is "+nbrUser);
+				
+				if(nbrUser>1) {
+					System.out.println("----> Need to update the editor content! ");
+					((EtherpadBasicText)getViewer().getTextWidget()).setCollaborativeText(text, false);
+					System.out.println("----> Update completed goood! ");
+				}
+				
+				
 				System.out.println("----> Pad exists " +this.padId + " - it's last edited date is: "+date);
-				System.out.println("----> Its athors list is: " +authorsList);
+				//Date date = new Date((long) authorsList.get("lastEdited")); listAuthorsOfPad
+				
+				
+				System.out.println("----> The groupsList "+epClient.listAllGroups());
+				//epClient.listAllGroups();
 				
 			
 				
 			}else{
 				System.out.println(" ----> Pad dosn't exists " +this.padId);
+				epClient.createAuthor((String) RWT.getUISession().getAttribute("user"));
+				
+				//Map<String,Object> groupMapper  = epClient.createGroupIfNotExistsFor("defaultGroup");
+				//this.groupId = (String) groupMapper.get("groupID");
+				//Map<String,Object> pad = epClient.createGroupPad(this.groupId, this.padId);
+				
 				epClient.createPad(this.padId);
 				epClient.setText(this.padId, content);
 				String padContent = epClient.getText(this.padId).get("text").toString();

@@ -29,6 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -133,6 +134,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	private boolean isDirty;
 	protected String padId ="";
 	protected String etherpadUrl = "http://localhost:9001";
+	protected String groupId = "";
 	protected EPLiteClient epClient = new EPLiteClient(etherpadUrl, "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
 	
 	
@@ -463,8 +465,28 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	}
 
 	protected void setTextViewer(String content) {
-		setText(content);
-		viewer.getTextWidget().setText(content);
+		// update if another was collaborativelly editing.
+		Map<String,Object> userCount = epClient.padUsersCount(this.padId);
+		int nbrUser = (int) (long) userCount.get("padUsersCount");
+		System.out.println("----> user Count for the pad is "+nbrUser);
+		boolean updated = false;
+		if(nbrUser>1) {
+			System.out.println("----> Need to update the editor content! ");
+			String onlineContent = epClient.getText(this.padId).get("text").toString();
+			if(!onlineContent.equals(content)) {
+				setText(onlineContent);
+				//((EtherpadBasicText)getViewer().getTextWidget()).setCollaborativeText(onlineContent, false);
+				viewer.getTextWidget().setText("------"+onlineContent);
+				System.out.println("----> Update completed goood! ");
+				updated = true;
+			}
+		}
+		
+		if(!updated) {
+			setText("-->"+content);
+			viewer.getTextWidget().setText("------"+content);
+		}
+		
 	}
 
 	protected String readFromFile() throws IOException {

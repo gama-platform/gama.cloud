@@ -103,7 +103,6 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 	protected void createCompletionProposals() {
 		IDocument document = getViewer().getDocument();
 		EtherpadBasicText textWidget = (EtherpadBasicText) getViewer().getTextWidget();
-		textWidget.setText(document.get(), false);
 		createCompletionProposals(textWidget.getOffsetAtCursorPosition());	
 	}
 	
