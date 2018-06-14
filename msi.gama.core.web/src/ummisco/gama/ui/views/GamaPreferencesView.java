@@ -180,8 +180,8 @@ public class GamaPreferencesView {
 	final Map<String, Boolean> activations = new HashMap();
 
 	private void checkActivables(final Pref e, final Object value) {
-		if (e.getActivable() != null) {
-			for (final String activable : e.getActivable()) {
+		if (e.getEnablement() != null) {
+			for (final String activable : e.getEnablement()) {
 				final IParameterEditor ed = editors.get(activable);
 				if (ed == null) {
 					if (value instanceof Boolean) {
@@ -198,8 +198,8 @@ public class GamaPreferencesView {
 				}
 			}
 		}
-		if (e.getDeactivable() != null && value instanceof Boolean) {
-			for (final String deactivable : e.getDeactivable()) {
+		if (e.getDisablement() != null && value instanceof Boolean) {
+			for (final String deactivable : e.getDisablement()) {
 				final IParameterEditor ed = editors.get(deactivable);
 				if (ed == null) {
 					activations.put(deactivable, !(Boolean) value);
