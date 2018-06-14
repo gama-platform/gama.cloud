@@ -4,7 +4,8 @@ function EtherpadJS(element)  {
    this.div.className = "etherpaddiv";
    this.div.setAttribute("id","etherpaddiv");
    var userId ='';
-   var padId='';
+   var padId  ='';
+   var url    ='http://127.0.0.1:9001';
    
    element.appendChild(this.div);
    this.div.innerHTML = "";
@@ -36,8 +37,8 @@ function EtherpadJS(element)  {
 
 		   $.fn.pad = function( options ) {
 		     var settings = {
-		       //'host'              : 'http://beta.etherpad.org',
-		    	'host'              : 'http://127.0.0.1:9001',
+		      'host'              : url,
+		      //'host'              : 'http://127.0.0.1:9001',
 		       'baseUrl'           : '/p/',
 		       'showControls'      : false,
 		       'showChat'          : false,
@@ -168,9 +169,10 @@ function EtherpadJS(element)  {
 
    };
    
-   this.setText = function(text, user, pad)  {        
+   this.setText = function(text, user, pad, etherpadUrl)  {        
 	   userId = user;
 	   padId = pad;
+	   url = etherpadUrl;
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
      this.div.innerHTML = this.div.innerHTML
       + "<p class='info'>"+ text +"</p>";

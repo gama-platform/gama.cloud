@@ -124,7 +124,8 @@
            var text= json["text"];
            var userId= json["userId"];
            var padId= json["padId"];
-           this.etherpadjs.setText(text, userId, padId);
+           var url=json["url"];
+           this.etherpadjs.setText(text, userId, padId,url);
           // alert('13');
         //   console.log('--> setText!   called with text : '+text); 
         //   console.log('--> setText!   called with userId : '+userId); 

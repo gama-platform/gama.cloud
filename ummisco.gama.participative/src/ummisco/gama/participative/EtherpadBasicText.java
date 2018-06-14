@@ -83,10 +83,7 @@ public class EtherpadBasicText extends BasicText {
 		super(parent, style);
 		
 	
-		
-		
-		counter++;
-		localCounter = counter;
+
 	    // Note: Catching error when viewed on WindowBuilder
 		    try {
 		        registerResources();
@@ -227,22 +224,6 @@ public class EtherpadBasicText extends BasicText {
 
 	//Load the js files required at Client.
 	private void loadJavaScript() {
-		    
-	//	 JavaScriptLoader jsLoader = RWT.getClient().getService(
-	//	         JavaScriptLoader.class);
-	//	 ResourceManager resourceManager = RWT.getResourceManager();
-		
-	//	 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-	//		         + "etherpadjs.js"));
-		
-	//	 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-	//		         + "load-css-file.js"));
-		
-	//	 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-	//	            + "rap-handler.js"));
-		 
-	//	 jsLoader.require(resourceManager.getLocation(REGISTER_PATH + "/"
-	//	            + "rap-handler.js"));
 
 	}
 
@@ -289,24 +270,11 @@ public class EtherpadBasicText extends BasicText {
 		
 	}
 
-//	public void appendWarn(String text) {
-////	    System.out.println("appendWarn");
-//	    JsonObject obj= new JsonObject();
-//	    obj.add("text", text);
-//	    this.remoteObject.call("appendWarn", obj);
-//	    
-//	}
-	 
-//	public void appendErr(String text) {
-//
-//	    JsonObject obj= new JsonObject();
-//	    obj.add("text", text);       
-//	    this.remoteObject.call("appendErr", obj);
-//	}
+
 	
 	
 	 
-	public synchronized void setText(final String uid, String text, String padId) {
+	public synchronized void setText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
 				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 			    uiSession.exec( new Runnable() {
@@ -315,6 +283,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text+"\n fin<-");
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
+			          obj.add("url", etherpadUrl);
 			          remoteObject.call("setText", obj);	
 			      }
 			    } );
@@ -326,7 +295,7 @@ public class EtherpadBasicText extends BasicText {
 	
 	
 	 
-	public synchronized void setCollaborativeText(final String uid, String text, String padId) {
+	public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
 				
 				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
@@ -336,6 +305,7 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("text", text);
 			          obj.add("userId", uid);
 			          obj.add("padId", padId);
+			          obj.add("url", etherpadUrl);
 			          remoteObject.call("setText", obj);	
 			          
 			         

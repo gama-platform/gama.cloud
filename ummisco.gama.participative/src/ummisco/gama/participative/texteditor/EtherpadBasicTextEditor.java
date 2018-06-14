@@ -132,7 +132,8 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	private TextEditorSavable fSavable;
 	private boolean isDirty;
 	protected String padId ="";
-	protected EPLiteClient epClient = new EPLiteClient("http://localhost:9001", "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
+	protected String etherpadUrl = "http://localhost:9001";
+	protected EPLiteClient epClient = new EPLiteClient(etherpadUrl, "f9bc87f2c982e38848b84fd3f2c44ce61945a4796b7b18b3a49d59972c52d4f2");
 	
 	
 	public EtherpadBasicTextEditor() {
