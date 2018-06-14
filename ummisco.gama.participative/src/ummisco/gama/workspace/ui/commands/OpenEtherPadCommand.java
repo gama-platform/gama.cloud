@@ -143,6 +143,7 @@ public class OpenEtherPadCommand extends AbstractWorkspaceCommand  {
 			
 			if(text !=null) {
 				System.out.println(" ----------------> --> Pad exists " +file.getName());
+				
 			}else{
 				System.out.println(" ----------------> --> Pad dosn't exists " +file.getName());
 				epClient.createPad(file.getName());

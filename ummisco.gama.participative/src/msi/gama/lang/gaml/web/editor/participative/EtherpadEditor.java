@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -294,7 +295,7 @@ public void openEtherpaEditor(final String absolutePath) {
 	
 			String text = null;
 			try {
-				text = epClient.getText(this.padId).get("text").toString();
+				text = epClient.getText(this.padId).get("text").toString(); 
 			}catch(Exception e){
 				
 			}
@@ -302,9 +303,19 @@ public void openEtherpaEditor(final String absolutePath) {
 			
 			
 			if(text !=null) {
-				System.out.println(" --> Pad exists " +this.padId);
+				Map<String,Object> lastEdited = epClient.getLastEdited(this.padId);
+				Date date = new Date((long) lastEdited.get("lastEdited"));
+				
+				Map<String,Object> authorsList = epClient.listAuthorsOfPad(this.padId);
+				//Date date = new Date((long) authorsList.get("lastEdited")); listAuthorsOfPad
+				epClient.createAuthor((String) RWT.getUISession().getAttribute("user"));
+				System.out.println("----> Pad exists " +this.padId + " - it's last edited date is: "+date);
+				System.out.println("----> Its athors list is: " +authorsList);
+				
+			
+				
 			}else{
-				System.out.println(" --> Pad dosn't exists " +this.padId);
+				System.out.println(" ----> Pad dosn't exists " +this.padId);
 				epClient.createPad(this.padId);
 				epClient.setText(this.padId, content);
 				String padContent = epClient.getText(this.padId).get("text").toString();

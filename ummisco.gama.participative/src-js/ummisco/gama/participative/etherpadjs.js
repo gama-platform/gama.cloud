@@ -169,12 +169,13 @@ function EtherpadJS(element)  {
    };
    
    this.setText = function(text, user, pad)  {        
-	
+	   userId = user;
+	   padId = pad;
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
      this.div.innerHTML = this.div.innerHTML
       + "<p class='info'>"+ text +"</p>";
-
-     console.log("--> run from setText user Id: "+ user+ " and pad : "+pad);
+     console.log(" userId: "+ userId + " and pad id is "+padId);
+     console.log(" --> run from setText user Id: "+ user+ " and pad : "+pad);
 
  };
     
