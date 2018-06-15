@@ -2,6 +2,7 @@
  * @Generated
  */
 (function() {
+	console.log('Gaml.js loaded from msi.gama.lang.gaml.web ');
 	rap.registerTypeHandler("msi.gama.lang.gaml.web.editor.widget.Gaml", {
 		factory : function(properties) {
 			return new msi.gama.lang.gaml.web.editor.widget.Gaml(properties);

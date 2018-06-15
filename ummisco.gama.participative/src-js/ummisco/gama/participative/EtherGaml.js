@@ -6,7 +6,6 @@
 	rap.registerTypeHandler("ummisco.gama.participative.EtherpadBasicText", {
 		
 		factory : function(properties) {
-			console.log(" --> rap.registerTypeHandler(ummisco.gama.participative.EtherpadBasicText   -> from Gaml");
 			return new ummisco.gama.participative.EtherpadBasicText(properties);
 		},
 		destructor : "destroy",
@@ -33,8 +32,6 @@
 				ace.require("ace/config").set("modePath", modePath);
 				var editor = this.editor = ace.edit(this.element);
 				if (editor != null) {
-					console.log(" --> if (editor != null)   -> from Gaml");
-					console.log("Editor created! EtherGaml.js");
 					var editable = this.editable;
 					var guid = this.url;
 		        	var self = this;
@@ -110,27 +107,22 @@
 						}
 				 	}
 					editor.on("focus", function() {
-						console.log(" --> editor.on focus   -> from Gaml");
 				 		self.onFocus();
 				 	});
 				 	editor.on("blur", function() {
-				 		console.log(" --> editor.on blur   -> from Gaml");
 				 		self.onBlur();
 				 	});
 				 	editor.on("input", function() {
-				 		console.log(" --> editor.on input   -> from Gaml");
 						if (!editor.getSession().getUndoManager().isClean())
 							self.onModify();
 				 	});
 				 	editor.getSession().getSelection().on('changeCursor', function() {
-				 		console.log(" --> editor.getSession().getSelection().on   -> from Gaml");
 				 	    self.onChangeCursor();
 				 	});
 					editor.commands.addCommand({
 						name: 'saveFile',
 						bindKey: {win: 'Ctrl-S', mac: 'Command-S', sender: 'editor|cli'},
 						exec: function(env, args, request) {
-							console.log(" --> editor.commands.addCommand   -> from Gaml");
 							self.onSave();
 						}
 					});
@@ -139,27 +131,21 @@
 		        this.onReady();
 			},
 			setScope : function(scope) {
-				console.log(" --> setScope   -> from Gaml");
 				this.base(arguments, scope);
 			},
 			onCompletionRequest : function(pos, prefix, callback) {
-				console.log(" --> onCompletionRequest   -> from Gaml");
 				this.base(arguments, pos, prefix, callback);
 			},
 			setProposals : function(proposals) {
-				console.log(" --> setProposals   -> from Gaml");
 				this.proposals = proposals;
 			},
 			onFocus: function() { 
-				console.log(" --> onFocus   -> from Gaml");
 				this.base(arguments);
 			},
 			onBlur: function() {
-				console.log(" --> onBlur -> from Gaml");
 				this.base(arguments);
 			},
 			destroy : function() {
-				console.log(" --> destroy  -> from Gaml");
 				this.base(arguments);
 				this.langTools.resetOptions(this.editor);
 			}

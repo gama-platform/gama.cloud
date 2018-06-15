@@ -285,8 +285,6 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 
 public void openEtherpaEditor(final String absolutePath) {
 		
-	
-		
 		
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(absolutePath)));
@@ -301,33 +299,24 @@ public void openEtherpaEditor(final String absolutePath) {
 			}
 			
 			
-			
 			if(text !=null) {
-				
 				Map<String,Object> lastEdited = epClient.getLastEdited(this.padId);
 				Date date = new Date((long) lastEdited.get("lastEdited"));
 				
 				Map<String,Object> authorsList = epClient.listAuthorsOfPad(this.padId);
 				
 				ArrayList listAuth = (ArrayList) authorsList.get("authorIDs"); 
-				System.out.println("----> Its athors Ids is: " +listAuth);
-				System.out.println("----> fisrt author is: " +listAuth.get(0));
+				System.out.println("----> Its athors Ids (of size "+listAuth.size()+") is: " +listAuth);
+				//System.out.println("----> fisrt author is: " +listAuth.get(0));
 				
-			
 				for(int i=0; i<listAuth.size(); i++) {
 					System.out.println("	--> author name is: " +epClient.getAuthorName((String) listAuth.get(i)));
 				}
 				
-				// Permission d'accès
-				//System.out.println("----> Public status: " +epClient.getPublicStatus("g.C7oHLe55qqwqPBSc$Example3.gaml"));
-				//epClient.getPublicStatus(this.padId);
-				
 				//System.out.println("----> The last revision of the pad is "+epClient.getRevisionChangeset(this.padId));
-				
 				System.out.println("----> The liste of the users online are: "+epClient.padUsersCount(this.padId));
 				
 				Map<String,Object> userCount = epClient.padUsersCount(this.padId);
-				
 				int nbrUser = (int) (long) userCount.get("padUsersCount");
 				System.out.println("----> user Count is "+nbrUser);
 				
@@ -337,10 +326,8 @@ public void openEtherpaEditor(final String absolutePath) {
 					System.out.println("----> Update completed goood! ");
 				}
 				
-				
 				System.out.println("----> Pad exists " +this.padId + " - it's last edited date is: "+date);
 				//Date date = new Date((long) authorsList.get("lastEdited")); listAuthorsOfPad
-				
 				
 				System.out.println("----> The groupsList "+epClient.listAllGroups());
 				//epClient.listAllGroups();

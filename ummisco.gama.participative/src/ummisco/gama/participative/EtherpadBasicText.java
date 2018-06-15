@@ -137,11 +137,11 @@ public class EtherpadBasicText extends BasicText {
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlLexer.js"));
 		
 
-		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.css"));
+		//languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.css"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.js"));
-		languageResources.add(new Path("src-js/ummisco/gama/participative/load-css-file.js"));
+		//languageResources.add(new Path("src-js/ummisco/gama/participative/load-css-file.js"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/rap-handler.js"));
-		languageResources.add(new Path("src-js/ummisco/gama/participative/EtherGaml.js"));
+		//languageResources.add(new Path("src-js/ummisco/gama/participative/EtherGaml.js"));
 
 		registerJsResources(languageResources, getClassLoader());
 		loadJsResources(languageResources);
@@ -293,8 +293,14 @@ public class EtherpadBasicText extends BasicText {
 	
 	
 	
-	
-	 
+	/**
+	 * Set and Update the text editors when a user is in a collaborative editong session.
+	 * 
+	 * @param uid the user ID
+	 * @param text the text to set as the editor content
+	 * @param padId the padID, which is common for both, Etherpad editor and Gaml Editor
+	 * @param etherpadUrl  Etherpad server URL
+	 */
 	public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
 				
@@ -307,20 +313,18 @@ public class EtherpadBasicText extends BasicText {
 			          obj.add("padId", padId);
 			          obj.add("url", etherpadUrl);
 			          remoteObject.call("setText", obj);	
-			          
 			         
 			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 			         Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
 			         
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-			    
-			   
-			         
+			          
 			        for(User u : onlines) {
 			        	if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
 			        		ArrayList<String> padlist = listPads.get(u.getId());
 			        		if(padlist.contains(edPadId)) {
 			        			for(EtherpadBasicText bt : listBt) {
+			        				if(!bt.isDisposed())
 			        				if(!owner.equals(bt.owner)) {
 			        					final ServerPushSession pushSession = new ServerPushSession();
 								        Runnable bgRunnable = new Runnable() {
@@ -354,24 +358,8 @@ public class EtherpadBasicText extends BasicText {
 						    }
 			     		}
 			        }
-			         
-			         
-			         
-			         
-			    	
-					// ArrayList<String> userPads = listPads.get(RWT.getUISession().getAttribute("user"));
-					
-					 for (Map.Entry<String, ArrayList<String>> entry : listPads.entrySet())
-					   	{
-					 	
-					   	//	 System.out.println("/\\--->>>>>>>>>>>>>  "+entry.getKey() + "/" + entry.getValue().toString());
-					   	}
-			         
-			         
-			         
-			         
-			         
-			      epClient.setText(padId, text);
+			     
+			        epClient.setText(padId, text);
 			      }
 			    } );
 			   

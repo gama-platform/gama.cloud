@@ -470,13 +470,13 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		int nbrUser = (int) (long) userCount.get("padUsersCount");
 		System.out.println("----> user Count for the pad is "+nbrUser);
 		boolean updated = false;
-		if(nbrUser>1) {
+		if(nbrUser>0) {
 			System.out.println("----> Need to update the editor content! ");
 			String onlineContent = epClient.getText(this.padId).get("text").toString();
 			if(!onlineContent.equals(content)) {
 				setText(onlineContent);
 				//((EtherpadBasicText)getViewer().getTextWidget()).setCollaborativeText(onlineContent, false);
-				viewer.getTextWidget().setText("------"+onlineContent);
+				viewer.getTextWidget().setText(onlineContent);
 				System.out.println("----> Update completed goood! ");
 				updated = true;
 			}
@@ -484,7 +484,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 		
 		if(!updated) {
 			setText("-->"+content);
-			viewer.getTextWidget().setText("------"+content);
+			viewer.getTextWidget().setText(content);
 		}
 		
 	}

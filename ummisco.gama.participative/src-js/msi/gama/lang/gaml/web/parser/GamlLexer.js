@@ -1,13 +1,14 @@
 // $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g 2018-01-13 20:43:24
 
-package msi.gama.lang.gaml.parser.antlr.internal;
+//package msi.gama.lang.gaml.parser.antlr.internal;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
-import org.eclipse.xtext.parser.antlr.Lexer;
+//import org.eclipse.xtext.parser.antlr.Lexer;
 
-
+console.log('GamlLexer From msi.gama.lang.gaml.web.parser for collaborative Editor');
 var GamlLexer = function(input, state) {
+	
 // alternate constructor @todo
 // public GamlLexer(CharStream input)
 // public GamlLexer(CharStream input, RecognizerSharedState state) {

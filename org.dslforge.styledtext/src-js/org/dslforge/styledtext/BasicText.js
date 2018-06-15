@@ -246,22 +246,17 @@
 			
 			setText : function(text) {
 				if (this.ready) {
-					
 					propagate = text.propagate;
 				/*	
 					var str = text.substring(0, 3);
-					
 					if(str.includes('$c$')) {
 					//	console.log(str+' --------------->>   Its a collaborative text change = New text is');
 						propagate = false;
 					}
-					
 					var str2 = text.substring(3, text.length);
 					
 				*/
-					var str2 = text.contente;
-					console.log(' ------------------------------>>   '+str2);
-					console.log(' ------------------------------>>>   '+text.propagate);
+					console.log(' Is change to propagate >>   '+text.propagate);
 					this.editor.setValue(text.contente);	
 					this.editor.clearSelection(); 
 					this.editor.getSelection().moveCursorFileStart();
@@ -393,7 +388,8 @@
 
 			clearMarkers : function(markers) {
 				if (this.ready) {
-					var markers = this.editor.getSession().getMarkers(false);					 
+					var markers = this.editor.getSession().getMarkers(false);	
+					console.log('all markers are: '+markers);
 			        Object.keys(markers).forEach(function(key) {
 			        	if (markers[key].clazz ==="ace_debug_line")
 							this.editor.getSession().removeMarker(markers[key].id);

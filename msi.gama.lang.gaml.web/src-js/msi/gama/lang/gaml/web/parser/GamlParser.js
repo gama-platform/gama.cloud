@@ -4,5 +4,6 @@
 /**
  * @Generated
  */
+console.log('GamlParser From msi.gama.lang.gaml.web.parser for normal Editor');
 var GamlParser = function(input, state) {
 };
