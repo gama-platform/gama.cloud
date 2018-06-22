@@ -696,7 +696,7 @@ public class EPLiteClient {
      * @return a Map with the padUsersCount
      */
     public Map padUsersCount(String padId) {
-    	//System.out.println("88!!-------------------->>>>>>");
+    	System.out.println("88!!-------------------->>>>>>");
         Map<String,Object> args = new HashMap<>();
         args.put("padID", padId);
         return this.connection.get("padUsersCount", args);
