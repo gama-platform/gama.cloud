@@ -25,7 +25,8 @@ Require-Bundle: msi.gama.core;bundle-version="1.7.0",
  msi.gama.core.web,
  org.eclipse.rap.ui.views,
  msi.gama.lang.gaml,
- msi.gama.lang.gaml.web
+ msi.gama.lang.gaml.web,
+ net.gjerull.etherpad.client;bundle-version="1.0.0"
 Export-Package: gaml.additions,
  org.graphstream.graph,
  org.graphstream.graph.implementations,

@@ -10,7 +10,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/google-oauth-client-1.23.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gson-2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/etherpad_lite_client-1.2.13.jar" sourcepath="/Users/sklab/.m2/repository/net/gjerull/etherpad/etherpad_lite_client/1.2.13/etherpad_lite_client-1.2.13-sources.jar"/>
 	<classpathentry kind="src" path="gaml">
 		<attributes>
 			<attribute name="optional" value="true"/>
