@@ -1,12 +1,17 @@
 package net.gjerull.etherpad.client;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -14,9 +19,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * Connection object for talking to and parsing responses from the Etherpad Lite Server.
@@ -166,34 +169,31 @@ public class EPLiteConnection {
      *
      * @param jsonString a valid JSON string
      * @return Object
+     * @throws org.json.simple.parser.ParseException 
      */
-    protected Object handleResponse(String jsonString) {
-        try {
-            JSONParser parser = new JSONParser();
-            Map response = (Map) parser.parse(jsonString);
-            // Act on the response code
-            if (response.get("code") != null)  {
-                int code = ((Long) response.get("code")).intValue();
-                switch ( code ) {
-                    // Valid code, parse the response
-                    case CODE_OK:
-                        return response.get("data");
-                    // Invalid code, throw an exception with the message
-                    case CODE_INVALID_PARAMETERS:
-                    case CODE_INTERNAL_ERROR:
-                    case CODE_INVALID_METHOD:
-                    case CODE_INVALID_API_KEY:
-                        throw new EPLiteException((String)response.get("message"));
-                    default:
-                        throw new EPLiteException("An unknown error has occurred while handling the response: " + jsonString);
-                }
-            // No response code, something's really wrong
-            } else {
-                throw new EPLiteException("An unexpected response from the server: " + jsonString);
-            }
-        } catch (ParseException e) {
-            throw new EPLiteException("Unable to parse JSON response (" + jsonString + ")", e);
-        }
+    protected Object handleResponse(String jsonString) throws org.json.simple.parser.ParseException, ParseException {
+        JSONParser parser = new JSONParser();
+		Map response = (Map) parser.parse(jsonString);
+		// Act on the response code
+		if (response.get("code") != null)  {
+		    int code = ((Long) response.get("code")).intValue();
+		    switch ( code ) {
+		        // Valid code, parse the response
+		        case CODE_OK:
+		            return response.get("data");
+		        // Invalid code, throw an exception with the message
+		        case CODE_INVALID_PARAMETERS:
+		        case CODE_INTERNAL_ERROR:
+		        case CODE_INVALID_METHOD:
+		        case CODE_INVALID_API_KEY:
+		            throw new EPLiteException((String)response.get("message"));
+		        default:
+		            throw new EPLiteException("An unknown error has occurred while handling the response: " + jsonString);
+		    }
+		// No response code, something's really wrong
+		} else {
+		    throw new EPLiteException("An unexpected response from the server: " + jsonString);
+		}
     }
 
     /**
