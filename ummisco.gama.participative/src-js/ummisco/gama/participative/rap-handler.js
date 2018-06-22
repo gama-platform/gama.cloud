@@ -112,6 +112,7 @@
            var padId= json["padId"];
            var url=json["url"];
            this.etherpadjs.setText(text, userId, padId,url);
+           console.log('--------------------->>>>>>>>> TEXT IS '+text);
        },
       
        

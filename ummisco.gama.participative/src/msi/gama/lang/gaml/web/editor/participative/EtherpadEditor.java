@@ -294,6 +294,7 @@ public void openEtherpaEditor(final String absolutePath) {
 			String text = null;
 			try {
 				text = epClient.getText(this.padId).get("text").toString(); 
+			
 			}catch(Exception e){
 				
 			}
