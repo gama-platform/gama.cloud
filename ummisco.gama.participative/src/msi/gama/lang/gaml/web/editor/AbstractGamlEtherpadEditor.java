@@ -24,6 +24,7 @@ import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.XtextContentAssistEnabledEtherpadEditor;
 
 import msi.gama.rap.oauth.Activator;
+import net.gjerull.etherpad.client.EPLiteClient;
 public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabledEtherpadEditor {
 	private IGamlBuilderListener resourceListener;
 
