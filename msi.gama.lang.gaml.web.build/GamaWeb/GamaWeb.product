@@ -27,7 +27,6 @@
       <plugin id="com.google.inject"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="irit.gaml.extensions.database"/>
-      <plugin id="java-etherpad-lite"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
       <plugin id="javax.xml"/>
@@ -139,7 +138,6 @@
    <configurations>
       <plugin id="com.google.guava" autoStart="true" startLevel="5" />
       <plugin id="com.google.inject" autoStart="true" startLevel="5" />
-      <plugin id="java-etherpad-lite" autoStart="false" startLevel="0" />
       <plugin id="javax.inject" autoStart="true" startLevel="5" />
       <plugin id="javax.persistence" autoStart="true" startLevel="5" />
       <plugin id="javax.xml" autoStart="true" startLevel="5" />
