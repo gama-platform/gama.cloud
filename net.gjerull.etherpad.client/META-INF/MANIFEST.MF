@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Client
-Bundle-SymbolicName: net.gjerull.etherpad.client
+Bundle-SymbolicName: net.gjerull.etherpad.client;singleton:=true
 Bundle-Version: 1.1.13.qualifier
 Automatic-Module-Name: net.gjerull.etherpad.client
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.junit
+Require-Bundle: org.junit,
+ msi.gama.core;bundle-version="1.7.0",
+ msi.gama.ext;bundle-version="1.7.0"
 Export-Package: net.gjerull.etherpad.client
 Import-Package: org.json.simple.parser
