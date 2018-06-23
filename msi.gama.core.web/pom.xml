@@ -14,11 +14,4 @@
 	<packaging>eclipse-plugin</packaging>
 	<name>msi.gama.core.web</name>
 	
-	<dependencies>
-		<dependency>
-			<groupId>net.gjerull.etherpad</groupId>
-			<artifactId>etherpad_lite_client</artifactId>
-			<version>1.2.13</version>
-		</dependency>
-	</dependencies>
 </project>
