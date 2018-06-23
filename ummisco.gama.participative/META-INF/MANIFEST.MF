@@ -25,7 +25,8 @@ Require-Bundle: msi.gama.core;bundle-version="1.7.0",
  msi.gama.core.web,
  org.eclipse.rap.ui.views,
  msi.gama.lang.gaml,
- msi.gama.lang.gaml.web
+ msi.gama.lang.gaml.web,
+ net.gjerull.etherpad.client;bundle-version="[1.1.13,1.1.14)"
 Export-Package: gaml.additions,
  org.graphstream.graph,
  org.graphstream.graph.implementations,
@@ -73,8 +74,7 @@ Export-Package: gaml.additions,
  ummisco.gama.participative.texteditor.form,
  ummisco.gama.participative.texteditor.internal,
  ummisco.gama.participative.xtext.common
-Import-Package: net.gjerull.etherpad.client,
- org.apache.log4j,
+Import-Package: org.apache.log4j,
  org.eclipse.ui.forms,
  org.eclipse.ui.forms.editor,
  org.eclipse.ui.forms.widgets
