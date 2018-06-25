@@ -50,4 +50,16 @@ public class OpenGLDisplayView extends SWTDisplayView {
 	public List<String> getCameraNames() {
 		return new ArrayList<String>(getDisplaySurface().renderer.camera.PRESETS.keySet());
 	}
+
+	@Override
+	public void hideToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

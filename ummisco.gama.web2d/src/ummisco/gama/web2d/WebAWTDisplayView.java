@@ -213,4 +213,16 @@ public class WebAWTDisplayView extends LayeredDisplayView {
 		return false;
 	}
 
+	@Override
+	public void hideToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
