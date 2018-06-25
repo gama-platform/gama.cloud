@@ -238,7 +238,6 @@ public synchronized void setText(final String uid, String text, String padId, St
 			         
 			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 			         Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
-			         
 			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 			          
 			        for(User u : onlines) {
@@ -316,8 +315,48 @@ public synchronized void setText(final String uid, String text, String padId, St
 		if(this.edPadId== null) this.edPadId = padId;
 	}
 
-
 	
+	
+	
+	
+	
+	
+	
+
+	/**
+	 * Handles dispose event
+	 * 
+	 * @param event
+	 */
+	@Override
+	protected synchronized void handleDispose(Event event) {
+		System.out.println(" -------->  111 Dispose handled");
+		removeListener(SWT.Dispose, listener);
+		notifyListeners(SWT.Dispose, event);
+		event.type = SWT.None;
+		content = null;
+		listener = null;
+	
+		ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+	    Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
+	    ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+
+	    for(User u : onlines) {
+	    	if(u.getId().equals(RWT.getUISession().getAttribute("user"))) {
+		   		ArrayList<String> padlist = listPads.get(u.getId());
+		   		if(padlist.contains(this.edPadId)) {
+		   			padlist.remove(this.edPadId);
+		   			listPads.put(u.getId(), padlist);
+		   			RWT.getApplicationContext().setAttribute("listPads", listPads);
+		   		}
+		   	 if(this.isDisposed()) {
+			   	listBt.remove(this);
+			   	RWT.getApplicationContext().setAttribute("editors",listBt);
+			   }	
+		    }
+	    }
+	 
+	}
 
 
 }

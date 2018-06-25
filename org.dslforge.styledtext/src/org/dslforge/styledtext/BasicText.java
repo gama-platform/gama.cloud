@@ -80,10 +80,10 @@ public class BasicText extends Composite {
 	private List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
 	private List<TextRange> markers = new ArrayList<TextRange>();
 	private int style;
-	private Listener listener;
+	protected Listener listener;
 	private String clipboard;
 	private Position cursorPosition;
-	private DefaultContent content;
+	public DefaultContent content;
 	
 	public class BasicTextListener implements Listener {
 
@@ -335,7 +335,7 @@ public class BasicText extends Composite {
 	 * 
 	 * @param event
 	 */
-	void handleDispose(Event event) {
+	protected void handleDispose(Event event) {
 		System.out.println(" -------->   Dispose handled");
 		removeListener(SWT.Dispose, listener);
 		notifyListeners(SWT.Dispose, event);
