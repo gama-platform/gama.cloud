@@ -336,6 +336,7 @@ public class BasicText extends Composite {
 	 * @param event
 	 */
 	void handleDispose(Event event) {
+		System.out.println(" -------->   Dispose handled");
 		removeListener(SWT.Dispose, listener);
 		notifyListeners(SWT.Dispose, event);
 		event.type = SWT.None;

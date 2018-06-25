@@ -81,15 +81,7 @@ public class EtherpadBasicText extends BasicText {
 	
 	public EtherpadBasicText(Composite parent, int style) {
 		super(parent, style);
-		
-	
-
-	    // Note: Catching error when viewed on WindowBuilder
 		    try {
-		        registerResources();
-		        loadJavaScript();
-
-					
 		        Connection connection = RWT.getUISession().getConnection();
 		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
 		        remoteObject.setHandler(operationHandler);
@@ -100,8 +92,6 @@ public class EtherpadBasicText extends BasicText {
 		        // throw new RuntimeException(e);
 		    }
 		
-		    
-		    
 		    ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 		   
 		    if (listBt == null) {
@@ -109,10 +99,8 @@ public class EtherpadBasicText extends BasicText {
 			}
 			listBt.add(this);
 		    RWT.getApplicationContext().setAttribute("editors", listBt);
-		    
 	}
 	
-
 	public void setEdPadId(String pad) {
 		this.edPadId = pad;
 	}
@@ -121,8 +109,6 @@ public class EtherpadBasicText extends BasicText {
 		return this.edPadId; 
 	}
 	
-	
-
 	
 	@Override 
 	protected void setupClient() {
@@ -135,8 +121,6 @@ public class EtherpadBasicText extends BasicText {
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/antlr-all-min.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlParser.js"));
 		languageResources.add(new Path("src-js/msi/gama/lang/gaml/web/parser/GamlLexer.js"));
-		
-
 		//languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.css"));
 		languageResources.add(new Path("src-js/ummisco/gama/participative/etherpadjs.js"));
 		//languageResources.add(new Path("src-js/ummisco/gama/participative/load-css-file.js"));
@@ -177,15 +161,7 @@ public class EtherpadBasicText extends BasicText {
 	
 	
 	
-	//---------------------------------------------------------------------------------- Added method
-		
-	//  private final String[] FILENAMES = {  "etherpadjs.css",  "etherpadjs.js" ,"load-css-file.js" , "rap-handler.js"};
-	private final String[] FILENAMES = { 
-			// "etherpadjs.css",  
-	//		   "etherpadjs.js" ,
-	//		   "load-css-file.js" , 
-	//		   "rap-handler.js",		   
-			   };
+
 
 
 	private final OperationHandler operationHandler = new AbstractOperationHandler() {
@@ -215,66 +191,12 @@ public class EtherpadBasicText extends BasicText {
 	};
 
 
-//	@Override
-//	public void dispose()  {
-//	    super.dispose();        
-//	    remoteObject.destroy();
-//	}
-
-
-	//Load the js files required at Client.
-	private void loadJavaScript() {
-
-	}
-
-
-	private void registerResources() throws IOException {
-	    ResourceManager resourceManager = RWT.getResourceManager();
-
-	    for (String fileName : FILENAMES) {
-
-	        // After registering, you can access on your browser:
-	         
-	        // (http://localhost:port/rwt-resources/logjs/abc.js )
-	        // logjs/abc.js            
-	        String path = REGISTER_PATH + "/" + fileName;
-
-	         // Check this resource has been registered yet.
-	        boolean isRegistered = resourceManager.isRegistered(path);
-
-	        if (!isRegistered) {
-	            ClassLoader classLoader = EtherpadComposite.class.getClassLoader();
-	            // Real Path (in src)
-	             
-	            // logjsresources/abc.js
-	            String realPath = REAL_RESOURCE_PATH + "/" + fileName;
-
-	            InputStream inputStream = classLoader
-	                    .getResourceAsStream(realPath);
-	            if (inputStream == null) {
-	                throw new IOException("File not found " + realPath);
-	            }
-	            try {
-	                // Register resource                    
-	                resourceManager.register(path, inputStream);
-	            } finally {
-	                inputStream.close();
-	            }
-	        }
-	    }
-	}
-
-
 	@Override
 	protected void checkSubclass() {
 		
 	}
-
-
-	
-	
 	 
-	public synchronized void setText(final String uid, String text, String padId, String etherpadUrl) {
+public synchronized void setText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
 				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 			    uiSession.exec( new Runnable() {
@@ -322,6 +244,11 @@ public class EtherpadBasicText extends BasicText {
 			        for(User u : onlines) {
 			        	if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
 			        		ArrayList<String> padlist = listPads.get(u.getId());
+			        		
+			        		System.out.println(" For the user  -> "+u.getId() + " The pas list is: "+padlist.toString());
+			        		System.out.println(" Number of all opened editors are : "+listBt.size());
+			        		
+			        		
 			        		if(padlist.contains(edPadId)) {
 			        			for(EtherpadBasicText bt : listBt) {
 			        				if(!bt.isDisposed())
@@ -389,66 +316,13 @@ public class EtherpadBasicText extends BasicText {
 		if(this.edPadId== null) this.edPadId = padId;
 	}
 
-	
-	public void createAndMergeEditors(final String uid, String text, String padId) {
-		    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-		    uiSession.exec( new Runnable() {
-		      public void run() {
-		          JsonObject obj= new JsonObject();
-		          obj.add("text", text);
-		          obj.add("userId", uid);
-		          obj.add("padId", padId);
-//		          remoteObject.call("createAndMergeEditors", obj);	 
-		      }
-		    } );
-	}
-
-	public void appendInfo(final IScope scope, String text) {
-	 
-		
-			final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-
-			    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-			    uiSession.exec( new Runnable() {
-			      public void run() {
-
-			          JsonObject obj= new JsonObject();
-			          obj.add("text", text);
-			          obj.add("userId", uid);
-			          
-//			          remoteObject.call("appendInfo", obj);	 
-			        
-			      }
-			    } );
-
-			    
-	}
-	 
-	public void clearAll() {
-//	    System.out.println("clearAll");
-	    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay("admin"));
-		    uiSession.exec( new Runnable() {
-		      public void run() {
-
-//		          remoteObject.call("clearAll", new JsonObject());
-		        
-		      }
-		    } );
-	}
 
 	
-	
-	// -------------------------------------------------------------- fin added methods
-	
-	
-	
-	
- // New method	
-	
-	
+
+
 }
 
-//_____________________________________________________________
+
 
 
 

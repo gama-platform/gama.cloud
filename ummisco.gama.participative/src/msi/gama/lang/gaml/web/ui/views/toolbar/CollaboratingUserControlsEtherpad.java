@@ -59,6 +59,8 @@ public class CollaboratingUserControlsEtherpad {
 	public synchronized CollaboratingUserControlsEtherpad fill(final GamaToolbarSimple toolbar) {
 		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 		
+		System.out.println(" La liste des utilisateur en line -> "+onlines.toString());
+		
 		//HashMap<User,ArrayList<EtherpadBasicText>> btList = new HashMap<User,ArrayList<EtherpadBasicText>>();
 		
 		// HashMap<User,ArrayList<EtherpadBasicText>> btList = (HashMap<User,ArrayList<EtherpadBasicText>>) RWT.getApplicationContext().getAttribute("editorsList"); 

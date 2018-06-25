@@ -121,6 +121,7 @@
 			},
 
 			destroy : function() {
+				console.log('destroying the editor');
 				rap.off("send", this.onSend);
 				this.editor.destroy();
 				this.element.parentNode.removeChild(this.element);

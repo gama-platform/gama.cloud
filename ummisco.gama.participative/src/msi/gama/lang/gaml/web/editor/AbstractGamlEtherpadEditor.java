@@ -73,6 +73,8 @@ public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabl
 	protected synchronized void updatePadList() {
 		 Map <String, ArrayList<String>> listEditors = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
 		 ArrayList<String> userEditor = listEditors.get(RWT.getUISession().getAttribute("user"));
-		 userEditor.add(this.padId);
+		 if(!userEditor.contains(this.padId)) {
+			 userEditor.add(this.padId);
+		 }
 	}
 }

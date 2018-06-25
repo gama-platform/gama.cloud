@@ -379,9 +379,12 @@ public void openEtherpaEditor(final String absolutePath) {
 		}
 
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
-		
-		
 	}
+	
+	
+	
+	
+	
 
 	private synchronized void enableButton(final int index, final String text, final SelectionListener listener) {
 		if (text == null) { return; }
