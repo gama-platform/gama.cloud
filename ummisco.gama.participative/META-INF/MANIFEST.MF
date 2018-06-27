@@ -71,8 +71,6 @@ Export-Package: gaml.additions,
  org.miv.pherd.ntree.util,
  ummisco.gama.participative,
  ummisco.gama.participative.texteditor,
- ummisco.gama.participative.texteditor.form,
- ummisco.gama.participative.texteditor.internal,
  ummisco.gama.participative.xtext.common
 Import-Package: org.apache.log4j,
  org.eclipse.ui.forms,

@@ -17,6 +17,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescription.Manager;
+import org.eclipse.xtext.ui.editor.contentassist.XtextContentAssistProcessor;
 import org.eclipse.xtext.util.ReplaceRegion;
 
 import com.google.common.base.Function;
@@ -111,7 +112,7 @@ public class XtextContentAssistEnabledEtherpadEditor extends BasicXtextEtherpadE
 		SafeRunnable.run(new SafeRunnable() {
 			private static final long serialVersionUID = 1L;
 			public void run() {
-				XtextContentAssistProcessorEtherpad xtextContentAssistProcessor = (XtextContentAssistProcessorEtherpad)contentAssistProcessor;
+				XtextContentAssistProcessor xtextContentAssistProcessor = (XtextContentAssistProcessor)contentAssistProcessor;
 //				ICompletionProposal[] computedCompletionProposals = XtextContentAssistProcessorEtherpad.computeCompletionProposals(getViewer(), xtextResource, offset);
 //				if (computedCompletionProposals!=null) {
 //					setProposals(Arrays.asList(computedCompletionProposals));	

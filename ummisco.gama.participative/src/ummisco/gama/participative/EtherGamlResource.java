@@ -5,6 +5,8 @@ package ummisco.gama.participative;
 
 import org.eclipse.rap.ui.resources.IResource;
 
+//import msi.gama.lang.gaml.resource.GamlResource;
+
 public final class EtherGamlResource implements IResource {
 
   public String getCharset() {
@@ -15,6 +17,7 @@ public final class EtherGamlResource implements IResource {
     return this.getClass().getClassLoader();
   }
 
+  @Override
   public String getLocation() { 	
     return "src-js/ummisco/gama/participative/EtherGaml.js"; //$NON-NLS-1$
   }
