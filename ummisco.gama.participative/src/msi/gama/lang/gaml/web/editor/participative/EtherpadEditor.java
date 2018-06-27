@@ -333,6 +333,8 @@ public void openEtherpaEditor(final String absolutePath) {
 				System.out.println("----> The groupsList "+epClient.listAllGroups());
 				//epClient.listAllGroups();
 				
+				//epClient.saveRevision(text, rev);
+				
 			
 				
 			}else{

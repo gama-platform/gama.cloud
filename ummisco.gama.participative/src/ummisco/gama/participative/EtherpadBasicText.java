@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -138,32 +139,6 @@ public class EtherpadBasicText extends BasicText {
 	}
 	
 	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
 	private final OperationHandler operationHandler = new AbstractOperationHandler() {
 
 	    @Override
@@ -189,8 +164,8 @@ public class EtherpadBasicText extends BasicText {
 	    }
 
 	};
-
-
+	
+	
 	@Override
 	protected void checkSubclass() {
 		
@@ -214,7 +189,6 @@ public synchronized void setText(final String uid, String text, String padId, St
 
 	
 	
-	
 	/**
 	 * Set and Update the text editors when a user is in a collaborative editong session.
 	 * 
@@ -225,7 +199,7 @@ public synchronized void setText(final String uid, String text, String padId, St
 	 */
 	public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
-				
+				tryPadManip(padId);
 				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 			    uiSession.exec( new Runnable() {
 			      public void run() {
@@ -267,6 +241,9 @@ public synchronized void setText(final String uid, String text, String padId, St
 									        	    		  bt.setCollaborativeText(text, false);
 									        	    		  bt.setCursorPosition(p.row+1, p.column);
 									        	    		  System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
+									        	    	
+									        	    		  
+									        	    		
 									        	    	  }
 								        		           pushSession.stop();
 								        		       }
@@ -297,8 +274,43 @@ public synchronized void setText(final String uid, String text, String padId, St
 	
 	
 	
-	
-	
+	// Method to delete
+	public void tryPadManip(String padId) {
+		System.out.println("-------------------------------------------------------------------------");
+		System.out.println();System.out.println();
+		
+		Map<String,Object> lastEdited = epClient.getLastEdited(padId);
+		Date date = new Date((long) lastEdited.get("lastEdited"));
+		
+		Map<String,Object> authorsList = epClient.listAuthorsOfPad(padId);
+		
+		ArrayList listAuth = (ArrayList) authorsList.get("authorIDs"); 
+		System.out.println("----> Its athors Ids (of size "+listAuth.size()+") is: " +listAuth);
+		
+		for(int i=0; i<listAuth.size(); i++) {
+			System.out.println("	--> author name is: " +epClient.getAuthorName((String) listAuth.get(i)));
+		}
+		
+		System.out.println("----> The liste of the users online are: "+epClient.padUsersCount(padId));
+		
+		Map<String,Object> userCount = epClient.padUsersCount(padId);
+		int nbrUser = (int) (long) userCount.get("padUsersCount");
+		System.out.println("----> user Count is "+nbrUser);
+				
+		System.out.println("----> the " +padId + " last edited date is: "+date);
+		
+		System.out.println("----> The groupsList "+epClient.listAllGroups());
+		
+		epClient.appendText(padId, "------> ");
+		
+		System.out.println("----> Last revesion is "+epClient.getRevisionChangeset(padId));
+		
+		
+		
+		
+		System.out.println();System.out.println();
+		System.out.println("-------------------------------------------------------------------------");
+	}
 	
 	
 	
@@ -330,7 +342,6 @@ public synchronized void setText(final String uid, String text, String padId, St
 	 */
 	@Override
 	protected synchronized void handleDispose(Event event) {
-		System.out.println(" -------->  111 Dispose handled");
 		removeListener(SWT.Dispose, listener);
 		notifyListeners(SWT.Dispose, event);
 		event.type = SWT.None;
