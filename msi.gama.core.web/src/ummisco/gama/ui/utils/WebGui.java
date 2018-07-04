@@ -648,12 +648,12 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public void applyLayout(IScope scope, final int layout) {
+	public void applyLayout(IScope scope, Object layout, boolean keepTabs, boolean keepToolbars) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
 		if (manager != null) {
-			manager.applyLayout(layout);
+			manager.applyLayout(layout, keepTabs, keepToolbars);
 		}
 	}
 
@@ -712,6 +712,18 @@ public class WebGui implements IGui {
 
 	@Override
 	public void refreshNavigator() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showScreen() {
 		// TODO Auto-generated method stub
 		
 	}
