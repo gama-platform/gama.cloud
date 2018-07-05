@@ -1,23 +1,5 @@
 package ummisco.gama.participative.texteditor;
 
-/**
- * <copyright>
- *
- * Copyright (c) 2015 PlugBee. All rights reserved.
- * 
- * This program and the accompanying materials are made available 
- * under the terms of the Eclipse Public License v1.0 which 
- * accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Amine Lajmi - Initial API and implementation
- *
- * </copyright>
- */
-
-
-import java.awt.Toolkit;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,6 +57,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.rap.json.JsonObject;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -124,14 +107,14 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	protected static final String DEFAULT_TEXT_FONT = "Tahoma, Geneva, sans-serif";
 	
 	/**
-	 * This editor's text viewer.
+	 * This editor's text viewe r.
 	 */
-	private ITextViewer viewer;
-	private PropertySheetPage propertySheetPage;
-	private IPath filePath;
-	private ArrayList<String> index;
-	private TextEditorSavable fSavable;
-	private boolean isDirty;
+	protected ITextViewer viewer;
+	protected PropertySheetPage propertySheetPage;
+	protected IPath filePath;
+	protected ArrayList<String> index;
+	protected TextEditorSavable fSavable;
+	protected boolean isDirty;
 	protected String padId ="";
 	protected String etherpadUrl = "http://localhost:9001";
 	protected String groupId = "";
@@ -140,7 +123,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	
 	public EtherpadBasicTextEditor() {
 		super(); 
-		
+		// TODO: Etherpad -> Put the etherpad URL and APIKey in global constants.
 	}
 	
 	ITextChangeListener iTextChangeListener = new ITextChangeListener() {

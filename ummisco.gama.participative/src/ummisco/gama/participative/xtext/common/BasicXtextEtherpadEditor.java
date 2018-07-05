@@ -101,6 +101,7 @@ public class BasicXtextEtherpadEditor extends EtherpadBasicTextEditor implements
 		textWidget.setLayoutData(textLayoutData);
 		textWidget.setEditable(true);
 		textWidget.setAnnotations(Collections.emptyList());
+		
 		return textWidget;
 	}
 

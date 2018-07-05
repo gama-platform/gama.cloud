@@ -1,6 +1,5 @@
 package msi.gama.lang.gaml.web.editor.participative;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,15 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.dslforge.styledtext.Annotation;
-import org.dslforge.styledtext.Position;
-import org.dslforge.styledtext.jface.ITextViewer;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.remote.RemoteObject;
-import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -36,9 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.util.CancelIndicator;
@@ -55,10 +47,7 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListene
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListenerEtherpad;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
-import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.participative.EtherpadBasicText;
-//import ummisco.gama.participative.EtherpadComposite;
-import ummisco.gama.participative.texteditor.EtherpadBasicTextEditor;
 import ummisco.gama.ui.controls.FlatButton;
 import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
@@ -96,7 +85,6 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 	IModelRunner runner =new ModelRunner();
 	private TemplateStore templateStore;
 	static final String EDITOR_ID = "msi.gama.lang.gaml.web.editor.EtherpadEditor";
-	//private EtherpadComposite epEditor;
 	private Composite epEditor;
 	
 	public EtherpadEditor() {

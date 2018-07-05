@@ -113,12 +113,12 @@ public class BasicTextEditor extends EditorPart implements ISaveablesSource, IBa
 	/**
 	 * This editor's text viewer.
 	 */
-	private ITextViewer viewer;
-	private PropertySheetPage propertySheetPage;
-	private IPath filePath;
-	private ArrayList<String> index;
-	private TextEditorSavable fSavable;
-	private boolean isDirty;
+	protected ITextViewer viewer;
+	protected PropertySheetPage propertySheetPage;
+	protected IPath filePath;
+	protected ArrayList<String> index;
+	protected TextEditorSavable fSavable;
+	protected boolean isDirty;
 	
 	public BasicTextEditor() {
 		super();

@@ -1,19 +1,9 @@
 package ummisco.gama.participative;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.EnumSet;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import org.dslforge.styledtext.BasicText;
 import org.dslforge.styledtext.Position;
@@ -23,30 +13,18 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.Client;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
 import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
 import org.eclipse.rap.rwt.remote.RemoteObject;
-import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.internal.Workbench;
-import org.json.simple.JSONObject;
 
-import msi.gama.core.web.editor.parts.BasicWorkbenchPerspective;
-import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
-import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControlsEtherpad;
-import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
-import msi.gama.runtime.IScope;
 import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -60,21 +38,9 @@ public class EtherpadBasicText extends BasicText {
 
 	private static final long serialVersionUID = 131001464693386296L;
 
-	private static final String REMOTE_TYPE = "ummisco.gama.participative.EtherpadBasicText";
-	private static final String RREMOTE_TYPE = "o7planning.EtherpadComposite";
+	private static final String REMOTE_TYPE = "o7planning.EtherpadComposite";
 	
 	private RemoteObject remoteObject;
-	private RemoteObject remoteObjectEtherpad;
-
-	// The directory containing the file js, css.
-	private static final String REAL_RESOURCE_PATH = "etherpadjsresources";
-
-	private static final String REGISTER_PATH = "etherpadjs";
-	
-	
-	private static int counter = 0;
-	private int localCounter = 0;
-	
 	protected EPLiteClient epClient; 
 	protected String edPadId =null;
 	protected String owner = (String) RWT.getUISession().getAttribute("user");
@@ -84,7 +50,7 @@ public class EtherpadBasicText extends BasicText {
 		super(parent, style);
 		    try {
 		        Connection connection = RWT.getUISession().getConnection();
-		        remoteObject = connection.createRemoteObject(RREMOTE_TYPE); // RREMOTE_TYPE 
+		        remoteObject = connection.createRemoteObject(REMOTE_TYPE); // RREMOTE_TYPE 
 		        remoteObject.setHandler(operationHandler);
 		        remoteObject.set("parent", WidgetUtil.getId(this));
 		       
@@ -284,7 +250,7 @@ public synchronized void setText(final String uid, String text, String padId, St
 		
 		Map<String,Object> authorsList = epClient.listAuthorsOfPad(padId);
 		
-		ArrayList listAuth = (ArrayList) authorsList.get("authorIDs"); 
+		ArrayList<?> listAuth = (ArrayList<?>) authorsList.get("authorIDs"); 
 		System.out.println("----> Its athors Ids (of size "+listAuth.size()+") is: " +listAuth);
 		
 		for(int i=0; i<listAuth.size(); i++) {
