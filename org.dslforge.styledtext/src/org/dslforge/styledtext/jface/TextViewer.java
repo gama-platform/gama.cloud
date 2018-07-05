@@ -19,9 +19,9 @@ public class TextViewer extends Viewer implements ITextViewer{
 
 	private static final long serialVersionUID = -5997421207828153511L;
 	
-	private BasicText fTextWidget;
-	private IDocument fDocument;
-	private Control fDisposedControl;
+	protected BasicText fTextWidget;
+	protected IDocument fDocument;
+	protected Control fDisposedControl;
 	
 	/**
 	 * Create a new text viewer with the given style bits.

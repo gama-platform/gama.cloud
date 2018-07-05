@@ -8,6 +8,7 @@ import org.dslforge.styledtext.ITextSelection;
 import org.dslforge.styledtext.TextSelection;
 import org.dslforge.styledtext.jface.IDocument;
 import org.dslforge.styledtext.jface.ITextViewer;
+import org.dslforge.styledtext.jface.TextViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -26,26 +27,31 @@ public class EtherpadTextViewer extends Viewer implements ITextViewer{
 
 	private static final long serialVersionUID = -5997421207828153511L;
 	
-	private EtherpadBasicText fTextWidget;
+	protected EtherpadBasicText fTextWidget;
 	private IDocument fDocument;
 	private Control fDisposedControl;
 	
 	/**
 	 * Create a new text viewer with the given style bits.
 	 */
+	
+
 	public EtherpadTextViewer(Composite parent, int styles) {
 		createControl(parent, styles);
 	}
+	
 
 	/**
 	 * Create a new text viewer with the given style bits.
 	 */
+	
 	public EtherpadTextViewer(EtherpadBasicText textWidget, Composite parent, int styles) {
 		fTextWidget = textWidget;
 		configure();
 
 	}
 	
+
 	/**
 	 * Creates the viewer's control. The viewer's text widget either is
 	 * the control or is a child of the control.

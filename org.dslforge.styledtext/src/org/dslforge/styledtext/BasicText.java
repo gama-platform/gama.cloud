@@ -54,35 +54,35 @@ import org.eclipse.swt.widgets.Listener;
  */
 public class BasicText extends Composite {
 
-	private static final long serialVersionUID = 131001464693386296L;
+	protected static final long serialVersionUID = 131001464693386296L;
 
 	static final Logger logger = Logger.getLogger(BasicText.class);
 	
-	private static final String REMOTE_TYPE = "org.dslforge.styledtext.BasicText";
-	private static final int TextChanged = 47;
-	private static final int Save = 48;
-	private static final int CaretEvent = 49;
-	private static final int ContentAssist = 50;
+	protected static final String REMOTE_TYPE = "org.dslforge.styledtext.BasicText";
+	protected static final int TextChanged = 47;
+	protected static final int Save = 48;
+	protected static final int CaretEvent = 49;
+	protected static final int ContentAssist = 50;
 	
-	private static final String ACE_LIBRARY_KEY = "org.eclipse.rap.incubator.basictext.ace";
-	private static final String ACE_LIBRARY_VALUE = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js";
-	private static final String ACE_SEARCHBOX_KEY = "org.eclipse.rap.incubator.basictext.ace.ext-searchbox";
-	private static final String ACE_SEARCHBOX_VALUE = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-searchbox.js";
+	protected static final String ACE_LIBRARY_KEY = "org.eclipse.rap.incubator.basictext.ace";
+	protected static final String ACE_LIBRARY_VALUE = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js";
+	protected static final String ACE_SEARCHBOX_KEY = "org.eclipse.rap.incubator.basictext.ace.ext-searchbox";
+	protected static final String ACE_SEARCHBOX_VALUE = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-searchbox.js";
 	
-	private final BasicTextOperationHandler operationHandler = new BasicTextOperationHandler(this);
-	private RemoteObject remoteObject;
-	private List<IPath> resources = new ArrayList<IPath>();
-	private String url = "";
-	private String status = "";
-	private ITextSelection selection = TextSelection.emptySelection();
-	private List<Annotation> annotations = new ArrayList<Annotation>();
-	private List<String> scope = new ArrayList<String>();
-	private List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
-	private List<TextRange> markers = new ArrayList<TextRange>();
-	private int style;
+	protected final BasicTextOperationHandler operationHandler = new BasicTextOperationHandler(this);
+	protected RemoteObject remoteObject;
+	protected List<IPath> resources = new ArrayList<IPath>();
+	protected String url = "";
+	protected String status = "";
+	protected ITextSelection selection = TextSelection.emptySelection();
+	protected List<Annotation> annotations = new ArrayList<Annotation>();
+	protected List<String> scope = new ArrayList<String>();
+	protected List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
+	protected List<TextRange> markers = new ArrayList<TextRange>();
+	protected int style;
 	protected Listener listener;
-	private String clipboard;
-	private Position cursorPosition;
+	protected String clipboard;
+	protected Position cursorPosition;
 	public DefaultContent content;
 	
 	public class BasicTextListener implements Listener {

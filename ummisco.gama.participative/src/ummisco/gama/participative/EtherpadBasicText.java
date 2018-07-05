@@ -163,84 +163,73 @@ public synchronized void setText(final String uid, String text, String padId, St
 	 * @param padId the padID, which is common for both, Etherpad editor and Gaml Editor
 	 * @param etherpadUrl  Etherpad server URL
 	 */
-	public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
-				setPadId(padId);
-				tryPadManip(padId);
-				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-			    uiSession.exec( new Runnable() {
-			      public void run() {
-			          JsonObject obj= new JsonObject();
-			          obj.add("text", text);
-			          obj.add("userId", uid);
-			          obj.add("padId", padId);
-			          obj.add("url", etherpadUrl);
-			          remoteObject.call("setText", obj);	
-			         
-			         ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
-			         Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
-			         ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-			          
-			        for(User u : onlines) {
-			        	if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
-			        		ArrayList<String> padlist = listPads.get(u.getId());
-			        		
-			        		System.out.println(" For the user  -> "+u.getId() + " The pas list is: "+padlist.toString());
-			        		System.out.println(" Number of all opened editors are : "+listBt.size());
-			        		
-			        		
-			        		if(padlist.contains(edPadId)) {
-			        			for(EtherpadBasicText bt : listBt) {
-			        				if(!bt.isDisposed())
-			        				if(!owner.equals(bt.owner)) {
-			        					final ServerPushSession pushSession = new ServerPushSession();
-								        Runnable bgRunnable = new Runnable() {
-								        	@Override
-								        	public void run() {
-								        		Display display =   WorkbenchHelper.getDisplay(u.getId());
-								        	    display.syncExec( new Runnable() {
-								        	       @Override
-								        	       public void run() {
-								        	    	  if(bt.edPadId.equals(padId)) {
-									        	    	  if(!bt.getText().equals(text)) {
-									        	    		  Position p = bt.getCursorPosition();
-									        	    		//  bt.setCollaborativeText("$c$"+text, p.row+1,p.column, true);
-									        	    		  bt.setCollaborativeText(text, false);
-									        	    		  bt.setCursorPosition(p.row+1, p.column);
-									        	    		  System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
-									        	    	
-									        	    		  
-									        	    		
-									        	    	  }
-								        		           pushSession.stop();
-								        		       }
-								        	    	 }
-								        		     } );
-								        		   }
-								        		 };
-								        		 pushSession.start();
-								        		 Thread bgThread = new Thread( bgRunnable );
-								        		 bgThread.setDaemon( true );
-								        		 bgThread.start();
-			        				}
-			        				
-			        			}
-						    }
-			     		}
-			        }
-			     
-			        epClient.setText(padId, text);
-			      }
-			    } );
-			   
-	}
+public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
+	setPadId(padId);
+	tryPadManip(padId);
+	UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+	uiSession.exec( new Runnable() {
+		public void run() {
+			JsonObject obj= new JsonObject();
+			obj.add("text", text);
+			obj.add("userId", uid);
+			obj.add("padId", padId);
+			obj.add("url", etherpadUrl);
+			remoteObject.call("setText", obj);	
+				         
+			ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
+			Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
+			ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+				          
+			for(User u : onlines) {
+				if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
+					ArrayList<String> padlist = listPads.get(u.getId());
+				
+					System.out.println(" For the user  -> "+u.getId() + " The pas list is: "+padlist.toString());
+				    System.out.println(" Number of all opened editors are : "+listBt.size());
+				    
+				    if(padlist.contains(edPadId)) {
+				    	for(EtherpadBasicText bt : listBt) {
+				    		if(!bt.isDisposed())
+				        	if(!owner.equals(bt.owner)) {
+				        		final ServerPushSession pushSession = new ServerPushSession();
+				        		Runnable bgRunnable = new Runnable() {
+									@Override
+									public void run() {
+										Display display =   WorkbenchHelper.getDisplay(u.getId());
+										display.syncExec( new Runnable() {
+											@Override
+											public void run() {
+												if(bt.edPadId.equals(padId)) {
+													if(!bt.getText().equals(text)) {
+														Position p = bt.getCursorPosition();
+												        //bt.setCollaborativeText("$c$"+text, p.row+1,p.column, true);
+												        bt.setCollaborativeText(text, false);
+												        bt.setCursorPosition(p.row+1, p.column);
+												        System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
+												    }
+													pushSession.stop();
+											     }
+											}
+										});
+									}
+								};
+								pushSession.start();
+								Thread bgThread = new Thread( bgRunnable );
+								bgThread.setDaemon( true );
+								bgThread.start();
+				        	}
+				        }
+					}
+				}
+			}
+			epClient.setText(padId, text);
+		}
+	} );
+}
 
 	
 	
-	
-	
-	
-	
-	// Method to delete
+	// TODO: Etherpad -> Method to delete
 	public void tryPadManip(String padId) {
 		System.out.println("-------------------------------------------------------------------------");
 		System.out.println();System.out.println();
@@ -272,34 +261,25 @@ public synchronized void setText(final String uid, String text, String padId, St
 		System.out.println("----> Last revesion is "+epClient.getRevisionChangeset(padId));
 		
 		
-		
-		
 		System.out.println();System.out.println();
 		System.out.println("-------------------------------------------------------------------------");
 	}
 	
 	
-	
-	
-	
-	
+	/**
+	 * Set the Etherpad Client
+	 * @param ep EPLiteClient
+	 */
 	public void setEpClient(EPLiteClient ep) {
 		this.epClient = ep;
 	}
 	
 
-	//This method need to be reviewed. 
+	// TODO: Etherpad -> This method need to be reviewed. 
 	public void setPadId(String padId) {
 		if(this.edPadId== null) this.edPadId = padId;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * Handles dispose event
@@ -332,70 +312,5 @@ public synchronized void setText(final String uid, String text, String padId, St
 			   }	
 		    }
 	    }
-	 
 	}
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

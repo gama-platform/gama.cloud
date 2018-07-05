@@ -57,7 +57,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.rap.json.JsonObject;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -107,7 +106,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 	protected static final String DEFAULT_TEXT_FONT = "Tahoma, Geneva, sans-serif";
 	
 	/**
-	 * This editor's text viewe r.
+	 * This editor's text viewer.
 	 */
 	protected ITextViewer viewer;
 	protected PropertySheetPage propertySheetPage;
@@ -134,9 +133,7 @@ public class EtherpadBasicTextEditor extends EditorPart implements ISaveablesSou
 			setDirty(true);
 			JsonObject object = (JsonObject) e.data;
 		//	if (object.get("collaborative") != null) { return; }
-		
 			EtherpadBasicTextEditor.this.handleTextChanged(object);
-			
 		}
 	};
 	
