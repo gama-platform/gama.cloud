@@ -1,4 +1,4 @@
-// $ANTLR 3.3 avr. 19, 2016 01:13:22 /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g 2018-07-05 11:59:46
+// $ANTLR 3.3 avr. 19, 2016 01:13:22 /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g 2018-07-05 16:53:28
 
 package msi.gama.lang.gaml.parser.antlr.internal;
 
