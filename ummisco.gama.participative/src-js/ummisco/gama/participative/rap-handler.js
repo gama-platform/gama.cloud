@@ -41,8 +41,7 @@
        ready : false,
  
        onChange : function() {
-    	//   console.log('onChanged!');
-           
+    	   
        },
  
        onReady : function() {

@@ -70,7 +70,7 @@ function EtherpadJS(element)  {
 		     var epframeId = 'epframe'+ selfId;
 		     // This writes a new frame if required
 		     if ( !options.getContents ) {
-		       if ( options ) {
+		      if ( options ) {
 		         $.extend( settings, options );
 		       }
 		       
@@ -101,7 +101,9 @@ function EtherpadJS(element)  {
 		           iFrameLink = iFrameLink +';" width="' + '100%';//settings.width;
 		           iFrameLink = iFrameLink +'" height="' + settings.height; 
 		           iFrameLink = iFrameLink +'"></iframe>';
-		       
+		         
+		           // Modif  Delete the line below to add the ethperad client on the gamaweb pas.
+		           iFrameLink = "";
 		       
 		       var $iFrameLink = $(iFrameLink);
 		       
@@ -113,11 +115,7 @@ function EtherpadJS(element)  {
 		           $self.pad({getContents: true});
 		           return false;
 		         });
-		         $self
-		           .hide()
-		           .after($toggleLink)
-		           .after($iFrameLink)
-		         ;
+		         $self.hide().after($toggleLink).after($iFrameLink);
 		       }
 		       else {      
 		         $self.html(iFrameLink);
@@ -162,8 +160,8 @@ function EtherpadJS(element)  {
    this.appendInfo = function(text, user)  {        
 	     // The most basic example
 	   //  loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
-       this.div.innerHTML = this.div.innerHTML
-        + "<p class='info'>"+ text +"</p>";
+       
+	   this.div.innerHTML = this.div.innerHTML+ "<p class='info'>"+ text +"</p>";
 
 	   console.log("test appendInfo ");
 
@@ -174,21 +172,18 @@ function EtherpadJS(element)  {
 	   padId = pad;
 	   url = etherpadUrl;
 	 loadScript("http://code.jquery.com/jquery-latest.min.js",   myPrettyCode);
-     this.div.innerHTML = this.div.innerHTML
-      + "<p class='info'>"+ text +"</p>";
+     this.div.innerHTML = this.div.innerHTML+ "<p class='info'>"+ text +"</p>";
      console.log(" userId: "+ userId + " and pad id is "+padId);
      console.log(" --> run from setText user Id: "+ user+ " and pad : "+pad);
 
  };
     
    this.appendErr = function(text)  {  
-       this.div.innerHTML = this.div.innerHTML
-        + "<p class='err'>ERROR: "+ text +"</p>";
+       this.div.innerHTML = this.div.innerHTML+ "<p class='err'>ERROR: "+ text +"</p>";
    };
     
    this.appendWarn = function(text)  {        
-       this.div.innerHTML = this.div.innerHTML
-        + "<p class='warn'>WARN: "+ text +"</p>";
+       this.div.innerHTML = this.div.innerHTML + "<p class='warn'>WARN: "+ text +"</p>";
    };
                 
    this.clearAll = function()  {  

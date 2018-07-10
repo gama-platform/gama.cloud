@@ -1,13 +1,14 @@
-// $ANTLR 3.3 avr. 19, 2016 01:13:22 /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g 2018-07-05 11:59:46
+// $ANTLR 3.3 avr. 19, 2016 01:13:22 D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g 2018-01-13 20:43:24
 
-package msi.gama.lang.gaml.parser.antlr.internal;
+//package msi.gama.lang.gaml.parser.antlr.internal;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
-import org.eclipse.xtext.parser.antlr.Lexer;
+//import org.eclipse.xtext.parser.antlr.Lexer;
 
-
+console.log('GamlLexer From msi.gama.lang.gaml.web.parser for collaborative Editor');
 var GamlLexer = function(input, state) {
+	
 // alternate constructor @todo
 // public GamlLexer(CharStream input)
 // public GamlLexer(CharStream input, RecognizerSharedState state) {
@@ -321,7 +322,7 @@ org.antlr.lang.extend(GamlLexer, org.antlr.runtime.Lexer, {
     RULE_SL_COMMENT : 12,
     RULE_WS : 13,
     RULE_ANY_OTHER : 14,
-    getGrammarFileName: function() { return "/Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g"; }
+    getGrammarFileName: function() { return "D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g"; }
 });
 org.antlr.lang.augmentObject(GamlLexer.prototype, {
     // $ANTLR start T__15
@@ -329,8 +330,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__15;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:15:7: ( '__synthetic__' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:15:9: '__synthetic__'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:15:7: ( '__synthetic__' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:15:9: '__synthetic__'
             this.match("__synthetic__"); 
 
 
@@ -349,8 +350,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__16;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:16:7: ( '<-' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:16:9: '<-'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:16:7: ( '<-' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:16:9: '<-'
             this.match("<-"); 
 
 
@@ -369,8 +370,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__17;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:17:7: ( 'model' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:17:9: 'model'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:17:7: ( 'model' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:17:9: 'model'
             this.match("model"); 
 
 
@@ -389,8 +390,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__18;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:18:7: ( 'import' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:18:9: 'import'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:18:7: ( 'import' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:18:9: 'import'
             this.match("import"); 
 
 
@@ -409,8 +410,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__19;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:19:7: ( 'as' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:19:9: 'as'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:19:7: ( 'as' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:19:9: 'as'
             this.match("as"); 
 
 
@@ -429,8 +430,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__20;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:20:7: ( '@' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:20:9: '@'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:20:7: ( '@' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:20:9: '@'
             this.match('@'); 
 
 
@@ -448,8 +449,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__21;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:21:7: ( 'name:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:21:9: 'name:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:21:7: ( 'name:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:21:9: 'name:'
             this.match("name:"); 
 
 
@@ -468,8 +469,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__22;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:22:7: ( 'model:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:22:9: 'model:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:22:7: ( 'model:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:22:9: 'model:'
             this.match("model:"); 
 
 
@@ -488,8 +489,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__23;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:23:7: ( ';' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:23:9: ';'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:23:7: ( ';' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:23:9: ';'
             this.match(';'); 
 
 
@@ -507,8 +508,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__24;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:24:7: ( 'global' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:24:9: 'global'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:24:7: ( 'global' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:24:9: 'global'
             this.match("global"); 
 
 
@@ -527,8 +528,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__25;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:25:7: ( 'action:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:25:9: 'action:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:25:7: ( 'action:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:25:9: 'action:'
             this.match("action:"); 
 
 
@@ -547,8 +548,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__26;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:26:7: ( 'loop' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:26:9: 'loop'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:26:7: ( 'loop' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:26:9: 'loop'
             this.match("loop"); 
 
 
@@ -567,8 +568,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__27;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:27:7: ( 'if' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:27:9: 'if'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:27:7: ( 'if' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:27:9: 'if'
             this.match("if"); 
 
 
@@ -587,8 +588,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__28;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:28:7: ( 'condition:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:28:9: 'condition:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:28:7: ( 'condition:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:28:9: 'condition:'
             this.match("condition:"); 
 
 
@@ -607,8 +608,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__29;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:29:7: ( 'else' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:29:9: 'else'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:29:7: ( 'else' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:29:9: 'else'
             this.match("else"); 
 
 
@@ -627,8 +628,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__30;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:30:7: ( 'return' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:30:9: 'return'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:30:7: ( 'return' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:30:9: 'return'
             this.match("return"); 
 
 
@@ -647,8 +648,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__31;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:31:7: ( 'value:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:31:9: 'value:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:31:7: ( 'value:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:31:9: 'value:'
             this.match("value:"); 
 
 
@@ -667,8 +668,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__32;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:32:7: ( 'when' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:32:9: 'when'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:32:7: ( 'when' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:32:9: 'when'
             this.match("when"); 
 
 
@@ -687,8 +688,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__33;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:33:7: ( ':' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:33:9: ':'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:33:7: ( ':' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:33:9: ':'
             this.match(':'); 
 
 
@@ -706,8 +707,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__34;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:34:7: ( '(' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:34:9: '('
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:34:7: ( '(' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:34:9: '('
             this.match('('); 
 
 
@@ -725,8 +726,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__35;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:35:7: ( ')' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:35:9: ')'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:35:7: ( ')' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:35:9: ')'
             this.match(')'); 
 
 
@@ -744,8 +745,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__36;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:36:7: ( 'action' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:36:9: 'action'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:36:7: ( 'action' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:36:9: 'action'
             this.match("action"); 
 
 
@@ -764,8 +765,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__37;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:37:7: ( 'set' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:37:9: 'set'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:37:7: ( 'set' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:37:9: 'set'
             this.match("set"); 
 
 
@@ -784,8 +785,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__38;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:38:7: ( '{' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:38:9: '{'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:38:7: ( '{' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:38:9: '{'
             this.match('{'); 
 
 
@@ -803,8 +804,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__39;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:39:7: ( '}' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:39:9: '}'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:39:7: ( '}' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:39:9: '}'
             this.match('}'); 
 
 
@@ -822,8 +823,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__40;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:40:7: ( '=' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:40:9: '='
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:40:7: ( '=' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:40:9: '='
             this.match('='); 
 
 
@@ -841,8 +842,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__41;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:41:7: ( 'equation:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:41:9: 'equation:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:41:7: ( 'equation:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:41:9: 'equation:'
             this.match("equation:"); 
 
 
@@ -861,8 +862,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__42;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:42:7: ( 'display' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:42:9: 'display'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:42:7: ( 'display' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:42:9: 'display'
             this.match("display"); 
 
 
@@ -881,8 +882,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__43;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:43:7: ( 'equation' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:43:9: 'equation'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:43:7: ( 'equation' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:43:9: 'equation'
             this.match("equation"); 
 
 
@@ -901,8 +902,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__44;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:44:7: ( 'solve' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:44:9: 'solve'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:44:7: ( 'solve' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:44:9: 'solve'
             this.match("solve"); 
 
 
@@ -921,8 +922,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__45;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:45:7: ( 'species' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:45:9: 'species'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:45:7: ( 'species' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:45:9: 'species'
             this.match("species"); 
 
 
@@ -941,8 +942,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__46;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:46:7: ( 'grid' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:46:9: 'grid'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:46:7: ( 'grid' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:46:9: 'grid'
             this.match("grid"); 
 
 
@@ -961,8 +962,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__47;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:47:7: ( 'experiment' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:47:9: 'experiment'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:47:7: ( 'experiment' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:47:9: 'experiment'
             this.match("experiment"); 
 
 
@@ -981,8 +982,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__48;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:48:7: ( 'ask' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:48:9: 'ask'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:48:7: ( 'ask' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:48:9: 'ask'
             this.match("ask"); 
 
 
@@ -1001,8 +1002,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__49;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:49:7: ( 'release' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:49:9: 'release'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:49:7: ( 'release' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:49:9: 'release'
             this.match("release"); 
 
 
@@ -1021,8 +1022,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__50;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:50:7: ( 'capture' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:50:9: 'capture'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:50:7: ( 'capture' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:50:9: 'capture'
             this.match("capture"); 
 
 
@@ -1041,8 +1042,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__51;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:51:7: ( 'create' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:51:9: 'create'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:51:7: ( 'create' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:51:9: 'create'
             this.match("create"); 
 
 
@@ -1061,8 +1062,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__52;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:52:7: ( 'write' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:52:9: 'write'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:52:7: ( 'write' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:52:9: 'write'
             this.match("write"); 
 
 
@@ -1081,8 +1082,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__53;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:53:7: ( 'error' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:53:9: 'error'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:53:7: ( 'error' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:53:9: 'error'
             this.match("error"); 
 
 
@@ -1101,8 +1102,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__54;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:54:7: ( 'warn' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:54:9: 'warn'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:54:7: ( 'warn' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:54:9: 'warn'
             this.match("warn"); 
 
 
@@ -1121,8 +1122,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__55;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:55:7: ( 'exception' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:55:9: 'exception'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:55:7: ( 'exception' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:55:9: 'exception'
             this.match("exception"); 
 
 
@@ -1141,8 +1142,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__56;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:56:7: ( 'save' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:56:9: 'save'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:56:7: ( 'save' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:56:9: 'save'
             this.match("save"); 
 
 
@@ -1161,8 +1162,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__57;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:57:7: ( 'assert' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:57:9: 'assert'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:57:7: ( 'assert' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:57:9: 'assert'
             this.match("assert"); 
 
 
@@ -1181,8 +1182,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__58;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:58:7: ( 'inspect' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:58:9: 'inspect'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:58:7: ( 'inspect' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:58:9: 'inspect'
             this.match("inspect"); 
 
 
@@ -1201,8 +1202,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__59;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:59:7: ( 'browse' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:59:9: 'browse'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:59:7: ( 'browse' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:59:9: 'browse'
             this.match("browse"); 
 
 
@@ -1221,8 +1222,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__60;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:60:7: ( 'draw' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:60:9: 'draw'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:60:7: ( 'draw' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:60:9: 'draw'
             this.match("draw"); 
 
 
@@ -1241,8 +1242,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__61;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:61:7: ( 'using' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:61:9: 'using'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:61:7: ( 'using' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:61:9: 'using'
             this.match("using"); 
 
 
@@ -1261,8 +1262,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__62;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:62:7: ( 'switch' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:62:9: 'switch'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:62:7: ( 'switch' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:62:9: 'switch'
             this.match("switch"); 
 
 
@@ -1281,8 +1282,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__63;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:63:7: ( 'put' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:63:9: 'put'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:63:7: ( 'put' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:63:9: 'put'
             this.match("put"); 
 
 
@@ -1301,8 +1302,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__64;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:64:7: ( 'add' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:64:9: 'add'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:64:7: ( 'add' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:64:9: 'add'
             this.match("add"); 
 
 
@@ -1321,8 +1322,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__65;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:65:7: ( 'remove' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:65:9: 'remove'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:65:7: ( 'remove' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:65:9: 'remove'
             this.match("remove"); 
 
 
@@ -1341,8 +1342,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__66;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:66:7: ( 'match' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:66:9: 'match'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:66:7: ( 'match' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:66:9: 'match'
             this.match("match"); 
 
 
@@ -1361,8 +1362,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__67;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:67:7: ( 'match_between' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:67:9: 'match_between'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:67:7: ( 'match_between' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:67:9: 'match_between'
             this.match("match_between"); 
 
 
@@ -1381,8 +1382,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__68;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:68:7: ( 'match_one' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:68:9: 'match_one'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:68:7: ( 'match_one' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:68:9: 'match_one'
             this.match("match_one"); 
 
 
@@ -1401,8 +1402,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__69;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:69:7: ( 'parameter' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:69:9: 'parameter'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:69:7: ( 'parameter' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:69:9: 'parameter'
             this.match("parameter"); 
 
 
@@ -1421,8 +1422,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__70;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:70:7: ( 'status' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:70:9: 'status'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:70:7: ( 'status' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:70:9: 'status'
             this.match("status"); 
 
 
@@ -1441,8 +1442,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__71;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:71:7: ( 'highlight' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:71:9: 'highlight'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:71:7: ( 'highlight' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:71:9: 'highlight'
             this.match("highlight"); 
 
 
@@ -1461,8 +1462,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__72;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:72:7: ( 'focus_on' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:72:9: 'focus_on'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:72:7: ( 'focus_on' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:72:9: 'focus_on'
             this.match("focus_on"); 
 
 
@@ -1481,8 +1482,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__73;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:73:7: ( 'light' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:73:9: 'light'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:73:7: ( 'light' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:73:9: 'light'
             this.match("light"); 
 
 
@@ -1501,8 +1502,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__74;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:74:7: ( 'camera' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:74:9: 'camera'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:74:7: ( 'camera' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:74:9: 'camera'
             this.match("camera"); 
 
 
@@ -1521,8 +1522,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__75;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:75:7: ( 'text' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:75:9: 'text'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:75:7: ( 'text' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:75:9: 'text'
             this.match("text"); 
 
 
@@ -1541,8 +1542,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__76;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:76:7: ( 'image' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:76:9: 'image'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:76:7: ( 'image' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:76:9: 'image'
             this.match("image"); 
 
 
@@ -1561,8 +1562,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__77;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:77:7: ( 'data' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:77:9: 'data'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:77:7: ( 'data' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:77:9: 'data'
             this.match("data"); 
 
 
@@ -1581,8 +1582,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__78;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:78:7: ( 'chart' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:78:9: 'chart'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:78:7: ( 'chart' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:78:9: 'chart'
             this.match("chart"); 
 
 
@@ -1601,8 +1602,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__79;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:79:7: ( 'agents' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:79:9: 'agents'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:79:7: ( 'agents' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:79:9: 'agents'
             this.match("agents"); 
 
 
@@ -1621,8 +1622,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__80;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:80:7: ( 'graphics' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:80:9: 'graphics'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:80:7: ( 'graphics' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:80:9: 'graphics'
             this.match("graphics"); 
 
 
@@ -1641,8 +1642,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__81;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:81:7: ( 'display_population' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:81:9: 'display_population'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:81:7: ( 'display_population' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:81:9: 'display_population'
             this.match("display_population"); 
 
 
@@ -1661,8 +1662,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__82;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:82:7: ( 'display_grid' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:82:9: 'display_grid'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:82:7: ( 'display_grid' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:82:9: 'display_grid'
             this.match("display_grid"); 
 
 
@@ -1681,8 +1682,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__83;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:83:7: ( 'quadtree' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:83:9: 'quadtree'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:83:7: ( 'quadtree' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:83:9: 'quadtree'
             this.match("quadtree"); 
 
 
@@ -1701,8 +1702,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__84;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:84:7: ( 'event' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:84:9: 'event'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:84:7: ( 'event' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:84:9: 'event'
             this.match("event"); 
 
 
@@ -1721,8 +1722,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__85;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:85:7: ( 'overlay' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:85:9: 'overlay'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:85:7: ( 'overlay' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:85:9: 'overlay'
             this.match("overlay"); 
 
 
@@ -1741,8 +1742,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__86;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:86:7: ( 'datalist' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:86:9: 'datalist'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:86:7: ( 'datalist' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:86:9: 'datalist'
             this.match("datalist"); 
 
 
@@ -1761,8 +1762,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__87;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:87:7: ( 'do' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:87:9: 'do'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:87:7: ( 'do' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:87:9: 'do'
             this.match("do"); 
 
 
@@ -1781,8 +1782,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__88;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:88:7: ( 'var' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:88:9: 'var'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:88:7: ( 'var' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:88:9: 'var'
             this.match("var"); 
 
 
@@ -1801,8 +1802,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__89;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:89:7: ( 'const' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:89:9: 'const'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:89:7: ( 'const' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:89:9: 'const'
             this.match("const"); 
 
 
@@ -1821,8 +1822,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__90;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:90:7: ( 'let' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:90:9: 'let'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:90:7: ( 'let' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:90:9: 'let'
             this.match("let"); 
 
 
@@ -1841,8 +1842,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__91;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:91:7: ( 'arg' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:91:9: 'arg'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:91:7: ( 'arg' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:91:9: 'arg'
             this.match("arg"); 
 
 
@@ -1861,8 +1862,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__92;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:92:7: ( 'init' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:92:9: 'init'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:92:7: ( 'init' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:92:9: 'init'
             this.match("init"); 
 
 
@@ -1881,8 +1882,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__93;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:93:7: ( 'reflex' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:93:9: 'reflex'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:93:7: ( 'reflex' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:93:9: 'reflex'
             this.match("reflex"); 
 
 
@@ -1901,8 +1902,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__94;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:94:7: ( 'aspect' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:94:9: 'aspect'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:94:7: ( 'aspect' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:94:9: 'aspect'
             this.match("aspect"); 
 
 
@@ -1921,8 +1922,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__95;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:95:7: ( '<<' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:95:9: '<<'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:95:7: ( '<<' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:95:9: '<<'
             this.match("<<"); 
 
 
@@ -1941,8 +1942,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__96;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:96:7: ( '>' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:96:9: '>'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:96:7: ( '>' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:96:9: '>'
             this.match('>'); 
 
 
@@ -1960,8 +1961,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__97;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:97:7: ( '<<+' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:97:9: '<<+'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:97:7: ( '<<+' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:97:9: '<<+'
             this.match("<<+"); 
 
 
@@ -1980,8 +1981,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__98;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:98:7: ( '>-' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:98:9: '>-'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:98:7: ( '>-' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:98:9: '>-'
             this.match(">-"); 
 
 
@@ -2000,8 +2001,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__99;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:99:7: ( '+<-' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:99:9: '+<-'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:99:7: ( '+<-' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:99:9: '+<-'
             this.match("+<-"); 
 
 
@@ -2020,8 +2021,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__100;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:100:8: ( '<+' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:100:10: '<+'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:100:8: ( '<+' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:100:10: '<+'
             this.match("<+"); 
 
 
@@ -2040,8 +2041,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__101;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:101:8: ( ',' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:101:10: ','
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:101:8: ( ',' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:101:10: ','
             this.match(','); 
 
 
@@ -2059,8 +2060,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__102;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:102:8: ( 'returns:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:102:10: 'returns:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:102:8: ( 'returns:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:102:10: 'returns:'
             this.match("returns:"); 
 
 
@@ -2079,8 +2080,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__103;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:103:8: ( 'as:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:103:10: 'as:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:103:8: ( 'as:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:103:10: 'as:'
             this.match("as:"); 
 
 
@@ -2099,8 +2100,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__104;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:104:8: ( 'of:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:104:10: 'of:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:104:8: ( 'of:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:104:10: 'of:'
             this.match("of:"); 
 
 
@@ -2119,8 +2120,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__105;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:105:8: ( 'parent:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:105:10: 'parent:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:105:8: ( 'parent:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:105:10: 'parent:'
             this.match("parent:"); 
 
 
@@ -2139,8 +2140,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__106;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:106:8: ( 'species:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:106:10: 'species:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:106:8: ( 'species:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:106:10: 'species:'
             this.match("species:"); 
 
 
@@ -2159,8 +2160,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__107;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:107:8: ( 'type:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:107:10: 'type:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:107:8: ( 'type:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:107:10: 'type:'
             this.match("type:"); 
 
 
@@ -2179,8 +2180,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__108;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:108:8: ( 'data:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:108:10: 'data:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:108:8: ( 'data:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:108:10: 'data:'
             this.match("data:"); 
 
 
@@ -2199,8 +2200,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__109;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:109:8: ( 'const:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:109:10: 'const:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:109:8: ( 'const:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:109:10: 'const:'
             this.match("const:"); 
 
 
@@ -2219,8 +2220,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__110;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:110:8: ( 'topology:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:110:10: 'topology:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:110:8: ( 'topology:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:110:10: 'topology:'
             this.match("topology:"); 
 
 
@@ -2239,8 +2240,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__111;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:111:8: ( 'item:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:111:10: 'item:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:111:8: ( 'item:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:111:10: 'item:'
             this.match("item:"); 
 
 
@@ -2259,8 +2260,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__112;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:112:8: ( 'init:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:112:10: 'init:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:112:8: ( 'init:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:112:10: 'init:'
             this.match("init:"); 
 
 
@@ -2279,8 +2280,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__113;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:113:8: ( 'message:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:113:10: 'message:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:113:8: ( 'message:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:113:10: 'message:'
             this.match("message:"); 
 
 
@@ -2299,8 +2300,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__114;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:114:8: ( 'control:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:114:10: 'control:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:114:8: ( 'control:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:114:10: 'control:'
             this.match("control:"); 
 
 
@@ -2319,8 +2320,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__115;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:115:8: ( 'environment:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:115:10: 'environment:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:115:8: ( 'environment:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:115:10: 'environment:'
             this.match("environment:"); 
 
 
@@ -2339,8 +2340,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__116;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:116:8: ( 'text:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:116:10: 'text:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:116:8: ( 'text:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:116:10: 'text:'
             this.match("text:"); 
 
 
@@ -2359,8 +2360,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__117;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:117:8: ( 'image:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:117:10: 'image:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:117:8: ( 'image:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:117:10: 'image:'
             this.match("image:"); 
 
 
@@ -2379,8 +2380,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__118;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:118:8: ( 'using:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:118:10: 'using:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:118:8: ( 'using:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:118:10: 'using:'
             this.match("using:"); 
 
 
@@ -2399,8 +2400,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__119;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:119:8: ( 'parameter:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:119:10: 'parameter:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:119:8: ( 'parameter:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:119:10: 'parameter:'
             this.match("parameter:"); 
 
 
@@ -2419,8 +2420,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__120;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:120:8: ( 'aspect:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:120:10: 'aspect:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:120:8: ( 'aspect:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:120:10: 'aspect:'
             this.match("aspect:"); 
 
 
@@ -2439,8 +2440,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__121;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:121:8: ( 'light:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:121:10: 'light:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:121:8: ( 'light:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:121:10: 'light:'
             this.match("light:"); 
 
 
@@ -2459,8 +2460,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__122;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:122:8: ( 'on_change:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:122:10: 'on_change:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:122:8: ( 'on_change:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:122:10: 'on_change:'
             this.match("on_change:"); 
 
 
@@ -2479,8 +2480,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__123;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:123:8: ( 'var:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:123:10: 'var:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:123:8: ( 'var:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:123:10: 'var:'
             this.match("var:"); 
 
 
@@ -2499,8 +2500,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__124;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:124:8: ( 'function:' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:124:10: 'function:'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:124:8: ( 'function:' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:124:10: 'function:'
             this.match("function:"); 
 
 
@@ -2519,8 +2520,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__125;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:125:8: ( '->' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:125:10: '->'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:125:8: ( '->' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:125:10: '->'
             this.match("->"); 
 
 
@@ -2539,8 +2540,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__126;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:126:8: ( '::' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:126:10: '::'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:126:8: ( '::' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:126:10: '::'
             this.match("::"); 
 
 
@@ -2559,8 +2560,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__127;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:127:8: ( '?' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:127:10: '?'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:127:8: ( '?' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:127:10: '?'
             this.match('?'); 
 
 
@@ -2578,8 +2579,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__128;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:128:8: ( 'or' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:128:10: 'or'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:128:8: ( 'or' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:128:10: 'or'
             this.match("or"); 
 
 
@@ -2598,8 +2599,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__129;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:129:8: ( 'and' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:129:10: 'and'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:129:8: ( 'and' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:129:10: 'and'
             this.match("and"); 
 
 
@@ -2618,8 +2619,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__130;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:130:8: ( '!=' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:130:10: '!='
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:130:8: ( '!=' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:130:10: '!='
             this.match("!="); 
 
 
@@ -2638,8 +2639,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__131;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:131:8: ( '>=' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:131:10: '>='
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:131:8: ( '>=' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:131:10: '>='
             this.match(">="); 
 
 
@@ -2658,8 +2659,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__132;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:132:8: ( '<=' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:132:10: '<='
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:132:8: ( '<=' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:132:10: '<='
             this.match("<="); 
 
 
@@ -2678,8 +2679,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__133;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:133:8: ( '<' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:133:10: '<'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:133:8: ( '<' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:133:10: '<'
             this.match('<'); 
 
 
@@ -2697,8 +2698,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__134;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:134:8: ( '+' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:134:10: '+'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:134:8: ( '+' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:134:10: '+'
             this.match('+'); 
 
 
@@ -2716,8 +2717,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__135;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:135:8: ( '-' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:135:10: '-'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:135:8: ( '-' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:135:10: '-'
             this.match('-'); 
 
 
@@ -2735,8 +2736,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__136;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:136:8: ( '*' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:136:10: '*'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:136:8: ( '*' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:136:10: '*'
             this.match('*'); 
 
 
@@ -2754,8 +2755,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__137;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:137:8: ( '/' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:137:10: '/'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:137:8: ( '/' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:137:10: '/'
             this.match('/'); 
 
 
@@ -2773,8 +2774,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__138;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:138:8: ( '^' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:138:10: '^'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:138:8: ( '^' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:138:10: '^'
             this.match('^'); 
 
 
@@ -2792,8 +2793,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__139;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:139:8: ( '\\u00B0' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:139:10: '\\u00B0'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:139:8: ( '\\u00B0' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:139:10: '\\u00B0'
             this.match('\u00B0'); 
 
 
@@ -2811,8 +2812,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__140;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:140:8: ( '#' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:140:10: '#'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:140:8: ( '#' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:140:10: '#'
             this.match('#'); 
 
 
@@ -2830,8 +2831,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__141;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:141:8: ( '!' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:141:10: '!'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:141:8: ( '!' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:141:10: '!'
             this.match('!'); 
 
 
@@ -2849,8 +2850,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__142;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:142:8: ( 'my' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:142:10: 'my'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:142:8: ( 'my' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:142:10: 'my'
             this.match("my"); 
 
 
@@ -2869,8 +2870,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__143;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:143:8: ( 'the' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:143:10: 'the'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:143:8: ( 'the' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:143:10: 'the'
             this.match("the"); 
 
 
@@ -2889,8 +2890,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__144;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:144:8: ( 'not' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:144:10: 'not'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:144:8: ( 'not' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:144:10: 'not'
             this.match("not"); 
 
 
@@ -2909,8 +2910,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__145;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:145:8: ( '[' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:145:10: '['
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:145:8: ( '[' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:145:10: '['
             this.match('['); 
 
 
@@ -2928,8 +2929,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__146;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:146:8: ( ']' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:146:10: ']'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:146:8: ( ']' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:146:10: ']'
             this.match(']'); 
 
 
@@ -2947,8 +2948,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.T__147;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:147:8: ( '.' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:147:10: '.'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:147:8: ( '.' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:147:10: '.'
             this.match('.'); 
 
 
@@ -2966,9 +2967,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_KEYWORD;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:14: ( ( 'each' | 'self' | 'myself' | 'nil' ) )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:16: ( 'each' | 'self' | 'myself' | 'nil' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:16: ( 'each' | 'self' | 'myself' | 'nil' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:14: ( ( 'each' | 'self' | 'myself' | 'nil' ) )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:16: ( 'each' | 'self' | 'myself' | 'nil' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:16: ( 'each' | 'self' | 'myself' | 'nil' )
             var alt1=4;
             switch ( this.input.LA(1) ) {
             case 'e':
@@ -2992,28 +2993,28 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
             switch (alt1) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:17: 'each'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:17: 'each'
                     this.match("each"); 
 
 
 
                     break;
                 case 2 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:24: 'self'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:24: 'self'
                     this.match("self"); 
 
 
 
                     break;
                 case 3 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:31: 'myself'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:31: 'myself'
                     this.match("myself"); 
 
 
 
                     break;
                 case 4 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7865:40: 'nil'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7865:40: 'nil'
                     this.match("nil"); 
 
 
@@ -3038,9 +3039,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_INTEGER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:14: ( ( '0' | '1' .. '9' ( '0' .. '9' )* ) )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:16: ( '0' | '1' .. '9' ( '0' .. '9' )* )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:16: ( '0' | '1' .. '9' ( '0' .. '9' )* )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:14: ( ( '0' | '1' .. '9' ( '0' .. '9' )* ) )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:16: ( '0' | '1' .. '9' ( '0' .. '9' )* )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:16: ( '0' | '1' .. '9' ( '0' .. '9' )* )
             var alt3=2;
             var LA3_0 = this.input.LA(1);
 
@@ -3058,15 +3059,15 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:17: '0'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:17: '0'
                     this.match('0'); 
 
 
                     break;
                 case 2 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:21: '1' .. '9' ( '0' .. '9' )*
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:21: '1' .. '9' ( '0' .. '9' )*
                     this.matchRange('1','9'); 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:30: ( '0' .. '9' )*
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:30: ( '0' .. '9' )*
                     loop2:
                     do {
                         var alt2=2;
@@ -3079,7 +3080,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                         switch (alt2) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7867:31: '0' .. '9'
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7867:31: '0' .. '9'
                             this.matchRange('0','9'); 
 
 
@@ -3112,9 +3113,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_BOOLEAN;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7869:14: ( ( 'true' | 'false' ) )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7869:16: ( 'true' | 'false' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7869:16: ( 'true' | 'false' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7869:14: ( ( 'true' | 'false' ) )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7869:16: ( 'true' | 'false' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7869:16: ( 'true' | 'false' )
             var alt4=2;
             var LA4_0 = this.input.LA(1);
 
@@ -3132,14 +3133,14 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
             }
             switch (alt4) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7869:17: 'true'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7869:17: 'true'
                     this.match("true"); 
 
 
 
                     break;
                 case 2 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7869:24: 'false'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7869:24: 'false'
                     this.match("false"); 
 
 
@@ -3164,8 +3165,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_ID;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7871:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )* )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7871:11: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )*
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7871:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )* )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7871:11: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )*
             if ( this.input.LA(1)=='$'||(this.input.LA(1)>='A' && this.input.LA(1)<='Z')||this.input.LA(1)=='_'||(this.input.LA(1)>='a' && this.input.LA(1)<='z') ) {
                 this.input.consume();
 
@@ -3175,7 +3176,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                 this.recover(mse);
                 throw mse;}
 
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7871:39: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )*
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7871:39: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' | '0' .. '9' )*
             loop5:
             do {
                 var alt5=2;
@@ -3188,7 +3189,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                 switch (alt5) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:
                     if ( this.input.LA(1)=='$'||(this.input.LA(1)>='0' && this.input.LA(1)<='9')||(this.input.LA(1)>='A' && this.input.LA(1)<='Z')||this.input.LA(1)=='_'||(this.input.LA(1)>='a' && this.input.LA(1)<='z') ) {
                         this.input.consume();
 
@@ -3223,10 +3224,10 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_COLOR;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7873:12: ( '#' ( '0' .. '9' | 'A' .. 'F' )+ )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7873:14: '#' ( '0' .. '9' | 'A' .. 'F' )+
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7873:12: ( '#' ( '0' .. '9' | 'A' .. 'F' )+ )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7873:14: '#' ( '0' .. '9' | 'A' .. 'F' )+
             this.match('#'); 
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7873:18: ( '0' .. '9' | 'A' .. 'F' )+
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7873:18: ( '0' .. '9' | 'A' .. 'F' )+
             var cnt6=0;
             loop6:
             do {
@@ -3240,7 +3241,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                 switch (alt6) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:
                     if ( (this.input.LA(1)>='0' && this.input.LA(1)<='9')||(this.input.LA(1)>='A' && this.input.LA(1)<='F') ) {
                         this.input.consume();
 
@@ -3280,9 +3281,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_DOUBLE;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:13: ( ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? ) )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:15: ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:15: ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:13: ( ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? ) )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:15: ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:15: ( '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? | '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )? )
             var alt18=2;
             var LA18_0 = this.input.LA(1);
 
@@ -3300,9 +3301,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
             }
             switch (alt18) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:16: '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:16: '1' .. '9' ( '0' .. '9' )* ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
                     this.matchRange('1','9'); 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:25: ( '0' .. '9' )*
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:25: ( '0' .. '9' )*
                     loop7:
                     do {
                         var alt7=2;
@@ -3315,7 +3316,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                         switch (alt7) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:26: '0' .. '9'
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:26: '0' .. '9'
                             this.matchRange('0','9'); 
 
 
@@ -3326,7 +3327,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                         }
                     } while (true);
 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:37: ( '.' ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:37: ( '.' ( '0' .. '9' )+ )?
                     var alt9=2;
                     var LA9_0 = this.input.LA(1);
 
@@ -3335,9 +3336,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                     }
                     switch (alt9) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:38: '.' ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:38: '.' ( '0' .. '9' )+
                             this.match('.'); 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:42: ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:42: ( '0' .. '9' )+
                             var cnt8=0;
                             loop8:
                             do {
@@ -3351,7 +3352,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                                 switch (alt8) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:43: '0' .. '9'
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:43: '0' .. '9'
                                     this.matchRange('0','9'); 
 
 
@@ -3373,7 +3374,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                     }
 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:56: ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:56: ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
                     var alt12=2;
                     var LA12_0 = this.input.LA(1);
 
@@ -3382,7 +3383,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                     }
                     switch (alt12) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:57: ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:57: ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
                             if ( this.input.LA(1)=='E'||this.input.LA(1)=='e' ) {
                                 this.input.consume();
 
@@ -3392,7 +3393,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                                 this.recover(mse);
                                 throw mse;}
 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:67: ( '+' | '-' )?
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:67: ( '+' | '-' )?
                             var alt10=2;
                             var LA10_0 = this.input.LA(1);
 
@@ -3401,7 +3402,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                             }
                             switch (alt10) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:
                                     if ( this.input.LA(1)=='+'||this.input.LA(1)=='-' ) {
                                         this.input.consume();
 
@@ -3417,7 +3418,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                             }
 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:78: ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:78: ( '0' .. '9' )+
                             var cnt11=0;
                             loop11:
                             do {
@@ -3431,7 +3432,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                                 switch (alt11) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:79: '0' .. '9'
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:79: '0' .. '9'
                                     this.matchRange('0','9'); 
 
 
@@ -3457,9 +3458,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                     break;
                 case 2 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:92: '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:92: '0' ( '.' ( '0' .. '9' )+ )? ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
                     this.match('0'); 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:96: ( '.' ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:96: ( '.' ( '0' .. '9' )+ )?
                     var alt14=2;
                     var LA14_0 = this.input.LA(1);
 
@@ -3468,9 +3469,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                     }
                     switch (alt14) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:97: '.' ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:97: '.' ( '0' .. '9' )+
                             this.match('.'); 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:101: ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:101: ( '0' .. '9' )+
                             var cnt13=0;
                             loop13:
                             do {
@@ -3484,7 +3485,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                                 switch (alt13) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:102: '0' .. '9'
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:102: '0' .. '9'
                                     this.matchRange('0','9'); 
 
 
@@ -3506,7 +3507,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                     }
 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:115: ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:115: ( ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )?
                     var alt17=2;
                     var LA17_0 = this.input.LA(1);
 
@@ -3515,7 +3516,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                     }
                     switch (alt17) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:116: ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:116: ( 'E' | 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
                             if ( this.input.LA(1)=='E'||this.input.LA(1)=='e' ) {
                                 this.input.consume();
 
@@ -3525,7 +3526,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                                 this.recover(mse);
                                 throw mse;}
 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:126: ( '+' | '-' )?
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:126: ( '+' | '-' )?
                             var alt15=2;
                             var LA15_0 = this.input.LA(1);
 
@@ -3534,7 +3535,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                             }
                             switch (alt15) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:
                                     if ( this.input.LA(1)=='+'||this.input.LA(1)=='-' ) {
                                         this.input.consume();
 
@@ -3550,7 +3551,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                             }
 
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:137: ( '0' .. '9' )+
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:137: ( '0' .. '9' )+
                             var cnt16=0;
                             loop16:
                             do {
@@ -3564,7 +3565,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                                 switch (alt16) {
                                 case 1 :
-                                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7875:138: '0' .. '9'
+                                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7875:138: '0' .. '9'
                                     this.matchRange('0','9'); 
 
 
@@ -3608,9 +3609,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_STRING;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             var alt21=2;
             var LA21_0 = this.input.LA(1);
 
@@ -3628,9 +3629,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
             }
             switch (alt21) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     this.match('\"'); 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop19:
                     do {
                         var alt19=3;
@@ -3646,7 +3647,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                         switch (alt19) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' )
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\\\' )
                             this.match('\\'); 
                             if ( this.input.LA(1)=='\"'||this.input.LA(1)=='\\'||this.input.LA(1)=='b'||this.input.LA(1)=='f'||this.input.LA(1)=='n'||this.input.LA(1)=='r'||(this.input.LA(1)>='t' && this.input.LA(1)<='u') ) {
                                 this.input.consume();
@@ -3661,7 +3662,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                             break;
                         case 2 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:61: ~ ( ( '\\\\' | '\"' ) )
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:61: ~ ( ( '\\\\' | '\"' ) )
                             if ( (this.input.LA(1)>='\u0000' && this.input.LA(1)<='!')||(this.input.LA(1)>='#' && this.input.LA(1)<='[')||(this.input.LA(1)>=']' && this.input.LA(1)<='\uFFFF') ) {
                                 this.input.consume();
 
@@ -3685,9 +3686,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                     break;
                 case 2 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:81: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:81: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     this.match('\''); 
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:86: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:86: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop20:
                     do {
                         var alt20=3;
@@ -3703,7 +3704,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                         switch (alt20) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:87: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' )
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:87: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\\'' | '\\\\' )
                             this.match('\\'); 
                             if ( this.input.LA(1)=='\''||this.input.LA(1)=='\\'||this.input.LA(1)=='b'||this.input.LA(1)=='f'||this.input.LA(1)=='n'||this.input.LA(1)=='r'||(this.input.LA(1)>='t' && this.input.LA(1)<='u') ) {
                                 this.input.consume();
@@ -3718,7 +3719,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                             break;
                         case 2 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7877:128: ~ ( ( '\\\\' | '\\'' ) )
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7877:128: ~ ( ( '\\\\' | '\\'' ) )
                             if ( (this.input.LA(1)>='\u0000' && this.input.LA(1)<='&')||(this.input.LA(1)>='(' && this.input.LA(1)<='[')||(this.input.LA(1)>=']' && this.input.LA(1)<='\uFFFF') ) {
                                 this.input.consume();
 
@@ -3760,11 +3761,11 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_ML_COMMENT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7879:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7879:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7879:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7879:19: '/*' ( options {greedy=false; } : . )* '*/'
             this.match("/*"); 
 
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7879:24: ( options {greedy=false; } : . )*
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7879:24: ( options {greedy=false; } : . )*
             loop22:
             do {
                 var alt22=2;
@@ -3789,7 +3790,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                 switch (alt22) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7879:52: .
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7879:52: .
                     this.matchAny(); 
 
 
@@ -3818,11 +3819,11 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_SL_COMMENT;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             this.match("//"); 
 
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop23:
             do {
                 var alt23=2;
@@ -3835,7 +3836,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                 switch (alt23) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:24: ~ ( ( '\\n' | '\\r' ) )
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:24: ~ ( ( '\\n' | '\\r' ) )
                     if ( (this.input.LA(1)>='\u0000' && this.input.LA(1)<='\t')||(this.input.LA(1)>='\u000B' && this.input.LA(1)<='\f')||(this.input.LA(1)>='\u000E' && this.input.LA(1)<='\uFFFF') ) {
                         this.input.consume();
 
@@ -3854,7 +3855,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                 }
             } while (true);
 
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:40: ( ( '\\r' )? '\\n' )?
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:40: ( ( '\\r' )? '\\n' )?
             var alt25=2;
             var LA25_0 = this.input.LA(1);
 
@@ -3863,8 +3864,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
             }
             switch (alt25) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:41: ( '\\r' )? '\\n'
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:41: ( '\\r' )?
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:41: ( '\\r' )? '\\n'
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:41: ( '\\r' )?
                     var alt24=2;
                     var LA24_0 = this.input.LA(1);
 
@@ -3873,7 +3874,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
                     }
                     switch (alt24) {
                         case 1 :
-                            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7881:41: '\\r'
+                            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7881:41: '\\r'
                             this.match('\r'); 
 
 
@@ -3904,9 +3905,9 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_WS;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7883:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7883:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7883:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7883:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7883:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7883:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             var cnt26=0;
             loop26:
             do {
@@ -3920,7 +3921,7 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
 
                 switch (alt26) {
                 case 1 :
-                    // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:
+                    // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:
                     if ( (this.input.LA(1)>='\t' && this.input.LA(1)<='\n')||this.input.LA(1)=='\r'||this.input.LA(1)==' ' ) {
                         this.input.consume();
 
@@ -3960,8 +3961,8 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
         try {
             var _type = this.RULE_ANY_OTHER;
             var _channel = org.antlr.runtime.BaseRecognizer.DEFAULT_TOKEN_CHANNEL;
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7885:16: ( . )
-            // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:7885:18: .
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7885:16: ( . )
+            // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:7885:18: .
             this.matchAny(); 
 
 
@@ -3975,870 +3976,870 @@ org.antlr.lang.augmentObject(GamlLexer.prototype, {
     // $ANTLR end "RULE_ANY_OTHER",
 
     mTokens: function() {
-        // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | T__131 | T__132 | T__133 | T__134 | T__135 | T__136 | T__137 | T__138 | T__139 | T__140 | T__141 | T__142 | T__143 | T__144 | T__145 | T__146 | T__147 | RULE_KEYWORD | RULE_INTEGER | RULE_BOOLEAN | RULE_ID | RULE_COLOR | RULE_DOUBLE | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | T__112 | T__113 | T__114 | T__115 | T__116 | T__117 | T__118 | T__119 | T__120 | T__121 | T__122 | T__123 | T__124 | T__125 | T__126 | T__127 | T__128 | T__129 | T__130 | T__131 | T__132 | T__133 | T__134 | T__135 | T__136 | T__137 | T__138 | T__139 | T__140 | T__141 | T__142 | T__143 | T__144 | T__145 | T__146 | T__147 | RULE_KEYWORD | RULE_INTEGER | RULE_BOOLEAN | RULE_ID | RULE_COLOR | RULE_DOUBLE | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
         var alt27=144;
         alt27 = this.dfa27.predict(this.input);
         switch (alt27) {
             case 1 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:10: T__15
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:10: T__15
                 this.mT__15(); 
 
 
                 break;
             case 2 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:16: T__16
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:16: T__16
                 this.mT__16(); 
 
 
                 break;
             case 3 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:22: T__17
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:22: T__17
                 this.mT__17(); 
 
 
                 break;
             case 4 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:28: T__18
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:28: T__18
                 this.mT__18(); 
 
 
                 break;
             case 5 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:34: T__19
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:34: T__19
                 this.mT__19(); 
 
 
                 break;
             case 6 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:40: T__20
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:40: T__20
                 this.mT__20(); 
 
 
                 break;
             case 7 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:46: T__21
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:46: T__21
                 this.mT__21(); 
 
 
                 break;
             case 8 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:52: T__22
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:52: T__22
                 this.mT__22(); 
 
 
                 break;
             case 9 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:58: T__23
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:58: T__23
                 this.mT__23(); 
 
 
                 break;
             case 10 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:64: T__24
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:64: T__24
                 this.mT__24(); 
 
 
                 break;
             case 11 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:70: T__25
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:70: T__25
                 this.mT__25(); 
 
 
                 break;
             case 12 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:76: T__26
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:76: T__26
                 this.mT__26(); 
 
 
                 break;
             case 13 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:82: T__27
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:82: T__27
                 this.mT__27(); 
 
 
                 break;
             case 14 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:88: T__28
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:88: T__28
                 this.mT__28(); 
 
 
                 break;
             case 15 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:94: T__29
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:94: T__29
                 this.mT__29(); 
 
 
                 break;
             case 16 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:100: T__30
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:100: T__30
                 this.mT__30(); 
 
 
                 break;
             case 17 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:106: T__31
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:106: T__31
                 this.mT__31(); 
 
 
                 break;
             case 18 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:112: T__32
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:112: T__32
                 this.mT__32(); 
 
 
                 break;
             case 19 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:118: T__33
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:118: T__33
                 this.mT__33(); 
 
 
                 break;
             case 20 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:124: T__34
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:124: T__34
                 this.mT__34(); 
 
 
                 break;
             case 21 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:130: T__35
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:130: T__35
                 this.mT__35(); 
 
 
                 break;
             case 22 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:136: T__36
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:136: T__36
                 this.mT__36(); 
 
 
                 break;
             case 23 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:142: T__37
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:142: T__37
                 this.mT__37(); 
 
 
                 break;
             case 24 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:148: T__38
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:148: T__38
                 this.mT__38(); 
 
 
                 break;
             case 25 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:154: T__39
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:154: T__39
                 this.mT__39(); 
 
 
                 break;
             case 26 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:160: T__40
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:160: T__40
                 this.mT__40(); 
 
 
                 break;
             case 27 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:166: T__41
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:166: T__41
                 this.mT__41(); 
 
 
                 break;
             case 28 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:172: T__42
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:172: T__42
                 this.mT__42(); 
 
 
                 break;
             case 29 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:178: T__43
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:178: T__43
                 this.mT__43(); 
 
 
                 break;
             case 30 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:184: T__44
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:184: T__44
                 this.mT__44(); 
 
 
                 break;
             case 31 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:190: T__45
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:190: T__45
                 this.mT__45(); 
 
 
                 break;
             case 32 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:196: T__46
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:196: T__46
                 this.mT__46(); 
 
 
                 break;
             case 33 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:202: T__47
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:202: T__47
                 this.mT__47(); 
 
 
                 break;
             case 34 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:208: T__48
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:208: T__48
                 this.mT__48(); 
 
 
                 break;
             case 35 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:214: T__49
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:214: T__49
                 this.mT__49(); 
 
 
                 break;
             case 36 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:220: T__50
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:220: T__50
                 this.mT__50(); 
 
 
                 break;
             case 37 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:226: T__51
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:226: T__51
                 this.mT__51(); 
 
 
                 break;
             case 38 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:232: T__52
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:232: T__52
                 this.mT__52(); 
 
 
                 break;
             case 39 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:238: T__53
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:238: T__53
                 this.mT__53(); 
 
 
                 break;
             case 40 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:244: T__54
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:244: T__54
                 this.mT__54(); 
 
 
                 break;
             case 41 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:250: T__55
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:250: T__55
                 this.mT__55(); 
 
 
                 break;
             case 42 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:256: T__56
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:256: T__56
                 this.mT__56(); 
 
 
                 break;
             case 43 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:262: T__57
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:262: T__57
                 this.mT__57(); 
 
 
                 break;
             case 44 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:268: T__58
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:268: T__58
                 this.mT__58(); 
 
 
                 break;
             case 45 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:274: T__59
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:274: T__59
                 this.mT__59(); 
 
 
                 break;
             case 46 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:280: T__60
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:280: T__60
                 this.mT__60(); 
 
 
                 break;
             case 47 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:286: T__61
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:286: T__61
                 this.mT__61(); 
 
 
                 break;
             case 48 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:292: T__62
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:292: T__62
                 this.mT__62(); 
 
 
                 break;
             case 49 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:298: T__63
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:298: T__63
                 this.mT__63(); 
 
 
                 break;
             case 50 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:304: T__64
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:304: T__64
                 this.mT__64(); 
 
 
                 break;
             case 51 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:310: T__65
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:310: T__65
                 this.mT__65(); 
 
 
                 break;
             case 52 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:316: T__66
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:316: T__66
                 this.mT__66(); 
 
 
                 break;
             case 53 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:322: T__67
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:322: T__67
                 this.mT__67(); 
 
 
                 break;
             case 54 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:328: T__68
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:328: T__68
                 this.mT__68(); 
 
 
                 break;
             case 55 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:334: T__69
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:334: T__69
                 this.mT__69(); 
 
 
                 break;
             case 56 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:340: T__70
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:340: T__70
                 this.mT__70(); 
 
 
                 break;
             case 57 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:346: T__71
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:346: T__71
                 this.mT__71(); 
 
 
                 break;
             case 58 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:352: T__72
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:352: T__72
                 this.mT__72(); 
 
 
                 break;
             case 59 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:358: T__73
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:358: T__73
                 this.mT__73(); 
 
 
                 break;
             case 60 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:364: T__74
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:364: T__74
                 this.mT__74(); 
 
 
                 break;
             case 61 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:370: T__75
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:370: T__75
                 this.mT__75(); 
 
 
                 break;
             case 62 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:376: T__76
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:376: T__76
                 this.mT__76(); 
 
 
                 break;
             case 63 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:382: T__77
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:382: T__77
                 this.mT__77(); 
 
 
                 break;
             case 64 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:388: T__78
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:388: T__78
                 this.mT__78(); 
 
 
                 break;
             case 65 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:394: T__79
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:394: T__79
                 this.mT__79(); 
 
 
                 break;
             case 66 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:400: T__80
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:400: T__80
                 this.mT__80(); 
 
 
                 break;
             case 67 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:406: T__81
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:406: T__81
                 this.mT__81(); 
 
 
                 break;
             case 68 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:412: T__82
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:412: T__82
                 this.mT__82(); 
 
 
                 break;
             case 69 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:418: T__83
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:418: T__83
                 this.mT__83(); 
 
 
                 break;
             case 70 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:424: T__84
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:424: T__84
                 this.mT__84(); 
 
 
                 break;
             case 71 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:430: T__85
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:430: T__85
                 this.mT__85(); 
 
 
                 break;
             case 72 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:436: T__86
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:436: T__86
                 this.mT__86(); 
 
 
                 break;
             case 73 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:442: T__87
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:442: T__87
                 this.mT__87(); 
 
 
                 break;
             case 74 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:448: T__88
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:448: T__88
                 this.mT__88(); 
 
 
                 break;
             case 75 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:454: T__89
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:454: T__89
                 this.mT__89(); 
 
 
                 break;
             case 76 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:460: T__90
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:460: T__90
                 this.mT__90(); 
 
 
                 break;
             case 77 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:466: T__91
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:466: T__91
                 this.mT__91(); 
 
 
                 break;
             case 78 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:472: T__92
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:472: T__92
                 this.mT__92(); 
 
 
                 break;
             case 79 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:478: T__93
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:478: T__93
                 this.mT__93(); 
 
 
                 break;
             case 80 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:484: T__94
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:484: T__94
                 this.mT__94(); 
 
 
                 break;
             case 81 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:490: T__95
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:490: T__95
                 this.mT__95(); 
 
 
                 break;
             case 82 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:496: T__96
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:496: T__96
                 this.mT__96(); 
 
 
                 break;
             case 83 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:502: T__97
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:502: T__97
                 this.mT__97(); 
 
 
                 break;
             case 84 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:508: T__98
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:508: T__98
                 this.mT__98(); 
 
 
                 break;
             case 85 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:514: T__99
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:514: T__99
                 this.mT__99(); 
 
 
                 break;
             case 86 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:520: T__100
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:520: T__100
                 this.mT__100(); 
 
 
                 break;
             case 87 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:527: T__101
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:527: T__101
                 this.mT__101(); 
 
 
                 break;
             case 88 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:534: T__102
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:534: T__102
                 this.mT__102(); 
 
 
                 break;
             case 89 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:541: T__103
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:541: T__103
                 this.mT__103(); 
 
 
                 break;
             case 90 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:548: T__104
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:548: T__104
                 this.mT__104(); 
 
 
                 break;
             case 91 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:555: T__105
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:555: T__105
                 this.mT__105(); 
 
 
                 break;
             case 92 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:562: T__106
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:562: T__106
                 this.mT__106(); 
 
 
                 break;
             case 93 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:569: T__107
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:569: T__107
                 this.mT__107(); 
 
 
                 break;
             case 94 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:576: T__108
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:576: T__108
                 this.mT__108(); 
 
 
                 break;
             case 95 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:583: T__109
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:583: T__109
                 this.mT__109(); 
 
 
                 break;
             case 96 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:590: T__110
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:590: T__110
                 this.mT__110(); 
 
 
                 break;
             case 97 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:597: T__111
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:597: T__111
                 this.mT__111(); 
 
 
                 break;
             case 98 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:604: T__112
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:604: T__112
                 this.mT__112(); 
 
 
                 break;
             case 99 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:611: T__113
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:611: T__113
                 this.mT__113(); 
 
 
                 break;
             case 100 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:618: T__114
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:618: T__114
                 this.mT__114(); 
 
 
                 break;
             case 101 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:625: T__115
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:625: T__115
                 this.mT__115(); 
 
 
                 break;
             case 102 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:632: T__116
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:632: T__116
                 this.mT__116(); 
 
 
                 break;
             case 103 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:639: T__117
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:639: T__117
                 this.mT__117(); 
 
 
                 break;
             case 104 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:646: T__118
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:646: T__118
                 this.mT__118(); 
 
 
                 break;
             case 105 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:653: T__119
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:653: T__119
                 this.mT__119(); 
 
 
                 break;
             case 106 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:660: T__120
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:660: T__120
                 this.mT__120(); 
 
 
                 break;
             case 107 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:667: T__121
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:667: T__121
                 this.mT__121(); 
 
 
                 break;
             case 108 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:674: T__122
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:674: T__122
                 this.mT__122(); 
 
 
                 break;
             case 109 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:681: T__123
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:681: T__123
                 this.mT__123(); 
 
 
                 break;
             case 110 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:688: T__124
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:688: T__124
                 this.mT__124(); 
 
 
                 break;
             case 111 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:695: T__125
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:695: T__125
                 this.mT__125(); 
 
 
                 break;
             case 112 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:702: T__126
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:702: T__126
                 this.mT__126(); 
 
 
                 break;
             case 113 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:709: T__127
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:709: T__127
                 this.mT__127(); 
 
 
                 break;
             case 114 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:716: T__128
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:716: T__128
                 this.mT__128(); 
 
 
                 break;
             case 115 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:723: T__129
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:723: T__129
                 this.mT__129(); 
 
 
                 break;
             case 116 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:730: T__130
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:730: T__130
                 this.mT__130(); 
 
 
                 break;
             case 117 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:737: T__131
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:737: T__131
                 this.mT__131(); 
 
 
                 break;
             case 118 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:744: T__132
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:744: T__132
                 this.mT__132(); 
 
 
                 break;
             case 119 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:751: T__133
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:751: T__133
                 this.mT__133(); 
 
 
                 break;
             case 120 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:758: T__134
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:758: T__134
                 this.mT__134(); 
 
 
                 break;
             case 121 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:765: T__135
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:765: T__135
                 this.mT__135(); 
 
 
                 break;
             case 122 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:772: T__136
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:772: T__136
                 this.mT__136(); 
 
 
                 break;
             case 123 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:779: T__137
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:779: T__137
                 this.mT__137(); 
 
 
                 break;
             case 124 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:786: T__138
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:786: T__138
                 this.mT__138(); 
 
 
                 break;
             case 125 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:793: T__139
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:793: T__139
                 this.mT__139(); 
 
 
                 break;
             case 126 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:800: T__140
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:800: T__140
                 this.mT__140(); 
 
 
                 break;
             case 127 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:807: T__141
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:807: T__141
                 this.mT__141(); 
 
 
                 break;
             case 128 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:814: T__142
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:814: T__142
                 this.mT__142(); 
 
 
                 break;
             case 129 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:821: T__143
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:821: T__143
                 this.mT__143(); 
 
 
                 break;
             case 130 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:828: T__144
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:828: T__144
                 this.mT__144(); 
 
 
                 break;
             case 131 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:835: T__145
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:835: T__145
                 this.mT__145(); 
 
 
                 break;
             case 132 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:842: T__146
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:842: T__146
                 this.mT__146(); 
 
 
                 break;
             case 133 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:849: T__147
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:849: T__147
                 this.mT__147(); 
 
 
                 break;
             case 134 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:856: RULE_KEYWORD
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:856: RULE_KEYWORD
                 this.mRULE_KEYWORD(); 
 
 
                 break;
             case 135 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:869: RULE_INTEGER
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:869: RULE_INTEGER
                 this.mRULE_INTEGER(); 
 
 
                 break;
             case 136 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:882: RULE_BOOLEAN
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:882: RULE_BOOLEAN
                 this.mRULE_BOOLEAN(); 
 
 
                 break;
             case 137 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:895: RULE_ID
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:895: RULE_ID
                 this.mRULE_ID(); 
 
 
                 break;
             case 138 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:903: RULE_COLOR
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:903: RULE_COLOR
                 this.mRULE_COLOR(); 
 
 
                 break;
             case 139 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:914: RULE_DOUBLE
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:914: RULE_DOUBLE
                 this.mRULE_DOUBLE(); 
 
 
                 break;
             case 140 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:926: RULE_STRING
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:926: RULE_STRING
                 this.mRULE_STRING(); 
 
 
                 break;
             case 141 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:938: RULE_ML_COMMENT
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:938: RULE_ML_COMMENT
                 this.mRULE_ML_COMMENT(); 
 
 
                 break;
             case 142 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:954: RULE_SL_COMMENT
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:954: RULE_SL_COMMENT
                 this.mRULE_SL_COMMENT(); 
 
 
                 break;
             case 143 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:970: RULE_WS
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:970: RULE_WS
                 this.mRULE_WS(); 
 
 
                 break;
             case 144 :
-                // /Users/sklab/GitNewRepo/gama.cloud/msi.gama.lang.gaml.antlr/WebContent/parser/Gaml.g:1:978: RULE_ANY_OTHER
+                // D:\\GitHub\\gama.cloud\\msi.gama.lang.gaml.web\\src-js\\msi\\gama\\lang\\gaml\\web\\parser\\Gaml.g:1:978: RULE_ANY_OTHER
                 this.mRULE_ANY_OTHER(); 
 
 
