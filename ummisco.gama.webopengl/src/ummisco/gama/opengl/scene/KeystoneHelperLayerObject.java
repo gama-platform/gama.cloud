@@ -17,6 +17,7 @@ import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.util.GamaColor;
 import msi.gama.util.GamaFont;
+import msi.gaml.operators.IUnits;
 import msi.gaml.statements.draw.ShapeDrawingAttributes;
 import msi.gaml.statements.draw.TextDrawingAttributes;
 import msi.gaml.types.GamaGeometryType;
@@ -118,7 +119,7 @@ public class KeystoneHelperLayerObject extends LayerObject {
 		// 0 for plain, 18 for text size
 		final GamaFont font = new GamaFont("Helvetica", 0, 18);
 		final TextDrawingAttributes textDrawingAttr =
-				new TextDrawingAttributes(Scaling3D.of(size), null, location, color, font, true);
+				new TextDrawingAttributes(Scaling3D.of(size), null, location, IUnits.bottom_left, color, font, true);
 		final StringObject strObj = new StringObject(content, textDrawingAttr);
 		return strObj;
 	}
