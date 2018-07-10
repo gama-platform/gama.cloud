@@ -126,7 +126,6 @@
       <plugin id="osgi.enterprise"/>
       <plugin id="simtools.gaml.extensions.physics"/>
       <plugin id="simtools.gaml.extensions.traffic"/>
-      <plugin id="simtools.graphanalysis"/>
       <plugin id="ummisco.gama.annotations"/>
       <plugin id="ummisco.gama.network"/>
       <plugin id="ummisco.gama.participative"/>
@@ -134,7 +133,6 @@
       <plugin id="ummisco.gama.web2d"/>
       <plugin id="ummisco.gama.webopengl"/>
       <plugin id="ummisco.gaml.extensions.maths"/>
-      <plugin id="ummisco.gaml.extensions.sound"/>
       <plugin id="ummisco.gaml.extensions.stats"/>
    </plugins>
 
@@ -223,7 +221,6 @@
       <plugin id="osgi.enterprise" autoStart="true" startLevel="1" />
       <plugin id="simtools.gaml.extensions.physics" autoStart="false" startLevel="0" />
       <plugin id="simtools.gaml.extensions.traffic" autoStart="false" startLevel="0" />
-      <plugin id="simtools.graphanalysis" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.annotations" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.network" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.participative" autoStart="false" startLevel="0" />
@@ -231,7 +228,6 @@
       <plugin id="ummisco.gama.web2d" autoStart="false" startLevel="5" />
       <plugin id="ummisco.gama.webopengl" autoStart="false" startLevel="5" />
       <plugin id="ummisco.gaml.extensions.maths" autoStart="false" startLevel="5" />
-      <plugin id="ummisco.gaml.extensions.sound" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gaml.extensions.stats" autoStart="false" startLevel="0" />
    </configurations>
 
