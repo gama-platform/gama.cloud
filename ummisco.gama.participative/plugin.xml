@@ -18,7 +18,7 @@
    </extension>
    
    
-    <!--extension
+    <extension
          point="org.eclipse.rap.ui.resources">
       <resource
           class="ummisco.gama.participative.EtherGamlResource">
@@ -26,7 +26,7 @@
 			resourceId="org.dslforge.styledtext.basictext">
 		</dependsOn>
       </resource>
-   </extension-->
+   </extension>
    <extension
          point="org.eclipse.rap.ui.themeableWidgets">
       <widget
