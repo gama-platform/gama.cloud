@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=envelope~-~distance_to~.~rgb~as~*~/
-plugins=msi.gama.core
-statements=init~save~output~display~display_grid
-skills=reflex~grid
-constants=black
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

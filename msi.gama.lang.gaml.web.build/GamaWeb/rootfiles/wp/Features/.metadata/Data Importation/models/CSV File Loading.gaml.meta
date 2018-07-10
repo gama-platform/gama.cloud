@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=envelope~-~csv_file~as~+~internal_at
-plugins=msi.gama.core
-attributes=rows~columns
-statements=init~let~loop~write
-skills=reflex
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~file~matrix
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

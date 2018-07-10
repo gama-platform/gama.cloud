@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=envelope~-~rnd~+~first~.~not~as~\=
-plugins=msi.gama.core~irit.gaml.extensions.database
-statements=reflex~set~write~ask~do~arg~init~if~else~create
-skills=reflex~SQLSKILL
-constants=red
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~map~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~select~list2Matrix~testConnection~executeUpdate~insert~timeStamp~getCurrentDateTime~getDateOffset

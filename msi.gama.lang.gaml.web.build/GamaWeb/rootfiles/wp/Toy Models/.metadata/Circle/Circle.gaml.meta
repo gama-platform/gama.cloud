@@ -1,8 +1,0 @@
-#
-#Fri Dec 23 17:58:37 ICT 2016
-operators=-~square~as~point~/~rnd~+~?~>~distance_to~\:~towards~one_of~sort_by~of_species~neighbors_at~\!\=~circle
-plugins=msi.gama.core
-statements=reflex~set~do~arg~let~if~aspect~draw~init~create~output~display~display_population
-skills=reflex~moving
-types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

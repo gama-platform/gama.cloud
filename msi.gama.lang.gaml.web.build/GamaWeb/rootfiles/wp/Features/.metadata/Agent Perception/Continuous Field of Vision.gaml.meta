@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=envelope~-~copy~rnd~\=~any_location_in~inter~intersection~cone~+~.~circle~\!\=~masked_by~triangle~as~rectangle
-plugins=msi.gama.core
-statements=aspect~draw~reflex~if~else~do~arg~set~init~create~output~display~display_population
-skills=reflex~moving
-constants=gray~black~red~green~magenta
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

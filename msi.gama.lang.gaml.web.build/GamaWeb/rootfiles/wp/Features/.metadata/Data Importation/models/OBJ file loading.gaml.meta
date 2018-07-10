@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=envelope~-~as~rnd
-plugins=msi.gama.core~ummisco.gama.webopengl
-statements=reflex~do~aspect~draw~init~create~output~display~display_population
-skills=reflex~moving
-constants=gray
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=-~as~envelope~rnd~+~scaled_by~rotated_by~/~*~point~or~>~intersects~and~shuffle~\!\=~<\=~<~.~inter~convex_hull~empty
-plugins=msi.gama.core
-attributes=area~contour
-statements=reflex~set~if~do~let~loop~ask~create~aspect~draw~output~display~graphics~display_population
-skills=reflex
-types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container~topology
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

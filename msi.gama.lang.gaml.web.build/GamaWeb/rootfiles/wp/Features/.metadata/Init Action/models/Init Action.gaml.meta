@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=envelope~-~square~as~user_input~internal_at
-plugins=msi.gama.core
-statements=aspect~draw~init~create~action~let~arg~output~display~display_population
-skills=reflex
-constants=red
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container~map
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

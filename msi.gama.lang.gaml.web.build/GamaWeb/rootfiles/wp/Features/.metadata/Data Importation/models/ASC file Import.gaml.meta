@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=-~as~envelope~?~\=~\:~*
-plugins=msi.gama.core~ummisco.gama.webopengl~ummisco.gama.java2d
-statements=init~set~output~display~display_grid
-skills=reflex~grid
-constants=white~black~green~yellow~gray
-types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

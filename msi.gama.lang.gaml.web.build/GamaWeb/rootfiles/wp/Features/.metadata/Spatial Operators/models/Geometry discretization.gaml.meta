@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:34 ICT 2016
-operators=envelope~-~circle~as~to_squares~to_rectangles~point~triangulate~points_on~voronoi
-plugins=msi.gama.core
-statements=output~display~graphics~draw~loop
-skills=reflex
-constants=black~red
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

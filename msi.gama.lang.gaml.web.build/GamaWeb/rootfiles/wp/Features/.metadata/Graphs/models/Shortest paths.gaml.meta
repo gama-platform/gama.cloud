@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:34 ICT 2016
-operators=-~as~envelope~circle~rnd~as_edge_graph~with_optimizer_type~use_cache~load_shortest_paths~all_pairs_shortest_path~any_location_in~one_of
-plugins=msi.gama.core
-statements=aspect~draw~reflex~do~arg~init~create~set~if~else~let~save~output~display~display_population
-skills=reflex~moving
-constants=black~red~green
-types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~container~path~matrix
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

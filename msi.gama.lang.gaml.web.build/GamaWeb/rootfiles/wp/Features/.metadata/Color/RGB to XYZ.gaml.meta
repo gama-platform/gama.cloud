@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=-~square~as~rgb_to_xyz~rgb~cube
-plugins=msi.gama.core~ummisco.gama.webopengl
-attributes=path~x~y~z
-statements=init~set~output~display~image~graphics~loop~draw
-skills=reflex
-types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~file
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

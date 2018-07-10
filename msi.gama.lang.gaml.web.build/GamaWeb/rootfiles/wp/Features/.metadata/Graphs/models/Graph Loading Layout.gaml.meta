@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=-~rectangle~as~circle~load_graph_from_file~layout
-plugins=msi.gama.core~ummisco.gama.webopengl
-statements=aspect~draw~init~set~reflex~output~display~display_population
-skills=reflex
-constants=black~red
-types=string~list~int~unknown~float~geometry~point~agent~rgb~bool~date~graph~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

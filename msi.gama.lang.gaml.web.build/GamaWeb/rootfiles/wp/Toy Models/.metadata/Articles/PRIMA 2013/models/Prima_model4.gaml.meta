@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:38 ICT 2016
-operators=-~as~envelope~+~rnd~flip~\=~any_location_in~one_of~at_distance~sphere~?~\:~as_edge_graph~point~.
-plugins=msi.gama.core~ummisco.gama.webopengl
-statements=reflex~do~arg~if~set~ask~aspect~draw~init~create~let~output~display~display_population
-skills=reflex~moving
-constants=red~green~black~gray
-types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

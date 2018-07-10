@@ -1,9 +1,0 @@
-#
-#Fri Dec 23 17:58:33 ICT 2016
-operators=envelope~-~cos~*~+~internal_at~sin
-plugins=msi.gama.core~ummisco.gama.java2d
-statements=action~set~loop~add~init~do~reflex~output~display~chart~data
-skills=reflex
-constants=lightgreen~darkblue~orange~blue~darkred~cyan~red
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

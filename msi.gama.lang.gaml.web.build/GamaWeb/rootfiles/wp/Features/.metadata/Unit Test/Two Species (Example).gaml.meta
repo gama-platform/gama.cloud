@@ -1,8 +1,0 @@
-#
-#Fri Dec 23 17:58:32 ICT 2016
-operators=envelope~-~>~length~one_of
-plugins=msi.gama.core~irit.gaml.extensions.test
-statements=test~assert~init~create~reflex~ask~do
-skills=reflex
-types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container
-actions=debug~error~tell~write~die~_init_~_step_~halt~pause

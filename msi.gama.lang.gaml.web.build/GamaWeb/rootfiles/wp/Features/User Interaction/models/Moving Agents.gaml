@@ -3,7 +3,7 @@
 * Author: drogoul
 * Description: Shows how to move agents using two event layers : 
 * 
-* Click to grab an group of agents, click again to drop them. Press the keys "k" to kill the agents in the selection, and "d" to duplicate them.
+* Click to grab an group of agents, click again to drop them. Press the keys "r" to kill the agents in the selection, and "c" to duplicate them.
 * Tags: gui
 */
 model MovingAgents
@@ -93,7 +93,7 @@ species being skills: [moving]
 	{
 		if (!(moved_agents contains self))
 		{
-			do wander amplitude: 30;
+			do wander amplitude: 30.0;
 		}
 
 	}
@@ -124,7 +124,7 @@ experiment "Click and Move" type: gui
 			species being;
 			event mouse_move action: move;
 			event mouse_up action: click;
-			event 'k' action: kill;
+			event 'r' action: kill;
 			event 'c' action: duplicate;
 			graphics "Full target" 
 			{
@@ -135,7 +135,7 @@ experiment "Click and Move" type: gui
 					rgb c2 <- rgb(#firebrick, 120);
 					draw zone at: target empty: false border: false color: (can_drop ? c1 : c2);
 					draw string(size) at: target + { -30, -30 } font: regular color: # white;
-					draw "'k': kill" at: target + { -30, 0 } font: regular color: # white;
+					draw "'r': remove" at: target + { -30, 0 } font: regular color: # white;
 					draw "'c': copy" at: target + { -30, 30 } font: regular color: # white;
 				}
 
@@ -157,7 +157,7 @@ experiment "Click and Move" type: gui
 			species being;
 			event mouse_move action: move;
 			event mouse_up action: click;
-			event 'k' action: kill;
+			event 'r' action: kill;
 			event 'c' action: duplicate;
 			graphics "Full target" 
 			{
@@ -168,7 +168,7 @@ experiment "Click and Move" type: gui
 					rgb c2 <- rgb(#firebrick, 120);
 					draw zone at: target empty: false border: false color: (can_drop ? c1 : c2);
 					draw string(size) at: target + { -30, -30 } font: regular color: # white;
-					draw "'k': kill" at: target + { -30, 0 } font: regular color: # white;
+					draw "'r': remove" at: target + { -30, 0 } font: regular color: # white;
 					draw "'c': copy" at: target + { -30, 30 } font: regular color: # white;
 				}
 
