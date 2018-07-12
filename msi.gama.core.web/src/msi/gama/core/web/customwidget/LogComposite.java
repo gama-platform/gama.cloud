@@ -7,6 +7,7 @@ import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.json.JsonValue;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.JavaScriptLoader;
+import org.eclipse.rap.rwt.internal.remote.DeferredRemoteObject;
 import org.eclipse.rap.rwt.remote.AbstractOperationHandler;
 import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
@@ -15,6 +16,7 @@ import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -25,7 +27,7 @@ public class LogComposite extends Composite {
  
    private static final long serialVersionUID = -8590973451146216709L;
  
-   private RemoteObject remoteObject;
+   private DeferredRemoteObject remoteObject;
  
  
    // The directory containing the file js, css.
@@ -80,7 +82,7 @@ public class LogComposite extends Composite {
 
 			
            Connection connection = RWT.getUISession().getConnection();
-           remoteObject = connection.createRemoteObject(REMOTE_TYPE);
+           remoteObject = (DeferredRemoteObject) connection.createRemoteObject(REMOTE_TYPE);
            remoteObject.setHandler(operationHandler);
  
            //
@@ -187,22 +189,41 @@ public class LogComposite extends Composite {
 
 //		final Runnable runnable = new Runnable() {
 //		  public void run() {
-		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-
-		    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
-		    uiSession.exec( new Runnable() {
-		      public void run() {
-
-		          JsonObject obj= new JsonObject();
-		          obj.add("text", text);
-		          remoteObject.call("appendInfo", obj);	 
-		        
-		      }
-		    } );
+//		final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+//
+//		    UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+//		    uiSession.exec( new Runnable() {
+//		      public void run() {
+//
+//		          JsonObject obj= new JsonObject();
+//		          obj.add("text", text);
+//		          remoteObject.call("appendInfo", obj);	 
+//		        
+//		      }
+//		    } );
 //		  }
 //		};
 //		runnable.run();
 //		new Thread( runnable ).start();
+		    
+		    
+		    final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+			
+			
+			
+			//solution 1
+//			available=false;
+			Display display = WorkbenchHelper.getDisplay(uid);
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if (!remoteObject.isDestroyed()) {
+				          JsonObject obj= new JsonObject();
+				          obj.add("text", text);
+						remoteObject.call("appendInfo", obj);
+//						 available = true;
+					}
+				}
+			});
    }
     
    public void clearAll() {
