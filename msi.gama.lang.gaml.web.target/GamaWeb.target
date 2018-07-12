@@ -599,7 +599,7 @@
 <unit id="ummisco.gama.feature.experiment.ui.feature.group" version="1.7.0.201807090329"/>
 <unit id="ummisco.gama.feature.modeling.ui.feature.group" version="1.7.0.201807100332"/>
 <unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.201807090329"/>
-<repository location="http://gama-platform.org/updates"/>
+<repository location="http://51.255.46.42/updates/"/>
 </location>
 </locations>
 </target>
