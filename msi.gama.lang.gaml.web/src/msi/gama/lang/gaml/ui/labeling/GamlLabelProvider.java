@@ -122,7 +122,7 @@ public class GamlLabelProvider implements IGamlLabelProvider { //extends Default
 		String type = EGaml.getKeyOf(ele);
 		String key = type.equals(IKeyword.CONST) ? type : null;
 		final Map<String, Facet> map = EGaml.getFacetsMapOf(ele);
-		if (ele.getBlock() != null && ele.getBlock().getFunction() != null) {
+		if (ele.getBlock() != null ) {//&& ele.getBlock().getFunction() != null
 			key = "function";
 		} else {
 			if (map.containsKey(IKeyword.FUNCTION) || map.containsKey("->")) {
