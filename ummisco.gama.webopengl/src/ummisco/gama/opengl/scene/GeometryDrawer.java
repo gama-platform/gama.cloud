@@ -1,12 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'Geometryjava, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * ummisco.gama.opengl.scene.GeometryDrawer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
+ * modeling and simulation platform (v. 1.8)
  * 
+ * (c) 2007-2018 UMI 209 UMMISCO IRD/SU & Partners
  *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package ummisco.gama.opengl.scene;
 
 import static msi.gama.common.geometry.GeometryUtils.GEOMETRY_FACTORY;
@@ -22,20 +23,17 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 
-import msi.gama.common.geometry.AxisAngle;
 import msi.gama.common.geometry.Envelope3D;
-import msi.gama.common.geometry.GeometryUtils;
 import msi.gama.common.geometry.ICoordinates;
 import msi.gama.common.geometry.Rotation3D;
-import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.geometry.Scaling3D.Heterogeneous;
 import msi.gama.common.geometry.UnboundedCoordinateSequence;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.metamodel.shape.IShape.Type;
 import msi.gama.util.GamaColor;
-import msi.gama.util.file.GamaGeometryFile;
-import ummisco.gama.opengl.JOGLRenderer;
+import msi.gaml.types.GamaGeometryType;
+import ummisco.gama.opengl.OpenGL;
 
 /**
  *
@@ -62,89 +60,8 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 	final ICoordinates _quadvertices = GEOMETRY_FACTORY.COORDINATES_FACTORY.create(5, 3);
 	final UnboundedCoordinateSequence _vertices = new UnboundedCoordinateSequence();
 
-	public GeometryDrawer(final JOGLRenderer r) {
-		super(r);
-	}
-
-	/**
-	 * Applies either the rotation defined by the modeler in the draw statement and/or the initial rotation imposed to
-	 * geometries read from 3D files to the gl context
-	 * 
-	 * @param object
-	 *            the object specifying the rotations
-	 * @return true if one of the 2 rotations is applied, false otherwise
-	 */
-	protected boolean applyRotation(final GeometryObject object) {
-		final AxisAngle rotation = object.getRotation();
-		final AxisAngle initRotation = object.getInitRotation();
-		if (rotation == null && initRotation == null)
-			return false;
-		final GamaPoint loc = object.getLocation();
-		try {
-			gl.translateBy(loc.x, -loc.y, loc.z);
-			if (rotation != null) {
-				final GamaPoint axis = rotation.getAxis();
-				// AD Change to a negative rotation to fix Issue #1514
-				gl.rotateBy(-rotation.getAngle(), axis.x, axis.y, axis.z);
-			}
-			if (initRotation != null) {
-				final GamaPoint initAxis = initRotation.axis;
-				// AD Change to a negative rotation to fix Issue #1514
-				gl.rotateBy(-initRotation.angle, initAxis.x, initAxis.y, initAxis.z);
-			}
-		} finally {
-			gl.translateBy(-loc.x, loc.y, -loc.z);
-		}
-		return true;
-	}
-
-	/**
-	 * Applies a translation to the gl context (only useful for geometries read from files right now)
-	 * 
-	 * @param object
-	 *            the object defining the translation
-	 * @return true if a translation occured, false otherwise
-	 */
-	protected boolean applyTranslation(final GeometryObject object) {
-		final GamaPoint loc = object.getLocation();
-		if (object.getFile() != null && loc != null) {
-			gl.translateBy(loc.x, -loc.y, loc.z);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Applies a scaling to the gl context if a size is defined. The scaling is done with respect of the envelope of the
-	 * geometrical object
-	 * 
-	 * @param object
-	 *            the object defining the size and the original envelope of the geometry
-	 * @param returns
-	 *            true if a scaling occured, false otherwise
-	 */
-	protected boolean applyScaling(final GeometryObject object) {
-
-		final Scaling3D size = object.getDimensions();
-		if (size != null) {
-			final Envelope3D env = object.getEnvelope(gl);
-			if (env != null) {
-				final boolean in2D =
-						env.isFlat() || size.getZ() == 0d || object.getFile() != null && object.getFile().is2D();
-				double factor = 0.0;
-				if (in2D) {
-					factor = Math.min(size.getX() / env.getWidth(), size.getY() / env.getHeight());
-				} else {
-					final double min_xy = Math.min(size.getX() / env.getWidth(), size.getY() / env.getHeight());
-					factor = Math.min(min_xy, size.getZ() / env.getDepth());
-				}
-				if (factor != 1d)
-					gl.scaleBy(factor, factor, factor);
-				return true;
-			}
-		}
-		return false;
-
+	public GeometryDrawer(final OpenGL gl) {
+		super(gl);
 	}
 
 	/**
@@ -152,30 +69,22 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 	 * computes a number of properties attached to the geometry object, and calls the main drawing method
 	 */
 	@Override
-	protected void _draw(final GeometryObject object) {
-		final boolean push = object.getRotation() != null || object.getInitRotation() != null
-				|| object.getDimensions() != null || object.getFile() != null;
+	protected final void _draw(final GeometryObject object) {
+		gl.pushMatrix();
 		try {
-			if (push) {
-				gl.pushMatrix();
-				applyRotation(object);
-				applyTranslation(object);
-				applyScaling(object);
-			}
+
+			applyRotation(object);
+			applyTranslation(object);
+			applyScaling(object);
 			final boolean solid = object.isFilled() || gl.isTextured();
-			final Color border = !solid && object.getBorder() == null ? object.getColor() : object.getBorder();
-			final GamaGeometryFile file = object.getFile();
-			final Geometry geometry = object.getGeometry();
-			if (geometry == null && file != null) {
-				gl.drawCachedGeometry(file, border);
-			} else {
-				final double height = object.getHeight() == null ? 0d : object.getHeight();
-				final IShape.Type type = object.getType();
-				drawGeometry(geometry, solid, border, height, type);
-			}
+			final Color border = !solid && object.getAttributes().getBorder() == null
+					? object.getAttributes().getColor() : object.getAttributes().getBorder();
+			final Geometry geometry = object.getObject();
+			final double height = object.getAttributes().getHeight() == null ? 0d : object.getAttributes().getHeight();
+			final IShape.Type type = object.getAttributes().getType();
+			drawGeometry(geometry, solid, border, height, type);
 		} finally {
-			if (push)
-				gl.popMatrix();
+			gl.popMatrix();
 		}
 	}
 
@@ -231,21 +140,27 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 			case ENVIRONMENT:
 			case POLYHEDRON:
 			case GRIDLINE:
-				if (geom instanceof Polygon)
+				if (geom instanceof Polygon) {
 					if (height != 0) {
 						drawPolyhedron((Polygon) geom, solid, height, border);
 					} else {
 						drawPolygon((Polygon) geom, solid, border, true, true);
 					}
+				}
 				break;
 			case LINESTRING:
+				if (height != 0) {
+					drawLineCylinder(geom, solid, height, border);
+					break;
+				}
+				//$FALL-THROUGH$
 			case LINEARRING:
 			case PLAN:
 			case POLYPLAN:
 				drawPlan(geom, solid, height, border);
 				break;
 			case POINT:
-				drawPoint(geom, solid, gl.getMaxWorldDim() / 800d, border);
+				drawPoint(geom, solid, gl.getMaxEnvDim() / 800d, border);
 				break;
 			default:
 				applyToInnerGeometries(geom, (g) -> {
@@ -257,7 +172,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 	private void drawPolyhedron(final Polygon polygon, final boolean solid, final double height, final Color border) {
 		final boolean hasHoles = getHolesNumber(polygon) > 0;
 		// Draw bottom
-		drawPolygon(polygon, solid, hasHoles ? border : null, false, true);
+		drawPolygon(polygon, solid, hasHoles ? border : null, true, true);
 		_vertices.getNormal(true, height, _normal);
 		try {
 			gl.pushMatrix();
@@ -279,16 +194,18 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 
 	private void drawPolygon(final Polygon p, final boolean solid, final Color border, final boolean clockwise,
 			final boolean computeVertices) {
-		if (computeVertices)
+		if (computeVertices) {
 			_vertices.setToYNegated(getContourCoordinates(p));
+		}
 		if (solid) {
 			gl.setNormal(_vertices, clockwise);
 			final boolean hasHoles = getHolesNumber(p) > 0;
 			final int size = _vertices.size();
 			if (hasHoles || size > 5) {
 				gl.drawPolygon(p, _vertices, clockwise);
-			} else
+			} else {
 				gl.drawSimpleShape(_vertices, size - 1, solid, clockwise, false, null);
+			}
 		}
 		if (border != null) {
 			gl.drawClosedLine(_vertices, border, -1);
@@ -298,24 +215,25 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 
 	private void drawPlan(final Geometry p, final boolean solid, final double height, final Color border) {
 		_vertices.setToYNegated(getContourCoordinates(p));
-		if (height != 0)
+		if (height != 0) {
 			_vertices.visit((pj, pk) -> {
 				_quadvertices.setTo(pk.x, pk.y, pk.z, pk.x, pk.y, pk.z + height, pj.x, pj.y, pj.z + height, pj.x, pj.y,
 						pj.z, pk.x, pk.y, pk.z);
 				gl.drawSimpleShape(_quadvertices, 4, solid, true, true, border);
 			});
-		else {
+		} else {
 			gl.drawLine(_vertices, -1);
 		}
 	}
 
-	private void drawCachedGeometry(final IShape.Type type, final Color border) {
+	private void drawCachedGeometry(final IShape.Type type, final boolean solid, final Color border) {
 		gl.pushMatrix();
 		gl.translateBy(_center);
 		gl.rotateBy(_rot.rotateToHorizontal(_normal, _tangent, false).revertInPlace());
 		gl.scaleBy(_scale);
-		gl.drawCachedGeometry(type, border);
+		gl.drawCachedGeometry(type, solid, border);
 		gl.popMatrix();
+
 	}
 
 	private void drawPoint(final Geometry point, final boolean solid, final double height, final Color border) {
@@ -323,7 +241,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_center.y *= -1;
 		_scale.setTo(height);
 		_rot.setToIdentity();
-		drawCachedGeometry(Type.POINT, border);
+		drawCachedGeometry(Type.POINT, solid, border);
 	}
 
 	private void drawCube(final Geometry p, final boolean solid, final double height, final Color border) {
@@ -332,7 +250,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_vertices.getCenter(_center);
 		_tangent.setLocation(_vertices.at(0)).subtract(_vertices.at(1));
 		_scale.setTo(_tangent.norm(), _vertices.at(2).euclidianDistanceTo(_vertices.at(1)), height);
-		drawCachedGeometry(Type.CUBE, border);
+		drawCachedGeometry(Type.CUBE, solid, border);
 	}
 
 	private void drawPyramid(final Geometry p, final boolean solid, final double height, final Color border) {
@@ -341,7 +259,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_vertices.getCenter(_center);
 		_tangent.setLocation(_vertices.at(0)).subtract(_vertices.at(1));
 		_scale.setTo(height);
-		drawCachedGeometry(Type.PYRAMID, border);
+		drawCachedGeometry(Type.PYRAMID, solid, border);
 	}
 
 	private void drawSphere(final Geometry p, final boolean solid, final double height, final Color border) {
@@ -350,7 +268,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_vertices.getCenter(_center);
 		_tangent.setLocation(_center).subtract(_vertices.at(0));
 		_scale.setTo(height);
-		drawCachedGeometry(Type.SPHERE, border);
+		drawCachedGeometry(Type.SPHERE, solid, border);
 	}
 
 	private void drawCircle(final Geometry p, final boolean solid, final double height, final Color border) {
@@ -359,15 +277,15 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_vertices.getCenter(_center);
 		_tangent.setLocation(_center).subtract(_vertices.at(0));
 		_scale.setTo(height);
-		drawCachedGeometry(Type.CIRCLE, border);
+		drawCachedGeometry(Type.CIRCLE, solid, border);
 	}
 
-	public void drawRoundedRectangle(final GamaPoint pos, final double width, final double height, final Color fill,
-			final Color border) {
+	public void drawRoundedRectangle(final GamaPoint pos, final boolean solid, final double width, final double height,
+			final Color fill, final Color border) {
 		_center.setCoordinate(pos);
 		_scale.setTo(width, height, 1);
 		gl.setCurrentColor(fill);
-		drawCachedGeometry(Type.ROUNDED, border);
+		drawCachedGeometry(Type.ROUNDED, solid, border);
 	}
 
 	private void drawCylinder(final Geometry g, final boolean solid, final double height, final Color border) {
@@ -377,7 +295,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_vertices.getNormal(true, 1, _normal);
 		_tangent.setLocation(_center).subtract(_vertices.at(0));
 		_scale.setTo(radius, radius, height);
-		drawCachedGeometry(Type.CYLINDER, border);
+		drawCachedGeometry(Type.CYLINDER, solid, border);
 	}
 
 	private void drawLineCylinder(final Geometry g, final boolean solid, final double radius, final Color border) {
@@ -394,38 +312,13 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 			_normal.normalize();
 			if (i > 0) {
 				_scale.setTo(radius);
-				drawCachedGeometry(Type.SPHERE, border);
+				drawCachedGeometry(Type.SPHERE, solid, border);
 			}
 			// draw tube
 			_scale.setTo(radius, radius, height);
-			drawCachedGeometry(Type.CYLINDER, border);
+			drawCachedGeometry(Type.CYLINDER, solid, border);
 
 		}
-		// _vertices.visit((v1, v2) -> {
-		// // draw first sphere
-		// _center.setLocation(v1);
-		// _normal.setLocation(v2);
-		// _normal.subtract(v1);
-		// final double height = _normal.norm();
-		// _tangent.setLocation(_normal.orthogonal());
-		// _normal.normalize();
-		// if (!v1.equals(first)) {
-		// _scale.setTo(radius);
-		// drawCachedGeometry(Type.SPHERE, border);
-		// }
-		// // draw tube
-		// _scale.setTo(radius, radius, height);
-		// drawCachedGeometry(Type.CYLINDER, border);
-		// // draw second sphere
-		// if (!v2.equals(last)) {
-		// _center.setLocation(v2);
-		// _normal.negate();
-		// _tangent.setLocation(_normal.orthogonal());
-		// _scale.setTo(radius);
-		// drawCachedGeometry(Type.SPHERE, border);
-		// }
-
-		// });
 
 	}
 
@@ -437,7 +330,7 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 		_tangent.setLocation(_center).subtract(_vertices.at(0));
 		_rot.rotateToHorizontal(_normal, _tangent, false).revertInPlace();
 		_scale.setTo(radius, radius, height);
-		drawCachedGeometry(Type.CONE, border);
+		drawCachedGeometry(Type.CONE, solid, border);
 	}
 
 	private void drawTeapot(final Geometry p, final boolean solid, final double height, final Color border) {
@@ -454,8 +347,9 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 					gl.setCurrentColor(border);
 					glut.glutWireTeapot(height);
 				}
-			} else
+			} else {
 				glut.glutWireTeapot(height);
+			}
 		} finally {
 			gl.popMatrix();
 		}
@@ -468,12 +362,11 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 	 *            the size of the ROI box
 	 */
 	public void drawROIHelper(final Envelope3D envelope) {
-		if (envelope == null)
-			return;
+		if (envelope == null) { return; }
 		final Polygon polygon = envelope.yNegated().toGeometry();
 		gl.setCurrentColor(0, 0.5, 0, 0.15);
 		gl.setZIncrement(0);
-		drawPolyhedron(polygon, true, gl.getMaxZ(), DEFAULT_BORDER);
+		drawPolyhedron(polygon, true, envelope.getMaxZ(), DEFAULT_BORDER);
 	}
 
 	/**
@@ -484,11 +377,11 @@ public class GeometryDrawer extends ObjectDrawer<GeometryObject> {
 	 * @param distance
 	 *            the distance used as a reference (between the camera and its target)
 	 */
-	public void drawRotationHelper(final GamaPoint pos, final double distance) {
+	public void drawRotationHelper(final GamaPoint target, final double distance, final double height) {
 		gl.setZIncrement(0);
 		gl.setCurrentColor(Color.gray, 0.3);
-		final double height = Math.min(gl.getMaxWorldDim() / 4, distance / 6d);
-		final Geometry point = GeometryUtils.GEOMETRY_FACTORY.createPoint(pos.yNegated()).buffer(height);
+		final GamaPoint position = target.yNegated().add(0, 0, -height);
+		final Geometry point = GamaGeometryType.buildCircle(height, position).getInnerGeometry();
 		drawSphere(point, true, height, DEFAULT_BORDER);
 	}
 

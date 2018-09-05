@@ -588,7 +588,7 @@ public abstract class SwingControl extends Composite {
 	// valid any more!
 	static final boolean INITIAL_CLIENT_AREA_WORKAROUND =
 			// This code is found in SWT_AWT.new_Frame for gtk, motif, win32.
-			PlatformHelper.isGtk() || PlatformHelper.isMotif() || PlatformHelper.isWin32();
+			PlatformHelper.isLinux() || PlatformHelper.isDeveloper() || PlatformHelper.isWindows();
 	private Rectangle initialClientArea;
 
 	/*
@@ -947,7 +947,7 @@ public abstract class SwingControl extends Composite {
 		// below.
 		// TODO: research the initial content display problem further
 		if (!AUTOMATIC_SET_AWT_SIZE
-				|| PlatformHelper.isGtk() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)) {
+				|| PlatformHelper.isLinux() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)) {
 			// Pass on the desired size to the embedded component, but only if
 			// it could
 			// be reasonably calculated (i.e. we have cached preferred sizes)
@@ -975,8 +975,8 @@ public abstract class SwingControl extends Composite {
 			// TODO: research the initial content display problem further
 			synchronized (this) {
 				if (cachedSizesInitialized >= 2
-						|| PlatformHelper.isGtk() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)
-						|| PlatformHelper.isWin32()) {
+						|| PlatformHelper.isLinux() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)
+						|| PlatformHelper.isWindows()) {
 					setAWTSize(Math.max(width - 2 * borderWidth, 0), Math.max(height - 2 * borderWidth, 0));
 				}
 			}
@@ -1173,7 +1173,7 @@ public abstract class SwingControl extends Composite {
 		// test view.
 		// - In JDK 1.6: There is much less "garbage"; the repaint is quicker.
 		// The CleanResizeListener's effect is mostly visible as flickering.
-		if (PlatformHelper.isWin32() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)) {
+		if (PlatformHelper.isWindows() && PlatformHelper.JAVA_VERSION < PlatformHelper.javaVersion(1, 6, 0)) {
 			setCleanResizeEnabled(true);
 		}
 	}
@@ -1608,7 +1608,7 @@ public abstract class SwingControl extends Composite {
 	// ==================== Swing Popup Management
 	// ================================
 
-	private static final boolean HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE = PlatformHelper.isWin32(); // Win32:
+	private static final boolean HIDE_SWING_POPUPS_ON_SWT_SHELL_BOUNDS_CHANGE = PlatformHelper.isWindows(); // Win32:
 																											// all
 																											// JDKs
 
@@ -1700,7 +1700,7 @@ public abstract class SwingControl extends Composite {
 		assert Display.getCurrent() != null; // On SWT event thread
 
 		// Platform-specific default consumed keystrokes
-		if (PlatformHelper.isWin32()) {
+		if (PlatformHelper.isWindows()) {
 			// Shift-F10 is normally used to display a context popup menu.
 			// When this happens in Windows and inside of a Swing component,
 			// the consumption of the key is unknown to SWT. As a result,

@@ -47,6 +47,7 @@ import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
 import msi.gama.core.web.editor.GAMAHelper;
 import msi.gama.core.web.editor.GamaPerspectiveHelper;
+import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
@@ -101,7 +102,7 @@ public class WebGui implements IGui {
 		if (exp == null || !GamaPreferences.Runtime.CORE_ASK_CLOSING.getValue()) {
 			return true;
 		}
-		openSimulationPerspective(true);
+		PerspectiveHelper.openSimulationPerspective();
 		return Messages.question("Close simulation confirmation", "Do you want to close experiment '" + exp.getName()
 				+ "' of model '" + exp.getModel().getName() + "' ?");
 	}
@@ -240,37 +241,17 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public final boolean openSimulationPerspective(final boolean immediately) {
-		final IModel model = GAMAHelper.getModel();
-		if (model == null)
-			return false;
-		final IExperimentPlan p = GAMAHelper.getExperiment();
-		if (p == null)
-			return false;
-		final String id = p.getName();
-		return openSimulationPerspective(model, id, immediately);
+	public final boolean openSimulationPerspective(final IModel model, final String experimentName) {
+		return PerspectiveHelper.openSimulationPerspective(model, experimentName);
 	}
-
-	@Override
-	public final boolean openSimulationPerspective(final IModel model, final String experimentName,
-			final boolean immediately) {
-		if (model == null)
-			return false;
-		final String name = GamaPerspectiveHelper.getNewPerspectiveName(model.getName(), experimentName);
-		// return GamaPerspectiveHelper.openPerspective(name, immediately,
-		// false);
-		return GamaPerspectiveHelper.openPerspective(GamaPerspectiveHelper.PERSPECTIVE_SIMULATION_ID, immediately,
-				false);
-
-	}
-
+	
 	@Override
 	public DisplayDescription getDisplayDescriptionFor(final String name) {
 		return (DisplayDescription) DISPLAYS.get(name);
 	}
 
 	@Override
-	public IDisplaySurface getDisplaySurfaceFor(final LayeredDisplayOutput output) {
+	public IDisplaySurface getDisplaySurfaceFor(LayeredDisplayOutput output, Object... args) {
 		IDisplaySurface surface = null;
 		final String keyword = output.getData().getDisplayType();
 		final IDisplayCreator creator = DISPLAYS.get(keyword);
@@ -632,10 +613,10 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public void run(IScope scope, final Runnable r) {
+	public void run(String taskName, Runnable r, boolean asynchronous) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		WorkbenchHelper.run(uid, r);
+//		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		WorkbenchHelper.run("admin", r);
 
 	}
 
@@ -648,7 +629,7 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public void applyLayout(IScope scope, Object layout, boolean keepTabs, boolean keepToolbars) {
+	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
@@ -727,5 +708,6 @@ public class WebGui implements IGui {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

@@ -28,7 +28,7 @@ public class GAMAHelper extends GAMA{
 
 	public static IScope getRuntimeScope() {
 		final IExperimentController controller = getFrontmostController();
-		if (controller == null || controller.getExperiment() == null) { return new ExecutionScope(agent); }
+		if (controller == null || controller.getExperiment() == null) { return new ExecutionScope(getPlatformAgent()); }
 		final ExperimentAgent a = controller.getExperiment().getAgent();
 		if (a == null || a.dead()) { return controller.getExperiment().getExperimentScope(); }
 		final SimulationAgent s = a.getSimulation();
@@ -113,7 +113,7 @@ public class GAMAHelper extends GAMA{
 
 		}
 
-		if (getGui().openSimulationPerspective(model, id, true)) {
+		if (getGui().openSimulationPerspective(model, id)) {
 			getControllers().add(controller);
 			WorkbenchHelper.UISession.put(controller.getExperiment().getExperimentScope(), RWT.getUISession().getAttribute("user").toString());
 			theControllers.put(RWT.getUISession().getAttribute("user").toString(), controller);

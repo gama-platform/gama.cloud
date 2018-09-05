@@ -9,22 +9,20 @@
  **********************************************************************************************/
 package ummisco.gama.ui.resources;
 
-import java.util.Arrays;
-
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
 import ummisco.gama.ui.utils.GraphicsHelper;
+import ummisco.gama.ui.utils.PreferencesHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class GamaFonts {
 
-	public static Font systemFont = WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getSystemFont();
-	public static FontData baseData = systemFont.getFontData()[0];
-	public static String baseFont = baseData.getName();
+	private static Font systemFont;
+	private static FontData baseData;
+	private static String baseFont;
 	public static int baseSize = 11;
 	private static java.awt.Font awtBaseFont;
 	public static Font expandFont;
@@ -43,39 +41,82 @@ public class GamaFonts {
 	public static Font categoryHelpFont;
 	public static Font categoryBoldHelpFont;
 
+	private static java.awt.Font getAwtBaseFont() {
+		if (awtBaseFont == null) {
+			awtBaseFont = PreferencesHelper.BASE_BUTTON_FONT.getValue();
+		}
+		return awtBaseFont;
+	}
+
+	private static void setAwtBaseFont(final java.awt.Font awtBaseFont) {
+		GamaFonts.awtBaseFont = awtBaseFont;
+	}
+
+	public static String getBaseFont() {
+		if (baseFont == null) {
+			baseFont = getBaseData().getName();
+		}
+		return baseFont;
+	}
+
+	public static void setBaseFont(final String baseFont) {
+		GamaFonts.baseFont = baseFont;
+	}
+
+	public static FontData getBaseData() {
+		if (baseData == null) {
+			baseData = getSystemFont().getFontData()[0];
+		}
+		return baseData;
+	}
+
+	public static void setBaseData(final FontData baseData) {
+		GamaFonts.baseData = baseData;
+	}
+
+	public static Font getSystemFont() {
+		if (systemFont == null) {
+			systemFont = WorkbenchHelper.getDisplay().getSystemFont();
+		}
+		return systemFont;
+	}
+
+	public static void setSystemFont(final Font systemFont) {
+		GamaFonts.systemFont = systemFont;
+	}
+
 	static void initFonts() {
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		systemFont= WorkbenchHelper.getDisplay(uid).getSystemFont();
-//		System.out.println("System font = " + Arrays.toString(systemFont.getFontData()));
-//		FontData fd = new FontData(awtBaseFont.getName(), awtBaseFont.getSize(), awtBaseFont.getStyle());
-//		final FontData original = fd;
-//		labelFont = new Font(Display.getCurrent(), fd);
-//		final FontData fd2 = new FontData(fd.getName(), fd.getHeight(), SWT.BOLD);
-//		expandFont = new Font(Display.getDefault(), fd2);
-//		fd = new FontData(fd.getName(), fd.getHeight(), SWT.ITALIC);
-//		unitFont = new Font(Display.getDefault(), fd);
-//		smallNavigLinkFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), fd.getHeight() + 1, SWT.BOLD);
-//		// bigFont = new Font(Display.getDefault(), fd);
-//		navigHeaderFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), fd.getHeight() - 1, SWT.NORMAL);
-//		smallFont = new Font(Display.getDefault(), fd);
-//		smallNavigFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), fd.getHeight(), SWT.NORMAL);
-//		parameterEditorsFont = new Font(Display.getDefault(), fd);
-//		navigFileFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), fd.getHeight(), SWT.NORMAL);
-//		navigRegularFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), fd.getHeight(), SWT.ITALIC);
-//		navigResourceFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(original.getName(), 12, SWT.NORMAL);
-//		helpFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(original.getName(), 12, SWT.BOLD);
-//		boldHelpFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), 14, SWT.NORMAL);
-//		categoryHelpFont = new Font(Display.getDefault(), fd);
-//		fd = new FontData(fd.getName(), 14, SWT.BOLD);
-//		categoryBoldHelpFont = new Font(Display.getDefault(), fd);
+		// DEBUG.LOG("System font = " + Arrays.toString(systemFont.getFontData()));
+		final Display d = WorkbenchHelper.getDisplay();
+		FontData fd = new FontData(getAwtBaseFont().getName(), getAwtBaseFont().getSize(), getAwtBaseFont().getStyle());
+		final FontData original = fd;
+		labelFont = new Font(d, fd);
+		final FontData fd2 = new FontData(fd.getName(), fd.getHeight(), SWT.BOLD);
+		expandFont = new Font(d, fd2);
+		fd = new FontData(fd.getName(), fd.getHeight(), SWT.ITALIC);
+		unitFont = new Font(d, fd);
+		smallNavigLinkFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), fd.getHeight() + 1, SWT.BOLD);
+		// bigFont = new Font(Display.getDefault(), fd);
+		navigHeaderFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), fd.getHeight() - 1, SWT.NORMAL);
+		smallFont = new Font(d, fd);
+		smallNavigFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), fd.getHeight(), SWT.NORMAL);
+		parameterEditorsFont = new Font(d, fd);
+		navigFileFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), fd.getHeight(), SWT.NORMAL);
+		navigRegularFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), fd.getHeight(), SWT.ITALIC);
+		navigResourceFont = new Font(d, fd);
+		fd = new FontData(original.getName(), 12, SWT.NORMAL);
+		helpFont = new Font(d, fd);
+		fd = new FontData(original.getName(), 12, SWT.BOLD);
+		boldHelpFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), 14, SWT.NORMAL);
+		categoryHelpFont = new Font(d, fd);
+		fd = new FontData(fd.getName(), 14, SWT.BOLD);
+		categoryBoldHelpFont = new Font(d, fd);
 	}
 
 	public static void setLabelFont(final Font f) {
@@ -88,9 +129,9 @@ public class GamaFonts {
 	}
 
 	public static void setLabelFont(final java.awt.Font font) {
-		awtBaseFont = font;
-		final FontData fd = GraphicsHelper.toSwtFontData(Display.getCurrent(), font, true);
-		setLabelFont(new Font(Display.getCurrent(), fd));
+		setAwtBaseFont(font);
+		final FontData fd = GraphicsHelper.toSwtFontData(WorkbenchHelper.getDisplay(), font, true);
+		setLabelFont(new Font(WorkbenchHelper.getDisplay(), fd));
 	}
 
 	public static Font getLabelfont() {

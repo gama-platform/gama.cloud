@@ -18,7 +18,6 @@ import java.util.Map;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.PreferenceDialog;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -43,7 +42,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
 
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.preferences.Pref;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.runtime.GAMA;
@@ -72,22 +70,21 @@ import ummisco.gama.ui.views.toolbar.Selector;
 public class GamaPreferencesView {
 
 	static Pref<GamaPoint> DIALOG_LOCATION = GamaPreferences.create("dialog_location",
-			"Location of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT).hidden();
-	static Pref<GamaPoint> DIALOG_SIZE = GamaPreferences
-			.create("dialog_size", "Size of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT)
-			.hidden();
-	static Pref<Integer> DIALOG_TAB =
-			GamaPreferences.create("dialog_tab", "Tab selected in the preferences dialog", -1, IType.INT).hidden();
+			"Location of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT, false).hidden();
+	static Pref<GamaPoint> DIALOG_SIZE = GamaPreferences.create("dialog_size",
+			"Size of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT, false).hidden();
+	static Pref<Integer> DIALOG_TAB = GamaPreferences
+			.create("dialog_tab", "Tab selected in the preferences dialog", -1, IType.INT, false).hidden();
 
 	public static Map<String, Image> prefs_images = new LinkedHashMap();
 	public static int NB_DIVISIONS = 2;
 
 	static GamaPreferencesView instance;
-	private static boolean restartRequired;
+	static boolean restartRequired;
 
 	public static void show() {
 		if (instance == null || instance.shell == null || instance.shell.isDisposed()) {
-			instance = new GamaPreferencesView(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()));
+			instance = new GamaPreferencesView(WorkbenchHelper.getShell());
 		}
 		for (final IParameterEditor ed : instance.editors.values()) {
 			ed.updateValue(true);
@@ -179,7 +176,7 @@ public class GamaPreferencesView {
 
 	final Map<String, Boolean> activations = new HashMap();
 
-	private void checkActivables(final Pref e, final Object value) {
+	void checkActivables(final Pref e, final Object value) {
 		if (e.getEnablement() != null) {
 			for (final String activable : e.getEnablement()) {
 				final IParameterEditor ed = editors.get(activable);
@@ -219,37 +216,28 @@ public class GamaPreferencesView {
 			GridLayoutFactory.fillDefaults().numColumns(2).spacing(0, 0).equalWidth(false).applyTo(comps[i]);
 			GridDataFactory.fillDefaults().grab(true, true).applyTo(comps[i]);
 		}
-		final int compositeIndex = 0;
+		// final int compositeIndex = 0;
 
 		int i = 0;
 		for (final Pref e : list) {
 			modelValues.put(e.getKey(), e.getValue());
 			// Initial activations of editors
 			checkActivables(e, e.getValue());
-			e.addChangeListener(new IPreferenceChangeListener() {
-
-				@Override
-				public boolean beforeValueChange(final Object newValue) {
-					return true;
+			e.onChange(value -> {
+				if (e.acceptChange(value)) {
+					modelValues.put(e.getKey(), value);
+					checkActivables(e, value);
+				} else {
+					GamaPreferencesView.this.showError("" + value + " is not accepted for parameter " + e.getKey());
 				}
 
-				@Override
-				public void afterValueChange(final Object value) {
-					if (e.acceptChange(value)) {
-						modelValues.put(e.getKey(), value);
-						checkActivables(e, value);
-					} else {
-						GamaPreferencesView.this.showError("" + value + " is not accepted for parameter " + e.getKey());
-					}
-
-				}
 			});
 			final boolean isSubParameter = activations.containsKey(e.getKey());
 			final AbstractEditor ed = EditorFactory.create(null, comps[(int) (i * ((double) nbColumns / list.size()))],
 					e, isSubParameter, true);
-			if (e.isDisabled())
+			if (e.isDisabled()) {
 				ed.setActive(false);
-			else {
+			} else {
 				final Menu m = getMenuFor(e, ed);
 				final Label l = ed.getLabel();
 				l.setMenu(m);
@@ -270,33 +258,26 @@ public class GamaPreferencesView {
 		compo.pack(true);
 	}
 
-	private Menu getMenuFor(final Pref e, final AbstractEditor ed) {
+	private static Menu getMenuFor(final Pref e, final AbstractEditor ed) {
 		final Menu m = new Menu(ed.getLabel());
 		final MenuItem title = new MenuItem(m, SWT.PUSH);
 		title.setEnabled(false);
-		title.setText(e.getKey());
-		@SuppressWarnings ("unused") final MenuItem sep = new MenuItem(m, SWT.SEPARATOR);
-		final MenuItem i = new MenuItem(m, SWT.PUSH);
-		i.setText("Copy name to clipboard");
-		i.addSelectionListener(new Selector() {
 
-			@Override
-			public void widgetSelected(final SelectionEvent se) {
-//				WorkbenchHelper.copy(e.getKey());
-
-			}
-
-		});
+		if (e.inGaml()) {
+			title.setText("Use gama." + e.getKey() + " in GAML");
+			@SuppressWarnings ("unused") final MenuItem sep = new MenuItem(m, SWT.SEPARATOR);
+			final MenuItem i = new MenuItem(m, SWT.PUSH);
+			i.setText("Copy name to clipboard");
+			i.addSelectionListener((Selector) se -> WorkbenchHelper.copy("gama." + e.getKey()));
+		} else {
+			title.setText("Not assignable from GAML");
+			@SuppressWarnings ("unused") final MenuItem sep = new MenuItem(m, SWT.SEPARATOR);
+		}
 		final MenuItem i2 = new MenuItem(m, SWT.PUSH);
 		i2.setText("Revert to default value");
-		i2.addSelectionListener(new Selector() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent se) {
-				e.set(e.getInitialValue(GAMA.getRuntimeScope()));
-				ed.forceUpdateValueAsynchronously();
-			}
-
+		i2.addSelectionListener((Selector) se -> {
+			e.set(e.getInitialValue(GAMA.getRuntimeScope()));
+			ed.forceUpdateValueAsynchronously();
 		});
 		return m;
 	}
@@ -314,7 +295,7 @@ public class GamaPreferencesView {
 		doc.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
 		doc.setFont(GamaFonts.boldHelpFont);
 		doc.setText(
-				"Preferences can also be set in GAML, using 'gama.pref_name <- new_value;'. 'pref_name' is displayed in the contextual menu of each preference");
+				"Some preferences can also be set in GAML, using 'gama.pref_name <- new_value;'. 'pref_name' is displayed in the contextual menu of each preference");
 
 		final Composite group1 = new Composite(shell, SWT.NONE);
 		group1.setLayout(new FillLayout());
@@ -339,10 +320,9 @@ public class GamaPreferencesView {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final FileDialog fd = new FileDialog(shell, SWT.OPEN);
-//				fd.setFilterExtensions(new String[] { "*.prefs" });
+				fd.setFilterExtensions(new String[] { "*.prefs" });
 				final String path = fd.open();
-				if (path == null)
-					return;
+				if (path == null) { return; }
 				GamaPreferences.applyPreferencesFrom(path, modelValues);
 				for (final IParameterEditor ed : editors.values()) {
 					ed.updateValue(true);
@@ -359,12 +339,11 @@ public class GamaPreferencesView {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final FileDialog fd = new FileDialog(shell, SWT.SAVE);
-//				fd.setFileName("preferences.gaml");
-//				fd.setFilterExtensions(new String[] { "*.gaml" });
+//				fd.setFileName("Preferences.gaml");
+				fd.setFilterExtensions(new String[] { "*.gaml" });
 //				fd.setOverwrite(false);
 				final String path = fd.open();
-				if (path == null)
-					return;
+				if (path == null) { return; }
 				GamaPreferences.savePreferencesTo(path);
 			}
 
@@ -401,8 +380,9 @@ public class GamaPreferencesView {
 						close();
 //						PlatformUI.getWorkbench().restart(true);
 					}
-				} else
+				} else {
 					close();
+				}
 			}
 
 		});
@@ -427,7 +407,7 @@ public class GamaPreferencesView {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				close();
-				WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
+				WorkbenchHelper.asyncRun(() -> {
 					final PreferenceDialog pd = WorkbenchPreferenceDialog.createDialogOn(parentShell, null);
 					pd.open();
 					shell.setVisible(true);
@@ -465,7 +445,7 @@ public class GamaPreferencesView {
 
 	}
 
-	private void close() {
+	void close() {
 		shell.setVisible(false);
 	}
 
@@ -485,8 +465,7 @@ public class GamaPreferencesView {
 	}
 
 	private void saveDialogProperties() {
-		if (shell.isDisposed())
-			return;
+		if (shell.isDisposed()) { return; }
 		saveLocation();
 		saveSize();
 		saveTab();
@@ -502,7 +481,7 @@ public class GamaPreferencesView {
 		int height = (int) size.y;
 		if (loc.x == -1 || loc.y == -1 || size.x == -1 || size.y == -1) {
 			final Point p = shell.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-			final Rectangle bounds = WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getBounds();
+			final Rectangle bounds = WorkbenchHelper.getDisplay().getBounds();
 			width = Math.min(p.x, bounds.width - 200);
 			height = Math.min(p.y, bounds.height - 200);
 			x = (bounds.width - width) / 2;

@@ -177,4 +177,25 @@ public class WorkbenchHelper {
 		return (T) result[0];
 	}
 
+	public static void asyncRun(final Runnable r) {
+		asyncRun("admin", r);
+	}
+
+	public static Shell getShell() {
+		return getShell("admin");
+	}
+
+	public static void run(final Runnable r) {
+		run("admin", r);
+	}
+
+	public static void copy(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static Display getDisplay() {
+		return getDisplay("admin");
+	}
+
 }

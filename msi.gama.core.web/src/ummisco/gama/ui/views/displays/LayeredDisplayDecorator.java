@@ -104,8 +104,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 			fullScreenShell.layout(true, true);
 			fullScreenShell.setVisible(true);
 			view.getZoomableControls()[0].forceFocus();
-			if (GamaPreferences.Displays.DISPLAY_TOOLBAR_FULLSCREEN.getValue())
-				toggleSimulationControls();
+//			if (GamaPreferences.Displays.DISPLAY_TOOLBAR_FULLSCREEN.getValue())
+//				toggleSimulationControls();
 		}
 	}
 
@@ -156,7 +156,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		side.fill(sidePanel, view);
 		createOverlay();
 		addPerspectiveListener();
-		keyAndMouseListener = new LayeredDisplayMultiListener(this, view.getDisplaySurface());
+		keyAndMouseListener = new LayeredDisplayMultiListener(view.getDisplaySurface(), this);
 		menuManager = new DisplaySurfaceMenu(view.getDisplaySurface(), view.getParentComposite(), presentationMenu());
 		if (view.getOutput().getData().fullScreen() > -1) {
 			toggleFullScreen();
@@ -329,7 +329,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		// FIXME Remove the listeners
 		WorkbenchHelper.getWindow(RWT.getUISession().getAttribute("user").toString()).removePerspectiveListener(perspectiveListener);
 		if (keyAndMouseListener != null) {
-			keyAndMouseListener.dispose();
+//			keyAndMouseListener.dispose();
 		}
 		if (overlay != null) {
 			overlay.close();

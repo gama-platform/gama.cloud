@@ -4539,4 +4539,14 @@ public class GL2 extends GL2ES2 {
 		return this;
 	}
 
+	public void glBufferData(int glElementArrayBuffer, int numBytes, IntBuffer ibIdxBuff, int glStaticDraw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void glBufferSubData(int glArrayBuffer, int offset, int numBytes, FloatBuffer fbData) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

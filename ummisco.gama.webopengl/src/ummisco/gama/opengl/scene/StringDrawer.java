@@ -1,20 +1,22 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'StringDrawer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * ummisco.gama.opengl.scene.StringDrawer.java, in plugin ummisco.gama.opengl,
+ * is part of the source code of the GAMA modeling and simulation platform (v. 1.8)
  * 
+ * (c) 2007-2018 UMI 209 UMMISCO IRD/SU & Partners
  *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package ummisco.gama.opengl.scene;
 
 import java.awt.Font;
 
 import com.jogamp.opengl.util.gl2.GLUT;
 
+import msi.gama.common.geometry.AxisAngle;
 import msi.gama.metamodel.shape.GamaPoint;
-import ummisco.gama.opengl.JOGLRenderer;
+import ummisco.gama.opengl.OpenGL;
 
 /**
  *
@@ -27,27 +29,41 @@ import ummisco.gama.opengl.JOGLRenderer;
 
 public class StringDrawer extends ObjectDrawer<StringObject> {
 
-	public StringDrawer(final JOGLRenderer r) {
-		super(r);
+	public StringDrawer(final OpenGL gl) {
+		super(gl);
 	}
 
 	@Override
 	protected void _draw(final StringObject s) {
-		final GamaPoint p = s.getLocation();
-		if (s.getFont() != null && s.iisInPerspective()) {
-			final Font f = s.getFont();
-			gl.perspectiveText(s.string, f, p.x, p.y, p.z);
-		} else {
-			int fontToUse = GLUT.BITMAP_HELVETICA_18;
-			final Font f = s.getFont();
-			if (f != null) {
-				if (f.getSize() < 10) {
-					fontToUse = GLUT.BITMAP_HELVETICA_10;
-				} else if (f.getSize() < 16) {
-					fontToUse = GLUT.BITMAP_HELVETICA_12;
-				}
+		try {
+			gl.pushMatrix();
+			final AxisAngle rotation = s.getAttributes().getRotation();
+			GamaPoint p = s.getAttributes().getLocation();
+			if (rotation != null) {
+				gl.translateBy(p.x, p.y, p.z);
+				final GamaPoint axis = rotation.getAxis();
+				// AD Change to a negative rotation to fix Issue #1514
+				gl.rotateBy(-rotation.getAngle(), axis.x, axis.y, axis.z);
+				// Voids the location so as to make only one translation
+				p = GamaPoint.NULL_POINT;
 			}
-			gl.rasterText(s.string, fontToUse, p.x, p.y, p.z);
+			if (s.getAttributes().font != null && s.getAttributes().perspective) {
+				final Font f = s.getAttributes().font;
+				gl.perspectiveText(s.getObject(), f, p.x, p.y, p.z, s.getAttributes().getAnchor());
+			} else {
+				int fontToUse = GLUT.BITMAP_HELVETICA_18;
+				final Font f = s.getAttributes().font;
+				if (f != null) {
+					if (f.getSize() < 10) {
+						fontToUse = GLUT.BITMAP_HELVETICA_10;
+					} else if (f.getSize() < 16) {
+						fontToUse = GLUT.BITMAP_HELVETICA_12;
+					}
+				}
+				gl.rasterText(s.getObject(), fontToUse, p.x, p.y, p.z);
+			}
+		} finally {
+			gl.popMatrix();
 		}
 	}
 

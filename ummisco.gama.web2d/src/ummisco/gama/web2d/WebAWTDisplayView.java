@@ -162,27 +162,27 @@ public class WebAWTDisplayView extends LayeredDisplayView {
 	 * @see msi.gama.common.interfaces.IGamaView#waitToBeRealized()
 	 */
 
-	@Override
-	public synchronized void waitToBeRealized() {
-		if (PlatformHelper.isWin32()) { return; }
-		final long start = System.currentTimeMillis();
-		long now = start;
-		boolean openable = false;
-
-		while (/* isVisible && */ !openable) {
-			try {
-				Thread.sleep(GamaPreferences.Displays.CORE_OUTPUT_DELAY.getValue());
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
-			}
-			now = System.currentTimeMillis();
-			
-			if(this.getDisplaySurface()!=null)
-				openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
-		}
-		// System.out.println("Realized in " + (now - start) + "ms");
-
-	}
+//	@Override
+//	public synchronized void waitToBeRealized() {
+//		if (PlatformHelper.isWin32()) { return; }
+//		final long start = System.currentTimeMillis();
+//		long now = start;
+//		boolean openable = false;
+//
+//		while (/* isVisible && */ !openable) {
+//			try {
+//				Thread.sleep(GamaPreferences.Displays.CORE_OUTPUT_DELAY.getValue());
+//			} catch (final InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			now = System.currentTimeMillis();
+//			
+//			if(this.getDisplaySurface()!=null)
+//				openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
+//		}
+//		// System.out.println("Realized in " + (now - start) + "ms");
+//
+//	}
 
 	@Override
 	public void update(IDisplayOutput output) {
@@ -221,6 +221,18 @@ public class WebAWTDisplayView extends LayeredDisplayView {
 
 	@Override
 	public void showToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showOverlay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideOverlay() {
 		// TODO Auto-generated method stub
 		
 	}

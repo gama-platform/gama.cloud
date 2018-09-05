@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="346">
+<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="362">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
@@ -111,7 +111,7 @@
 <plugin id="org.apache.xml.serializer"/>
 <plugin id="org.apiguardian"/>
 <plugin id="org.apiguardian.source"/>
-<plugin id="org.dslforge.common.logging"/>
+<plugin id="org.dslforge.common.logging" version="0.9.1.201708202014"/>
 <plugin id="org.dslforge.styledtext"/>
 <plugin id="org.dslforge.texteditor"/>
 <plugin id="org.dslforge.texteditor.demo"/>
@@ -466,10 +466,6 @@
 <plugin id="org.eclipse.help.webapp"/>
 <plugin id="org.eclipse.help.webapp.source"/>
 <plugin id="org.eclipse.jdt"/>
-<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
-<plugin id="org.eclipse.jdt.annotation" version="1.1.100.v20160418-1457"/>
-<plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
-<plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
 <plugin id="org.eclipse.jdt.apt.core"/>
 <plugin id="org.eclipse.jdt.apt.core.source"/>
 <plugin id="org.eclipse.jdt.apt.pluggable.core"/>
@@ -851,13 +847,9 @@
 <plugin id="org.eclipse.xtend.ide.common"/>
 <plugin id="org.eclipse.xtend.ide.common.source"/>
 <plugin id="org.eclipse.xtend.ide.source"/>
-<plugin id="org.eclipse.xtend.lib" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.macro" version="2.12.0.v20170518-0757"/>
-<plugin id="org.eclipse.xtend.lib.macro" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtend.lib.macro.source" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib.macro.source" version="2.12.0.v20170518-0757"/>
-<plugin id="org.eclipse.xtend.lib.source" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib.source" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.m2e"/>
 <plugin id="org.eclipse.xtend.m2e.source"/>
@@ -866,7 +858,7 @@
 <plugin id="org.eclipse.xtend.standalone.source"/>
 <plugin id="org.eclipse.xtend.typesystem.emf" version="2.2.0.v201605260315"/>
 <plugin id="org.eclipse.xtend.typesystem.emf.source"/>
-<plugin id="org.eclipse.xtext" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.activities"/>
 <plugin id="org.eclipse.xtext.activities.source"/>
 <plugin id="org.eclipse.xtext.builder"/>
@@ -908,7 +900,7 @@
 <plugin id="org.eclipse.xtext.purexbase.ui.source"/>
 <plugin id="org.eclipse.xtext.smap"/>
 <plugin id="org.eclipse.xtext.smap.source"/>
-<plugin id="org.eclipse.xtext.source" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext.source" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.testing"/>
 <plugin id="org.eclipse.xtext.testing.source"/>
 <plugin id="org.eclipse.xtext.ui"/>
@@ -925,15 +917,14 @@
 <plugin id="org.eclipse.xtext.ui.source"/>
 <plugin id="org.eclipse.xtext.ui.testing"/>
 <plugin id="org.eclipse.xtext.ui.testing.source"/>
-<plugin id="org.eclipse.xtext.util" version="2.13.0.v20171020-0708"/>
-<plugin id="org.eclipse.xtext.util.source" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext.util" version="2.14.0.v20180522-1821"/>
+<plugin id="org.eclipse.xtext.util.source" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.xbase"/>
 <plugin id="org.eclipse.xtext.xbase.ide"/>
 <plugin id="org.eclipse.xtext.xbase.ide.source"/>
 <plugin id="org.eclipse.xtext.xbase.junit"/>
 <plugin id="org.eclipse.xtext.xbase.junit.source"/>
-<plugin id="org.eclipse.xtext.xbase.lib" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtext.xbase.lib.source" version="2.13.0.v20171020-0659"/>
+<plugin id="org.eclipse.xtext.xbase.lib" version="2.14.0.v20180522-1629"/>
 <plugin id="org.eclipse.xtext.xbase.source"/>
 <plugin id="org.eclipse.xtext.xbase.testing"/>
 <plugin id="org.eclipse.xtext.xbase.testing.source"/>

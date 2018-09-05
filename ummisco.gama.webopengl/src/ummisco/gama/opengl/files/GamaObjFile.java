@@ -36,7 +36,8 @@ import msi.gama.util.file.Gama3DGeometryFile;
 import msi.gaml.types.GamaGeometryType;
 import msi.gaml.types.IType;
 import msi.gaml.types.Types;
-import ummisco.gama.opengl.scene.OpenGL;
+import ummisco.gama.dev.utils.DEBUG;
+import ummisco.gama.opengl.OpenGL;
 
 /**
  * Class GamaObjFile.
@@ -120,9 +121,9 @@ public class GamaObjFile extends Gama3DGeometryFile {
 		try (BufferedReader br = new BufferedReader(new FileReader(getFile(scope)))) {
 			loadObject(br);
 		} catch (final IOException e) {
-			System.out.println("Failed to read file: " /* + br.toString() */);
+			DEBUG.ERR("Failed to read file: " /* + br.toString() */);
 		} catch (final NumberFormatException e) {
-			System.out.println("Malformed OBJ file: "/* + br.toString() */ + "\r \r" + e.getMessage());
+			DEBUG.ERR("Malformed OBJ file: "/* + br.toString() */ + "\r \r" + e.getMessage());
 		}
 
 	}
@@ -214,11 +215,11 @@ public class GamaObjFile extends Gama3DGeometryFile {
 						final char chars[] = st.nextToken().toCharArray();
 						final StringBuffer sb = new StringBuffer();
 						char lc = 'x';
-						for (int k = 0; k < chars.length; k++) {
-							if (chars[k] == '/' && lc == '/') {
+						for (final char c : chars) {
+							if (c == '/' && lc == '/') {
 								sb.append('0');
 							}
-							lc = chars[k];
+							lc = c;
 							sb.append(lc);
 						}
 
@@ -300,16 +301,11 @@ public class GamaObjFile extends Gama3DGeometryFile {
 	}
 
 	private void loadMaterials() {
-		FileReader frm;
 		final String refm = mtlPath;
-
-		try {
-			frm = new FileReader(refm);
-			final BufferedReader brm = new BufferedReader(frm);
+		try (FileReader frm = new FileReader(refm); final BufferedReader brm = new BufferedReader(frm);) {
 			materials = new MtlLoader(brm, mtlPath);
-			frm.close();
 		} catch (final IOException e) {
-			System.out.println("Could not open file: " + refm);
+			DEBUG.ERR("Could not open file: " + refm);
 			materials = null;
 		}
 	}
@@ -342,7 +338,7 @@ public class GamaObjFile extends Gama3DGeometryFile {
 		for (int i = 0; i < faces.size(); i++) {
 			if (i == nextmat) {
 				if (texture != null) {
-					gl.deleteTexture(texture);
+					texture.destroy(gl.getGL());
 					texture = null;
 				}
 				// gl.getGL().glEnable(GL2.GL_COLOR_MATERIAL);
@@ -402,8 +398,9 @@ public class GamaObjFile extends Gama3DGeometryFile {
 			final double[] arrayOfVertices = new double[tempfaces.length * 3];
 			for (int w = 0; w < tempfaces.length; w++) {
 				final double[] ordinates = setOfVertex.get(tempfaces[w] - 1);
-				for (int k = 0; k < 3; k++)
+				for (int k = 0; k < 3; k++) {
 					arrayOfVertices[w * 3 + k] = ordinates[k];
+				}
 			}
 			final ICoordinates coords = ICoordinates.ofLength(tempfaces.length + 1);
 			coords.setTo(arrayOfVertices);
@@ -413,18 +410,21 @@ public class GamaObjFile extends Gama3DGeometryFile {
 				gl.setNormal(coords, !coords.isClockwise());
 			}
 			for (int w = 0; w < tempfaces.length; w++) {
-				if (tempfaces[w] == 0)
+				if (tempfaces[w] == 0) {
 					continue;
+				}
 				final boolean hasNormal = norms[w] != 0;
 				final boolean hasTex = texs[w] != 0;
-				if (hasNormal)
+				if (hasNormal) {
 					normal.setLocation(setOfVertexNormals.get(norms[w] - 1));
+				}
 				if (hasTex) {
 					tex.setLocation(setOfVertexTextures.get(texs[w] - 1));
 					if (1d >= tex.y && -tex.y <= 0) {
 						tex.y = 1d - tex.y;
-					} else
+					} else {
 						tex.y = Math.abs(tex.y);
+					}
 				}
 				vertex.setLocation(setOfVertex.get(tempfaces[w] - 1));
 				gl.drawVertex(vertex, hasNormal ? normal : null, hasTex ? tex : null);
@@ -436,7 +436,6 @@ public class GamaObjFile extends Gama3DGeometryFile {
 
 		if (texture != null) {
 			gl.disableTextures();
-			;
 			texture = null;
 		}
 		// gl.glEndList();

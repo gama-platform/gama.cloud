@@ -45,7 +45,7 @@ public class WorkaroundForIssue1594xx {
 			@Override
 			public void partOpened(final IWorkbenchPartReference partRef) {
 				final IPartListener2 listener = this;
-				if (!PlatformHelper.isWin32()) {
+				if (!PlatformHelper.isWindows()) {
 					ps.removePartListener(listener);
 					return;
 				}

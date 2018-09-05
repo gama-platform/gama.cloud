@@ -15,11 +15,12 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.PerspectiveHelper;
 
 public class SwitchToSimulation extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		return GAMAHelper.getGui().openSimulationPerspective(true);
+		return PerspectiveHelper.openSimulationPerspective();
 	}
 }

@@ -56,10 +56,10 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 
 	}
 
-	@Override
-	public void waitToBeRealized() {
+//	@Override
+//	public void waitToBeRealized() {
 //		String uid = RWT.getUISession().getAttribute("user").toString();
 //		WorkbenchHelper.asyncRun(uid,() -> WorkbenchHelper.getPage(uid).bringToTop(SWTDisplayView.this));
-	}
+//	}
 
 }

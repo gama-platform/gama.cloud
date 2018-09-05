@@ -272,7 +272,7 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int previousHeight = getHeight();
 		final int width = w == -1 ? previousWidth : w;
 		final int height = h == -1 ? previousHeight : h;
-		final BufferedImage newImage = ImageUtils.createCompatibleImage(width, height);
+		final BufferedImage newImage = ImageUtils.createCompatibleImage(width, height, false);
 		final Graphics g = newImage.getGraphics();
 
 		while (!rendered) {
@@ -382,8 +382,7 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return origin.x >= 0 && origin.x + getDisplayWidth() < getWidth() && origin.y >= 0
 				&& origin.y + getDisplayHeight() < getHeight();
 	}
-
-	@Override
+ 
 	public boolean resizeImage(final int x, final int y, final boolean force) {
 		if (!force && x == viewPort.width && y == viewPort.height) { return true; }
 		if (x < 10 || y < 10) { return false; }
@@ -515,13 +514,13 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 	}
 
 	public void newZoomLevel(final double newZoomLevel) {
-		getData().setZoomLevel(newZoomLevel, true);
+		getData().setZoomLevel(newZoomLevel, true, false);
 	}
 
 	@Override
 	public double getZoomLevel() {
 		if (getData().getZoomLevel() == null) {
-			getData().setZoomLevel(1.0, true);
+			getData().setZoomLevel(1.0, true, false);
 		}
 		return getData().getZoomLevel();
 	}

@@ -384,4 +384,29 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		decorator.createToolItems(tb);
 	}
 
+	@Override
+	public void showOverlay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideOverlay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void fullScreenSet() {}
 }

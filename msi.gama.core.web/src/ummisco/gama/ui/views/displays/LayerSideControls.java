@@ -11,7 +11,6 @@ package ummisco.gama.ui.views.displays;
 
 import java.awt.Color;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,11 +29,10 @@ import msi.gama.common.interfaces.ItemList;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.outputs.LayeredDisplayData;
-import msi.gama.outputs.layers.AbstractLayer;
 import msi.gama.outputs.layers.AgentLayerStatement;
 import msi.gama.outputs.layers.GridLayer;
-import msi.gama.outputs.layers.GridLayerStatement;
 import msi.gama.outputs.layers.ILayerStatement;
+import msi.gama.outputs.layers.ImageLayer;
 import msi.gama.outputs.layers.ImageLayerStatement;
 import msi.gama.outputs.layers.SpeciesLayerStatement;
 import msi.gama.outputs.layers.charts.ChartLayerStatement;
@@ -48,7 +46,6 @@ import msi.gaml.types.Types;
 import ummisco.gama.ui.controls.ParameterExpandBar;
 import ummisco.gama.ui.controls.ParameterExpandItem;
 import ummisco.gama.ui.interfaces.EditorListener;
-import ummisco.gama.ui.parameters.BooleanEditor;
 import ummisco.gama.ui.parameters.ColorEditor;
 import ummisco.gama.ui.parameters.EditorFactory;
 import ummisco.gama.ui.parameters.FloatEditor;
@@ -143,9 +140,9 @@ public class LayerSideControls {
 		});
 		EditorFactory.create(scope, contents, "Split distance", data.getSplitDistance(), 0d, 1d, .001d, false, true,
 				(EditorListener<Double>) val -> {
-					ds.runAndUpdate(() -> {
-						data.setSplitDistance(val / 3);
-					});
+					// ds.run(() -> {
+					data.setSplitDistance(val / 3);
+					// });
 
 				});
 		createItem(viewer, "OpenGL", null, contents);
@@ -162,7 +159,7 @@ public class LayerSideControls {
 		final IScope scope = ds.getScope();
 		final LayeredDisplayData data = ds.getData();
 
-		final BooleanEditor freeFly = EditorFactory.create(scope, contents, "FreeFly Camera", !data.isArcBallCamera(),
+		EditorFactory.create(scope, contents, "FreeFly Camera", !data.isArcBallCamera(),
 				(EditorListener<Boolean>) val -> {
 					ds.runAndUpdate(() -> {
 						data.setArcBallCamera(!val);
@@ -170,20 +167,18 @@ public class LayerSideControls {
 
 				});
 		final boolean cameraLocked = data.cameraInteractionDisabled();
-		final BooleanEditor lock = EditorFactory.create(scope, contents, "Lock camera:", cameraLocked,
-				(EditorListener<Boolean>) newValue -> {
-					preset.setActive(!newValue);
-					cameraPos.setActive(!newValue);
-					cameraTarget.setActive(!newValue);
-					cameraUp.setActive(!newValue);
-					zoom.setActive(!newValue);
-					data.disableCameraInteractions(newValue);
-				});
+		EditorFactory.create(scope, contents, "Lock camera:", cameraLocked, (EditorListener<Boolean>) newValue -> {
+			preset.setActive(!newValue);
+			cameraPos.setActive(!newValue);
+			cameraTarget.setActive(!newValue);
+			cameraUp.setActive(!newValue);
+			zoom.setActive(!newValue);
+			data.disableCameraInteractions(newValue);
+		});
 
 		preset = EditorFactory.choose(scope, contents, "Preset camera:", "Choose...", true, view.getCameraNames(),
 				(EditorListener<String>) newValue -> {
-					if (newValue.isEmpty())
-						return;
+					if (newValue.isEmpty()) { return; }
 					data.setPresetCamera(newValue);
 					ds.updateDisplay(true);
 				});
@@ -241,11 +236,13 @@ public class LayerSideControls {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				String text = IKeyword.CAMERA_POS + ": " + cameraPos.getCurrentValue().yNegated().serialize(false);
+				String text = IKeyword.CAMERA_POS + ": "
+						+ cameraPos.getCurrentValue().yNegated().withPrecision(4).serialize(false);
 				text += " " + IKeyword.CAMERA_LOOK_POS + ": "
-						+ cameraTarget.getCurrentValue().yNegated().serialize(false);
-				text += " " + IKeyword.CAMERA_UP_VECTOR + ": " + cameraUp.getCurrentValue().serialize(false);
-//				WorkbenchHelper.copy(text);
+						+ cameraTarget.getCurrentValue().yNegated().withPrecision(4).serialize(false);
+				text += " " + IKeyword.CAMERA_UP_VECTOR + ": "
+						+ cameraUp.getCurrentValue().withPrecision(4).serialize(false);
+				WorkbenchHelper.copy(text);
 			}
 
 		});
@@ -300,7 +297,7 @@ public class LayerSideControls {
 				final IList<GamaPoint> pp =
 						GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
 				final String text = IKeyword.KEYSTONE + ": " + pp.serialize(false);
-//				WorkbenchHelper.copy(text);
+				WorkbenchHelper.copy(text);
 			}
 
 		});
@@ -321,31 +318,33 @@ public class LayerSideControls {
 					data.setBackgroundColor(new GamaColor(newValue));
 					ds.updateDisplay(true);
 				});
-		final ColorEditor highlight = EditorFactory.create(scope, contents, "Highlight:", data.getHighlightColor(),
+		EditorFactory.create(scope, contents, "Highlight:", data.getHighlightColor(),
 				(EditorListener<Color>) newValue -> {
 					data.setHighlightColor(new GamaColor(newValue));
 					ds.updateDisplay(true);
 				});
 		zoom = EditorFactory.create(scope, contents, "Zoom (%):", "",
 				Integer.valueOf((int) (data.getZoomLevel() * 100)), 0, null, 1, (EditorListener<Integer>) newValue -> {
-					data.setZoomLevel(newValue.doubleValue() / 100d, true);
+					data.setZoomLevel(newValue.doubleValue() / 100d, true, false);
 					ds.updateDisplay(true);
 				});
-		rotate = EditorFactory.create(scope, contents, "Rotation angle about z-axis (degrees):",
-				Double.valueOf(data.getCurrentRotationAboutZ()), null, null, 0.1, false,
-				(EditorListener<Double>) newValue -> {
-					data.setZRotationAngle(newValue);
-					ds.updateDisplay(true);
-				});
-		if (view.isOpenGL())
-			EditorFactory.create(scope, contents, "Continuous rotation", data.isRotationOn(),
+
+		if (view.isOpenGL()) {
+			rotate = EditorFactory.create(scope, contents, "Z-axis rotation:",
+					Double.valueOf(data.getCurrentRotationAboutZ()), null, null, 0.1, false,
+					(EditorListener<Double>) newValue -> {
+						data.setZRotationAngle(newValue);
+						// ds.updateDisplay(true);
+					});
+			EditorFactory.create(scope, contents, "Continuous rotation", data.isContinuousRotationOn(),
 					(EditorListener<Boolean>) val -> {
 						ds.runAndUpdate(() -> {
-							data.setRotation(val);
+							data.setContinuousRotation(val);
 							;
 						});
 
 					});
+		}
 		createItem(viewer, "General", null, contents);
 
 		ds.getData().addListener((p, v) -> {
@@ -359,8 +358,10 @@ public class LayerSideControls {
 					background.forceUpdateValueAsynchronously();
 					break;
 				case ROTATION:
-					rotate.getParam().setValue(scope, (double) v);
-					rotate.forceUpdateValueAsynchronously();
+					if (rotate != null) {
+						rotate.getParam().setValue(scope, (double) v);
+						rotate.forceUpdateValueAsynchronously();
+					}
 					break;
 				default:
 					;
@@ -392,39 +393,39 @@ public class LayerSideControls {
 
 	private void fillLayerParameters(final ParameterExpandBar viewer, final ILayer layer,
 			final LayeredDisplayView view) {
-		final Composite contents = createContentsComposite(viewer);
-		if (layer instanceof AbstractLayer) {
+		if (layer.isControllable()) {
+			final Composite contents = createContentsComposite(viewer);
 			fill(contents, layer, view.getDisplaySurface());
+			createItem(viewer, "Layer " + layer.getName(), layer, contents);
 		}
-		createItem(viewer, "Layer " + layer.getName(), layer, contents);
 	}
 
 	public void fill(final Composite compo, final ILayer layer, final IDisplaySurface container) {
 
 		final ILayerStatement definition = layer.getDefinition();
 
-		EditorFactory.create(container.getScope(), compo, "Transparency:", definition.getTransparency(), 0.0, 1.0, 0.1,
-				false, newValue -> {
-					layer.setTransparency(1 - newValue);
+		EditorFactory.create(container.getScope(), compo, "Transparency:", layer.getData().getTransparency(), 0.0, 1.0,
+				0.1, false, newValue -> {
+					layer.getData().setTransparency(1 - newValue);
 					updateIfPaused(layer, container);
 				});
-		EditorFactory.create(container.getScope(), compo, "Position:", definition.getBox().getPosition(),
+		EditorFactory.create(container.getScope(), compo, "Position:", layer.getData().getPosition(),
 				(EditorListener<ILocation>) newValue -> {
-					layer.setPosition(newValue);
+					layer.getData().setPosition(newValue);
 					updateIfPaused(layer, container);
 				});
-		EditorFactory.create(container.getScope(), compo, "Size:", definition.getBox().getSize(),
+		EditorFactory.create(container.getScope(), compo, "Size:", layer.getData().getSize(),
 				(EditorListener<ILocation>) newValue -> {
-					layer.setExtent(newValue);
+					layer.getData().setSize(newValue);
 					updateIfPaused(layer, container);
 				});
 
-		switch (definition.getType()) {
+		switch (definition.getType(container.getOutput())) {
 
 			case GRID: {
 				EditorFactory.create(container.getScope(), compo, "Draw grid:",
-						((GridLayerStatement) definition).drawLines(), (EditorListener<Boolean>) newValue -> {
-							((GridLayer) layer).setDrawLines(newValue);
+						((GridLayer) layer).getData().drawLines(), (EditorListener<Boolean>) newValue -> {
+							((GridLayer) layer).getData().setDrawLines(newValue);
 							updateIfPaused(layer, container);
 						});
 				break;
@@ -454,23 +455,15 @@ public class LayerSideControls {
 			case IMAGE: {
 				if (definition instanceof ImageLayerStatement) {
 					EditorFactory.create(container.getScope(), compo, "Image:",
-							((ImageLayerStatement) definition).getImageFileName(), false, newValue -> {
-								((ImageLayerStatement) definition).setImageFileName(newValue);
+							((ImageLayer) layer).getImageFileName(GAMA.getRuntimeScope()), false, newValue -> {
+								((ImageLayer) layer).setImageFileName(GAMA.getRuntimeScope(), newValue);
 								updateIfPaused(layer, container);
 							});
 				}
 				break;
 
 			}
-			case GIS: {
-				EditorFactory.createFile(container.getScope(), compo, "Shapefile:",
-						((ImageLayerStatement) definition).getImageFileName(), newValue -> {
-							((ImageLayerStatement) definition).setGisLayerName(GAMA.getRuntimeScope(),
-									newValue.getName(GAMA.getRuntimeScope()));
-							updateIfPaused(layer, container);
-						});
-				break;
-			}
+
 			case CHART: {
 				final Button b = new Button(compo, SWT.PUSH);
 				b.setText("Properties");
@@ -482,7 +475,7 @@ public class LayerSideControls {
 						// FIXME Editor not working for the moment
 						final Point p = b.toDisplay(b.getLocation());
 						p.y = p.y + 30;
-						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()),
+						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(),
 								((ChartLayerStatement) definition).getChart(), p);
 						editor.open();
 						updateIfPaused(layer, container);
@@ -496,7 +489,7 @@ public class LayerSideControls {
 				save.setToolTipText(
 						"Save the chart data as a CSV file when memorization of values is enabled in the preferences or via the 'memorize:' facet");
 				save.setEnabled(enabled);
-				if (enabled)
+				if (enabled) {
 					save.addSelectionListener(new SelectionAdapter() {
 
 						@Override
@@ -505,6 +498,7 @@ public class LayerSideControls {
 						}
 
 					});
+				}
 				break;
 			}
 			default:
