@@ -6,8 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import org.apache.log4j.Logger;
-//import org.dslforge.workspace.ui.commands.AbstractWorkspaceCommand;
+import org.dslforge.workspace.ui.commands.AbstractWorkspaceCommand;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -19,14 +18,14 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
-public class ImportProjectCommand {//extends AbstractWorkspaceCommand {
-	static final Logger logger = Logger.getLogger(ImportProjectCommand.class);
+public class ImportProjectCommand extends AbstractWorkspaceCommand {
+//	static final Logger logger = Logger.getLogger(ImportProjectCommand.class);
 
 	public ImportProjectCommand() {
 		super();
 	}
 
-//	@Override
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// ImportProjectWizard wizard = new ImportProjectWizard();
 		// wizard.init(getWindow().getWorkbench(), StructuredSelection.EMPTY);

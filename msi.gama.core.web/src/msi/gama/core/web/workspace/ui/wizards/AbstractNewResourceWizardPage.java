@@ -20,9 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.dslforge.workspace.WorkspaceManager;
-import org.dslforge.workspace.ui.BasicWorkspaceFilter;
-import org.dslforge.workspace.ui.FileSystemContentProvider;
-import org.dslforge.workspace.ui.FileSystemLabelProvider;
+//import org.dslforge.workspace.ui.BasicWorkspaceFilter;
+//import org.dslforge.workspace.ui.FileSystemContentProvider;
+//import org.dslforge.workspace.ui.FileSystemLabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -65,9 +65,9 @@ public abstract class AbstractNewResourceWizardPage extends WizardPage {
 		gd.widthHint = convertWidthInCharsToPixels(40);
 		gd.heightHint = convertHeightInCharsToPixels(15);
 		treeViewer.getTree().setLayoutData(gd);
-		treeViewer.setLabelProvider(new FileSystemLabelProvider());
+//		treeViewer.setLabelProvider(new FileSystemLabelProvider());
 		treeViewer.setContentProvider(new GamaFileSystemContentProvider());
-		treeViewer.addFilter(new BasicWorkspaceFilter());
+//		treeViewer.addFilter(new BasicWorkspaceFilter());
 		treeViewer.setInput(WorkspaceManager.INSTANCE.getWorkspaceRootFolder());
 		return treeViewer;
 	}

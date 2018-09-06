@@ -16,7 +16,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Control;
 
-import msi.gama.core.web.editor.GamlEditorState;
+import msi.gama.lang.gaml.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
 import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.menus.GamaMenu;

@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 import org.dslforge.texteditor.PathEditorInput;
-import org.dslforge.workspace.ui.util.EditorUtil;
+//import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
@@ -25,7 +25,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.registry.EditorRegistry;
 
 @SuppressWarnings("restriction")
-public class GamlEditorUtil extends EditorUtil{
+public class GamlEditorUtil {//extends EditorUtil{
 
 	static final Logger logger = Logger.getLogger(GamlEditorUtil.class);
 	static final String WEB_FORM_ID_SUFFIX = "web.form";

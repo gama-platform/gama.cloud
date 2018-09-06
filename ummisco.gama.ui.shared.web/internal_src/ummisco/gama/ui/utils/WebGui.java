@@ -27,6 +27,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.services.ISourceProviderService;
 
 import gnu.trove.map.hash.THashMap;
+import msi.gama.application.workbench.PerspectiveHelper;
 import msi.gama.common.interfaces.IConsoleDisplayer;
 import msi.gama.common.interfaces.IDisplayCreator;
 import msi.gama.common.interfaces.IDisplayCreator.DisplayDescription;
@@ -41,13 +42,11 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.interfaces.IStatusDisplayer;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
-import msi.gama.core.web.editor.GAMAWEB;
-import msi.gama.core.web.editor.GamaPerspectiveHelper;
-import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
@@ -62,7 +61,6 @@ import msi.gaml.architecture.user.UserPanelStatement;
 import msi.gaml.statements.test.CompoundSummary;
 import msi.gaml.statements.test.TestExperimentSummary;
 import msi.gaml.types.IType;
-import ummisco.gama.ui.commands.SimulationStateProvider;
 import ummisco.gama.ui.dialogs.Messages;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
@@ -86,7 +84,7 @@ public class WebGui implements IGui {
 	private ILocation mouseLocationInModel;
 
 	static {
-		GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
+//		GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
 		PreferencesHelper.initialize();
 	}
 
@@ -420,7 +418,7 @@ public class WebGui implements IGui {
 			// }
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
-			getConsole(scope).showConsoleView(exp.getAgent());
+//			getConsole(scope).showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -527,7 +525,7 @@ public class WebGui implements IGui {
 				}
 			}
 			if (openModelingPerspective) {
-				GamaPerspectiveHelper.openModelingPerspective(immediately);
+				PerspectiveHelper.openModelingPerspective(immediately);
 			}
 			getStatus(scope).neutralStatus("No simulation running");
 		});
@@ -555,7 +553,7 @@ public class WebGui implements IGui {
 		final String uid = WorkbenchHelper.UISession.get(scope);
 		final ISourceProviderService service = WorkbenchHelper.getService(uid, ISourceProviderService.class);
 		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
-				.getSourceProvider(SimulationStateProvider.SIMULATION_RUNNING_STATE);
+				.getSourceProvider("ummisco.gama.ui.experiment.SimulationRunningState");
 		// stateProvider.updateStateTo(forcedState);
 		if (stateProvider != null) {
 			WorkbenchHelper.run(uid, () -> stateProvider.updateStateTo(forcedState));
@@ -593,7 +591,7 @@ public class WebGui implements IGui {
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }
 
-		final String uid = WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
+		final String uid = "admin";//WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
 		// System.out.println("getstatus of "+uid);
 
 		return StatusDisplayerFactory.displayer.get(""+uid);// = new

@@ -11,8 +11,8 @@ package ummisco.gama.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import msi.gama.runtime.GAMA; 
-import ummisco.gama.ui.utils.WebGui;
+import msi.gama.runtime.GAMA;
+import ummisco.gama.ui.utils.WebGui;  
 
 public class Activator extends AbstractUIPlugin {
 

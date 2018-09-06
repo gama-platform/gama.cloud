@@ -41,7 +41,8 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchMessages;
-
+import ummisco.gama.ui.resources.GamaIcons;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
@@ -50,8 +51,6 @@ import msi.gama.lang.gaml.web.workspace.ui.DummyNewUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.WebListEditorDialog;
 import msi.gama.util.GamaList;
 import msi.gama.util.GamaListFactory;
-import ummisco.gama.ui.resources.GamaIcons;
-import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * Creates, adds and disposes actions for the menus and action bars of

@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGui;
-import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.core.web.editor.GAMA_WEB;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -127,7 +127,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
 						c.executeOn(scope);
-						GAMAWEB.getExperiment().refreshAllOutputs();
+						GAMA_WEB.getExperiment().refreshAllOutputs();
 						if (c.isContinue(scope)) {
 							doContinue();
 						}

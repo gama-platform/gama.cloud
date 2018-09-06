@@ -24,13 +24,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
-import org.dslforge.workspace.ui.BasicViewerComparator;
-import org.dslforge.workspace.ui.BasicWokspaceNavigator;
-import org.dslforge.workspace.ui.BasicWorkspaceFilter;
-import org.dslforge.workspace.ui.BasicWorkspaceSorter;
-import org.dslforge.workspace.ui.FileSystemContentProvider;
-import org.dslforge.workspace.ui.FileSystemLabelProvider;
-import org.dslforge.workspace.ui.util.EditorUtil;
+//import org.dslforge.workspace.ui.BasicViewerComparator;
+//import org.dslforge.workspace.ui.BasicWokspaceNavigator;
+//import org.dslforge.workspace.ui.BasicWorkspaceFilter;
+//import org.dslforge.workspace.ui.BasicWorkspaceSorter;
+//import org.dslforge.workspace.ui.FileSystemContentProvider;
+//import org.dslforge.workspace.ui.FileSystemLabelProvider;
+//import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -61,43 +61,43 @@ import com.google.api.services.drive.Drive.Files.Export;
  * A basic implementation of the CNF based on java.io.File
  *
  */
-public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
+public class GamlWorkspaceNavigator {//extends BasicWokspaceNavigator {
 //	private List<PropertySheetPage> propertySheetPages = new ArrayList<PropertySheetPage>();
 //	private String uid="";
 
 
-	@Override
-	public void createPartControl(Composite aParent) {
-		super.createPartControl(aParent);
-		getCommonViewer().setSorter(new BasicWorkspaceSorter());
-		getCommonViewer().setComparator(new BasicViewerComparator());
-		String workspaceRoot = getWorkspaceRoot();
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IPartService partService = workbench.getActiveWorkbenchWindow().getPartService();
-		partService.addPartListener(this);
-//		getCommonViewer().addSelectionChangedListener(selectionListener);
-		getCommonViewer().addFilter(new BasicWorkspaceFilter());
-		getCommonViewer().setContentProvider(new GamaFileSystemContentProvider());
-		getCommonViewer().setLabelProvider(new FileSystemLabelProvider());
-		getCommonViewer().setInput(new File(workspaceRoot));
-	}
-
-	@Override
-	public void workspaceChanged(Object e) {
-		final CommonViewer commonViewer = getCommonViewer();
-		Control control = commonViewer.getControl();
-		if (!control.isDisposed()) {
-			Display display = control.getDisplay();
-			display.syncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (!commonViewer.isBusy() && !commonViewer.getTree().isDisposed())
-						
-						commonViewer.refresh();
-				}
-			});
-		}
-	}
+//	@Override
+//	public void createPartControl(Composite aParent) {
+//		super.createPartControl(aParent);
+//		getCommonViewer().setSorter(new BasicWorkspaceSorter());
+//		getCommonViewer().setComparator(new BasicViewerComparator());
+//		String workspaceRoot = getWorkspaceRoot();
+//		IWorkbench workbench = PlatformUI.getWorkbench();
+//		IPartService partService = workbench.getActiveWorkbenchWindow().getPartService();
+//		partService.addPartListener(this);
+////		getCommonViewer().addSelectionChangedListener(selectionListener);
+//		getCommonViewer().addFilter(new BasicWorkspaceFilter());
+//		getCommonViewer().setContentProvider(new GamaFileSystemContentProvider());
+//		getCommonViewer().setLabelProvider(new FileSystemLabelProvider());
+//		getCommonViewer().setInput(new File(workspaceRoot));
+//	}
+//
+//	@Override
+//	public void workspaceChanged(Object e) {
+//		final CommonViewer commonViewer = getCommonViewer();
+//		Control control = commonViewer.getControl();
+//		if (!control.isDisposed()) {
+//			Display display = control.getDisplay();
+//			display.syncExec(new Runnable() {
+//				@Override
+//				public void run() {
+//					if (!commonViewer.isBusy() && !commonViewer.getTree().isDisposed())
+//						
+//						commonViewer.refresh();
+//				}
+//			});
+//		}
+//	}
 
 //	@Override
 //	public IPropertySheetPage getPropertySheetPage() {
@@ -175,136 +175,136 @@ public class GamlWorkspaceNavigator extends BasicWokspaceNavigator {
 	  }
 
 
-	@Override
-	protected void handleDoubleClick(DoubleClickEvent anEvent) {
-		// TODO Auto-generated method stub
-//		super.handleDoubleClick(anEvent);
-
-		IAction openHandler = getViewSite().getActionBars()
-				.getGlobalActionHandler("org.eclipse.ui.actionSet.openFiles");
-		if (openHandler == null) {
-			IStructuredSelection selection = (IStructuredSelection) anEvent.getSelection();
-			Object element = selection.getFirstElement();
-			if (element instanceof File && !(element instanceof GDriveFile)) {
-				final File file = (File) element;
-				if (file.exists() && !file.isDirectory()) {
-					final Display display = PlatformUI.getWorkbench().getDisplay();
-					display.asyncExec(new Runnable() {
-						@Override
-						public void run() {
-							// Double click a file
-							String absolutePath = file.getAbsolutePath();
-							IWorkbench workbench = PlatformUI.getWorkbench();
-							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
-//								logger.info("Double click on file " + absolutePath);
-							}
-							workspaceChanged(null);
-						}
-					});
-
-				} else if (file.exists() && file.isDirectory()) {
-					// Double click a folder
-					Object eventSource = anEvent.getSource();
-					if (eventSource instanceof TreeViewer) {
-						TreeViewer treeViewer = (TreeViewer) eventSource;
-						Widget widget = treeViewer.testFindItem(file);
-						if (widget != null && widget instanceof TreeItem) {
-							TreeItem item = (TreeItem) widget;
-							boolean toExpand = !item.getExpanded();
-							item.setExpanded(toExpand);
-							if (toExpand) {
-								treeViewer.expandToLevel(item, 0);
-							} else {
-								treeViewer.collapseToLevel(item, 0);
-							}
-							treeViewer.refresh(item.getData());
-						}
-					}
-				}
-			}else
-			if (element instanceof GDriveFile) {
-				final GDriveFile file = (GDriveFile) element;
-				if ( !file.isDirectory()) {//file.exists() &&
-					final Display display = PlatformUI.getWorkbench().getDisplay();
-					display.asyncExec(new Runnable() {
-						@Override
-						public void run() {
-							// Double click a file
-//							Export s;
-							try {
-//								s = GamaFileSystemContentProvider.drive.files().export(file.id, "text/plain");
-								InputStream in=downloadFile(GamaFileSystemContentProvider.drive,file);//s.executeMediaAsInputStream();
-
-
-							    File targetFile = new File(file.getPath());
-							    OutputStream outStream = new FileOutputStream(targetFile);
-							    
-							    
-
-								int read = 0;
-								byte[] bytes = new byte[1024];
-
-								while ((read = in.read(bytes)) != -1) {
-									outStream.write(bytes, 0, read);
-								}
-							    outStream.close();
-							    in.close();
-							    /*
-								InputStreamReader isr=new InputStreamReader(in);
-								BufferedReader br = new BufferedReader(isr);
-								String line = null;
-								
-								StringBuilder responseData = new StringBuilder();
-								while((line = br.readLine()) != null) {
-									responseData.append(line);
-								}
-								System.out.println(responseData);*/
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
-							updateFile(GamaFileSystemContentProvider.drive, file.getId(), file.getTitle(), file.getDescription(), file.getMimeType(), file.getPath(), true);
-							String absolutePath = file.getPath();//file.getAbsolutePath();
-							IWorkbench workbench = PlatformUI.getWorkbench();
-							if (GamlEditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
-//								logger.info("Double click on file " + absolutePath);
-							}
+//	@Override
+//	protected void handleDoubleClick(DoubleClickEvent anEvent) {
+//		// TODO Auto-generated method stub
+////		super.handleDoubleClick(anEvent);
+//
+//		IAction openHandler = getViewSite().getActionBars()
+//				.getGlobalActionHandler("org.eclipse.ui.actionSet.openFiles");
+//		if (openHandler == null) {
+//			IStructuredSelection selection = (IStructuredSelection) anEvent.getSelection();
+//			Object element = selection.getFirstElement();
+//			if (element instanceof File && !(element instanceof GDriveFile)) {
+//				final File file = (File) element;
+//				if (file.exists() && !file.isDirectory()) {
+//					final Display display = PlatformUI.getWorkbench().getDisplay();
+//					display.asyncExec(new Runnable() {
+//						@Override
+//						public void run() {
+//							// Double click a file
+//							String absolutePath = file.getAbsolutePath();
+//							IWorkbench workbench = PlatformUI.getWorkbench();
+//							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+////								logger.info("Double click on file " + absolutePath);
+//							}
 //							workspaceChanged(null);
-						}
-					});
-
-				} else {//if (file.exists() && file.isDirectory()) {
-					// Double click a folder
-					Object eventSource = anEvent.getSource();
-					if (eventSource instanceof TreeViewer) {
-						TreeViewer treeViewer = (TreeViewer) eventSource;
-						Widget widget = treeViewer.testFindItem(file);
-						if (widget != null && widget instanceof TreeItem) {
-							TreeItem item = (TreeItem) widget;
-							boolean toExpand = !item.getExpanded();
-							item.setExpanded(toExpand);
-							if (toExpand) {
-								treeViewer.expandToLevel(item, 0);
-							} else {
-								treeViewer.collapseToLevel(item, 0);
-							}
-							treeViewer.refresh(item.getData());
-						}
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public void init(IViewSite site) throws PartInitException {
-		// TODO Auto-generated method stub
-		super.init(site);
-//		TitleAreaDialog a=new TitleAreaDialog(getSite().getShell());
-//		a.open();
-//		MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
-	}
+//						}
+//					});
+//
+//				} else if (file.exists() && file.isDirectory()) {
+//					// Double click a folder
+//					Object eventSource = anEvent.getSource();
+//					if (eventSource instanceof TreeViewer) {
+//						TreeViewer treeViewer = (TreeViewer) eventSource;
+//						Widget widget = treeViewer.testFindItem(file);
+//						if (widget != null && widget instanceof TreeItem) {
+//							TreeItem item = (TreeItem) widget;
+//							boolean toExpand = !item.getExpanded();
+//							item.setExpanded(toExpand);
+//							if (toExpand) {
+//								treeViewer.expandToLevel(item, 0);
+//							} else {
+//								treeViewer.collapseToLevel(item, 0);
+//							}
+//							treeViewer.refresh(item.getData());
+//						}
+//					}
+//				}
+//			}else
+//			if (element instanceof GDriveFile) {
+//				final GDriveFile file = (GDriveFile) element;
+//				if ( !file.isDirectory()) {//file.exists() &&
+//					final Display display = PlatformUI.getWorkbench().getDisplay();
+//					display.asyncExec(new Runnable() {
+//						@Override
+//						public void run() {
+//							// Double click a file
+////							Export s;
+//							try {
+////								s = GamaFileSystemContentProvider.drive.files().export(file.id, "text/plain");
+//								InputStream in=downloadFile(GamaFileSystemContentProvider.drive,file);//s.executeMediaAsInputStream();
+//
+//
+//							    File targetFile = new File(file.getPath());
+//							    OutputStream outStream = new FileOutputStream(targetFile);
+//							    
+//							    
+//
+//								int read = 0;
+//								byte[] bytes = new byte[1024];
+//
+//								while ((read = in.read(bytes)) != -1) {
+//									outStream.write(bytes, 0, read);
+//								}
+//							    outStream.close();
+//							    in.close();
+//							    /*
+//								InputStreamReader isr=new InputStreamReader(in);
+//								BufferedReader br = new BufferedReader(isr);
+//								String line = null;
+//								
+//								StringBuilder responseData = new StringBuilder();
+//								while((line = br.readLine()) != null) {
+//									responseData.append(line);
+//								}
+//								System.out.println(responseData);*/
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							
+//							updateFile(GamaFileSystemContentProvider.drive, file.getId(), file.getTitle(), file.getDescription(), file.getMimeType(), file.getPath(), true);
+//							String absolutePath = file.getPath();//file.getAbsolutePath();
+//							IWorkbench workbench = PlatformUI.getWorkbench();
+//							if (GamlEditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+////								logger.info("Double click on file " + absolutePath);
+//							}
+////							workspaceChanged(null);
+//						}
+//					});
+//
+//				} else {//if (file.exists() && file.isDirectory()) {
+//					// Double click a folder
+//					Object eventSource = anEvent.getSource();
+//					if (eventSource instanceof TreeViewer) {
+//						TreeViewer treeViewer = (TreeViewer) eventSource;
+//						Widget widget = treeViewer.testFindItem(file);
+//						if (widget != null && widget instanceof TreeItem) {
+//							TreeItem item = (TreeItem) widget;
+//							boolean toExpand = !item.getExpanded();
+//							item.setExpanded(toExpand);
+//							if (toExpand) {
+//								treeViewer.expandToLevel(item, 0);
+//							} else {
+//								treeViewer.collapseToLevel(item, 0);
+//							}
+//							treeViewer.refresh(item.getData());
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	@Override
+//	public void init(IViewSite site) throws PartInitException {
+//		// TODO Auto-generated method stub
+//		super.init(site);
+////		TitleAreaDialog a=new TitleAreaDialog(getSite().getShell());
+////		a.open();
+////		MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
+//	}
 
 
 }

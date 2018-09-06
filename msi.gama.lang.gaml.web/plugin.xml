@@ -77,7 +77,7 @@
        </menuContribution>
   
   
-   </extension -->
+   </extension >
    
       <extension
          point="org.eclipse.rap.ui.resources">
@@ -106,15 +106,15 @@
             id="msi.gama.lang.gaml.web.editor"
             name="Gaml Model Editor">
       </editor>
-   </extension>
-   <extension
+   </extension-->
+   <!--extension
          point="org.dslforge.xtext.common.contribution">
   <contribution
        factory="msi.gama.lang.gaml.web.GamlExecutableExtensionFactory"
         path="./msi.gama.lang.gaml/src/msi/gama/lang/gaml/grammar/Gaml1.6v2.xtext"
         extension="gaml">
   </contribution>
-</extension>
+</extension-->
 <extension point="org.eclipse.rap.ui.entrypoint">
 	<entrypoint
        class="msi.gama.lang.gaml.web.workbench.BasicWorkbench"
@@ -128,13 +128,13 @@
   
  
 
-   <extension
+   <!--extension
          point="org.eclipse.ui.navigator.viewer">
       <viewer
-            viewerId="org.dslforge.navigator.view">
+            viewerId="msi.gama.gui.view.GamaNavigator">
       </viewer>
       <viewerContentBinding
-            viewerId="org.dslforge.navigator.view">
+            viewerId="msi.gama.gui.view.GamaNavigator">
          <includes>
             <contentExtension
                   isRoot="true"
@@ -145,7 +145,7 @@
             </contentExtension>
          </includes>
       </viewerContentBinding>
-   </extension>
+   </extension-->
    
 
 
@@ -172,15 +172,6 @@
    </extension>
    
    
-   
-   <extension
-         point="org.eclipse.ui.contexts">
-      <context
-            id="msi.gama.application.simulation.context"
-            name="In Experiments"
-            parentId="org.eclipse.ui.contexts.dialogAndWindow">
-      </context>
-   </extension>
    
    
 

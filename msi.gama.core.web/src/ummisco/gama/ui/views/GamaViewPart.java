@@ -124,7 +124,7 @@ public abstract class GamaViewPart extends ViewPart
 		if (experiment != null) {
 			for (final IOutputManager manager : concat(
 					transform(GAMA.getControllers(), each -> each.getExperiment().getActiveOutputManagers()))) {
-				out = (IDisplayOutput) manager.getOutputWithId(id);
+				out = (IDisplayOutput) manager.get(id);
 				if (out != null) {
 					break;
 				}
@@ -144,7 +144,7 @@ public abstract class GamaViewPart extends ViewPart
 								if (spec != null) {
 									final IOutputManager manager = spec.getOutputManager();
 									if (manager != null) {
-										out = (IDisplayOutput) manager.getOutputWithId(s_id);
+										out = (IDisplayOutput) manager.get(s_id);
 									}
 								}
 							}
