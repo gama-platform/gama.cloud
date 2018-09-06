@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import msi.gama.kernel.experiment.IParameter;
-import msi.gama.core.web.editor.GAMA_WEB;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
@@ -159,7 +159,7 @@ public class UserControlDialog extends AbstractDetailsDialog {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
 						c.executeOn(scope);
-						GAMA_WEB.getExperiment().refreshAllOutputs();
+						GAMAWEB.getExperiment().refreshAllOutputs();
 					}
 
 				});

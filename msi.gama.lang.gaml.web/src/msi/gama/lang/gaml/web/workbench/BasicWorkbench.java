@@ -15,9 +15,6 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +22,6 @@ import java.util.Map;
 import javax.security.auth.Subject;
 
 import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.equinox.app.IApplication;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
@@ -36,8 +29,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
-import msi.gama.application.workspace.PickWorkspaceDialog;
-import msi.gama.application.workspace.WorkspacePreferences;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
@@ -179,10 +170,6 @@ public class BasicWorkbench implements EntryPoint {
 				// }
 				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
-//				if ( checkWorkspace() == EXIT_OK )
-//					return EXIT_OK;
-//				checkWorkspace();
-				
 				Display display = PlatformUI.createDisplay();
 				
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
@@ -197,85 +184,4 @@ public class BasicWorkbench implements EntryPoint {
 		}
 		return -1;
 	}
-	
-	public static int EXIT_OK=0;
-	public static Object checkWorkspace() throws IOException, MalformedURLException {
-		final Location instanceLoc = Platform.getInstanceLocation();
-		if ( instanceLoc == null ) {
-			// -data @none was specified but GAMA requires a workspace
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
-				"A workspace is required to run GAMA");
-			return EXIT_OK;
-		}
-		boolean remember = false;
-		String lastUsedWs = null;
-		if ( instanceLoc.isSet() ) {
-			lastUsedWs = instanceLoc.getURL().getFile();
-			final String ret = WorkspacePreferences.checkWorkspaceDirectory(lastUsedWs, false, false, false);
-			if ( ret != null ) {
-				/* If we dont or cant remember and the location is set, we cant do anything as we need a workspace */
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
-					"The workspace provided cannot be used. Please change it");
-//				PlatformUI.getWorkbench().close();
-//				System.exit(0);
-//				return EXIT_OK;
-				instanceLoc.release();
-			}
-		} 
-//		else {
-			instanceLoc.release();
-			/* Get what the user last said about remembering the workspace location */
-			remember = PickWorkspaceDialog.isRememberWorkspace();
-			/* Get the last used workspace location */
-			lastUsedWs = PickWorkspaceDialog.getLastSetWorkspaceDirectory();
-			/* If we have a "remember" but no last used workspace, it's not much to remember */
-			if ( remember && (lastUsedWs == null || lastUsedWs.length() == 0) ) {
-				remember = false;
-			}
-			if ( remember ) {
-				/*
-				 * If there's any problem with the workspace, force a dialog
-				 */
-				final String ret = WorkspacePreferences.checkWorkspaceDirectory(lastUsedWs, false, false, false);
-				if ( ret != null ) {
-					if ( ret.equals("models") ) {
-						remember = !MessageDialog.openConfirm(Display.getDefault().getActiveShell(),
-							"Outdated version of the models library",
-							"The workspace contains an old version of the models library. Do you want to create a new workspace ?");
-
-					} else {
-						remember = false;
-					}
-				}
-			}
-//		}
-
-		/* If we don't remember the workspace, show the dialog */
-		if ( !remember ) {
-			final int pick = new PickWorkspaceDialog().open();
-			/* If the user cancelled, we can't do anything as we need a workspace */
-			if ( pick == 1 /* Window.CANCEL */ && WorkspacePreferences.getSelectedWorkspaceRootLocation() == null ) {
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
-					"The application can not start without a workspace and will now exit.");
-				System.exit(0);
-				return IApplication.EXIT_OK;
-			}
-			/* Tell Eclipse what the selected location was and continue */
-			instanceLoc.set(new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), false);
-			if ( WorkspacePreferences.applyPrefs() ) {
-				WorkspacePreferences.applyEclipsePreferences(WorkspacePreferences.getSelectedWorkspaceRootLocation());
-			}
-		} else {
-//			if ( !instanceLoc.isSet() ) {
-				/* Set the last used location and continue */
-			instanceLoc.createLocation(null,new URL("file", null, lastUsedWs), false);
-//			instanceLoc.set(new URL("file", null, lastUsedWs), false);
-//			}
-
-		}
-
-		return null;
-	}
-
-
 }
