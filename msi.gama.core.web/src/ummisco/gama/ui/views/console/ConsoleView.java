@@ -34,7 +34,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.core.web.customwidget.LogComposite;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.fastmaths.CmnFastMath;
@@ -266,7 +266,7 @@ public class ConsoleView extends GamaViewPart
 			pauseBuffer.setLength(0);
 		} else {
 			
-			append(pauseBuffer.toString(), GAMAHelper.getRuntimeScope().getRoot(), (GamaUIColor) null);
+			append(pauseBuffer.toString(), GAMAWEB.getRuntimeScope().getRoot(), (GamaUIColor) null);
 		}
 	}
 

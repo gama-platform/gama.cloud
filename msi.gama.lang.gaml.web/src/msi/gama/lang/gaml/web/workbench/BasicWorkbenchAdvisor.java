@@ -27,7 +27,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.IWorkbenchConstants;
 import ummisco.gama.ui.factories.ConsoleDisplayer;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
@@ -101,8 +101,8 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public boolean preShutdown() {
 		System.out.println("preShutdown of "+loggedUser);
-		GAMAHelper.pauseFrontmostExperiment();
-		GAMAHelper.closeAllExperiments(true, true);
+		GAMAWEB.pauseFrontmostExperiment();
+		GAMAWEB.closeAllExperiments(true, true);
 		return super.preShutdown();
 	}
 
@@ -116,8 +116,8 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser);
-		if (GAMAHelper.getRegularGui() == null) {
-			GAMAHelper.setRegularGui(new WebGui());
+		if (GAMAWEB.getRegularGui() == null) {
+			GAMAWEB.setRegularGui(new WebGui());
 		}
 		System.out.println("postStartup of " + loggedUser);
 		if(StatusDisplayerFactory.displayer.get("null")==null) {

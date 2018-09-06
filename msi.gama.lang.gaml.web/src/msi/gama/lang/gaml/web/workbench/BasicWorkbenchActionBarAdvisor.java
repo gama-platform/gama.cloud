@@ -42,7 +42,7 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchMessages;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyModifyUserModule;

@@ -1,0 +1,28 @@
+.logjs {
+ width: 800px;
+ height: 800px;
+ margin: 0px;
+ padding: 2px;
+ border: 1px solid #C4C4C4;
+
+ font: 10px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+ overflow-y: scroll;
+ overflow-x: scroll;
+}
+ 
+.logjs p {
+   margin: 0px;
+   padding: 0px;
+}
+ 
+.logjs .info {
+  
+}
+ 
+.logjs .err {
+ color: red;
+}
+ 
+.logjs .warn {
+ color: yellow;
+}

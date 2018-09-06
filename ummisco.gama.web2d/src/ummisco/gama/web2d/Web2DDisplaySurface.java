@@ -55,7 +55,7 @@ import msi.gama.common.interfaces.ILayerManager;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.common.preferences.IPreferenceChangeListener;
 import msi.gama.common.util.ImageUtils;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
@@ -580,7 +580,7 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	protected void setDisplayScope(final IScope scope) {
 		if (this.scope != null) {
-			GAMAHelper.releaseScope(this.scope);
+			GAMAWEB.releaseScope(this.scope);
 		}
 		this.scope = scope;
 	}
@@ -605,7 +605,7 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 			layerManager.dispose();
 		}
 
-		GAMAHelper.releaseScope(getScope());
+		GAMAWEB.releaseScope(getScope());
 		setDisplayScope(null);
 	}
 

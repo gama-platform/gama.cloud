@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.jobs.Job;
 
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 
@@ -92,7 +92,7 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 
 		if (GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.getValue()) {
 			final GamaRuntimeException firstEx = array.get(0);
-			GAMAHelper.getGui().editModel(internalScope, firstEx.getEditorContext());
+			GAMAWEB.getGui().editModel(internalScope, firstEx.getEditorContext());
 			firstEx.setReported();
 			if (GamaPreferences.Runtime.CORE_SHOW_ERRORS.getValue()) {
 				final List<GamaRuntimeException> newList = new ArrayList<>();
@@ -134,7 +134,7 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 			cleanExceptions = newExceptions;
 		}
 
-		GAMAHelper.getGui().displayErrors(internalScope, newExceptions);
+		GAMAWEB.getGui().displayErrors(internalScope, newExceptions);
 	}
 
 	@Override

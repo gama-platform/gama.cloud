@@ -19,7 +19,7 @@ import org.eclipse.ui.ISources;
 
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IExperimentPlan;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.ISimulationStateProvider;
 
 public class SimulationStateProvider extends AbstractSourceProvider implements ISimulationStateProvider {
@@ -44,8 +44,8 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 	@Override
 	public Map<String, String> getCurrentState() {
 		String uid = RWT.getUISession().getAttribute("user").toString();
-		final String state = GAMAHelper.getGui().getExperimentState(uid);
-		final IExperimentPlan exp = GAMAHelper.getExperiment();
+		final String state = GAMAWEB.getGui().getExperimentState(uid);
+		final IExperimentPlan exp = GAMAWEB.getExperiment();
 		final String type = exp == null ? IGui.NONE
 				: exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
 		map.put(LOGGEDUSER, uid);
@@ -64,7 +64,7 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 		String uid = RWT.getUISession().getAttribute("user").toString();
 		fireSourceChanged(ISources.WORKBENCH, LOGGEDUSER, uid);
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_RUNNING_STATE, state);
-		final IExperimentPlan exp = GAMAHelper.getExperiment();
+		final IExperimentPlan exp = GAMAWEB.getExperiment();
 		final String type = exp == null ? "NONE" : exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_TYPE, type);
 

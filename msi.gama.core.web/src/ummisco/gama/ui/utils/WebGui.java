@@ -41,13 +41,13 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.interfaces.IStatusDisplayer;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.core.web.editor.GamaPerspectiveHelper;
+import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
-import msi.gama.core.web.editor.GAMAHelper;
-import msi.gama.core.web.editor.GamaPerspectiveHelper;
-import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
@@ -66,7 +66,7 @@ import ummisco.gama.ui.commands.SimulationStateProvider;
 import ummisco.gama.ui.dialogs.Messages;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
-import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
+//import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
 import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.interfaces.ISpeedDisplayer;
 import ummisco.gama.ui.interfaces.IUserDialogFactory;
@@ -121,7 +121,7 @@ public class WebGui implements IGui {
 	public void runtimeError(final IScope scope, final GamaRuntimeException g) {
 		if (g.isReported() || scope == null)
 			return;
-		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
+		if (GAMAWEB.getFrontmostController() != null && GAMAWEB.getFrontmostController().isDisposing()) {
 			return;
 		}
 		if (scope.getExperiment() == null)
@@ -165,7 +165,7 @@ public class WebGui implements IGui {
 	}
 
 	private Object internalShowView(final String uid, final String viewId, final String secondaryId, final int code) {
-		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
+		if (GAMAWEB.getFrontmostController() != null && GAMAWEB.getFrontmostController().isDisposing()) {
 			return null;
 		}
 		final Object[] result = new Object[1];
@@ -222,11 +222,11 @@ public class WebGui implements IGui {
 			if (o instanceof IGamaView) {
 				return (IGamaView) o;
 			}
-			o = GamaRuntimeException.error("Impossible to open view " + viewId, GAMAHelper.getRuntimeScope());
+			o = GamaRuntimeException.error("Impossible to open view " + viewId, GAMAWEB.getRuntimeScope());
 		}
 		if (o instanceof Throwable) {
-			GAMAHelper.reportError(GAMAHelper.getRuntimeScope(),
-					GamaRuntimeException.create((Exception) o, GAMAHelper.getRuntimeScope()), false);
+			GAMAWEB.reportError(GAMAWEB.getRuntimeScope(),
+					GamaRuntimeException.create((Exception) o, GAMAWEB.getRuntimeScope()), false);
 		}
 		return null;
 	}
@@ -398,7 +398,7 @@ public class WebGui implements IGui {
 				output.launch(a.getScope());
 			} catch (final GamaRuntimeException g) {
 				g.addContext("In opening the agent inspector");
-				GAMAHelper.reportError(GAMAHelper.getRuntimeScope(), g, false);
+				GAMAWEB.reportError(GAMAWEB.getRuntimeScope(), g, false);
 			}
 			final IViewReference r = WorkbenchHelper.getPage(uid).findViewReference(IGui.AGENT_VIEW_ID, "");
 			if (r != null) {
@@ -535,7 +535,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public String getExperimentState(String uid) {
-		final IExperimentController controller = GAMAHelper.theControllers.get(uid);
+		final IExperimentController controller = GAMAWEB.theControllers.get(uid);
 		if (controller == null) {
 			return NONE;
 		} else if (controller.getScheduler().paused) {
@@ -625,17 +625,17 @@ public class WebGui implements IGui {
 		for (final IDisplaySurface surface : this.allDisplaySurfaces()) {
 			surface.focusOn(shape);
 		}
-		GAMAHelper.getExperiment().refreshAllOutputs();
+		GAMAWEB.getExperiment().refreshAllOutputs();
 	}
 
 	@Override
 	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
-		if (manager != null) {
-			manager.applyLayout(layout, keepTabs, keepToolbars);
-		}
+//		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
+//		if (manager != null) {
+//			manager.applyLayout(layout, keepTabs, keepToolbars);
+//		}
 	}
 
 	@Override

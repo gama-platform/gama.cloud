@@ -12,7 +12,7 @@ package msi.gama.lang.gaml.web.ui.views.toolbar;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.events.SelectionEvent;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
 import msi.gama.runtime.IScope;
@@ -82,7 +82,7 @@ public class OpenExperimentSelectionListener implements Selector {
 		if (o != null) {
 //			final String uid=RWT.getUISession().getAttribute("user").toString();
 			final String uid=WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-			WorkbenchHelper.asyncRun(uid, () -> GAMAHelper.getGui().editModel(scope, o));
+			WorkbenchHelper.asyncRun(uid, () -> GAMAWEB.getGui().editModel(scope, o));
 		}
 
 	}

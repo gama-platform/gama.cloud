@@ -20,7 +20,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.internal.WorkbenchPage;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 
 public class ResetSimulationPerspective extends AbstractHandler {
 
@@ -38,7 +38,7 @@ public class ResetSimulationPerspective extends AbstractHandler {
 						"Reset experiment perspective", message, SWT.SHEET);
 					if ( !result ) { return null; }
 					page.resetPerspective();
-					GAMAHelper.reloadFrontmostExperiment();
+					GAMAWEB.reloadFrontmostExperiment();
 				}
 
 			}

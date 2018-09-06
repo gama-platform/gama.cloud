@@ -30,7 +30,7 @@ import msi.gama.common.UserStatusMessage;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IStatusMessage;
 import msi.gama.common.interfaces.IUpdaterTarget;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.kernel.experiment.IExperimentAgent;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.ITopLevelAgent;
@@ -138,7 +138,7 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 	private ITopLevelAgent getStatusAgent() {
 		if (agentIndex < 0)
 			agentIndex = 0;
-		final IExperimentPlan exp = GAMAHelper.getExperiment();
+		final IExperimentPlan exp = GAMAWEB.getExperiment();
 		if (exp == null)
 			return null;
 		// final ITopLevelAgent agent;

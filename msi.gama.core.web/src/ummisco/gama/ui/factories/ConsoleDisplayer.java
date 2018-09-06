@@ -7,7 +7,7 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGamaView.Console;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.ITopLevelAgent;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.Strings;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -69,7 +69,7 @@ public class ConsoleDisplayer implements IConsoleDisplayer {
 //		if (icv != null)
 //			icv.append(null, agent, null);
 		final IGamaView.Console console =
-				(Console) GAMAHelper.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
+				(Console) GAMAWEB.getGui().showView(agent.getScope(), IGui.CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 		if (consoleBuffer.length() > 0 && console != null) {
 			console.append(consoleBuffer.toString(), agent, null);
 			consoleBuffer.setLength(0);

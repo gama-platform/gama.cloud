@@ -14,13 +14,13 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 
 public class ShowHideConsoleViewHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMAHelper.getGui().getConsole(GAMAHelper.getSimulation().getScope()).showConsoleView(GAMAHelper.getSimulation());
+		GAMAWEB.getGui().getConsole(GAMAWEB.getSimulation().getScope()).showConsoleView(GAMAWEB.getSimulation());
 		return null;
 	}
 }

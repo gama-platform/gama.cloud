@@ -1,0 +1,28 @@
+.webgljs {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ padding: 0px;
+ border: 0px solid #000000;
+ font: 13px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+ white-space: nowrap;
+ overflow-y: scroll;
+ overflow-x: scroll;
+}
+ 
+.webgljs p {
+   margin: 0px;
+   padding: 0px;
+}
+ 
+.webgljs .info {
+  
+}
+ 
+.webgljs .err {
+ color: red;
+}
+ 
+.webgljs .warn {
+ color: yellow;
+}

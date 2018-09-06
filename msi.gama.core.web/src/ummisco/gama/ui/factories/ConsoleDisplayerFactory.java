@@ -21,7 +21,7 @@ import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGamaView.Console;
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.ITopLevelAgent;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.Strings;
 import ummisco.gama.ui.utils.WorkbenchHelper;

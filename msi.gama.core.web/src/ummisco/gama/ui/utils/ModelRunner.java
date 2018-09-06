@@ -26,7 +26,7 @@ import org.eclipse.ui.services.IServiceLocator;
 
 import com.google.inject.Singleton;
 
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.experiment.ParametersSet;
 import msi.gama.kernel.experiment.TestAgent;
@@ -98,14 +98,14 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 			return null;
 		final List<TestExperimentSummary> result = new ArrayList<>();
 		for (final String expName : testExpNames) {
-			final IExperimentPlan exp = GAMAHelper.addHeadlessExperiment(model, expName, new ParametersSet(), null);
+			final IExperimentPlan exp = GAMAWEB.addHeadlessExperiment(model, expName, new ParametersSet(), null);
 			if (exp != null) {
 				exp.setHeadless(true);
 				final TestAgent agent = (TestAgent) exp.getAgent();
 				exp.getController().getScheduler().paused = false;
 				agent.step(agent.getScope());
 				result.add(((WithTestSummary<TestExperimentSummary>) agent).getSummary());
-				GAMAHelper.closeExperiment(exp);
+				GAMAWEB.closeExperiment(exp);
 			}
 		}
 		return result;
@@ -138,7 +138,7 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 			final List<GamlCompilationError> errors = new ArrayList<>();
 			final IModel model = GamlModelBuilder.compile(uri, errors);
 			if (model == null) {
-				GAMAHelper.getGui().error("File " + uri.lastSegment() + " cannot be built because of " + errors.size()
+				GAMAWEB.getGui().error("File " + uri.lastSegment() + " cannot be built because of " + errors.size()
 						+ " compilation errors");
 			}
 			return model;
@@ -150,11 +150,11 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 				final List<GamlCompilationError> errors = new ArrayList<>();
 				model = GamlModelBuilder.compile(doc, errors);
 				if (model == null) {
-					GAMAHelper.getGui().error("File " + doc.getURI().lastSegment() + " cannot be built because of " + errors.size()
+					GAMAWEB.getGui().error("File " + doc.getURI().lastSegment() + " cannot be built because of " + errors.size()
 							+ " compilation errors");
 				}
 			} catch (final GamaRuntimeException ex) {
-				GAMAHelper.getGui()
+				GAMAWEB.getGui()
 						.error("Experiment cannot be instantiated because of the following error: " + ex.getMessage());
 			}
 			return model;
@@ -168,7 +168,7 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 		final IModel model = findModel(object);
 		if (model == null)
 			return;
-		GAMAHelper.runGuiExperiment(exp, model);
+		GAMAWEB.runGuiExperiment(exp, model);
 	}
 
 	@Override
