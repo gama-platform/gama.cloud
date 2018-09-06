@@ -393,8 +393,10 @@ public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int imageHeight = Math.max(1, point[1]);
 		setDisplayHeight(imageHeight);
 		setDisplayWidth(imageWidth);
-		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
-		iGraphics.setDisplaySurface(this);
+		if (iGraphics == null) {
+			iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
+			iGraphics.setDisplaySurface(this);
+		}
 		return true;
 
 	}
