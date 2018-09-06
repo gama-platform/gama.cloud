@@ -21,6 +21,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.swt.GLCanvas;
 import com.vividsolutions.jts.geom.Geometry;
 
+import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.metamodel.shape.GamaPoint;
@@ -77,7 +78,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	protected volatile boolean inited, visible, disposed;
 
 	// Canvas
-	protected GLCanvas canvas;
+	protected WebGLComposite canvas;
 
 	@Override
 	public void setDisplaySurface(final IDisplaySurface d) {
@@ -96,7 +97,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 
 	@Override
 	public void setCanvas(final GLCanvas canvas) {
-		this.canvas = canvas;
+		this.canvas = (WebGLComposite) canvas;
 		canvas.addGLEventListener(this);
 		cameraHelper.hook();
 	}

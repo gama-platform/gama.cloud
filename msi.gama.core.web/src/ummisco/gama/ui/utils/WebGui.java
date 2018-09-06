@@ -54,6 +54,7 @@ import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.InspectDisplayOutput;
 import msi.gama.outputs.LayeredDisplayOutput;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
@@ -165,21 +166,21 @@ public class WebGui implements IGui {
 	}
 
 	private Object internalShowView(final String uid, final String viewId, final String secondaryId, final int code) {
-		if (GAMAHelper.getFrontmostController() != null && GAMAHelper.getFrontmostController().isDisposing()) {
-			return null;
-		}
+		if (GAMA.getFrontmostController() != null && GAMA.getFrontmostController().isDisposing()) { return null; }
 		final Object[] result = new Object[1];
-
-		WorkbenchHelper.run(uid, () -> {
+		WorkbenchHelper.run(() -> {
 			try {
-				final IWorkbenchPage page = WorkbenchHelper.getPage(uid);
+				final IWorkbenchPage page = WorkbenchHelper.getPage("admin");
 				if (page != null) {
 					page.zoomOut();
-					result[0] = page.showView(viewId, secondaryId, code);
+					final String second = secondaryId == null ? null
+							: secondaryId + "@@@" + String.valueOf(System.currentTimeMillis());
+					// The goal here is to address #2441 by randomizing the ids of views.
+					// DEBUG.LOG("Opening view " + viewId + " " + second);
+					result[0] = page.showView(viewId, second, code);
 				}
 			} catch (final Exception e) {
 				result[0] = e;
-				e.printStackTrace();
 			}
 		});
 		return result[0];
