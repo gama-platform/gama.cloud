@@ -17,9 +17,7 @@ Require-Bundle: msi.gama.ext,
  org.eclipse.rap.ui.workbench,
  org.eclipse.rap.rwt.osgi,
  msi.gama.core.web;bundle-version="1.0.0",
- org.eclipse.swt,
- ummisco.gama.ui.shared.web;bundle-version="1.7.0",
- ummisco.gama.ui.experiment.web
+ org.eclipse.swt
 Bundle-ActivationPolicy: lazy
 Import-Package: com.vividsolutions.jts.geom,
  org.apache.commons.lang;version="2.6.0",

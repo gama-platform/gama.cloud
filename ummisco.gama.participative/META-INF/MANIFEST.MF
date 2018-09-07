@@ -26,10 +26,7 @@ Require-Bundle: msi.gama.core;bundle-version="1.7.0",
  org.eclipse.rap.ui.views,
  msi.gama.lang.gaml,
  msi.gama.lang.gaml.web,
- org.junit,
- ummisco.gama.ui.shared.web;bundle-version="1.7.0",
- ummisco.gama.ui.modeling.web;bundle-version="1.7.0",
- org.dslforge.workspace.ui
+ org.junit
 Export-Package: gaml.additions,
  org.graphstream.graph,
  org.graphstream.graph.implementations,

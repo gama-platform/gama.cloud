@@ -38,10 +38,10 @@ import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
+import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
+import msi.gama.lang.gaml.web.editor.AbstractGamlEditor;
 import msi.gama.lang.gaml.web.editor.AbstractGamlEtherpadEditor;
-import msi.gama.lang.gaml.web.editor.GamlEditorState;
-import msi.gama.lang.gaml.web.editor.ModelRunner;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControlsEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenExperimentSelectionListenerEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListenerEtherpad;
@@ -55,6 +55,7 @@ import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.GamaIcons;
 import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
+import ummisco.gama.ui.utils.ModelRunner;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
@@ -378,7 +379,7 @@ public void openEtherpaEditor(final String absolutePath) {
 
 	private synchronized void enableButton(final int index, final String text, final SelectionListener listener) {
 		if (text == null) { return; }
-		final boolean isBatch = state.types.get(index) != null;
+		final boolean isBatch = state.types.get(index);
 		final Image image = isBatch ? GamaIcons.create(IGamaIcons.BUTTON_BATCH).image()
 				: GamaIcons.create(IGamaIcons.BUTTON_GUI).image();
 		GamaToolbar2 toolbar=thetoolbar.get(""+RWT.getUISession().getAttribute("user"));

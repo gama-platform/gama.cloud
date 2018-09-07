@@ -8,17 +8,23 @@ package msi.gama.lang.gaml.web.editor;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.dslforge.styledtext.BasicText;
+import org.dslforge.xtext.common.XtextContentAssistEnabledEditor;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.xtext.resource.XtextResource;
 
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import ummisco.gama.participative.EtherpadBasicText;
 import ummisco.gama.participative.XtextContentAssistEnabledEtherpadEditor;
+
+import msi.gama.rap.oauth.Activator;
+import net.gjerull.etherpad.client.EPLiteClient;
 public abstract class AbstractGamlEtherpadEditor extends XtextContentAssistEnabledEtherpadEditor {
 	private IGamlBuilderListener resourceListener;
 

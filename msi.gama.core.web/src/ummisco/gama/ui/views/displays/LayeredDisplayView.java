@@ -199,8 +199,8 @@ public abstract class LayeredDisplayView extends GamaViewPart
 			updateThread.interrupt();
 		}
 
-		if (decorator != null)
-			decorator.dispose();
+//		if (decorator != null)
+//			decorator.dispose();
 
 		super.widgetDisposed(e);
 	}

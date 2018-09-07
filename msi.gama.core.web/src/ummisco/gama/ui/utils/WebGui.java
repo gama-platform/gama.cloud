@@ -41,13 +41,13 @@ import msi.gama.common.interfaces.IGui;
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.interfaces.IStatusDisplayer;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.core.web.editor.GamaPerspectiveHelper;
+import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
 import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
-import msi.gama.core.web.editor.GAMAWEB;
-import msi.gama.core.web.editor.GamaPerspectiveHelper;
-import msi.gama.core.web.editor.PerspectiveHelper;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
@@ -66,7 +66,7 @@ import ummisco.gama.ui.commands.SimulationStateProvider;
 import ummisco.gama.ui.dialogs.Messages;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
-import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
+//import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
 import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.interfaces.ISpeedDisplayer;
 import ummisco.gama.ui.interfaces.IUserDialogFactory;
@@ -85,7 +85,7 @@ public class WebGui implements IGui {
 	private ILocation mouseLocationInModel;
 
 	static {
-//		GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
+		GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
 		PreferencesHelper.initialize();
 	}
 
@@ -175,6 +175,11 @@ public class WebGui implements IGui {
 				final IWorkbenchPage page = WorkbenchHelper.getPage(uid);
 				if (page != null) {
 					page.zoomOut();
+//					final String second = secondaryId == null ? null
+//							: secondaryId + "@@@" + String.valueOf(System.currentTimeMillis());
+//					// The goal here is to address #2441 by randomizing the ids of views.
+//					// DEBUG.LOG("Opening view " + viewId + " " + second);
+//					result[0] = page.showView(viewId, second, code);
 					result[0] = page.showView(viewId, secondaryId, code);
 				}
 			} catch (final Exception e) {
@@ -631,7 +636,7 @@ public class WebGui implements IGui {
 	@Override
 	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
-//		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 //		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
 //		if (manager != null) {
 //			manager.applyLayout(layout, keepTabs, keepToolbars);
