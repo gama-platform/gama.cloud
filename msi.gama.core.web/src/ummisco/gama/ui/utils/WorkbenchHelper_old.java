@@ -26,7 +26,7 @@ import org.eclipse.ui.WorkbenchException;
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.views.IGamlEditor;
 
-public class WorkbenchHelper {
+public class WorkbenchHelper_old {
 	public static HashMap<String,IWorkbench> workbench=new HashMap<String,IWorkbench>();
 	public static HashMap<IScope,String> UISession=new HashMap<IScope,String>();
 

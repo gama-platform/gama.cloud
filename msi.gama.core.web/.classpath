@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="msi/gama/core/web/workspace/ui/commands/AbstractWorkspaceCommand.java" kind="src" path="src"/>
+	<classpathentry excluding="msi/gama/core/web/workspace/ui/commands/AbstractWorkspaceCommand.java|ummisco/gama/ui/access/|ummisco/gama/ui/bindings/|ummisco/gama/ui/commands/|ummisco/gama/ui/controls/|ummisco/gama/ui/dialogs/|ummisco/gama/ui/experiment/parameters/|ummisco/gama/ui/factories/|ummisco/gama/ui/interfaces/|ummisco/gama/ui/menus/|ummisco/gama/ui/parameters/|ummisco/gama/ui/perspective/|ummisco/gama/ui/resources/|ummisco/gama/ui/views/|ummisco/gama/ui/views/console/|ummisco/gama/ui/views/displays/|ummisco/gama/ui/views/inspectors/|ummisco/gama/ui/views/toolbar/|msi/gama/core/web/customwidget/|msi/gama/core/web/workspace/ui/commands/|ummisco/gama/ui/utils/CleanupHelper.java|ummisco/gama/ui/utils/GraphicsHelper.java|ummisco/gama/ui/utils/ModelRunner.java|ummisco/gama/ui/utils/PlatformHelper.java|ummisco/gama/ui/utils/PreferencesHelper.java|ummisco/gama/ui/utils/ThreadedUpdater.java|ummisco/gama/ui/utils/ViewsHelper.java|ummisco/gama/ui/utils/WebGui.java|msi/gama/core/web/editor/|ummisco/gama/ui/utils/WorkbenchHelper.java|ummisco/gama/ui/utils/WorkbenchHelper_old.java" kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/google-api-client-1.23.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/google-api-services-drive-v2-rev296-1.23.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/google-http-client-1.23.0.jar"/>

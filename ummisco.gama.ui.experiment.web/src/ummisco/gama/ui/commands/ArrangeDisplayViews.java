@@ -12,9 +12,7 @@ package ummisco.gama.ui.commands;
 import static msi.gama.common.interfaces.IKeyword.LAYOUT;
 import static msi.gaml.operators.Displays.HORIZONTAL;
 import static msi.gaml.operators.Displays.VERTICAL;
-import static org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory.INSTANCE;
 import static org.eclipse.e4.ui.workbench.modeling.EModelService.IN_ACTIVE_PERSPECTIVE;
-import static ummisco.gama.ui.utils.WorkbenchHelper.findDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,6 @@ import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;

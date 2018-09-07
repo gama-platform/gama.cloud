@@ -27,8 +27,8 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
+import msi.gama.common.interfaces.IGui;
 import msi.gama.core.web.editor.GAMAWEB;
-import msi.gama.core.web.editor.IWorkbenchConstants;
 import ummisco.gama.ui.factories.ConsoleDisplayer;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayer;
@@ -137,6 +137,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 
 	public String getInitialWindowPerspectiveId() {
-		return IWorkbenchConstants.ID_PERSPECTIVE;
+//		return IWorkbenchConstants.ID_PERSPECTIVE;
+		return IGui.PERSPECTIVE_MODELING_ID;
 	}
 }

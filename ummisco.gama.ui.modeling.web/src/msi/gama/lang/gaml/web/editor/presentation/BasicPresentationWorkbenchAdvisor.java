@@ -20,8 +20,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import msi.gama.common.interfaces.IGui;
-import msi.gama.core.web.editor.IWorkbenchConstants;
+import msi.gama.common.interfaces.IGui; 
 import msi.gama.lang.gaml.web.workbench.BasicWorkbenchWindowAdvisor;
 
 public class BasicPresentationWorkbenchAdvisor extends WorkbenchAdvisor {
