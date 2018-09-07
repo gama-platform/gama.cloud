@@ -13,6 +13,8 @@ package ummisco.gama.ui.utils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.progress.UIJob;
 
 import msi.gama.common.interfaces.IDisplaySurface;
@@ -30,9 +32,8 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 
 	Message message = null;
 	private IUpdaterTarget<Message> control;
-
 	public ThreadedUpdater(final String name) {
-		super(WorkbenchHelper.getDisplay(), name);
+		super(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), name);
 		setPriority(DECORATE);
 	}
 
@@ -52,14 +53,7 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 			return;
 		}
 		message = m;
-//		schedule();
-		WorkbenchHelper.run(new Runnable() {
-			
-			@Override
-			public void run() {
-				control.updateWith(message);
-			}
-		});
+		schedule();
 	}
 
 	@Override

@@ -6,6 +6,6 @@
 			<accessrule kind="accessible" pattern="org/e*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="ummisco/gama/ui/navigator/contents/TestModelsFolder.java" kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

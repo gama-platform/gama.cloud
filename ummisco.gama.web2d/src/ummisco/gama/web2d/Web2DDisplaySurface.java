@@ -72,7 +72,7 @@ import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
 import ummisco.gama.ui.utils.WorkbenchHelper;
-import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
+import ummisco.gama.ui.views.displays.DisplaySurfaceMenu; 
 
 @display ("java2D")
 public class Web2DDisplaySurface extends JPanel implements IDisplaySurface {

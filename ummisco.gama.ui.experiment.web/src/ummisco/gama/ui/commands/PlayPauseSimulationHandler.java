@@ -17,24 +17,23 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.runtime.GAMA;
-import ummisco.gama.ui.bindings.GamaKeyBindings;
+import msi.gama.core.web.editor.GAMAWEB;
 
 public class PlayPauseSimulationHandler extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMA.startPauseFrontmostExperiment();
+		GAMAWEB.startPauseFrontmostExperiment();
 		return this;
 	}
 
 	@Override
 	public void updateElement(final UIElement element, final Map parameters) {
-		element.setTooltip("Runs or pauses the current experiment (" + GamaKeyBindings.PLAY_STRING + ")");
-		if (GAMA.isPaused())
-			element.setText("Run Experiment (" + GamaKeyBindings.PLAY_STRING + ")");
-		else
-			element.setText("Pause Experiment (" + GamaKeyBindings.PLAY_STRING + ")");
+//		element.setTooltip("Runs or pauses the current experiment (" + GamaKeyBindings.PLAY_STRING + ")");
+//		if (GAMA.isPaused())
+//			element.setText("Run Experiment (" + GamaKeyBindings.PLAY_STRING + ")");
+//		else
+//			element.setText("Pause Experiment" + GamaKeyBindings.PLAY_STRING + ")");
 
 	}
 }

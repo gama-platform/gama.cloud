@@ -17,6 +17,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.ACC;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -30,6 +31,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -39,14 +41,16 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 
 import msi.gama.common.interfaces.IGamlDescription;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
 import ummisco.gama.ui.resources.IGamaColors;
-import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.IGamlEditor;
+import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 
 public class GamlSearchField {
 
@@ -59,7 +63,7 @@ public class GamlSearchField {
 	private int dialogHeight = -1;
 	private int dialogWidth = -1;
 	private Control previousFocusControl;
-	// private GamaToolbarSimple toolbar;
+	private GamaToolbarSimple toolbar;
 	private Composite composite;
 	private Table table;
 
@@ -72,13 +76,22 @@ public class GamlSearchField {
 		return text;
 	}
 
+	public GamaToolbarSimple getToolbar() {
+		return toolbar;
+	}
+
 	public Control createWidget(final Composite parent) {
 		composite = new Composite(parent, SWT.NONE);
 		GridLayoutFactory.fillDefaults().margins(0, 0).spacing(0, 0).extendedMargins(0, 5, 5, 5).numColumns(2)
 				.equalWidth(false).applyTo(composite);
+
+		toolbar = new GamaToolbarSimple(composite, SWT.NONE, parent.getBackground());
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, 24)
+				.applyTo(toolbar);
+		toolbar.setVisible(false);
+		((GridData) toolbar.getLayoutData()).exclude = true;
 		text = createText(composite);
-		final int height = PlatformHelper.isWindows() ? 16 : 24;
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).hint(200, height).applyTo(text);
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(200, 24).applyTo(text);
 
 		parent.getShell().addControlListener(new ControlListener() {
 			@Override
@@ -92,7 +105,8 @@ public class GamlSearchField {
 			}
 
 			private void closeDropDown() {
-				if (shell == null || shell.isDisposed() || text.isDisposed() || !shell.isVisible()) { return; }
+				if (shell == null || shell.isDisposed() || text.isDisposed() || !shell.isVisible())
+					return;
 				quickAccessContents.doClose();
 			}
 		});
@@ -192,9 +206,8 @@ public class GamlSearchField {
 			public void keyPressed(final KeyEvent e) {
 				if (e.keyCode == SWT.ESC) {
 					text.setText(""); //$NON-NLS-1$
-					if (previousFocusControl != null && !previousFocusControl.isDisposed()) {
+					if (previousFocusControl != null && !previousFocusControl.isDisposed())
 						previousFocusControl.setFocus();
-					}
 				} else if (e.keyCode == SWT.ARROW_UP) {
 					// Windows moves caret left/right when pressing up/down,
 					// avoid this as the table selection changes for up/down
@@ -208,13 +221,67 @@ public class GamlSearchField {
 				}
 			}
 		});
-		// hookToWorkbench();
+		hookToWorkbench();
 		return composite;
+	}
+
+	private void hookToWorkbench() {
+		final IGamlEditor editor = WorkbenchHelper.getActiveEditor(RWT.getUISession().getAttribute("user").toString());
+		if (editor != null) {
+			toolbar.setVisible(true);
+			((GridData) toolbar.getLayoutData()).exclude = false;
+		}
+		WorkbenchHelper.getPage(RWT.getUISession().getAttribute("user").toString()).addPartListener(new IPartListener() {
+
+			@Override
+			public void partOpened(final IWorkbenchPart part) {
+				// if (part instanceof IGamlEditor) {
+				// toolbar.setVisible(true);
+				// ((GridData) toolbar.getLayoutData()).exclude = false;
+				// }
+
+			}
+
+			@Override
+			public void partDeactivated(final IWorkbenchPart part) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void partClosed(final IWorkbenchPart part) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void partBroughtToTop(final IWorkbenchPart part) {
+				// if (part instanceof IGamlEditor) {
+				// toolbar.setVisible(true);
+				// ((GridData) toolbar.getLayoutData()).exclude = false;
+				// }
+
+			}
+
+			@Override
+			public void partActivated(final IWorkbenchPart part) {
+				if (part instanceof IGamlEditor) {
+					toolbar.setVisible(true);
+					((GridData) toolbar.getLayoutData()).exclude = false;
+				} else {
+					toolbar.setVisible(false);
+					((GridData) toolbar.getLayoutData()).exclude = true;
+				}
+				composite.layout(true);
+
+			}
+		});
+
 	}
 
 	private Text createText(final Composite parent) {
 		final Text text = new Text(parent, SWT.SEARCH | SWT.ICON_SEARCH);
-		final String message = "GAML reference (" + GamaKeyBindings.SEARCH_STRING + ")";
+		final String message = "Search in GAML reference (" + GamaKeyBindings.SEARCH_STRING + ")";
 		text.setMessage(message);
 		return text;
 	}
@@ -228,7 +295,9 @@ public class GamlSearchField {
 		final Monitor[] monitors = toSearch.getMonitors();
 		Monitor result = monitors[0];
 
-		for (final Monitor current : monitors) {
+		for (int idx = 0; idx < monitors.length; idx++) {
+			final Monitor current = monitors[idx];
+
 			final Rectangle clientArea = current.getClientArea();
 
 			if (clientArea.contains(toFind)) { return current; }
@@ -361,7 +430,7 @@ public class GamlSearchField {
 	}
 
 	public void search() {
-		final IWorkbenchPart part = WorkbenchHelper.getActivePart();
+		final IWorkbenchPart part = WorkbenchHelper.getActivePart(RWT.getUISession().getAttribute("user").toString());
 		if (part instanceof IEditorPart) {
 			final IEditorPart editor = (IEditorPart) part;
 			final IWorkbenchPartSite site = editor.getSite();

@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
-
 import ummisco.gama.ui.utils.PlatformHelper;
+ 
 
 /**
  * A listener that insures the proper modal behavior of Swing dialogs when

@@ -16,8 +16,7 @@ import org.eclipse.swt.graphics.Point;
 
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.runtime.GAMA;
-import ummisco.gama.ui.utils.WorkbenchHelper;
-import ummisco.gama.ui.views.WorkaroundForIssue1353;
+import ummisco.gama.ui.utils.WorkbenchHelper; 
 
 public class LayeredDisplayMultiListener {
 
@@ -47,8 +46,8 @@ public class LayeredDisplayMultiListener {
 						deco.toggleInteractiveConsole();
 					}
 					break;
-				case 't':
-					deco.toggleToolbar();
+//				case 't':
+//					deco.toggleToolbar();
 			}
 		};
 	}

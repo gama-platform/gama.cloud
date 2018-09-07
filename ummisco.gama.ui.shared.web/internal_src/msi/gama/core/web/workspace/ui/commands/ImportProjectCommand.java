@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+//import org.apache.log4j.Logger;
 import org.dslforge.workspace.ui.commands.AbstractWorkspaceCommand;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;

@@ -13,24 +13,27 @@ package ummisco.gama.ui.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.AbstractSourceProvider;
 import org.eclipse.ui.ISources;
 
 import msi.gama.common.interfaces.IGui;
 import msi.gama.kernel.experiment.IExperimentPlan;
-import msi.gama.runtime.GAMA;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.ISimulationStateProvider;
 
 public class SimulationStateProvider extends AbstractSourceProvider implements ISimulationStateProvider {
 
-	public final static String SIMULATION_RUNNING_STATE = "ummisco.gama.ui.experiment.SimulationRunningState";
-	public final static String SIMULATION_TYPE = "ummisco.gama.ui.experiment.SimulationType";
-	public final static String SIMULATION_STEPBACK = "ummisco.gama.ui.experiment.SimulationStepBack";
+	public final static String LOGGEDUSER = "msi.gama.core.web.ui.experiment.LoggedUser";
+	public final static String SIMULATION_RUNNING_STATE = "msi.gama.core.web.ui.experiment.SimulationRunningState";
+	public final static String SIMULATION_TYPE = "msi.gama.core.web.ui.experiment.SimulationType";
+	public final static String SIMULATION_STEPBACK = "msi.gama.core.web.ui.experiment.SimulationStepBack";
 
 	private final static Map<String, String> map = new HashMap<>(3);
 
 	@Override
 	public void dispose() {
+		System.out.println("dispose SIMULATION_RUNNING_STATE");
 	}
 
 	@Override
@@ -40,21 +43,15 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 
 	@Override
 	public Map<String, String> getCurrentState() {
-		final String state = GAMA.getGui().getExperimentState("");
-		final IExperimentPlan exp = GAMA.getExperiment();
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		final String state = GAMAWEB.getGui().getExperimentState(uid);
+		final IExperimentPlan exp = GAMAWEB.getExperiment();
 		final String type = exp == null ? IGui.NONE
 				: exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
-		
-		String canStepBack = "CANNOT_STEP_BACK";
-		if (exp != null) {
-			if (exp.getAgent() != null) {
-				canStepBack = exp.getAgent().canStepBack() ? "CAN_STEP_BACK" : "CANNOT_STEP_BACK";
-			}
-		}		
-		
+		map.put(LOGGEDUSER, uid);
 		map.put(SIMULATION_RUNNING_STATE, state);
 		map.put(SIMULATION_TYPE, type);
-		map.put(SIMULATION_STEPBACK, canStepBack);
+		map.put(SIMULATION_STEPBACK, "CANNOT_STEP_BACK");
 		return map;
 	}
 
@@ -64,8 +61,10 @@ public class SimulationStateProvider extends AbstractSourceProvider implements I
 	 */
 	@Override
 	public void updateStateTo(final String state) {
+		String uid = RWT.getUISession().getAttribute("user").toString();
+		fireSourceChanged(ISources.WORKBENCH, LOGGEDUSER, uid);
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_RUNNING_STATE, state);
-		final IExperimentPlan exp = GAMA.getExperiment();
+		final IExperimentPlan exp = GAMAWEB.getExperiment();
 		final String type = exp == null ? "NONE" : exp.isBatch() ? "BATCH" : exp.isMemorize() ? "MEMORIZE" : "REGULAR";
 		fireSourceChanged(ISources.WORKBENCH, SIMULATION_TYPE, type);
 

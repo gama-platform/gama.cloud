@@ -26,7 +26,7 @@ public class DisplayLayoutFactory extends AbstractServiceFactory implements IDis
 		return this;
 	}
 
-	@Override
+//	@Override
 	public void applyLayout(final Object layout, final boolean keepTabs, final boolean keepToolbars,
 			final boolean showEditors) {
 		WorkbenchHelper.run(() -> {
@@ -51,6 +51,12 @@ public class DisplayLayoutFactory extends AbstractServiceFactory implements IDis
 	@Override
 	public void showScreen() {
 		WorkbenchHelper.asyncRun(() -> ArrangeDisplayViews.showScreen());
+	}
+
+	@Override
+	public void applyLayout(Object layout, boolean keepTabs, boolean keepToolbars) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

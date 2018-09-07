@@ -130,7 +130,7 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 
 	@Override
 	public void stopDisplayingTooltips() {
-		toolbar.wipe(SWT.LEFT, true);
+		// displayCommands();
 	}
 
 	@Override

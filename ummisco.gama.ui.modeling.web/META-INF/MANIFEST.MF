@@ -46,7 +46,6 @@ Require-Bundle: msi.gama.lang.gaml;visibility:=reexport,
  org.dslforge.texteditor;bundle-version="0.9.1",
  cict.gama.web.wrapper;bundle-version="1.7.0"
 Export-Package: msi.gama.lang.gaml.ui.decorators,
- msi.gama.lang.gaml.ui.editor,  
  msi.gama.lang.gaml.ui.labeling, 
  msi.gama.lang.gaml.web,
  msi.gama.lang.gaml.web.contentassist,

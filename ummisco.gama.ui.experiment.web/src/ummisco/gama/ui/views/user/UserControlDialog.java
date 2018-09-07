@@ -1,7 +1,8 @@
 /*********************************************************************************************
  *
- * 'UserControlDialog.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'UserControlDialog.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform.
+ * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -29,8 +31,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import msi.gama.kernel.experiment.IParameter;
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.metamodel.agent.IAgent;
-import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -56,10 +58,10 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	public static class PreviousDialog {
 
-		final Point location;
-		final Point extent;
-		final boolean toggled;
-		final String name;
+		private final Point location;
+		private final Point extent;
+		private final boolean toggled;
+		private final String name;
 
 		PreviousDialog(final UserControlDialog d) {
 			location = d.getShell().getLocation();
@@ -94,7 +96,9 @@ public class UserControlDialog extends AbstractDetailsDialog {
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
-		if (previous == null || !previous.name.equals(title)) { return; }
+		if (previous == null || !previous.name.equals(title)) {
+			return;
+		}
 		newShell.setLocation(previous.location);
 		newShell.setSize(previous.extent);
 
@@ -154,8 +158,8 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
-						scope.execute(c);
-						GAMA.getExperiment().refreshAllOutputs();
+						c.executeOn(scope);
+						GAMAWEB.getExperiment().refreshAllOutputs();
 					}
 
 				});
@@ -164,7 +168,7 @@ public class UserControlDialog extends AbstractDetailsDialog {
 					scope.addVarWithValue(i.getTempVarName(), i.value(scope));
 					EditorFactory.create(scope, composite, i, newValue -> {
 						i.setValue(scope, newValue);
-						scope.execute(i);
+						c.executeOn(scope);
 					}, false, false);
 				}
 
@@ -202,8 +206,9 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		}
 
 		/*
-		 * Must be sure to call getContents().computeSize(SWT.DEFAULT, SWT.DEFAULT) before calling
-		 * getShell().setSize(newWindowSize) since controls have been added or removed.
+		 * Must be sure to call getContents().computeSize(SWT.DEFAULT,
+		 * SWT.DEFAULT) before calling getShell().setSize(newWindowSize) since
+		 * controls have been added or removed.
 		 */
 
 		// Compute the new window size.
@@ -227,11 +232,13 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		((Composite) getContents()).layout();
 	}
 
-	@SuppressWarnings ({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected Control createDetailsArea(final Composite parent) {
 		final Composite compo = new Composite(parent, SWT.BORDER | SWT.SHADOW_IN);
-		compo.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY));
+
+		final String uid=RWT.getUISession().getAttribute("user").toString();
+		compo.setBackground(WorkbenchHelper.getDisplay(uid).getSystemColor(SWT.COLOR_GRAY));
 		final GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 0;
 		compo.setLayout(layout);

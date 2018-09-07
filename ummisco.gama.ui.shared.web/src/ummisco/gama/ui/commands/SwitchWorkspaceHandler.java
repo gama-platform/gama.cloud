@@ -16,15 +16,15 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 
-import msi.gama.application.workspace.PickWorkspaceDialog;
+//import msi.gama.application.workspace.PickWorkspaceDialog;
 
 public class SwitchWorkspaceHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		if (new PickWorkspaceDialog().open() != Window.CANCEL) {
+//		if (new PickWorkspaceDialog().open() != Window.CANCEL) {
 //			PlatformUI.getWorkbench().restart();
-		}
+//		}
 		return null;
 	}
 

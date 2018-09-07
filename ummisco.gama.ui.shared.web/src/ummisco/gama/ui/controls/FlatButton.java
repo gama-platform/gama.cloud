@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package ummisco.gama.ui.controls;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -51,7 +52,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	}
 
 	public static FlatButton button(final Composite comp, final GamaUIColor color, final String text) {
-		return create(comp, SWT.None).setColor(color).setText(text);
+		return create(comp, SWT.None).setText(text).setColor(color);
 	}
 
 	public static FlatButton button(final Composite comp, final GamaUIColor color, final String text,
@@ -97,9 +98,9 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 				break;
 			case SWT.MouseEnter:
 //			case SWT.MouseHover:
-				doHover(true);
-				e.doit = true;
-				break;
+//				doHover(true);
+//				e.doit = true;
+//				break;
 			case SWT.MouseUp:
 				if (e.button == 1 && getClientArea().contains(e.x, e.y)) {
 					doButtonUp();
@@ -173,7 +174,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	}
 
 	private Path createClipping(final Rectangle rect) {
-		final AdvancedPath path = new AdvancedPath(WorkbenchHelper.getDisplay());
+		final AdvancedPath path = new AdvancedPath(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()));
 		path.addRoundRectangle(rect.x, rect.y, rect.width, rect.height, 8, 8);
 		return path;
 	}
@@ -197,7 +198,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 			y_image += (getBounds().height - image.getBounds().height) / 2;
 		}
 		int y_text = 0;
-		final String text = newText();
+//		final String text = newText();
 		if (text != null) {
 			y_text += (getBounds().height - gc.textExtent(text).y) / 2;
 		}
@@ -376,7 +377,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		final RGB newColorCode = c.getRGB();
 		if (newColorCode.equals(oldColorCode)) { return this; }
 		colorCode = c.getRGB();
-//		redraw();
+		redraw();
 		return this;
 	}
 

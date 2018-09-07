@@ -11,9 +11,6 @@ package msi.gama.lang.gaml.web.ui.views.toolbar;
  
 import static org.eclipse.ui.IWorkbenchCommandConstants.NAVIGATE_BACKWARD_HISTORY;
 import static org.eclipse.ui.IWorkbenchCommandConstants.NAVIGATE_FORWARD_HISTORY;
-import static ummisco.gama.ui.utils.WorkbenchHelper.executeCommand;
-import static ummisco.gama.ui.utils.WorkbenchHelper.getCommand;
-
 import java.util.function.Consumer;
 
 import org.eclipse.core.commands.Command;
@@ -66,9 +63,9 @@ public class EditorToolbar {
 		};
 	}
 
-	final SelectionListener globalPrevious = selected(e -> executeCommand(NAVIGATE_BACKWARD_HISTORY));
-	final SelectionListener globalNext = selected(e -> executeCommand(NAVIGATE_FORWARD_HISTORY));
-	final SelectionListener searchPrevious = selected(e -> find.findPrevious());
+//	final SelectionListener globalPrevious = selected(e -> executeCommand(NAVIGATE_BACKWARD_HISTORY));
+//	final SelectionListener globalNext = selected(e -> executeCommand(NAVIGATE_FORWARD_HISTORY));
+//	final SelectionListener searchPrevious = selected(e -> find.findPrevious());
 	final SelectionListener searchNext = selected(e -> find.findNext());
 
 	public EditorToolbar(final GamlEditor editor) {
@@ -77,8 +74,8 @@ public class EditorToolbar {
 
 	public EditorSearchControls fill(final GamaToolbarSimple toolbar) {
 
-		previous = toolbar.button("editor.lastedit2", null, "Previous edit location", globalPrevious);
-		next = toolbar.button("editor.nextedit2", null, "Next edit location", globalNext);
+//		previous = toolbar.button("editor.lastedit2", null, "Previous edit location", globalPrevious);
+//		next = toolbar.button("editor.nextedit2", null, "Next edit location", globalNext);
 		find = new EditorSearchControls(editor).fill(toolbar);
 		toolbar.menu("editor.outline2", null, "Show outline", new SelectionAdapter() {
 
@@ -86,7 +83,7 @@ public class EditorToolbar {
 			public void widgetSelected(final SelectionEvent e) {
 				// final GamlEditor editor = getEditor();
 				if (editor == null) { return; }
-				editor.openOutlinePopup();
+//				editor.openOutlinePopup();
 			}
 		});
 
@@ -101,51 +98,51 @@ public class EditorToolbar {
 	}
 
 	private void hookToSearch(final ToolItem lastEdit, final ToolItem nextEdit) {
-		find.getFindControl().addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(final FocusEvent e) {
-				searching = true;
-				previous.removeSelectionListener(globalPrevious);
-				previous.setToolTipText("Search previous occurence");
-				next.removeSelectionListener(globalNext);
-				next.setToolTipText("Search next occurence " + GamaKeyBindings.format(SWT.MOD1, 'G'));
-				previous.addSelectionListener(searchPrevious);
-				next.addSelectionListener(searchNext);
-				previous.setEnabled(true);
-				next.setEnabled(true);
-			}
-
-			@Override
-			public void focusLost(final FocusEvent e) {
-				searching = false;
-				previous.removeSelectionListener(searchPrevious);
-				previous.setToolTipText("Previous edit location");
-				next.removeSelectionListener(searchNext);
-				next.setToolTipText("Next edit location");
-				previous.addSelectionListener(globalPrevious);
-				next.addSelectionListener(globalNext);
-				previous.setEnabled(getCommand(NAVIGATE_BACKWARD_HISTORY).isEnabled());
-				next.setEnabled(getCommand(NAVIGATE_FORWARD_HISTORY).isEnabled());
-			}
-		});
+//		find.getFindControl().addFocusListener(new FocusListener() {
+//
+//			@Override
+//			public void focusGained(final FocusEvent e) {
+//				searching = true;
+//				previous.removeSelectionListener(globalPrevious);
+//				previous.setToolTipText("Search previous occurence");
+//				next.removeSelectionListener(globalNext);
+//				next.setToolTipText("Search next occurence " + GamaKeyBindings.format(SWT.MOD1, 'G'));
+//				previous.addSelectionListener(searchPrevious);
+//				next.addSelectionListener(searchNext);
+//				previous.setEnabled(true);
+//				next.setEnabled(true);
+//			}
+//
+//			@Override
+//			public void focusLost(final FocusEvent e) {
+//				searching = false;
+//				previous.removeSelectionListener(searchPrevious);
+//				previous.setToolTipText("Previous edit location");
+//				next.removeSelectionListener(searchNext);
+//				next.setToolTipText("Next edit location");
+//				previous.addSelectionListener(globalPrevious);
+//				next.addSelectionListener(globalNext);
+//				previous.setEnabled(getCommand(NAVIGATE_BACKWARD_HISTORY).isEnabled());
+//				next.setEnabled(getCommand(NAVIGATE_FORWARD_HISTORY).isEnabled());
+//			}
+//		});
 	}
 
 	private void hookToCommands(final ToolItem lastEdit, final ToolItem nextEdit) {
-		WorkbenchHelper.runInUI("Hooking to commands", 0, m -> {
-			final Command nextCommand = getCommand(NAVIGATE_FORWARD_HISTORY);
-			nextEdit.setEnabled(nextCommand.isEnabled());
-			final ICommandListener nextListener = e -> nextEdit.setEnabled(searching || nextCommand.isEnabled());
-			nextCommand.addCommandListener(nextListener);
-			final Command lastCommand = getCommand(NAVIGATE_BACKWARD_HISTORY);
-			final ICommandListener lastListener = e -> lastEdit.setEnabled(searching || lastCommand.isEnabled());
-			lastEdit.setEnabled(lastCommand.isEnabled());
-			lastCommand.addCommandListener(lastListener);
-			// Attaching dispose listeners to the toolItems so that they remove the
-			// command listeners properly
-			lastEdit.addDisposeListener(e -> lastCommand.removeCommandListener(lastListener));
-			nextEdit.addDisposeListener(e -> nextCommand.removeCommandListener(nextListener));
-		});
+//		WorkbenchHelper.runInUI("Hooking to commands", 0, m -> {
+//			final Command nextCommand = getCommand(NAVIGATE_FORWARD_HISTORY);
+//			nextEdit.setEnabled(nextCommand.isEnabled());
+//			final ICommandListener nextListener = e -> nextEdit.setEnabled(searching || nextCommand.isEnabled());
+//			nextCommand.addCommandListener(nextListener);
+//			final Command lastCommand = getCommand(NAVIGATE_BACKWARD_HISTORY);
+//			final ICommandListener lastListener = e -> lastEdit.setEnabled(searching || lastCommand.isEnabled());
+//			lastEdit.setEnabled(lastCommand.isEnabled());
+//			lastCommand.addCommandListener(lastListener);
+//			// Attaching dispose listeners to the toolItems so that they remove the
+//			// command listeners properly
+//			lastEdit.addDisposeListener(e -> lastCommand.removeCommandListener(lastListener));
+//			nextEdit.addDisposeListener(e -> nextCommand.removeCommandListener(nextListener));
+//		});
 
 	}
 

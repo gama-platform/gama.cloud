@@ -13,8 +13,7 @@ import static msi.gaml.operators.IUnits.split;
 import static msi.gaml.operators.IUnits.stack;
 import static msi.gaml.operators.IUnits.vertical;
 import static one.util.streamex.StreamEx.of;
-import static ummisco.gama.ui.commands.ArrangeDisplayViews.DISPLAY_INDEX_KEY;
-import static ummisco.gama.ui.commands.ArrangeDisplayViews.getDisplaysPlaceholder;
+import static ummisco.gama.ui.commands.ArrangeDisplayViews.DISPLAY_INDEX_KEY; 
 import static ummisco.gama.ui.utils.WebGui.allDisplaySurfaces;
 
 import java.util.ArrayList;
@@ -96,11 +95,12 @@ public class LayoutTreeConverter {
 	}
 
 	public GamaTree<String> convertCurrentLayout(final List<MPlaceholder> holders) {
-		final MPartStack displayStack = getDisplaysPlaceholder();
-		if (displayStack == null) { return null; }
-		final GamaTree<String> tree = newLayoutTree();
-//		save(displayStack.getParent(), holders, tree.getRoot(), null);
-		return tree;
+		return null;
+//		final MPartStack displayStack = getDisplaysPlaceholder();
+//		if (displayStack == null) { return null; }
+//		final GamaTree<String> tree = newLayoutTree();
+////		save(displayStack.getParent(), holders, tree.getRoot(), null);
+//		return tree;
 	}
 
 //	String getWeight(final MUIElement element) {

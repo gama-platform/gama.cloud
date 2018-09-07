@@ -37,11 +37,11 @@ import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
-
-import msi.gama.core.web.editor.GamlEditorState;
+ 
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
 import msi.gama.lang.gaml.web.editor.AbstractGamlEditor;
 import msi.gama.lang.gaml.web.editor.AbstractGamlEtherpadEditor;
+import msi.gama.lang.gaml.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControlsEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenExperimentSelectionListenerEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListenerEtherpad;

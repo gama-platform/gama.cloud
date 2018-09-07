@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.events.SelectionEvent;
 
 import msi.gama.core.web.editor.GAMAWEB;
-import msi.gama.core.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.editor.GamlEditor;
+import msi.gama.lang.gaml.web.editor.GamlEditorState;
 import msi.gama.lang.gaml.web.editor.participative.EtherpadEditor;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;

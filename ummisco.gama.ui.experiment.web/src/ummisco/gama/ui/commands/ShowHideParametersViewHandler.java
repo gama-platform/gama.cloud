@@ -10,14 +10,17 @@
  **********************************************************************************************/
 package ummisco.gama.ui.commands;
 
-import org.eclipse.core.commands.*;
-import msi.gama.runtime.GAMA;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+
+import msi.gama.core.web.editor.GAMAWEB;
 
 public class ShowHideParametersViewHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMA.getGui().showParameterView(null, GAMA.getExperiment());
+		GAMAWEB.getGui().showParameterView(null, GAMAWEB.getExperiment());
 		return null;
 	}
 }

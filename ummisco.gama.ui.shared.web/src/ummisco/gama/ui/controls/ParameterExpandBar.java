@@ -11,6 +11,7 @@ package ummisco.gama.ui.controls;
 
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.MouseEvent;
@@ -566,8 +567,8 @@ public class ParameterExpandBar extends Composite/* implements IPopupProvider */
 					menu.setLocation(p.x, p.y);
 					menu.setVisible(true);
 					while (!menu.isDisposed() && menu.isVisible()) {
-						if (!WorkbenchHelper.getDisplay().readAndDispatch()) {
-							WorkbenchHelper.getDisplay().sleep();
+						if (!WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).readAndDispatch()) {
+							WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).sleep();
 						}
 					}
 					menu.dispose();
@@ -673,7 +674,7 @@ public class ParameterExpandBar extends Composite/* implements IPopupProvider */
 			getFocusItem().setExpanded(!getFocusItem().expanded);
 			notifyListeners(wasExpanded ? SWT.Collapse : SWT.Expand, ev);
 			showItem(getFocusItem());
-			WorkbenchHelper.copy(getFocusItem().getText());
+//			WorkbenchHelper.copy(getFocusItem().getText());
 		}
 	}
 

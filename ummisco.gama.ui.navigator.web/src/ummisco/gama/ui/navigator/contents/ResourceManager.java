@@ -6,7 +6,6 @@ import static org.eclipse.core.resources.IResourceChangeEvent.PRE_DELETE;
 import static ummisco.gama.ui.metadata.FileMetaDataProvider.getContentTypeId;
 import static ummisco.gama.ui.utils.WorkbenchHelper.BUILTIN_NATURE;
 import static ummisco.gama.ui.utils.WorkbenchHelper.PLUGIN_NATURE;
-import static ummisco.gama.ui.utils.WorkbenchHelper.TEST_NATURE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -99,9 +98,9 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return INSTANCE;
 	}
 
-	public static void setLastTestResults(final CompoundSummary<TestExperimentSummary, ?> last) {
-		INSTANCE.refreshResource(NavigatorRoot.getInstance().getTestFolder());
-	}
+//	public static void setLastTestResults(final CompoundSummary<TestExperimentSummary, ?> last) {
+//		INSTANCE.refreshResource(NavigatorRoot.getInstance().getTestFolder());
+//	}
 
 	public ResourceManager(final IResourceChangeListener delegate, final CommonViewer navigator) {
 		this.viewer = navigator;
@@ -315,7 +314,7 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 			final WrappedProject p = (WrappedProject) wrap(root, project);
 			post(() -> {
 				WorkspaceModelsManager.setValuesProjectDescription(project, nature == BUILTIN_NATURE,
-						nature == PLUGIN_NATURE, nature == TEST_NATURE, null);
+						nature == PLUGIN_NATURE, false, null);
 				root.initializeChildren();
 				refreshResource(root);
 				reveal(p);

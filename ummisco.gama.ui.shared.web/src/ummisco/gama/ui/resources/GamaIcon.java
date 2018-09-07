@@ -1,7 +1,8 @@
 /*********************************************************************************************
  *
- * 'GamaIcon.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'GamaIcon.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
+ * GAMA modeling and simulation platform.
+ * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -12,9 +13,6 @@ package ummisco.gama.ui.resources;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-
-import ummisco.gama.dev.utils.DEBUG;
-import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class GamaIcon {
 
@@ -71,7 +69,8 @@ public class GamaIcon {
 			}
 
 			if (descriptor == null) {
-				DEBUG.ERR("ERROR: Cannot find icon " + GamaIcons.DEFAULT_PATH + path + ".png in plugin: " + plugin);
+				System.out.println(
+						"ERROR: Cannot find icon " + GamaIcons.DEFAULT_PATH + path + ".png in plugin: " + plugin);
 				descriptor = ImageDescriptor.getMissingImageDescriptor();
 			}
 		}
@@ -79,12 +78,11 @@ public class GamaIcon {
 	}
 
 	public Image image() {
-		final Image[] image = new Image[] { GamaIcons.getInstance().getImageInCache(code) };
-		if (image[0] == null) {
-			WorkbenchHelper
-					.run(() -> image[0] = GamaIcons.getInstance().putImageInCache(code, descriptor().createImage()));
+		Image image = GamaIcons.getInstance().getImageInCache(code);
+		if (image == null) {
+			image = GamaIcons.getInstance().putImageInCache(code, descriptor().createImage());
 		}
-		return image[0];
+		return image;
 	}
 
 	public String getCode() {

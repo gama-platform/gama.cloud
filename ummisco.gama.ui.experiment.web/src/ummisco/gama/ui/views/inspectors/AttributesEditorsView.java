@@ -28,7 +28,7 @@ import ummisco.gama.ui.views.ExpandableItemsView;
 
 public abstract class AttributesEditorsView<T> extends ExpandableItemsView<T> {
 
-	final Set<Label> labels = new LinkedHashSet<>();
+	final Set<Label> labels = new LinkedHashSet<Label>();
 
 	public final static int EDITORS_SPACING = 0;
 
@@ -72,9 +72,6 @@ public abstract class AttributesEditorsView<T> extends ExpandableItemsView<T> {
 			Collections.sort(list);
 			for (final AbstractEditor<?> gpParam : list) {
 				compo.addEditor(gpParam);
-				if (!editors.isEnabled(gpParam)) {
-					gpParam.setActive(false);
-				}
 			}
 		}
 

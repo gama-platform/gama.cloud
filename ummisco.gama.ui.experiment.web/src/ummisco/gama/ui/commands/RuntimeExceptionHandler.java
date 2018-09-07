@@ -21,7 +21,8 @@ import org.eclipse.core.runtime.jobs.Job;
 
 import msi.gama.common.interfaces.IRuntimeExceptionHandler;
 import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.runtime.GAMA;
+import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 
 public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHandler {
@@ -34,6 +35,15 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 	volatile List<GamaRuntimeException> cleanExceptions = new ArrayList<>();
 	volatile boolean running;
 	volatile int remainingTime = 5000;
+	private IScope internalScope;
+
+	public IScope getInternalScope() {
+		return internalScope;
+	}
+
+	public void setInternalScope(IScope internalScope) {
+		this.internalScope = internalScope;
+	}
 
 	@Override
 	public void offer(final GamaRuntimeException ex) {
@@ -59,7 +69,8 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 					return Status.OK_STATUS;
 				}
 			}
-			if (!running) { return Status.CANCEL_STATUS; }
+			if (!running)
+				return Status.CANCEL_STATUS;
 			if (remainingTime <= 0) {
 				stop();
 				return Status.OK_STATUS;
@@ -76,14 +87,12 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 
 	private void process() {
 		final ArrayList<GamaRuntimeException> array = new ArrayList<>(incomingExceptions);
-		// DEBUG.LOG("Processing " + array.size() + " exceptions");
+		// System.out.println("Processing " + array.size() + " exceptions");
 		incomingExceptions.clear();
 
 		if (GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.getValue()) {
 			final GamaRuntimeException firstEx = array.get(0);
-			if (GamaPreferences.Runtime.CORE_ERRORS_EDITOR_LINK.getValue()) {
-				GAMA.getGui().editModel(null, firstEx.getEditorContext());
-			}
+			GAMAWEB.getGui().editModel(internalScope, firstEx.getEditorContext());
 			firstEx.setReported();
 			if (GamaPreferences.Runtime.CORE_SHOW_ERRORS.getValue()) {
 				final List<GamaRuntimeException> newList = new ArrayList<>();
@@ -100,15 +109,13 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 					boolean toAdd = true;
 					for (final GamaRuntimeException oldEx : oldExcp.toArray(new GamaRuntimeException[0])) {
 						if (oldEx.equivalentTo(newEx)) {
-							if (oldEx != newEx) {
+							if (oldEx != newEx)
 								oldEx.addAgents(newEx.getAgentsNames());
-							}
 							toAdd = false;
 						}
 					}
-					if (toAdd) {
+					if (toAdd)
 						oldExcp.add(newEx);
-					}
 
 				}
 			}
@@ -119,7 +126,7 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 
 	public void updateUI(final List<GamaRuntimeException> newExceptions) {
 		if (newExceptions != null) {
-			for (final GamaRuntimeException exception : new ArrayList<>(newExceptions)) {
+			for (final GamaRuntimeException exception : new ArrayList<GamaRuntimeException>(newExceptions)) {
 				if (exception.isInvalid()) {
 					newExceptions.remove(exception);
 				}
@@ -127,7 +134,7 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 			cleanExceptions = newExceptions;
 		}
 
-		GAMA.getGui().displayErrors(null, newExceptions);
+		GAMAWEB.getGui().displayErrors(internalScope, newExceptions);
 	}
 
 	@Override

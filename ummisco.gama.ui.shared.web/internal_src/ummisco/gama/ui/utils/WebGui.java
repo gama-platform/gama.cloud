@@ -60,11 +60,11 @@ import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
 import msi.gaml.statements.test.CompoundSummary;
 import msi.gaml.statements.test.TestExperimentSummary;
-import msi.gaml.types.IType;
+import msi.gaml.types.IType; 
 import ummisco.gama.ui.dialogs.Messages;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
-import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
+//import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
 import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.interfaces.ISpeedDisplayer;
 import ummisco.gama.ui.interfaces.IUserDialogFactory;
@@ -78,7 +78,6 @@ import ummisco.gama.ui.resources.GamaFonts;
  *
  */
 public class WebGui implements IGui {
-	public volatile static boolean ALL_TESTS_RUNNING;
 
 	private IAgent highlightedAgent;
 	private ILocation mouseLocationInModel;
@@ -174,6 +173,11 @@ public class WebGui implements IGui {
 				final IWorkbenchPage page = WorkbenchHelper.getPage(uid);
 				if (page != null) {
 					page.zoomOut();
+//					final String second = secondaryId == null ? null
+//							: secondaryId + "@@@" + String.valueOf(System.currentTimeMillis());
+//					// The goal here is to address #2441 by randomizing the ids of views.
+//					// DEBUG.LOG("Opening view " + viewId + " " + second);
+//					result[0] = page.showView(viewId, second, code);
 					result[0] = page.showView(viewId, secondaryId, code);
 				}
 			} catch (final Exception e) {
@@ -418,7 +422,7 @@ public class WebGui implements IGui {
 			// }
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
-//			getConsole(scope).showConsoleView(exp.getAgent());
+			getConsole(scope).showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -553,7 +557,7 @@ public class WebGui implements IGui {
 		final String uid = WorkbenchHelper.UISession.get(scope);
 		final ISourceProviderService service = WorkbenchHelper.getService(uid, ISourceProviderService.class);
 		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
-				.getSourceProvider("ummisco.gama.ui.experiment.SimulationRunningState");
+				.getSourceProvider("msi.gama.core.web.ui.experiment.SimulationRunningState");
 		// stateProvider.updateStateTo(forcedState);
 		if (stateProvider != null) {
 			WorkbenchHelper.run(uid, () -> stateProvider.updateStateTo(forcedState));
@@ -591,7 +595,7 @@ public class WebGui implements IGui {
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }
 
-		final String uid = "admin";//WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
 		// System.out.println("getstatus of "+uid);
 
 		return StatusDisplayerFactory.displayer.get(""+uid);// = new
@@ -631,10 +635,10 @@ public class WebGui implements IGui {
 	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
-		if (manager != null) {
+//		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
+//		if (manager != null) {
 //			manager.applyLayout(layout, keepTabs, keepToolbars);
-		}
+//		}
 	}
 
 	@Override
@@ -661,13 +665,9 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public IGamaView.Test openTestView(final IScope scope, final boolean allTests) {
-		ALL_TESTS_RUNNING = allTests;
-		final IGamaView.Test v = (Test) showView(scope, TEST_VIEW_ID, null, IWorkbenchPage.VIEW_ACTIVATE);
-		if (v != null) {
-			v.startNewTestSequence(allTests);
-		}
-		return v;
+	public Test openTestView(IScope scope, boolean remainOpen) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

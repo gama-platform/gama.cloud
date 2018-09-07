@@ -14,6 +14,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.layout.GridData;
@@ -107,7 +108,7 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart implements Ite
 	protected void disposeViewer() {
 		try {
 			if (viewer != null) {
-				WorkbenchHelper.run(() -> viewer.dispose());
+				WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> viewer.dispose());
 
 				viewer = null;
 			}

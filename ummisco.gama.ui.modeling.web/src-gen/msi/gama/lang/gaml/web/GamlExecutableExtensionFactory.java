@@ -9,7 +9,7 @@ import org.osgi.framework.Bundle;
 import com.google.inject.Injector;
 
 import msi.gama.lang.gaml.web.editor.Activator;
- 
+  
 
 public class GamlExecutableExtensionFactory extends AbstractGuiceAwareWebExecutableExtensionFactory {
 

@@ -21,11 +21,11 @@ public class DelegateForAllElements implements IWorkbenchWindowActionDelegate {
 
 	@Override
 	public void run(final IAction action) {
-		try {
-			WorkbenchHelper.runCommand("org.eclipse.xtext.ui.shared.OpenXtextElementCommand");
-		} catch (final ExecutionException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			WorkbenchHelper.runCommand("org.eclipse.xtext.ui.shared.OpenXtextElementCommand");
+//		} catch (final ExecutionException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

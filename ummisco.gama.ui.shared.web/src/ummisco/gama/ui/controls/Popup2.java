@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.PopupDialog;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -45,7 +46,7 @@ public class Popup2 extends PopupDialog {
 	Composite parent, contents;
 
 	private final Listener hide = event -> hide();
-	private final Runnable display = () -> WorkbenchHelper.asyncRun(() -> display());
+	private final Runnable display = () -> WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> display());
 
 	private final MouseTrackListener mtl = new MouseTrackListener() {
 
@@ -73,7 +74,7 @@ public class Popup2 extends PopupDialog {
 	 *
 	 */
 	public Popup2(final IPopupProvider provider, final Widget... controls) {
-		super(WorkbenchHelper.getShell(), PopupDialog.HOVER_SHELLSTYLE, false, false, false, false, false, null, null);
+		super(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), PopupDialog.HOVER_SHELLSTYLE, false, false, false, false, false, null, null);
 		this.provider = provider;
 		final Shell parent = provider.getControllingShell();
 		parent.addListener(SWT.Move, hide);

@@ -56,7 +56,7 @@ public class EditorsDialog extends Dialog {
 
 	@Override
 	protected void createButtonsForButtonBar(final Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.get().OK_LABEL, true);
+		createButton(parent, IDialogConstants.OK_ID, "OK", true);
 	}
 
 	@Override

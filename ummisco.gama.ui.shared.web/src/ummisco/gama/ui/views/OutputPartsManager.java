@@ -9,6 +9,7 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
@@ -33,7 +34,7 @@ public class OutputPartsManager {
 
 		@Override
 		public void partClosed(final IWorkbenchPartReference partRef) {
-			// DEBUG.LOG("Closed:" + partRef.getPartName());
+			// System.out.println("Closed:" + partRef.getPartName());
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IGamaView) {
 				final IDisplayOutput output = ((IGamaView) part).getOutput();
@@ -49,7 +50,7 @@ public class OutputPartsManager {
 
 		@Override
 		public void partOpened(final IWorkbenchPartReference partRef) {
-			// DEBUG.LOG("Opened:" + partRef.getPartName());
+			// System.out.println("Opened:" + partRef.getPartName());
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (part instanceof IGamaView) {
 				final IDisplayOutput output = ((IGamaView) part).getOutput();
@@ -79,7 +80,7 @@ public class OutputPartsManager {
 	private final static PartListener listener = new PartListener();
 
 	public static void install() {
-		WorkbenchHelper.getPage().addPartListener(listener);
+		WorkbenchHelper.getPage(RWT.getUISession().getAttribute("user").toString()).addPartListener(listener);
 
 	}
 

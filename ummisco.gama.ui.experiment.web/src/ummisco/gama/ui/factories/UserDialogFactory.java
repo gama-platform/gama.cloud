@@ -15,9 +15,10 @@ import org.eclipse.ui.services.IServiceLocator;
 
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserPanelStatement;
+import ummisco.gama.ui.interfaces.IUserDialogFactory;
 import ummisco.gama.ui.views.user.UserControlDialog;
 
-public class UserDialogFactory extends AbstractServiceFactory implements ummisco.gama.ui.interfaces.IUserDialogFactory {
+public class UserDialogFactory extends AbstractServiceFactory implements IUserDialogFactory {
 
 	@Override
 	public void openUserDialog(final IScope scope, final UserPanelStatement panel) {

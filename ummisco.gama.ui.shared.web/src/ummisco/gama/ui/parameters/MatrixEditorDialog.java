@@ -10,6 +10,7 @@
 package ummisco.gama.ui.parameters;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -47,7 +48,7 @@ public class MatrixEditorDialog extends Dialog {
 	private Table table = null;
 	private final IScope scope;
 
-	private final Color gray = WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY);
+	private final Color gray = WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getSystemColor(SWT.COLOR_GRAY);
 
 	protected MatrixEditorDialog(final IScope scope, final Shell parentShell, final IMatrix paramValue) {
 		super(parentShell);

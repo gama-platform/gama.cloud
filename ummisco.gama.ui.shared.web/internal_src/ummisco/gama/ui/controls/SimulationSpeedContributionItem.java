@@ -172,8 +172,8 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 	 * 
 	 * @see ummisco.gama.ui.controls.IPositionChangeListener#positionChanged(double)
 	 */
-	@Override
-	public void positionChanged(final SimpleSlider s, final double position) {
+//	@Override
+//	public void positionChanged(final SimpleSlider s, final double position) {
 //		DEBUG.OUT("Position changed to " + position + " affects sliders: " + sliders);
 //		GAMA.getExperiment().getAgent().setMinimumDurationExternal(valueFromPosition(position) / 1000);
 //		for (final SimpleSlider slider : sliders) {
@@ -182,10 +182,16 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 //			}
 //			slider.updateSlider(position, false);
 //		}
-	}
+//	}
 
 	public static SimulationSpeedContributionItem getInstance() {
 		return instance;
+	}
+
+	@Override
+	public void positionChanged(double position) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

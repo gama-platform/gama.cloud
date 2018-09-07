@@ -77,7 +77,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
-		// DEBUG.LOG("Inspector creating its own part control");
+		// System.out.println("Inspector creating its own part control");
 		parent.setBackground(parent.getBackground());
 		if (!outputs.isEmpty()) {
 			final IAgent[] init = getOutput().getLastValue();
@@ -141,7 +141,7 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		updatePartName();
 		if (!editors.getCategories().containsKey(agent)) {
 			editors.add(getParametersToInspect(agent), agent);
-			// DEBUG.LOG("Asking to create the item " + agent.getName()
+			// System.out.println("Asking to create the item " + agent.getName()
 			// + " in inspector");
 			final ParameterExpandItem item = createItem(getParentComposite(), agent, true, null);
 			if (item == null) { return false; }

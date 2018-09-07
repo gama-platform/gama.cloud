@@ -27,7 +27,7 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 
 	public WrappedProject(final TopLevelFolder parent, final IProject wrapped) {
 		super(parent, wrapped);
-		isTest = parent instanceof TestModelsFolder;
+		isTest = false;//parent instanceof TestModelsFolder;
 	}
 
 	@Override

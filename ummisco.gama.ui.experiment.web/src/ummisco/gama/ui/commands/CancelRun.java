@@ -17,15 +17,15 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.runtime.GAMA;
+import msi.gama.core.web.editor.GAMAWEB;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class CancelRun extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-//		new Thread(() -> GAMA.closeAllExperiments(true, false)).start();
-		GAMA.closeAllExperiments(true, false);
+		GAMAWEB.closeAllExperiments(true, false);
+
 		return null;
 	}
 

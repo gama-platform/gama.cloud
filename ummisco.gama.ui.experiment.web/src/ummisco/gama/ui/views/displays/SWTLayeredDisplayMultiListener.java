@@ -24,8 +24,7 @@ import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
-import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.MouseWheelListener;
+import org.eclipse.swt.events.MouseTrackListener; 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
@@ -34,7 +33,7 @@ import ummisco.gama.ui.bindings.GamaKeyBindings;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class SWTLayeredDisplayMultiListener implements MenuDetectListener, MouseListener, MouseMoveListener,
-		MouseTrackListener, MouseWheelListener, KeyListener, DragDetectListener, FocusListener {
+		MouseTrackListener,  KeyListener, DragDetectListener, FocusListener {
 
 	final LayeredDisplayMultiListener delegate;
 	final Control control;
@@ -54,8 +53,8 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 			if (!control.isFocusControl()) {
 				control.forceFocus();
 			}
-			if (!Objects.equals(WorkbenchHelper.getActivePart(), deco.view)) {
-				WorkbenchHelper.getPage().activate(deco.view);
+			if (!Objects.equals(WorkbenchHelper.getActivePart("admin"), deco.view)) {
+				WorkbenchHelper.getPage("admin").activate(deco.view);
 			}
 			return surfaceOk;
 		};
@@ -92,10 +91,10 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 		delegate.keyReleased(e.keyCode, GamaKeyBindings.ctrl(e));
 	}
 
-	@Override
-	public void mouseScrolled(final MouseEvent e) {
-		if (!ok.get()) { return; }
-	}
+//	@Override
+//	public void mouseScrolled(final MouseEvent e) {
+//		if (!ok.get()) { return; }
+//	}
 
 	@Override
 	public void mouseEnter(final MouseEvent e) {

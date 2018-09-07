@@ -15,6 +15,8 @@ import static com.google.common.collect.Iterables.transform;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -36,7 +38,6 @@ import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutputManager;
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
-import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.controls.ITooltipDisplayer;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -50,15 +51,12 @@ import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
 public abstract class GamaViewPart extends ViewPart
 		implements DisposeListener, IGamaView, IToolbarDecoratedView, ITooltipDisplayer {
 
-	static {
-		DEBUG.OFF();
-	}
-
-	public final List<IDisplayOutput> outputs = new ArrayList<>();
-	private Composite parent;
+	protected final List<IDisplayOutput> outputs = new ArrayList<>();
+	protected Composite parent;
 	protected GamaToolbar2 toolbar;
 	private GamaUIJob updateJob;
 	private StateListener toolbarUpdater;
+	// Action toggle;
 	private Composite rootComposite;
 
 	public enum UpdatePriority {
@@ -89,7 +87,7 @@ public abstract class GamaViewPart extends ViewPart
 		protected abstract UpdatePriority jobPriority();
 
 		public void runSynchronized() {
-			WorkbenchHelper.run(() -> runInUIThread(null));
+			WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> runInUIThread(null));
 		}
 
 	}
@@ -104,9 +102,8 @@ public abstract class GamaViewPart extends ViewPart
 
 	@Override
 	public void updateToolbarState() {
-		if (toolbarUpdater != null) {
+		if (toolbarUpdater != null)
 			toolbarUpdater.updateToReflectState();
-		}
 	}
 
 	@Override
@@ -118,13 +115,7 @@ public abstract class GamaViewPart extends ViewPart
 	public void init(final IViewSite site) throws PartInitException {
 		super.init(site);
 		OutputPartsManager.install();
-		String s_id = site.getSecondaryId();
-		if (s_id != null) {
-			final int i = s_id.indexOf("@@@");
-			if (i != -1) {
-				s_id = s_id.substring(0, i);
-			}
-		}
+		final String s_id = site.getSecondaryId();
 		final String id = site.getId() + (s_id == null ? "" : s_id);
 		IDisplayOutput out = null;
 
@@ -163,10 +154,10 @@ public abstract class GamaViewPart extends ViewPart
 			}
 		} else {
 			if (shouldBeClosedWhenNoExperiments()) {
-				WorkbenchHelper.asyncRun(() -> {
-					if (shouldBeClosedWhenNoExperiments()) {
+				// System.err.println("Tried to reopen " + getClass().getSimpleName() + " ; automatically closed");
+				WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
+					if (shouldBeClosedWhenNoExperiments())
 						close(GAMA.getRuntimeScope());
-					}
 				});
 
 			}
@@ -193,7 +184,8 @@ public abstract class GamaViewPart extends ViewPart
 	public void createPartControl(final Composite composite) {
 		this.rootComposite = composite;
 		composite.addDisposeListener(this);
-		if (needsOutput() && getOutput() == null) { return; }
+		if (needsOutput() && getOutput() == null)
+			return;
 		this.setParentComposite(GamaToolbarFactory.createToolbars(this, composite));
 		ownCreatePartControl(getParentComposite());
 		// activateContext();
@@ -260,7 +252,8 @@ public abstract class GamaViewPart extends ViewPart
 
 	@Override
 	public void dispose() {
-		DEBUG.OUT("+++ Part " + this.getPartName() + " is being disposed");
+		// System.err.println("+++ Part " + this.getPartName() + " is being
+		// disposed");
 		toolbarUpdater = null;
 		super.dispose();
 	}
@@ -288,9 +281,9 @@ public abstract class GamaViewPart extends ViewPart
 	@Override
 	public void close(final IScope scope) {
 
-		WorkbenchHelper.asyncRun(() -> {
+		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
 			try {
-				WorkbenchHelper.hideView(GamaViewPart.this);
+				WorkbenchHelper.hideView(RWT.getUISession().getAttribute("user").toString(),GamaViewPart.this);
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
@@ -317,39 +310,8 @@ public abstract class GamaViewPart extends ViewPart
 			}
 		} else {
 
-			setPartName(overlay(old, agent.getName(), first + 1, second));
+			setPartName(StringUtils.overlay(old, agent.getName(), first + 1, second));
 		}
-	}
-
-	// To avoid a dependency towards apache.commons.lang
-	private String overlay(final String str, final String over, final int s, final int e) {
-		String overlay = over;
-		int start = s;
-		int end = e;
-		if (str == null) { return null; }
-		if (overlay == null) {
-			overlay = "";
-		}
-		final int len = str.length();
-		if (start < 0) {
-			start = 0;
-		}
-		if (start > len) {
-			start = len;
-		}
-		if (end < 0) {
-			end = 0;
-		}
-		if (end > len) {
-			end = len;
-		}
-		if (start > end) {
-			final int temp = start;
-			start = end;
-			end = temp;
-		}
-		return new StringBuilder(len + start - end + overlay.length() + 1).append(str.substring(0, start))
-				.append(overlay).append(str.substring(end)).toString();
 	}
 
 	@Override

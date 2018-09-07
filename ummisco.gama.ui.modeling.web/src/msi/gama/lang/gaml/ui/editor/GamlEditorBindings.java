@@ -30,15 +30,15 @@ public class GamlEditorBindings {
 
 	public static void install() {
 
-		GamaKeyBindings.plug(new PluggableBinding(SWT.MOD1, 'g') {
-
-			@Override
-			public void run() {
-				final IGamlEditor editor = WorkbenchHelper.getActiveEditor();
-				if (!(editor instanceof GamlEditor)) { return; }
-				((GamlEditor) editor).doSearch();
-			}
-		});
+//		GamaKeyBindings.plug(new PluggableBinding(SWT.MOD1, 'g') {
+//
+//			@Override
+//			public void run() {
+//				final IGamlEditor editor = WorkbenchHelper.getActiveEditor();
+//				if (!(editor instanceof GamlEditor)) { return; }
+//				((GamlEditor) editor).doSearch();
+//			}
+//		});
 		// for (int i = 0; i < 9; i++) {
 		// GamaKeyBindings.plug(newBinding(i));
 		// }

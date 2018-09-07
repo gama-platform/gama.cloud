@@ -14,7 +14,8 @@ import org.eclipse.xtext.resource.XtextResource;
 
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.validation.IGamlBuilderListener;
-import msi.gama.lang.gaml.web.editor.widget.Gaml;
+import msi.gama.lang.gaml.web.editor.widget.Gaml; 
+
 
 public abstract class AbstractGamlEditor extends XtextContentAssistEnabledEditor {
 	private IGamlBuilderListener resourceListener;

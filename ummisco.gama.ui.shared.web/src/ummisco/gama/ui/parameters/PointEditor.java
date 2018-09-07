@@ -60,11 +60,6 @@ public class PointEditor extends AbstractEditor<ILocation> implements VerifyList
 	}
 
 	@Override
-	protected Control createEditorControl(final Composite compo) {
-		return super.createEditorControl(compo);
-	}
-
-	@Override
 	public Control createCustomParameterControl(final Composite comp) {
 		pointEditor = new Composite(comp, SWT.NONE);
 		// final GridData pointEditorGridData = new GridData(GridData.FILL,
@@ -105,18 +100,14 @@ public class PointEditor extends AbstractEditor<ILocation> implements VerifyList
 	@Override
 	protected void hideToolbar() {
 		super.hideToolbar();
-		if (pointEditor != null) { // happens if point is const
-			pointEditor.setBackground(getNormalBackground());
-			// pointEditor.setBackground(NORMAL_BACKGROUND);
-		}
+		pointEditor.setBackground(getNormalBackground());
+		// pointEditor.setBackground(NORMAL_BACKGROUND);
 	}
 
 	@Override
 	protected void showToolbar() {
 		super.showToolbar();
-		if (pointEditor != null) {
-			pointEditor.setBackground(HOVERED_BACKGROUND);
-		}
+		pointEditor.setBackground(HOVERED_BACKGROUND);
 	}
 
 	@Override

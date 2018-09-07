@@ -1,7 +1,8 @@
 /*********************************************************************************************
  *
- * 'GamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'GamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
+ * GAMA modeling and simulation platform.
+ * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -12,7 +13,6 @@ package ummisco.gama.ui.resources;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
@@ -21,10 +21,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Display;
 
-import msi.gama.application.workbench.IIconProvider;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
-import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * Class GamaIcons.
@@ -33,7 +32,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
  * @since 12 sept. 2013
  *
  */
-public class GamaIcons implements IIconProvider {
+public class GamaIcons /* implements IGamaIcons */ {
 
 	public static final String PLUGIN_ID = "ummisco.gama.ui.shared.web";
 
@@ -90,7 +89,7 @@ public class GamaIcons implements IIconProvider {
 		if (sizer == null) {
 			// RGB c = new RGB(color.getRed(), color.getGreen(),
 			// color.getBlue());
-			final Image sizerImage = new Image(WorkbenchHelper.getDisplay(), width, height);
+			final Image sizerImage = new Image(Display.getDefault(), width, height);
 //			final GC gc = new GC(sizerImage);
 //			gc.setBackground(color);
 //			gc.fillRectangle(0, 0, width, height);
@@ -127,7 +126,7 @@ public class GamaIcons implements IIconProvider {
 			// Color color = gcolor.color();
 			// RGB c = new RGB(color.getRed(), color.getGreen(),
 			// color.getBlue());
-			final Image image = new Image(WorkbenchHelper.getDisplay(), width, height);
+			final Image image = new Image(Display.getDefault(), width, height);
 //			final GC gc = new GC(image);
 //			gc.setAntialias(SWT.ON);
 //			gc.setBackground(gcolor.color());
@@ -136,7 +135,7 @@ public class GamaIcons implements IIconProvider {
 			final ImageData data = image.getImageData();
 			data.transparentPixel = data.palette.getPixel(new RGB(255, 255, 255));
 			icon = new GamaIcon(name);
-			getInstance().putImageInCache(name, new Image(WorkbenchHelper.getDisplay(), data));
+			getInstance().putImageInCache(name, new Image(Display.getDefault(), data));
 			image.dispose();
 			getInstance().putIconInCache(name, icon);
 		}
@@ -154,10 +153,12 @@ public class GamaIcons implements IIconProvider {
 	public static Image createTempColorIcon(final GamaUIColor gcolor) {
 		final String name = "color" + gcolor.getRGB().toString();
 		final GamaIcon icon = getInstance().getIcon(name);
-		if (icon != null) { return icon.image(); }
+		if (icon != null) {
+			return icon.image();
+		}
 		// Color color = gcolor.color();
 		final GamaIcon blank = create("display.color2");
-		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
+		final Image image = new Image(Display.getDefault(), blank.image().getImageData());
 //		final GC gc = new GC(image);
 //		gc.setAntialias(SWT.ON);
 //		gc.setBackground(gcolor.color());
@@ -175,10 +176,12 @@ public class GamaIcons implements IIconProvider {
 	public static Image createTempRoundColorIcon(final GamaUIColor gcolor) {
 		final String name = "roundcolor" + gcolor.getRGB().toString();
 		final GamaIcon icon = getInstance().getIcon(name);
-		if (icon != null) { return icon.image(); }
+		if (icon != null) {
+			return icon.image();
+		}
 		// Color color = gcolor.color();
 		final GamaIcon blank = create("display.color3");
-		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
+		final Image image = new Image(Display.getDefault(), blank.image().getImageData());
 //		final GC gc = new GC(image);
 //		gc.setAntialias(SWT.ON);
 //		gc.setBackground(gcolor.color());
@@ -199,21 +202,23 @@ public class GamaIcons implements IIconProvider {
 	// public static ImageDescriptor getEclipseIconDescriptor(final String icon)
 	// {
 	// return
-	// PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(icon);
+	// WorkbenchHelper.getWorkbench().getSharedImages().getImageDescriptor(icon);
 	// }
 	//
 	// public static Image system(final String icon) {
-	// return PlatformUI.getWorkbench().getSharedImages().getImage(icon);
+	// return WorkbenchHelper.getWorkbench().getSharedImages().getImage(icon);
 	// }
 
 	public static Image scaleImage(final Device d, final Image im, final int width, final int height) {
 		final Rectangle curBounds = im.getBounds();
 		// no change required
-		if (curBounds.width == width && curBounds.height == height) { return im; }
+		if (curBounds.width == width && curBounds.height == height) {
+			return im;
+		}
 
 		// create a new image
 		final Image newIm = new Image(d, width, height);
-//		GC gc = null;
+		GC gc = null;
 		try {
 //			gc = new GC(newIm);
 
@@ -223,14 +228,14 @@ public class GamaIcons implements IIconProvider {
 
 			// image is smaller than requested since, so center
 			if (curBounds.width <= width && curBounds.height <= height) {
-//				gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, (width - curBounds.width) / 2,
-//						(height - curBounds.height) / 2, curBounds.width, curBounds.height);
+				gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, (width - curBounds.width) / 2,
+						(height - curBounds.height) / 2, curBounds.width, curBounds.height);
 			} else // too wide or too tall
 			{
 				// shortcut if the image is perfectly proportional to avoid
 				// some of the math below
 				if (curBounds.width == curBounds.height) {
-//					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, 0, 0, width, height);
+					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, 0, 0, width, height);
 				}
 				// try to keep the proportions of the original image
 				// wider than tall
@@ -238,13 +243,13 @@ public class GamaIcons implements IIconProvider {
 					// the proportional new height
 					final int newHt = (int) (height * ((double) curBounds.height / (double) curBounds.width));
 					// and center that
-//					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, 0, (height - newHt) / 2, width, newHt);
+					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, 0, (height - newHt) / 2, width, newHt);
 				} else // taller than wide
 				{
 					// the proportional new width
 					final int newWd = (int) (width * ((double) curBounds.width / (double) curBounds.height));
 					// and center that
-//					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, (width - newWd) / 2, 0, newWd, height);
+					gc.drawImage(im, 0, 0, curBounds.width, curBounds.height, (width - newWd) / 2, 0, newWd, height);
 
 				}
 			}
@@ -255,22 +260,10 @@ public class GamaIcons implements IIconProvider {
 			newIm.dispose();
 			throw ex;
 		} finally {
-//			if (gc != null) {
-//				gc.dispose();
-//			}
+			if (gc != null) {
+				gc.dispose();
+			}
 		}
-	}
-
-	@Override
-	public ImageDescriptor desc(final String name) {
-		final GamaIcon icon = create(name);
-		return icon.descriptor();
-	}
-
-	@Override
-	public Image image(final String name) {
-		final GamaIcon icon = create(name);
-		return icon.image();
 	}
 
 }

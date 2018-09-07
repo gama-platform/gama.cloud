@@ -1,7 +1,8 @@
 /*********************************************************************************************
  *
- * 'DateEditor.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'DateEditor.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
+ * GAMA modeling and simulation platform.
+ * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -82,10 +83,8 @@ public class DateEditor extends AbstractEditor<GamaDate> {
 	protected void displayParameterValue() {
 		internalModification = true;
 		final GamaDate d = getCurrentValue();
-		if (d != null) {
-			date.setDate(d.getYear(), d.getMonth() - 1, d.getDay());
-			time.setTime(d.getHour(), d.getMinute(), d.getSecond());
-		}
+		date.setDate(d.getYear(), d.getMonth() - 1, d.getDay());
+		time.setTime(d.getHour(), d.getMinute(), d.getSecond());
 		internalModification = false;
 	}
 

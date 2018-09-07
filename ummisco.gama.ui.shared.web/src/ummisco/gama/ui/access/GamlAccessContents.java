@@ -9,10 +9,12 @@
  **********************************************************************************************/
 package ummisco.gama.ui.access;
 
+import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -21,15 +23,12 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -54,11 +53,11 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	 * A color for dulled out items created by mixing the table foreground. Will be disposed when the
 	 * {@link #resourceManager} is disposed.
 	 */
-	TextLayout textLayout;
-	boolean resized = false;
-	// private TriggerSequence keySequence;
+	private TextLayout textLayout;
+	protected boolean resized = false;
+	private TriggerSequence keySequence;
 
-	Popup2 popup;
+	private Popup2 popup;
 
 	public int maxProviderWidth = 145;
 
@@ -154,6 +153,7 @@ public abstract class GamlAccessContents implements IPopupProvider {
 				new List[GamlIdiomsProvider.PROVIDERS.size()];
 
 		final int[] indexPerProvider = new int[GamlIdiomsProvider.PROVIDERS.size()];
+		int countTotal = 0;
 		boolean done;
 		do {
 			// will be set to false if we find a provider with remaining
@@ -161,13 +161,14 @@ public abstract class GamlAccessContents implements IPopupProvider {
 			done = true;
 			for (int i = 0; i < GamlIdiomsProvider.PROVIDERS.size(); i++) {
 				if (entries[i] == null) {
-					entries[i] = new ArrayList<>();
+					entries[i] = new ArrayList<GamlAccessEntry>();
 					indexPerProvider[i] = 0;
 				}
+				int count = 0;
 				final GamlIdiomsProvider<?> provider = GamlIdiomsProvider.PROVIDERS.get(i);
 				if (filter.length() > 0) {
 					final IGamlDescription[] sortedElements = provider.getSortedElements();
-					final List<GamlAccessEntry> poorFilterMatches = new ArrayList<>();
+					final List<GamlAccessEntry> poorFilterMatches = new ArrayList<GamlAccessEntry>();
 
 					int j = indexPerProvider[i];
 					while (j < sortedElements.length) {
@@ -193,6 +194,8 @@ public abstract class GamlAccessContents implements IPopupProvider {
 						}
 						if (entryEnabled(provider, entry)) {
 							entries[i].add(entry);
+							count++;
+							countTotal++;
 						}
 
 						j++;
@@ -201,8 +204,11 @@ public abstract class GamlAccessContents implements IPopupProvider {
 					indexPerProvider[i] = j;
 					// If there were low quality matches and there is still
 					// room, add them (Bug 398455)
-					for (final GamlAccessEntry quickAccessEntry : poorFilterMatches) {
+					for (final Iterator<GamlAccessEntry> iterator = poorFilterMatches.iterator(); iterator.hasNext();) {
+						final GamlAccessEntry quickAccessEntry = iterator.next();
 						entries[i].add(quickAccessEntry);
+						count++;
+						countTotal++;
 					}
 					if (j < sortedElements.length) {
 						done = false;
@@ -248,9 +254,9 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	private void doDispose() {
-		if (textLayout != null && !textLayout.isDisposed()) {
-			textLayout.dispose();
-		}
+//		if (textLayout != null && !textLayout.isDisposed()) {
+//			textLayout.dispose();
+//		}
 	}
 
 	protected String getId() {
@@ -341,11 +347,11 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		table = new Table(tableComposite, SWT.None /* SWT.SINGLE | SWT.FULL_SELECTION */);
 		table.setBackground(IGamaColors.VERY_LIGHT_GRAY.color());
 		table.setLinesVisible(true);
-		textLayout = new TextLayout(table.getDisplay());
-		textLayout.setOrientation(defaultOrientation);
-		final Font boldFont = GamaFonts.getHelpFont();
-		table.setFont(boldFont);
-		textLayout.setText("Available categories");
+//		textLayout = new TextLayout(table.getDisplay());
+//		textLayout.setOrientation(defaultOrientation);
+//		final Font boldFont = GamaFonts.getHelpFont();
+//		table.setFont(boldFont);
+//		textLayout.setText("Available categories");
 		// if (maxProviderWidth == 0) {
 		// maxProviderWidth = (int) (textLayout.getBounds().width * 1.1);
 		// textLayout.setFont(boldFont);
@@ -372,7 +378,7 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		// }
 		// }
 		// }
-		// DEBUG.LOG("Provider: " + maxProviderWidth + " Definition:" + maxDefinitionWidth);
+		// System.out.println("Provider: " + maxProviderWidth + " Definition:" + maxDefinitionWidth);
 		//
 		// }
 
@@ -400,16 +406,17 @@ public abstract class GamlAccessContents implements IPopupProvider {
 			@Override
 			public void mouseUp(final MouseEvent e) {
 
-				if (table.getSelectionCount() < 1) { return; }
+				if (table.getSelectionCount() < 1)
+					return;
 
-				if (e.button != 1) { return; }
+				if (e.button != 1)
+					return;
 
 				if (table.equals(e.getSource())) {
 					final Object o = table.getItem(new Point(e.x, e.y));
 					final TableItem selection = table.getSelection()[0];
-					if (selection.equals(o)) {
+					if (selection.equals(o))
 						handleSelection();
-					}
 				}
 			}
 		});

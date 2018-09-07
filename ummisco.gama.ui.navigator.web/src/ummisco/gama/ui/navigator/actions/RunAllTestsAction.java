@@ -4,8 +4,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider; 
 
 import ummisco.gama.ui.commands.TestsRunner;
-import ummisco.gama.ui.navigator.contents.ResourceManager;
-import ummisco.gama.ui.navigator.contents.TestModelsFolder;
+import ummisco.gama.ui.navigator.contents.ResourceManager; 
 
 public class RunAllTestsAction extends WorkspaceAction {
 
@@ -20,12 +19,13 @@ public class RunAllTestsAction extends WorkspaceAction {
 
 	@Override
 	public boolean updateSelection(final IStructuredSelection event) {
-		return event.getFirstElement() instanceof TestModelsFolder;
+		return false;
+//		return event.getFirstElement() instanceof TestModelsFolder;
 	}
 
 	@Override
 	public void run() {
-		ResourceManager.setLastTestResults(TestsRunner.start());
+//		ResourceManager.setLastTestResults(TestsRunner.start());
 	}
 
 }

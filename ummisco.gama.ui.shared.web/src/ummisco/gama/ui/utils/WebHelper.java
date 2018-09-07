@@ -56,7 +56,7 @@ public class WebHelper implements IWebHelper {
 	}
 
 	public static void openWelcomePage(final boolean ifEmpty) {
-		if (ifEmpty && ((WorkbenchHelper) WorkbenchHelper.getPage()).getActiveEditor() != null) { return; }
+		if (ifEmpty && WorkbenchHelper.getPage().getActiveEditor() != null) { return; }
 		if (ifEmpty && !GamaPreferences.Interface.CORE_SHOW_PAGE.getValue()) { return; }
 		// get the workspace
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();

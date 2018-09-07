@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.parameters;
 
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -77,11 +76,11 @@ public class IntEditor extends NumberEditor<Integer> {
 	@Override
 	protected void checkButtons() {
 		super.checkButtons();
-		final Button plus = items[PLUS];
+		final ToolItem plus = items[PLUS];
 		if (plus != null && !plus.isDisposed()) {
 			plus.setEnabled(param.isDefined() && (maxValue == null || applyPlus() < maxValue.intValue()));
 		}
-		final Button minus = items[MINUS];
+		final ToolItem minus = items[MINUS];
 		if (minus != null && !minus.isDisposed()) {
 			minus.setEnabled(param.isDefined() && (minValue == null || applyMinus() > minValue.intValue()));
 		}

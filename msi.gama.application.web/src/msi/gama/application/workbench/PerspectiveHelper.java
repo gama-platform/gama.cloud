@@ -30,9 +30,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
-import org.eclipse.ui.internal.registry.PerspectiveRegistry;
-import msi.gama.application.workbench.PerspectiveHelper.SimulationPerspectiveDescriptor;
-import msi.gama.application.workbench.PerspectiveHelper.SimulationPerspectiveFactory;
+import org.eclipse.ui.internal.registry.PerspectiveRegistry; 
 import msi.gama.common.interfaces.IGui;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.kernel.model.IModel;
@@ -142,7 +140,7 @@ public class PerspectiveHelper {
 		return openPerspective(PERSPECTIVE_SIMULATION_ID, true, false);
 	}
 
-	static PerspectiveDescriptor getSimulationDescriptor() {
+	public static PerspectiveDescriptor getSimulationDescriptor() {
 		return (PerspectiveDescriptor) getPerspectiveRegistry().findPerspectiveWithId(PERSPECTIVE_SIMULATION_ID);
 	}
 

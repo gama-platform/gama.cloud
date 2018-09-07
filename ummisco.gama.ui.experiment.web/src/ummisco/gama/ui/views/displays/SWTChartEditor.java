@@ -14,6 +14,7 @@ import java.awt.BasicStroke;
 import java.awt.Paint;
 import java.awt.Stroke;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -65,19 +66,19 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 public class SWTChartEditor implements ChartEditor {
 
 	/** The shell */
-	final Shell shell;
+	private final Shell shell;
 
 	/** The chart which the properties have to be edited */
-	final JFreeChart chart;
+	private final JFreeChart chart;
 
 	/** A composite for displaying/editing the properties of the title. */
-	final SWTTitleEditor titleEditor;
+	private final SWTTitleEditor titleEditor;
 
 	/** A composite for displaying/editing the properties of the plot. */
-	final SWTPlotEditor plotEditor;
+	private final SWTPlotEditor plotEditor;
 
 	/** A composite for displaying/editing the other properties of the chart. */
-	final SWTOtherEditor otherEditor;
+	private final SWTOtherEditor otherEditor;
 
 	/** The resourceBundle for the localization. */
 	// protected static ResourceBundle localizationResources =
@@ -95,7 +96,7 @@ public class SWTChartEditor implements ChartEditor {
 	public SWTChartEditor(final Display display, final JFreeChart chart2edit, final Point position) {
 		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.NO_TRIM);
 		this.shell.setSize(400, 500);
-		this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		this.shell.setBackground(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getSystemColor(SWT.COLOR_BLACK));
 		// this.shell.setAlpha(140);
 		this.chart = chart2edit;
 		this.shell.setText("Chart properties");
@@ -180,30 +181,30 @@ public class SWTChartEditor implements ChartEditor {
 	class SWTTitleEditor extends Composite {
 
 		/** Whether or not to display the title on the chart. */
-		boolean showTitle;
+		private boolean showTitle;
 
 		/** The checkbox to indicate whether or not to display the title. */
-		final Button showTitleCheckBox;
+		private final Button showTitleCheckBox;
 
 		/** A field for displaying/editing the title text. */
-		final Text titleField;
+		private final Text titleField;
 
 		/** The font used to draw the title. */
-		FontData titleFont;
+		private FontData titleFont;
 
 		/** A field for displaying a description of the title font. */
-		final Text fontField;
+		private final Text fontField;
 
 		/** The button to use to select a new title font. */
-		final Button selectFontButton;
+		private final Button selectFontButton;
 
 		/** The paint (color) used to draw the title. */
-		Color titleColor;
+		private Color titleColor;
 
 		/**
 		 * The button to use to select a new paint (color) to draw the title.
 		 */
-		final Button selectColorButton;
+		private final Button selectColorButton;
 
 		/** The resourceBundle for the localization. */
 		// protected static ResourceBundle localizationResources =
@@ -211,7 +212,7 @@ public class SWTChartEditor implements ChartEditor {
 		// .getBundle("org.jfree.chart.editor.LocalizationBundle");
 
 		/** Font object used to handle a change of font. */
-		Font font;
+		private Font font;
 
 		/**
 		 * Standard constructor: builds a panel for displaying/editing the properties of the specified title.
@@ -524,10 +525,10 @@ public class SWTChartEditor implements ChartEditor {
 		/**
 		 * A checkbox indicating whether or not the chart is drawn with anti-aliasing.
 		 */
-		final Button antialias;
+		private final Button antialias;
 
 		/** The chart background color. */
-		final SWTPaintCanvas backgroundPaintCanvas;
+		private final SWTPaintCanvas backgroundPaintCanvas;
 
 		/** The resourceBundle for the localization. */
 		// protected static ResourceBundle localizationResources =
@@ -601,27 +602,27 @@ public class SWTChartEditor implements ChartEditor {
 	public static class SWTAxisEditor extends Composite {
 
 		/** The axis label. */
-		final Text label;
+		private final Text label;
 
 		/** The font used to draw the axis labels. */
-		FontData labelFont;
+		private FontData labelFont;
 
 		/** The paint (color) used to draw the axis labels. */
-		Color labelPaintColor;
+		private Color labelPaintColor;
 
 		/** The font used to draw the axis tick labels. */
-		FontData tickLabelFont;
+		private FontData tickLabelFont;
 
 		/** The paint (color) used to draw the axis tick labels. */
-		final Color tickLabelPaintColor;
+		private final Color tickLabelPaintColor;
 
 		/** A field showing a description of the label font. */
-		final Text labelFontField;
+		private final Text labelFontField;
 
 		/**
 		 * A field containing a description of the font for displaying tick labels on the axis.
 		 */
-		final Text tickLabelFontField;
+		private final Text tickLabelFontField;
 
 		/** The resourceBundle for the localization. */
 		// protected static ResourceBundle localizationResources =
@@ -629,16 +630,16 @@ public class SWTChartEditor implements ChartEditor {
 		// .getBundle("org.jfree.chart.editor.LocalizationBundle");
 
 		/** Font object used to handle a change of font. */
-		Font font;
+		private Font font;
 
 		/** A flag that indicates whether or not the tick labels are visible. */
-		final Button showTickLabelsCheckBox;
+		private final Button showTickLabelsCheckBox;
 
 		/** A flag that indicates whether or not the tick marks are visible. */
-		final Button showTickMarksCheckBox;
+		private final Button showTickMarksCheckBox;
 
 		/** A tabbed pane for... */
-		final TabFolder otherTabs;
+		private final TabFolder otherTabs;
 
 		/**
 		 * Standard constructor: builds a composite for displaying/editing the properties of the specified axis.
@@ -969,26 +970,26 @@ public class SWTChartEditor implements ChartEditor {
 
 	static class SWTPlotAppearanceEditor extends Composite {
 
-		final Spinner selectStroke;
+		private final Spinner selectStroke;
 
 		/** The stroke (pen) used to draw the outline of the plot. */
-		final SWTStrokeCanvas strokeCanvas;
+		private final SWTStrokeCanvas strokeCanvas;
 
 		/** The paint (color) used to fill the background of the plot. */
-		final SWTPaintCanvas backgroundPaintCanvas;
+		private final SWTPaintCanvas backgroundPaintCanvas;
 
 		/** The paint (color) used to draw the outline of the plot. */
-		final SWTPaintCanvas outlinePaintCanvas;
+		private final SWTPaintCanvas outlinePaintCanvas;
 
 		/** The orientation for the plot. */
-		PlotOrientation plotOrientation;
+		private PlotOrientation plotOrientation;
 
-		Combo orientation;
+		private Combo orientation;
 
 		/** Orientation constants. */
-		final static String[] orientationNames = { "Vertical", "Horizontal" };
-		final static int ORIENTATION_VERTICAL = 0;
-		final static int ORIENTATION_HORIZONTAL = 1;
+		private final static String[] orientationNames = { "Vertical", "Horizontal" };
+		private final static int ORIENTATION_VERTICAL = 0;
+		private final static int ORIENTATION_HORIZONTAL = 1;
 
 		/** The resourceBundle for the localization. */
 		// protected static ResourceBundle localizationResources =

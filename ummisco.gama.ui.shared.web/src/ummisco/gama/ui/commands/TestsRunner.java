@@ -25,35 +25,36 @@ public class TestsRunner {
 	public static CompoundSummary<TestExperimentSummary, ?> LAST_RUN;
 
 	public static CompoundSummary<TestExperimentSummary, ?> start() {
-		if (WebGui.ALL_TESTS_RUNNING)
-			return null;
-		final CompoundSummary<TestExperimentSummary, ?> summaries = new CompoundSummary<>();
-
-		final IGui gui = GAMA.getRegularGui();
-		final IScope scope = GAMA.getRuntimeScope();
-		try {
-
-			List<IFile> testFiles = null;
-			try {
-				testFiles = findTestModels();
-				gui.openTestView(scope, true);
-				for (final IFile file : testFiles) {
-					final List<TestExperimentSummary> list = gui.runHeadlessTests(file);
-					if (list != null) {
-						summaries.addSummaries(list);
-					}
-				}
-			} catch (final Exception e) {
-				e.printStackTrace();
-			}
-		} finally {
-			LAST_RUN = summaries;
-			gui.displayTestsResults(scope, summaries);
-			WebGui.ALL_TESTS_RUNNING = false;
-			gui.endTestDisplay();
-
-		}
-		return summaries;
+		return LAST_RUN;
+//		if (WebGui.ALL_TESTS_RUNNING)
+//			return null;
+//		final CompoundSummary<TestExperimentSummary, ?> summaries = new CompoundSummary<>();
+//
+//		final IGui gui = GAMA.getRegularGui();
+//		final IScope scope = GAMA.getRuntimeScope();
+//		try {
+//
+//			List<IFile> testFiles = null;
+//			try {
+//				testFiles = findTestModels();
+//				gui.openTestView(scope, true);
+//				for (final IFile file : testFiles) {
+//					final List<TestExperimentSummary> list = gui.runHeadlessTests(file);
+//					if (list != null) {
+//						summaries.addSummaries(list);
+//					}
+//				}
+//			} catch (final Exception e) {
+//				e.printStackTrace();
+//			}
+//		} finally {
+//			LAST_RUN = summaries;
+//			gui.displayTestsResults(scope, summaries);
+//			WebGui.ALL_TESTS_RUNNING = false;
+//			gui.endTestDisplay();
+//
+//		}
+//		return summaries;
 
 	}
 
@@ -72,17 +73,17 @@ public class TestsRunner {
 		if (p == null || !p.exists() || !p.isAccessible())
 			return false;
 		// If it is contained in one of the built-in tests projects, return true
-		if (p.getDescription().hasNature(WorkbenchHelper.TEST_NATURE))
-			return true;
-		if (GamaPreferences.Runtime.USER_TESTS.getValue()) {
-			// If it is not in user defined projects, return false
-			if (p.getDescription().hasNature(WorkbenchHelper.BUILTIN_NATURE))
-				return false;
-			// We try to find in the project a folder called 'tests'
-			final IResource r = p.findMember("tests");
-			if (r != null && r.exists() && r.isAccessible() && r.getType() == IResource.FOLDER)
-				return true;
-		}
+//		if (p.getDescription().hasNature(WorkbenchHelper.TEST_NATURE))
+//			return true;
+//		if (GamaPreferences.Runtime.USER_TESTS.getValue()) {
+//			// If it is not in user defined projects, return false
+//			if (p.getDescription().hasNature(WorkbenchHelper.BUILTIN_NATURE))
+//				return false;
+//			// We try to find in the project a folder called 'tests'
+//			final IResource r = p.findMember("tests");
+//			if (r != null && r.exists() && r.isAccessible() && r.getType() == IResource.FOLDER)
+//				return true;
+//		}
 		return false;
 	}
 

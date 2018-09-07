@@ -34,7 +34,10 @@ Require-Bundle: org.eclipse.rap.ui,
  msi.gama.application.web;bundle-version="1.7.0",
  msi.gama.core.web,
  cict.gama.web.wrapper;bundle-version="1.7.0",
- org.dslforge.workspace.ui
+ org.dslforge.workspace.ui,
+ javax.inject,
+ msi.gama.lang.gaml;bundle-version="1.7.0",
+ org.apache.commons.lang;bundle-version="2.6.0"
 Export-Package: msi.gama.core.web.editor,
  msi.gama.core.web.workspace.ui.commands,
  ummisco.gama.ui,
@@ -53,3 +56,4 @@ Export-Package: msi.gama.core.web.editor,
  ummisco.gama.ui.views,
  ummisco.gama.ui.views.toolbar
 Bundle-Activator: ummisco.gama.ui.Activator
+Import-Package: com.google.inject

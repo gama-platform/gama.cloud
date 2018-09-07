@@ -11,11 +11,13 @@ package ummisco.gama.ui.resources;
 
 import java.util.HashMap;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 
 import msi.gama.util.GamaColor;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -131,7 +133,7 @@ public class GamaColors {
 
 	static HashMap<RGB, GamaUIColor> colors = new HashMap<>();
 
-	static Color computeInactive(final Color c) {
+	private static Color computeInactive(final Color c) {
 		final RGB data = c.getRGB();
 		final float[] hsb = data.getHSB();
 		final float[] newHsb = new float[3];
@@ -142,7 +144,7 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
-	static Color computeDarker(final Color c) {
+	private static Color computeDarker(final Color c) {
 		final RGB data = c.getRGB();
 		final float[] hsb = data.getHSB();
 		final float[] newHsb = new float[3];
@@ -153,12 +155,12 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
-	static Color computeReverse(final Color c) {
+	private static Color computeReverse(final Color c) {
 		final RGB data = c.getRGB();
 		return getColor(255 - data.red, 255 - data.green, 255 - data.blue);
 	}
 
-	static Color computeLighter(final Color c) {
+	private static Color computeLighter(final Color c) {
 		final RGB data = c.getRGB();
 		final float[] hsb = data.getHSB();
 		final float[] newHsb = new float[3];
@@ -169,7 +171,7 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
-	static Color computeGray(final Color c) {
+	private static Color computeGray(final Color c) {
 		final RGB data = c.getRGB();
 		final float[] hsb = data.getHSB();
 		final float[] newHsb = new float[3];
@@ -181,7 +183,7 @@ public class GamaColors {
 	}
 
 	private static Color getColor(final int r, final int g, final int b) {
-		return new Color(WorkbenchHelper.getDisplay(), r, g, b);
+		return new Color(Display.getCurrent(), r, g, b);
 	}
 
 	public static GamaUIColor get(final java.awt.Color color) {
@@ -190,7 +192,7 @@ public class GamaColors {
 	}
 
 	public static GamaUIColor get(final RGB rgb) {
-		if (rgb == null) { return null; }
+		if (rgb == null) { return IGamaColors.NEUTRAL; }
 		GamaUIColor c = colors.get(rgb);
 		if (c == null) {
 			final Color cc = getColor(rgb.red, rgb.green, rgb.blue);
@@ -209,7 +211,7 @@ public class GamaColors {
 	}
 
 	public static Color system(final int c) {
-		return WorkbenchHelper.getDisplay().getSystemColor(c);
+		return Display.getCurrent().getSystemColor(c);
 	}
 
 	public static GamaUIColor get(final int... c) {
@@ -264,11 +266,6 @@ public class GamaColors {
 
 	public static GamaColor toGamaColor(final Color color) {
 		return new GamaColor(color.getRed(), color.getGreen(), color.getBlue());
-	}
-
-	public static GamaColor toGamaColor(final RGB color) {
-		if (color == null) { return GamaColor.getInt(0); }
-		return new GamaColor(color.red, color.green, color.blue);
 	}
 
 	/**

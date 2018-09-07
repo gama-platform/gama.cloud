@@ -40,7 +40,7 @@ public class AssertEditor extends AbstractStatementEditor<AbstractSummary<?>> {
 	}
 
 	@Override
-	protected ToolBar createToolbar2() {
+	protected ToolBar createToolbar() {
 		return null;
 	}
 

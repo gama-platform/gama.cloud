@@ -10,17 +10,21 @@
 
 package ummisco.gama.ui.access;
 
+import java.awt.font.TextLayout;
+
+//import org.eclipse.draw2d.text.TextLayout;
+import org.eclipse.jface.resource.DeviceResourceException;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
 import msi.gama.common.interfaces.IGamlDescription;
 import msi.gaml.compilation.GamlIdiomsProvider;
-import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.resources.IGamaColors;
 
 public class GamlAccessEntry {
@@ -102,88 +106,92 @@ public class GamlAccessEntry {
 	// return image;
 	// }
 
-	// private Image findOrCreateImage(final ImageDescriptor imageDescriptor, final ResourceManager resourceManager) {
-	// if (imageDescriptor == null) { return null; }
-	// Image image = (Image) resourceManager.find(imageDescriptor);
-	// if (image == null) {
-	// try {
-	// image = resourceManager.createImage(imageDescriptor);
-	// } catch (final DeviceResourceException e) {
-	// // WorkbenchPlugin.log(e);
-	// }
-	// }
-	// return image;
-	// }
+	private Image findOrCreateImage(final ImageDescriptor imageDescriptor, final ResourceManager resourceManager) {
+		if (imageDescriptor == null) { return null; }
+		Image image = (Image) resourceManager.find(imageDescriptor);
+		if (image == null) {
+			try {
+				image = resourceManager.createImage(imageDescriptor);
+			} catch (final DeviceResourceException e) {
+				// WorkbenchPlugin.log(e);
+			}
+		}
+		return image;
+	}
 
 	public void measure(final Event event, final TextLayout textLayout) {
-		// final Table table = ((TableItem) event.item).getParent();
+		final Table table = ((TableItem) event.item).getParent();
 
 		event.width = 0;
 		switch (event.index) {
 			case 0:
-				textLayout.setFont(GamaFonts.categoryHelpFont);
+//				textLayout.setFont(GamaFonts.categoryHelpFont);
 				if (firstInCategory || providerMatchRegions.length > 0) {
-					final TextStyle boldStyle =
-							new TextStyle(GamaFonts.categoryBoldHelpFont, null, IGamaColors.TOOLTIP.color());
-					textLayout.setText(provider.name);
-					for (final int[] matchRegion : providerMatchRegions) {
-						textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
-					}
+//					final TextStyle boldStyle =
+//							new TextStyle(GamaFonts.categoryBoldHelpFont, null, IGamaColors.TOOLTIP.color());
+//					textLayout.setText(provider.name);
+//					for (int i = 0; i < providerMatchRegions.length; i++) {
+//						final int[] matchRegion = providerMatchRegions[i];
+//						textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
+//					}
 				} else {
-					textLayout.setText(""); //$NON-NLS-1$
+//					textLayout.setText(""); //$NON-NLS-1$
 				}
 				break;
 			case 1:
-				textLayout.setText(element.getTitle());
-				final TextStyle boldStyle = new TextStyle(GamaFonts.boldHelpFont, null, IGamaColors.TOOLTIP.color());
-				for (final int[] matchRegion : elementMatchRegions) {
-					textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
-				}
+//				textLayout.setText(element.getTitle());
+//				final TextStyle boldStyle = new TextStyle(GamaFonts.boldHelpFont, null, IGamaColors.TOOLTIP.color());
+//				for (int i = 0; i < elementMatchRegions.length; i++) {
+//					final int[] matchRegion = elementMatchRegions[i];
+//					textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
+//				}
 
 				break;
 		}
-		final Rectangle rect = textLayout.getBounds();
-		event.width += rect.width + 4;
-		event.height = Math.max(event.height, rect.height + 2);
+//		final Rectangle rect = textLayout.getBounds();
+//		event.width += rect.width + 4;
+//		event.height = Math.max(event.height, rect.height + 2);
 	}
 
 	public void paint(final Event event, final TextLayout textLayout) {
 		final Table table = ((TableItem) event.item).getParent();
-		textLayout.setFont(table.getFont());
+//		textLayout.setFont(table.getFont());
 		switch (event.index) {
 			case 0:
 				if (firstInCategory || providerMatchRegions.length > 0) {
-					textLayout.setFont(GamaFonts.categoryHelpFont);
-					final TextStyle boldStyle =
-							new TextStyle(GamaFonts.categoryBoldHelpFont, null, IGamaColors.TOOLTIP.color());
-					textLayout.setText(provider.name);
+//					textLayout.setFont(GamaFonts.categoryHelpFont);
+//					final TextStyle boldStyle =
+//							new TextStyle(GamaFonts.categoryBoldHelpFont, null, IGamaColors.TOOLTIP.color());
+//					textLayout.setText(provider.name);
 
-					for (final int[] matchRegion : providerMatchRegions) {
-						textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
-					}
+//					for (int i = 0; i < providerMatchRegions.length; i++) {
+//						final int[] matchRegion = providerMatchRegions[i];
+//						textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
+//					}
 
 					if (providerMatchRegions.length > 0 && !firstInCategory) {
 						event.gc.setForeground(IGamaColors.GRAY_LABEL.color());
 					}
-					final Rectangle availableBounds = ((TableItem) event.item).getTextBounds(event.index);
-					final Rectangle requiredBounds = textLayout.getBounds();
-					textLayout.draw(event.gc, availableBounds.x + 1,
-							availableBounds.y + (availableBounds.height - requiredBounds.height) / 2);
+//					final Rectangle availableBounds = ((TableItem) event.item).getTextBounds(event.index);
+//					final Rectangle requiredBounds = textLayout.getBounds();
+//					textLayout.draw(event.gc, availableBounds.x + 1,
+//							availableBounds.y + (availableBounds.height - requiredBounds.height) / 2);
 				}
 				break;
 			case 1:
 				final String label = element.getTitle();
-				textLayout.setText(label);
-				final TextStyle boldStyle = new TextStyle(GamaFonts.boldHelpFont, null, IGamaColors.TOOLTIP.color());
+//				textLayout.setText(label);
+//				final TextStyle boldStyle = new TextStyle(GamaFonts.boldHelpFont, null, IGamaColors.TOOLTIP.color());
 
-				for (final int[] matchRegion : elementMatchRegions) {
-					textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
-				}
+//				for (int i = 0; i < elementMatchRegions.length; i++) {
+//					final int[] matchRegion = elementMatchRegions[i];
+//					textLayout.setStyle(boldStyle, matchRegion[0], matchRegion[1]);
+//				}
 
-				final Rectangle availableBounds = ((TableItem) event.item).getTextBounds(event.index);
-				final Rectangle requiredBounds = textLayout.getBounds();
-				textLayout.draw(event.gc, availableBounds.x + 1 /* + image.getBounds().width */,
-						availableBounds.y + (availableBounds.height - requiredBounds.height) / 2);
+//				final Rectangle availableBounds = ((TableItem) event.item).getTextBounds(event.index);
+//				final Rectangle requiredBounds = textLayout.getBounds();
+//				textLayout.draw(event.gc, availableBounds.x + 1 /* + image.getBounds().width */,
+//						availableBounds.y + (availableBounds.height - requiredBounds.height) / 2);
 				break;
 		}
 		if (lastInCategory) {

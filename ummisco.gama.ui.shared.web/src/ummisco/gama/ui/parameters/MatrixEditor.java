@@ -11,7 +11,7 @@
 package ummisco.gama.ui.parameters;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -48,7 +48,7 @@ public class MatrixEditor extends ExpressionBasedEditor<IMatrix<?>> {
 	@Override
 	public void applyEdit() {
 
-		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(), currentValue);
+		final MatrixEditorDialog d = new MatrixEditorDialog(getScope(), WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), currentValue);
 		if (d.open() == IDialogConstants.OK_ID) {
 			modifyValue(d.getMatrix());
 		}
@@ -57,7 +57,7 @@ public class MatrixEditor extends ExpressionBasedEditor<IMatrix<?>> {
 
 	@Override
 	protected void checkButtons() {
-		final Button edit = items[EDIT];
+		final ToolItem edit = items[EDIT];
 		if (edit != null && !edit.isDisposed()) {
 			edit.setEnabled(true);
 		}

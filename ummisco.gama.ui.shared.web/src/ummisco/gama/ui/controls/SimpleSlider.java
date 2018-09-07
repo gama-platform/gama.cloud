@@ -33,15 +33,10 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.IGamaColors;
 
 public class SimpleSlider extends Composite implements IPopupProvider {
-
-	static {
-		DEBUG.OFF();
-	}
 
 	final Composite parent;
 
@@ -116,7 +111,7 @@ public class SimpleSlider extends Composite implements IPopupProvider {
 	Popup2 popup = null;
 	int thumbWidth = 0;
 	private boolean notify = true;
-	private final IPositionChangeListener popupListener = (slider, position) -> popup.display();
+	private final IPositionChangeListener popupListener = position -> popup.display();
 
 	public SimpleSlider(final Composite parent, final Color color, final Image thumbImageNormal) {
 		this(parent, color, color, thumbImageNormal);
@@ -219,12 +214,9 @@ public class SimpleSlider extends Composite implements IPopupProvider {
 		if (withPopup) {
 			addPositionChangeListener(popupListener);
 			popup = new Popup2(this, leftRegion, thumb, rightRegion);
-		} else {
+		} else
 			popup = null;
-		}
-		if (DEBUG.IS_ON()) {
-			addPositionChangeListener((slider, position) -> DEBUG.OUT("Position changed to : " + position));
-		}
+
 	}
 
 	public void removePositionChangeListener(final IPositionChangeListener listener) {
@@ -252,13 +244,13 @@ public class SimpleSlider extends Composite implements IPopupProvider {
 	private void updatePositionListeners(final double perc) {
 		if (!notify) { return; }
 		if (Math.abs(perc - previousPosition) > 0.000001) {
-			// synchronized (positionChangedListeners) {
-			final Iterator<IPositionChangeListener> iter = positionChangedListeners.iterator();
-			while (iter.hasNext()) {
-				iter.next().positionChanged(SimpleSlider.this, perc);
+			synchronized (positionChangedListeners) {
+				final Iterator<IPositionChangeListener> iter = positionChangedListeners.iterator();
+				while (iter.hasNext()) {
+					iter.next().positionChanged(perc);
+				}
 			}
 		}
-		// }
 	}
 
 	void moveThumbHorizontally(final int x) {
@@ -403,7 +395,7 @@ public class SimpleSlider extends Composite implements IPopupProvider {
 
 	@Override
 	public Point getAbsoluteOrigin() {
-		return leftRegion.toDisplay(new Point(leftRegion.getLocation().x, -sliderHeight));
+		return leftRegion.toDisplay(new Point(leftRegion.getLocation().x, sliderHeight * 2));
 	}
 
 	@Override
@@ -416,9 +408,8 @@ public class SimpleSlider extends Composite implements IPopupProvider {
 	}
 
 	public void setStep(final Double realStep) {
-		if (realStep != null && realStep > 0d) {
+		if (realStep != null && realStep > 0d)
 			step = realStep;
-		}
 	}
 
 }
