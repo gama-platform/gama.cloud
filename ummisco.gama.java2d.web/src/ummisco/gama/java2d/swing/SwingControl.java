@@ -68,7 +68,7 @@ public abstract class SwingControl extends Composite {
 	public static final String SWT_PARENT_PROPERTY_KEY = "org.eclipse.albireo.swtParent";
 
 	final Listener settingsListener = event -> handleSettingsChange();
-	final /* private */ Display display;
+	public final /* private */ Display display;
 	Composite layoutDeferredAncestor;
 
 	// The width of the border to keep around the embedded AWT frame.

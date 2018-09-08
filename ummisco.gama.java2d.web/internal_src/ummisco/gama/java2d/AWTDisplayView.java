@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -22,6 +23,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
+import msi.gama.outputs.IDisplayOutput;
 import ummisco.gama.java2d.swing.SwingControl;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.LayeredDisplayView;
@@ -30,7 +32,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 	public static long REALIZATION_TIME_OUT = 1000;
 	public boolean isVisible;
-
+	
 	@Override
 	public Java2DDisplaySurface getDisplaySurface() {
 		return (Java2DDisplaySurface) super.getDisplaySurface();
@@ -50,7 +52,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 			@Override
 			protected void preferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {
-				WorkbenchHelper.asyncRun(() -> {
+				final String uid=RWT.getUISession().getAttribute("user").toString();
+				WorkbenchHelper.asyncRun(uid,() -> {
 					surfaceComposite.setSize(prefSize);
 					parent.layout(true, true);
 				});
@@ -70,7 +73,10 @@ public class AWTDisplayView extends LayeredDisplayView {
 			}
 
 			@Override
-			public void afterComponentCreatedSWTThread() {}
+			public void afterComponentCreatedSWTThread() {
+//				WorkaroundForIssue1353.install();
+
+			}
 
 			@Override
 			public void checkWidget() {
@@ -81,6 +87,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 			public void afterComponentCreatedAWTThread() {}
 		};
 		surfaceComposite.setEnabled(false);
+//		WorkaroundForIssue1594xx.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
 
 		Canvas canvas=new Canvas(surfaceComposite, 1);
 		canvas.addPaintListener(new PaintListener() {
@@ -92,14 +99,56 @@ public class AWTDisplayView extends LayeredDisplayView {
 				if(getDisplaySurface()!=null) {					
 					getDisplaySurface().setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
-					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, ((SwingControl)surfaceComposite).getDisplay());
+					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, ((SwingControl)surfaceComposite).display);
 					getDisplaySurface().paintComponent(renderer);
 				}
 			}
 		});
 		
-//		WorkaroundForIssue1594.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
-
+//		JavaScriptExecutor ex= RWT.getClient().getService(JavaScriptExecutor.class);
+//		String strscript="var camera, scene, renderer;\n" + 
+//				"var geometry, material, mesh;\n" + 
+//				"\n" + 
+//				"init();\n" + 
+//				"animate();\n" + 
+//				"\n" + 
+//				"function init() {\n" + 
+//				"\n" + 
+//				"    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);\n" + 
+//				"    camera.position.z = 1000;\n" + 
+//				"\n" + 
+//				"    scene = new THREE.Scene();\n" + 
+//				"\n" + 
+//				"    geometry = new THREE.BoxGeometry(200, 200, 200);\n" + 
+//				"    material = new THREE.MeshBasicMaterial({\n" + 
+//				"        color: 0xff0000,\n" + 
+//				"        wireframe: true\n" + 
+//				"    });\n" + 
+//				"\n" + 
+//				"    mesh = new THREE.Mesh(geometry, material);\n" + 
+//				"    scene.add(mesh);\n" + 
+//				"\n" + 
+//				"    renderer = new THREE.WebGLRenderer();\n" + 
+//				"    renderer.setSize(window.innerWidth, window.innerHeight);\n" + 
+//				"\n"+
+////				"var list = document.getElementsByTagName(\"canvas\")[1];\n" + 
+////				"list.parentNode.replaceWith(renderer.domElement);\n" + 
+////				"alert(list); \n"+
+//				"    document.body.appendChild(renderer.domElement);\n" + 
+//				"\n" + 
+//				"}\n" + 
+//				"\n" + 
+//				"function animate() {\n" + 
+//				"\n" + 
+//				"    requestAnimationFrame(animate);\n" + 
+//				"\n" + 
+//				"    mesh.rotation.x += 0.01;\n" + 
+//				"    mesh.rotation.y += 0.02;\n" + 
+//				"\n" + 
+//				"    renderer.render(scene, camera);\n" + 
+//				"\n" + 
+//				"}";
+//		ex.execute(strscript);
 		return surfaceComposite;
 	}
 
@@ -110,30 +159,68 @@ public class AWTDisplayView extends LayeredDisplayView {
 	 * 
 	 * @see msi.gama.common.interfaces.IGamaView#waitToBeRealized()
 	 */
-	//
-	// @Override
-	// public void waitToBeRealized() {
-	// // if (PlatformHelper.isWin32()) { return; }
-	// final long start = System.currentTimeMillis();
-	// final long now = start;
-	// final boolean openable = false;
-	//
-	// // while (/* isVisible && */ !openable) {
-	// // try {
-	// // Thread.sleep(GamaPreferences.Displays.CORE_OUTPUT_DELAY.getValue());
-	// // } catch (final InterruptedException e) {
-	// // e.printStackTrace();
-	// // }
-	// // now = System.currentTimeMillis();
-	// // openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
-	// // }
-	// // DEBUG.LOG("Realized in " + (now - start) + "ms");
-	//
-	// }
+
+//	@Override
+//	public synchronized void waitToBeRealized() {
+//		if (PlatformHelper.isWin32()) { return; }
+//		final long start = System.currentTimeMillis();
+//		long now = start;
+//		boolean openable = false;
+//
+//		while (/* isVisible && */ !openable) {
+//			try {
+//				Thread.sleep(GamaPreferences.Displays.CORE_OUTPUT_DELAY.getValue());
+//			} catch (final InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			now = System.currentTimeMillis();
+//			
+//			if(this.getDisplaySurface()!=null)
+//				openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
+//		}
+//		// System.out.println("Realized in " + (now - start) + "ms");
+//
+//	}
+
+	@Override
+	public void update(IDisplayOutput output) {
+		// TODO Auto-generated method stub
+		super.update(output);
+	}
 
 	@Override
 	public List<String> getCameraNames() {
 		return Collections.EMPTY_LIST;
+	}
+
+	@Override
+	public void updateToolbarState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pauseChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean containsPoint(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void hideToolbar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showToolbar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
