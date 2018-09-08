@@ -173,12 +173,12 @@ public class WebGui implements IGui {
 				final IWorkbenchPage page = WorkbenchHelper.getPage(uid);
 				if (page != null) {
 					page.zoomOut();
-//					final String second = secondaryId == null ? null
-//							: secondaryId + "@@@" + String.valueOf(System.currentTimeMillis());
-//					// The goal here is to address #2441 by randomizing the ids of views.
-//					// DEBUG.LOG("Opening view " + viewId + " " + second);
-//					result[0] = page.showView(viewId, second, code);
-					result[0] = page.showView(viewId, secondaryId, code);
+					final String second = secondaryId == null ? null
+							: secondaryId + "@@@" + String.valueOf(System.currentTimeMillis());
+					// The goal here is to address #2441 by randomizing the ids of views.
+					// DEBUG.LOG("Opening view " + viewId + " " + second);
+					result[0] = page.showView(viewId, second, code);
+//					result[0] = page.showView(viewId, secondaryId, code);
 				}
 			} catch (final Exception e) {
 				result[0] = e;
@@ -422,7 +422,7 @@ public class WebGui implements IGui {
 			// }
 			WorkbenchHelper.setWorkbenchWindowTitle(uid, exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
-			getConsole(scope).showConsoleView(exp.getAgent());
+//			getConsole(scope).showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -557,7 +557,7 @@ public class WebGui implements IGui {
 		final String uid = WorkbenchHelper.UISession.get(scope);
 		final ISourceProviderService service = WorkbenchHelper.getService(uid, ISourceProviderService.class);
 		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
-				.getSourceProvider("msi.gama.core.web.ui.experiment.SimulationRunningState");
+				.getSourceProvider("ummisco.gama.ui.experiment.SimulationRunningState");
 		// stateProvider.updateStateTo(forcedState);
 		if (stateProvider != null) {
 			WorkbenchHelper.run(uid, () -> stateProvider.updateStateTo(forcedState));

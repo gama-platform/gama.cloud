@@ -115,7 +115,13 @@ public abstract class GamaViewPart extends ViewPart
 	public void init(final IViewSite site) throws PartInitException {
 		super.init(site);
 		OutputPartsManager.install();
-		final String s_id = site.getSecondaryId();
+		String s_id = site.getSecondaryId();
+		if (s_id != null) {
+			final int i = s_id.indexOf("@@@");
+			if (i != -1) {
+				s_id = s_id.substring(0, i);
+			}
+		}
 		final String id = site.getId() + (s_id == null ? "" : s_id);
 		IDisplayOutput out = null;
 
@@ -310,8 +316,39 @@ public abstract class GamaViewPart extends ViewPart
 			}
 		} else {
 
-			setPartName(StringUtils.overlay(old, agent.getName(), first + 1, second));
+			setPartName(overlay(old, agent.getName(), first + 1, second));
 		}
+	}
+
+	// To avoid a dependency towards apache.commons.lang
+	private String overlay(final String str, final String over, final int s, final int e) {
+		String overlay = over;
+		int start = s;
+		int end = e;
+		if (str == null) { return null; }
+		if (overlay == null) {
+			overlay = "";
+		}
+		final int len = str.length();
+		if (start < 0) {
+			start = 0;
+		}
+		if (start > len) {
+			start = len;
+		}
+		if (end < 0) {
+			end = 0;
+		}
+		if (end > len) {
+			end = len;
+		}
+		if (start > end) {
+			final int temp = start;
+			start = end;
+			end = temp;
+		}
+		return new StringBuilder(len + start - end + overlay.length() + 1).append(str.substring(0, start))
+				.append(overlay).append(str.substring(end)).toString();
 	}
 
 	@Override

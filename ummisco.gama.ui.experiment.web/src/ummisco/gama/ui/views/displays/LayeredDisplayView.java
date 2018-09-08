@@ -307,15 +307,16 @@ public abstract class LayeredDisplayView extends GamaViewPart
 			if (getOutput().getData().isAutosave() && s.isRealized()) {
 				SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
 			}
-			while (!s.isRendered() && !s.isDisposed() && !disposed) {
-				try {
-					Thread.sleep(10);
-				} catch (final InterruptedException e) {
-					e.printStackTrace();
-				}
-
-			}
-		} else if (updateThread.isAlive()) {
+//			while (!s.isRendered() && !s.isDisposed() && !disposed) {
+//				try {
+//					Thread.sleep(10);
+//				} catch (final InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+		} else 
+			if (updateThread.isAlive()) {
 			releaseLock();
 		}
 

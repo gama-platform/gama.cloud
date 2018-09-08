@@ -25,9 +25,9 @@ import msi.gama.runtime.ISimulationStateProvider;
 public class SimulationStateProvider extends AbstractSourceProvider implements ISimulationStateProvider {
 
 	public final static String LOGGEDUSER = "msi.gama.core.web.ui.experiment.LoggedUser";
-	public final static String SIMULATION_RUNNING_STATE = "msi.gama.core.web.ui.experiment.SimulationRunningState";
-	public final static String SIMULATION_TYPE = "msi.gama.core.web.ui.experiment.SimulationType";
-	public final static String SIMULATION_STEPBACK = "msi.gama.core.web.ui.experiment.SimulationStepBack";
+	public final static String SIMULATION_RUNNING_STATE = "ummisco.gama.ui.experiment.SimulationRunningState";
+	public final static String SIMULATION_TYPE = "ummisco.gama.ui.experiment.SimulationType";
+	public final static String SIMULATION_STEPBACK = "ummisco.gama.ui.experiment.SimulationStepBack";
 
 	private final static Map<String, String> map = new HashMap<>(3);
 
