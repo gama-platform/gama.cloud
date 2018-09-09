@@ -155,7 +155,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 		pickingState = renderer.getPickingHelper();
 		geometryCache = new GeometryCache(renderer);
 		glTesselatorDrawer = (final double[] ordinates) -> {
-			tobj.gluTessVertex(ordinates, 0, ordinates);
+//			tobj.gluTessVertex(ordinates, 0, ordinates);
 		};
 		GLU.gluTessCallback(tobj, GLU.GLU_TESS_VERTEX, this);
 		GLU.gluTessCallback(tobj, GLU.GLU_TESS_BEGIN, this);
@@ -200,7 +200,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 
 	public void setGL2(final GL2 gl2) {
 		this.gl = gl2;
-		textureCache.initialize();
+//		textureCache.initialize();
 	}
 
 	public GLUT getGlut() {

@@ -10,20 +10,45 @@
  ********************************************************************************************************/
 package ummisco.gama.opengl.scene;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import msi.gama.metamodel.shape.GamaPoint;
+import msi.gama.util.GamaColor;
+import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.TextDrawingAttributes;
 
 public class StringObject extends AbstractObject<String, TextDrawingAttributes> {
 
-	public StringObject(final String string, final TextDrawingAttributes attributes) {
-		super(string, attributes);
-	}
+//	public StringObject(final String string, final TextDrawingAttributes attributes) {
+//		super(string, attributes);
+//	}
 
 	@Override
 	public DrawerType getDrawerType() {
 		return DrawerType.STRING;
 	}
 
+	public static GamaColor defaultTextColor = GamaColor.getInt(Color.black.getRGB());
+	public final String string;
+
+	public StringObject(final String string, final DrawingAttributes attributes) {
+		super(attributes);
+		this.string = string;
+	}
+
+	public GamaPoint getAnchor() {
+		return attributes.getAnchor();
+	}
+
+	public Font getFont() {
+		if (!(attributes instanceof TextDrawingAttributes)) { return null; }
+		return ((TextDrawingAttributes) attributes).font;
+	}
+
+	public boolean iisInPerspective() {
+		if (!(attributes instanceof TextDrawingAttributes)) { return false; }
+		return ((TextDrawingAttributes) attributes).perspective;
+	}
+ 
 }

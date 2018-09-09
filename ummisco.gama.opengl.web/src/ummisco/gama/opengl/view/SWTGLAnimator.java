@@ -41,7 +41,8 @@ public class SWTGLAnimator implements Runnable, GLAnimatorControl, GLAnimatorCon
 		this.drawable = drawable;
 		drawable.setAnimator(this);
 		this.animatorThread = new Thread(this, "Animator thread");
-		this.animatorThread.setDaemon(true);
+		this.animatorThread.start();
+//		this.animatorThread.setDaemon(true);
 	}
 
 	@Override

@@ -4277,6 +4277,7 @@ public class GL2 extends GL2ES2 {
 		webgl.execJS(methodName, obj);
 	}
 	public int[] toArray(IntBuffer b) {
+		if(b==null) return new int[0];
 	    if(b.hasArray()) {
 	        if(b.arrayOffset() == 0)
 	            return b.array();

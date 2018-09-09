@@ -67,6 +67,8 @@ import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
 import ummisco.gama.dev.utils.DEBUG;
+import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.opengl.ModernRenderer;
 import ummisco.gama.opengl.renderer.IOpenGLRenderer;
 import ummisco.gama.opengl.renderer.JOGLRenderer;
 import ummisco.gama.ui.menus.AgentsMenu;
@@ -122,7 +124,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	}
 
 	protected IOpenGLRenderer createRenderer() {
-		final IOpenGLRenderer r = new JOGLRenderer();
+//		final IOpenGLRenderer r = new JOGLRenderer(); 
+		final IOpenGLRenderer r = new ModernRenderer(); 
 		return r;
 	}
 
@@ -151,9 +154,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 //		};
 		final WebGLComposite canvas=new WebGLComposite(parent, SWT.NONE);
 		canvas.setAutoSwapBufferMode(true);
+		renderer.setCanvas(canvas);
+		canvas.setRenderer(renderer);
 		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
-		renderer.setCanvas(canvas);
 		final FillLayout gl = new FillLayout();
 		canvas.setLayout(gl);
 		return canvas;

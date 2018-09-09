@@ -1,11 +1,14 @@
 package com.jogamp.opengl;
 
 import org.eclipse.swt.widgets.Composite;
+
+import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.opengl.renderer.IOpenGLRenderer;
  
 
 public class GLAutoDrawable extends Composite{
 	protected GLContext mycontext=null;
-
+	public IOpenGLRenderer renderer;
 	protected GL2 myGL = null;
 	
 	public GLAutoDrawable(Composite parent, int style) {
@@ -18,6 +21,9 @@ public class GLAutoDrawable extends Composite{
 		
 	}
 
+	public void setRenderer(IOpenGLRenderer r) {
+		renderer=r;		
+	}
 	public void setAnimator(GLAnimatorControl swtglAnimator) {
 		// TODO Auto-generated method stub
 		
@@ -30,7 +36,11 @@ public class GLAutoDrawable extends Composite{
 
 	public void display() throws GLException{
 		// TODO Auto-generated method stub
-		
+		if( !((Abstract3DRenderer)renderer).inited)
+		{
+			renderer.init(this);
+		}
+		renderer.display(this);
 	}
 
 	public int getSurfaceWidth() {

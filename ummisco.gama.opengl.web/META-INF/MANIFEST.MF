@@ -34,6 +34,7 @@ Export-Package:
  com.jogamp.opengl.fixedfunc,
  com.jogamp.opengl.glu,
  com.jogamp.opengl.swt,
+ com.jogamp.opengl.util,
  com.jogamp.opengl.util.awt,
  com.jogamp.opengl.util.gl2,
  com.jogamp.opengl.util.texture,
@@ -44,6 +45,10 @@ Export-Package:
  jogamp.opengl.gl4,
  jogamp.opengl.glu,
  jogamp.opengl.glu.tessellator,
+ ummisco.gama.modernOpenGL,
+ ummisco.gama.modernOpenGL.font.fontMeshCreator,
+ ummisco.gama.modernOpenGL.shader,
+ ummisco.gama.modernOpenGL.shader.postprocessing,
  ummisco.gama.opengl,
  ummisco.gama.opengl.camera,
  ummisco.gama.opengl.files,
@@ -53,6 +58,8 @@ Export-Package:
  ummisco.gama.opengl.renderer.shaders,
  ummisco.gama.opengl.scene,
  ummisco.gama.opengl.scene.layers,
+ ummisco.gama.opengl.utils,
+ ummisco.gama.opengl.vaoGenerator,
  ummisco.gama.opengl.view
 Bundle-Vendor: UMMISCO
 Bundle-ClassPath: .

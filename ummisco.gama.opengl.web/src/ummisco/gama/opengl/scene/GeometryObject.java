@@ -12,12 +12,19 @@ package ummisco.gama.opengl.scene;
 
 import com.vividsolutions.jts.geom.Geometry;
 
+import msi.gama.common.geometry.AxisAngle;
+import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.geometry.GeometryUtils;
 import msi.gama.metamodel.shape.GamaPoint;
+import msi.gama.metamodel.shape.IShape;
+import msi.gama.util.GamaColor;
 import msi.gaml.statements.draw.FileDrawingAttributes;
+import ummisco.gama.opengl.OpenGL;
 
 public class GeometryObject extends AbstractObject<Geometry, FileDrawingAttributes> {
 
+	protected Geometry geometry;
+	
 	public GeometryObject(final Geometry geometry, final FileDrawingAttributes attributes) {
 		super(geometry, attributes);
 	}
@@ -54,4 +61,30 @@ public class GeometryObject extends AbstractObject<Geometry, FileDrawingAttribut
 		GeometryUtils.getContourCoordinates(getObject()).getCenter(p);
 	}
 
+	public IShape.Type getType() {
+		return attributes.getType();
+	}
+
+	@Override
+	public boolean isFilled() {
+		return super.isFilled() && getType() != IShape.Type.GRIDLINE;
+	}
+
+	public Geometry getGeometry() {
+		return geometry;
+	}
+
+	public GamaColor[] getColors() {
+		return attributes.getColors();
+	}
+
+	@Override
+	public Envelope3D getEnvelope(final OpenGL gl) {
+		return Envelope3D.of(geometry);
+	}
+
+	@Override
+	public AxisAngle getRotation() {
+		return attributes.getRotation();
+	}
 }

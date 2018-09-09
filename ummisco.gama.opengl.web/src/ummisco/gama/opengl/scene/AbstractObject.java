@@ -1,22 +1,26 @@
 
-/*******************************************************************************************************
+/*********************************************************************************************
  *
- * ummisco.gama.opengl.scene.AbstractObject.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8)
- * 
- * (c) 2007-2018 UMI 209 UMMISCO IRD/SU & Partners
+ * 'AbstractObject.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
+ * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
- * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
- ********************************************************************************************************/
+ *
+ **********************************************************************************************/
 package ummisco.gama.opengl.scene;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
+import msi.gama.common.geometry.AxisAngle;
 import msi.gama.common.geometry.Envelope3D;
+import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.interfaces.IDisposable;
 import msi.gama.metamodel.shape.GamaPoint;
+import msi.gama.util.GamaColor;
+import msi.gama.util.GamaMaterial;
+import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
@@ -28,12 +32,26 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 		GEOMETRY, STRING, FIELD, RESOURCE
 	}
 
-	private final ATT attributes;
-	protected final int[] textures;
-	protected final T object;
+	protected DrawingAttributes dattributes=null;
+	protected ATT attributes=null;
+	protected int[] textures=null;
+	protected T object=null;
+
+	public AbstractObject(final DrawingAttributes attributes) {
+		this.object = null;
+		this.dattributes = attributes;
+		this.attributes = null;
+		if (attributes.getTextures() != null) {
+			textures = new int[attributes.getTextures().size()];
+			Arrays.fill(textures, OpenGL.NO_TEXTURE);
+		} else {
+			textures = null;
+		}
+	}
 
 	public AbstractObject(final T object, final ATT attributes) {
 		this.object = object;
+		this.dattributes = attributes;
 		this.attributes = attributes;
 		if (attributes.getTextures() != null) {
 			textures = new int[attributes.getTextures().size()];
@@ -54,6 +72,7 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 
 	public int[] getTexturesId(final OpenGL gl) {
 		if (textures == null) { return null; }
+		// final int[] result = new int[textures.length];
 		for (int i = 0; i < textures.length; i++) {
 			final int t = getTexture(gl, i);
 			textures[i] = t == OpenGL.NO_TEXTURE ? 0 : t;
@@ -87,49 +106,40 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 		if (isAnimated() || textures[order] == OpenGL.NO_TEXTURE) {
 			Object obj = null;
 			try {
-				obj = getAttributes().getTextures().get(order);
+				obj = attributes.getTextures().get(order);
 			} catch (final IndexOutOfBoundsException e) {// do nothing. Can arrive in the new shader architecture
 			}
-			if (obj instanceof BufferedImage) {
-				textures[order] = gl.getTextureId((BufferedImage) obj);
-			} else if (obj instanceof GamaImageFile) {
-				final FileDrawingAttributes fd = (FileDrawingAttributes) getAttributes();
-				textures[order] = gl.getTextureId((GamaImageFile) obj, fd.useCache());
-			}
+//			if (obj instanceof BufferedImage) {
+//				textures[order] = gl.getTextureRenderer((BufferedImage) obj).getTexture().getTextureObject();
+//			} else if (obj instanceof GamaImageFile) {
+//				final FileDrawingAttributes fd = (FileDrawingAttributes) attributes;
+//				textures[order] =
+//						gl.getTextureRenderer((GamaImageFile) obj, fd.useCache()).getTexture().getTextureObject();
+//			}
 		}
 		return textures[order];
 	}
 
 	protected boolean isAnimated() {
-		return getAttributes().isAnimated();
+		return attributes.isAnimated();
 	}
 
 	public boolean isTextured() {
 		return textures != null && textures.length > 0;
 	}
 
-	@SuppressWarnings ("unchecked")
-	public final <T extends AbstractObject<?, ?>> void draw(final OpenGL gl, final ObjectDrawer<T> drawer,
-			final boolean isPicking) {
+	public final void draw(final OpenGL gl, final ObjectDrawer<AbstractObject> drawer, final boolean isPicking) {
 		if (isPicking) {
-			gl.registerForSelection(getAttributes().getIndex());
+			gl.registerForSelection(attributes.getIndex());
 		}
-		final boolean previous = gl.setLighting(getAttributes().isLighting());
-		drawer.draw((T) this);
+		final boolean previous = gl.setLighting(isLighting());
+		drawer.draw(this);
 		gl.setLighting(previous);
 		if (isPicking) {
-			gl.markIfSelected(getAttributes());
+			gl.markIfSelected(attributes);
 		}
 	}
-
-	public boolean isFilled() {
-		return !getAttributes().isEmpty();
-	}
-
-	public Envelope3D getEnvelope(final OpenGL gl) {
-		return gl.getEnvelopeFor(getObject());
-	}
-
+  
 	public ATT getAttributes() {
 		return attributes;
 	}
@@ -149,6 +159,66 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 
 	public void getTranslationForScalingInto(final GamaPoint p) {
 		p.setLocation(0, 0, 0);
+	}
+	
+	public GamaColor getColor() {
+		return attributes.getColor();
+	}
+
+	public boolean isFilled() {
+		return !attributes.isEmpty();
+	}
+
+	public GamaPoint getLocation() {
+		return attributes.getLocation();
+	}
+
+	public Scaling3D getDimensions() {
+		return attributes.getSize();
+	}
+
+	public GamaColor getBorder() {
+		return attributes.getBorder();
+	}
+
+	public Double getHeight() {
+		return attributes.getHeight();
+	}
+
+	public AxisAngle getRotation() {
+		return attributes.getRotation();
+	}
+
+	public double getLineWidth() {
+		return attributes.getLineWidth();
+	}
+
+	public GamaMaterial getMaterial() {
+		return attributes.getMaterial();
+	}
+
+	public int getIndex() {
+		return attributes.getIndex();
+	}
+
+	public AxisAngle getInitRotation() {
+		return null;
+	}
+
+	public GamaGeometryFile getFile() {
+		return null;
+	}
+
+	public Envelope3D getEnvelope(final OpenGL gl) {
+		return null;
+	}
+
+	public boolean isLighting() {
+		return attributes.isLighting();
+	}
+
+	public boolean isSynthetic() {
+		return attributes.isSynthetic();
 	}
 
 }

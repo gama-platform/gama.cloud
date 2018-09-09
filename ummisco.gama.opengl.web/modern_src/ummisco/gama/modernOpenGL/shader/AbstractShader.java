@@ -7,7 +7,7 @@
  * 
  *
  **********************************************************************************************/
-package ummisco.gama.opengl.renderer.shaders;
+package ummisco.gama.modernOpenGL.shader;
 
 import java.io.InputStream;
 import java.nio.FloatBuffer;
@@ -18,7 +18,7 @@ import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
 
-import ummisco.gama.dev.utils.DEBUG;
+import ummisco.gama.opengl.vaoGenerator.GeomMathUtils;
 
 public abstract class AbstractShader {
 
@@ -27,8 +27,8 @@ public abstract class AbstractShader {
 	protected boolean isOverlay = false;
 
 	private int programID;
-//	private final int vertexShaderID;
-//	private final int fragmentShaderID;
+	private final int vertexShaderID;
+	private final int fragmentShaderID;
 
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -44,30 +44,20 @@ public abstract class AbstractShader {
 
 	protected AbstractShader(final GL2 gl, final String vertexFile, final String fragmentFile) {
 		this.gl = gl;
-		InputStream vertexInputStream, fragmentInputStream;
 
-//		try {
-//			vertexInputStream = getClass().getResourceAsStream(vertexFile);
-//			if (vertexInputStream == null) { throw new RuntimeException(
-//					"Cannot locate vertex shader program " + vertexFile); }
-//			fragmentInputStream = getClass().getResourceAsStream(fragmentFile);
-//			if (fragmentInputStream == null) { throw new RuntimeException(
-//					"Cannot locate vertex shader program " + vertexFile); }
-//		} catch (final Exception e) {
-//			DEBUG.ERR(e.getMessage());
-//			vertexShaderID = -1;
-//			fragmentShaderID = -1;
-//			return;
-//		}
+		final InputStream vertexInputStream =
+				this.getClass().getClassLoader().getResourceAsStream("/shader/" + vertexFile);
+		final InputStream fragmentInputStream =
+				this.getClass().getClassLoader().getResourceAsStream("/shader/" + fragmentFile);
 
-//		vertexShaderID = loadShader(vertexInputStream, GL2.GL_VERTEX_SHADER);
-//		fragmentShaderID = loadShader(fragmentInputStream, GL2.GL_FRAGMENT_SHADER);
+		vertexShaderID = loadShader(vertexInputStream, GL2.GL_VERTEX_SHADER);
+		fragmentShaderID = loadShader(fragmentInputStream, GL2.GL_FRAGMENT_SHADER);
 
 		// Each shaderProgram must have
 		// one vertex shader and one fragment shader.
 		programID = this.gl.glCreateProgram();
-//		this.gl.glAttachShader(programID, vertexShaderID);
-//		this.gl.glAttachShader(programID, fragmentShaderID);
+		this.gl.glAttachShader(programID, vertexShaderID);
+		this.gl.glAttachShader(programID, fragmentShaderID);
 
 		// Associate attribute ids with the attribute names inside
 		// the vertex shader.
@@ -106,7 +96,8 @@ public abstract class AbstractShader {
 				final byte[] log = new byte[logLength[0]];
 				gl.glGetShaderInfoLog(shaderID, logLength[0], (int[]) null, 0, log, 0);
 
-				DEBUG.ERR("Error compiling the vertex shader: " + new String(log));
+				System.err.println("Error compiling the vertex shader: " + new String(log));
+				System.exit(1);
 			}
 
 			return shaderID;
@@ -123,10 +114,10 @@ public abstract class AbstractShader {
 
 	public void cleanUp() {
 		stop();
-//		gl.glDetachShader(programID, vertexShaderID);
-//		gl.glDetachShader(programID, fragmentShaderID);
-//		gl.glDeleteShader(vertexShaderID);
-//		gl.glDeleteShader(fragmentShaderID);
+		gl.glDetachShader(programID, vertexShaderID);
+		gl.glDetachShader(programID, fragmentShaderID);
+		gl.glDeleteShader(vertexShaderID);
+		gl.glDeleteShader(fragmentShaderID);
 		gl.glDeleteProgram(programID);
 	}
 
@@ -155,29 +146,8 @@ public abstract class AbstractShader {
 		location_layerAlpha = getUniformLocation("layerAlpha");
 	}
 
-	static public FloatBuffer getFloatBuffer(final Matrix4f matrix) {
-		final FloatBuffer result = FloatBuffer.allocate(16);
-		result.put(0, matrix.m00);
-		result.put(1, matrix.m01);
-		result.put(2, matrix.m02);
-		result.put(3, matrix.m03);
-		result.put(4, matrix.m10);
-		result.put(5, matrix.m11);
-		result.put(6, matrix.m12);
-		result.put(7, matrix.m13);
-		result.put(8, matrix.m20);
-		result.put(9, matrix.m21);
-		result.put(10, matrix.m22);
-		result.put(11, matrix.m23);
-		result.put(12, matrix.m30);
-		result.put(13, matrix.m31);
-		result.put(14, matrix.m32);
-		result.put(15, matrix.m33);
-		return result;
-	}
-
 	protected void loadMatrix(final int location, final Matrix4f matrix) {
-		matrixBuffer = getFloatBuffer(matrix);
+		matrixBuffer = GeomMathUtils.getFloatBuffer(matrix);
 		matrixBuffer.flip();
 		gl.glUniformMatrix4fv(location, 1, false, matrixBuffer.array(), 0);
 	}
