@@ -14,7 +14,7 @@ import static ummisco.gama.ui.navigator.contents.NavigatorRoot.getInstance;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.dslforge.workspace.IWorkspaceListener;
 import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -32,12 +32,21 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.SameShellProvider;
+import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IPartService;
+import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionGroup;
 import org.eclipse.ui.dialogs.PropertyDialogAction;
@@ -64,14 +73,16 @@ import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
 import ummisco.gama.ui.views.toolbar.Selector;
 
-public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedView, ISelectionChangedListener {
+public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedView, ISelectionChangedListener, IWorkspaceListener, IPartListener {
 	IAction link;
 //	ToolItem linkItem;
 	protected Composite parent;
 	protected GamaToolbar2 toolbar;
 	private PropertyDialogAction properties;
 	private NavigatorSearchControl findControl;
-
+	private ServerPushSession pushSession;
+	
+	
 	@Override
 	protected CommonNavigatorManager createCommonManager() {
 		final CommonNavigatorManager manager = new CommonNavigatorManager(this, memento);
@@ -85,6 +96,37 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 	final GamaCommand expandAll = new GamaCommand("action.toolbar.expand2", "", "Fully expand current folder(s)",
 			e -> getCommonViewer().expandAll());
 
+	@Override
+	public void init(IViewSite site) throws PartInitException {
+		super.init(site);
+		site.getPage().addPartListener(this);
+		serverPushSessionOn();
+	}
+
+	private void serverPushSessionOn() {
+//		if (WorkspaceManager.INSTANCE.isRunning()) {
+//			WorkspaceManager.INSTANCE.addWorkspaceListener(this);
+			pushSession = new ServerPushSession();
+			pushSession.start(); 
+//		}
+	}
+
+	@Override
+	public void dispose() {
+		serverPushSessionOff();
+//		IWorkbench workbench = PlatformUI.getWorkbench();
+//		IPartService partService = workbench.getActiveWorkbenchWindow().getPartService();
+//		partService.removePartListener(this);
+		super.dispose();
+	}
+
+	private void serverPushSessionOff() {
+		if (pushSession!=null) {
+			pushSession.stop();
+//			WorkspaceManager.INSTANCE.removeWorkspaceListener(this); 
+		}
+	}
+	
 	@Override
 	public void createPartControl(final Composite compo) {
 		this.parent = GamaToolbarFactory.createToolbars(this, compo);
@@ -320,4 +362,40 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 //		t.getControl().setToolTipText(tooltip == null ? message : tooltip);
 	}
 
+
+	@Override
+	public void workspaceChanged(Object e) {
+		final CommonViewer commonViewer = getCommonViewer();
+		Control control = commonViewer.getControl();
+		if (!control.isDisposed()) {
+			Display display = control.getDisplay();
+			display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (!commonViewer.isBusy())
+						commonViewer.refresh();
+				}
+			});
+		}
+	}
+	
+	@Override
+	public void partActivated(IWorkbenchPart part) {
+	}
+
+	@Override
+	public void partBroughtToTop(IWorkbenchPart part) {
+	}
+
+	@Override
+	public void partClosed(IWorkbenchPart part) {
+	}
+
+	@Override
+	public void partDeactivated(IWorkbenchPart part) {
+	}
+
+	@Override
+	public void partOpened(IWorkbenchPart part) {
+	}
 }
