@@ -66,7 +66,6 @@ import ummisco.gama.opengl.scene.FieldDrawer;
 import ummisco.gama.opengl.scene.GeometryDrawer;
 import ummisco.gama.opengl.scene.ObjectDrawer;
 import ummisco.gama.opengl.scene.ResourceDrawer;
-import ummisco.gama.opengl.scene.ResourceObject;
 import ummisco.gama.opengl.scene.StringDrawer;
 
 /**
@@ -142,7 +141,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 	// Working objects
 	final GamaPoint workingPoint = new GamaPoint();
 	final GamaPoint currentNormal = new GamaPoint();
-	final GamaPoint currentScale = new GamaPoint(1, 1, 1);
+	// final GamaPoint currentScale = new GamaPoint(1, 1, 1);
 	final GamaPoint textureCoords = new GamaPoint();
 	final UnboundedCoordinateSequence workingVertices = new UnboundedCoordinateSequence();
 	private double currentZIncrement, currentZTranslation, savedZTranslation;
@@ -450,7 +449,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 	}
 
 	public void scaleBy(final double x, final double y, final double z) {
-		currentScale.setLocation(x, y, z);
+		// currentScale.setLocation(x, y, z);
 		gl.glScaled(x, y, z);
 	}
 
@@ -601,22 +600,24 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 		endDrawing();
 	}
 
-	/**
-	 * Draw the vertices using the style provided (e.g. GL_QUADS, GL_LINE), the color provided (which will be reverted
-	 * as soon as the draw has finished), a given number of vertices in this sequence, in the clockwise or CCW direction
-	 * 
-	 * @param style
-	 * @param color
-	 * @param yNegatedVertices
-	 * @param number
-	 * @param clockwise
-	 */
-	public void drawVertices(final int style, final Color color, final ICoordinates yNegatedVertices, final int number,
-			final boolean clockwise) {
-		final Color previous = swapCurrentColor(color);
-		drawVertices(style, yNegatedVertices, number, clockwise);
-		setCurrentColor(previous);
-	}
+	// /**
+	// * Draw the vertices using the style provided (e.g. GL_QUADS, GL_LINE), the color provided (which will be reverted
+	// * as soon as the draw has finished), a given number of vertices in this sequence, in the clockwise or CCW
+	// direction
+	// *
+	// * @param style
+	// * @param color
+	// * @param yNegatedVertices
+	// * @param number
+	// * @param clockwise
+	// */
+	// public void drawVertices(final int style, final Color color, final ICoordinates yNegatedVertices, final int
+	// number,
+	// final boolean clockwise) {
+	// final Color previous = swapCurrentColor(color);
+	// drawVertices(style, yNegatedVertices, number, clockwise);
+	// setCurrentColor(previous);
+	// }
 
 	/**
 	 * Replaces the current color by the parameter, sets the alpha of the parameter to be the one of the current color,
@@ -781,7 +782,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 
 	// GEOMETRIES
 
-	public void cacheGeometry(final ResourceObject object) {
+	public void cacheGeometry(final GamaGeometryFile object) {
 		geometryCache.process(object);
 	}
 

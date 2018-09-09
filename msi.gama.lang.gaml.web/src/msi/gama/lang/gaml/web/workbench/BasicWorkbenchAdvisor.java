@@ -29,6 +29,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.IWorkbenchConstants;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.factories.ConsoleDisplayer;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayer;
@@ -116,9 +117,10 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser);
-		if (GAMAWEB.getRegularGui() == null) {
-			GAMAWEB.setRegularGui(new WebGui());
-		}
+		GAMA.getGui().refreshNavigator();
+//		if (GAMAWEB.getRegularGui() == null) {
+//			GAMAWEB.setRegularGui(new WebGui());
+//		}
 		System.out.println("postStartup of " + loggedUser);
 		if(StatusDisplayerFactory.displayer.get("null")==null) {
 			StatusDisplayerFactory.displayer.put("null", new StatusDisplayer("null"));

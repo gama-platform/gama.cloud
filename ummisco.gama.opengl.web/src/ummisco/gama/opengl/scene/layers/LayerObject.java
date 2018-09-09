@@ -246,22 +246,17 @@ public class LayerObject {
 
 	public void setScale(final GamaPoint scale) {
 		this.scale = new GamaPoint(scale);
-		// this.scale.setLocation(scale);
 	}
 
-	public StringObject addString(final String string, final TextDrawingAttributes attributes) {
-		final StringObject object = new StringObject(string, attributes);
-		currentList.add(object);
-		return object;
+	public void addString(final String string, final TextDrawingAttributes attributes) {
+		currentList.add(new StringObject(string, attributes));
 	}
 
-	public ResourceObject addFile(final GamaGeometryFile file, final FileDrawingAttributes attributes) {
-		final ResourceObject resource = new ResourceObject(file, attributes);
-		currentList.add(resource);
-		return resource;
+	public void addFile(final GamaGeometryFile file, final FileDrawingAttributes attributes) {
+		currentList.add(new ResourceObject(file, attributes));
 	}
 
-	public GeometryObject addImage(final Object o, final FileDrawingAttributes attributes) {
+	public void addImage(final Object o, final FileDrawingAttributes attributes) {
 		// If no dimensions have been defined, then the image is considered as wide and tall as the environment
 		Scaling3D size = attributes.getSize();
 		if (size == null) {
@@ -269,28 +264,24 @@ public class LayerObject {
 			attributes.setSize(size);
 		}
 		final GamaPoint loc = attributes.getLocation();
-		final Scaling3D inc = attributes.getSize().dividedBy(2);
-		final GamaPoint newLoc = loc == null ? inc.toGamaPoint() : loc.plus(inc.getX(), inc.getY(), inc.getZ());
+		final GamaPoint newLoc = loc == null ? size.toGamaPoint().dividedBy(2) : loc;
 		// We build a rectangle that will serve as a "support" for the image (which will become its texture)
-		final Geometry geometry = GamaGeometryType.buildRectangle(size.getX(), size.getY(), newLoc).getInnerGeometry();
+		final Geometry geometry =
+				GamaGeometryType.buildRectangle(size.getX(), size.getY(), GamaPoint.NULL_POINT).getInnerGeometry();
 
 		attributes.setLocation(newLoc);
 		attributes.setTexture(o);
 		attributes.setSynthetic(true);
-		return addGeometry(geometry, attributes);
+		addGeometry(geometry, attributes);
 	}
 
-	public FieldObject addField(final double[] fieldValues, final FieldDrawingAttributes attributes) {
-		final FieldObject field = new FieldObject(fieldValues, attributes);
-		currentList.add(field);
-		return field;
+	public void addField(final double[] fieldValues, final FieldDrawingAttributes attributes) {
+		currentList.add(new FieldObject(fieldValues, attributes));
 	}
 
-	public GeometryObject addGeometry(final Geometry geometry, final FileDrawingAttributes attributes) {
-		final GeometryObject geom = new GeometryObject(geometry, attributes);
+	public void addGeometry(final Geometry geometry, final FileDrawingAttributes attributes) {
 		isAnimated = attributes.isAnimated();
-		currentList.add(geom);
-		return geom;
+		currentList.add(new GeometryObject(geometry, attributes));
 	}
 
 	protected int getTrace() {

@@ -66,6 +66,7 @@ import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
 //import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
 import ummisco.gama.ui.interfaces.IModelRunner;
+import ummisco.gama.ui.interfaces.IRefreshHandler;
 import ummisco.gama.ui.interfaces.ISpeedDisplayer;
 import ummisco.gama.ui.interfaces.IUserDialogFactory;
 import ummisco.gama.ui.parameters.EditorsDialog;
@@ -254,12 +255,12 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public IDisplaySurface getDisplaySurfaceFor(LayeredDisplayOutput output, Object... args) {
+	public IDisplaySurface getDisplaySurfaceFor(final LayeredDisplayOutput output, final Object... args) {
 		IDisplaySurface surface = null;
 		final String keyword = output.getData().getDisplayType();
-		final IDisplayCreator creator = DISPLAYS.get(keyword);
+		final DisplayDescription creator = DISPLAYS.get(keyword);
 		if (creator != null) {
-			surface = creator.create(output);
+			surface = creator.create(output, args);
 			surface.outputReloaded();
 		} else {
 			throw GamaRuntimeException.error("Display " + keyword + " is not defined anywhere.", output.getScope());
@@ -696,8 +697,10 @@ public class WebGui implements IGui {
 
 	@Override
 	public void refreshNavigator() {
-		// TODO Auto-generated method stub
-		
+		final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
+		if (refresh != null) {
+			refresh.completeRefresh(null);
+		}
 	}
 
 	@Override
