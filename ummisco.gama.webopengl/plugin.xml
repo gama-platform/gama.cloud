@@ -9,7 +9,7 @@
        <view
              allowMultiple="true"
              category="msi.gama.gui.category.gama"
-             class="ummisco.gama.opengl.view.OpenGLDisplayView"
+             class="ummisco.gama.opengl.OpenGLDisplayView"
              icon="platform:/plugin/msi.gama.lang.gaml.web/icons/view.display2.png"
              id="msi.gama.application.view.OpenGLDisplayView"
              name="3D"
@@ -19,14 +19,14 @@
     <extension
           point="gama.display">
        <implementation
-             class="ummisco.gama.opengl.view.SWTOpenGLDisplaySurface"
+             class="ummisco.gama.webopengl.SWTOpenGLDisplaySurface"
              keyword="opengl">
        </implementation>
     </extension>
     <extension
           point="org.eclipse.ui.services">
        <serviceFactory
-             factoryClass="ummisco.gama.opengl.view.OpenGLInitializer">
+             factoryClass="ummisco.gama.opengl.OpenGLInitializer">
           <service></service>
           <service
                 serviceClass="msi.gama.lang.gaml.web.ui.interfaces.IOpenGLInitializer">

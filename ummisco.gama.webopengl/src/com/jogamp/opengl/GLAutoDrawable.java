@@ -2,9 +2,8 @@ package com.jogamp.opengl;
 
 import org.eclipse.swt.widgets.Composite;
 
-import ummisco.gama.opengl.renderer.JOGLRenderer;
-import ummisco.gama.opengl.view.SWTGLAnimator;
- 
+import ummisco.gama.opengl.Abstract3DRenderer;
+import ummisco.gama.opengl.SWTGLAnimator;
 
 public class GLAutoDrawable extends Composite{
 	protected GLContext mycontext=null;
@@ -16,11 +15,11 @@ public class GLAutoDrawable extends Composite{
 		// TODO Auto-generated constructor stub
 	}
 
-//	public void removeGLEventListener(Abstract3DRenderer joglRenderer) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
+	public void removeGLEventListener(Abstract3DRenderer joglRenderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void setAnimator(SWTGLAnimator swtglAnimator) {
 		// TODO Auto-generated method stub
 		
@@ -31,7 +30,7 @@ public class GLAutoDrawable extends Composite{
 		return false;
 	}
 
-	public void display() {
+	public void display() throws GLException{
 		// TODO Auto-generated method stub
 		
 	}
@@ -64,11 +63,6 @@ public class GLAutoDrawable extends Composite{
 	public GLContext getContext() {
 		// TODO Auto-generated method stub
 		return mycontext;
-	}
-
-	public void removeGLEventListener(JOGLRenderer joglRenderer) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

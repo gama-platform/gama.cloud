@@ -162,7 +162,8 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 		properties =
 				new PropertyDialogAction(new SameShellProvider(getSite().getShell()), getSite().getSelectionProvider());
 		findControl.initialize();
-		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/Agent Perception/Continuous Field of Vision.gaml");
+//		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/Agent Perception/Continuous Field of Vision.gaml");
+		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Built-In Shapes.gaml");
 		EditorUtil.openEditor(PlatformUI.getWorkbench(),p);
 
 	}

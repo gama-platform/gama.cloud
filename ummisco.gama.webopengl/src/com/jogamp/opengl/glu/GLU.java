@@ -78,10 +78,4 @@ public class GLU {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void gluUnProject(double x, double y, double d, double[] mvmatrix, int i, double[] projmatrix, int j,
-			int[] viewport, int k, double[] wcoord, int l) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -6,10 +6,9 @@ import org.eclipse.swt.widgets.Composite;
 import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
-import com.jogamp.opengl.util.GLDrawableUtil.ReshapeGLEventListener;
- 
+
+import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.camera.ICamera;
-import ummisco.gama.opengl.renderer.JOGLRenderer;
 
 public class GLCanvas extends GLAutoDrawable {
 
@@ -45,10 +44,10 @@ public class GLCanvas extends GLAutoDrawable {
 
 	}
 
-//	public void addGLEventListener(Abstract3DRenderer abstract3dRenderer) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	public void addGLEventListener(Abstract3DRenderer abstract3dRenderer) {
+		// TODO Auto-generated method stub
+
+	}
 
 	public void setLayout(FillLayout gl) {
 		// TODO Auto-generated method stub
@@ -108,16 +107,6 @@ public class GLCanvas extends GLAutoDrawable {
 	public void setVisible(boolean visible) {
 		// TODO Auto-generated method stub
 		// return null;
-	}
-
-	public void invoke(boolean b, ReshapeGLEventListener reshapeGLEventListener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void addGLEventListener(JOGLRenderer joglRenderer) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

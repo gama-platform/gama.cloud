@@ -218,7 +218,7 @@ public class WebGLComposite extends GLCanvas {
 		// public void run() {
 		// if(!func.equals("appendErr")) return;
 		
-		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
+		final String uid = "admin";// WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 		
 		
 		
