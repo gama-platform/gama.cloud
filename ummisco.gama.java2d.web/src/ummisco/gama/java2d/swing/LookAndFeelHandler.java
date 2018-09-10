@@ -308,14 +308,14 @@ public class LookAndFeelHandler {
 		assert EventQueue.isDispatchThread(); // On AWT event thread
 
 		java.awt.Font awtFont = ResourceConverter.getInstance().convertFont(swtFont, swtFontData);
-		if ( isSwtDefaultFontPropagated() && !swtFont.getDevice().isDisposed() && lastPropagatedSwtFont != swtFont ) {
-			lastPropagatedSwtFont = swtFont;
-
-			// Update the look and feel defaults to use new font.
-			// Swing should take care of this on its own, but it does not seem
-			// to do it when mixed with SWT.
-			updateLookAndFeelFonts(awtFont);
-		}
+//		if ( isSwtDefaultFontPropagated() && !swtFont.getDevice().isDisposed() && lastPropagatedSwtFont != swtFont ) {
+//			lastPropagatedSwtFont = swtFont;
+//
+//			// Update the look and feel defaults to use new font.
+//			// Swing should take care of this on its own, but it does not seem
+//			// to do it when mixed with SWT.
+//			updateLookAndFeelFonts(awtFont);
+//		}
 		return awtFont;
 	}
 
