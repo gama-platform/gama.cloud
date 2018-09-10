@@ -17,22 +17,22 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.commands.IElementUpdater;
 import org.eclipse.ui.menus.UIElement;
 
-import msi.gama.core.web.editor.GAMAWEB;
-//import ummisco.gama.ui.bindings.GamaKeyBindings;
+import msi.gama.runtime.GAMA;
+import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public class ReloadSimulationHandler extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		// GAMA.pauseFrontmostExperiment();
-		GAMAWEB.reloadFrontmostExperiment();
+		GAMA.reloadFrontmostExperiment();
 		return this;
 	}
 
 	@Override
 	public void updateElement(final UIElement element, final Map parameters) {
-//		element.setTooltip("Reloads the current experiment (" + GamaKeyBindings.RELOAD_STRING + ")");
-//		element.setText("Reload Experiment (" + GamaKeyBindings.RELOAD_STRING + ")");
+		element.setTooltip("Reloads the current experiment (" + GamaKeyBindings.RELOAD_STRING + ")");
+		element.setText("Reload Experiment (" + GamaKeyBindings.RELOAD_STRING + ")");
 	}
 
 }

@@ -25,7 +25,8 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text; 
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 
 /**
  * The "New" wizard page allows setting the container for the new file as well as the file name. The page will only
@@ -113,7 +114,7 @@ public class NewExperimentWizardPage extends AbstractNewModelWizardPage {
 		return typeOfExperiment;
 	}
 
-//	private FilteredResourcesSelectionDialog dialog;
+	private FilteredResourcesSelectionDialog dialog;
 
 	/**
 	 * Uses the standard container selection dialog to choose the new value for the container field.
@@ -122,16 +123,16 @@ public class NewExperimentWizardPage extends AbstractNewModelWizardPage {
 	 */
 	private void handleBrowse() {
 		final IContainer p = ResourcesPlugin.getWorkspace().getRoot();
-//		dialog = new FilteredResourcesSelectionDialog(getShell(), false, p, Resource.FILE);
-//		dialog.setInitialPattern("*.gaml");
-//		dialog.setTitle("Choose a gaml model in project " + p.getName());
-//		if (dialog.open() == Window.OK) {
-//			final Object[] result = dialog.getResult();
-//			if (result.length == 1) {
-//				final IResource res = (IResource) result[0];
-//				modelChooser.setText(res.getFullPath().toString());
-//			}
-//		}
+		dialog = new FilteredResourcesSelectionDialog(getShell(), false, p, Resource.FILE);
+		dialog.setInitialPattern("*.gaml");
+		dialog.setTitle("Choose a gaml model in project " + p.getName());
+		if (dialog.open() == Window.OK) {
+			final Object[] result = dialog.getResult();
+			if (result.length == 1) {
+				final IResource res = (IResource) result[0];
+				modelChooser.setText(res.getFullPath().toString());
+			}
+		}
 	}
 
 	public String getExperimentedModelPath() {

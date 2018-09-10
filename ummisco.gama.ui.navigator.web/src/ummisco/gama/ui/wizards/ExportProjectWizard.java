@@ -6,8 +6,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
 import ummisco.gama.ui.navigator.contents.ResourceManager;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -26,7 +25,7 @@ public class ExportProjectWizard extends Wizard implements IExportWizard {
 	public ExportProjectWizard(final String initialPath) {
 		// this.initialPath = initialPath;
 		setNeedsProgressMonitor(true);
-		final IDialogSettings workbenchSettings = WorkbenchPlugin.getDefault().getDialogSettings();
+		final IDialogSettings workbenchSettings = IDEWorkbenchPlugin.getDefault().getDialogSettings();
 
 		IDialogSettings wizardSettings = workbenchSettings.getSection(EXTERNAL_PROJECT_SECTION);
 		if (wizardSettings == null) {
@@ -67,8 +66,7 @@ public class ExportProjectWizard extends Wizard implements IExportWizard {
 	public void addPages() {
 		// mainPage = new ExportProjectWizardPage("wizardExternalProjectsPage", initialPath, currentSelection);
 		// //$NON-NLS-1$
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		mainPage = new ExportProjectWizardPage(workbench, currentSelection);
+		mainPage = new ExportProjectWizardPage(currentSelection);
 		addPage(mainPage);
 	}
 

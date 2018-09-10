@@ -2,7 +2,8 @@ package ummisco.gama.ui.navigator.actions;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.viewers.StructuredSelection; 
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 

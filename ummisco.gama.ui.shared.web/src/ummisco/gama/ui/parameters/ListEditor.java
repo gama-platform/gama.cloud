@@ -11,7 +11,7 @@
 package ummisco.gama.ui.parameters;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.rap.rwt.RWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -50,7 +50,7 @@ public class ListEditor extends ExpressionBasedEditor<java.util.List<?>> {
 	@Override
 	public void applyEdit() {
 		if (currentValue instanceof GamaList) {
-			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), (GamaList) currentValue,
+			final ListEditorDialog d = new ListEditorDialog(WorkbenchHelper.getShell(), (GamaList) currentValue,
 					param.getName());
 			if (d.open() == IDialogConstants.OK_ID) {
 				modifyAndDisplayValue(d.getList(ListEditor.this));
@@ -60,7 +60,7 @@ public class ListEditor extends ExpressionBasedEditor<java.util.List<?>> {
 
 	@Override
 	protected void checkButtons() {
-		final ToolItem edit = items[EDIT];
+		final Button edit = items[EDIT];
 		if (edit != null && !edit.isDisposed()) {
 			edit.setEnabled(currentValue instanceof GamaList);
 		}

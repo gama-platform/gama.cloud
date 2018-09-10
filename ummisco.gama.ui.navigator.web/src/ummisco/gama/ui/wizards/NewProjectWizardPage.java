@@ -29,7 +29,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text; 
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+
 /**
  * Standard main page for a wizard that is creates a project resource.
  * <p>
@@ -133,7 +136,7 @@ public class NewProjectWizardPage extends WizardPage {
 
 		// new project label
 		final Label projectLabel = new Label(projectGroup, SWT.NONE);
-		projectLabel.setText("IDEWorkbenchMessages.WizardNewProjectCreationPage_nameLabel");
+		projectLabel.setText(IDEWorkbenchMessages.WizardNewProjectCreationPage_nameLabel);
 		projectLabel.setFont(parent.getFont());
 
 		// new project name entry field
@@ -289,12 +292,12 @@ public class NewProjectWizardPage extends WizardPage {
 	 * @return <code>true</code> if all controls are valid, and <code>false</code> if at least one is invalid
 	 */
 	protected boolean validatePage() {
-		final IWorkspace workspace = ResourcesPlugin.getWorkspace();//IDEWorkbenchPlugin.getPluginWorkspace();
+		final IWorkspace workspace = IDEWorkbenchPlugin.getPluginWorkspace();
 
 		final String projectFieldContents = getProjectNameFieldValue();
 		if (projectFieldContents.equals("")) { //$NON-NLS-1$
 			setErrorMessage(null);
-			setMessage("IDEWorkbenchMessages.WizardNewProjectCreationPage_projectNameEmpty");
+			setMessage(IDEWorkbenchMessages.WizardNewProjectCreationPage_projectNameEmpty);
 			return false;
 		}
 
@@ -307,7 +310,7 @@ public class NewProjectWizardPage extends WizardPage {
 		final IProject handle = getProjectHandle();
 		if (handle.exists()) {
 			getProjectHandle();
-			setErrorMessage("IDEWorkbenchMessages.WizardNewProjectCreationPage_projectExistsMessage");
+			setErrorMessage(IDEWorkbenchMessages.WizardNewProjectCreationPage_projectExistsMessage);
 			return false;
 		}
 

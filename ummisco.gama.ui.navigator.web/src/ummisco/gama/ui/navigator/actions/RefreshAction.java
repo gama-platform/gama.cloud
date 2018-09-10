@@ -8,7 +8,6 @@
  *******************************************************************************/
 package ummisco.gama.ui.navigator.actions;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +32,12 @@ import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceAction;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
+import org.eclipse.ui.internal.ide.dialogs.IDEResourceInfoUtils;
 
 import ummisco.gama.ui.interfaces.IRefreshHandler;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -86,26 +90,26 @@ public class RefreshAction extends WorkspaceAction {
 	 */
 	void checkLocationDeleted(final IProject project) throws CoreException {
 		if (!project.exists()) { return; }
-//		final IFileInfo location = IDEResourceInfoUtils.getFileInfo(project.getLocationURI());
-//		if (!location.exists()) {
-//			final String message = NLS.bind(IDEWorkbenchMessages.RefreshAction_locationDeletedMessage,
-//					project.getName(), location.toString());
-//
-//			final MessageDialog dialog = new MessageDialog(WorkbenchHelper.getShell(),
-//					IDEWorkbenchMessages.RefreshAction_dialogTitle, null, message, MessageDialog.QUESTION,
-//					new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0) {
-//				@Override
-//				protected int getShellStyle() {
-//					return super.getShellStyle() | SWT.SHEET;
-//				}
-//			};
-//			WorkbenchHelper.run(() -> dialog.open());
-//
-//			// Do the deletion back in the operation thread
-//			if (dialog.getReturnCode() == 0) { // yes was chosen
-//				project.delete(true, true, null);
-//			}
-//		}
+		final IFileInfo location = IDEResourceInfoUtils.getFileInfo(project.getLocationURI());
+		if (!location.exists()) {
+			final String message = NLS.bind(IDEWorkbenchMessages.RefreshAction_locationDeletedMessage,
+					project.getName(), location.toString());
+
+			final MessageDialog dialog = new MessageDialog(WorkbenchHelper.getShell(),
+					IDEWorkbenchMessages.RefreshAction_dialogTitle, null, message, MessageDialog.QUESTION,
+					new String[] { IDialogConstants.get().YES_LABEL, IDialogConstants.get().NO_LABEL }, 0) {
+				@Override
+				protected int getShellStyle() {
+					return super.getShellStyle() | SWT.SHEET;
+				}
+			};
+			WorkbenchHelper.run(() -> dialog.open());
+
+			// Do the deletion back in the operation thread
+			if (dialog.getReturnCode() == 0) { // yes was chosen
+				project.delete(true, true, null);
+			}
+		}
 	}
 
 	@Override
@@ -167,10 +171,10 @@ public class RefreshAction extends WorkspaceAction {
 	 * Refreshes the entire workspace.
 	 */
 	final public void refreshAll() {
-//		final IStructuredSelection currentSelection = getStructuredSelection();
-//		selectionChanged(StructuredSelection.EMPTY);
-//		run();
-//		selectionChanged(currentSelection);
+		final IStructuredSelection currentSelection = getStructuredSelection();
+		selectionChanged(StructuredSelection.EMPTY);
+		run();
+		selectionChanged(currentSelection);
 	}
 
 	/**
@@ -222,9 +226,9 @@ public class RefreshAction extends WorkspaceAction {
 		// while (res.hasNext()) {
 		// rule = MultiRule.combine(rule, factory.refreshRule(res.next()));
 		// }
-		return new IRunnableWithProgress() { 
+		return new WorkspaceModifyOperation() {
 			@Override
-			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+			public void execute(final IProgressMonitor monitor) {
 				final Iterator<? extends IResource> resourcesEnum = resources.iterator();
 				try {
 					while (resourcesEnum.hasNext()) {

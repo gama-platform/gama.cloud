@@ -5,7 +5,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
 import ummisco.gama.ui.resources.GamaIcons;
 
@@ -23,7 +23,7 @@ public class ImportProjectWizard extends Wizard implements IImportWizard {
 	public ImportProjectWizard(final String initialPath) {
 		this.initialPath = initialPath;
 		setNeedsProgressMonitor(true);
-		final IDialogSettings workbenchSettings = WorkbenchPlugin.getDefault().getDialogSettings();
+		final IDialogSettings workbenchSettings = IDEWorkbenchPlugin.getDefault().getDialogSettings();
 
 		IDialogSettings wizardSettings = workbenchSettings.getSection(EXTERNAL_PROJECT_SECTION);
 		if (wizardSettings == null) {
@@ -37,7 +37,7 @@ public class ImportProjectWizard extends Wizard implements IImportWizard {
 	 */
 	@Override
 	public boolean performCancel() {
-//		mainPage.performCancel();
+		mainPage.performCancel();
 		return true;
 	}
 
@@ -46,8 +46,7 @@ public class ImportProjectWizard extends Wizard implements IImportWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		return false;
-//		return mainPage.createProjects();
+		return mainPage.createProjects();
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class ImportProjectWizard extends Wizard implements IImportWizard {
 
 	@Override
 	public void addPages() {
-//		mainPage = new ImportProjectWizardPage("wizardExternalProjectsPage", initialPath, currentSelection); //$NON-NLS-1$
+		mainPage = new ImportProjectWizardPage("wizardExternalProjectsPage", initialPath, currentSelection); //$NON-NLS-1$
 		addPage(mainPage);
 	}
 

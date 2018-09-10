@@ -9,30 +9,16 @@
  **********************************************************************************************/
 package ummisco.gama.ui.perspective;
 
-
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
-import msi.gama.core.web.editor.IWorkbenchConstants;
+import msi.gama.common.interfaces.IGui;
 
 public class ModelingPerspective implements IPerspectiveFactory {
 
 	@Override
 	public void createInitialLayout(final IPageLayout layout) {
-//		layout.addShowViewShortcut("org.dslforge.navigator.view");
-//		layout.setEditorAreaVisible(true);
-		//msi.gama.core.web.editor.ui.parts.perspective
-		//msi.gama.application.perspectives.SimulationPerspective
-
-		String editorArea = layout.getEditorArea();
+		layout.addShowViewShortcut(IGui.INTERACTIVE_CONSOLE_VIEW_ID);
 		layout.setEditorAreaVisible(true);
-		layout.addPerspectiveShortcut(IWorkbenchConstants.ID_PERSPECTIVE);
-		layout.setFixed(false);
-		layout.addStandaloneView(IWorkbenchConstants.NAVIGATOR_VIEW_ID, true, IPageLayout.LEFT, 0.25f, editorArea);
-		layout.getViewLayout(IWorkbenchConstants.NAVIGATOR_VIEW_ID).setCloseable(true);	
-
-//		layout.addStandaloneView(IWorkbenchConstants.LOGIN_VIEW_ID, true, IPageLayout.LEFT, 0.25f, editorArea);
-//		layout.getViewLayout(IWorkbenchConstants.LOGIN_VIEW_ID).setCloseable(true);	
-		
 	}
 }

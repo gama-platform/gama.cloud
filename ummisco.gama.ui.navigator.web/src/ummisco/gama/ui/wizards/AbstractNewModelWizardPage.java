@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 import ummisco.gama.ui.navigator.contents.ResourceManager;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -91,14 +92,14 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 	 * Uses the standard container selection dialog to choose the new value for the container field.
 	 */
 	protected void handleContainerBrowse() {
-//		final ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(),
-//				ResourcesPlugin.getWorkspace().getRoot(), false, "Select a project or a folder");
-//		if (dialog.open() == Window.OK) {
-//			final Object[] result = dialog.getResult();
-//			if (result.length == 1) {
-//				containerText.setText(((Path) result[0]).toString());
-//			}
-//		}
+		final ContainerSelectionDialog dialog = new ContainerSelectionDialog(getShell(),
+				ResourcesPlugin.getWorkspace().getRoot(), false, "Select a project or a folder");
+		if (dialog.open() == Window.OK) {
+			final Object[] result = dialog.getResult();
+			if (result.length == 1) {
+				containerText.setText(((Path) result[0]).toString());
+			}
+		}
 	}
 
 	protected void updateStatus(final String message) {

@@ -15,7 +15,9 @@ import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IActionBars; 
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.actions.OpenWithMenu;
+import org.eclipse.ui.internal.navigator.resources.plugin.WorkbenchNavigatorMessages;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
@@ -51,10 +53,10 @@ public class OpenActionProvider extends CommonActionProvider {
 
 		final IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 
-//		openFileAction.selectionChanged(selection);
-//		if (openFileAction.isEnabled()) {
-//			aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openFileAction);
-//		}
+		openFileAction.selectionChanged(selection);
+		if (openFileAction.isEnabled()) {
+			aMenu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openFileAction);
+		}
 		addOpenWithMenu(aMenu);
 	}
 
@@ -63,8 +65,8 @@ public class OpenActionProvider extends CommonActionProvider {
 		if (!contribute) { return; }
 		final IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 		if (selection.size() == 1 && selection.getFirstElement() instanceof WrappedFile) {
-//			openFileAction.selectionChanged(selection);
-//			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openFileAction);
+			openFileAction.selectionChanged(selection);
+			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openFileAction);
 		}
 
 	}
@@ -87,7 +89,7 @@ public class OpenActionProvider extends CommonActionProvider {
 					new MenuManager(WorkbenchNavigatorMessages.OpenActionProvider_OpenWithMenu_label,
 							ICommonMenuConstants.GROUP_OPEN_WITH);
 			submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_TOP));
-//			submenu.add(new OpenWithMenu(viewSite.getPage(), openable));
+			submenu.add(new OpenWithMenu(viewSite.getPage(), openable));
 			submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_ADDITIONS));
 
 			// Add the submenu.

@@ -6,10 +6,12 @@
  * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
 package ummisco.gama.ui.navigator.actions;
- 
+
+import org.eclipse.compare.internal.CompareAction;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.IShellProvider; 
+import org.eclipse.jface.window.IShellProvider;
+import org.eclipse.ui.actions.WorkspaceAction;
 
 import ummisco.gama.ui.utils.WorkbenchHelper;
 

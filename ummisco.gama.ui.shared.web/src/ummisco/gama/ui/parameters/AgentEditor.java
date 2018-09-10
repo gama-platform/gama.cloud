@@ -10,7 +10,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.parameters;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
@@ -89,7 +88,7 @@ public class AgentEditor extends ExpressionBasedEditor {
 		final Menu dropMenu = new Menu(items[CHANGE].getParent().getShell());
 		final IAgent a = (IAgent) (currentValue instanceof IAgent ? currentValue : null);
 		if (a != null) {
-			final IAgentMenuFactory factory = WorkbenchHelper.getService(RWT.getUISession().getAttribute("user").toString(),IAgentMenuFactory.class);
+			final IAgentMenuFactory factory = WorkbenchHelper.getService(IAgentMenuFactory.class);
 			if (factory != null)
 				factory.fillPopulationSubMenu(dropMenu, a.getScope().getSimulation().getMicroPopulation(species), null,
 						action);

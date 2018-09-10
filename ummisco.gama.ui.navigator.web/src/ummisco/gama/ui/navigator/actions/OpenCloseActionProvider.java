@@ -16,7 +16,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IActionBars; 
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ide.IDEActionFactory;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 

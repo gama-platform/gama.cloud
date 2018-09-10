@@ -1,8 +1,7 @@
 /*********************************************************************************************
  *
- * 'IGamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'IGamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
+ * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -21,10 +20,10 @@ public interface IGamaIcons {
 
 	// Display toolbar
 
-	public static final String DISPLAY_TOOLBAR_PAUSE = "display.pause2";
+	public static final String DISPLAY_TOOLBAR_PAUSE = "display.pause3";
 	public static final String DISPLAY_TOOLBAR_KNOB = "display.knob2";
 	public static final String DISPLAY_TOOLBAR_SLIDER = "display.slider2";
-	public static final String DISPLAY_TOOLBAR_SYNC = "display.sync2";
+	public static final String DISPLAY_TOOLBAR_SYNC = "display.sync3";
 	public static final String DISPLAY_TOOLBAR_SNAPSHOT = "display.snapshot2";
 	public static final String DISPLAY_TOOLBAR_ZOOMIN = "display.zoomin2";
 	public static final String DISPLAY_TOOLBAR_CSVEXPORT = "menu.saveas2";
@@ -84,20 +83,19 @@ public interface IGamaIcons {
 	// Navigator
 
 	public static final String FOLDER_BUILTIN = "navigator/folder.library2";
-	public static final String FOLDER_BUILTIN_16 = "navigator/folder.library2.16";
 	public static final String FOLDER_PLUGIN = "navigator/folder.plugin2";
-	public static final String FOLDER_PLUGIN_16 = "navigator/folder.plugin2.16";
+	public static final String FOLDER_TEST = "navigator/folder.test2";
 	public static final String FOLDER_PROJECT = "folder.user2";
 	public static final String FOLDER_MODEL = "folder.model3";
 	public static final String FOLDER_RESOURCES = "folder.resources2";
 	public static final String FILE_ICON = "file.icon2";
 	public static final String FOLDER_USER = "navigator/folder.user";
-	public static final String FOLDER_USER_16 = "navigator/folder.user.16";
 
 	// Editor specific
 
 	public static final String BUTTON_GUI = "small.run";
 	public static final String BUTTON_BATCH = "small.batch";
+	public static final String BUTTON_BACK = "small.run.and.back";
 
 	// Small Icons
 

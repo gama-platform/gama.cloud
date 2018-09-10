@@ -64,7 +64,7 @@ public class InteractiveConsoleView extends GamaViewPart
 	private IOConsole msgConsole;
 	IOConsoleViewer viewer;
 	private OutputStreamWriter resultWriter, errorWriter;
-//	BufferedReader reader;
+	BufferedReader reader;
 	private IScope scope;
 	private final Map<String, Object> temps = new LinkedHashMap<>();
 	private final List<String> history = new ArrayList<>();
@@ -95,7 +95,7 @@ public class InteractiveConsoleView extends GamaViewPart
 	@Override
 	public void ownCreatePartControl(final Composite p) {
 		msgConsole = new IOConsole("GAMA Console", null);
-//		reader = new BufferedReader(new InputStreamReader(msgConsole.getInputStream()));
+		reader = new BufferedReader(new InputStreamReader(msgConsole.getInputStream()));
 		IOConsoleOutputStream stream = msgConsole.newOutputStream();
 		stream.setColor(IGamaColors.NEUTRAL.color());
 		// stream.setFontStyle(SWT.ITALIC);
@@ -160,12 +160,12 @@ public class InteractiveConsoleView extends GamaViewPart
 //				// Wait for the output stream to finish
 //				Thread.sleep(200);
 //			} catch (final InterruptedException e) {}
-////			WorkbenchHelper.run(() -> {
-////				if (viewer != null && viewer.getTextWidget() != null && !viewer.getTextWidget().isDisposed()) {
-////					viewer.getTextWidget().setCaretOffset(viewer.getTextWidget().getCharCount());
-////				}
-////
-////			});
+//			WorkbenchHelper.run(() -> {
+//				if (viewer != null && viewer.getTextWidget() != null && !viewer.getTextWidget().isDisposed()) {
+//					viewer.getTextWidget().setCaretOffset(viewer.getTextWidget().getCharCount());
+//				}
+//
+//			});
 //
 //		}).start();
 //		;

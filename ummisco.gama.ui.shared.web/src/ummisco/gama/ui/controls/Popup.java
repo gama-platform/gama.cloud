@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.PopupDialog;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -48,7 +47,7 @@ public class Popup {
 
 	static Shell getPopup() {
 		if (popup == null || popup.isDisposed() || popup.getShell() == null || popup.getShell().isDisposed()) {
-			popup = new Shell(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()), PopupDialog.HOVER_SHELLSTYLE);
+			popup = new Shell(WorkbenchHelper.getShell(), PopupDialog.HOVER_SHELLSTYLE);
 			popup.setLayout(new GridLayout(1, true));
 		}
 		return popup;
@@ -59,7 +58,7 @@ public class Popup {
 
 		@Override
 		public void mouseEnter(final MouseEvent e) {
-			WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> display());
+			WorkbenchHelper.asyncRun(() -> display());
 
 		}
 
@@ -70,7 +69,7 @@ public class Popup {
 
 		@Override
 		public void mouseHover(final MouseEvent e) {
-			WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> display());
+			WorkbenchHelper.asyncRun(() -> display());
 
 		}
 

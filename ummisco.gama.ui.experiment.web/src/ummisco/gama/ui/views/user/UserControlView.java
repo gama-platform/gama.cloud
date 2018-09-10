@@ -1,8 +1,7 @@
 /*********************************************************************************************
  *
- * 'UserControlView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'UserControlView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
+ * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -10,18 +9,15 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.user;
 
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -32,7 +28,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGui;
-import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.architecture.user.UserInputStatement;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -41,20 +37,19 @@ import msi.gaml.statements.UserCommandStatement;
 import ummisco.gama.ui.controls.FlatButton;
 import ummisco.gama.ui.parameters.EditorFactory;
 import ummisco.gama.ui.resources.GamaColors;
+import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.GamaIcons;
 import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
-import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.GamaViewPart;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
-import ummisco.gama.ui.views.toolbar.Selector;
 
 public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	public static String ID = IGui.USER_CONTROL_VIEW_ID;
 
-	private IScope scope;
+	IScope scope;
 	UserPanelStatement panel;
 	private Composite body;
 	ToolItem inspectItem, continueItem;
@@ -69,8 +64,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 			body = null;
 		}
 
-		ownCreatePartControl(parent);
-		parent.layout();
+		ownCreatePartControl(getParentComposite());
+		getParentComposite().layout();
 	}
 
 	private void deactivate(final Composite parent) {
@@ -86,9 +81,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
 		parent.setBackground(IGamaColors.WHITE.color());
-		if (scope == null) {
-			return;
-		}
+		if (scope == null) { return; }
 		inspectItem.setEnabled(true);
 		continueItem.setEnabled(true);
 		setPartName(
@@ -115,8 +108,9 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 				final int nbLines = inputs.size() > 1 ? inputs.size() : 1;
 				final int nbCol = inputs.size() > 0 ? 1 : 3;
 				GamaUIColor color = GamaColors.get(c.getColor(scope));
-				if (color == null)
+				if (color == null) {
 					color = IGamaColors.BLUE;
+				}
 				final Image image = GamaIcons.create(c.isContinue(scope) ? "small.continue" : "small.run").image();
 				final FlatButton b = FlatButton.button(commandComposite, color, c.getName(), image);
 				b.setEnabled(c.isEnabled(scope));
@@ -126,8 +120,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
-						c.executeOn(scope);
-						GAMAWEB.getExperiment().refreshAllOutputs();
+						scope.execute(c);
+						GAMA.getExperiment().refreshAllOutputs();
 						if (c.isContinue(scope)) {
 							doContinue();
 						}
@@ -138,7 +132,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 					scope.addVarWithValue(i.getTempVarName(), i.value(scope));
 					EditorFactory.create(scope, commandComposite, i, newValue -> {
 						i.setValue(scope, newValue);
-						i.executeOn(scope);
+						scope.execute(i);
 					}, false, false);
 				}
 
@@ -149,9 +143,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	protected void doContinue() {
 		scope.setOnUserHold(false);
-		deactivate(parent);
-		final String uid=RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.hideView(uid, this);
+		deactivate(getParentComposite());
+		WorkbenchHelper.hideView(this);
 	}
 
 	@Override
@@ -187,28 +180,10 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	public void createToolItems(final GamaToolbar2 tb) {
 		super.createToolItems(tb);
 
-		inspectItem = tb.button(IGamaIcons.PANEL_INSPECT, "Inspect", "Inspect", new Selector() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				scope.getGui().setSelectedAgent(scope.getAgent());
-			}
-
-		}, SWT.RIGHT);
+		inspectItem = tb.button(IGamaIcons.PANEL_INSPECT, "Inspect", "Inspect",
+				e -> scope.getGui().setSelectedAgent(scope.getAgent()), SWT.RIGHT);
 		inspectItem.setEnabled(false);
-		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", new Selector() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				doContinue();
-			}
-
-			@Override
-			public void widgetDefaultSelected(final SelectionEvent e) {
-				widgetSelected(e);
-			}
-
-		}, SWT.RIGHT);
+		continueItem = tb.button(IGamaIcons.PANEL_CONTINUE, "Continue", "Continue", e -> doContinue(), SWT.RIGHT);
 		continueItem.setEnabled(false);
 
 	}
@@ -216,18 +191,6 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	@Override
 	protected boolean needsOutput() {
 		return false;
-	}
-
-	@Override
-	public void updateToolbarState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-//	@Override
-	public Rectangle2D getBounds() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

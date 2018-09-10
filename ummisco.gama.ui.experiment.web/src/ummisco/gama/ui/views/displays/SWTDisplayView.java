@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.widgets.Control;
 
 import msi.gama.runtime.IScope;
@@ -43,12 +42,12 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 	@Override
 	public void close(final IScope scope) {
 
-		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
+		WorkbenchHelper.asyncRun(() -> {
 			try {
-				getSite().getPage().hideView(SWTDisplayView.this);
 				if (getDisplaySurface() != null) {
 					getDisplaySurface().dispose();
 				}
+				getSite().getPage().hideView(SWTDisplayView.this);
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
@@ -56,10 +55,9 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 
 	}
 
-//	@Override
-//	public void waitToBeRealized() {
-//		String uid = RWT.getUISession().getAttribute("user").toString();
-//		WorkbenchHelper.asyncRun(uid,() -> WorkbenchHelper.getPage(uid).bringToTop(SWTDisplayView.this));
-//	}
+	// @Override
+	// public void waitToBeRealized() {
+	// WorkbenchHelper.asyncRun(() -> WorkbenchHelper.getPage().bringToTop(SWTDisplayView.this));
+	// }
 
 }

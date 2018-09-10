@@ -1,8 +1,7 @@
 /*********************************************************************************************
  *
- * 'GamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * 'GamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
+ * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
  * 
@@ -13,6 +12,7 @@ package ummisco.gama.ui.resources;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
@@ -23,7 +23,9 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 
+import msi.gama.application.workbench.IIconProvider;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
  * Class GamaIcons.
@@ -32,7 +34,7 @@ import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
  * @since 12 sept. 2013
  *
  */
-public class GamaIcons /* implements IGamaIcons */ {
+public class GamaIcons implements IIconProvider {
 
 	public static final String PLUGIN_ID = "ummisco.gama.ui.shared.web";
 
@@ -264,6 +266,18 @@ public class GamaIcons /* implements IGamaIcons */ {
 				gc.dispose();
 			}
 		}
+	}
+
+	@Override
+	public ImageDescriptor desc(final String name) {
+		final GamaIcon icon = create(name);
+		return icon.descriptor();
+	}
+
+	@Override
+	public Image image(final String name) {
+		final GamaIcon icon = create(name);
+		return icon.image();
 	}
 
 }

@@ -35,7 +35,8 @@ Require-Bundle: ummisco.gama.ui.shared.web,
  org.eclipse.ltk.core.refactoring,
  com.google.guava,
  org.dslforge.workspace.ui;bundle-version="0.9.1",
- org.dslforge.workspace
+ org.dslforge.workspace,
+ cict.gama.web.wrapper
 Bundle-ActivationPolicy: lazy
 Export-Package: ummisco.gama.ui.commands,
  ummisco.gama.ui.metadata,

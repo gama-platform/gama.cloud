@@ -8,7 +8,6 @@
  *******************************************************************************/
 package ummisco.gama.ui.navigator.actions;
 
-import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +18,16 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWTError; 
+import org.eclipse.swt.SWTError;
+import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.ui.part.ResourceTransfer;
 
 import ummisco.gama.ui.metadata.FileMetaDataProvider;
 import ummisco.gama.ui.navigator.contents.ResourceManager;
@@ -79,7 +81,6 @@ import ummisco.gama.ui.navigator.contents.ResourceManager;
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(this, "CopyHelpId"); //$NON-NLS-1$
 		// TODO INavigatorHelpContextIds.COPY_ACTION);
 	}
-
 
 	/**
 	 * Creates a new action.
@@ -171,11 +172,11 @@ import ummisco.gama.ui.navigator.contents.ResourceManager;
 		try {
 			// set the clipboard contents
 			if (fileNames.length > 0) {
-//				clipboard.setContents(new Object[] { resources, fileNames, names }, new Transfer[] {
-//						ResourceTransfer.getInstance(), FileTransfer.getInstance(), TextTransfer.getInstance() });
+				clipboard.setContents(new Object[] { resources, fileNames, names }, new Transfer[] {
+						ResourceTransfer.getInstance(), FileTransfer.getInstance(), TextTransfer.getInstance() });
 			} else {
-//				clipboard.setContents(new Object[] { resources, names },
-//						new Transfer[] { ResourceTransfer.getInstance(), TextTransfer.getInstance() });
+				clipboard.setContents(new Object[] { resources, names },
+						new Transfer[] { ResourceTransfer.getInstance(), TextTransfer.getInstance() });
 			}
 		} catch (final SWTError e) {
 			if (e.code != DND.ERROR_CANNOT_SET_CLIPBOARD) { throw e; }
@@ -218,12 +219,5 @@ import ummisco.gama.ui.navigator.contents.ResourceManager;
 		}
 		return true;
 	}
-
-
-	public void selectionChanged(IStructuredSelection selection) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

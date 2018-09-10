@@ -13,15 +13,14 @@ package ummisco.gama.ui.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-
-import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.views.inspectors.MonitorView;
 
 public class AddMonitorHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		MonitorView.createNewMonitor(GAMAWEB.getRuntimeScope());
+		MonitorView.createNewMonitor(GAMA.getRuntimeScope());
 		return null;
 	}
 

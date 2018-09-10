@@ -63,6 +63,9 @@ public class StatusControlContribution extends WorkbenchWindowControlContributio
 
 	static HashMap<String,StatusControlContribution> INSTANCE=new HashMap<String, StatusControlContribution>();
 
+	public static StatusControlContribution getInstance() {
+		return getInstance("admin");
+	}
 	public static StatusControlContribution getInstance(String uid) {
 		StatusControlContribution scc=INSTANCE.get(uid);
 		if(scc==null) {

@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.jface.window.SameShellProvider;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -185,7 +184,7 @@ public class ExceptionDetailsDialog extends AbstractDetailsDialog {
 	 */
 	private static Image getImage(final Image image, final Object details) {
 		if (image != null) { return image; }
-		final Display display = WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString());
+		final Display display = WorkbenchHelper.getDisplay();
 		if (details instanceof IStatus) {
 			switch (((IStatus) details).getSeverity()) {
 				case IStatus.ERROR:

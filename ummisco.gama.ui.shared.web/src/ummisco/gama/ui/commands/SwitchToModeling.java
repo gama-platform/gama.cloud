@@ -16,7 +16,6 @@ import org.eclipse.core.commands.ExecutionException;
 
 import msi.gama.application.workbench.PerspectiveHelper;
 
-
 public class SwitchToModeling extends AbstractHandler {
 
 	@Override

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchWindowF;
+import org.eclipse.ui.internal.WorkbenchWindow;
 
 import ummisco.gama.ui.access.GamlSearchField;
 
@@ -33,19 +33,19 @@ public class GamlReferenceSearch {
 	public static void install() {
 		WorkbenchHelper.runInUI("Install GAML Search", 0, m -> {
 			final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			if (window instanceof WorkbenchWindowF) {
-				final MTrimBar topTrim = ((WorkbenchWindowF) window).getTopTrim();
-				for (final MTrimElement element : topTrim.getChildren()) {
-					if ("SearchField".equals(element.getElementId())) {
-						final Composite parent = ((Control) element.getWidget()).getParent();
-						final Control old = (Control) element.getWidget();
-						WorkbenchHelper.runInUI("Disposing old search control", 500, m2 -> old.dispose());
-						element.setWidget(GamlSearchField.installOn(parent));
-						parent.layout(true, true);
-						parent.update();
-						break;
-					}
-				}
+			if (window instanceof WorkbenchWindow) {
+//				final MTrimBar topTrim = ((WorkbenchWindow) window).getTopTrim();
+//				for (final MTrimElement element : topTrim.getChildren()) {
+//					if ("SearchField".equals(element.getElementId())) {
+//						final Composite parent = ((Control) element.getWidget()).getParent();
+//						final Control old = (Control) element.getWidget();
+//						WorkbenchHelper.runInUI("Disposing old search control", 500, m2 -> old.dispose());
+//						element.setWidget(GamlSearchField.installOn(parent));
+//						parent.layout(true, true);
+//						parent.update();
+//						break;
+//					}
+//				}
 			}
 		});
 	}

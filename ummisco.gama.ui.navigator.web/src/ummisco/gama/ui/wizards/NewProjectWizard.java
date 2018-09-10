@@ -34,7 +34,8 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWizard; 
+import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import msi.gama.application.workspace.WorkspaceModelsManager;
 import ummisco.gama.ui.navigator.contents.ResourceManager;
@@ -74,23 +75,23 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 		/**
 		 * An operation object that modifies workspaces in order to create new projects.
 		 */
-//		final WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
-//
-//			@Override
-//			protected void execute(final IProgressMonitor monitor) throws CoreException {
-//				createProject(desc, projectHandle, isTest, monitor);
-//			}
-//		};
+		final WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 
-//		try {
-//			getContainer().run(true, true, op);
-//		} catch (final InterruptedException e) {
-//			return false;
-//		} catch (final InvocationTargetException e) {
-//			final Throwable realException = e.getTargetException();
-//			MessageDialog.openError(getShell(), "Error", realException.getMessage());
-//			return false;
-//		}
+			@Override
+			protected void execute(final IProgressMonitor monitor) throws CoreException {
+				createProject(desc, projectHandle, isTest, monitor);
+			}
+		};
+
+		try {
+			getContainer().run(true, true, op);
+		} catch (final InterruptedException e) {
+			return false;
+		} catch (final InvocationTargetException e) {
+			final Throwable realException = e.getTargetException();
+			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			return false;
+		}
 		project = projectHandle;
 		if (createNewModel) {
 			WorkbenchHelper.runInUI("New Model File", 100, m -> {

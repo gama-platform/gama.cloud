@@ -10,7 +10,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.parameters;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -64,7 +63,7 @@ public class FontEditor extends AbstractEditor<GamaFont> {
 		final GamaFont data = currentValue != null ? currentValue
 				: toGamaFont(GamaFonts.getSmallFont().getFontData()[0]);
 		edit.setText(data.toString());
-		edit.setFont(new Font(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), toFontData(data)));
+		edit.setFont(new Font(WorkbenchHelper.getDisplay(), toFontData(data)));
 		internalModification = false;
 	}
 
@@ -97,7 +96,7 @@ public class FontEditor extends AbstractEditor<GamaFont> {
 
 	@Override
 	public void widgetSelected(final SelectionEvent e) {
-		final FontDialog dialog = new FontDialog(WorkbenchHelper.getShell(RWT.getUISession().getAttribute("user").toString()));
+		final FontDialog dialog = new FontDialog(WorkbenchHelper.getShell());
 //		dialog.setEffectsVisible(false);
 		FontData data = toFontData(currentValue);
 		dialog.setFontList(new FontData[] { data });

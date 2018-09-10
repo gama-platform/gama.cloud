@@ -277,7 +277,7 @@ public class MonitorView extends ExpandableItemsView<MonitorOutput> implements I
 			return null;
 		final IType<?> type = exp.getGamlType();
 		menu.put("Copy to clipboard", () -> {
-//			WorkbenchHelper.copy(getValueAsString(data));
+			WorkbenchHelper.copy(getValueAsString(data));
 		});
 		if (type.isNumber() || type.isContainer() && type.getContentType().isNumber()) {
 			// menu.put("Open chart", () -> {});

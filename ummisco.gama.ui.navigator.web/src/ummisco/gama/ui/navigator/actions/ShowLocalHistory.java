@@ -8,7 +8,8 @@
 package ummisco.gama.ui.navigator.actions;
 
 import java.lang.reflect.InvocationTargetException;
- 
+
+import org.eclipse.compare.internal.AddFromHistoryAction;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.resources.IResource;
@@ -18,8 +19,16 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.IShellProvider; 
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.jface.window.IShellProvider;
+import org.eclipse.team.internal.ui.TeamUIMessages;
+import org.eclipse.team.internal.ui.TeamUIPlugin;
+import org.eclipse.team.internal.ui.history.LocalHistoryPage;
+import org.eclipse.team.internal.ui.history.LocalHistoryPageSource;
+import org.eclipse.team.ui.TeamUI;
+import org.eclipse.team.ui.history.IHistoryPage;
+import org.eclipse.team.ui.history.IHistoryView;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceAction;
 
 import ummisco.gama.ui.navigator.contents.ResourceManager;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -27,7 +36,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 public class ShowLocalHistory extends WorkspaceAction {
 
 	boolean isFile;
-//	AddFromHistoryAction projectAction = new AddFromHistoryAction();
+	AddFromHistoryAction projectAction = new AddFromHistoryAction();
 
 	protected ShowLocalHistory(final IShellProvider provider) {
 		super(provider, "Local history...");
@@ -38,7 +47,7 @@ public class ShowLocalHistory extends WorkspaceAction {
 	@Override
 	public void run() {
 		if (!isFile) {
-//			projectAction.run(null);
+			projectAction.run(null);
 			return;
 		}
 		final IFileState states[] = getLocalHistory();
@@ -47,20 +56,20 @@ public class ShowLocalHistory extends WorkspaceAction {
 			PlatformUI.getWorkbench().getProgressService().busyCursorWhile(monitor -> {
 
 				final IResource resource = this.getSelectedResources().get(0);
-//				final Runnable r = () -> {
-//					final IHistoryView view = TeamUI.showHistoryFor(TeamUIPlugin.getActivePage(), resource,
-//							LocalHistoryPageSource.getInstance());
-//					final IHistoryPage page = view.getHistoryPage();
-//					if (page instanceof LocalHistoryPage) {
-//						final LocalHistoryPage historyPage = (LocalHistoryPage) page;
-//						historyPage.setClickAction(isCompare());
-//					}
-//				};
-//				WorkbenchHelper.asyncRun(r);
+				final Runnable r = () -> {
+					final IHistoryView view = TeamUI.showHistoryFor(TeamUIPlugin.getActivePage(), resource,
+							LocalHistoryPageSource.getInstance());
+					final IHistoryPage page = view.getHistoryPage();
+					if (page instanceof LocalHistoryPage) {
+						final LocalHistoryPage historyPage = (LocalHistoryPage) page;
+						historyPage.setClickAction(isCompare());
+					}
+				};
+				WorkbenchHelper.asyncRun(r);
 			});
 		} catch (final InvocationTargetException exception) {
 			ErrorDialog.openError(WorkbenchHelper.getShell(), null, null,
-					new Status(IStatus.ERROR, "org.eclipse.team.ui", IStatus.ERROR, "TeamUIMessages.ShowLocalHistory_1",
+					new Status(IStatus.ERROR, TeamUIPlugin.PLUGIN_ID, IStatus.ERROR, TeamUIMessages.ShowLocalHistory_1,
 							exception.getTargetException()));
 		} catch (final InterruptedException exception) {}
 	}
@@ -68,7 +77,7 @@ public class ShowLocalHistory extends WorkspaceAction {
 	@Override
 	protected boolean updateSelection(final IStructuredSelection sel) {
 		fSelection = sel;
-//		projectAction.selectionChanged(null, sel);
+		projectAction.selectionChanged(null, sel);
 		isFile = selectionIsOfType(IResource.FILE);
 		if (!isFile) {
 			return sel.size() == 1 && selectionIsOfType(IResource.FOLDER | IResource.PROJECT);
@@ -99,19 +108,19 @@ public class ShowLocalHistory extends WorkspaceAction {
 
 		if (states == null || states.length <= 0) {
 			MessageDialog.openInformation(WorkbenchHelper.getShell(), getPromptTitle(),
-					"TeamUIMessages.ShowLocalHistory_0");
+					TeamUIMessages.ShowLocalHistory_0);
 			return states;
 		}
 		return states;
 	}
 
 	protected String getPromptTitle() {
-		return "TeamUIMessages.ShowLocalHistory_2";
+		return TeamUIMessages.ShowLocalHistory_2;
 	}
 
 	@Override
 	protected String getOperationMessage() {
-		return "TeamUIMessages.ShowLocalHistory_2";
+		return TeamUIMessages.ShowLocalHistory_2;
 	}
 
 }

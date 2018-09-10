@@ -37,7 +37,7 @@ public class SnapshotMaker {
 		if (GamaPreferences.Displays.DISPLAY_FAST_SNAPSHOT.getValue()) {
 			try {
 				final Robot robot = new Robot();
-				final Rectangle r = new Rectangle(0, 0, 100, 100);// WorkbenchHelper.displaySizeOf(composite);
+				final Rectangle r = WorkbenchHelper.displaySizeOf(composite);
 				final java.awt.Rectangle bounds = new java.awt.Rectangle(r.x, r.y, r.width, r.height);
 				snapshot = robot.createScreenCapture(bounds);
 				snapshot = ImageUtils.resize(snapshot, width, height);

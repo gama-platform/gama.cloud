@@ -47,12 +47,12 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 		return userFolder;
 	}
 
-//	public TopLevelFolder getTestFolder() {
-//		if (testFolder == null) {
-//			testFolder = new TestModelsFolder(this, "Test models");
-//		}
-//		return testFolder;
-//	}
+	public TopLevelFolder getTestFolder() {
+		if (testFolder == null) {
+			testFolder = new TestModelsFolder(this, "Test models");
+		}
+		return testFolder;
+	}
 
 	public TopLevelFolder getPluginFolder() {
 		if (pluginFolder == null) {
@@ -100,7 +100,7 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	}
 
 	public TopLevelFolder[] getFolders() {
-		return new TopLevelFolder[] { getLibraryFolder(), getPluginFolder(), getUserFolder() };
+		return new TopLevelFolder[] { getLibraryFolder(), getPluginFolder(), getTestFolder(), getUserFolder() };
 	}
 
 	@Override

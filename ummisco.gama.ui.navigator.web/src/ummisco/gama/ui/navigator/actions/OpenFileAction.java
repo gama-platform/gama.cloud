@@ -11,15 +11,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.util.OpenStrategy;
 import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.OpenSystemEditorAction;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.internal.ide.DialogUtil;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
+import org.eclipse.ui.part.FileEditorInput;
 
 import ummisco.gama.ui.navigator.contents.NavigatorRoot;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -116,20 +120,15 @@ public class OpenFileAction extends OpenSystemEditorAction {
 		try {
 			final boolean activate = OpenStrategy.activateOnOpen();
 			if (editorDescriptor == null) {
-				IWorkbench workbench = PlatformUI.getWorkbench();
-				EditorUtil.openEditor(workbench, file.getFullPath());
-//				IDE.openEditor(WorkbenchHelper.getPage(), file, activate);
+				IDE.openEditor(WorkbenchHelper.getPage(), file, activate);
 			} else {
 				if (ensureFileLocal(file)) {
-					IWorkbench workbench = PlatformUI.getWorkbench();
-					EditorUtil.openEditor(workbench, file.getFullPath());
-//					WorkbenchHelper.getPage().openEditor(new FileEditorInput(file), editorDescriptor.getId(), activate);
+					WorkbenchHelper.getPage().openEditor(new FileEditorInput(file), editorDescriptor.getId(), activate);
 				}
 			}
-		} catch (final Exception e) {
-			e.printStackTrace();
-//			DialogUtil.openError(WorkbenchHelper.getPage().getWorkbenchWindow().getShell(),
-//					IDEWorkbenchMessages.OpenFileAction_openFileShellTitle, e.getMessage(), e);
+		} catch (final PartInitException e) {
+			DialogUtil.openError(WorkbenchHelper.getPage().getWorkbenchWindow().getShell(),
+					IDEWorkbenchMessages.OpenFileAction_openFileShellTitle, e.getMessage(), e);
 		}
 	}
 

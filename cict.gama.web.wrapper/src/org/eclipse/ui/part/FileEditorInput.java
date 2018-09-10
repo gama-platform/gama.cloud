@@ -47,4 +47,9 @@ public class FileEditorInput implements IEditorInput {
 		return null;
 	}
 
+	public IFile getFile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -27,7 +27,7 @@ public class ErrorsPauseAndEdit extends AbstractHandler implements IElementUpdat
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.set(!GamaPreferences.Runtime.CORE_REVEAL_AND_STOP.getValue());
 		final ICommandService service =
-				(ICommandService) HandlerUtil.getActiveWorkbenchWindowChecked(event).getService(ICommandService.class);
+				HandlerUtil.getActiveWorkbenchWindowChecked(event).getService(ICommandService.class);
 		service.refreshElements(event.getCommand().getId(), null);
 		return null;
 	}

@@ -28,7 +28,10 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceAction;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 
 /**
  * Standard action for opening the currently selected project(s).

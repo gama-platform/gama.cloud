@@ -1,12 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * ummisco.gama.ui.views.displays.DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source
+ * code of the GAMA modeling and simulation platform (v. 1.8)
  * 
+ * (c) 2007-2018 UMI 209 UMMISCO IRD/SU & Partners
  *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package ummisco.gama.ui.views.displays;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuEvent;
 import org.eclipse.swt.events.MenuListener;
@@ -27,7 +27,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -65,7 +64,7 @@ public class DisplaySurfaceMenu {
 		layer_images.put(GraphicLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRAPHICS).image());
 	}
 
-	private Menu menu;
+	Menu menu;
 	private final IDisplaySurface surface;
 	private final Control swtControl;
 	private final MenuManager presentationMenu;
@@ -95,8 +94,9 @@ public class DisplaySurfaceMenu {
 	public DisplaySurfaceMenu(final IDisplaySurface s, final Control c, final MenuManager viewMenu) {
 		surface = s;
 		swtControl = c;
-		if (s != null)
+		if (s != null) {
 			s.setMenuManager(this);
+		}
 		this.presentationMenu = viewMenu;
 	}
 
@@ -135,36 +135,37 @@ public class DisplaySurfaceMenu {
 
 	private void buildMenu(final boolean byLayer, final int mousex, final int mousey, final Collection<IAgent> agents,
 			final Runnable cleanup, final MenuAction... actions) {
-		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(),() -> {
+		WorkbenchHelper.asyncRun(() -> {
 			prepareNewMenu(swtControl, mousex, mousey, true);
 			fill(menu, -1, true, byLayer, agents, actions);
 			menu.setVisible(true);
 			// AD 3/10/13: Fix for Issue 669 on Linux GTK setup. See :
 			// http://www.eclipse.org/forums/index.php/t/208284/
 			retryVisible(menu, MAX_RETRIES);
-			if (cleanup != null)
+			if (cleanup != null) {
 				menu.addMenuListener(new MenuListener() {
 
 					@Override
 					public void menuShown(final MenuEvent e) {
-						// System.out.println("Selection menu has been
+						// DEBUG.LOG("Selection menu has been
 						// shown");
 					}
 
 					@Override
 					public void menuHidden(final MenuEvent e) {
-						// System.out.println("Selection menu has been
+						// DEBUG.LOG("Selection menu has been
 						// hiden");
 						cleanup.run();
 						menu.removeMenuListener(this);
 					}
 				});
+			}
 		});
 	}
 
 	public void buildToolbarMenu(final SelectionEvent trigger, final ToolItem t) {
-		final Point point = t.getParent().toDisplay(new Point(trigger.x, trigger.y));
-		prepareNewMenu(t.getParent().getShell(), point.x, point.y, false);
+		prepareNewMenu(t.getParent(), t.getBounds().x + t.getBounds().width, t.getBounds().y + t.getBounds().height,
+				false);
 		fill(menu, -1, false, true, null);
 		menu.setVisible(true);
 	}
@@ -172,14 +173,13 @@ public class DisplaySurfaceMenu {
 	static int MAX_RETRIES = 10;
 
 	private void retryVisible(final Menu menu, final int retriesRemaining) {
-		if (!PlatformHelper.isLinux())
-			return;
-		WorkbenchHelper.asyncRun(RWT.getUISession().getAttribute("user").toString(), () -> {
+		if (!PlatformHelper.isLinux()) { return; }
+		WorkbenchHelper.asyncRun(() -> {
 			if (!menu.isVisible() && retriesRemaining > 0) {
 				menu.setVisible(false);
 				{
 					final Shell shell =
-							new Shell(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
+							new Shell(WorkbenchHelper.getDisplay(), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 					shell.setSize(10, 10); // big enough to avoid errors
 											// from the gtk layer
 					shell.setLocation(menu.getShell().getLocation());
@@ -236,10 +236,11 @@ public class DisplaySurfaceMenu {
 					final MenuAction focus = new MenuAction(adapter, GamaIcons.create(IGamaIcons.MENU_FOCUS).image(),
 							"Focus on this display");
 					final MenuAction[] actions2;
-					if (layer instanceof GridLayer)
+					if (layer instanceof GridLayer) {
 						actions2 = new MenuAction[] { focus };
-					else
+					} else {
 						actions2 = new MenuAction[] { focus };
+					}
 
 					if (filteredList != null) {
 						pop.retainAll(filteredList);

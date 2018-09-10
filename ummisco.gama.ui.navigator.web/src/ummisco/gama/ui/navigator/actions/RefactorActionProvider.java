@@ -75,7 +75,7 @@ public class RefactorActionProvider extends CommonActionProvider {
 			renameAction.selectionChanged(selection);
 			historyAction.selectionChanged(selection);
 			compareAction.selectionChanged(selection);
-//			menu.insertBefore(CopyAction.ID, renameAction);
+			menu.insertBefore(CopyAction.ID, renameAction);
 			menu.insertAfter("additions", historyAction);
 			if (selection.size() == 2) {
 				menu.insertAfter("additions", compareAction);

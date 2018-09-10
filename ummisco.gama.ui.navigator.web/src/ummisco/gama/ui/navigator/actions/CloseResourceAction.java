@@ -41,7 +41,13 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;  
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceAction;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
+import org.eclipse.ui.internal.util.Util;
+import org.eclipse.ui.part.FileEditorInput;
 
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -89,7 +95,7 @@ public class CloseResourceAction extends WorkspaceAction implements IResourceCha
 	private void initAction() {
 		setId(ID);
 		setToolTipText(IDEWorkbenchMessages.CloseResourceAction_toolTip);
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IIDEHelpContextIds.CLOSE_RESOURCE_ACTION);
+		WorkbenchHelper.getWorkbench().getHelpSystem().setHelp(this, IIDEHelpContextIds.CLOSE_RESOURCE_ACTION);
 	}
 
 	@Override
@@ -165,7 +171,7 @@ public class CloseResourceAction extends WorkspaceAction implements IResourceCha
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Handles a resource changed event by updating the enablement if one of the selected projects is opened or closed.
 	 */
@@ -189,7 +195,7 @@ public class CloseResourceAction extends WorkspaceAction implements IResourceCha
 			}
 		}
 	}
-
+	
 	@Override
 	protected synchronized List<? extends IResource> getSelectedResources() {
 		return super.getSelectedResources();

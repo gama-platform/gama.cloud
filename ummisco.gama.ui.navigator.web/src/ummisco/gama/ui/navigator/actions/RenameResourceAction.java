@@ -16,7 +16,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourceAttributes;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -29,7 +28,14 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;  
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceAction;
+import org.eclipse.ui.ide.undo.MoveResourcesOperation;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
+import org.eclipse.ui.internal.ide.actions.LTKLauncher;
 
 import ummisco.gama.ui.navigator.contents.LinkedFile;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -172,7 +178,7 @@ public class RenameResourceAction extends WorkspaceAction {
 	 *            the resource to query status on
 	 */
 	protected String queryNewResourceName(final IResource resource) {
-		final IWorkspace workspace =  ResourcesPlugin.getWorkspace();
+		final IWorkspace workspace = IDEWorkbenchPlugin.getPluginWorkspace();
 		final IPath prefix = resource.getFullPath().removeLastSegments(1);
 		final IInputValidator validator = string -> {
 			if (resource.getName()
@@ -200,7 +206,7 @@ public class RenameResourceAction extends WorkspaceAction {
 	public void run() {
 		final IResource currentResource = getCurrentResource();
 		if (currentResource == null || !currentResource.exists()) { return; }
-		if (LTKLauncher.openRenameWizard((IStructuredSelection) getStructuredSelection())) { return; }
+		if (LTKLauncher.openRenameWizard(getStructuredSelection())) { return; }
 		// Do a quick read only and null check
 		if (!checkReadOnlyAndNull(currentResource)) { return; }
 		final String newName = queryNewResourceName(currentResource);
@@ -304,19 +310,19 @@ public class RenameResourceAction extends WorkspaceAction {
 					go = checkOverwrite(WorkbenchHelper.getShell(), newResource);
 				}
 				if (go) {
-//					final MoveResourcesOperation op = new MoveResourcesOperation(resources[0], newPath,
-//							IDEWorkbenchMessages.RenameResourceAction_operationTitle);
-//					op.setModelProviderIds(getModelProviderIds());
-//					try {
-//						PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, monitor,
-//								WorkspaceUndoUtil.getUIInfoAdapter(WorkbenchHelper.getShell()));
-//					} catch (final ExecutionException e) {
-//						if (e.getCause() instanceof CoreException) {
-//							errorStatus[0] = ((CoreException) e.getCause()).getStatus();
-//						} else {
-//							errorStatus[0] = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, getProblemsMessage(), e);
-//						}
-//					}
+					final MoveResourcesOperation op = new MoveResourcesOperation(resources[0], newPath,
+							IDEWorkbenchMessages.RenameResourceAction_operationTitle);
+					op.setModelProviderIds(getModelProviderIds());
+					try {
+						PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, monitor,
+								WorkspaceUndoUtil.getUIInfoAdapter(WorkbenchHelper.getShell()));
+					} catch (final ExecutionException e) {
+						if (e.getCause() instanceof CoreException) {
+							errorStatus[0] = ((CoreException) e.getCause()).getStatus();
+						} else {
+							errorStatus[0] = new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, getProblemsMessage(), e);
+						}
+					}
 				}
 			}
 		};

@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.parameters;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -65,7 +64,7 @@ public class FileEditor extends AbstractEditor<IGamaFile> {
 
 	@Override
 	public void widgetSelected(final SelectionEvent e) {
-		final FileDialog dialog = new FileDialog(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).getActiveShell(), SWT.NULL);
+		final FileDialog dialog = new FileDialog(WorkbenchHelper.getDisplay().getActiveShell(), SWT.NULL);
 		IGamaFile file = currentValue;
 //		dialog.setFileName(file.getPath(getScope()));
 		dialog.setText("Choose a file for parameter '" + param.getTitle() + "'");

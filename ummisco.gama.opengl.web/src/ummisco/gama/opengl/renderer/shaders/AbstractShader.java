@@ -27,8 +27,8 @@ public abstract class AbstractShader {
 	protected boolean isOverlay = false;
 
 	private int programID;
-//	private final int vertexShaderID;
-//	private final int fragmentShaderID;
+	private final int vertexShaderID;
+	private final int fragmentShaderID;
 
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -46,28 +46,28 @@ public abstract class AbstractShader {
 		this.gl = gl;
 		InputStream vertexInputStream, fragmentInputStream;
 
-//		try {
-//			vertexInputStream = getClass().getResourceAsStream(vertexFile);
-//			if (vertexInputStream == null) { throw new RuntimeException(
-//					"Cannot locate vertex shader program " + vertexFile); }
-//			fragmentInputStream = getClass().getResourceAsStream(fragmentFile);
-//			if (fragmentInputStream == null) { throw new RuntimeException(
-//					"Cannot locate vertex shader program " + vertexFile); }
-//		} catch (final Exception e) {
-//			DEBUG.ERR(e.getMessage());
-//			vertexShaderID = -1;
-//			fragmentShaderID = -1;
-//			return;
-//		}
+		try {
+			vertexInputStream = getClass().getResourceAsStream(vertexFile);
+			if (vertexInputStream == null) { throw new RuntimeException(
+					"Cannot locate vertex shader program " + vertexFile); }
+			fragmentInputStream = getClass().getResourceAsStream(fragmentFile);
+			if (fragmentInputStream == null) { throw new RuntimeException(
+					"Cannot locate vertex shader program " + vertexFile); }
+		} catch (final Exception e) {
+			DEBUG.ERR(e.getMessage());
+			vertexShaderID = -1;
+			fragmentShaderID = -1;
+			return;
+		}
 
-//		vertexShaderID = loadShader(vertexInputStream, GL2.GL_VERTEX_SHADER);
-//		fragmentShaderID = loadShader(fragmentInputStream, GL2.GL_FRAGMENT_SHADER);
+		vertexShaderID = loadShader(vertexInputStream, GL2.GL_VERTEX_SHADER);
+		fragmentShaderID = loadShader(fragmentInputStream, GL2.GL_FRAGMENT_SHADER);
 
 		// Each shaderProgram must have
 		// one vertex shader and one fragment shader.
 		programID = this.gl.glCreateProgram();
-//		this.gl.glAttachShader(programID, vertexShaderID);
-//		this.gl.glAttachShader(programID, fragmentShaderID);
+		this.gl.glAttachShader(programID, vertexShaderID);
+		this.gl.glAttachShader(programID, fragmentShaderID);
 
 		// Associate attribute ids with the attribute names inside
 		// the vertex shader.
@@ -123,10 +123,10 @@ public abstract class AbstractShader {
 
 	public void cleanUp() {
 		stop();
-//		gl.glDetachShader(programID, vertexShaderID);
-//		gl.glDetachShader(programID, fragmentShaderID);
-//		gl.glDeleteShader(vertexShaderID);
-//		gl.glDeleteShader(fragmentShaderID);
+		gl.glDetachShader(programID, vertexShaderID);
+		gl.glDetachShader(programID, fragmentShaderID);
+		gl.glDeleteShader(vertexShaderID);
+		gl.glDeleteShader(fragmentShaderID);
 		gl.glDeleteProgram(programID);
 	}
 

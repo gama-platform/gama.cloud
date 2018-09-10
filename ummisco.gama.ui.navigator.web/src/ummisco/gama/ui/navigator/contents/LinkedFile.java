@@ -9,7 +9,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.navigator.contents;
 
-import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
@@ -18,9 +17,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
 
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -106,11 +104,8 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 	@Override
 	public boolean handleDoubleClick() {
 		try {
-//			IDE.openEditor(WorkbenchHelper.getPage(), file.getResource());
-
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			EditorUtil.openEditor(workbench, file.getResource().getFullPath());
-		} catch (final  Exception e1) {
+			IDE.openEditor(WorkbenchHelper.getPage(), file.getResource());
+		} catch (final PartInitException e1) {
 			e1.printStackTrace();
 			return false;
 		}

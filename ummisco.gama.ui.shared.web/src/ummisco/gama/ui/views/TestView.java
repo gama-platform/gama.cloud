@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -54,10 +53,11 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 	static final Comparator<AbstractSummary<?>> BY_SEVERITY = (o1, o2) -> {
 		final TestState s1 = o1.getState();
 		final TestState s2 = o2.getState();
-		if (s1 == s2)
+		if (s1 == s2) {
 			return BY_ORDER.compare(o1, o2);
-		else
+		} else {
 			return s1.compareTo(s2);
+		}
 	};
 	public final List<AbstractSummary<?>> experiments = new ArrayList<>();
 	private boolean runningAllTests;
@@ -91,11 +91,12 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 	public void startNewTestSequence(final boolean all) {
 		runningAllTests = all;
 		experiments.clear();
-		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
-			if (toolbar != null)
+		WorkbenchHelper.run(() -> {
+			if (toolbar != null) {
 				toolbar.status(null, "Run experiment to see the tests results", e -> {
 					GAMA.startFrontmostExperiment();
 				}, IGamaColors.BLUE, SWT.LEFT);
+			}
 		});
 		super.reset();
 	}
@@ -112,24 +113,25 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 			if (!experiments.contains(summary)) {
 				experiments.add(summary);
 			}
-		} else
+		} else {
 			for (final AbstractSummary<?> s : summary.getSummaries().values()) {
 				if (!experiments.contains(s)) {
 					experiments.add(s);
 				}
 			}
+		}
 	}
 
 	@Override
 	public boolean addItem(final AbstractSummary<?> experiment) {
 		final boolean onlyFailed = GamaPreferences.Runtime.FAILED_TESTS.getValue();
 		ParameterExpandItem item = getViewer() == null ? null : getViewer().getItem(experiment);
-		if (item != null)
+		if (item != null) {
 			item.dispose();
+		}
 		if (onlyFailed) {
 			final TestState state = experiment.getState();
-			if (state != TestState.FAILED && state != TestState.ABORTED)
-				return false;
+			if (state != TestState.FAILED && state != TestState.ABORTED) { return false; }
 		}
 		item = createItem(getParentComposite(), experiment, !runningAllTests,
 				GamaColors.get(getItemDisplayColor(experiment)));
@@ -186,8 +188,7 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 			final AbstractSummary<?> subTest, final String name) {
 		if (GamaPreferences.Runtime.FAILED_TESTS.getValue()) {
 			final TestState state = subTest.getState();
-			if (state != TestState.FAILED && state != TestState.ABORTED)
-				return;
+			if (state != TestState.FAILED && state != TestState.ABORTED) { return; }
 		}
 		final AssertEditor ed = new AssertEditor(GAMA.getRuntimeScope(), subTest);
 		// editorsByExperiment.get(globalTest).put(name, ed);
@@ -263,14 +264,15 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 
 	@Override
 	public void reset() {
-		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> {
+		WorkbenchHelper.run(() -> {
 			if (!getParentComposite().isDisposed()) {
 				resortTests();
 				displayItems();
 				getParentComposite().layout(true, false);
-				if (toolbar != null)
-					toolbar.status(null, new CompoundSummary(experiments).getStringSummary(), null, IGamaColors.BLUE,
+				if (toolbar != null) {
+					toolbar.status(null, new CompoundSummary<>(experiments).getStringSummary(), null, IGamaColors.BLUE,
 							SWT.LEFT);
+				}
 			}
 		});
 
@@ -285,7 +287,7 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 	public Map<String, Runnable> handleMenu(final AbstractSummary<?> item, final int x, final int y) {
 		final Map<String, Runnable> result = new HashMap<>();
 		result.put("Copy summary to clipboard", () -> {
-//			WorkbenchHelper.copy(item.toString());
+			WorkbenchHelper.copy(item.toString());
 		});
 		result.put("Show in editor", () -> GAMA.getGui().editModel(null, item.getURI()));
 		return result;

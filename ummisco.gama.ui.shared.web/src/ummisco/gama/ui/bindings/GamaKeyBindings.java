@@ -14,7 +14,6 @@ import java.util.Map;
 
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.bindings.keys.SWTKeySupport;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
@@ -66,8 +65,7 @@ public class GamaKeyBindings implements Listener {
 			}
 			return;
 		}
-		if (event.stateMask == 0)
-			return;
+		if (event.stateMask == 0) { return; }
 
 		switch (event.keyCode) {
 
@@ -105,7 +103,7 @@ public class GamaKeyBindings implements Listener {
 				}
 				break;
 			default:
-				// System.out.println(" KEY CODE " + event.keyCode + " MODS " + event.stateMask);
+				// DEBUG.LOG(" KEY CODE " + event.keyCode + " MODS " + event.stateMask);
 				final PluggableBinding pb = bindings.get(KeyStroke.getInstance(event.stateMask, event.keyCode));
 				if (pb != null) {
 					consume(event);
@@ -123,7 +121,7 @@ public class GamaKeyBindings implements Listener {
 	private final static GamaKeyBindings BINDINGS = new GamaKeyBindings();
 
 	public static void install() {
-		WorkbenchHelper.run(RWT.getUISession().getAttribute("user").toString(),() -> WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).addFilter(SWT.KeyDown, BINDINGS));
+		WorkbenchHelper.run(() -> WorkbenchHelper.getDisplay().addFilter(SWT.KeyDown, BINDINGS));
 	}
 
 	public static boolean ctrl(final Event e) {
@@ -134,12 +132,20 @@ public class GamaKeyBindings implements Listener {
 		return (e.stateMask & COMMAND) != 0;
 	}
 
+	public static boolean ctrl(final java.awt.event.KeyEvent e) {
+		return e.isControlDown(); // TODO Command ?
+	}
+
 	public static boolean ctrl(final MouseEvent e) {
 		return (e.stateMask & COMMAND) != 0;
 	}
 
 	public static boolean shift(final Event e) {
 		return (e.stateMask & SWT.SHIFT) != 0;
+	}
+
+	public static boolean shift(final java.awt.event.KeyEvent e) {
+		return e.isShiftDown();
 	}
 
 	public static boolean shift(final KeyEvent e) {
@@ -157,7 +163,7 @@ public class GamaKeyBindings implements Listener {
 
 	public static void plug(final PluggableBinding newBinding) {
 		bindings.put(newBinding.key, newBinding);
-		// System.out.println(
+		// DEBUG.LOG(
 		// "INSTALLING KEY CODE " + newBinding.key.getNaturalKey() + " MODS " + newBinding.key.getModifierKeys());
 
 	}

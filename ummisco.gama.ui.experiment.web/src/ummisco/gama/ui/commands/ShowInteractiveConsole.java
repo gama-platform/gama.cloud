@@ -9,18 +9,17 @@
  **********************************************************************************************/
 package ummisco.gama.ui.commands;
 
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.runtime.GAMA;
 
 public class ShowInteractiveConsole extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		GAMAWEB.getGui().openInteractiveConsole(null);
+		GAMA.getGui().openInteractiveConsole(null);
 		return null;
 	}
 

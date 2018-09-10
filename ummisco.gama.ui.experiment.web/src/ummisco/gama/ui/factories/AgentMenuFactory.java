@@ -17,11 +17,10 @@ import org.eclipse.ui.services.AbstractServiceFactory;
 import org.eclipse.ui.services.IServiceLocator;
 
 import msi.gama.metamodel.agent.IAgent;
-import ummisco.gama.ui.interfaces.IAgentMenuFactory;
 import ummisco.gama.ui.menus.AgentsMenu;
 import ummisco.gama.ui.menus.MenuAction;
 
-public class AgentMenuFactory extends AbstractServiceFactory implements IAgentMenuFactory {
+public class AgentMenuFactory extends AbstractServiceFactory implements ummisco.gama.ui.interfaces.IAgentMenuFactory {
 
 	@Override
 	public void fillPopulationSubMenu(final Menu menu, final Collection<? extends IAgent> species,

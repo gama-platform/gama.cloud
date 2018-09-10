@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.DisposeEvent;
@@ -109,12 +108,12 @@ public class PopulationInspectView extends GamaViewPart
 	ToolItem populationMenu;
 	TableViewer viewer;
 	Composite attributesMenu;
-	private AgentComparator comparator;
-	private ExpressionControl editor;
+	AgentComparator comparator;
+	ExpressionControl editor;
 	// private String speciesName;
 
 	IAgent[] elements = new IAgent[0];
-	Font currentFont = new Font(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()), GamaFonts.getSmallFont().getFontData());
+	Font currentFont = new Font(WorkbenchHelper.getDisplay(), GamaFonts.getSmallFont().getFontData());
 	Map<String, List<String>> selectedColumns = new HashMap();
 
 	class AgentContentProvider implements ILazyContentProvider {
@@ -196,7 +195,7 @@ public class PopulationInspectView extends GamaViewPart
 			outputs.clear();
 		}
 		outputs.add(output);
-		scope = output.getScope().copy("in PopulationInspectView");
+		scope = output.getScope().copy("in population inspector");
 		selectedColumns.clear();
 		updateSpecies();
 		comparator = new AgentComparator();
@@ -314,7 +313,7 @@ public class PopulationInspectView extends GamaViewPart
 		toolbar.refresh(true);
 	}
 
-	private List<String> getAttributesSelection() {
+	List<String> getAttributesSelection() {
 		final ArrayList<String> result = new ArrayList<>();
 		for (final Control c : attributesMenu.getChildren()) {
 			if (c instanceof SwitchButton) {
@@ -338,7 +337,7 @@ public class PopulationInspectView extends GamaViewPart
 
 	};
 
-	private String getSpeciesName() {
+	String getSpeciesName() {
 		if (getOutput() == null) { return ""; }
 		final ISpecies species = getOutput().getSpecies();
 		if (species == null) { return IKeyword.AGENT; }
@@ -472,11 +471,12 @@ public class PopulationInspectView extends GamaViewPart
 				final IAgent agent = (IAgent) element;
 				if (agent.dead() && !title.equals(ID_ATTRIBUTE)) { return "N/A"; }
 				if (title.equals(ID_ATTRIBUTE)) { return String.valueOf(agent.getIndex()); }
-				final Object value;
-				if (agent.getSpecies().hasVar(title))
+				// final Object value;
+				if (agent.getSpecies().hasVar(title)) {
 					return Cast.toGaml(getScope().getAgentVarValue(agent, title));
-				else
+				} else {
 					return Cast.toGaml(agent.getAttribute(title));
+				}
 			}
 		};
 	}
@@ -598,7 +598,7 @@ public class PopulationInspectView extends GamaViewPart
 
 	}
 
-	private IScope getScope() {
+	IScope getScope() {
 		return scope;
 	}
 
@@ -714,14 +714,6 @@ public class PopulationInspectView extends GamaViewPart
 		final String exportFileName = FileUtils.constructAbsoluteFilePath(getScope(),
 				exportFolder + "/" + getSpeciesName() + "_population" + getScope().getClock().getCycle() + ".csv",
 				false);
-		// File file = new File(exportFileName);
-		// FileWriter fileWriter = null;
-		// try {
-		// file.createNewFile();
-		// fileWriter = new FileWriter(file, false);
-		// } catch (final IOException e) {
-		// throw GamaRuntimeException.create(e);
-		// }
 		final Table table = viewer.getTable();
 		final TableColumn[] columns = table.getColumns();
 		final CsvWriter writer = new CsvWriter(exportFileName);
@@ -750,9 +742,10 @@ public class PopulationInspectView extends GamaViewPart
 				writer.writeRecord(ss);
 			}
 
-			writer.close();
 		} catch (final IOException e) {
 			throw GamaRuntimeException.create(e, getScope());
+		} finally {
+			writer.close();
 		}
 	}
 

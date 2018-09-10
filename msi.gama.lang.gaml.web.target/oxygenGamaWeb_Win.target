@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="362">
+<?pde version="3.8"?><target name="oxygenGamaWeb_Win" sequenceNumber="370">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
@@ -29,8 +29,8 @@
 <plugin id="ch.qos.logback.core"/>
 <plugin id="ch.qos.logback.slf4j"/>
 <plugin id="com.google.gson"/>
-<plugin id="com.google.guava" version="21.0.0.v20170206-1425"/>
 <plugin id="com.google.guava" version="15.0.0.v201403281430"/>
+<plugin id="com.google.guava" version="21.0.0.v20170206-1425"/>
 <plugin id="com.google.inject" version="3.0.0.v201312141243"/>
 <plugin id="com.google.inject.source"/>
 <plugin id="com.gradleware.tooling.client"/>
@@ -111,7 +111,7 @@
 <plugin id="org.apache.xml.serializer"/>
 <plugin id="org.apiguardian"/>
 <plugin id="org.apiguardian.source"/>
-<plugin id="org.dslforge.common.logging" version="0.9.1.201708202014"/>
+<plugin id="org.dslforge.common.logging"/>
 <plugin id="org.dslforge.styledtext"/>
 <plugin id="org.dslforge.texteditor"/>
 <plugin id="org.dslforge.texteditor.demo"/>
@@ -503,17 +503,17 @@
 <plugin id="org.eclipse.jem.util"/>
 <plugin id="org.eclipse.jetty.continuation"/>
 <plugin id="org.eclipse.jetty.continuation.source"/>
-<plugin id="org.eclipse.jetty.http"/>
+<plugin id="org.eclipse.jetty.http" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.http.source"/>
-<plugin id="org.eclipse.jetty.io"/>
+<plugin id="org.eclipse.jetty.io" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.io.source"/>
-<plugin id="org.eclipse.jetty.security"/>
+<plugin id="org.eclipse.jetty.security" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.security.source"/>
-<plugin id="org.eclipse.jetty.server"/>
+<plugin id="org.eclipse.jetty.server" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.server.source"/>
-<plugin id="org.eclipse.jetty.servlet"/>
+<plugin id="org.eclipse.jetty.servlet" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.servlet.source"/>
-<plugin id="org.eclipse.jetty.util"/>
+<plugin id="org.eclipse.jetty.util" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.util.source"/>
 <plugin id="org.eclipse.jetty.webapp"/>
 <plugin id="org.eclipse.jetty.xml"/>

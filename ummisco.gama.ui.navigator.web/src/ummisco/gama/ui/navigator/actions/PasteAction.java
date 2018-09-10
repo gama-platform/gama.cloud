@@ -8,7 +8,6 @@
  *******************************************************************************/
 package ummisco.gama.ui.navigator.actions;
 
-import java.awt.datatransfer.Clipboard;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +19,17 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.IStructuredSelection; 
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.CopyFilesAndFoldersOperation;
+import org.eclipse.ui.actions.CopyProjectOperation;
+import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.ui.internal.navigator.resources.plugin.WorkbenchNavigatorMessages;
+import org.eclipse.ui.part.ResourceTransfer;
 
 import msi.gama.application.workspace.WorkspaceModelsManager;
 import ummisco.gama.ui.navigator.contents.UserProjectsFolder;
@@ -147,39 +152,39 @@ public class PasteAction extends SelectionListenerAction {
 	@Override
 	public void run() {
 		// try a resource transfer
-//		final ResourceTransfer resTransfer = ResourceTransfer.getInstance();
-//		final IResource[] resourceData = (IResource[]) clipboard.getContents(resTransfer);
-//
-//		if (resourceData != null && resourceData.length > 0) {
-//			if (resourceData[0].getType() == IResource.PROJECT) {
-//				// enablement checks for all projects
-//				for (final IResource element : resourceData) {
-//					final CopyProjectOperation operation = new CopyProjectOperation(shell);
-//					operation.copyProject((IProject) element);
-//				}
-//			} else {
-//				// enablement should ensure that we always have access to a container
-//				final IContainer container = getTarget();
-//				final CopyFilesAndFoldersOperation operation = new CopyFilesAndFoldersOperation(shell);
-//				operation.copyResources(resourceData, container);
-//			}
-//			return;
-//		}
-//
-//		// try a file transfer
-//		final FileTransfer fileTransfer = FileTransfer.getInstance();
-//		final String[] fileData = (String[]) clipboard.getContents(fileTransfer);
-//
-//		if (fileData != null) {
-//			// enablement should ensure that we always have access to a container
-//			final IContainer container = getTarget();
-//			if (container == ResourcesPlugin.getWorkspace().getRoot()) {
-//				handlePaste(fileData);
-//				return;
-//			}
-//			final CopyFilesAndFoldersOperation operation = new CopyFilesAndFoldersOperation(shell);
-//			operation.copyFiles(fileData, container);
-//		}
+		final ResourceTransfer resTransfer = ResourceTransfer.getInstance();
+		final IResource[] resourceData = (IResource[]) clipboard.getContents(resTransfer);
+
+		if (resourceData != null && resourceData.length > 0) {
+			if (resourceData[0].getType() == IResource.PROJECT) {
+				// enablement checks for all projects
+				for (final IResource element : resourceData) {
+					final CopyProjectOperation operation = new CopyProjectOperation(shell);
+					operation.copyProject((IProject) element);
+				}
+			} else {
+				// enablement should ensure that we always have access to a container
+				final IContainer container = getTarget();
+				final CopyFilesAndFoldersOperation operation = new CopyFilesAndFoldersOperation(shell);
+				operation.copyResources(resourceData, container);
+			}
+			return;
+		}
+
+		// try a file transfer
+		final FileTransfer fileTransfer = FileTransfer.getInstance();
+		final String[] fileData = (String[]) clipboard.getContents(fileTransfer);
+
+		if (fileData != null) {
+			// enablement should ensure that we always have access to a container
+			final IContainer container = getTarget();
+			if (container == ResourcesPlugin.getWorkspace().getRoot()) {
+				handlePaste(fileData);
+				return;
+			}
+			final CopyFilesAndFoldersOperation operation = new CopyFilesAndFoldersOperation(shell);
+			operation.copyFiles(fileData, container);
+		}
 	}
 
 	// /**
@@ -207,8 +212,8 @@ public class PasteAction extends SelectionListenerAction {
 		final IResource[][] clipboardData = new IResource[1][];
 		shell.getDisplay().syncExec(() -> {
 			// clipboard must have resources or files
-//			final ResourceTransfer resTransfer = ResourceTransfer.getInstance();
-//			clipboardData[0] = (IResource[]) clipboard.getContents(resTransfer);
+			final ResourceTransfer resTransfer = ResourceTransfer.getInstance();
+			clipboardData[0] = (IResource[]) clipboard.getContents(resTransfer);
 		});
 		final IResource[] resourceData = clipboardData[0];
 		final boolean isProjectRes =
@@ -252,11 +257,11 @@ public class PasteAction extends SelectionListenerAction {
 			}
 			return true;
 		}
-//		final TransferData[] transfers = clipboard.getAvailableTypes();
-//		final FileTransfer fileTransfer = FileTransfer.getInstance();
-//		for (final TransferData transfer : transfers) {
-//			if (fileTransfer.isSupportedType(transfer)) { return true; }
-//		}
+		final TransferData[] transfers = clipboard.getAvailableTypes();
+		final FileTransfer fileTransfer = FileTransfer.getInstance();
+		for (final TransferData transfer : transfers) {
+			if (fileTransfer.isSupportedType(transfer)) { return true; }
+		}
 		return false;
 	}
 
@@ -270,22 +275,22 @@ public class PasteAction extends SelectionListenerAction {
 				try {
 					if (WorkspaceModelsManager.instance.isGamaProject(f)) {
 						container = WorkspaceModelsManager.createOrUpdateProject(f.getName());
-//						final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
-//						op.setVirtualFolders(false);
-//						final List<File> files = Arrays.<File> asList(f.listFiles());
-//						final List<String> names = new ArrayList<>();
-//						for (final File toCopy : files) {
-//							if (toCopy.getName().equals(".project")) {
-//								continue;
-//							}
-//							names.add(toCopy.getAbsolutePath());
-//						}
-//						op.copyFiles(names.toArray(new String[0]), container);
+						final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
+						op.setVirtualFolders(false);
+						final List<File> files = Arrays.<File> asList(f.listFiles());
+						final List<String> names = new ArrayList<>();
+						for (final File toCopy : files) {
+							if (toCopy.getName().equals(".project")) {
+								continue;
+							}
+							names.add(toCopy.getAbsolutePath());
+						}
+						op.copyFiles(names.toArray(new String[0]), container);
 					} else {
-//						container = WorkspaceModelsManager.instance.createUnclassifiedModelsProject(new Path(name));
-//						final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
-//						op.setVirtualFolders(false);
-//						op.copyFiles(new String[] { name }, container);
+						container = WorkspaceModelsManager.instance.createUnclassifiedModelsProject(new Path(name));
+						final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
+						op.setVirtualFolders(false);
+						op.copyFiles(new String[] { name }, container);
 					}
 					// RefreshHandler.run(container);
 				} catch (final CoreException e) {
@@ -294,12 +299,12 @@ public class PasteAction extends SelectionListenerAction {
 				}
 			} else {
 				try {
-//					container = WorkspaceModelsManager.instance.createUnclassifiedModelsProject(new Path(name));
-//					final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
-//					op.setVirtualFolders(false);
-//					op.copyFiles(new String[] { name }, container);
-//					// RefreshHandler.run(container);
-				} catch (final Exception e) {
+					container = WorkspaceModelsManager.instance.createUnclassifiedModelsProject(new Path(name));
+					final CopyFilesAndFoldersOperation op = new CopyFilesAndFoldersOperation(shell);
+					op.setVirtualFolders(false);
+					op.copyFiles(new String[] { name }, container);
+					// RefreshHandler.run(container);
+				} catch (final CoreException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -309,14 +314,9 @@ public class PasteAction extends SelectionListenerAction {
 
 	public void handlePasteIntoUserModels() {
 		final FileTransfer transfer = FileTransfer.getInstance();
-//		final String[] selection = (String[]) clipboard.getContents(transfer);
-//		if (selection != null && selection.length != 0) {
-//			handlePaste(selection);
-//		}
-	}
-
-	public void selectionChanged(IStructuredSelection structuredSelection) {
-		// TODO Auto-generated method stub
-		
+		final String[] selection = (String[]) clipboard.getContents(transfer);
+		if (selection != null && selection.length != 0) {
+			handlePaste(selection);
+		}
 	}
 }

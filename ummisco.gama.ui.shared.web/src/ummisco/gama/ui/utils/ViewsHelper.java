@@ -10,8 +10,6 @@
  **********************************************************************************************/
 package ummisco.gama.ui.utils;
 
-import org.eclipse.rap.rwt.RWT;
-
 import msi.gama.common.interfaces.IGamaView;
 
 public class ViewsHelper {
@@ -28,9 +26,8 @@ public class ViewsHelper {
 		// flash n times and thats it
 		final String orgText = part.getPartName();
 
-		final String uid=RWT.getUISession().getAttribute("user").toString();
 		for (int x = 0; x < numberOfTimes; x++) {
-			WorkbenchHelper.getDisplay(uid).timerExec(2 * rateOfChange * x - rateOfChange, new Runnable() {
+			WorkbenchHelper.getDisplay().timerExec(2 * rateOfChange * x - rateOfChange, new Runnable() {
 
 				@Override
 				public void run() {
@@ -38,7 +35,7 @@ public class ViewsHelper {
 					part.setName(tempMessage);
 				}
 			});
-			WorkbenchHelper.getDisplay(uid).timerExec(2 * rateOfChange * x, new Runnable() {
+			WorkbenchHelper.getDisplay().timerExec(2 * rateOfChange * x, new Runnable() {
 
 				@Override
 				public void run() {

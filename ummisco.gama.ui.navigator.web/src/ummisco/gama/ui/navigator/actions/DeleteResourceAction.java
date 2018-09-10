@@ -27,7 +27,12 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI; 
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.SelectionListenerAction;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
+import org.eclipse.ui.internal.ide.actions.LTKLauncher;
+import org.eclipse.ui.part.FileEditorInput;
 
 import ummisco.gama.ui.metadata.FileMetaDataProvider;
 import ummisco.gama.ui.navigator.contents.LinkedFile;
@@ -297,10 +302,5 @@ public class DeleteResourceAction extends SelectionListenerAction {
 		final IWorkbenchPage page = w.getActivePage();
 		if (page == null) { return; }
 		page.closeEditors(toClose.toArray(new IEditorReference[toClose.size()]), false);
-	}
-
-	public void selectionChanged(IStructuredSelection selection) {
-		// TODO Auto-generated method stub
-		
 	}
 }

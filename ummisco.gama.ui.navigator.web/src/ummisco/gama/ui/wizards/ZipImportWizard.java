@@ -1,5 +1,7 @@
 package ummisco.gama.ui.wizards;
 
-public class ZipImportWizard  {
+import org.eclipse.ui.wizards.datatransfer.ZipFileImportWizard;
+
+public class ZipImportWizard extends ZipFileImportWizard {
 
 }

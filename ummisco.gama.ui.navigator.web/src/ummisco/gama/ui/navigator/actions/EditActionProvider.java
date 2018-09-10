@@ -11,12 +11,13 @@ package ummisco.gama.ui.navigator.actions;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
-import org.eclipse.swt.SWT; 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchCommandConstants;
-import org.eclipse.ui.internal.navigator.TextActionHandler;
+import org.eclipse.ui.actions.TextActionHandler;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 
@@ -28,10 +29,10 @@ import ummisco.gama.ui.resources.GamaIcons;
  */
 public class EditActionProvider extends CommonActionProvider {
 
-//	private Clipboard clipboard;
-//	private CopyAction copyAction;
-//	private DeleteResourceAction deleteAction;
-//	private PasteAction pasteAction;
+	private Clipboard clipboard;
+	private CopyAction copyAction;
+	private DeleteResourceAction deleteAction;
+	private PasteAction pasteAction;
 	private TextActionHandler textActionHandler;
 	private Shell shell;
 
@@ -46,30 +47,30 @@ public class EditActionProvider extends CommonActionProvider {
 	}
 
 	protected void makeActions() {
-//		clipboard = new Clipboard(shell.getDisplay());
-//
-//		pasteAction = new PasteAction(shell, clipboard);
-//		pasteAction.setImageDescriptor(GamaIcons.create("menu.paste2").descriptor());
-//		pasteAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_PASTE);
-//
-//		copyAction = new CopyAction(shell, clipboard, pasteAction);
-//		copyAction.setImageDescriptor(GamaIcons.create("menu.copy2").descriptor());
-//		copyAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
-//
-//		final IShellProvider sp = () -> shell;
-//
-//		deleteAction = new DeleteResourceAction(sp);
-//		deleteAction.setImageDescriptor(GamaIcons.create("menu.delete2").descriptor());
-//		deleteAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_DELETE);
+		clipboard = new Clipboard(shell.getDisplay());
+
+		pasteAction = new PasteAction(shell, clipboard);
+		pasteAction.setImageDescriptor(GamaIcons.create("menu.paste2").descriptor());
+		pasteAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_PASTE);
+
+		copyAction = new CopyAction(shell, clipboard, pasteAction);
+		copyAction.setImageDescriptor(GamaIcons.create("menu.copy2").descriptor());
+		copyAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_COPY);
+
+		final IShellProvider sp = () -> shell;
+
+		deleteAction = new DeleteResourceAction(sp);
+		deleteAction.setImageDescriptor(GamaIcons.create("menu.delete2").descriptor());
+		deleteAction.setActionDefinitionId(IWorkbenchCommandConstants.EDIT_DELETE);
 
 	}
 
 	@Override
 	public void dispose() {
-//		if (clipboard != null) {
-//			clipboard.dispose();
-//			clipboard = null;
-//		}
+		if (clipboard != null) {
+			clipboard.dispose();
+			clipboard = null;
+		}
 		super.dispose();
 	}
 
@@ -81,9 +82,9 @@ public class EditActionProvider extends CommonActionProvider {
 	 */
 	public void handleKeyPressed(final KeyEvent event) {
 		if (event.character == SWT.DEL && event.stateMask == 0) {
-//			if (deleteAction.isEnabled()) {
-//				deleteAction.run();
-//			}
+			if (deleteAction.isEnabled()) {
+				deleteAction.run();
+			}
 
 			// Swallow the event.
 			event.doit = false;
@@ -97,34 +98,34 @@ public class EditActionProvider extends CommonActionProvider {
 			textActionHandler = new TextActionHandler(actionBars); // hook
 																	// handlers
 		}
-//		textActionHandler.setCopyAction(copyAction);
-//		textActionHandler.setPasteAction(pasteAction);
-//		textActionHandler.setDeleteAction(deleteAction);
+		textActionHandler.setCopyAction(copyAction);
+		textActionHandler.setPasteAction(pasteAction);
+		textActionHandler.setDeleteAction(deleteAction);
 		// renameAction.setTextActionHandler(textActionHandler);
 		updateActionBars();
 
-//		textActionHandler.updateActionBars();
+		textActionHandler.updateActionBars();
 	}
 
 	@Override
 	public void fillContextMenu(final IMenuManager menu) {
 		final IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 
-//		copyAction.selectionChanged(selection);
-//		menu.appendToGroup("group.copy", copyAction);
-//		pasteAction.selectionChanged(selection);
-//		menu.appendToGroup("group.copy", pasteAction);
-//		deleteAction.selectionChanged(selection);
-//		menu.appendToGroup("group.copy", deleteAction);
+		copyAction.selectionChanged(selection);
+		menu.appendToGroup("group.copy", copyAction);
+		pasteAction.selectionChanged(selection);
+		menu.appendToGroup("group.copy", pasteAction);
+		deleteAction.selectionChanged(selection);
+		menu.appendToGroup("group.copy", deleteAction);
 	}
 
 	@Override
 	public void updateActionBars() {
 		final IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 
-//		copyAction.selectionChanged(selection);
-//		pasteAction.selectionChanged(selection);
-//		deleteAction.selectionChanged(selection);
+		copyAction.selectionChanged(selection);
+		pasteAction.selectionChanged(selection);
+		deleteAction.selectionChanged(selection);
 
 	}
 }
