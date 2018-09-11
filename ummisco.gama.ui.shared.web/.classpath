@@ -6,7 +6,6 @@
 			<accessrule kind="accessible" pattern="org/e*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry excluding="ummisco/gama/ui/utils/WorkbenchHelper.java" kind="src" path="src"/>
-	<classpathentry excluding="ummisco/gama/ui/utils/WebGui2.java|msi/gama/core/web/editor/GamaPerspectiveHelper.java|msi/gama/core/web/editor/GamlEditorState.java|msi/gama/core/web/editor/IWorkbenchConstants.java|msi/gama/core/web/editor/PerspectiveHelper.java|ummisco/gama/ui/utils/WorkbenchHelper2.java" kind="src" path="internal_src"/>
+	<classpathentry excluding="msi/gama/core/web/editor/GamaPerspectiveHelper.java|msi/gama/core/web/editor/PerspectiveHelper.java" kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

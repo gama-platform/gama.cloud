@@ -1,12 +1,15 @@
 #!/bin/bash
 
-compile (){
-	echo "Compile GAMA cloud project"			
+install (){
+	echo "install GAMA cloud project"			
 	
+	cd org.dslforge.runtime.releng
+	mvn clean install
+	cd ..
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
-		mvn -X clean compile > output.txt
+		mvn -X clean install > output.txt
 		
 		git config --global user.email "travis@travis-ci.org"
 		git config --global user.name "Travis CI"
@@ -18,7 +21,7 @@ compile (){
 		git commit -m "debug output ci skip"
 		git push origin HEAD:master
 	else
-		mvn clean compile
+		mvn clean install
 	fi
 		
 	cd -
@@ -47,8 +50,7 @@ else
 			clean
 		fi 
 		deploy 
-	else	
-		
-		compile 
+	else			
+		install 
 	fi
 fi

@@ -58,3 +58,4 @@ Export-Package: msi.gama.core.web.customwidget,
  ummisco.gama.ui.views.toolbar
 Bundle-Activator: ummisco.gama.ui.Activator
 Import-Package: com.google.inject
+Bundle-ClassPath: .

@@ -9,6 +9,5 @@
 	<classpathentry excluding="msi/gama/lang/gaml/ide/|msi/gama/lang/gaml/ui/AutoStartup.java|msi/gama/lang/gaml/ui/GamlUiModule.java|msi/gama/lang/gaml/ui/InternalGamlLexer.java|msi/gama/lang/gaml/ui/OverridingModule.java|msi/gama/lang/gaml/ui/contentassist/GamlTemplateProposalProvider.java|msi/gama/lang/gaml/ui/decorators/GamlAnnotationImageProvider.java|msi/gama/lang/gaml/ui/decorators/GamlImageHelper.java|msi/gama/lang/gaml/ui/contentassist/GamlProposalProvider.java|msi/gama/lang/gaml/ui/contentassist/ContentAssistContextFactory.java|msi/gama/lang/gaml/ui/editor/GamlEditor.java|msi/gama/lang/gaml/ui/editor/GamlEditorState.java|msi/gama/lang/gaml/ui/editor/" kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="src-js"/>
-	<classpathentry kind="src" path="internal_src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
