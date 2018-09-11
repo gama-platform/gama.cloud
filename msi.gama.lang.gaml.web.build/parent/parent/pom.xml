@@ -19,7 +19,7 @@
 		<rap-repository>http://download.eclipse.org/rt/rap/3.0/</rap-repository>
 		<rap-incubator-repository>http://download.eclipse.org/rt/rap/incubator/nightly/</rap-incubator-repository>
 		<language.name>GamaWeb</language.name>
-		<xtext.version>2.10.0</xtext.version>
+		<xtext.version>2.14.0</xtext.version>
 		<xtend.maven.version>2.9.2</xtend.maven.version>
 	</properties>
 	<distributionManagement>
@@ -36,7 +36,7 @@
 	</distributionManagement>
 	
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>.</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -132,6 +132,11 @@
 		            <artifactId>maven-compiler-plugin</artifactId>
 		            <version>3.7.0</version>
 		            <configuration>
+			            <includes>
+				            <include>src/**/*.java</include>
+				            <include>internal_src/**/*.java</include>
+				            <include>modern_src/**/*.java</include>
+				        </includes>
 		                <compilerId>eclipse</compilerId>
 		                <source>${source.jdk.version}</source>
 		                <target>${target.jdk.version}</target>
