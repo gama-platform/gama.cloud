@@ -21,7 +21,7 @@ install (){
 		git commit -m "debug output ci skip"
 		git push origin HEAD:master
 	else
-		mvn clean install
+		mvn clean compile
 	fi
 		
 	cd -
