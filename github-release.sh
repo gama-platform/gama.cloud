@@ -4,7 +4,7 @@ COMMIT=$@
 
 REPO="gama-platform/gama.cloud"
 RELEASE="latest"
-thePATH="/home/travis/.m2/repository/msi/gama/GamaWeb.product/1.0.0-SNAPSHOT/GamaWeb.product-1.0.0-SNAPSHOT.war"
+thePATH="/home/travis/build/gama-platform/gama.cloud/gama.tomcat/target/GamaWeb.zip"
 
 
 
@@ -83,7 +83,7 @@ echo "Upload new files..."
 echo
 
 	FILE="${thePATH}"
-	NFILE="GamaWeb$SUFFIX"
+	NFILE="GamaWeb.zip"
 
   FILENAME=`basename $FILE`
   echo   "Uploading $NFILE...  "

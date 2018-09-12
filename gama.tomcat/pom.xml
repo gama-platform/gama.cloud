@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>msi.gama</groupId>
 	<artifactId>cict.gama.tomcat</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
@@ -32,15 +32,45 @@
 		<sourceDirectory>src</sourceDirectory> 
 		  <plugins>
 		  <plugin>
+		    <artifactId>maven-resources-plugin</artifactId>
+		    <version>3.0.2</version>
+		    <executions>
+		        <execution>
+		            <id>copy-files-on-build</id>
+		            <phase>validate</phase>
+		            <goals>
+		                <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		                <outputDirectory>${basedir}/[TO-DIR]</outputDirectory>
+		                <resources>
+		                    <resource>
+		                        <directory>[FROM-DIR]</directory>
+		                        <!--<include>*.[MIME-TYPE]</include>-->
+		                        <filtering>false</filtering>
+		                    </resource>
+		                </resources>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
+		 
+		  <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4.1</version>
 				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
 					<!-- get all project dependencies -->
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 					<!-- MainClass in mainfest make a executable jar -->
+					
+					<finalName>GamaWeb</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 					  <manifest>
 						<mainClass>cict.gama.tomcat.RunWarExample</mainClass>
@@ -51,7 +81,7 @@
 				<executions>
 				  <execution>
 					<id>make-assembly</id>
-                                        <!-- bind to the packaging phase -->
+                    <!-- bind to the packaging phase -->
 					<phase>package</phase> 
 					<goals>
 						<goal>single</goal>
@@ -59,8 +89,8 @@
 				  </execution>
 				</executions>
 			</plugin>
-		    <plugin>
-		      <!-- Build an executable JAR -->
+		 <!--  <plugin>
+		       Build an executable JAR 
 		      <groupId>org.apache.maven.plugins</groupId>
 		      <artifactId>maven-jar-plugin</artifactId>
 		      <version>3.1.0</version>
@@ -73,7 +103,7 @@
 		          </manifest>
 		        </archive>
 		      </configuration>
-		    </plugin>
+		    </plugin>-->
 		  </plugins> 
 	</build>
 </project>
