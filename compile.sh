@@ -21,9 +21,11 @@ install (){
 		git commit -m "debug output ci skip"
 		git push origin HEAD:master
 	else
-		mvn clean compile
+		mvn clean install
 	fi
-		
+		 	
+	cd GamaWeb 
+	mvn clean install
 	cd -
 }
 

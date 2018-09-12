@@ -99,9 +99,6 @@
       <plugin id="org.eclipse.persistence.core"/>
       <plugin id="org.eclipse.persistence.jpa"/>
       <plugin id="org.eclipse.persistence.jpa.jpql"/>
-      <plugin id="org.eclipse.rap.draw2d"/>
-      <plugin id="org.eclipse.rap.draw2d.compatibility"/>
-      <plugin id="org.eclipse.rap.gef"/>
       <plugin id="org.eclipse.rap.jface"/>
       <plugin id="org.eclipse.rap.jface.databinding"/>
       <plugin id="org.eclipse.rap.rwt"/>
@@ -111,8 +108,6 @@
       <plugin id="org.eclipse.rap.ui.navigator"/>
       <plugin id="org.eclipse.rap.ui.views"/>
       <plugin id="org.eclipse.rap.ui.workbench"/>
-      <plugin id="org.eclipse.rap.zest.core"/>
-      <plugin id="org.eclipse.rap.zest.layouts"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.xtend.lib"/>
@@ -138,8 +133,6 @@
       <plugin id="ummisco.gama.ui.modeling.web"/>
       <plugin id="ummisco.gama.ui.navigator.web"/>
       <plugin id="ummisco.gama.ui.shared.web"/>
-      <plugin id="ummisco.gama.web2d"/>
-      <plugin id="ummisco.gama.webopengl"/>
       <plugin id="ummisco.gaml.extensions.maths"/>
       <plugin id="ummisco.gaml.extensions.stats"/>
    </plugins>
