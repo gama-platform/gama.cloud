@@ -17,8 +17,6 @@
 
   <name>msi.gama.lang.gaml.web.build</name>
   <modules>
-		<!-- 
-		 -->
 		<module>../msi.gama.lang.gaml.web.target</module>
  			
  			
@@ -34,7 +32,9 @@
  		<module>../ummisco.gama.java2d.web</module>	
  		<module>../ummisco.gama.participative</module>	
  		
+		<!-- 
     	<module>GamaWeb</module>
+		 -->
 		 
     	
   </modules>

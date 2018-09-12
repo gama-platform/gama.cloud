@@ -23,6 +23,9 @@ install (){
 	else
 		mvn clean install
 	fi
+	
+	cd GamaWeb && 
+	mvn clean install
 		 	
 	cd -
 }
@@ -34,7 +37,20 @@ clean(){
 
 deploy(){	
 	echo "Deploy to p2 update site"	
-	sh ./deploy.sh
+	
+	
+	cd msi.gama.lang.gaml.web.build 
+	cd GamaWeb 
+	mvn deploy -P p2Repo --settings ../../settings.xml -Dmaven.test.skip=true 
+	cd ../..
+	cd cict.gama.tomcat 
+	mvn clean install 
+	cd target
+	sudo cp tomcat_launcher.jar GamaWeb
+	
+	sudo zip -qr "GamaWeb" . && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
+
+	cd -
 	
 }
 
