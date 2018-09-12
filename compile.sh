@@ -49,7 +49,7 @@ else
 		if  [[ ${MESSAGE} == *"ci clean"* ]] || [[ $MSG == *"ci clean"* ]]; then
 			clean
 		fi 
-		install 
+		deploy 
 	else			
 		install 
 	fi
