@@ -20,9 +20,9 @@
 		<module>../msi.gama.lang.gaml.web.target</module>
  			
  			
+ 		<module>../cict.gama.web.wrapper</module>	
  		<module>../msi.gama.core.web</module>	
  		<module>../msi.gama.lang.gaml.web</module>	
- 		<module>../cict.gama.web.wrapper</module>	
  		<module>../msi.gama.application.web</module>	
  		<module>../ummisco.gama.ui.shared.web</module>	
  		<module>../ummisco.gama.ui.navigator.web</module>	

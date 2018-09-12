@@ -58,7 +58,7 @@
 							<version>1.0.0-SNAPSHOT</version>
 						</artifact>
 					</target>
-					<environments>
+					<environments> 
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>

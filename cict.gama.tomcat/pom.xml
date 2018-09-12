@@ -77,7 +77,6 @@
                                 <resources>
                                     <resource>
 										<directory>../msi.gama.lang.gaml.web.build/GamaWeb/target/</directory>   <!-- source directory -->
-	                                    <filtering>true</filtering>
 	                                    <includes>      <!--Only those files will be included-->
 	                                        <include>GamaWeb.war</include>
 	                                    </includes>
