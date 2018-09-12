@@ -39,7 +39,16 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: msi.gama.lang.gaml.web.workbench,
  msi.gama.rap.oauth
 Bundle-ClassPath: .
-Import-Package: javax.servlet;resolution:=optional,
+Import-Package: com.google.api.client.auth.oauth2,
+ com.google.api.client.googleapis.auth.oauth2,
+ com.google.api.client.http,
+ com.google.api.client.http.javanet,
+ com.google.api.client.json,
+ com.google.api.client.json.jackson2,
+ com.google.api.services.drive,
+ com.google.gson,
+ javax.servlet;resolution:=optional,
  javax.servlet.http;resolution:=optional,
+ msi.gama.lang.gaml.web.workspace.ui,
  org.apache.log4j;resolution:=optional,
  org.osgi.service.http;resolution:=optional

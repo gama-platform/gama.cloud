@@ -15,7 +15,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
 import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
 
 public class Authorization {

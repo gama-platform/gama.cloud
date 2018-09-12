@@ -1,4 +1,4 @@
-package msi.gama.core.web.editor;
+package cict.gama.tomcat;
 import javax.servlet.ServletException;
 
 import org.apache.catalina.LifecycleException;

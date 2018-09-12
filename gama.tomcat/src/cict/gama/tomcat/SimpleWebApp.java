@@ -1,4 +1,4 @@
-package msi.gama.core.web.editor;
+package cict.gama.tomcat;
 
 import java.io.File;
 import java.io.IOException;

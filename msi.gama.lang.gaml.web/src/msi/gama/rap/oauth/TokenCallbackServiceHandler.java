@@ -29,16 +29,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.Drive.Children;
-import com.google.api.services.drive.Drive.Files;
 import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.ChildList;
-import com.google.api.services.drive.model.ChildReference;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
-
 import msi.gama.lang.gaml.web.workbench.BasicWorkbench;
 
 public class TokenCallbackServiceHandler implements ServiceHandler {

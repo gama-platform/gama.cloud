@@ -25,7 +25,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.IWorkbenchConstants;
