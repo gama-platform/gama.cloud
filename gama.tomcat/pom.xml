@@ -32,30 +32,6 @@
 		<sourceDirectory>src</sourceDirectory> 
 		  <plugins>
 		  <plugin>
-		    <artifactId>maven-resources-plugin</artifactId>
-		    <version>3.0.2</version>
-		    <executions>
-		        <execution>
-		            <id>copy-files-on-build</id>
-		            <phase>validate</phase>
-		            <goals>
-		                <goal>copy-resources</goal>
-		            </goals>
-		            <configuration>
-		                <outputDirectory>${basedir}/[TO-DIR]</outputDirectory>
-		                <resources>
-		                    <resource>
-		                        <directory>[FROM-DIR]</directory>
-		                        <!--<include>*.[MIME-TYPE]</include>-->
-		                        <filtering>false</filtering>
-		                    </resource>
-		                </resources>
-		            </configuration>
-		        </execution>
-		    </executions>
-		</plugin>
-		 
-		  <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4.1</version>
@@ -89,21 +65,7 @@
 				  </execution>
 				</executions>
 			</plugin>
-		 <!--  <plugin>
-		       Build an executable JAR 
-		      <groupId>org.apache.maven.plugins</groupId>
-		      <artifactId>maven-jar-plugin</artifactId>
-		      <version>3.1.0</version>
-		      <configuration>
-		        <archive>
-		          <manifest>
-		            <addClasspath>true</addClasspath>
-		            <classpathPrefix>lib/</classpathPrefix>
-		            <mainClass>cict.gama.tomcat.RunWarExample</mainClass>
-		          </manifest>
-		        </archive>
-		      </configuration>
-		    </plugin>-->
+		 
 		  </plugins> 
 	</build>
 </project>
