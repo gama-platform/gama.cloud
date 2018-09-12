@@ -5,8 +5,8 @@ define('ace/theme/gaml', ['require', 'exports', 'module' , 'ace/lib/dom'], funct
 
 exports.isDark = false;
 exports.cssText = ".ace-gaml .ace_gutter {\
-	background: #ebebeb;\
-	border-right: 1px solid rgb(159, 159, 159);\
+	background: #ffffff;\
+	border-right: 0px solid rgb(255, 255, 255);\
 	color: rgb(136, 136, 136);\
 }\
 .ace_gutter-cell.ace_error {\
@@ -47,8 +47,8 @@ exports.cssText = ".ace-gaml .ace_gutter {\
 	pointer-events: none;\
 }\
 .ace-gaml .ace_print-margin {\
-	width: 1px;\
-	background: #ebebeb;\
+	width: 0px;\
+	background: #ffffffff;\
 }\
 .ace-gaml {\
 	background-color: #FFFFFF;\
@@ -60,10 +60,21 @@ exports.cssText = ".ace-gaml .ace_gutter {\
 	border-left: 2px solid black;\
 }\
 .ace-gaml .ace_storage,\
-.ace-gaml .ace_keyword,\
+.ace-gaml .ace_keyword {\
+	font-weight: normal;\
+	color: rgb(127, 0, 85);\
+}\
 .ace-gaml .ace_variable {\
 	font-weight: bold;\
-	color: rgb(120, 0, 45);\
+	color: rgb(28, 125, 180);\
+}\
+.ace-gaml .ace_facet {\
+	font-weight: bold;\
+	color: rgb(154, 72, 71);\
+}\
+.ace-gaml .ace_pragma {\
+	font-style: italic;\
+	color: rgb(122, 122, 122);\
 }\
 .ace-gaml .ace_constant.ace_buildin {\
 	color: rgb(88, 72, 246);\
@@ -72,28 +83,29 @@ exports.cssText = ".ace-gaml .ace_gutter {\
 	color: rgb(6, 150, 14);\
 }\
 .ace-gaml .ace_function {\
-	color: rgb(60, 76, 114);\
+	font-weight: bold;\
+	color: rgb(46, 93, 78);\
 }\
 .ace-gaml .ace_string {\
-	color: rgb(42, 0, 255);\
+	color: rgb(116, 167, 251);\
 }\
 .ace-gaml .ace_comment {\
-	color: rgb(113, 150, 130);\
+	color: rgb(63, 127, 95);\
 }\
 .ace-gaml .ace_comment.ace_doc {\
-	color: rgb(63, 95, 191);\
+	color: rgb(63, 127, 95);\
 }\
 .ace-gaml .ace_comment.ace_doc.ace_tag {\
-	color: rgb(127, 159, 191);\
+	color: rgb(63, 127, 95);\
 }\
 .ace-gaml .ace_constant.ace_numeric {\
-	color: darkblue;\
+	color: rgb(125, 125, 125);\
 }\
 .ace-gaml .ace_tag {\
 	color: rgb(25, 118, 116);\
 }\
 .ace-gaml .ace_type {\
-	color: rgb(127, 0, 127);\
+	color: rgb(0, 79, 116);\
 }\
 .ace-gaml .ace_xml-pe {\
 	color: rgb(104, 104, 91);\
