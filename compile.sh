@@ -46,9 +46,9 @@ deploy(){
 	cd cict.gama.tomcat 
 	mvn clean install 
 	cd target
-	cp tomcat_launcher.jar GamaWeb
+	sudo cp tomcat_launcher.jar GamaWeb
 	ls GamaWeb
-	zip -r GamaWeb.zip GamaWeb/* && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
+	sudo zip -r GamaWeb.zip GamaWeb/* && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
 
 	cd -
 	
