@@ -48,7 +48,7 @@ deploy(){
 	cd target
 	sudo cp tomcat_launcher.jar GamaWeb
 	
-	sudo zip -qr "GamaWeb" . && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
+	sudo zip -qr "GamaWeb.zip" GamaWeb && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
 
 	cd -
 	
