@@ -24,8 +24,6 @@ install (){
 		mvn clean install
 	fi
 		 	
-	cd GamaWeb 
-	mvn clean install
 	cd -
 }
 
@@ -51,7 +49,7 @@ else
 		if  [[ ${MESSAGE} == *"ci clean"* ]] || [[ $MSG == *"ci clean"* ]]; then
 			clean
 		fi 
-		deploy 
+		install 
 	else			
 		install 
 	fi

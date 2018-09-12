@@ -164,12 +164,12 @@
          </property>
       </product>
    </extension>
-   <extension
+   <!--extension
          point="org.dslforge.workspace.config.configuration">
       <contribution
             path="./webapps/GamaWeb/wp">
       </contribution>
-   </extension>
+   </extension-->
    
    
    

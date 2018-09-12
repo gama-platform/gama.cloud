@@ -7,7 +7,7 @@ import org.apache.catalina.startup.Tomcat;
 public class RunWarExample {
 	 public static void main(String[] args) throws ServletException, LifecycleException {
 	        Tomcat tomcat = new Tomcat();
-	        tomcat.setBaseDir("D:/www");
+	        tomcat.setBaseDir("D:\\www");
 	        tomcat.setPort(8080);
 	         
 	        String contextPath = "/GamaWeb";     

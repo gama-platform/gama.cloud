@@ -143,24 +143,24 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 	private static void setupWorkspace() {
 		if (Platform.isRunning()) {
 			IExtensionRegistry registry = RegistryFactory.getRegistry();
-			IConfigurationElement[] configElements = registry.getConfigurationElementsFor(WORKSPACE_CONTRIBUTION_EXTENSION_POINT);
-			if (configElements.length != 0) {
-				for (IConfigurationElement configElement : configElements) { 
-					try {
-						if (configElement.getName().toLowerCase().equals(WORKSPACE_CONTRIBUTION_CONFIG_ELEMENT.toLowerCase())) {	
-							String workspaceRootPath = configElement.getAttribute(WORKSPACE_CONTRIBUTION_PATH); 
-							if (workspaceContributions.contains(workspaceRootPath)) {
-								logger.warn("Duplicate workspace contribution found for: " + workspaceRootPath);
-								continue;
-							}
-							WorkspaceContribution contribution = new WorkspaceContribution(workspaceRootPath);
-							workspaceContributions.add(contribution);
-						}	
-					} catch (Exception ex) {
-						logger.error(ex.getMessage(), ex);
-					}
-				}
-			}	
+//			IConfigurationElement[] configElements = registry.getConfigurationElementsFor(WORKSPACE_CONTRIBUTION_EXTENSION_POINT);
+//			if (configElements.length != 0) {
+//				for (IConfigurationElement configElement : configElements) { 
+//					try {
+//						if (configElement.getName().toLowerCase().equals(WORKSPACE_CONTRIBUTION_CONFIG_ELEMENT.toLowerCase())) {	
+//							String workspaceRootPath = configElement.getAttribute(WORKSPACE_CONTRIBUTION_PATH); 
+//							if (workspaceContributions.contains(workspaceRootPath)) {
+//								logger.warn("Duplicate workspace contribution found for: " + workspaceRootPath);
+//								continue;
+//							}
+//							WorkspaceContribution contribution = new WorkspaceContribution(workspaceRootPath);
+//							workspaceContributions.add(contribution);
+//						}	
+//					} catch (Exception ex) {
+//						logger.error(ex.getMessage(), ex);
+//					}
+//				}
+//			}	
 		} 
 		else throw new RuntimeException("Platform is not running at this point.");
 	}
