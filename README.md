@@ -2,7 +2,7 @@
 
 # gama.cloud
 # # Use as standalone mode
-Gama can run on local machine with an embedded tomcat server 8.0.48.
+This version of Gama can run on local machine with an embedded tomcat server 8.0.48.
 
 Step 1: Download the zip file released at https://github.com/gama-platform/gama.cloud/releases
 
