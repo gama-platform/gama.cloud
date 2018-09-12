@@ -3,9 +3,6 @@
 install (){
 	echo "install GAMA cloud project"			
 	
-	cd org.dslforge.runtime.releng
-	mvn clean install
-	cd ..
 	cd msi.gama.lang.gaml.web.build 
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
