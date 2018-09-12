@@ -6,11 +6,11 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <files> 
       <file>
-	      <source>${basedir}/target/cict.gama.tomcat-1.0.0-SNAPSHOT-jar-with-dependencies.jar</source>
+	      <source>target/cict.gama.tomcat-1.0.0-SNAPSHOT-jar-with-dependencies.jar</source>
 	      <outputDirectory>/</outputDirectory>
       </file> 
       <file>
-	      <source>${basedir}/../msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</source>
+	      <source>../msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</source>
 	      <outputDirectory>/</outputDirectory>
       </file>  
       <file>
