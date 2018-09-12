@@ -58,6 +58,8 @@ deploy(){
 MESSAGE=$(git log -1 HEAD --pretty=format:%s)
 echo $MESSAGE
 echo $MSG
+
+install 
 if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then 	
 	deploy  
 else
@@ -65,8 +67,6 @@ else
 		if  [[ ${MESSAGE} == *"ci clean"* ]] || [[ $MSG == *"ci clean"* ]]; then
 			clean
 		fi 
-		deploy 
-	else			
-		install 
+		deploy 	
 	fi
 fi
