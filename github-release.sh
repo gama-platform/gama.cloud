@@ -55,10 +55,12 @@ check=${#RESULT}
 
 if [ $check -ge 0 ]; then
 	json=$RESULT
-	prop='id'
-	
+	prop='id' 
+	echo $json
+	echo $prop
     temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
     
+	echo $temp
 	assets=`echo ${temp##*|}` 
 	num=`echo $assets| grep -o : | wc -l`
 	echo 
