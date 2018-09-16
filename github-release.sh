@@ -62,19 +62,21 @@ if [ $check -ge 0 ]; then
 	
     temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
     
-	assets=`echo ${temp##*|}`
-	echo $assets
-	for theid in $assets; do
-		if [ "$theid" != "id:" ]; then
-		  LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/assets/$theid"
-		  
-			echo   "Deleting $LK1...  "
-		  RESULT1=`curl  -s -X  "DELETE"                \
-			-H "Authorization: token $HQN_TOKEN"   \
-			"$LK1"`	
-			echo $RESULT1
-		fi
-	done 
+	assets=`echo ${temp##*|}` 
+	num=`echo $assets| grep -o : | wc -l`
+	if [ $num -gt 2 ]; then
+		for theid in $assets; do
+			if [ "$theid" != "id:" ]; then
+			  LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/assets/$theid"
+			  
+				echo   "Deleting $LK1...  "
+			  RESULT1=`curl  -s -X  "DELETE"                \
+				-H "Authorization: token $HQN_TOKEN"   \
+				"$LK1"`	
+				echo $RESULT1
+			fi
+		done 
+	fi
 fi
 
 
