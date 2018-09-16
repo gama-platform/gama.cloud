@@ -9,7 +9,8 @@
  **********************************************************************************************/
 package ummisco.gama.ui.utils;
 
-import java.util.HashMap; 
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
 
 
@@ -48,7 +49,9 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.progress.UIJob;
 
 import msi.gama.application.workspace.WorkspaceModelsManager;
+import msi.gama.common.interfaces.IGamaView;
 import msi.gama.runtime.IScope;
+import one.util.streamex.StreamEx;
 import ummisco.gama.ui.views.IGamlEditor;
 
 public class WorkbenchHelper {
@@ -189,7 +192,16 @@ public class WorkbenchHelper {
 		final IViewPart part = ref.getView(restore);
 		return part;
 	}
+
 	
+	public static void setWorkbenchWindowTitle(final String title) {
+		String uid="admin";
+		run(uid, () -> {
+			if (WorkbenchHelper.getShell(uid) != null)
+				WorkbenchHelper.getShell(uid).setText(title);
+		});
+
+	}
 	public static void setWorkbenchWindowTitle(final String uid, final String title) {
 		run(uid, () -> {
 			if (WorkbenchHelper.getShell(uid) != null)
@@ -245,7 +257,27 @@ public class WorkbenchHelper {
 		});
 		return (T) result[0];
 	}
-
+	
+	/**
+	 * @todo find a more robust way to find the view (maybe with the control ?)
+	 * @return
+	 */
+	public static IViewPart findFrontmostGamaViewUnderMouse() {
+		final IWorkbenchPage page = getPage();
+		if (page == null) { return null; }
+		final Point p = getDisplay().getCursorLocation();
+		final List<IGamaView.Display> displays = StreamEx.of(page.getViewReferences()).map((r) -> r.getView(false))
+				.filter((part) -> page.isPartVisible(part)).select(IGamaView.Display.class)
+				.filter((display) -> display.containsPoint(p.x, p.y)).toList();
+		if (displays.isEmpty()) { return null; }
+		if (displays.size() == 1) { return (IViewPart) displays.get(0); }
+		for (final IGamaView.Display display : displays) {
+			if (display.isFullScreen()) { return (IViewPart) display; }
+		}
+		// Strange: n views, none of them fullscreen, claiming to contain the mouse pointer...
+		return (IViewPart) displays.get(0);
+	}
+	
 	public static void asyncRun(final Runnable r) {
 		asyncRun("admin", r);
 	}

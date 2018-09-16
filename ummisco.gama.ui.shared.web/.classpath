@@ -6,6 +6,6 @@
 			<accessrule kind="accessible" pattern="org/e*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry excluding="msi/gama/core/web/editor/GamaPerspectiveHelper.java|msi/gama/core/web/editor/PerspectiveHelper.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
