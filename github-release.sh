@@ -51,12 +51,12 @@ echo $RELEASEID
   -d '{"name":"value"}' \
     "$LK"`
 
-check=${#RESULT}
 json=$RESULT
-if [ $json -gt 3 ]; then
+check=${#json}
+if [ $check -gt 3 ]; then
 	echo 
 	echo "Remove old files..."
-	echo 
+	echo
 	prop='id'
 	
     temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
