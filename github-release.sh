@@ -54,9 +54,6 @@ echo $RELEASEID
 check=${#RESULT}
 
 if [ $check -ge 0 ]; then
-	echo 
-	echo "Remove old files..."
-	echo
 	json=$RESULT
 	prop='id'
 	
@@ -64,6 +61,9 @@ if [ $check -ge 0 ]; then
     
 	assets=`echo ${temp##*|}` 
 	num=`echo $assets| grep -o : | wc -l`
+	echo 
+	echo "Remove old files..."
+	echo
 	if [ $num -gt 2 ]; then
 		for theid in $assets; do
 			if [ "$theid" != "id:" ]; then
