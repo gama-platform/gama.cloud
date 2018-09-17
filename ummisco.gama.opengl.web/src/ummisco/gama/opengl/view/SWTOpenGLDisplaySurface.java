@@ -40,6 +40,7 @@ import com.jogamp.opengl.swt.GLCanvas;
 import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 import com.vividsolutions.jts.geom.Envelope;
 
+import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IKeyword;
@@ -66,6 +67,7 @@ import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
 import ummisco.gama.dev.utils.DEBUG;
+import ummisco.gama.opengl.ModernRenderer;
 import ummisco.gama.opengl.renderer.IOpenGLRenderer;
 import ummisco.gama.opengl.renderer.JOGLRenderer;
 import ummisco.gama.ui.menus.AgentsMenu;
@@ -119,7 +121,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	}
 
 	protected IOpenGLRenderer createRenderer() {
-		final IOpenGLRenderer r = new JOGLRenderer();
+		final IOpenGLRenderer r = new ModernRenderer();
+//		final IOpenGLRenderer r = new JOGLRenderer();
 		return r;
 	}
 
@@ -137,15 +140,16 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		cap.setSampleBuffers(true);
 		cap.setAlphaBits(8);
 		cap.setNumSamples(8);
-		final GLCanvas canvas = new GLCanvas(parent, SWT.NONE, cap, null) {
-
-			@SuppressWarnings ("restriction")
-			@Override
-			public Rectangle getClientArea() {
-				if (isWindows() || isLinux()) { return autoScaleUp(super.getClientArea()); }
-				return super.getClientArea();
-			}
-		};
+//		final GLCanvas canvas = new GLCanvas(parent, SWT.NONE, cap, null) {
+//
+//			@SuppressWarnings ("restriction")
+//			@Override
+//			public Rectangle getClientArea() {
+//				if (isWindows() || isLinux()) { return autoScaleUp(super.getClientArea()); }
+//				return super.getClientArea();
+//			}
+//		};
+		WebGLComposite canvas =new WebGLComposite(parent, SWT.NONE);
 		canvas.setAutoSwapBufferMode(true);
 		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);

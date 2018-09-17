@@ -18,13 +18,6 @@ public class GLCanvas extends GLAutoDrawable {
 		return true;
 	}
 
-	public GLAnimatorControl getAnimator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
-
 	public GLCanvas(Composite parent, int none) {
 		// TODO Auto-generated constructor stub
 		super(parent, none);

@@ -10,7 +10,7 @@ public class GLAutoDrawable extends Composite{
 	protected GLContext mycontext=null;
 	public IOpenGLRenderer renderer;
 	protected GL2 myGL = null;
-	
+	private GLAnimatorControl myAnimatorControl;
 	public GLAutoDrawable(Composite parent, int style) {
 		super(parent, style);
 		// TODO Auto-generated constructor stub
@@ -25,8 +25,7 @@ public class GLAutoDrawable extends Composite{
 		renderer=r;		
 	}
 	public void setAnimator(GLAnimatorControl swtglAnimator) {
-		// TODO Auto-generated method stub
-		
+		myAnimatorControl=swtglAnimator;		
 	}
 
 	public boolean isRealized() {
@@ -36,6 +35,7 @@ public class GLAutoDrawable extends Composite{
 
 	public void display() throws GLException{
 		// TODO Auto-generated method stub
+		if (renderer==null) return;
 		if( !((Abstract3DRenderer)renderer).inited)
 		{
 			renderer.init(this);
@@ -65,7 +65,7 @@ public class GLAutoDrawable extends Composite{
 
 	public GLAnimatorControl getAnimator() {
 		// TODO Auto-generated method stub
-		return null;
+		return myAnimatorControl;
 	}
 
 	public GLContext getContext() {

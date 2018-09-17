@@ -38,7 +38,7 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 
 	@Override
 	public boolean isDisposed() {
-		return control.isDisposed();
+		return control==null?true:control.isDisposed();
 	}
 
 	@Override

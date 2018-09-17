@@ -45,12 +45,12 @@ public class ConsoleDisplayer implements IConsoleDisplayer {
 //		final String uid=RWT.getUISession().getAttribute("user").toString();
 		final String uid=WorkbenchHelper.UISession.get(root.getExperiment().getSpecies().getExperimentScope());
 
-		final IGamaView.Console console = (Console) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, true);
-		if (console != null) {
-			console.append(msg, root, color);
-		} else {
-			consoleBuffer.append(msg);
-		}
+//		final IGamaView.Console console = (Console) WorkbenchHelper.findView(uid,IGui.CONSOLE_VIEW_ID, null, true);
+//		if (console != null) {
+//			console.append(msg, root, color);
+//		} else {
+//			consoleBuffer.append(msg);
+//		}
 	}
 
 	@Override
