@@ -9,9 +9,10 @@
  **********************************************************************************************/
 package ummisco.gama.ui.utils;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
+
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -47,30 +48,15 @@ import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.progress.UIJob;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-
 import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.common.interfaces.IGamaView;
+import msi.gama.runtime.IScope;
 import one.util.streamex.StreamEx;
-import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.views.IGamlEditor;
 
 public class WorkbenchHelper {
-
-	static final Object NULL = new Object();
-
-	public final static LoadingCache<Class<?>, Object> SERVICES =
-			CacheBuilder.newBuilder().build(new CacheLoader<Class<?>, Object>() {
-
-				@Override
-				public Object load(final Class<?> key) throws Exception {
-					final Object o = getWorkbench().getService(key);
-					if (o == null) { return NULL; }
-					return o;
-				}
-			});
+	public static HashMap<String,IWorkbench> workbench=new HashMap<String,IWorkbench>();
+	public static HashMap<IScope,String> UISession=new HashMap<IScope,String>();
 
 	public final static String GAMA_NATURE = WorkspaceModelsManager.GAMA_NATURE;
 	public final static String XTEXT_NATURE = WorkspaceModelsManager.XTEXT_NATURE;
@@ -78,54 +64,42 @@ public class WorkbenchHelper {
 	public final static String TEST_NATURE = WorkspaceModelsManager.TEST_NATURE;
 	public final static String BUILTIN_NATURE = WorkspaceModelsManager.BUILTIN_NATURE;
 
-	private static Clipboard CLIPBOARD;
-	private final static Transfer[] TRANSFERS = new Transfer[] { TextTransfer.getInstance() };
-
-	public static Clipboard getClipboard() {
-		if (CLIPBOARD == null) {
-			CLIPBOARD = new Clipboard(getDisplay());
-		}
-		return CLIPBOARD;
+	public static void asyncRun(final String uid , final Runnable r) {
+//		final Display d = getDisplay(uid);
+//		if (d != null && !d.isDisposed()) {
+//			d.asyncExec(r);
+//		} else
+//			r.run();
+		run(uid,r);
 	}
 
-	public static void asyncRun(final Runnable r) {
-		final Display d = getDisplay();
+	public static void run(final String uid, final Runnable r) {
+		final Display d = getDisplay(uid);
 		if (d != null && !d.isDisposed()) {
-			d.asyncExec(r);
-		} else {
+			d.syncExec(r);
+		} else
 			r.run();
-		}
 	}
 
-	public static void run(final Runnable r) {
-		final Display d = getDisplay();
-		if (d != null && !d.isDisposed()) {
-			if (d.getThread() == Thread.currentThread()) {
-				r.run();
-			} else {
-				d.syncExec(r);
-			}
-		} else {
-			r.run();
-		}
-	}
-
-	public static Display getDisplay() {
-		return getWorkbench().getDisplay();
+	public static Display getDisplay(final String uid) {
+		return getWorkbench(uid).getDisplay();
 	}
 
 	public static IWorkbenchPage getPage() {
-		final IWorkbenchWindow w = getWindow();
+		return getPage("admin");
+	}
+	public static IWorkbenchPage getPage(final String uid) {
+		final IWorkbenchWindow w = getWindow(uid);
 		if (w == null) { return null; }
 		final IWorkbenchPage p = w.getActivePage();
 		return p;
 	}
 
-	public static IWorkbenchPage getPage(final String perspectiveId) {
-		IWorkbenchPage p = getPage();
+	public static IWorkbenchPage getPage(final String uid, final String perspectiveId) {
+		IWorkbenchPage p = getPage(uid);
 		if (p == null && perspectiveId != null) {
 			try {
-				p = getWindow().openPage(perspectiveId, null);
+				p = getWindow(uid).openPage(perspectiveId, null);
 
 			} catch (final WorkbenchException e) {
 				e.printStackTrace();
@@ -134,63 +108,80 @@ public class WorkbenchHelper {
 		return p;
 	}
 
-	public static Shell getShell() {
-
-		return getDisplay().getActiveShell();
+	public static Shell getShell(final String uid) {
+		return getDisplay(uid).getActiveShell();
+	}
+	public static IWorkbenchWindow getWindow() {
+		return getWindow("admin");
 	}
 
-	public static IWorkbenchWindow getWindow() {
-		IWorkbenchWindow w = null;
-		try {
-			w = getWorkbench().getActiveWorkbenchWindow();
-		} catch (final Exception e) {
-			DEBUG.ERR("SWT bug: Window not found ");
-		}
+	public static IWorkbenchWindow getWindow(final String uid) {
+		final IWorkbenchWindow w = getWorkbench(uid).getActiveWorkbenchWindow();
+
 		if (w == null) {
-			final IWorkbenchWindow[] windows = getWorkbench().getWorkbenchWindows();
+			final IWorkbenchWindow[] windows = getWorkbench(uid).getWorkbenchWindows();
 			if (windows != null && windows.length > 0) { return windows[0]; }
 		}
 		return w;
 	}
 
 	public static IGamlEditor getActiveEditor() {
-		final IWorkbenchPage page = getPage();
+		return getActiveEditor("admin");
+	}
+	
+	public static IGamlEditor getActiveEditor(final String uid) {
+		final IWorkbenchPage page = getPage(uid);
 		if (page != null) {
 			final IEditorPart editor = page.getActiveEditor();
-			if (editor instanceof IGamlEditor) { return (IGamlEditor) editor; }
+			if (editor instanceof IGamlEditor)
+				return (IGamlEditor) editor;
 		}
 		return null;
 	}
 
 	public static IWorkbenchPart getActivePart() {
-		final IWorkbenchPage page = getPage();
+		return getActivePart("admin");
+	}
+	
+	public static IWorkbenchPart getActivePart(final String uid) {
+		final IWorkbenchPage page = getPage(uid);
 		if (page != null) { return page.getActivePart(); }
 		return null;
 	}
+//	private static String uid="user";
+//	public static void setUID(final String u) {
+//		uid=u;
+//	}
+//	public static String getUID() {
+//		return uid;
+//	}
+	
+	public static String getUIDfromScope(final IScope scope) {
+		return UISession.get(scope);
+	}
+	
 
-	public static IWorkbench getWorkbench() {
+   	public static IWorkbench getWorkbench() {
+   		return getWorkbench("admin");
+   	}
+	
+   	public static IWorkbench getWorkbench(final String uid) {
+//		return WorkbenchHelper.getWorkbench();getWindowConfigurer()		
+		IWorkbench w=workbench.get(uid);
+		if(w!=null) {
+			return w;
+		}			
+//		System.out.println("..................WB not found uid "+uid);
 		return PlatformUI.getWorkbench();
 	}
 
-	public static IGamaView.Display findDisplay(final String id) {
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
+	public static IViewPart findView(final String uid, final String id, final String second, final boolean restore) {
+		final IWorkbenchPage page = WorkbenchHelper.getPage(uid);
 		if (page == null) { return null; } // Closing the workbench
-		final IViewReference ref = page.findViewReference(id);
+		final IViewReference ref = page.findViewReference(id, second);
 		if (ref == null) { return null; }
-		final IViewPart view = ref.getView(false);
-		if (view instanceof IGamaView.Display) { return (IGamaView.Display) view; }
-		return null;
-	}
-
-	public static boolean isDisplay(final String id) {
-		if (!id.startsWith(SwtGui.GL_LAYER_VIEW_ID) && !id.startsWith(SwtGui.LAYER_VIEW_ID)) { return false; }
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) { return false; } // Closing the workbench
-		final IViewReference ref = page.findViewReference(id);
-		return ref != null;
-		// final IViewPart view = ref.getView(false);
-		// if (view instanceof IGamaView.Display) { return (IGamaView.Display) view; }
-		// return <
+		final IViewPart part = ref.getView(restore);
+		return part;
 	}
 
 	public static IViewPart findView(final String id, final String second, final boolean restore) {
@@ -202,23 +193,28 @@ public class WorkbenchHelper {
 		return part;
 	}
 
-	public static List<IGamaView.Display> getDisplayViews() {
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) { return Collections.EMPTY_LIST; } // Closing the workbench
-		return StreamEx.of(page.getViewReferences()).map(v -> v.getView(false)).select(IGamaView.Display.class)
-				.toList();
-	}
-
+	
 	public static void setWorkbenchWindowTitle(final String title) {
-		asyncRun(() -> {
-			if (WorkbenchHelper.getShell() != null) {
-				WorkbenchHelper.getShell().setText(title);
-			}
+		String uid="admin";
+		run(uid, () -> {
+			if (WorkbenchHelper.getShell(uid) != null)
+				WorkbenchHelper.getShell(uid).setText(title);
+		});
+
+	}
+	public static void setWorkbenchWindowTitle(final String uid, final String title) {
+		run(uid, () -> {
+			if (WorkbenchHelper.getShell(uid) != null)
+				WorkbenchHelper.getShell(uid).setText(title);
 		});
 
 	}
 
 	public static void hideView(final String id) {
+		hideView("admin",id);
+	}
+
+	public static void hideView(final String uid, final String id) {
 
 		run(() -> {
 			final IWorkbenchPage activePage = getPage();
@@ -230,28 +226,38 @@ public class WorkbenchHelper {
 		});
 
 	}
+	
+
 
 	public static void hideView(final IViewPart gamaViewPart) {
-		final IWorkbenchPage activePage = getPage();
+		hideView("admin",gamaViewPart);
+	}
+
+
+	public static void hideView(final String uid, final IViewPart gamaViewPart) {
+		final IWorkbenchPage activePage = getPage(uid);
 		if (activePage == null) { return; } // Closing the workbenc
 		activePage.hideView(gamaViewPart);
 
 	}
-
-	@SuppressWarnings ("unchecked")
 	public static <T> T getService(final Class<T> class1) {
-		final Object o = SERVICES.getUnchecked(class1);
-		if (o == NULL) {
-			SERVICES.invalidate(class1);
-			return null;
-		}
-		return (T) o;
+		return getService("admin",class1);
 	}
 
-	public static void copy(final String o) {
-		getClipboard().setContents(new String[] { o }, TRANSFERS);
-	}
+	public static <T> T getService(final String uid, final Class<T> class1) {
 
+		final Object[] result = new Object[1];
+		run(uid, new Runnable() {
+
+			@Override
+			public void run() {
+				result[0] = getWorkbench(uid).getService(class1);
+
+			}
+		});
+		return (T) result[0];
+	}
+	
 	/**
 	 * @todo find a more robust way to find the view (maybe with the control ?)
 	 * @return
@@ -271,6 +277,27 @@ public class WorkbenchHelper {
 		// Strange: n views, none of them fullscreen, claiming to contain the mouse pointer...
 		return (IViewPart) displays.get(0);
 	}
+	
+	public static void asyncRun(final Runnable r) {
+		asyncRun("admin", r);
+	}
+
+	public static Shell getShell() {
+		return getShell("admin");
+	}
+
+	public static void run(final Runnable r) {
+		run("admin", r);
+	}
+
+	public static void copy(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static Display getDisplay() {
+		return getDisplay("admin");
+	} 
 
 	public static Shell obtainFullScreenShell(final int id) {
 		final Monitor[] monitors = WorkbenchHelper.getDisplay().getMonitors();
