@@ -53,7 +53,8 @@ echo $RELEASEID
 
 json=$RESULT
 check=${#json}
-if [ $check -gt 3 ]; then
+echo $check
+if [ $check -gt 4 ]; then
 	echo 
 	echo "Remove old files..."
 	echo
