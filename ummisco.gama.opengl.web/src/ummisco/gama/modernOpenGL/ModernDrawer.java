@@ -244,43 +244,43 @@ public class ModernDrawer {
 		currentLayer = layer;
 		if (layerStructureMap.get(currentLayer) == null) { return; // if nothing is to draw for this layer, do nothing.
 		}
-//		final ArrayList<AbstractShader> shaderList = layerStructureMap.get(currentLayer).shaderList;
-//		for (final AbstractShader shader : shaderList) {
-//			// set the current layer drawn
-//
-//			shader.start();
-//
-//			updateTransformationMatrix(shader);
-//			final int[] typeOfDrawing = typeOfDrawingMap.get(shader);
-//
-//			/////////////////////////////////////// :
-//			// VERTICES POSITIONS BUFFER
-//			bindBuffer(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, typeOfDrawing[2]);
-//
-//			// COLORS BUFFER
-//			bindBuffer(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, typeOfDrawing[2]);
-//
-//			// UV MAPPING (If a texture is defined)
-//			if (shader.useTexture()) {
-//				bindBuffer(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, typeOfDrawing[2]);
-//				gl.glActiveTexture(GL.GL_TEXTURE0);
-//				gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
-//			}
-//
-//			// NORMAL BUFFER
-//			if (shader.useNormal())
-//				bindBuffer(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, typeOfDrawing[2]);
-//
-//			// INDEX BUFFER
-//			// Select the VBO, GPU memory data, to use for colors
-//			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
-//					layerStructureMap.get(currentLayer).vboHandles[typeOfDrawing[2] * 5 + IDX_BUFF_IDX]);
-//			//////////////////////////////////
-//
-//			drawVBO(typeOfDrawing);
-//
-//			shader.stop();
-//		}
+		final ArrayList<AbstractShader> shaderList = layerStructureMap.get(currentLayer).shaderList;
+		for (final AbstractShader shader : shaderList) {
+			// set the current layer drawn
+
+			shader.start();
+
+			updateTransformationMatrix(shader);
+			final int[] typeOfDrawing = typeOfDrawingMap.get(shader);
+
+			/////////////////////////////////////// :
+			// VERTICES POSITIONS BUFFER
+			bindBuffer(AbstractShader.POSITION_ATTRIBUTE_IDX, VERTICES_IDX, typeOfDrawing[2]);
+
+			// COLORS BUFFER
+			bindBuffer(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, typeOfDrawing[2]);
+
+			// UV MAPPING (If a texture is defined)
+			if (shader.useTexture()) {
+				bindBuffer(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, typeOfDrawing[2]);
+				gl.glActiveTexture(GL.GL_TEXTURE0);
+				gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
+			}
+
+			// NORMAL BUFFER
+			if (shader.useNormal())
+				bindBuffer(AbstractShader.NORMAL_ATTRIBUTE_IDX, NORMAL_IDX, typeOfDrawing[2]);
+
+			// INDEX BUFFER
+			// Select the VBO, GPU memory data, to use for colors
+			gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER,
+					layerStructureMap.get(currentLayer).vboHandles[typeOfDrawing[2] * 5 + IDX_BUFF_IDX]);
+			//////////////////////////////////
+
+			drawVBO(typeOfDrawing);
+
+			shader.stop();
+		}
 	}
 
 	@SuppressWarnings ("null")
@@ -305,17 +305,17 @@ public class ModernDrawer {
 
 		// prepare shader
 //		shader.start();
-		prepareShader(null, shader);
+//		prepareShader(null, shader);
 
 		// build the surface
-		if (shader instanceof KeystoneShaderProgram) {
-			// special case of the keystoning effect
-			textureWith4Coordinates = true;
-			createScreenSurface(currentShaderNumber, inputFbo.getFBOTexture());
-			textureWith4Coordinates = false;
-		} else {
-			createPostprocessingSurface(currentShaderNumber, inputFbo.getFBOTexture());
-		}
+//		if (shader instanceof KeystoneShaderProgram) {
+//			// special case of the keystoning effect
+//			textureWith4Coordinates = true;
+//			createScreenSurface(currentShaderNumber, inputFbo.getFBOTexture());
+//			textureWith4Coordinates = false;
+//		} else {
+//			createPostprocessingSurface(currentShaderNumber, inputFbo.getFBOTexture());
+//		}
 		currentShaderNumber++;
 
 		// draw
@@ -643,7 +643,7 @@ public class ModernDrawer {
 		int offset = 0;
 		for (final float[] data : listData) {
 			final FloatBuffer fbData = Buffers.newDirectFloatBuffer(data/* totalData,positionInBuffer */);
-			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, fbData);
+			gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, offset, data.length * 4, data);
 			offset += data.length * 4;
 			fbData.rewind(); // It is OK to release CPU after transfer to GPU
 		}

@@ -27,7 +27,7 @@ public class GLCanvas extends GLAutoDrawable {
 		// TODO Auto-generated constructor stub
 		super(parent, none);
 	}
-
+	
 	public boolean isDisposed() {
 		// TODO Auto-generated method stub
 		return false;

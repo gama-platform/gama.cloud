@@ -68,8 +68,7 @@ import msi.gaml.statements.draw.DrawingAttributes;
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.Abstract3DRenderer.PickingState;
 import ummisco.gama.opengl.GeometryCache;
-import ummisco.gama.opengl.GeometryCache.BuiltInGeometry;
-import ummisco.gama.opengl.JOGLRenderer;
+import ummisco.gama.opengl.GeometryCache.BuiltInGeometry; 
 import ummisco.gama.opengl.TextRenderersCache;
 
 /**
@@ -160,9 +159,9 @@ public class OpenGL {
 		worldX = renderer.getEnvWidth();
 		worldY = renderer.getEnvHeight();
 		pickingState = renderer.getPickingState();
-		if (renderer instanceof JOGLRenderer)
-			geometryCache = new GeometryCache((JOGLRenderer) renderer);
-		else
+//		if (renderer instanceof JOGLRenderer)
+//			geometryCache = new GeometryCache((JOGLRenderer) renderer);
+//		else
 			geometryCache = null;
 		volatileTextures = CacheBuilder.newBuilder().build(new CacheLoader<BufferedImage, Texture>() {
 
@@ -698,7 +697,7 @@ public class OpenGL {
 		if (file == null) { return null; }
 		Texture texture = null;
 		if (isAnimated || !useCache) {
-			final BufferedImage image = ImageUtils.getInstance().getImageFromFile(file, useCache);
+			final BufferedImage image = ImageUtils.getInstance().getImageFromFile(file, useCache, true);
 			texture = getTexture(image);
 
 		} else
@@ -711,7 +710,7 @@ public class OpenGL {
 	}
 
 	private static Texture buildTexture(final GL gl, final File file) {
-		final BufferedImage im = ImageUtils.getInstance().getImageFromFile(file, true);
+		final BufferedImage im = ImageUtils.getInstance().getImageFromFile(file, true, true);
 		return buildTexture(gl, im);
 	}
 
@@ -740,7 +739,7 @@ public class OpenGL {
 			if (!IsPowerOfTwo(image.getWidth()) || !IsPowerOfTwo(image.getHeight())) {
 				final int width = getClosestPow(image.getWidth());
 				final int height = getClosestPow(image.getHeight());
-				corrected = ImageUtils.createCompatibleImage(width, height);
+				corrected = ImageUtils.createCompatibleImage(width, height, true);
 				final Graphics2D g2 = corrected.createGraphics();
 				g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 						RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);

@@ -154,6 +154,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
 		renderer.setCanvas(canvas);
+		canvas.setRenderer(renderer);
 		final FillLayout gl = new FillLayout();
 		canvas.setLayout(gl);
 		return canvas;

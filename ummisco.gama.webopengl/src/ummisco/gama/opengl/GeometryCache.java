@@ -81,7 +81,7 @@ public class GeometryCache {
 	private final IScope scope;
 	private final Consumer<Geometry> drawer;
 
-	public GeometryCache(final JOGLRenderer renderer) {
+	public GeometryCache(final ModernRenderer renderer) {
 		this.scope = renderer.getSurface().getScope().copy("Geometry cache");
 		this.drawer = g -> renderer.getGeometryDrawer().drawGeometry(g, true, null, 0, getTypeOf(g));
 		envelopes = CacheBuilder.newBuilder().build();

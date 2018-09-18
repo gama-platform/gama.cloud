@@ -24,14 +24,19 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
 import msi.gama.common.geometry.Scaling3D;
+import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.layers.OverlayLayer;
+import msi.gama.outputs.layers.charts.ChartOutput;
 import msi.gama.util.file.GamaFile;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
 import ummisco.gama.modernOpenGL.ModernDrawer;
+import ummisco.gama.opengl.scene.FieldDrawer;
+import ummisco.gama.opengl.scene.GeometryDrawer;
+import ummisco.gama.opengl.scene.StringDrawer;
 import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.TransformationMatrix;
@@ -48,13 +53,14 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	private Matrix4f projectionMatrix;
 	private ModernDrawer drawer;
+	private GeometryDrawer geometryDrawer;
 	public boolean renderToTexture = true;
 	public boolean colorPicking = false;
 	private final IKeystoneState keystone = new KeystoneState();
 
 	public class KeystoneState implements IKeystoneState {
 		private boolean drawKeystoneHelper = false;
-
+		
 		protected float[][] coords;
 
 		@Override
@@ -215,6 +221,12 @@ public class ModernRenderer extends Abstract3DRenderer {
 		inited = true;
 	}
 
+
+	@Override
+	public void setDisplaySurface(final IDisplaySurface d) {
+		super.setDisplaySurface(d); 
+		geometryDrawer = new GeometryDrawer(this); 
+	}
 	@Override
 	public void display(final GLAutoDrawable drawable) {
 
@@ -310,7 +322,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	// Use when the rotation button is on.
 	public void rotateModel() {
-		if (data.isRotationOn()) {
+		if (data.isContinuousRotationOn()) {
 			data.incrementZRotation();
 		}
 	}
@@ -375,6 +387,16 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public boolean cannotDraw() {
 		return sceneBuffer.getSceneToUpdate() != null && sceneBuffer.getSceneToUpdate().cannotAdd();
+	}
+
+	@Override
+	public Rectangle2D drawChart(ChartOutput chart) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public GeometryDrawer getGeometryDrawer() {
+		return geometryDrawer;
 	}
 
 }

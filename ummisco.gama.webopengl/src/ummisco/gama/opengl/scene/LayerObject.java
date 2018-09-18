@@ -18,13 +18,16 @@ import com.jogamp.opengl.GL2;
 import com.vividsolutions.jts.geom.Geometry;
 
 import msi.gama.common.geometry.Scaling3D;
-import msi.gama.common.interfaces.ILayer;
-import msi.gama.core.web.editor.GAMAHelper;
+import msi.gama.common.interfaces.IKeyword;
+import msi.gama.common.interfaces.ILayer; 
 import msi.gama.metamodel.agent.AgentIdentifier;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.IShape; 
 import msi.gama.outputs.layers.OverlayLayer;
+import msi.gama.runtime.IScope;
 import msi.gama.util.file.GamaGeometryFile;
+import msi.gaml.expressions.IExpression;
+import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
 import msi.gaml.types.GamaGeometryType;
@@ -69,7 +72,7 @@ public class LayerObject {
 		this.layer = layer;
 		this.overlay = computeOverlay();
 		currentList = newCurrentList();
-		if (layer != null && layer.getTrace() != null ) { //|| renderer instanceof ModernRenderer
+		if (layer != null && layer.getData().getTrace() != null ) { //|| renderer instanceof ModernRenderer
 			objects = new LinkedList();
 			objects.add(currentList);
 		} else
@@ -89,7 +92,7 @@ public class LayerObject {
 	}
 
 	protected boolean isPickable() {
-		return layer == null ? false : layer.isSelectable();
+		return layer == null ? false : layer.getData().isSelectable();
 	}
 
 	public void draw(final OpenGL gl) {
@@ -216,17 +219,25 @@ public class LayerObject {
 	}
 
 	private void addFrame(final OpenGL gl) {
-		final double width = layer.getDefinition().getBox().getSize().getX();
-		final double height = layer.getDefinition().getBox().getSize().getY();
-
+		GamaPoint scale = new GamaPoint(renderer.getEnvWidth(), renderer.getEnvHeight());
+		final IScope scope = renderer.getSurface().getScope();
+		final IExpression expr = layer.getDefinition().getFacet(IKeyword.SIZE);
+		if (expr != null) {
+			scale = (GamaPoint) Cast.asPoint(scope, expr.value(scope));
+			if (scale.x <= 1) {
+				scale.x *= renderer.getEnvWidth();
+			}
+			if (scale.y <= 1) {
+				scale.y *= renderer.getEnvHeight();
+			}
+		}
 		gl.pushMatrix();
-		gl.translateBy(offset.x, -offset.y - height, 0);
-		gl.scaleBy(width, height, 1);
-		gl.setCurrentColor(((OverlayLayer) layer).getBackground());
-		gl.setCurrentObjectAlpha(((OverlayLayer) layer).getDefinition().getTransparency());
+		gl.translateBy(0, -scale.y, 0);
+		gl.scaleBy(scale.x, scale.y, 1);
+		gl.setCurrentColor(((OverlayLayer) layer).getData().getBackgroundColor());
+		gl.setCurrentObjectAlpha(((OverlayLayer) layer).getData().getTransparency());
 		gl.drawCachedGeometry(IShape.Type.ROUNDED, null);
-		gl.popMatrix();
-		gl.translateBy(offset.x, -offset.y, 0);
+		gl.popMatrix(); 
 	}
 
 	protected void drawAllObjects(final OpenGL gl, final boolean picking) {
@@ -259,7 +270,7 @@ public class LayerObject {
 
 	public boolean isStatic() {
 		if (layer == null) { return true; }
-		return !layer.isDynamic();
+		return !layer.getData().isDynamic();
 	}
 
 	public void setAlpha(final Double a) {
@@ -336,13 +347,13 @@ public class LayerObject {
 
 	private int getTrace() {
 		if (layer == null) { return 0; }
-		final Integer trace = layer.getTrace();
+		final Integer trace = layer.getData().getTrace();
 		return trace == null ? 0 : trace;
 	}
 
 	private boolean getFading() {
 		if (layer == null) { return false; }
-		final Boolean fading = layer.getFading();
+		final Boolean fading = layer.getData().getFading();
 		return fading == null ? false : fading;
 	}
 

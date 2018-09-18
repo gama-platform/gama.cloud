@@ -34,6 +34,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.interfaces.IDisplaySurface;
+import msi.gama.common.interfaces.IKeyword;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.metamodel.shape.GamaPoint;
@@ -41,8 +42,12 @@ import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.display.AbstractDisplayGraphics;
 import msi.gama.outputs.layers.OverlayLayer;
+import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gama.util.file.GamaImageFile;
+import msi.gaml.expressions.IExpression;
+import msi.gaml.expressions.PixelUnitExpression;
+import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
 import msi.gaml.statements.draw.ShapeDrawingAttributes;
@@ -263,7 +268,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		if (currentLayer == null) {
 			return getDisplayWidth() / data.getEnvWidth();
 		} else if (currentLayer instanceof OverlayLayer) { return this.getViewWidth() / data.getEnvWidth(); }
-		return currentLayer.getSizeInPixels().x / data.getEnvWidth();
+		return currentLayer.getData().getSizeInPixels().x / data.getEnvWidth();
 	}
 
 	@Override
@@ -274,7 +279,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 			// return getxRatioBetweenPixelsAndModelUnits();
 			return this.getViewHeight() / data.getEnvHeight();
 		} else {
-			return currentLayer.getSizeInPixels().y / data.getEnvHeight();
+			return currentLayer.getData().getSizeInPixels().y / data.getEnvHeight();
 		}
 	}
 
@@ -364,18 +369,15 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public final SWTOpenGLDisplaySurface getSurface() {
 		return (SWTOpenGLDisplaySurface) surface;
 	}
-
-	@Override
+ 
 	public final ILocation getCameraPos() {
 		return camera.getPosition();
 	}
-
-	@Override
+ 
 	public final ILocation getCameraTarget() {
 		return camera.getTarget();
 	}
-
-	@Override
+ 
 	public final ILocation getCameraOrientation() {
 		return camera.getOrientation();
 	}
@@ -593,28 +595,40 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		layer.reloadOn(surface);
 		super.beginDrawingLayer(layer);
 		GamaPoint currentOffset, currentScale;
-		if (!layer.isOverlay()) {
-			final double currentZLayer = getMaxEnvDim() * (layer.getPosition().getZ() + layer.getAddedElevation());
+		currentOffset = new GamaPoint(0, 0);
+		final IScope scope = getSurface().getScope();
+		final IExpression expr = layer.getDefinition().getFacet(IKeyword.POSITION);
 
-			// get the value of the z scale if positive otherwise set it to 1.
-			double z_scale;
-			if (layer.getExtent().getZ() > 0) {
-				z_scale = layer.getExtent().getZ();
-			} else {
-				z_scale = 1;
+		if (expr != null) {
+			final boolean containsPixels = expr.findAny((e) -> e instanceof PixelUnitExpression);
+			currentOffset = (GamaPoint) Cast.asPoint(scope, expr.value(scope));
+			if (Math.abs(currentOffset.x) <= 1 && !containsPixels) {
+				currentOffset.x *= getEnvWidth();
+			}
+			if (currentOffset.x < 0) {
+				currentOffset.x = getEnvWidth() - currentOffset.x;
+			}
+			if (Math.abs(currentOffset.y) <= 1 && !containsPixels) {
+				currentOffset.y *= getEnvHeight();
+			}
+			if (currentOffset.y < 0) {
+				currentOffset.y = getEnvHeight() - currentOffset.y;
 			}
 
-			currentOffset = new GamaPoint(getXOffsetInPixels() / (getWidth() / worldDimensions.x),
-					getYOffsetInPixels() / (getHeight() / worldDimensions.y), currentZLayer);
-			currentScale = new GamaPoint(getLayerWidth() / getWidth(), getLayerHeight() / getHeight(), z_scale);
-		} else {
-			layer.recomputeBounds(this, surface.getScope());
-			currentOffset = new GamaPoint(getXOffsetInPixels() * (worldDimensions.x / openGL.getViewWidth()),
-					getYOffsetInPixels() * (worldDimensions.y / openGL.getViewHeight()), 0);
-			// System.out.println("XOffsetinPixels: " + getXOffsetInPixels() + " Y " + getYOffsetInPixels());
-
-			currentScale = new GamaPoint(1, 1, 1);
 		}
+		// if (!layer.isOverlay()) {
+		// final double currentZLayer = getMaxEnvDim() * layer.getPosition().getZ();
+		// double zScale = layer.getExtent().getZ();
+		// if (zScale <= 0) {
+		// zScale = 1;
+		// }
+		// currentOffset = new GamaPoint(currentOffset.x, currentOffset.y,
+		// currentZLayer);
+		// currentScale = new GamaPoint(getLayerWidth() / getWidth(), getLayerHeight() /
+		// getHeight(), zScale);
+		// } else {
+		currentScale = new GamaPoint(0.9, 0.9, 1);
+		// } 
 		final ModelScene scene = sceneBuffer.getSceneToUpdate();
 		if (scene != null) {
 			scene.beginDrawingLayer(layer, currentOffset, currentScale, currentLayerAlpha);
@@ -657,13 +671,11 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public abstract void beginPicking();
 
 	public abstract void endPicking();
-
-	@Override
+ 
 	public int getWidthForOverlay() {
 		return getViewWidth();
 	}
-
-	@Override
+ 
 	public int getHeightForOverlay() {
 		return getViewHeight();
 	}

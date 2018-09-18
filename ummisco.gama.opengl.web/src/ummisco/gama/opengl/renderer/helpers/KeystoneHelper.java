@@ -38,7 +38,7 @@ public class KeystoneHelper extends AbstractRendererHelper {
 	private int uvMappingBufferIndex;
 	private int verticesBufferIndex;
 	private int indexBufferIndex;
-	private KeystoneShaderProgram shader;
+//	private KeystoneShaderProgram shader;
 	private boolean worldCorners = false;
 	private static final Color[] FILL_COLORS = new Color[] { NamedGamaColor.getNamed("gamared").withAlpha(0.3),
 			NamedGamaColor.getNamed("gamablue").withAlpha(0.3), NamedGamaColor.getNamed("black").withAlpha(0.3) };
@@ -188,36 +188,36 @@ public class KeystoneHelper extends AbstractRendererHelper {
 			drawKeystoneMarks();
 		}
 		// gl.glDisable(GL2.GL_DEPTH_TEST); // disables depth testing
-		final AbstractPostprocessingShader theShader = getShader();
+//		final AbstractPostprocessingShader theShader = getShader();
 		// unbind the last fbo
 		if (fboScene != null) {
 			// We verify if it is not null
 			fboScene.unbindCurrentFrameBuffer();
 			// prepare shader
-			theShader.start();
-			prepareShader(theShader);
+//			theShader.start();
+//			prepareShader(theShader);
 			// build the surface
 			createScreenSurface();
 			// draw
 			final GL2 gl = getGL();
 			gl.glDrawElements(GL2.GL_TRIANGLES, 6, GL2.GL_UNSIGNED_INT, 0);
-			theShader.stop();
+//			theShader.stop();
 		}
 
 	}
 
-	public KeystoneShaderProgram getShader() {
-		final GL2 gl = getGL();
-		if (shader == null) {
-			shader = new KeystoneShaderProgram(gl, "keystoneVertexShader2", "keystoneFragmentShader2");
-			final int[] handles = new int[3];
-			gl.glGenBuffers(3, handles, 0);
-			uvMappingBufferIndex = handles[0];
-			verticesBufferIndex = handles[1];
-			indexBufferIndex = handles[2];
-		}
-		return shader;
-	}
+//	public KeystoneShaderProgram getShader() {
+//		final GL2 gl = getGL();
+//		if (shader == null) {
+//			shader = new KeystoneShaderProgram(gl, "keystoneVertexShader2", "keystoneFragmentShader2");
+//			final int[] handles = new int[3];
+//			gl.glGenBuffers(3, handles, 0);
+//			uvMappingBufferIndex = handles[0];
+//			verticesBufferIndex = handles[1];
+//			indexBufferIndex = handles[2];
+//		}
+//		return shader;
+//	}
 
 	private void prepareShader(final AbstractPostprocessingShader shaderProgram) {
 		shaderProgram.loadTexture(0);

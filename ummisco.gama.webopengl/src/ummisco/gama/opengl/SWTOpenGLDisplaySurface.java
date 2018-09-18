@@ -69,7 +69,7 @@ import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
  *
  */
 @msi.gama.precompiler.GamlAnnotations.display ("opengl")
-public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
+public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 
 //	GLAnimatorControl animator;
 	Abstract3DRenderer renderer;
@@ -86,7 +86,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 	private volatile boolean alreadyUpdating;
 
 	// NEVER USED
-	public SWTOpenGLDisplaySurface2(final Object... objects) {
+	public SWTOpenGLDisplaySurface(final Object... objects) {
 		parent = null;
 		layerManager = null;
 		output = null;
@@ -98,7 +98,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 	 * @param parent
 	 * @param style
 	 */
-	public SWTOpenGLDisplaySurface2(final Composite parent, final LayeredDisplayOutput output) {
+	public SWTOpenGLDisplaySurface(final Composite parent, final LayeredDisplayOutput output) {
 		this.output = output;
 		this.parent = parent;
 		output.getData().addListener(this);
@@ -196,8 +196,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 	 * Method resizeImage()
 	 * 
 	 * @see msi.gama.common.interfaces.IDisplaySurface#resizeImage(int, int, boolean)
-	 */
-	@Override
+	 */ 
 	public boolean resizeImage(final int x, final int y, final boolean force) {
 		return true;
 	}
@@ -247,7 +246,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 		// return;
 		renderer.camera.initialize();
 		output.getData().resetZRotation();
-		output.getData().setZoomLevel(LayeredDisplayData.INITIAL_ZOOM, true);
+		output.getData().setZoomLevel(LayeredDisplayData.INITIAL_ZOOM, true, false);
 		zoomFit = true;
 
 	}
@@ -419,7 +418,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 	@Override
 	public Envelope getVisibleRegionForLayer(final ILayer currentLayer) {
 		if (currentLayer instanceof OverlayLayer) { return getScope().getSimulation().getEnvelope(); }
-		Envelope e = currentLayer.getVisibleRegion();
+		Envelope e = currentLayer.getData().getVisibleRegion();
 		if (e == null) {
 			e = new Envelope();
 			final Point origin = new Point(0, 0);
@@ -430,7 +429,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 			yc = yc + renderer.getDrawable().getSurfaceHeight();
 //			e.expandToInclude((GamaPoint) currentLayer.getModelCoordinatesFrom(xc, yc, this));
 			e.expandToInclude(new GamaPoint(xc,yc));
-			currentLayer.setVisibleRegion(e);
+			currentLayer.getData().setVisibleRegion(e);
 		}
 		return e;
 	}
@@ -479,7 +478,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 	@Override
 	public double getZoomLevel() {
 		if (output.getData().getZoomLevel() == null) {
-			output.getData().setZoomLevel(computeInitialZoomLevel(), true);
+			output.getData().setZoomLevel(computeInitialZoomLevel(), true, false);
 		}
 		return output.getData().getZoomLevel();
 	}
@@ -647,7 +646,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 				final double gap = dist;
 				double currentElevation = 0;
 				for (final ILayer layer : this.getManager().getItems()) {
-					layer.addElevation(currentElevation);
+					layer.getData().addElevation(currentElevation);
 					currentElevation += gap;
 				}
 				updateDisplay(true);
@@ -695,7 +694,7 @@ public class SWTOpenGLDisplaySurface2 implements IDisplaySurface.OpenGL {
 
 	public void invalidateVisibleRegions() {
 		for (final ILayer layer : layerManager.getItems()) {
-			layer.setVisibleRegion(null);
+			layer.getData().setVisibleRegion(null);
 		}
 	}
 

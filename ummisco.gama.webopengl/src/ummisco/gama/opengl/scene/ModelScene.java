@@ -202,7 +202,7 @@ public class ModelScene {
 
 	public void beginDrawingLayer(final ILayer layer, final GamaPoint offset, final GamaPoint scale,
 			final Double alpha) {
-		final int id = layer.getOrder();
+		final int id = layer.getDefinition().getOrder();
 		final String key = layer.getName() + id;
 		currentLayer = layers.get(key);
 		if (currentLayer == null) {

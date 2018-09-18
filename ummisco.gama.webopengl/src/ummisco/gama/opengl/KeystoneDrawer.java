@@ -24,7 +24,7 @@ import ummisco.gama.opengl.scene.OpenGL;
 public class KeystoneDrawer implements IKeystoneState {
 
 	private FrameBufferObject fboScene;
-	private final JOGLRenderer renderer;
+	private final ModernRenderer renderer;
 	private GL2 gl;
 	private OpenGL openGL;
 	protected boolean drawKeystoneHelper = false;
@@ -41,7 +41,7 @@ public class KeystoneDrawer implements IKeystoneState {
 
 	final IntBuffer ibIdxBuff = Buffers.newDirectIntBuffer(new int[] { 0, 1, 2, 0, 2, 3 });
 
-	public KeystoneDrawer(final JOGLRenderer r) {
+	public KeystoneDrawer(final ModernRenderer r) {
 		this.renderer = r;
 	}
 
@@ -123,9 +123,9 @@ public class KeystoneDrawer implements IKeystoneState {
 		final int displayHeightInPixels = renderer.getViewHeight();
 		final double pixelWidthIn01 = 1d / displayWidthInPixels;
 		final double pixelHeightIn01 = 1d / displayHeightInPixels;
-		final double[] worldCoords = renderer.getPixelWidthAndHeightOfWorld();
-		final double worldWidthInPixels = worldCoords[0];
-		final double worldHeightInPixels = worldCoords[1];
+//		final double[] worldCoords = ((OpenGL)renderer.getOpenGLHelper()).getPixelWidthAndHeightOfWorld();
+		final double worldWidthInPixels = renderer.getWidth();//worldCoords[0];
+		final double worldHeightInPixels =renderer.getHeight();// worldCoords[1];
 		final double widthRatio = worldWidthInPixels / displayWidthInPixels;
 		final double heightRatio = worldHeightInPixels / displayHeightInPixels;
 		final double xOffsetIn01 = 1 - widthRatio;

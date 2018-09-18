@@ -129,8 +129,8 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 	// Geometries
 	protected final GeometryCache geometryCache;
 	protected boolean isWireframe;
-	final GLUtessellatorImpl tobj = (GLUtessellatorImpl) GLU.gluNewTess();
-	final VertexVisitor glTesselatorDrawer;
+//	final GLUtessellatorImpl tobj = (GLUtessellatorImpl) GLU.gluNewTess();
+//	final VertexVisitor glTesselatorDrawer;
 
 	// World
 	final GamaPoint ratios = new GamaPoint();
@@ -154,13 +154,13 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 		glu = new GLU();
 		pickingState = renderer.getPickingHelper();
 		geometryCache = new GeometryCache(renderer);
-		glTesselatorDrawer = (final double[] ordinates) -> {
-			tobj.gluTessVertex(ordinates, 0, ordinates);
-		};
-		GLU.gluTessCallback(tobj, GLU.GLU_TESS_VERTEX, this);
-		GLU.gluTessCallback(tobj, GLU.GLU_TESS_BEGIN, this);
-		GLU.gluTessCallback(tobj, GLU.GLU_TESS_END, this);
-		GLU.gluTessProperty(tobj, GLU.GLU_TESS_TOLERANCE, 0.1);
+//		glTesselatorDrawer = (final double[] ordinates) -> {
+//			tobj.gluTessVertex(ordinates, 0, ordinates);
+//		};
+//		GLU.gluTessCallback(tobj, GLU.GLU_TESS_VERTEX, this);
+//		GLU.gluTessCallback(tobj, GLU.GLU_TESS_BEGIN, this);
+//		GLU.gluTessCallback(tobj, GLU.GLU_TESS_END, this);
+//		GLU.gluTessProperty(tobj, GLU.GLU_TESS_TOLERANCE, 0.1);
 		geometryDrawer = new GeometryDrawer(this);
 		fieldDrawer = new FieldDrawer(this);
 		stringDrawer = new StringDrawer(this);
@@ -200,7 +200,7 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 
 	public void setGL2(final GL2 gl2) {
 		this.gl = gl2;
-		textureCache.initialize();
+//		textureCache.initialize();
 	}
 
 	public GLUT getGlut() {
@@ -501,16 +501,16 @@ public class OpenGL extends AbstractRendererHelper implements Tesselator {
 			iterateOverTriangles(p,
 					(tri) -> drawSimpleShape(getYNegatedCoordinates(tri), 3, true, clockwise, false, null));
 		} else {
-			gluTessBeginPolygon(tobj, null);
-			gluTessBeginContour(tobj);
-			yNegatedVertices.visitClockwise(glTesselatorDrawer);
-			gluTessEndContour(tobj);
-			applyToInnerGeometries(p, geom -> {
-				gluTessBeginContour(tobj);
-				getContourCoordinates(geom).visitYNegatedCounterClockwise(glTesselatorDrawer);
-				gluTessEndContour(tobj);
-			});
-			gluTessEndPolygon(tobj);
+//			gluTessBeginPolygon(tobj, null);
+//			gluTessBeginContour(tobj);
+//			yNegatedVertices.visitClockwise(glTesselatorDrawer);
+//			gluTessEndContour(tobj);
+//			applyToInnerGeometries(p, geom -> {
+//				gluTessBeginContour(tobj);
+//				getContourCoordinates(geom).visitYNegatedCounterClockwise(glTesselatorDrawer);
+//				gluTessEndContour(tobj);
+//			});
+//			gluTessEndPolygon(tobj);
 		}
 	}
 

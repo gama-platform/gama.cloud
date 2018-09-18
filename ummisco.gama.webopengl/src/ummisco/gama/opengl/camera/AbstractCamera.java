@@ -129,8 +129,8 @@ public abstract class AbstractCamera implements ICamera {
 			flipped = false;
 			initialized = false;
 			update();
-			getRenderer().data.setZoomLevel(zoomLevel(), true);
-			getRenderer().data.setZoomLevel(1d, true);
+			getRenderer().data.setZoomLevel(zoomLevel(), true, false);
+			getRenderer().data.setZoomLevel(1d, true, false);
 		}
 	}
 

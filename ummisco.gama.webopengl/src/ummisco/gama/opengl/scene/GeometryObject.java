@@ -13,14 +13,14 @@ import com.vividsolutions.jts.geom.Geometry;
 
 import msi.gama.common.geometry.AxisAngle;
 import msi.gama.common.geometry.Envelope3D;
+import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.util.GamaColor;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.ShapeDrawingAttributes;
-import ummisco.gama.opengl.JOGLRenderer;
-
+import ummisco.gama.opengl.ModernRenderer; 
 public class GeometryObject extends AbstractObject {
 
 	public static class GeometryObjectWithAnimation extends GeometryObject {
@@ -45,13 +45,14 @@ public class GeometryObject extends AbstractObject {
 
 	// Package protected as it is only used by the static layers
 	GeometryObject(final IShape geometry, final GamaColor color, final IShape.Type type, final boolean empty) {
-		this(geometry, color, type, JOGLRenderer.getLineWidth());
+		this(geometry, color, type, ModernRenderer.getLineWidth());
 		attributes.setEmpty(empty);
 		attributes.setHeight(geometry.getDepth());
 	}
 
-	GeometryObject(final IShape geometry, final GamaColor color, final IShape.Type type, final double lineWidth) {
-		this(geometry.getInnerGeometry(), new ShapeDrawingAttributes(geometry, (IAgent) null, color, color, lineWidth));
+	GeometryObject(final IShape geometry, final GamaColor color, final IShape.Type type, final double lineWidth) {		 
+		this(geometry.getInnerGeometry(), new ShapeDrawingAttributes(geometry, (IAgent) null, color, color, type,
+				GamaPreferences.Displays.CORE_LINE_WIDTH.getValue()));
 	}
 
 	public IShape.Type getType() {
