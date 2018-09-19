@@ -14,58 +14,30 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 import msi.gama.common.geometry.AxisAngle;
-import msi.gama.common.geometry.Envelope3D;
 import msi.gama.common.geometry.Scaling3D;
-import msi.gama.common.interfaces.IDisposable;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.util.GamaColor;
 import msi.gama.util.GamaMaterial;
-import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
-import ummisco.gama.opengl.OpenGL;
 
-public abstract class AbstractObject<T, ATT extends DrawingAttributes> implements IDisposable {
+public abstract class AbstractObject {
 
 	public static enum DrawerType {
-		GEOMETRY, STRING, FIELD, RESOURCE
+		GEOMETRY, STRING, FIELD
 	}
 
-	protected DrawingAttributes dattributes=null;
-	protected ATT attributes=null;
-	protected int[] textures=null;
-	protected T object=null;
+	protected final DrawingAttributes attributes;
+	protected final int[] textures;
 
 	public AbstractObject(final DrawingAttributes attributes) {
-		this.object = null;
-		this.dattributes = attributes;
-		this.attributes = null;
-		if (attributes.getTextures() != null) {
-			textures = new int[attributes.getTextures().size()];
-			Arrays.fill(textures, OpenGL.NO_TEXTURE);
-		} else {
-			textures = null;
-		}
-	}
-
-	public AbstractObject(final T object, final ATT attributes) {
-		this.object = object;
-		this.dattributes = attributes;
 		this.attributes = attributes;
 		if (attributes.getTextures() != null) {
 			textures = new int[attributes.getTextures().size()];
 			Arrays.fill(textures, OpenGL.NO_TEXTURE);
-		} else {
+		} else
 			textures = null;
-		}
-	}
-
-	@Override
-	public void dispose() {}
-
-	public T getObject() {
-		return object;
 	}
 
 	public abstract DrawerType getDrawerType();
@@ -109,13 +81,12 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 				obj = attributes.getTextures().get(order);
 			} catch (final IndexOutOfBoundsException e) {// do nothing. Can arrive in the new shader architecture
 			}
-//			if (obj instanceof BufferedImage) {
-//				textures[order] = gl.getTextureRenderer((BufferedImage) obj).getTexture().getTextureObject();
-//			} else if (obj instanceof GamaImageFile) {
-//				final FileDrawingAttributes fd = (FileDrawingAttributes) attributes;
-//				textures[order] =
-//						gl.getTextureRenderer((GamaImageFile) obj, fd.useCache()).getTexture().getTextureObject();
-//			}
+			if (obj instanceof BufferedImage) {
+				textures[order] = gl.getTexture((BufferedImage) obj).getTextureObject();
+			} else if (obj instanceof GamaImageFile) {
+				final FileDrawingAttributes fd = (FileDrawingAttributes) attributes;
+				textures[order] = gl.getTexture((GamaImageFile) obj, fd.useCache()).getTextureObject();
+			}
 		}
 		return textures[order];
 	}
@@ -129,38 +100,14 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 	}
 
 	public final void draw(final OpenGL gl, final ObjectDrawer<AbstractObject> drawer, final boolean isPicking) {
-		if (isPicking) {
+		if (isPicking)
 			gl.registerForSelection(attributes.getIndex());
-		}
-		final boolean previous = gl.setLighting(isLighting());
 		drawer.draw(this);
-		gl.setLighting(previous);
 		if (isPicking) {
 			gl.markIfSelected(attributes);
 		}
 	}
-  
-	public ATT getAttributes() {
-		return attributes;
-	}
 
-	public void getTranslationInto(final GamaPoint p) {
-		final GamaPoint explicitLocation = getAttributes().getLocation();
-		if (explicitLocation == null) {
-			p.setLocation(0, 0, 0);
-		} else {
-			p.setLocation(explicitLocation);
-		}
-	}
-
-	public void getTranslationForRotationInto(final GamaPoint p) {
-		getTranslationInto(p);
-	}
-
-	public void getTranslationForScalingInto(final GamaPoint p) {
-		p.setLocation(0, 0, 0);
-	}
-	
 	public GamaColor getColor() {
 		return attributes.getColor();
 	}
@@ -199,26 +146,6 @@ public abstract class AbstractObject<T, ATT extends DrawingAttributes> implement
 
 	public int getIndex() {
 		return attributes.getIndex();
-	}
-
-	public AxisAngle getInitRotation() {
-		return null;
-	}
-
-	public GamaGeometryFile getFile() {
-		return null;
-	}
-
-	public Envelope3D getEnvelope(final OpenGL gl) {
-		return null;
-	}
-
-	public boolean isLighting() {
-		return attributes.isLighting();
-	}
-
-	public boolean isSynthetic() {
-		return attributes.isSynthetic();
 	}
 
 }

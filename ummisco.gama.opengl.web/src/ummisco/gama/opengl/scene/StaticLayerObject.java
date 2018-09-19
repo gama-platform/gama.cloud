@@ -12,7 +12,6 @@ package ummisco.gama.opengl.scene;
 import java.util.List;
 
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.OpenGL;
 
 public class StaticLayerObject extends LayerObject {
 
@@ -29,17 +28,14 @@ public class StaticLayerObject extends LayerObject {
 
 		@Override
 		public void draw(final OpenGL gl) {
-			if (renderer.getPickingState().isPicking()) { return; }
-
+			if (renderer.getPickingState().isPicking())
+				return;
+			gl.disableLighting();
 			if (currentList.isEmpty()) {
 				fillWithObjects(currentList);
 			}
-
-			gl.suspendZTranslation();
-			final boolean previous = gl.setLighting(false);
 			super.draw(gl);
-			gl.setLighting(previous);
-			gl.resumeZTranslation();
+			gl.enableLighting();
 
 		}
 

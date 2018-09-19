@@ -13,7 +13,7 @@ import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
 
-import ummisco.gama.opengl.renderer.shaders.AbstractShader;
+import ummisco.gama.modernOpenGL.shader.AbstractShader;
 
 public abstract class AbstractPostprocessingShader extends AbstractShader {
 

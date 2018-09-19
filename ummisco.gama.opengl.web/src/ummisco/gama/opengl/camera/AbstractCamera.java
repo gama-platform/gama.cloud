@@ -21,13 +21,48 @@ import msi.gama.common.geometry.Envelope3D;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.LayeredDisplayData;
 import msi.gaml.operators.Maths;
-import ummisco.gama.opengl.renderer.IOpenGLRenderer;
-import ummisco.gama.opengl.renderer.helpers.CameraHelper;
+import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
 
 public abstract class AbstractCamera implements ICamera {
 
-	protected final IOpenGLRenderer renderer;
+	static {
+		PRESETS.put("Choose...", (c) -> {});
+		PRESETS.put("From top", (c) -> {
+			c.setPosition(c.getTarget().x, c.getTarget().y, c.getRenderer().getMaxEnvDim() * INIT_Z_FACTOR);
+			c.setUpVector(0, 1, 0);
+		});
+		PRESETS.put("From left", (c) -> {
+			c.setPosition(c.getTarget().x - c.getRenderer().getEnvWidth() * INIT_Z_FACTOR, c.getTarget().y, 0);
+			c.setUpVector(0, 0, 1);
+		});
+		PRESETS.put("From up left", (c) -> {
+			c.setPosition(c.getTarget().x - c.getRenderer().getEnvWidth() * INIT_Z_FACTOR, c.getTarget().y,
+					c.getRenderer().getMaxEnvDim() * INIT_Z_FACTOR);
+			c.setUpVector(0, 0, 1);
+		});
+		PRESETS.put("From right", (c) -> {
+			c.setPosition(c.getTarget().x + c.getRenderer().getEnvWidth() * INIT_Z_FACTOR, c.getTarget().y, 0);
+			c.setUpVector(0, 0, 1);
+		});
+		PRESETS.put("From up right", (c) -> {
+			c.setPosition(c.getTarget().x + c.getRenderer().getEnvWidth() * INIT_Z_FACTOR, c.getTarget().y,
+					c.getRenderer().getMaxEnvDim() * INIT_Z_FACTOR);
+			c.setUpVector(0, 0, 1);
+		});
+		PRESETS.put("From front", (c) -> {
+			c.setPosition(c.getTarget().x, c.getTarget().y - c.getRenderer().getEnvHeight() * INIT_Z_FACTOR, 0);
+			c.setUpVector(0, 0, 1);
+		});
+		PRESETS.put("From up front", (c) -> {
+			c.setPosition(c.getTarget().x, c.getTarget().y - c.getRenderer().getEnvHeight() * INIT_Z_FACTOR,
+					c.getRenderer().getMaxEnvDim() * INIT_Z_FACTOR);
+			c.setUpVector(0, 0, 1);
+		});
+
+	}
+
+	private final Abstract3DRenderer renderer;
 	private final GLU glu;
 	protected static final GamaPoint UNDEFINED = new GamaPoint();
 	protected boolean initialized;
@@ -59,61 +94,73 @@ public abstract class AbstractCamera implements ICamera {
 	private boolean strafeRight;
 
 	private volatile boolean ROICurrentlyDrawn = false;
+	private volatile boolean isROISticky = false;
 
 	protected boolean ctrlPressed = false;
 	protected boolean shiftPressed = false;
 
 	protected boolean keystoneMode = false;
-	protected double zCorrector = 1d;
 
-	public AbstractCamera(final IOpenGLRenderer renderer2) {
-		this.renderer = renderer2;
+	public AbstractCamera(final Abstract3DRenderer renderer) {
+		this.renderer = renderer;
 		setMousePosition(new Point(0, 0));
 		setUpVector(0.0, 1.0, 0.0);
 		glu = new GLU();
 	}
 
+	public void updateSphericalCoordinatesFromLocations() {}
+
+	@Override
+	public void toggleStickyROI() {
+		isROISticky = !isROISticky;
+	}
+
+	@Override
+	public boolean isROISticky() {
+		return isROISticky;
+	}
+
 	@Override
 	public void applyPreset(final String name) {
-		final CameraPreset p = CameraHelper.PRESETS.get(name);
+		final CameraPreset p = PRESETS.get(name);
 		if (p != null) {
 			target.setLocation(renderer.getEnvWidth() / 2, -renderer.getEnvHeight() / 2, 0);
 			p.applyTo(this);
 			flipped = false;
 			initialized = false;
 			update();
-			getRenderer().getData().setZoomLevel(1d, true, true);
+			getRenderer().data.setZoomLevel(zoomLevel(), true, false);
+			getRenderer().data.setZoomLevel(1d, true, false);
 		}
 	}
 
 	@Override
 	public void updatePosition() {
-		position.setLocation(renderer.getData().getCameraPos());
+		position.setLocation(renderer.data.getCameraPos());
 	}
 
 	@Override
 	public void updateTarget() {
-		target.setLocation(renderer.getData().getCameraLookPos());
+		target.setLocation(renderer.data.getCameraLookPos());
 	}
 
 	@Override
 	public void updateOrientation() {
-		upVector.setLocation(renderer.getData().getCameraUpVector());
+		upVector.setLocation(renderer.data.getCameraUpVector());
 	}
 
 	@Override
 	public void update() {
-		final LayeredDisplayData data = renderer.getData();
+		final LayeredDisplayData data = renderer.data;
 		cameraInteraction = !data.cameraInteractionDisabled();
 		updateSphericalCoordinatesFromLocations();
 		if (initialized) {
-			if (flipped) {
+			if (flipped)
 				setUpVector(-(-Math.cos(theta * Maths.toRad) * Math.cos(phi * Maths.toRad)),
 						-(-Math.sin(theta * Maths.toRad) * Math.cos(phi * Maths.toRad)), -Math.sin(phi * Maths.toRad));
-			} else {
+			else
 				setUpVector(-Math.cos(theta * Maths.toRad) * Math.cos(phi * Maths.toRad),
 						-Math.sin(theta * Maths.toRad) * Math.cos(phi * Maths.toRad), Math.sin(phi * Maths.toRad));
-			}
 			drawRotationHelper();
 		}
 
@@ -125,18 +172,18 @@ public abstract class AbstractCamera implements ICamera {
 	@Override
 	public void setPosition(final double xPos, final double yPos, final double zPos) {
 		position.setLocation(xPos, yPos, zPos);
-		getRenderer().getData().setCameraPos((GamaPoint) position.clone());
+		getRenderer().data.setCameraPos((GamaPoint) position.clone());
 	}
 
 	public void setTarget(final double xLPos, final double yLPos, final double zLPos) {
 		target.setLocation(xLPos, yLPos, zLPos);
-		getRenderer().getData().setCameraLookPos((GamaPoint) target.clone());
+		getRenderer().data.setCameraLookPos((GamaPoint) target.clone());
 	}
 
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
 		upVector.setLocation(xPos, yPos, zPos);
-		getRenderer().getData().setCameraUpVector((GamaPoint) upVector.clone(), true);
+		getRenderer().data.setCameraUpVector((GamaPoint) upVector.clone(), true);
 	}
 
 	/* -------Get commands--------- */
@@ -179,7 +226,7 @@ public abstract class AbstractCamera implements ICamera {
 
 	protected void invokeOnGLThread(final GLRunnable runnable) {
 		// Fixing issue #2224
-		runnable.run(renderer.getCanvas());
+		runnable.run(renderer.getDrawable());
 		// renderer.getDrawable().invoke(false, runnable);
 	}
 
@@ -188,7 +235,7 @@ public abstract class AbstractCamera implements ICamera {
 	 * 
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
-	@Override
+	//@Override
 	public final void mouseScrolled(final MouseEvent e) {
 		invokeOnGLThread(drawable -> {
 			if (cameraInteraction) {
@@ -261,9 +308,8 @@ public abstract class AbstractCamera implements ICamera {
 		// Already taken in charge by the ZoomListener in the view
 		if (keystoneMode) {
 			final int corner = clickOnKeystone(e);
-			if (corner != -1) {
-				getRenderer().getKeystoneHelper().resetCorner(corner);
-			}
+			if (corner != -1)
+				getRenderer().getKeystone().resetCorner(corner);
 		}
 	}
 
@@ -286,9 +332,8 @@ public abstract class AbstractCamera implements ICamera {
 	protected GamaPoint getNormalizedCoordinates(final int x, final int y) {
 		final double xCoordNormalized = x / getRenderer().getWidth();
 		double yCoordNormalized = y / getRenderer().getHeight();
-		if (!renderer.useShader()) {
+		if (!renderer.useShader())
 			yCoordNormalized = 1 - yCoordNormalized;
-		}
 		return new GamaPoint(xCoordNormalized, yCoordNormalized);
 	}
 
@@ -296,14 +341,14 @@ public abstract class AbstractCamera implements ICamera {
 		// return the number of the corner clicked. Return -1 if no click on
 		// keystone.
 		// final GamaPoint p = getNormalizedCoordinates(e);
-		return renderer.getKeystoneHelper().cornerSelected(new GamaPoint(e.x, e.y));
+		return renderer.getKeystone().cornerSelected(new GamaPoint(e.x, e.y));
 	}
 
 	protected int hoverOnKeystone(final MouseEvent e) {
 		// return the number of the corner clicked. Return -1 if no click on
 		// keystone. Return 10 if click on the center.
 		// final GamaPoint p = getNormalizedCoordinates(e);
-		return renderer.getKeystoneHelper().cornerHovered(new GamaPoint(e.x, e.y));
+		return renderer.getKeystone().cornerHovered(new GamaPoint(e.x, e.y));
 	}
 
 	protected void internalMouseDown(final MouseEvent e) {
@@ -313,24 +358,23 @@ public abstract class AbstractCamera implements ICamera {
 		}
 		if (keystoneMode) {
 			// final int cornerSelected = clickOnKeystone(e);
-			if (getRenderer().getKeystoneHelper().getCornerSelected() != -1) {
-				getRenderer().getKeystoneHelper().setCornerSelected(-1);
+			if (getRenderer().getKeystone().getCornerSelected() != -1) {
+				getRenderer().getKeystone().setCornerSelected(-1);
 				return;
 			}
 			final int cornerSelected = clickOnKeystone(e);
 			if (cornerSelected != -1) {
-				getRenderer().getKeystoneHelper().setCornerSelected(cornerSelected);
+				getRenderer().getKeystone().setCornerSelected(cornerSelected);
 			}
 		}
 
 		lastMousePressedPosition = new Point(e.x, e.y);
 		// Activate Picking when press and right click
 		if (e.button == 3 && !keystoneMode) {
-			if (renderer.getOpenGLHelper().mouseInROI(new GamaPoint(lastMousePressedPosition))) {
-				renderer.getSurface().selectionIn(renderer.getOpenGLHelper().getROIEnvelope());
-			} else {
-				renderer.getPickingHelper().setPicking(true);
-			}
+			if (renderer.mouseInROI(lastMousePressedPosition)) {
+				renderer.getSurface().selectionIn(renderer.getROIEnvelope());
+			} else
+				renderer.getPickingState().setPicking(true);
 		} else if (e.button == 2) { // mouse wheel
 			resetPivot();
 		} else {
@@ -374,23 +418,21 @@ public abstract class AbstractCamera implements ICamera {
 				finishROISelection();
 			}
 		}
-		if (e.button == 1) {
+		if (e.button == 1)
 			setMouseLeftPressed(false);
-		}
 
 	}
 
 	private void startROI(final org.eclipse.swt.events.MouseEvent e) {
 		getMousePosition().x = e.x;
 		getMousePosition().y = e.y;
-		renderer.getOpenGLHelper().defineROI(new GamaPoint(firstMousePressedPosition),
-				new GamaPoint(getMousePosition()));
+		renderer.defineROI(firstMousePressedPosition, getMousePosition());
 		ROICurrentlyDrawn = true;
 	}
 
 	void finishROISelection() {
 		if (ROICurrentlyDrawn) {
-			final Envelope3D env = renderer.getOpenGLHelper().getROIEnvelope();
+			final Envelope3D env = renderer.getROIEnvelope();
 			if (env != null) {
 				renderer.getSurface().selectionIn(env);
 			}
@@ -400,13 +442,13 @@ public abstract class AbstractCamera implements ICamera {
 	protected abstract boolean canSelectOnRelease(org.eclipse.swt.events.MouseEvent arg0);
 	//
 	// protected void dump() {
-	// DEBUG.LOG("xPos:" + position.x + " yPos:" + position.y + "
+	// System.out.println("xPos:" + position.x + " yPos:" + position.y + "
 	// zPos:" + position.z);
-	// DEBUG.LOG("xLPos:" + target.x + " yLPos:" + target.y + " zLPos:"
+	// System.out.println("xLPos:" + target.x + " yLPos:" + target.y + " zLPos:"
 	// + target.z);
-	// DEBUG.LOG("upX" + upVector.x + " upY:" + upVector.y + " upZ:" +
+	// System.out.println("upX" + upVector.x + " upY:" + upVector.y + " upZ:" +
 	// upVector.z);
-	// DEBUG.LOG("_phi " + phi + " _theta " + theta);
+	// System.out.println("_phi " + phi + " _theta " + theta);
 	// }
 
 	@Override
@@ -452,7 +494,8 @@ public abstract class AbstractCamera implements ICamera {
 		return strafeRight;
 	}
 
-	public IOpenGLRenderer getRenderer() {
+	@Override
+	public Abstract3DRenderer getRenderer() {
 		return renderer;
 	}
 
@@ -513,17 +556,15 @@ public abstract class AbstractCamera implements ICamera {
 						quickDownTurn();
 						break;
 					case 'k':
-						if (!GamaKeyBindings.ctrl(e)) {
+						if (!GamaKeyBindings.ctrl(e))
 							activateKeystoneMode();
-						}
 						break;
 					default:
 						return true;
 				}
 			} else if (e.character == 'k') {
-				if (!GamaKeyBindings.ctrl(e)) {
+				if (!GamaKeyBindings.ctrl(e))
 					activateKeystoneMode();
-				}
 				return true;
 			}
 			return true;
@@ -543,9 +584,9 @@ public abstract class AbstractCamera implements ICamera {
 	protected final void activateKeystoneMode() {
 		if (!keystoneMode) {
 			getRenderer().getSurface().zoomFit();
-			getRenderer().getKeystoneHelper().startDrawHelper();
+			getRenderer().getKeystone().startDrawHelper();
 		} else {
-			getRenderer().getKeystoneHelper().stopDrawHelper();
+			getRenderer().getKeystone().stopDrawHelper();
 		}
 		keystoneMode = !keystoneMode;
 	}
@@ -591,6 +632,7 @@ public abstract class AbstractCamera implements ICamera {
 		});
 	}
 
+	@Override
 	public boolean inKeystoneMode() {
 		return keystoneMode;
 	}
@@ -603,16 +645,6 @@ public abstract class AbstractCamera implements ICamera {
 	public void setPosition(final GamaPoint centre) {
 		setPosition(centre.x, centre.y, centre.z);
 
-	}
-
-	@Override
-	public void setInitialZFactorCorrector(final double corrector) {
-		zCorrector = corrector;
-	}
-
-	public double getInitialZFactor() {
-		if (renderer.getData().isDrawEnv()) { return 1.46 / zCorrector; }
-		return 1.2 / zCorrector;
 	}
 
 }

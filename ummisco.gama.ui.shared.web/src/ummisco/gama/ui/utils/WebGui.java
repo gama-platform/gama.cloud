@@ -596,7 +596,7 @@ public class WebGui implements IGui {
 		// StatusDisplayerFactory.displayer=new StatusDisplayer();
 		// }
 
-		final String uid = WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
+		final String uid = "admin";//WorkbenchHelper.UISession.get(scope.getRoot().getExperiment().getSpecies().getExperimentScope());
 		// System.out.println("getstatus of "+uid);
 
 		return StatusDisplayerFactory.displayer.get(""+uid);// = new

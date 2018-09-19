@@ -12,7 +12,7 @@ package ummisco.gama.opengl.vaoGenerator;
 
 import java.util.ArrayList;
 
-import ummisco.gama.opengl.renderer.shaders.AbstractShader;
+import ummisco.gama.modernOpenGL.shader.AbstractShader;
 
 public class ModernLayerStructure {
 	

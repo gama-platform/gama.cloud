@@ -16,26 +16,28 @@ import java.nio.IntBuffer;
 
 import javax.vecmath.Matrix4f;
 
+import org.eclipse.rap.rwt.RWT;
+
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.swt.GLCanvas;
 
-import cict.gama.webgl.WebGLComposite;
 import msi.gama.common.geometry.Scaling3D;
+import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.metamodel.shape.GamaPoint;
+import msi.gama.outputs.layers.OverlayLayer;
+import msi.gama.outputs.layers.charts.ChartOutput;
 import msi.gama.util.file.GamaFile;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
 import ummisco.gama.modernOpenGL.ModernDrawer;
-import ummisco.gama.opengl.renderer.helpers.CameraHelper;
-import ummisco.gama.opengl.renderer.helpers.KeystoneHelper;
-import ummisco.gama.opengl.renderer.helpers.LightHelper;
-import ummisco.gama.opengl.renderer.helpers.PickingHelper;
-import ummisco.gama.opengl.renderer.helpers.SceneHelper;
+import ummisco.gama.opengl.scene.FieldDrawer;
+import ummisco.gama.opengl.scene.GeometryDrawer;
+import ummisco.gama.opengl.scene.StringDrawer;
+import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.TransformationMatrix;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -49,21 +51,16 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
  */
 public class ModernRenderer extends Abstract3DRenderer {
 
-	private final KeystoneHelper keystoneHelper =  new KeystoneHelper(this);
-	private final PickingHelper pickingHelper = new PickingHelper(this);
-	private LightHelper lightHelper = new LightHelper(this);
-	private final CameraHelper cameraHelper = new CameraHelper(this);
-	private final SceneHelper sceneHelper = new SceneHelper(this);
-	
 	private Matrix4f projectionMatrix;
 	private ModernDrawer drawer;
+	private GeometryDrawer geometryDrawer;
 	public boolean renderToTexture = true;
 	public boolean colorPicking = false;
 	private final IKeystoneState keystone = new KeystoneState();
 
 	public class KeystoneState implements IKeystoneState {
 		private boolean drawKeystoneHelper = false;
-
+		
 		protected float[][] coords;
 
 		@Override
@@ -71,16 +68,13 @@ public class ModernRenderer extends Abstract3DRenderer {
 			for (int cornerId = 0; cornerId < coords.length; cornerId++) {
 				final float xCorner = coords[cornerId][0];
 				final float yCorner = coords[cornerId][1];
-				if (Math.abs(mouse.x - xCorner) < 0.03 && Math.abs(mouse.y - yCorner) < 0.03) {
-					return cornerId;
-				}
+				if (Math.abs(mouse.x - xCorner) < 0.03 && Math.abs(mouse.y - yCorner) < 0.03) { return cornerId; }
 			}
 			// check if the click has been in the center of the screen (in the
 			// intersection between the diagonals)
 			final float[] centerPosition = centerScreen(coords);
-			if (Math.abs(mouse.x - centerPosition[0]) < 0.03 && Math.abs(mouse.y - centerPosition[1]) < 0.03) {
+			if (Math.abs(mouse.x - centerPosition[0]) < 0.03 && Math.abs(mouse.y - centerPosition[1]) < 0.03)
 				return 10;
-			}
 			return -1;
 		}
 
@@ -163,8 +157,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		}
 
 		@Override
-		public void setCornerHovered(final int c) {
-		}
+		public void setCornerHovered(final int c) {}
 
 		@Override
 		public int cornerHovered(final GamaPoint mouse) {
@@ -203,18 +196,19 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 
-		WorkbenchHelper.run(() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
 		// the drawingEntityGenerator is used only when there is a webgl display
 		// and/or a modernRenderer.
 		drawingEntityGenerator = new DrawingEntityGenerator(this);
 		lightHelper = new LightHelper(this);
-		gl = drawable.getGL().getGL2();
+		gl = drawable.getGL();
 		openGL.setGL2(gl);
 		// openGL.setGL2(gl);
 		final Color background = data.getBackgroundColor();
 		gl.glClearColor(background.getRed() / 255.0f, background.getGreen() / 255.0f, background.getBlue() / 255.0f,
 				1.0f);
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
+		isNonPowerOf2TexturesAvailable = gl.isNPOTTextureAvailable();
 
 		initializeCanvasListeners();
 		updateCameraPosition();
@@ -222,19 +216,23 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 		setUpKeystoneCoordinates();
 		drawer = new ModernDrawer(this, gl);
-		// lightHelper.initializeLighting(openGL);
+		lightHelper.initializeLighting(openGL);
 		// We mark the renderer as inited
 		inited = true;
 	}
 
+
+	@Override
+	public void setDisplaySurface(final IDisplaySurface d) {
+		super.setDisplaySurface(d); 
+		geometryDrawer = new GeometryDrawer(this); 
+	}
 	@Override
 	public void display(final GLAutoDrawable drawable) {
 
 		currentScene = sceneBuffer.getSceneToRender();
-		if (currentScene == null) {
-			return;
-		}
-		gl = drawable.getGL().getGL2();
+		if (currentScene == null) { return; }
+		gl = drawable.getGL();
 
 		drawer.prepareFrameBufferObject();
 
@@ -247,18 +245,18 @@ public class ModernRenderer extends Abstract3DRenderer {
 		gl.glEnable(GL.GL_DEPTH_TEST); // enables depth testing
 		gl.glDepthFunc(GL.GL_LEQUAL); // the type of depth test to do
 
-		updateCameraPosition();
-		updatePerspective();
+//		updateCameraPosition();
+//		updatePerspective();
 
 		rotateModel();
 		drawScene();
 		gl.glDisable(GL.GL_DEPTH_TEST); // disables depth testing
-		drawer.renderToTexture();
+//		drawer.renderToTexture();
 
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.run(() -> getCanvas().setVisible(true));
+			WorkbenchHelper.run("admin",() -> getCanvas().setVisible(true));
 
 		}
 
@@ -268,9 +266,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	public void reshape(final GLAutoDrawable drawable, final int arg1, final int arg2, final int width,
 			final int height) {
 		// Get the OpenGL graphics context
-		if (width <= 0 || height <= 0) {
-			return;
-		}
+		if (width <= 0 || height <= 0) { return; }
 		updatePerspective();
 	}
 
@@ -299,8 +295,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	// //////////////////////////////////////////////////////////////////////////////////////
 	/**
-	 * After drawing we have to calculate which object was nearest screen and return
-	 * its index
+	 * After drawing we have to calculate which object was nearest screen and return its index
 	 * 
 	 * @return name of selected object
 	 */
@@ -312,7 +307,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void dispose(final GLAutoDrawable drawable) {
 		// TODO
-		// sceneBuffer.garbageCollect(openGL);
+		sceneBuffer.garbageCollect(openGL);
 		sceneBuffer.dispose();
 		openGL.dispose();
 		drawer.cleanUp();
@@ -327,27 +322,25 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	// Use when the rotation button is on.
 	public void rotateModel() {
-		// if (data.isRotationOn()) {
-		// data.incrementZRotation();
-		// }
+		if (data.isContinuousRotationOn()) {
+			data.incrementZRotation();
+		}
 	}
 
 	public ModernDrawer getDrawer() {
 		return drawer;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings ("rawtypes")
 	@Override
 	public Rectangle2D drawFile(final GamaFile file, final FileDrawingAttributes attributes) {
-		if (sceneBuffer.getSceneToUpdate() == null) {
-			return null;
-		}
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
 		if (attributes.getSize() == null) {
 			attributes.setSize(Scaling3D.of(worldDimensions));
 		}
-		if (file instanceof GamaImageFile) {
-//			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
-		} else if (file instanceof GamaGeometryFile) {
+		if (file instanceof GamaImageFile)
+			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
+		else if (file instanceof GamaGeometryFile) {
 			sceneBuffer.getSceneToUpdate().addGeometryFile((GamaGeometryFile) file, attributes);
 		}
 		return rect;
@@ -362,7 +355,27 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public GamaPoint getRealWorldPointFromWindowPoint(final Point windowPoint) {
 		// TODO
-		return null;
+		return new GamaPoint(-800,60);
+	}
+
+	/**
+	 * Method beginOverlay()
+	 * 
+	 * @see msi.gama.common.interfaces.IGraphics#beginOverlay(msi.gama.outputs.layers.OverlayLayer)
+	 */
+	@Override
+	public void beginOverlay(final OverlayLayer layer) {
+		// TODO
+	}
+
+	/**
+	 * Method endOverlay()
+	 * 
+	 * @see msi.gama.common.interfaces.IGraphics#endOverlay()
+	 */
+	@Override
+	public void endOverlay() {
+		// TODO
 	}
 
 	@Override
@@ -377,39 +390,13 @@ public class ModernRenderer extends Abstract3DRenderer {
 	}
 
 	@Override
-	public void setCanvas(GLCanvas c) {
+	public Rectangle2D drawChart(ChartOutput chart) {
 		// TODO Auto-generated method stub
-		canvas=(WebGLComposite) c;
+		return null;
 	}
 
-	@Override
-	public CameraHelper getCameraHelper() {
-		// TODO Auto-generated method stub
-		return cameraHelper;
-	}
-
-	@Override
-	public KeystoneHelper getKeystoneHelper() {
-		// TODO Auto-generated method stub
-		return keystoneHelper;
-	}
-
-	@Override
-	public PickingHelper getPickingHelper() {
-		// TODO Auto-generated method stub
-		return pickingHelper;
-	}
-
-	@Override
-	public SceneHelper getSceneHelper() {
-		// TODO Auto-generated method stub
-		return sceneHelper;
-	}
-
-	@Override
-	public boolean isDisposed() {
-		// TODO Auto-generated method stub
-		return false;
+	public GeometryDrawer getGeometryDrawer() {
+		return geometryDrawer;
 	}
 
 }

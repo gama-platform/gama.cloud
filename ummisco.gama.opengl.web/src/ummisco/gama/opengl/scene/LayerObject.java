@@ -19,9 +19,10 @@ import com.vividsolutions.jts.geom.Geometry;
 
 import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.interfaces.IKeyword;
-import msi.gama.common.interfaces.ILayer;
+import msi.gama.common.interfaces.ILayer; 
+import msi.gama.metamodel.agent.AgentIdentifier;
 import msi.gama.metamodel.shape.GamaPoint;
-import msi.gama.metamodel.shape.IShape;
+import msi.gama.metamodel.shape.IShape; 
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.runtime.IScope;
 import msi.gama.util.file.GamaGeometryFile;
@@ -29,13 +30,12 @@ import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
 import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
-import msi.gaml.statements.draw.FileDrawingAttributes;
-import msi.gaml.statements.draw.TextDrawingAttributes;
 import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.modernOpenGL.DrawingEntity;
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.ModernRenderer;
-import ummisco.gama.opengl.OpenGL; 
+//import ummisco.gama.opengl.ModernRenderer;
+import ummisco.gama.opengl.scene.GeometryObject.GeometryObjectWithAnimation;
 
 /**
  * Class LayerObject.
@@ -72,12 +72,11 @@ public class LayerObject {
 		this.layer = layer;
 		this.overlay = computeOverlay();
 		currentList = newCurrentList();
-		if (renderer instanceof ModernRenderer) {
+		if (layer != null && layer.getData().getTrace() != null ) { //|| renderer instanceof ModernRenderer
 			objects = new LinkedList();
 			objects.add(currentList);
-		} else {
+		} else
 			objects = null;
-		}
 	}
 
 	protected boolean computeOverlay() {
@@ -93,17 +92,16 @@ public class LayerObject {
 	}
 
 	protected boolean isPickable() {
-		return false;
-//		return layer == null ? false : layer.isSelectable();
+		return layer == null ? false : layer.getData().isSelectable();
 	}
 
 	public void draw(final OpenGL gl) {
 		if (isInvalid()) { return; }
-		if (renderer.useShader()) {
+//		if (renderer.useShader()) {
 			drawWithShader(gl.getGL());
-		} else {
-			drawWithoutShader(gl);
-		}
+//		} else {
+//			drawWithoutShader(gl);
+//		}
 	}
 
 	private void drawWithShader(final GL2 gl) {
@@ -119,33 +117,47 @@ public class LayerObject {
 			renderer.getDrawer().prepareMapForLayer(this);
 			double alpha = 0d;
 			final double originalAlpha = this.alpha;
-			final int size = objects.size();
+			final int size = currentList.size();
 			final double delta = size == 0 ? 0 : 1d / size;
-			for (final List<AbstractObject> list : objects) {
+			for (final AbstractObject list : currentList) {
 				alpha = isFading ? originalAlpha * (alpha + delta) : originalAlpha;
+				final AgentIdentifier id = list.attributes.getAgentIdentifier();
+//				if (id != null)
+//					System.out.println(id.getAgent(GAMAHelper.getRuntimeScope()));
+				
 				synchronized (list) {
-					for (final AbstractObject object : list) {
+//					for (final AbstractObject object : list) {
 						final double alpha1 = alpha;
 						renderer.getOpenGLHelper().setCurrentObjectAlpha(alpha1);
 						final DrawingEntity[] drawingEntity = renderer.getDrawingEntityGenerator()
-								.generateDrawingEntities(renderer.getSurface().getScope(), object, this, gl);
+								.generateDrawingEntities(renderer.getSurface().getScope(), list, this, gl);
 						if (overlay) {
 							for (final DrawingEntity de : drawingEntity) {
 								de.enableOverlay(true);
 							}
 						}
 						if (drawingEntity != null) {
+
+//							for (final DrawingEntity de : drawingEntity) {
+//								System.out.println(de);
+//								}							
 							renderer.getDrawer().addDrawingEntities(drawingEntity);
 						}
-					}
+//					}
 				}
 			}
 			renderer.getDrawer().redraw();
+			renderer.getDrawer().refresh(this);
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			sceneIsInitialized = true;
 		} else {
 			renderer.getDrawer().refresh(this);
 		}
-
 	}
 
 	private void drawWithoutShader(final OpenGL gl) {
@@ -182,9 +194,8 @@ public class LayerObject {
 
 			final boolean picking = renderer.getPickingState().isPicking() && isPickable();
 			if (picking) {
-				if (!overlay) {
+				if (!overlay)
 					gl.runWithNames(() -> drawAllObjects(gl, true));
-				}
 			} else {
 				if (isAnimated || overlay) {
 					drawAllObjects(gl, false);
@@ -225,8 +236,8 @@ public class LayerObject {
 		gl.scaleBy(scale.x, scale.y, 1);
 		gl.setCurrentColor(((OverlayLayer) layer).getData().getBackgroundColor());
 		gl.setCurrentObjectAlpha(((OverlayLayer) layer).getData().getTransparency());
-		gl.drawCachedGeometry(IShape.Type.ROUNDED, true, null);
-		gl.popMatrix();
+		gl.drawCachedGeometry(IShape.Type.ROUNDED, null);
+		gl.popMatrix(); 
 	}
 
 	protected void drawAllObjects(final OpenGL gl, final boolean picking) {
@@ -244,9 +255,8 @@ public class LayerObject {
 				alpha = delta == 0d ? this.alpha : this.alpha * (alpha + delta);
 				drawObjects(gl, list, alpha, picking);
 			}
-		} else {
+		} else
 			drawObjects(gl, currentList, alpha, picking);
-		}
 	}
 
 	protected void drawObjects(final OpenGL gl, final List<AbstractObject> list, final double alpha,
@@ -260,7 +270,7 @@ public class LayerObject {
 
 	public boolean isStatic() {
 		if (layer == null) { return true; }
-		return false;//!layer.isDynamic();
+		return !layer.getData().isDynamic();
 	}
 
 	public void setAlpha(final Double a) {
@@ -272,11 +282,7 @@ public class LayerObject {
 	}
 
 	public void setOffset(final GamaPoint offset) {
-		if (offset != null) {
-			this.offset = new GamaPoint(offset);
-		} else {
-			this.offset = null;
-		}
+		this.offset = offset;
 	}
 
 	public GamaPoint getScale() {
@@ -288,23 +294,22 @@ public class LayerObject {
 	}
 
 	public void setScale(final GamaPoint scale) {
-		this.scale = new GamaPoint(scale);
-		// this.scale.setLocation(scale);
+		this.scale.setLocation(scale);
 	}
 
-	public StringObject addString(final String string, final TextDrawingAttributes attributes) {
+	public StringObject addString(final String string, final DrawingAttributes attributes) {
 		final StringObject object = new StringObject(string, attributes);
 		currentList.add(object);
 		return object;
 	}
 
-	public ResourceObject addFile(final GamaGeometryFile file, final FileDrawingAttributes attributes) {
+	public ResourceObject addFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
 		final ResourceObject resource = new ResourceObject(file, attributes);
 		currentList.add(resource);
 		return resource;
 	}
 
-	public GeometryObject addImage(final Object o, final FileDrawingAttributes attributes) {
+	public GeometryObject addImage(final Object o, final DrawingAttributes attributes) {
 		// If no dimensions have been defined, then the image is considered as wide and tall as the environment
 		Scaling3D size = attributes.getSize();
 		if (size == null) {
@@ -319,7 +324,6 @@ public class LayerObject {
 
 		attributes.setLocation(newLoc);
 		attributes.setTexture(o);
-		attributes.setSynthetic(true);
 		return addGeometry(geometry, attributes);
 	}
 
@@ -329,11 +333,11 @@ public class LayerObject {
 		return field;
 	}
 
-	public GeometryObject addGeometry(final Geometry geometry, final FileDrawingAttributes attributes) {
-		GeometryObject geom = null;
+	public GeometryObject addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
+		final GeometryObject geom;
 		if (attributes.isAnimated()) {
 			isAnimated = true;
-//			geom = new GeometryObjectWithAnimation(geometry, attributes);
+			geom = new GeometryObjectWithAnimation(geometry, attributes);
 		} else {
 			geom = new GeometryObject(geometry, attributes);
 		}
@@ -343,16 +347,14 @@ public class LayerObject {
 
 	private int getTrace() {
 		if (layer == null) { return 0; }
-//		final Integer trace = layer.getTrace();
-//		return trace == null ? 0 : trace;
-		return 0;
+		final Integer trace = layer.getData().getTrace();
+		return trace == null ? 0 : trace;
 	}
 
 	private boolean getFading() {
 		if (layer == null) { return false; }
-//		final Boolean fading = layer.getFading();
-//		return fading == null ? false : fading;
-		return false;
+		final Boolean fading = layer.getData().getFading();
+		return fading == null ? false : fading;
 	}
 
 	public void clear(final OpenGL gl) {
@@ -362,13 +364,12 @@ public class LayerObject {
 			isFading = getFading();
 			final int size = objects.size();
 			for (int i = 0, n = size - sizeLimit; i < n; i++) {
-				objects.poll();
+				final List<AbstractObject> list = objects.poll();
 			}
 			currentList = newCurrentList();
 			objects.offer(currentList);
-		} else {
+		} else
 			currentList.clear();
-		}
 		final Integer index = openGLListIndex;
 		if (index != null) {
 			gl.deleteList(index);
@@ -406,6 +407,27 @@ public class LayerObject {
 	public boolean isOverlay() {
 		return overlay;
 	}
+
+	// public SimpleLayer toSimpleLayer() {
+	//
+	// final List<DrawingEntity> drawingEntityList = new ArrayList<DrawingEntity>();
+	// // we don't send the "constantRedrawnLayer" (like the rotation helper)
+	// if (!constantRedrawnLayer) {
+	// for (final List<AbstractObject> list : objects) {
+	// for (final AbstractObject object : list) {
+	// final DrawingEntity[] drawingEntities = renderer.getDrawingEntityGenerator()
+	// .generateDrawingEntities(renderer.getSurface().getScope(), object, false, this, null);
+	// // explicitly passes null for the OpenGL context
+	// if (drawingEntities != null) {
+	// for (final DrawingEntity drawingEntity : drawingEntities) {
+	// drawingEntityList.add(drawingEntity);
+	// }
+	// }
+	// }
+	// }
+	// }
+	// return new SimpleLayer(getOffset(), getScale(), alpha, drawingEntityList);
+	// }
 
 	public int numberOfTraces() {
 		return objects == null ? 1 : objects.size();

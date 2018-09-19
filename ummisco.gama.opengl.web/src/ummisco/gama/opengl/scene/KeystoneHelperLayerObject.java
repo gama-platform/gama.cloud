@@ -23,7 +23,6 @@ import msi.gaml.statements.draw.TextDrawingAttributes;
 import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.ModernRenderer;
-import ummisco.gama.opengl.OpenGL;
 
 public class KeystoneHelperLayerObject extends LayerObject {
 
@@ -42,10 +41,13 @@ public class KeystoneHelperLayerObject extends LayerObject {
 		return true;
 	}
 
+	@Override
 	public void clear(final OpenGL gl) {}
 
+	@Override
 	public void draw(final OpenGL gl) {
-		updateObjectList(); 
+		updateObjectList();
+		super.draw(gl);
 	}
 
 	private void updateObjectList() {
@@ -138,8 +140,8 @@ public class KeystoneHelperLayerObject extends LayerObject {
 		return rectGeom;
 	}
 
-	private double floor4Digit(final double n) {
-		double number = n * 1000;
+	private double floor4Digit(double number) {
+		number *= 1000;
 		number = Math.round(number);
 		number /= 1000;
 		return number;

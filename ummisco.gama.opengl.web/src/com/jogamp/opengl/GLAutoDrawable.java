@@ -3,29 +3,26 @@ package com.jogamp.opengl;
 import org.eclipse.swt.widgets.Composite;
 
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.renderer.IOpenGLRenderer;
- 
+import ummisco.gama.opengl.SWTGLAnimator;
 
 public class GLAutoDrawable extends Composite{
 	protected GLContext mycontext=null;
-	public IOpenGLRenderer renderer;
+
 	protected GL2 myGL = null;
-	private GLAnimatorControl myAnimatorControl;
+	
 	public GLAutoDrawable(Composite parent, int style) {
 		super(parent, style);
 		// TODO Auto-generated constructor stub
 	}
 
-	public void removeGLEventListener(GLEventListener joglRenderer) {
+	public void removeGLEventListener(Abstract3DRenderer joglRenderer) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void setRenderer(IOpenGLRenderer r) {
-		renderer=r;		
-	}
-	public void setAnimator(GLAnimatorControl swtglAnimator) {
-		myAnimatorControl=swtglAnimator;		
+	public void setAnimator(SWTGLAnimator swtglAnimator) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public boolean isRealized() {
@@ -35,12 +32,7 @@ public class GLAutoDrawable extends Composite{
 
 	public void display() throws GLException{
 		// TODO Auto-generated method stub
-		if (renderer==null) return;
-		if( !((Abstract3DRenderer)renderer).inited)
-		{
-			renderer.init(this);
-		}
-		renderer.display(this);
+		
 	}
 
 	public int getSurfaceWidth() {
@@ -65,7 +57,7 @@ public class GLAutoDrawable extends Composite{
 
 	public GLAnimatorControl getAnimator() {
 		// TODO Auto-generated method stub
-		return myAnimatorControl;
+		return null;
 	}
 
 	public GLContext getContext() {

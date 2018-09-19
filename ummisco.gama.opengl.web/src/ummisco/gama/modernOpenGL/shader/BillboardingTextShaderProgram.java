@@ -14,8 +14,6 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GL2;
-import ummisco.gama.opengl.renderer.shaders.AbstractShader;
 
 
 public class BillboardingTextShaderProgram extends AbstractShader {

@@ -15,14 +15,13 @@ import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-
+import ummisco.gama.ui.utils.WorkbenchHelper;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.swt.GLCanvas;
 
-import msi.gama.runtime.GAMA;
-import msi.gama.runtime.IScope;
-import ummisco.gama.ui.utils.WorkbenchHelper;
+import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.runtime.IScope; 
 
 public class WebGLComposite extends GLCanvas {
 
@@ -218,7 +217,7 @@ public class WebGLComposite extends GLCanvas {
 		// public void run() {
 		// if(!func.equals("appendErr")) return;
 		
-		final String uid = "admin";// WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
+		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 		
 		
 		
@@ -284,7 +283,7 @@ public class WebGLComposite extends GLCanvas {
 
 	public void setDisplayScope(final IScope scope) {
 		if (myscope != null) {
-			GAMA.releaseScope(myscope);
+			GAMAWEB.releaseScope(myscope);
 		}
 		myscope = scope;
 	}

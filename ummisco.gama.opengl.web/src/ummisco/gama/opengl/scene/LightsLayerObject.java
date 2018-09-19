@@ -16,7 +16,6 @@ import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.LightPropertiesStructure;
 import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.OpenGL;
 
 public class LightsLayerObject extends LayerObject {
 
@@ -40,6 +39,7 @@ public class LightsLayerObject extends LayerObject {
 	}
 
 	public void updateObjectList() {
+		if(objects==null) return;
 		objects.clear();
 		for (final LightPropertiesStructure light : renderer.data.getDiffuseLights()) {
 			if (light.drawLight && light.id != 0) {
@@ -51,16 +51,16 @@ public class LightsLayerObject extends LayerObject {
 
 				if (light.type == LightPropertiesStructure.TYPE.POINT) {
 					final IShape sphereShape = GamaGeometryType.buildSphere(size, pos);
-//					final GeometryObject pointLight =
-//							new GeometryObject(sphereShape, light.color, IShape.Type.SPHERE, false);
-//					newElem.add(pointLight);
+					final GeometryObject pointLight =
+							new GeometryObject(sphereShape, light.color, IShape.Type.SPHERE, false);
+					newElem.add(pointLight);
 				} else if (light.type == LightPropertiesStructure.TYPE.SPOT) {
 					// TODO
 					final double baseSize = Math.sin(Math.toRadians(light.spotAngle)) * size;
 					final IShape coneShape = GamaGeometryType.buildCone3D(baseSize, size, pos);
-//					final GeometryObject spotLight =
-//							new GeometryObject(coneShape, light.color, IShape.Type.CONE, false);
-//					newElem.add(spotLight);
+					final GeometryObject spotLight =
+							new GeometryObject(coneShape, light.color, IShape.Type.CONE, false);
+					newElem.add(spotLight);
 				} else {
 					// TODO
 				}

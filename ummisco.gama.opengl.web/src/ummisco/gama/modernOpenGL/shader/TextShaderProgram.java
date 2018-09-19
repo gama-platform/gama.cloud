@@ -11,7 +11,6 @@
 package ummisco.gama.modernOpenGL.shader;
 
 import javax.vecmath.Vector3f;
-import ummisco.gama.opengl.renderer.shaders.AbstractShader;
 
 import com.jogamp.opengl.GL2;
 

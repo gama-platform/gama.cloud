@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import msi.gama.common.interfaces.IDisplaySurface.OpenGL;
-import ummisco.gama.opengl.view.OpenGLDisplayView;
 import ummisco.gama.ui.resources.GamaIcons;
 import ummisco.gama.ui.resources.IGamaIcons;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;

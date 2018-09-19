@@ -16,7 +16,6 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import com.jogamp.opengl.GL2;
-import ummisco.gama.opengl.renderer.shaders.AbstractShader;
 
 import msi.gama.outputs.LightPropertiesStructure;
 import msi.gama.outputs.LightPropertiesStructure.TYPE;

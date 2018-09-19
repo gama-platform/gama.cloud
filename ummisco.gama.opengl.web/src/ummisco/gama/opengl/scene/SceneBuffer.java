@@ -13,7 +13,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.OpenGL;
 
 /**
  * Class SceneBuffer. Manages the interactions between the updating and the rendering tasks by keeping hold of three
@@ -42,13 +41,13 @@ public class SceneBuffer {
 		// If we are syncrhonized with the simulation and a backScene exists, we
 		// wait until it has been updated (put to null at the end of
 		// endUpdatingScene)
-		while (renderer.data.isSynchronized() && backScene != null) {
-			try {
-				Thread.sleep(20);
-			} catch (final InterruptedException e) {
-				return false;
-			}
-		}
+//		while (renderer.data.isSynchronized() && backScene != null) {
+//			try {
+//				Thread.sleep(20);
+//			} catch (final InterruptedException e) {
+//				return false;
+//			}
+//		}
 		// If we are not synchronized (or if the wait is over), we verify that
 		// backScene is null and create a new one
 		if (backScene != null) {
@@ -64,7 +63,12 @@ public class SceneBuffer {
 
 	public boolean isNotReadyToUpdate() {
 		if (frontScene == null)
-			return false;
+			if(backScene == null) {				
+				return false;
+			}else {
+				frontScene=backScene;
+				return true;
+			}
 		if (!frontScene.rendered())
 			return true;
 		return false;
@@ -111,7 +115,8 @@ public class SceneBuffer {
 	private ModelScene createSceneFrom(final ModelScene existing) {
 		ModelScene newScene;
 		if (existing == null) {
-			newScene = new ModelScene(renderer, true);
+			//hqn88
+			newScene = new ModelScene(renderer, false);
 		} else {
 			newScene = existing.copyStatic();
 		}

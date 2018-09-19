@@ -84,7 +84,7 @@ public class FrameBufferObject {
 		// generate name for frame buffer
 		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER, frameBufferArray[0]);
 		// create the framebuffer
-		gl.glDrawBuffer(GL2.GL_COLOR_ATTACHMENT0);
+//		gl.glDrawBuffer(GL2.GL_COLOR_ATTACHMENT0);
 		// indicate that we will always render to color attachment 0
 		return frameBufferArray[0];
 	}
@@ -92,24 +92,24 @@ public class FrameBufferObject {
 	private int createTextureAttachment(final int width, final int height) {
 		gl.glGenTextures(1, textureArray, 0);
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textureArray[0]);
-		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
-		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR_MIPMAP_LINEAR);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, width, height, 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE,
 				(ByteBuffer) null);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
 		gl.glFramebufferTextureEXT(GL2.GL_FRAMEBUFFER, GL2.GL_COLOR_ATTACHMENT0, textureArray[0], 0);
 		return textureArray[0];
 	}
 
-	// private int createDepthTextureAttachment(final int width, final int height) {
-	// gl.glGenTextures(1, depthBufferTextureArray, 0);
-	// gl.glBindTexture(GL2.GL_TEXTURE_2D, depthBufferTextureArray[0]);
-	// gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_DEPTH_COMPONENT32, width, height, 0, GL2.GL_DEPTH_COMPONENT,
-	// GL2.GL_FLOAT, (ByteBuffer) null);
-	// gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
-	// gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
-	// gl.glFramebufferTextureEXT(GL2.GL_FRAMEBUFFER, GL2.GL_DEPTH_ATTACHMENT, depthBufferTextureArray[0], 0);
-	// return depthBufferTextureArray[0];
-	// }
+	private int createDepthTextureAttachment(final int width, final int height) {
+		gl.glGenTextures(1, depthBufferTextureArray, 0);
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, depthBufferTextureArray[0]);
+		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_DEPTH_COMPONENT32, width, height, 0, GL2.GL_DEPTH_COMPONENT,
+				GL2.GL_FLOAT, (ByteBuffer) null);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
+		gl.glFramebufferTextureEXT(GL2.GL_FRAMEBUFFER, GL2.GL_DEPTH_ATTACHMENT, depthBufferTextureArray[0], 0);
+		return depthBufferTextureArray[0];
+	}
 
 	private int createDepthBufferAttachment(final int width, final int height) {
 		gl.glGenRenderbuffers(1, depthBufferArray, 0);

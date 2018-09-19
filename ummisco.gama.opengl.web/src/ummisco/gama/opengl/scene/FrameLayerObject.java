@@ -25,13 +25,14 @@ public class FrameLayerObject extends StaticLayerObject.World {
 		super(renderer);
 	}
 
+
 	@Override
 	void fillWithObjects(final List<AbstractObject> list) {
 		final double w = renderer.data.getEnvWidth();
 		final double h = renderer.data.getEnvHeight();
 		final IShape g = GamaGeometryType.buildRectangle(w, h, new GamaPoint(w / 2, h / 2));
-		final ShapeDrawingAttributes drawingAttr = (ShapeDrawingAttributes) new ShapeDrawingAttributes(g, (IAgent) null,
-				null, new GamaColor(150, 150, 150, 255)).withLighting(false);
+		final ShapeDrawingAttributes drawingAttr =
+				new ShapeDrawingAttributes(g, (IAgent) null, null, new GamaColor(150, 150, 150, 255));
 		final GeometryObject geomObj = new GeometryObject(g.getInnerGeometry(), drawingAttr);
 		list.add(geomObj);
 	}

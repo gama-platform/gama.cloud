@@ -42,18 +42,18 @@ public class GAMAWEB extends GAMA{
 			controller.directPause();
 		}
 	}
-	public static void closeAllExperiments(final boolean andOpenModelingPerspective, final boolean immediately) {
-//		for (final IExperimentController controller : controllers) {
-//			controller.close();
+//	public static void closeAllExperiments(final boolean andOpenModelingPerspective, final boolean immediately) {
+////		for (final IExperimentController controller : controllers) {
+////			controller.close();
+////		}
+//		String u=RWT.getUISession().getAttribute("user").toString();
+//		if(theControllers.get(u)!=null){
+//			theControllers.get(u).close();
+//			getControllers().remove(theControllers.get(u));		
+//			getGui().closeSimulationViews(theControllers.get(u).getExperiment().getExperimentScope(), andOpenModelingPerspective, immediately);
+//			theControllers.remove(u);
 //		}
-		String u=RWT.getUISession().getAttribute("user").toString();
-		if(theControllers.get(u)!=null){
-			theControllers.get(u).close();
-			getControllers().remove(theControllers.get(u));		
-			getGui().closeSimulationViews(theControllers.get(u).getExperiment().getExperimentScope(), andOpenModelingPerspective, immediately);
-			theControllers.remove(u);
-		}
-	}
+//	}
 
 	public synchronized static IExperimentPlan getExperiment() {
 		String u=RWT.getUISession().getAttribute("user").toString();

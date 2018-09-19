@@ -16,7 +16,6 @@ import msi.gama.metamodel.shape.IShape;
 import msi.gama.util.GamaColor;
 import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.opengl.Abstract3DRenderer;
-import ummisco.gama.opengl.OpenGL;
 
 public class RotationHelperLayerObject extends LayerObject {
 
@@ -35,6 +34,7 @@ public class RotationHelperLayerObject extends LayerObject {
 	}
 
 	private void updateObjectList() {
+		if(objects==null) return;
 		objects.clear();
 		if (renderer.getRotationHelperPosition() != null) {
 			final double distance =
@@ -44,24 +44,24 @@ public class RotationHelperLayerObject extends LayerObject {
 			// create the rotation helper as "GeometryObject" in the list "objects".
 			// the rotation helper is a sphere centered in renderer.getRotationHelperPosition() and a size of "50.0 *
 			// (distance / 500)".
-			final ArrayList<AbstractObject> newElem = new ArrayList<>();
+			final ArrayList<AbstractObject> newElem = new ArrayList<AbstractObject>();
 			final GamaPoint pos = new GamaPoint(renderer.getRotationHelperPosition().x,
 					-renderer.getRotationHelperPosition().y, renderer.getRotationHelperPosition().z);
 			// interior sphere
-			// final IShape interiorSphereShape = GamaGeometryType.buildSphere(49 * (distance / 500), pos);
-			// final GeometryObject interiorSphere = new GeometryObject(interiorSphereShape,
-			// new GamaColor(0.5, 0.5, 0.5, 1.0), IShape.Type.SPHERE, false);
-			// newElem.add(interiorSphere);
+			final IShape interiorSphereShape = GamaGeometryType.buildSphere(5.0 * (distance / 500), pos);
+			final GeometryObject interiorSphere = new GeometryObject(interiorSphereShape,
+					new GamaColor(0.5, 0.5, 0.5, 1.0), IShape.Type.SPHERE, false);
+			newElem.add(interiorSphere);
 			// exterior sphere
-			// final IShape exteriorSphereShape = GamaGeometryType.buildSphere(49.0 * (distance / 500), pos);
-			// final GeometryObject exteriorSphere = new GeometryObject(exteriorSphereShape,
-			// new GamaColor(0.5, 0.5, 0.5, 0.1), IShape.Type.SPHERE, false);
-			// newElem.add(exteriorSphere);
+			final IShape exteriorSphereShape = GamaGeometryType.buildSphere(49.0 * (distance / 500), pos);
+			final GeometryObject exteriorSphere = new GeometryObject(exteriorSphereShape,
+					new GamaColor(0.5, 0.5, 0.5, 0.1), IShape.Type.SPHERE, false);
+			newElem.add(exteriorSphere);
 			// wireframe sphere
-//			final IShape wireframeSphereShape = GamaGeometryType.buildSphere(50.0 * (distance / 500), pos);
-//			final GeometryObject wireframeSphere = new GeometryObject(wireframeSphereShape,
-//					new GamaColor(0.5, 0.5, 0.5, 1.0), IShape.Type.SPHERE, true);
-//			newElem.add(wireframeSphere);
+			final IShape wireframeSphereShape = GamaGeometryType.buildSphere(50.0 * (distance / 500), pos);
+			final GeometryObject wireframeSphere = new GeometryObject(wireframeSphereShape,
+					new GamaColor(0.5, 0.5, 0.5, 1.0), IShape.Type.SPHERE, true);
+			newElem.add(wireframeSphere);
 
 			objects.add(newElem);
 		}

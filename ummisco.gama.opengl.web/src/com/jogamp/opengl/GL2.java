@@ -4276,22 +4276,8 @@ public class GL2 extends GL2ES2 {
 		obj.add("i", i);
 		webgl.execJS(methodName, obj);
 	}
-	public int[] toArray(IntBuffer b) {
-		if(b==null) return new int[0];
-	    if(b.hasArray()) {
-	        if(b.arrayOffset() == 0)
-	            return b.array();
 
-	        return Arrays.copyOfRange(b.array(), b.arrayOffset(), b.array().length);
-	    }
-
-	    b.rewind();
-	    int[] foo = new int[b.remaining()];
-	    b.get(foo);
-
-	    return foo;
-	}
-	public void glBufferData(int glElementArrayBuffer, int numBytes, IntBuffer ibIdxBuff, int glStaticDraw) {
+	public void glBufferData(int glElementArrayBuffer, int numBytes, int[] intIdxBuffer, int glStaticDraw) {
 		// TODO Auto-generated method stub
 
 		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
@@ -4299,7 +4285,7 @@ public class GL2 extends GL2ES2 {
 		JsonObject obj = new JsonObject();
 		obj.add("glElementArrayBuffer", glElementArrayBuffer);
 		obj.add("numBytes", numBytes);
-		obj.add("intIdxBuffer", Arrays.toString(toArray(ibIdxBuff)));
+		obj.add("intIdxBuffer", Arrays.toString(intIdxBuffer));
 		obj.add("glStaticDraw", glStaticDraw);
 		webgl.execJS(methodName, obj);
 
@@ -4551,11 +4537,6 @@ public class GL2 extends GL2ES2 {
 	public GL2 getGL2() {
 		// TODO Auto-generated method stub
 		return this;
-	}
- 
-	public void glBufferSubData(int glArrayBuffer, int offset, int numBytes, FloatBuffer fbData) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

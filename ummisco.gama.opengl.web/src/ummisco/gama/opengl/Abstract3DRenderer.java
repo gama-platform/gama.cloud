@@ -16,9 +16,8 @@ import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
 import java.util.List;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.internal.DPIUtil;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -43,7 +42,6 @@ import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.display.AbstractDisplayGraphics;
 import msi.gama.outputs.layers.OverlayLayer;
-import msi.gama.outputs.layers.charts.ChartOutput;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gama.util.file.GamaImageFile;
@@ -58,29 +56,24 @@ import msi.gaml.types.GamaGeometryType;
 import ummisco.gama.opengl.camera.CameraArcBall;
 import ummisco.gama.opengl.camera.FreeFlyCamera;
 import ummisco.gama.opengl.camera.ICamera;
-import ummisco.gama.opengl.renderer.IOpenGLRenderer;
-import ummisco.gama.opengl.renderer.helpers.LightHelper;
 import ummisco.gama.opengl.scene.AbstractObject;
 import ummisco.gama.opengl.scene.ModelScene;
 import ummisco.gama.opengl.scene.ObjectDrawer;
+import ummisco.gama.opengl.scene.OpenGL;
 import ummisco.gama.opengl.scene.SceneBuffer;
+import ummisco.gama.opengl.utils.LightHelper;
 import ummisco.gama.opengl.vaoGenerator.DrawingEntityGenerator;
 import ummisco.gama.opengl.vaoGenerator.ShapeCache;
-import ummisco.gama.opengl.view.SWTGLAnimator;
-import ummisco.gama.opengl.view.SWTOpenGLDisplaySurface;
-import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
- * This class plays the role of Renderer and IGraphics. Class
- * Abstract3DRenderer.
+ * This class plays the role of Renderer and IGraphics. Class Abstract3DRenderer.
  *
  * @author drogoul
  * @since 27 avr. 2015
  *
  */
-@SuppressWarnings("restriction")
-public abstract class Abstract3DRenderer extends AbstractDisplayGraphics implements IOpenGLRenderer, GLEventListener {
+public abstract class Abstract3DRenderer extends AbstractDisplayGraphics implements GLEventListener {
 
 	public class PickingState {
 
@@ -134,6 +127,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	}
 
+	public final static boolean DRAW_NORM = false;
 	protected DrawingEntityGenerator drawingEntityGenerator;
 	protected final PickingState pickingState = new PickingState();
 	public SceneBuffer sceneBuffer;
@@ -141,8 +135,9 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	protected WebGLComposite canvas;
 	public ICamera camera;
 	protected LightHelper lightHelper;
-	public volatile boolean inited;
+	protected volatile boolean inited;
 	protected volatile boolean visible;
+	// protected volatile boolean shouldRecomputeLayerBounds;
 
 	public boolean colorPicking = false;
 	protected GL2 gl;
@@ -151,9 +146,11 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	protected Envelope3D ROIEnvelope = null;
 	// relative to rotation helper
 	protected boolean drawRotationHelper = false;
+	protected GamaPoint rotationHelperPosition = null;
 
 	// CACHES FOR TEXTURES, FONTS AND GEOMETRIES
 
+	public static Boolean isNonPowerOf2TexturesAvailable = false;
 	protected final IntBuffer selectBuffer = Buffers.newDirectIntBuffer(1024);
 
 	@Override
@@ -187,9 +184,9 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 		canvas = new WebGLComposite(parent, SWT.NONE);
 		canvas.setAutoSwapBufferMode(true);
-		// final SWTGLAnimator animator = new SWTGLAnimator(canvas);
+//		final SWTGLAnimator animator = new SWTGLAnimator(canvas);
 		// animator.setIgnoreExceptions(!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue());
-		// animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
+//		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
 		canvas.addGLEventListener(this);
 		final FillLayout gl = new FillLayout();
 		canvas.setLayout(gl);
@@ -212,21 +209,15 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		return canvas;
 	}
 
-	public GamaPoint getOpenGLPointFromWindowPoint(final GamaPoint p) {
-		return getRealWorldPointFromWindowPoint(new Point((int) p.x, (int) p.y));
-	}
-
 	protected void initializeCanvasListeners() {
 
-		WorkbenchHelper.asyncRun(() -> {
-			if (getCanvas() == null || getCanvas().isDisposed()) {
-				return;
-			}
+		WorkbenchHelper.asyncRun("admin",() -> {
+			if (getCanvas() == null || getCanvas().isDisposed()) { return; }
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
 			getCanvas().addMouseMoveListener(camera);
-			getCanvas().addMouseWheelListener(camera);
-			getCanvas().addMouseTrackListener(camera);
+			//getCanvas().addMouseWheelListener(camera);
+			//getCanvas().addMouseTrackListener(camera);
 
 		});
 
@@ -254,12 +245,12 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public final void switchCamera() {
 		final ICamera oldCamera = camera;
-		WorkbenchHelper.asyncRun(() -> {
+		WorkbenchHelper.asyncRun("admin",() -> {
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
 			getCanvas().removeMouseMoveListener(oldCamera);
-			getCanvas().removeMouseWheelListener(oldCamera);
-			getCanvas().removeMouseTrackListener(oldCamera);
+			//getCanvas().removeMouseWheelListener(oldCamera);
+			//getCanvas().removeMouseTrackListener(oldCamera);
 		});
 
 		if (!data.isArcBallCamera()) {
@@ -276,9 +267,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public double getxRatioBetweenPixelsAndModelUnits() {
 		if (currentLayer == null) {
 			return getDisplayWidth() / data.getEnvWidth();
-		} else if (currentLayer instanceof OverlayLayer) {
-			return this.getViewWidth() / data.getEnvWidth();
-		}
+		} else if (currentLayer instanceof OverlayLayer) { return this.getViewWidth() / data.getEnvWidth(); }
 		return currentLayer.getData().getSizeInPixels().x / data.getEnvWidth();
 	}
 
@@ -287,6 +276,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		if (currentLayer == null) {
 			return getDisplayHeight() / data.getEnvHeight();
 		} else if (currentLayer instanceof OverlayLayer) {
+			// return getxRatioBetweenPixelsAndModelUnits();
 			return this.getViewHeight() / data.getEnvHeight();
 		} else {
 			return currentLayer.getData().getSizeInPixels().y / data.getEnvHeight();
@@ -302,7 +292,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	}
 
 	public final void updateCameraPosition() {
-//		camera.update();
+		camera.update();
 	}
 
 	protected abstract void updatePerspective();
@@ -379,15 +369,15 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public final SWTOpenGLDisplaySurface getSurface() {
 		return (SWTOpenGLDisplaySurface) surface;
 	}
-
+ 
 	public final ILocation getCameraPos() {
 		return camera.getPosition();
 	}
-
+ 
 	public final ILocation getCameraTarget() {
 		return camera.getTarget();
 	}
-
+ 
 	public final ILocation getCameraOrientation() {
 		return camera.getOrientation();
 	}
@@ -404,7 +394,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	// END HELPERS
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings ("rawtypes")
 	public ObjectDrawer getDrawerFor(final AbstractObject.DrawerType type) {
 		return null;
 	}
@@ -414,7 +404,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	}
 
 	public GamaPoint getRotationHelperPosition() {
-		return camera.getTarget();
+		return rotationHelperPosition;
 	}
 
 	public GamaPoint getWorldsDimensions() {
@@ -422,17 +412,13 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	}
 
 	/**
-	 * Method drawShape. Add a given JTS Geometry in the list of all the existing
-	 * geometry that will be displayed by openGl.
+	 * Method drawShape. Add a given JTS Geometry in the list of all the existing geometry that will be displayed by
+	 * openGl.
 	 */
 	@Override
 	public Rectangle2D drawShape(final Geometry shape, final ShapeDrawingAttributes attributes) {
-		if (shape == null) {
-			return null;
-		}
-		if (sceneBuffer.getSceneToUpdate() == null) {
-			return null;
-		}
+		if (shape == null) { return null; }
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
 		tryToHighlight(attributes);
 		sceneBuffer.getSceneToUpdate().addGeometry(shape, attributes);
 		return rect;
@@ -448,29 +434,12 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 */
 	@Override
 	public Rectangle2D drawImage(final BufferedImage img, final FileDrawingAttributes attributes) {
-		if (sceneBuffer.getSceneToUpdate() == null) {
-			return null;
-		}
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
 		sceneBuffer.getSceneToUpdate().addImage(img, attributes);
 		tryToHighlight(attributes);
 		if (attributes.getBorder() != null) {
 			drawGridLine(new GamaPoint(img.getWidth(), img.getHeight()), attributes.getBorder());
 		}
-		return rect;
-	}
-
-	@Override
-	public Rectangle2D drawChart(final ChartOutput chart) {
-		if (sceneBuffer.getSceneToUpdate() == null) {
-			return null;
-		}
-		int x = getLayerWidth();
-		int y = getLayerHeight();
-		x = (int) (Math.min(x, y) * 0.80);
-		y = x;
-		// TODO See if it not possible to generate directly a texture renderer instead
-		final BufferedImage im = chart.getImage(x, y, getSurface().getData().isAntialias());
-		sceneBuffer.getSceneToUpdate().addImage(im, new FileDrawingAttributes(null, true));
 		return rect;
 	}
 
@@ -481,9 +450,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	}
 
 	public void drawGridLine(final GamaPoint dimensions, final Color lineColor) {
-		if (sceneBuffer.getSceneToUpdate() == null) {
-			return;
-		}
+		if (sceneBuffer.getSceneToUpdate() == null) { return; }
 		double stepX, stepY;
 		final double cellWidth = worldDimensions.x / dimensions.x;
 		final double cellHeight = worldDimensions.y / dimensions.y;
@@ -518,9 +485,8 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	}
 
 	protected void preloadTextures(final DrawingAttributes attributes) {
-		if (!preloadTextures()) {
+		if (!preloadTextures())
 			return;
-		}
 		final List<?> textures = attributes.getTextures();
 		if (textures != null && !textures.isEmpty()) {
 			for (final Object img : textures) {
@@ -531,29 +497,33 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		}
 	}
 
-	public void startDrawRotationHelper() {
+	public void startDrawRotationHelper(final GamaPoint pos) {
+		rotationHelperPosition = pos;
 		drawRotationHelper = true;
-		if (currentScene != null) {
-			// currentScene.startDrawRotationHelper();
-		}
+		final double distance = Math.sqrt(Math.pow(camera.getPosition().x - rotationHelperPosition.x, 2)
+				+ Math.pow(camera.getPosition().y - rotationHelperPosition.y, 2)
+				+ Math.pow(camera.getPosition().z - rotationHelperPosition.z, 2));
+		final double size = distance / 10; // the size of the displayed axis
+		if (currentScene != null)
+			currentScene.startDrawRotationHelper(pos, size);
 	}
 
 	public void stopDrawRotationHelper() {
+		rotationHelperPosition = null;
 		drawRotationHelper = false;
-		if (currentScene != null) {
-			// currentScene.stopDrawRotationHelper();
-		}
+		if (currentScene != null)
+			currentScene.stopDrawRotationHelper();
 	}
 
 	public void defineROI(final Point start, final Point end) {
 		final GamaPoint startInWorld = getRealWorldPointFromWindowPoint(start);
 		final GamaPoint endInWorld = getRealWorldPointFromWindowPoint(end);
-		ROIEnvelope = new Envelope3D(startInWorld.x, endInWorld.x, startInWorld.y, endInWorld.y, 0,
-				getMaxEnvDim() / 20d);
+		ROIEnvelope = new Envelope3D(startInWorld.x, endInWorld.x, startInWorld.y, endInWorld.y, 0, 1);
 	}
 
 	public void cancelROI() {
-		// if (camera.isROISticky()) { return; }
+		if (camera.isROISticky())
+			return;
 		ROIEnvelope = null;
 	}
 
@@ -571,11 +541,9 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public void drawScene() {
 		currentScene = sceneBuffer.getSceneToRender();
-		if (currentScene == null) {
-			return;
-		}
+		if (currentScene == null) { return; }
 		// Do some garbage collecting in model scenes
-		// sceneBuffer.garbageCollect(openGL);
+		sceneBuffer.garbageCollect(openGL);
 		// if (this.shouldRecomputeLayerBounds) {
 		// surface.getManager().recomputeBounds(this);
 		// shouldRecomputeLayerBounds = false;
@@ -604,23 +572,16 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	@Override
 	public boolean beginDrawingLayers() {
-		while (!inited) {
-			try {
-				Thread.sleep(10);
-			} catch (final InterruptedException e) {
-				return false;
-			}
-		}
+//		while (!inited) {
+			init(canvas);
+//			try {
+//				Thread.sleep(10);
+//			} catch (final InterruptedException e) {
+//				return false;
+//			}
+//		}
 		return sceneBuffer.beginUpdatingScene();
 
-	}
-
-	@Override
-	public boolean isNotReadyToUpdate() {
-		if (data.isSynchronized()) {
-			return false;
-		}
-		return sceneBuffer.isNotReadyToUpdate();
 	}
 
 	@Override
@@ -631,6 +592,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	@Override
 	public void beginDrawingLayer(final ILayer layer) {
+		layer.reloadOn(surface);
 		super.beginDrawingLayer(layer);
 		GamaPoint currentOffset, currentScale;
 		currentOffset = new GamaPoint(0, 0);
@@ -666,13 +628,33 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		// getHeight(), zScale);
 		// } else {
 		currentScale = new GamaPoint(0.9, 0.9, 1);
-		// }
+		// } 
 		final ModelScene scene = sceneBuffer.getSceneToUpdate();
 		if (scene != null) {
 			scene.beginDrawingLayer(layer, currentOffset, currentScale, currentLayerAlpha);
 		}
 	}
 
+	@Override
+	public void endDrawingLayer(ILayer layer) {
+		super.endDrawingLayer(layer);
+		if(sceneBuffer.isNotReadyToUpdate()) {
+			display(canvas);
+		}
+	}
+	
+
+
+	@Override
+	public boolean isNotReadyToUpdate() {
+		if (data.isSynchronized())
+			return false;
+//		if(sceneBuffer.isNotReadyToUpdate()) {
+//			display(canvas);
+//		}
+//		return sceneBuffer.isNotReadyToUpdate();
+		return false;
+	}
 	/**
 	 * Method endDrawingLayers()
 	 * 
@@ -689,8 +671,12 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public abstract void beginPicking();
 
 	public abstract void endPicking();
-
-	public double sizeOfRotationElements() {
-		return Math.min(getMaxEnvDim() / 4d, camera.getDistance() / 6d);
+ 
+	public int getWidthForOverlay() {
+		return getViewWidth();
+	}
+ 
+	public int getHeightForOverlay() {
+		return getViewHeight();
 	}
 }
