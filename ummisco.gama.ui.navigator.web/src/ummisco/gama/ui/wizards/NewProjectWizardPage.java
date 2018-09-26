@@ -292,7 +292,7 @@ public class NewProjectWizardPage extends WizardPage {
 	 * @return <code>true</code> if all controls are valid, and <code>false</code> if at least one is invalid
 	 */
 	protected boolean validatePage() {
-		final IWorkspace workspace = IDEWorkbenchPlugin.getPluginWorkspace();
+		final IWorkspace workspace = ResourcesPlugin.getWorkspace();//IDEWorkbenchPlugin.getPluginWorkspace();
 
 		final String projectFieldContents = getProjectNameFieldValue();
 		if (projectFieldContents.equals("")) { //$NON-NLS-1$

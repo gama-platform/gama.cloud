@@ -9,11 +9,15 @@
  **********************************************************************************************/
 package ummisco.gama.ui.navigator.contents;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 
+import org.eclipse.core.internal.resources.Project;
+import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -21,11 +25,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
+import msi.gama.application.workspace.WorkspacePreferences;
 import msi.gaml.compilation.kernel.GamaBundleLoader;
 import one.util.streamex.StreamEx;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
@@ -71,8 +77,37 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	}
 
 	public void initializeChildren() {
-		children = StreamEx.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(p -> privateAccepts(p))
-				.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
+		if(this instanceof UserProjectsFolder){
+//			ArrayList<IProject> pp = new ArrayList<IProject>();
+			File f=new File(WorkspacePreferences.getSelectedWorkspaceRootLocation());
+//			WrappedProject[] pp=(WrappedProject[]) getChildren(f);
+//			children=pp;
+			IProject[] pp=(IProject[]) getChildren(f);
+			children=StreamEx.of(pp).filter(p -> privateAccepts(p))
+					.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
+		}else {
+			children = StreamEx.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(p -> privateAccepts(p))
+					.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
+		}
+	}
+
+	public Object[] getChildren(Object parentElement) {
+		if (parentElement instanceof File) {
+			File file = (File) parentElement;
+			if (file.isDirectory()) {
+				File[] f=file.listFiles();
+				GamaProject[] res=new GamaProject[f.length];
+//				WrappedProject[] res=new WrappedProject[f.length];
+				for(int i=0; i<f.length; i++) {
+//					f[i]=new File(f[i].getAbsolutePath()+"  x");
+					res[i]=new GamaProject(new Path(f[i].getPath()), (Workspace) ResourcesPlugin.getWorkspace());
+//					GamaProject p=new GamaProject(new Path(f[i].getPath()), (Workspace) ResourcesPlugin.getWorkspace());
+//					res[i]=new WrappedProject(this,p);
+				}
+				return res;
+			}
+		}
+		return new Object[] {};
 	}
 
 	@Override
@@ -110,6 +145,7 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	 * @return
 	 */
 	public final boolean privateAccepts(final IProject project) {
+//		return true;
 		if (project == null) { return false; }
 		if (!project.exists()) { return false; }
 		// TODO This one is clearly a hack. Should be replaced by a proper way

@@ -51,7 +51,6 @@ Export-Package:
  ummisco.gama.opengl.files,
  ummisco.gama.opengl.scene,
  ummisco.gama.opengl.utils,
- ummisco.gama.opengl.vaoGenerator,
- ummisco.gama.webgl
+ ummisco.gama.opengl.vaoGenerator
 Bundle-Vendor: UMMISCO
 Bundle-ClassPath: .

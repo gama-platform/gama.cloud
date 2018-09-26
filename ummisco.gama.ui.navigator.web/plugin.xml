@@ -304,7 +304,7 @@
                name="ummisco.gama.ui.navigator.separator2"
                visible="true">
          </separator>
-         <command
+         <!--command
                commandId="org.eclipse.ui.ide.showInSystemExplorer"
                icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.searchfile2.png"
                label="Reveal in OS"
@@ -341,7 +341,7 @@
                   </iterate>
                </with>
             </visibleWhen>
-         </command>
+         </command-->
       </menuContribution>
       <menuContribution
             allPopups="false"

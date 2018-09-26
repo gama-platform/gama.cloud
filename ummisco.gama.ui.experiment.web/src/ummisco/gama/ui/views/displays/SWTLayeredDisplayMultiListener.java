@@ -60,24 +60,24 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 			return surfaceOk;
 		};
 
-		control.addKeyListener(this);
-		control.addMouseListener(this);
-		control.addMenuDetectListener(this);
-		control.addDragDetectListener(this);
+//		control.addKeyListener(this);
+//		control.addMouseListener(this);
+//		control.addMenuDetectListener(this);
+//		control.addDragDetectListener(this);
 //		control.addMouseTrackListener(this);
 //		control.addMouseMoveListener(this);
-		control.addFocusListener(this);
+//		control.addFocusListener(this);
 	}
 
 	public void dispose() {
 		if (control == null || control.isDisposed()) { return; }
-		control.removeKeyListener(this);
-		control.removeMouseListener(this);
-		control.removeMenuDetectListener(this);
-		control.removeDragDetectListener(this);
+//		control.removeKeyListener(this);
+//		control.removeMouseListener(this);
+//		control.removeMenuDetectListener(this);
+//		control.removeDragDetectListener(this);
 //		control.removeMouseTrackListener(this);
 //		control.removeMouseMoveListener(this);
-		control.removeFocusListener(this);
+//		control.removeFocusListener(this);
 	}
 
 	@Override

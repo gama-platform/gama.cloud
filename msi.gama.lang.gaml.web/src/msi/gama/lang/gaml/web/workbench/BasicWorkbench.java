@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
+import msi.gama.application.Application;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
@@ -159,7 +160,7 @@ public class BasicWorkbench implements EntryPoint {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
 				}
-					
+				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);
 				// JavaScriptExecutor js =

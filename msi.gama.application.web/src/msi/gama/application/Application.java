@@ -118,7 +118,7 @@ public class Application implements IApplication {
 	}
 
 	public static Object checkWorkspace() throws IOException, MalformedURLException {
-		final Location instanceLoc = Platform.getInstanceLocation();
+		Location instanceLoc = Platform.getInstanceLocation();
 		if ( instanceLoc == null ) {
 			// -data @none was specified but GAMA requires a workspace
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
@@ -127,21 +127,23 @@ public class Application implements IApplication {
 		}
 		boolean remember = false;
 		String lastUsedWs = null;
-		if ( instanceLoc.isSet() ) {
-			lastUsedWs = instanceLoc.getURL().getFile();
-			final String ret = WorkspacePreferences.checkWorkspaceDirectory(lastUsedWs, false, false, false);
-			if ( ret != null ) {
-				/* If we dont or cant remember and the location is set, we cant do anything as we need a workspace */
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
-					"The workspace provided cannot be used. Please change it");
-				PlatformUI.getWorkbench().close();
-				System.exit(0);
-				return EXIT_OK;
-			}
-		} else {
+//		if ( instanceLoc.isSet() ) {
+//			lastUsedWs = instanceLoc.getURL().getFile();
+//			final String ret = WorkspacePreferences.checkWorkspaceDirectory(lastUsedWs, false, false, false);
+//			if ( ret != null ) {
+//				/* If we dont or cant remember and the location is set, we cant do anything as we need a workspace */
+//				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
+//					"The workspace provided cannot be used. Please change it");
+////				PlatformUI.getWorkbench().close();
+////				System.exit(0);
+////				return EXIT_OK;
+//				lastUsedWs=null;
+//			}
+//		}  
+		if(lastUsedWs==null){
 
 			/* Get what the user last said about remembering the workspace location */
-			remember = PickWorkspaceDialog.isRememberWorkspace();
+//			remember = PickWorkspaceDialog.isRememberWorkspace();
 			/* Get the last used workspace location */
 			lastUsedWs = PickWorkspaceDialog.getLastSetWorkspaceDirectory();
 			/* If we have a "remember" but no last used workspace, it's not much to remember */
@@ -179,8 +181,9 @@ public class Application implements IApplication {
 				System.exit(0);
 				return IApplication.EXIT_OK;
 			}
+			instanceLoc=instanceLoc.createLocation(null, new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), remember);
 			/* Tell Eclipse what the selected location was and continue */
-			instanceLoc.set(new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), false);
+//			instanceLoc.set(new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), false);
 			if ( WorkspacePreferences.applyPrefs() ) {
 				WorkspacePreferences.applyEclipsePreferences(WorkspacePreferences.getSelectedWorkspaceRootLocation());
 			}
