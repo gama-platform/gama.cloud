@@ -68,6 +68,10 @@ exports.cssText = ".ace-gaml .ace_gutter {\
 	font-weight: bold;\
 	color: rgb(28, 125, 180);\
 }\
+.ace-gaml .ace_operator {\
+	font-weight: bold;\
+	color: rgb(46, 93, 78);\
+}\
 .ace-gaml .ace_facet {\
 	font-weight: bold;\
 	color: rgb(154, 72, 71);\

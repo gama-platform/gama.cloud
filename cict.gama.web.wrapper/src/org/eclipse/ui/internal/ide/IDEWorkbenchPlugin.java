@@ -3,6 +3,7 @@ package org.eclipse.ui.internal.ide;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.wizard.Wizard;
 
@@ -12,7 +13,7 @@ public class IDEWorkbenchPlugin {
 
 	public static IWorkspace getPluginWorkspace() {
 		// TODO Auto-generated method stub
-		return null;
+		return ResourcesPlugin.getWorkspace();
 	}
 
 	public static Wizard getDefault() {

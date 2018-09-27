@@ -82,9 +82,9 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 				createProject(desc, projectHandle, isTest, monitor);
 			}
 		};
-
 		try {
-			getContainer().run(true, true, op);
+			op.run(null);
+//			getContainer().run(true, true, op);
 		} catch (final InterruptedException e) {
 			return false;
 		} catch (final InvocationTargetException e) {
