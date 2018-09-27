@@ -77,18 +77,18 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	}
 
 	public void initializeChildren() {
-		if(this instanceof UserProjectsFolder){
-//			ArrayList<IProject> pp = new ArrayList<IProject>();
-			File f=new File(WorkspacePreferences.getSelectedWorkspaceRootLocation());
-//			WrappedProject[] pp=(WrappedProject[]) getChildren(f);
-//			children=pp;
-			IProject[] pp=(IProject[]) getChildren(f);
-			children=StreamEx.of(pp).filter(p -> privateAccepts(p))
-					.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
-		}else {
+//		if(this instanceof UserProjectsFolder){
+////			ArrayList<IProject> pp = new ArrayList<IProject>();
+//			File f=new File(WorkspacePreferences.getSelectedWorkspaceRootLocation());
+////			WrappedProject[] pp=(WrappedProject[]) getChildren(f);
+////			children=pp;
+//			IProject[] pp=(IProject[]) getChildren(f);
+//			children=StreamEx.of(pp).filter(p -> privateAccepts(p))
+//					.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
+//		}else {
 			children = StreamEx.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(p -> privateAccepts(p))
 					.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
-		}
+//		}
 	}
 
 	public Object[] getChildren(Object parentElement) {

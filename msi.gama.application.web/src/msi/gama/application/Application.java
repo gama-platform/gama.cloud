@@ -173,20 +173,20 @@ public class Application implements IApplication {
 
 		/* If we don't remember the workspace, show the dialog */
 		if ( !remember ) {
-			final int pick = new PickWorkspaceDialog().open();
-			/* If the user cancelled, we can't do anything as we need a workspace */
-			if ( pick == 1 /* Window.CANCEL */ && WorkspacePreferences.getSelectedWorkspaceRootLocation() == null ) {
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
-					"The application can not start without a workspace and will now exit.");
-				System.exit(0);
-				return IApplication.EXIT_OK;
-			}
-			instanceLoc=instanceLoc.createLocation(null, new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), remember);
-			/* Tell Eclipse what the selected location was and continue */
-//			instanceLoc.set(new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), false);
-			if ( WorkspacePreferences.applyPrefs() ) {
-				WorkspacePreferences.applyEclipsePreferences(WorkspacePreferences.getSelectedWorkspaceRootLocation());
-			}
+//			final int pick = new PickWorkspaceDialog().open();
+//			/* If the user cancelled, we can't do anything as we need a workspace */
+//			if ( pick == 1 /* Window.CANCEL */ && WorkspacePreferences.getSelectedWorkspaceRootLocation() == null ) {
+//				MessageDialog.openError(Display.getDefault().getActiveShell(), "Error",
+//					"The application can not start without a workspace and will now exit.");
+//				System.exit(0);
+//				return IApplication.EXIT_OK;
+//			}
+//			instanceLoc=instanceLoc.createLocation(null, new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), remember);
+//			/* Tell Eclipse what the selected location was and continue */
+////			instanceLoc.set(new URL("file", null, WorkspacePreferences.getSelectedWorkspaceRootLocation()), false);
+//			if ( WorkspacePreferences.applyPrefs() ) {
+//				WorkspacePreferences.applyEclipsePreferences(WorkspacePreferences.getSelectedWorkspaceRootLocation());
+//			}
 		} else {
 			if ( !instanceLoc.isSet() ) {
 				/* Set the last used location and continue */

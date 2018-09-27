@@ -47,5 +47,7 @@ public class IDEWorkbenchMessages {
 	public static final String WizardNewProjectCreationPage_nameLabel = "WizardNewProjectCreationPage_nameLabel";
 	public static final String WizardNewProjectCreationPage_projectNameEmpty = "WizardNewProjectCreationPage_projectNameEmpty";
 	public static final String WizardNewProjectCreationPage_projectExistsMessage = "WizardNewProjectCreationPage_projectExistsMessage";
+	public static final String WorkbenchAction_problemsMessage = "WorkbenchAction_problemsMessage";
+	public static final String WorkspaceAction_problemsTitle = "WorkspaceAction_problemsTitle";
 
 }

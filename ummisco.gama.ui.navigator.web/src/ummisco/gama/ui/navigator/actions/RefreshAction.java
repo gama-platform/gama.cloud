@@ -273,19 +273,23 @@ public class RefreshAction extends WorkspaceAction {
 
 	@Override
 	public void run() {
-		final WorkspaceJob job = new WorkspaceJob("Refreshing the GAMA Workspace") {
-
-			@Override
-			public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
-				final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
-				if (refresh != null) {
-					refresh.completeRefresh(resources);
-				}
-				return Status.OK_STATUS;
-			};
-		};
-		job.setUser(true);
-		job.schedule();
+		final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
+		if (refresh != null) {
+			refresh.completeRefresh(resources);
+		}
+//		final WorkspaceJob job = new WorkspaceJob("Refreshing the GAMA Workspace") {
+//
+//			@Override
+//			public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
+//				final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
+//				if (refresh != null) {
+//					refresh.completeRefresh(resources);
+//				}
+//				return Status.OK_STATUS;
+//			};
+//		};
+//		job.setUser(true);
+//		job.schedule();
 	}
 
 }

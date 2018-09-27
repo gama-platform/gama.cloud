@@ -213,7 +213,7 @@ public class PasteAction extends SelectionListenerAction {
 		shell.getDisplay().syncExec(() -> {
 			// clipboard must have resources or files
 			final ResourceTransfer resTransfer = ResourceTransfer.getInstance();
-			clipboardData[0] = (IResource[]) clipboard.getContents(resTransfer);
+//			clipboardData[0] = (IResource[]) clipboard.getContents(resTransfer);
 		});
 		final IResource[] resourceData = clipboardData[0];
 		final boolean isProjectRes =
@@ -259,9 +259,9 @@ public class PasteAction extends SelectionListenerAction {
 		}
 		final TransferData[] transfers = clipboard.getAvailableTypes();
 		final FileTransfer fileTransfer = FileTransfer.getInstance();
-		for (final TransferData transfer : transfers) {
-			if (fileTransfer.isSupportedType(transfer)) { return true; }
-		}
+//		for (final TransferData transfer : transfers) {
+//			if (fileTransfer.isSupportedType(transfer)) { return true; }
+//		}
 		return false;
 	}
 

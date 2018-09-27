@@ -23,8 +23,10 @@ import javax.security.auth.Subject;
 
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -38,7 +40,7 @@ import msi.gama.rap.oauth.TokenCallbackServiceHandler;
  * Basic Workbench UI entry point
  *
  */
-public class BasicWorkbench implements EntryPoint {
+public class BasicWorkbench extends AbstractEntryPoint {
 	// private static final String DEMO_PRESENTATION =
 	// "org.dslforge.texteditor.demo.theme";
 	// abstract class SessionRunnable implements Runnable {
@@ -184,5 +186,11 @@ public class BasicWorkbench implements EntryPoint {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	@Override
+	protected void createContents(Composite parent) {
+		// TODO Auto-generated method stub
+		
 	}
 }
