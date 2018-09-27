@@ -2,7 +2,7 @@ package org.eclipse.ui.internal.ide;
 
 public class IDEWorkbenchMessages {
 
-	public static final String CloseResourceAction_text = "CloseResourceAction_text";
+	public static final String CloseResourceAction_text = "Close";
 	public static final String CloseResourceAction_toolTip = "CloseResourceAction_toolTip";
 	public static final String ErrorOnCloseEditors = "ErrorOnCloseEditors";
 	public static final String CloseResourceAction_operationMessage = "CloseResourceAction_operationMessage";
@@ -12,16 +12,16 @@ public class IDEWorkbenchMessages {
 	public static final String CloseResourceAction_warningForMultiple = "CloseResourceAction_warningForMultiple";
 	public static final String CloseResourceAction_confirm = "CloseResourceAction_confirm";
 	public static final String DeleteResourceAction_toolTip = "DeleteResourceAction_toolTip";
-	public static final String DeleteResourceAction_text = "DeleteResourceAction_text";
+	public static final String DeleteResourceAction_text = "Delete";
 	public static final String OpenFileAction_openFileShellTitle = "OpenFileAction_openFileShellTitle";
-	public static final String OpenFileAction_text = "OpenFileAction_text";
+	public static final String OpenFileAction_text = "Open File";
 	public static final String OpenFileAction_toolTip = "OpenFileAction_toolTip";
-	public static final String OpenResourceAction_text = "OpenResourceAction_text";
+	public static final String OpenResourceAction_text = "Open Resource";
 	public static final String OpenResourceAction_toolTip = "OpenResourceAction_toolTip";
 	public static final String OpenResourceAction_operationMessage = "OpenResourceAction_operationMessage";
 	public static final String OpenResourceAction_problemMessage = "OpenResourceAction_problemMessage";
 	public static final String OpenResourceAction_dialogTitle = "OpenResourceAction_dialogTitle";
-	public static final String RefreshAction_text = "RefreshAction_text";
+	public static final String RefreshAction_text = "Refresh";
 	public static final String RefreshAction_toolTip = "RefreshAction_toolTip";
 	public static final String RefreshAction_locationDeletedMessage = "RefreshAction_locationDeletedMessage";
 	public static final String RefreshAction_dialogTitle = "RefreshAction_dialogTitle";
@@ -34,7 +34,7 @@ public class IDEWorkbenchMessages {
 	public static final String RenameResourceAction_overwriteQuestion = "RenameResourceAction_overwriteQuestion";
 	public static final String RenameResourceAction_overwriteProjectQuestion = "RenameResourceAction_overwriteProjectQuestion";
 	public static final String RenameResourceAction_projectExists = "RenameResourceAction_projectExists";
-	public static final String RenameResourceAction_text = "RenameResourceAction_text";
+	public static final String RenameResourceAction_text = "Rename";
 	public static final String RenameResourceAction_toolTip = "RenameResourceAction_toolTip";
 	public static final String RenameResourceAction_progress = "RenameResourceAction_progress";
 	public static final String RenameResourceAction_problemMessage = "RenameResourceAction_problemMessage";

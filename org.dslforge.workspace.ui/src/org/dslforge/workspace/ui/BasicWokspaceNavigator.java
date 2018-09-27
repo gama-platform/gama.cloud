@@ -148,7 +148,7 @@ public class BasicWokspaceNavigator extends CommonNavigator implements IWorkspac
 							// Double click a file
 							String absolutePath = file.getAbsolutePath();
 							IWorkbench workbench = PlatformUI.getWorkbench();
-							if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+							if (EditorUtil.openEditor(workbench, new Path(absolutePath),true) != null) {
 								logger.info("Double click on file " + absolutePath);
 							}
 							workspaceChanged(null);

@@ -78,7 +78,7 @@ public class FileOpener {
 		}	 	 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 //		return EditorUtil.openEditor(PAGE, file);
-		return EditorUtil.openEditor(workbench, file.getFullPath());
+		return EditorUtil.openEditor(workbench, file.getFullPath(),true);
 	}
 
 	public static IEditorPart openFileInFileSystem(final URI uri) throws PartInitException {
@@ -106,7 +106,7 @@ public class FileOpener {
 //		return IDE.openInternalEditorOnFileStore(PAGE, fileStore);
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		return EditorUtil.openEditor(workbench, new Path(uri.toFileString()));
+		return EditorUtil.openEditor(workbench, new Path(uri.toFileString()),true);
 	}
 
 }

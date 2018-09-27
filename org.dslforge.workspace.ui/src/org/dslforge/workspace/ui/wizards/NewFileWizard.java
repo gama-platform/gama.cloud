@@ -104,7 +104,7 @@ public class NewFileWizard extends AbstractNewResourceWizard{
 		
 		String absolutePath = filePath.toFile().getAbsolutePath();
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+		if (EditorUtil.openEditor(workbench, new Path(absolutePath),true) != null) {
 			logger.info("Opened editor on file " + absolutePath);
 			return true;
 		}

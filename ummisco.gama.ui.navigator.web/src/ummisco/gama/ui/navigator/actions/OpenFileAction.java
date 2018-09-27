@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.util.OpenStrategy;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IWorkbenchPage;
@@ -26,6 +29,7 @@ import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 import org.eclipse.ui.part.FileEditorInput;
 
 import ummisco.gama.ui.navigator.contents.NavigatorRoot;
+import ummisco.gama.ui.navigator.contents.WrappedGamaFile;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
@@ -121,6 +125,9 @@ public class OpenFileAction extends OpenSystemEditorAction {
 			final boolean activate = OpenStrategy.activateOnOpen();
 			if (editorDescriptor == null) {
 				IDE.openEditor(WorkbenchHelper.getPage(), file, activate);
+//				IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Procedural City.gaml"); 
+				EditorUtil.openEditor(WorkbenchHelper.getWorkbench(),file.getLocation(),activate);
+//				 ((WrappedGamaFile) element).getResource().getLocation()
 			} else {
 				if (ensureFileLocal(file)) {
 					WorkbenchHelper.getPage().openEditor(new FileEditorInput(file), editorDescriptor.getId(), activate);

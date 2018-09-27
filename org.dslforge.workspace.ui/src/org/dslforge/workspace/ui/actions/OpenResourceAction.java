@@ -54,7 +54,7 @@ public class OpenResourceAction extends AbstractWorkspaceAction {
 					if (file.exists() && !file.isDirectory()) {
 						String absolutePath = file.getAbsolutePath();
 						IWorkbench workbench = PlatformUI.getWorkbench();
-						if (EditorUtil.openEditor(workbench, new Path(absolutePath)) != null) {
+						if (EditorUtil.openEditor(workbench, new Path(absolutePath),true) != null) {
 							logger.info("Opened editor on file " + absolutePath);
 						}
 					}

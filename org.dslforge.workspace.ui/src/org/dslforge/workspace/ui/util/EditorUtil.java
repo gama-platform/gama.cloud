@@ -69,7 +69,7 @@ public class EditorUtil {
 		return result;
 	}
 	
-	public static IEditorPart openEditor(IWorkbench workbench, IPath path) {
+	public static IEditorPart openEditor(IWorkbench workbench, IPath path, boolean activate) {
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = workbenchWindow.getActivePage();
 		final IEditorDescriptor descriptor = getDefaultEditor(path);
@@ -82,7 +82,7 @@ public class EditorUtil {
 			PathEditorInput editorInput = new PathEditorInput(path);
 			IEditorPart editor = page.findEditor(editorInput);
 			if (editor == null)
-				editor = page.openEditor(editorInput, descriptor.getId());
+				editor = page.openEditor(editorInput, descriptor.getId(), false);
 			else
 				page.activate(editor);
 			return editor;

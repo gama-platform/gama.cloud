@@ -166,7 +166,7 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 //		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/Agent Perception/Continuous Field of Vision.gaml");		
 //		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Built-In Shapes.gaml"); 
 		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Procedural City.gaml"); 
-		EditorUtil.openEditor(PlatformUI.getWorkbench(),p);
+		EditorUtil.openEditor(PlatformUI.getWorkbench(),p,true);
 
 	}
 
@@ -272,7 +272,7 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 		if (element instanceof VirtualContent && ((VirtualContent<?>) element).handleDoubleClick()) {
 			// return;
 		}  else if (element instanceof WrappedGamaFile) {
-			EditorUtil.openEditor(PlatformUI.getWorkbench(), ((WrappedGamaFile) element).getResource().getLocation());
+			EditorUtil.openEditor(PlatformUI.getWorkbench(), ((WrappedGamaFile) element).getResource().getLocation(),true);
 			// return;
 		} else {
 			super.handleDoubleClick(anEvent);
