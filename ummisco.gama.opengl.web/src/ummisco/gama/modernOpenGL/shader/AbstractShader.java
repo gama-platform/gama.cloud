@@ -29,9 +29,9 @@ public abstract class AbstractShader {
 	private final int vertexShaderID;
 	private final int fragmentShaderID;
 
-	private int location_transformationMatrix;
-	private int location_projectionMatrix;
-	private int location_viewMatrix;
+	private int location_transformationMatrix=2;
+	private int location_projectionMatrix=0;
+	private int location_viewMatrix = 1;
 	private int location_layerAlpha;
 
 	public static final int POSITION_ATTRIBUTE_IDX = 0;

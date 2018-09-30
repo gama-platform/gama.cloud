@@ -284,19 +284,31 @@ function WebGLJS(p,e) {
 			 
 	         function get_projection(angle, a, zMin, zMax) {
 	            var ang = Math.tan((angle*.5)*Math.PI/180);// angle*.5
+	            if(proj_matrix_ori==null){	            	
 	             return [
 					   0.5/ang, 0 , 0, 0,
 					   0, 0.5*a/ang, 0, 0,
 					   0, 0, -(zMax+zMin)/(zMax-zMin), -1,
 					   0, 0, (-2*zMax*zMin)/(zMax-zMin), 0 
 					   ];
+	            }else{	     
+	            	return [
+	            		proj_matrix_ori[0]/ang, proj_matrix_ori[1] , proj_matrix_ori[2], proj_matrix_ori[3],
+	            		proj_matrix_ori[4], proj_matrix_ori[5]/ang, proj_matrix_ori[6], proj_matrix_ori[7],
+	            		proj_matrix_ori[8], proj_matrix_ori[9], proj_matrix_ori[10], proj_matrix_ori[11],
+	            		proj_matrix_ori[12], proj_matrix_ori[13], proj_matrix_ori[14], proj_matrix_ori[15] 
+	            		];
+	            }
 	         }
 
-	         var zoomFactor=10;
-	         var translateX=(canvas.width/20);
-	         var translateY=(canvas.height/20);
+	         var zoomFactor=90;
+	         var translateX=0;//(canvas.width/20);
+	         var translateY=0;//(canvas.height/20);
 	         var dontknow1=-canvas.width/2;
 	         var dontknow2=1;
+	     var proj_matrix_ori;
+         var view_matrix_ori;
+         var mo_matrix_ori;
          var proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,100);
          var mo_matrix = [ 
              1,0,0,0, 
@@ -338,7 +350,7 @@ function WebGLJS(p,e) {
          };
          
          var mouseUp = function(e){
-            drag = false;
+            drag = false; 
          };
 
 
@@ -364,7 +376,7 @@ function WebGLJS(p,e) {
          };
 
          var mouseWheel = function(e){   
-        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.99  : 1.01;
+        	 zoomFactor *= (e.deltaY ? e.deltaY : e.wheelDelta ? e.wheelDelta : e.detail) < 0 ? 0.99  : 1.01; 
          };
 
          canvas.addEventListener("DOMMouseScroll", mouseWheel, false);
@@ -466,17 +478,25 @@ function WebGLJS(p,e) {
 		            	];
 		            
 		            
-		            rotateY(mo_matrix, THETA);
-		            rotateX(mo_matrix, PHI);
+		            rotateY(mo_matrix, -THETA);
+		            rotateX(mo_matrix, -PHI);
 		            time_old = time; 
 		
 		            proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
-		            view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
-		// -(canvas.width/8),-(canvas.height/3),-300,-10
-		           	 -(translateX),-(translateY),dontknow1,dontknow2
-		           	 ];
-		            
-		            
+		            if(view_matrix_ori==null){
+			            view_matrix = [ 1,0,0,0,     0,1,0,0,    0,0,1,0,   
+			// -(canvas.width/8),-(canvas.height/3),-300,-10
+			           	 -(translateX),-(translateY),dontknow1,dontknow2
+			           	 ];
+		            	
+		            }else{
+		            	
+		            	view_matrix = [ view_matrix_ori[0], view_matrix_ori[1], view_matrix_ori[2], view_matrix_ori[3],
+		            		view_matrix_ori[4], view_matrix_ori[5], view_matrix_ori[6], view_matrix_ori[7],    
+		            		view_matrix_ori[8], view_matrix_ori[9], view_matrix_ori[10], view_matrix_ori[11],   
+		            		view_matrix_ori[12]-(translateX), view_matrix_ori[13]-(translateY), view_matrix_ori[14], view_matrix_ori[15]
+		            	];
+		            }
 		            
 		            
 		            
@@ -505,7 +525,6 @@ function WebGLJS(p,e) {
 						indices=an_agent.idx;
 						
 						gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);// 
-		
 						gl.uniformMatrix4fv(_Pmatrix, false, proj_matrix);
 						gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 						gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
@@ -525,7 +544,7 @@ function WebGLJS(p,e) {
 
 	  		  setTimeout(function() {
 	  			  requestId = window.requestAnimationFrame(animate);
-	  		  },1000/ fps );
+	  		  },1/ fps );
          }
 
          animate(0);
@@ -735,13 +754,38 @@ function WebGLJS(p,e) {
 // gl.bindFramebuffer(glFramebuffer, i);
 // gl.bindFramebuffer(gl.FRAMEBUFFER, frameBufferArray);
 	};
+	
 	this.glViewport = function(i,j,width, height) {
-// console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+"
-// "+canvas.height);
+ console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+" "+canvas.height);
 // gl.viewport(i,j,width, height);
 
+//	 	zoomFactor=10+((width*height)/(canvas.width*canvas.height)*15);
+//	 	translateX=(canvas.width/20)+((width-canvas.width)/18);
+//	 	translateY=(canvas.height/20)+((height-canvas.height)/4);
 		gl.viewport(0,0,canvas.width,canvas.height);
 			 
+	};
+
+	this.glUniformMatrix4fv = function(type, i, b, arr, j) { 
+
+		arr=JSON.stringify(arr).replace("NaN","-1").replace("-Infinity","-1");
+		
+		var v = arr.substr( 2, arr.length-2 ).split(',');
+
+	
+
+			v=v.map(function(i){return parseFloat(i);});
+
+		if(type==0){
+		     proj_matrix_ori=v;
+		}
+		if(type==1){
+			view_matrix_ori=v;
+		}
+		if(type==2){
+			mo_matrix_ori=v;
+		}
+ 
 	};
 
 	

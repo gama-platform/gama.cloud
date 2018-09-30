@@ -3917,8 +3917,17 @@ public class GL2 extends GL2ES2 {
 	}
 
 	public int glGetUniformLocation(int program, String string) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(string.equals("projectionMatrix")) {
+			return 0;			
+		}
+		if(string.equals("viewMatrix")) {
+			return 1;			
+		}
+		if(string.equals("transformationMatrix")) {
+			return 2;			
+		}
+			 
+		return 3;
 	}
 
 	public void glUniformMatrix3fv(int uniformWorld, int i, boolean b, float[] world, int j) {
@@ -4362,9 +4371,17 @@ public class GL2 extends GL2ES2 {
 
 	}
 
-	public void glUniformMatrix4fv(int location, int i, boolean b, float[] array, int j) {
-		// TODO Auto-generated method stub
+	public void glUniformMatrix4fv(int type, int i, boolean b, float[] array, int j) {
 
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+
+		JsonObject obj = new JsonObject();
+		obj.add("type", type);
+		obj.add("i", i);
+		obj.add("b", b);
+		obj.add("arr", Arrays.toString(array));
+		obj.add("j", j);
+		webgl.execJS(methodName, obj);
 	}
 
 	public void glUniform1f(int location, float value) {

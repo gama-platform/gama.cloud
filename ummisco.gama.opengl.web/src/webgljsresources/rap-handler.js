@@ -26,6 +26,7 @@
 			'glGenFramebuffers',
 			'glGenBuffers',
 			'glBindFramebuffer',
+			'glUniformMatrix4fv',
 			'glViewport',
 			'glDrawBuffer',
 			'glGenRenderbuffers',
@@ -164,6 +165,16 @@
 			},
 			
 			
+
+			glUniformMatrix4fv : function(json) {
+				var type = json["type"];
+				var i = json["i"];
+				var b = json["b"];
+				var arr = json["arr"];
+				var j = json["j"];
+
+				this.webgljs.glUniformMatrix4fv(type, i, b, arr, j);
+			},
 			
 
 			
