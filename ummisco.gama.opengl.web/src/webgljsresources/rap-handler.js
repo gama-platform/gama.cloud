@@ -36,6 +36,7 @@
 			'glEnableVertexAttribArray',
 			'glBufferSubData',
 			'totalObject',
+			'glStartAnimation',
 			'webgl_destroy',
 			'clearAll' 
 			]
@@ -187,7 +188,6 @@
 				this.webgljs.glFramebufferRenderbuffer(glFramebuffer, glDepthAttachment, glRenderbuffer, i);
 			},
 			
-			
 			glBufferData : function(json) {
 				var glElementArrayBuffer = json["glElementArrayBuffer"];
 				var numBytes = json["numBytes"];
@@ -212,6 +212,11 @@
 			},
 			
 
+			
+			glStartAnimation : function(json) {
+				var flag = json["flag"]; 
+				this.webgljs.glStartAnimation(flag);
+			},
 			
 			glEnable : function(json) {
 				var glDepthTest = json["glDepthTest"];

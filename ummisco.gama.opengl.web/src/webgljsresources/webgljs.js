@@ -51,12 +51,18 @@ class Agent {
   }
 }
 function consolelog(str){
-	 console.log(str);
+	if(debug){		
+		console.log(str);
+	}
 }
 function handleContextLost(event) {
     event.preventDefault();
     totalRequiredObject=0;
-    console.log("contextlost");
+    proj_matrix=null;  
+    view_matrix=null;
+    mo_matrix=null;
+    isPlaying = false;  
+    console.log("contextlost "+totalRequiredObject);
     window.cancelRequestAnimationFrame=( function() {
     return window.cancelAnimationFrame          ||
         window.webkitCancelRequestAnimationFrame    ||
@@ -70,6 +76,8 @@ function handleContextLost(event) {
 
 
 var myparent;
+var isPlaying = false;
+var start_animation=0;
 var mye;
 function WebGLJS(p,e) {
 	canvas = document.createElement("canvas");
@@ -448,7 +456,7 @@ function WebGLJS(p,e) {
          PHI = 0;
          var time_old = 0;
 		 var fps = 12;
-		 
+		 isPlaying = true;  
 		 var announced=false;
          var animate = function(time) {
 // console.log(objects.length+" "+totalRequiredObject);
@@ -459,7 +467,7 @@ function WebGLJS(p,e) {
 // alert("Received "+objects.length+" objects");
 	        		 }
 	         }
-        	 {
+        	 {	 
         		 
 		     		gl.clearColor(clearColor[0],clearColor[1],clearColor[2],clearColor[3]);
 		     		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -543,8 +551,11 @@ function WebGLJS(p,e) {
             // window.requestAnimationFrame(animate);
 
 	  		  setTimeout(function() {
-	  			  requestId = window.requestAnimationFrame(animate);
-	  		  },1/ fps );
+
+	  		    if (isPlaying === true) {
+	  		    	requestId = window.requestAnimationFrame(animate);	  		    
+	  		    }
+	  		  },1000/ fps );
          }
 
          animate(0);
@@ -756,7 +767,7 @@ function WebGLJS(p,e) {
 	};
 	
 	this.glViewport = function(i,j,width, height) {
- console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+" "+canvas.height);
+// console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+" "+canvas.height);
 // gl.viewport(i,j,width, height);
 
 //	 	zoomFactor=10+((width*height)/(canvas.width*canvas.height)*15);
@@ -956,6 +967,7 @@ function WebGLJS(p,e) {
 	this.glGenBuffers = function(i,vboHandles,j) {		
 	};
 	this.glEnableVertexAttribArray = function(attributePosition) {	};
+	this.glStartAnimation = function(b) {	start_animation=b; };
 
 
 
@@ -994,6 +1006,7 @@ function WebGLJS(p,e) {
 
 
 	this.webgl_destroy = function(text) {	
+		start_animation=0;
 		gl.getExtension('WEBGL_lose_context').loseContext();
 	};
 

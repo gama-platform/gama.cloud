@@ -4255,6 +4255,14 @@ public class GL2 extends GL2ES2 {
 		webgl.execJS(methodName, obj);
 	}
 
+
+	public void glStartAnimation(int b) {
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("flag", b); 
+		webgl.execJS(methodName, obj);
+	}
+
 	public void glDisableVertexAttribArray(int intValue) {
 		// TODO Auto-generated method stub
 
