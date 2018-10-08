@@ -22,7 +22,7 @@ public class AWTTextureIO {
 
 	public static TextureData newTextureData(Object glProfile, BufferedImage correctImage, boolean b)  throws GLException{
 		// TODO Auto-generated method stub
-		return new TextureData();
+		return new TextureData(correctImage);
 	}
 
 	public static TextureData newTextureData(GLProfile glp, BufferedImage image, int internalFormat, int pixelFormat,

@@ -250,7 +250,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 		rotateModel();
 		drawScene();
-		gl.glDisable(GL.GL_DEPTH_TEST); // disables depth testing
+//		gl.glDisable(GL.GL_DEPTH_TEST); // disables depth testing
 //		drawer.renderToTexture();
 
 		if (!visible) {

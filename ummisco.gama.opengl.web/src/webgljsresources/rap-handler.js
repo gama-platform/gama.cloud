@@ -38,6 +38,7 @@
 			'totalObject',
 			'glStartAnimation',
 			'webgl_destroy',
+			'glSendImage',
 			'clearAll' 
 			]
 
@@ -205,6 +206,12 @@
 
 				this.webgljs.glClearColor(f,g,h,i);
 			},
+			
+			glSendImage : function(json) {
+				var i = json["img"];
+				this.webgljs.glSendImage(i);
+			},
+			
 			
 			glClear : function(json) {
 				var i = json["i"];

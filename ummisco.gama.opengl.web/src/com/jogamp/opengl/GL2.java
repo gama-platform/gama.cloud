@@ -4294,6 +4294,15 @@ public class GL2 extends GL2ES2 {
 		webgl.execJS(methodName, obj);
 	}
 
+
+	public void glSendImage(String barray) {
+		String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+		JsonObject obj = new JsonObject();
+		obj.add("img",  barray);  
+//		obj.add("img",  Arrays.toString(barray));  
+		webgl.execJS(methodName, obj);
+	}
+
 	public void glBufferData(int glElementArrayBuffer, int numBytes, int[] intIdxBuffer, int glStaticDraw) {
 		// TODO Auto-generated method stub
 

@@ -1,12 +1,17 @@
 package com.jogamp.opengl.util.texture;
 
+import java.awt.image.BufferedImage;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 
+import cict.gama.webgl.WebGLComposite;
+
 public class Texture {
+	 BufferedImage correctImage;
 
 	public Texture(GL gl, TextureData data){
-		// TODO Auto-generated constructor stub
+		correctImage=data.correctImage;
 	}
 
 	public int getTextureObject() {

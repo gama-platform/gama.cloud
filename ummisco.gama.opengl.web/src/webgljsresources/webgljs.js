@@ -39,15 +39,17 @@ class SubData{
   }
 }
 class Agent {
-  constructor( vl,c,nm,idx, nb, nbc, nbnm) {
+  constructor( vl,c,nm,uv,idx, nb, nbc, nbnm, nb_uv) {
     
     this.vl = [];
     this.c = [];
     this.nm = [];
+    this.uv=[];
 	this.idx=idx;
 	this.nb=nb;
 	this.nbc=nbc;
 	this.nbnm=nbnm;
+	this.nb_uv=nb_uv;
   }
 }
 function consolelog(str){
@@ -222,10 +224,17 @@ function WebGLJS(p,e) {
 	        	      new Float32Array([
 	        	    	  // left column front
 // 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
-	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
-	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
-	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
-	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+	        	    	  
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+//	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0
+	        	    	  1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1,
+	        	    	  1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+	        	    	  1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 
+	        	    	  0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1,
 	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0,
 	        	    	  0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0
 
@@ -254,10 +263,12 @@ function WebGLJS(p,e) {
 	         // Fill the texture with a 1x1 blue pixel.
 	         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
 	                       new Uint8Array([0, 0, 255, 255]));
-	          
+
 	         // Asynchronously load an image
 	         var image = new Image();
-	         image.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/M03FireplaceBox.jpg";
+//	         image.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/M03FireplaceBox.jpg";
+	         image.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/woods1.jpg";
+//	         image.src = "file://C:/git/gama/msi.gama.models/models/Features/3D Visualization/images/building_texture/texture1.jpg";
 
 	         image.crossOrigin = "anonymous";  // This enables CORS
 	         image.addEventListener('load', function() {
@@ -266,7 +277,17 @@ function WebGLJS(p,e) {
 	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
 	           gl.generateMipmap(gl.TEXTURE_2D);
 	         });
-	         
+	         // Asynchronously load an image
+//	         var image1 = new Image();
+//	         image1.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/woods1.jpg";
+//
+//	         image1.crossOrigin = "anonymous";  // This enables CORS
+//	         image1.addEventListener('load', function() {
+//	           // Now that the image has loaded make copy it to the texture.
+//	           gl.bindTexture(gl.TEXTURE_2D, texture);
+//	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image1);
+//	           gl.generateMipmap(gl.TEXTURE_2D);
+//	         });
 	         
 	         
 	         
@@ -303,8 +324,8 @@ function WebGLJS(p,e) {
 	            	return [
 	            		proj_matrix_ori[0]/ang, proj_matrix_ori[1] , proj_matrix_ori[2], proj_matrix_ori[3],
 	            		proj_matrix_ori[4], proj_matrix_ori[5]/ang, proj_matrix_ori[6], proj_matrix_ori[7],
-	            		proj_matrix_ori[8], proj_matrix_ori[9], proj_matrix_ori[10], proj_matrix_ori[11],
-	            		proj_matrix_ori[12], proj_matrix_ori[13], proj_matrix_ori[14], proj_matrix_ori[15] 
+	            		proj_matrix_ori[8], proj_matrix_ori[9], proj_matrix_ori[10]/1, proj_matrix_ori[11],
+	            		proj_matrix_ori[12], proj_matrix_ori[13], proj_matrix_ori[14], proj_matrix_ori[15]/ang 
 	            		];
 	            }
 	         }
@@ -488,7 +509,6 @@ function WebGLJS(p,e) {
 		            
 		            rotateY(mo_matrix, -THETA);
 		            rotateX(mo_matrix, -PHI);
-		            time_old = time; 
 		
 		            proj_matrix = get_projection(zoomFactor, canvas.width/canvas.height, 1,-1);
 		            if(view_matrix_ori==null){
@@ -527,6 +547,17 @@ function WebGLJS(p,e) {
 							 vertices=sd1.v;
 							 gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
 						 }
+
+						 if(an_agent.uv.length>0){							 
+							 gl.bindBuffer(gl.ARRAY_BUFFER, UVMAPPING_IDX);// 36
+							 gl.bufferData(34962, an_agent.nb_uv, 35044);
+							 for(var sd1 of an_agent.uv){
+								 vertices=sd1.v;
+								 gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
+							 }
+							 gl.bindTexture(gl.TEXTURE_2D, texture);
+							 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
+						 }
 							
 							
 						gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, IDX_BUFF_IDX);
@@ -537,11 +568,13 @@ function WebGLJS(p,e) {
 						gl.uniformMatrix4fv(_Vmatrix, false, view_matrix);
 						gl.uniformMatrix4fv(_Mmatrix, false, mo_matrix);
 						  gl.uniform3fv(reverseLightDirectionLocation, m4.normalize([0.9, 0.1, 0.1]));
+				           //gl.generateMipmap(gl.TEXTURE_2D);
 						gl.drawElements(drawElementMode, indices.length, gl.UNSIGNED_SHORT , 0);
 		// var max=Math.max(...indices);
 		// consolelog(indices.length);
 		// consolelog(max);
 		            });		
+		            time_old = time; 
 		
 
 
@@ -555,7 +588,7 @@ function WebGLJS(p,e) {
 	  		    if (isPlaying === true) {
 	  		    	requestId = window.requestAnimationFrame(animate);	  		    
 	  		    }
-	  		  },1000/ fps );
+	  		  },1/ fps );
          }
 
          animate(0);
@@ -584,6 +617,9 @@ function WebGLJS(p,e) {
          
 
 	this.appendInfo = function(text) {
+		zoomFactor=3;
+		translateX=+50;
+		translateY=+20;
 		totalRequiredObject=2;
 			drawElementMode=gl.TRIANGLES;
 				if(ag==null){
@@ -765,6 +801,18 @@ function WebGLJS(p,e) {
 // gl.bindFramebuffer(glFramebuffer, i);
 // gl.bindFramebuffer(gl.FRAMEBUFFER, frameBufferArray);
 	};
+
+	this.glSendImage = function(img) {
+//		 console.log(img);
+		 image.src = "data:image/png;base64,"+img;
+// console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+" "+canvas.height);
+// gl.viewport(i,j,width, height);
+
+//	 	zoomFactor=10+((width*height)/(canvas.width*canvas.height)*15);
+//	 	translateX=(canvas.width/20)+((width-canvas.width)/18);
+//	 	translateY=(canvas.height/20)+((height-canvas.height)/4); 
+			 
+	};
 	
 	this.glViewport = function(i,j,width, height) {
 // console.log("gl.viewport ("+i+","+j+","+width+","+ height+");"+canvas.width+" "+canvas.height);
@@ -824,6 +872,10 @@ function WebGLJS(p,e) {
 		if(i==39){			
 			if(debug){consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);// "+i);}
 			gl.bindBuffer(gl.ARRAY_BUFFER, NORMAL_IDX);
+		}
+		if(i==40){			
+			if(debug){consolelog("gl.bindBuffer(gl.ARRAY_BUFFER, UVMAPPING_IDX);// "+i);}
+			gl.bindBuffer(gl.ARRAY_BUFFER, UVMAPPING_IDX);
 		}
 		
 		// gl.bindBuffer(gl.ARRAY_BUFFER, bufferArray);
@@ -887,6 +939,11 @@ function WebGLJS(p,e) {
 						// NORMAL_IDX);// "+i);
 						ag.nbnm=numBytes;
 					}
+
+					if(buffer_type==40){			
+						// UVMAPPING_IDX);// "+i);
+						ag.nb_uv=numBytes;
+					}
 				 
 				 
 				 
@@ -942,6 +999,11 @@ function WebGLJS(p,e) {
 		if(buffer_type==39){			
 			// NORMAL_IDX);// "+i);
 			ag.nm.push(sd);
+		}
+		if(buffer_type==40){			
+			// UVMAPPING_IDX);// "+i);
+			ag.uv.push(sd);
+			console.log("UVMAPPING_IDX "+v);
 		}
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));
 	    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);

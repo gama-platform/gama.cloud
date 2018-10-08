@@ -10,9 +10,14 @@
 package ummisco.gama.modernOpenGL;
 
 import java.awt.Color;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 
 import javax.vecmath.Matrix4f;
@@ -431,6 +436,21 @@ public class ModernDrawer {
 	}
 
 	private void drawVBO(final int[] typeOfDrawing) {
+		try {
+			File f = new File("C:\\git\\gama\\msi.gama.models\\models\\Features\\3D Visualization\\images\\building_texture\\roof_top.png");
+//			File f = new File("D:\\M03FireplaceBox.jpg");
+	      DataInputStream dis;
+			dis = new DataInputStream(new FileInputStream(f));
+	      byte[] barray = new byte[(int) f.length()];
+	       
+	        dis.readFully(barray);  
+	        dis.close( ); 
+	        String encodedString = Base64.getEncoder().encodeToString(barray);
+	        gl.glSendImage(encodedString);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
 //		gl.glDrawElements(typeOfDrawing[0], typeOfDrawing[1], GL2.GL_UNSIGNED_INT, 0);
 	}
 
@@ -555,7 +575,7 @@ public class ModernDrawer {
 		final ArrayList<float[]> listColors = new ArrayList<float[]>();
 		final ArrayList<float[]> listIdxBuffer = new ArrayList<float[]>();
 		final ArrayList<float[]> listNormals = new ArrayList<float[]>();
-//		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
+		final ArrayList<float[]> listUvMapping = new ArrayList<float[]>();
 
 		gl.webgl.delay=listEntities.size();
 		gl.totalObject(listEntities.size());
@@ -565,8 +585,8 @@ public class ModernDrawer {
 			listColors.clear();
 			listIdxBuffer.clear();
 			listNormals.clear();
-//			if (entity.getUvMapping() != null)
-//				listUvMapping.clear();
+			if (entity.getUvMapping() != null)
+				listUvMapping.clear();
 			
 			
 			
@@ -574,8 +594,8 @@ public class ModernDrawer {
 			listColors.add(entity.getColors());
 			listIdxBuffer.add(entity.getIndices());
 			listNormals.add(entity.getNormals());
-//			if (entity.getUvMapping() != null)
-//				listUvMapping.add(entity.getUvMapping());
+			if (entity.getUvMapping() != null)
+				listUvMapping.add(entity.getUvMapping());
 			
 			
 
@@ -584,12 +604,12 @@ public class ModernDrawer {
 			// COLORS BUFFER
 			storeDataInAttributeList(AbstractShader.COLOR_ATTRIBUTE_IDX, COLOR_IDX, listColors, shaderNumber);
 			// UV MAPPING (If a texture is defined)
-	//		if (listUvMapping.size() != 0) {
-	//			storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
-	//					shaderNumber);
-	//			gl.glActiveTexture(GL.GL_TEXTURE0);
-	//			gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
-	//		}
+			if (listUvMapping.size() != 0) {
+				storeDataInAttributeList(AbstractShader.UVMAPPING_ATTRIBUTE_IDX, UVMAPPING_IDX, listUvMapping,
+						shaderNumber);
+				gl.glActiveTexture(GL.GL_TEXTURE0);
+				gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
+			}
 	
 			// NORMAL BUFFER
 			//hqn88 for texture 
