@@ -96,6 +96,7 @@ public abstract class AbstractLoginDialog extends TitleAreaDialog implements Cal
 							}
 						});
 					}
+					processCallbacks = false;
 //						internalHandle();
 //						close();
 				}
