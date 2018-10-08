@@ -96,6 +96,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 					getDisplaySurface().setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
 					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
+					renderer.SWT_RECT.width=surfaceComposite.getSize().x;
+					renderer.SWT_RECT.height=surfaceComposite.getSize().y;
 					getDisplaySurface().paintComponent(renderer);
 				}
 			}

@@ -882,7 +882,7 @@ public class SWTGraphics2D extends Graphics2D {
      * @see java.awt.Graphics#drawImage(Image, int, int, ImageObserver)
      */
     public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
-        return false;
+        return drawImage(img, x, y, SWT_RECT.width, SWT_RECT.height, observer);
     }
 
     /**

@@ -1003,7 +1003,7 @@ function WebGLJS(p,e) {
 		if(buffer_type==40){			
 			// UVMAPPING_IDX);// "+i);
 			ag.uv.push(sd);
-			console.log("UVMAPPING_IDX "+v);
+//			console.log("UVMAPPING_IDX "+v);
 		}
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(v));
 	    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
