@@ -14,6 +14,7 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.TextOutputCallback;
 import javax.security.auth.login.LoginException;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -88,6 +89,20 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
 				loggedIn=true;
 				loggedUser=username;
+			}
+			if(username.equals("admin") && ((GamaPersistencyService) dbservice).getUser(username)==null) {
+				DummyCallbackHandler dch = new DummyCallbackHandler();
+				DummyNewUserModule dlm = new DummyNewUserModule();
+				dlm.initialize(new Subject(), dch, null, null);
+				try {
+					if(dlm.newuser()) {
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "New admin created!");						
+					}
+				} catch (LoginException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 //			dbservice.deleteUser(username);
 //			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
