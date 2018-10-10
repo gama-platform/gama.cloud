@@ -27,6 +27,7 @@ import org.eclipse.ui.internal.console.IOConsoleViewer;
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.kernel.experiment.ITopLevelAgent;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gaml.operators.fastmaths.CmnFastMath;
@@ -136,7 +137,7 @@ public class ConsoleView extends GamaViewPart
 				pauseBuffer.append(text);
 			}
 			if (!indicated) {
-				WorkbenchHelper.run(() -> {
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 					if (toolbar != null) {
 						toolbar.status((Image) null, "New contents available", IGamaColors.BLUE, SWT.LEFT);
 					}

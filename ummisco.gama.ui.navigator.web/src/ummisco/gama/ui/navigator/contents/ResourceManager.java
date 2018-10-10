@@ -77,7 +77,7 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 
 	public static void unblock(final IProgressMonitor monitor) {
 		BLOCKED = false;
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			monitor.beginTask("Processing additions to the workspace", BLOCKED_EVENTS.size());
 			try {
 				NavigatorRoot.getInstance().resetVirtualFolders(null);

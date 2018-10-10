@@ -47,7 +47,7 @@ public class MatrixEditorDialog extends Dialog {
 	private Table table = null;
 	private final IScope scope;
 
-	private final Color gray = WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY);
+	private final Color gray = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemColor(SWT.COLOR_GRAY);
 
 	protected MatrixEditorDialog(final IScope scope, final Shell parentShell, final IMatrix paramValue) {
 		super(parentShell);

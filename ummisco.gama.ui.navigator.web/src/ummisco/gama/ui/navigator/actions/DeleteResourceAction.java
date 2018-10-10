@@ -34,6 +34,7 @@ import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 import org.eclipse.ui.internal.ide.actions.LTKLauncher;
 import org.eclipse.ui.part.FileEditorInput;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.metadata.FileMetaDataProvider;
 import ummisco.gama.ui.navigator.contents.LinkedFile;
 import ummisco.gama.ui.navigator.contents.ResourceManager;
@@ -236,7 +237,7 @@ public class DeleteResourceAction extends SelectionListenerAction {
 		final Runnable runnable = () -> SafeRunner.run(new SafeRunnable(IDEWorkbenchMessages.ErrorOnCloseEditors) {
 			@Override
 			public void run() {
-				final IWorkbenchWindow w = WorkbenchHelper.getWindow();
+				final IWorkbenchWindow w = WorkbenchHelper.getWindow(GAMA.getRuntimeScope());
 				if (w != null) {
 					final List<IEditorReference> toClose = getMatchingEditors(resourceRoots, w, deletedOnly);
 					if (toClose.isEmpty()) { return; }

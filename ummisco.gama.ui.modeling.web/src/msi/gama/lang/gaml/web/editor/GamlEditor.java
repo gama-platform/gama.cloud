@@ -36,6 +36,7 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.CreateExperimentSelectionListener
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenExperimentSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListener;
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListener;
+import msi.gama.runtime.GAMA;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 import ummisco.gama.ui.controls.FlatButton;
@@ -247,7 +248,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 	private synchronized void updateToolbar(final GamlEditorState newState, final boolean forceState) {
 //		if (forceState || !state.equals(newState)) {
 		String uid = RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.getDisplay(uid).asyncExec(() -> {
+		WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).asyncExec(() -> {
 			GamaToolbar2 toolbar = thetoolbar.get(uid);
 			if (toolbar == null || toolbar.isDisposed()) {
 				return;

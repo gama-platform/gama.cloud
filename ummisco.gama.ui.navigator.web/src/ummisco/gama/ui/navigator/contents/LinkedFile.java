@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -104,7 +105,7 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 	@Override
 	public boolean handleDoubleClick() {
 		try {
-			IDE.openEditor(WorkbenchHelper.getPage(), file.getResource());
+			IDE.openEditor(WorkbenchHelper.getPage(GAMA.getRuntimeScope()), file.getResource());
 		} catch (final PartInitException e1) {
 			e1.printStackTrace();
 			return false;

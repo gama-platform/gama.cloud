@@ -121,7 +121,7 @@ public class GamaKeyBindings implements Listener {
 	private final static GamaKeyBindings BINDINGS = new GamaKeyBindings();
 
 	public static void install() {
-		WorkbenchHelper.run(() -> WorkbenchHelper.getDisplay().addFilter(SWT.KeyDown, BINDINGS));
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).addFilter(SWT.KeyDown, BINDINGS));
 	}
 
 	public static boolean ctrl(final Event e) {

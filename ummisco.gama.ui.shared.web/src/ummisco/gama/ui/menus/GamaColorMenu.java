@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
+import msi.gama.runtime.GAMA;
 import msi.gama.util.GamaColor;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -111,7 +112,7 @@ public class GamaColorMenu extends GamaMenu {
 	};
 
 	public static void openView(final IColorRunnable runnable, final RGB initial) {
-		final Shell shell = new Shell(WorkbenchHelper.getDisplay(), SWT.MODELESS);
+		final Shell shell = new Shell(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), SWT.MODELESS);
 		final ColorDialog dlg = new ColorDialog(shell, SWT.MODELESS);
 		dlg.setText("Choose a custom color");
 		dlg.setRGB(initial);

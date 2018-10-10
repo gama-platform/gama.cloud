@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TypedListener;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -174,7 +175,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	}
 
 	private Path createClipping(final Rectangle rect) {
-		final AdvancedPath path = new AdvancedPath(WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()));
+		final AdvancedPath path = new AdvancedPath(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
 		path.addRoundRectangle(rect.x, rect.y, rect.width, rect.height, 8, 8);
 		return path;
 	}

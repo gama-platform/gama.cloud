@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 
+import msi.gama.runtime.GAMA;
 import net.gjerull.etherpad.client.EPLiteClient;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -139,7 +140,7 @@ public class EtherpadBasicText extends BasicText {
 	 
 public synchronized void setText(final String uid, String text, String padId, String etherpadUrl) {
 				setPadId(padId);
-				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+				UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
 			    uiSession.exec( new Runnable() {
 			      public void run() {
 			          JsonObject obj= new JsonObject();
@@ -166,7 +167,7 @@ public synchronized void setText(final String uid, String text, String padId, St
 public synchronized void setCollaborativeText(final String uid, String text, String padId, String etherpadUrl) {
 	setPadId(padId);
 	tryPadManip(padId);
-	UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
+	UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
 	uiSession.exec( new Runnable() {
 		public void run() {
 			JsonObject obj= new JsonObject();
@@ -195,7 +196,7 @@ public synchronized void setCollaborativeText(final String uid, String text, Str
 				        		Runnable bgRunnable = new Runnable() {
 									@Override
 									public void run() {
-										Display display =   WorkbenchHelper.getDisplay(u.getId());
+										Display display =   WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
 										display.syncExec( new Runnable() {
 											@Override
 											public void run() {

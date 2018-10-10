@@ -92,6 +92,7 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.ImportOperation;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.wizards.ImportProjectWizardPage.ProjectRecord;
 
@@ -133,7 +134,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		public Color getForeground(final Object element) {
 			final ProjectRecord projectRecord = (ProjectRecord) element;
 			if (projectRecord.hasConflicts || projectRecord.isInvalid) {
-				return WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY);
+				return WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemColor(SWT.COLOR_GRAY);
 			}
 			return null;
 		}

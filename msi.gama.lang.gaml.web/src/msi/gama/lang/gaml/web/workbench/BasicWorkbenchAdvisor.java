@@ -72,7 +72,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 //		
 
 		String uid=RWT.getUISession().getAttribute("user").toString();
-		while(!WorkbenchHelper.getDisplay(uid).isDisposed()) {
+		while(!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).isDisposed()) {
 			try {
 				Thread.sleep(100);
 			} catch (Exception e) {
@@ -114,6 +114,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 
 		// }
 		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
+		WorkbenchHelper.workbench.put(WorkbenchHelper.getUIDfromScope(GAMA.getRuntimeScope()),w);
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser);
 		GAMA.getGui().refreshNavigator();

@@ -217,13 +217,13 @@ public class WebGLComposite extends GLCanvas {
 		// public void run() {
 		// if(!func.equals("appendErr")) return;
 		
-		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
+//		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
 		
 		
 		
 		//solution 1
 //		available=false;
-		Display display = WorkbenchHelper.getDisplay(uid);
+		Display display = WorkbenchHelper.getDisplay(myscope);
 		display.asyncExec(new Runnable() {
 			public void run() {
 				if (!remoteObject.isDestroyed()) {

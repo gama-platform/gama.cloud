@@ -685,7 +685,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int yc = mousey - origin.y;
 		final List<ILayer> layers = layerManager.getLayersIntersecting(xc, yc);
 		if (layers.isEmpty()) { return; }
-		WorkbenchHelper.run(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.outputs.IOutput;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.IGamaIcons;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView.StateListener;
@@ -111,7 +112,7 @@ public class FrequencyController implements StateListener {
 		if (output == null)
 			return;
 
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			internalChange = true;
 			pauseItem.setSelection(output.isPaused());
 			syncItem.setSelection(output.isSynchronized());

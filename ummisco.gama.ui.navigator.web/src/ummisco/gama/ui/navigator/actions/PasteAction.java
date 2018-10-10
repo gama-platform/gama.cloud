@@ -270,7 +270,7 @@ public class PasteAction extends SelectionListenerAction {
 			final File f = new File(name);
 			IContainer container;
 			// Necessary as the shell can be null from outside Eclipse when dragging resource
-			final Shell shell = WorkbenchHelper.getWorkbench().getActiveWorkbenchWindow().getShell();
+			final Shell shell = WorkbenchHelper.getWorkbench(null).getActiveWorkbenchWindow().getShell();
 			if (f.isDirectory()) {
 				try {
 					if (WorkspaceModelsManager.instance.isGamaProject(f)) {

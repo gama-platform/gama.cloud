@@ -42,6 +42,7 @@ import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.display.AbstractDisplayGraphics;
 import msi.gama.outputs.layers.OverlayLayer;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaColor;
 import msi.gama.util.file.GamaImageFile;
@@ -211,7 +212,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	protected void initializeCanvasListeners() {
 
-		WorkbenchHelper.asyncRun("admin",() -> {
+		WorkbenchHelper.asyncRun(GAMA.getRuntimeScope(),() -> {
 			if (getCanvas() == null || getCanvas().isDisposed()) { return; }
 			getCanvas().addKeyListener(camera);
 			getCanvas().addMouseListener(camera);
@@ -245,7 +246,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 
 	public final void switchCamera() {
 		final ICamera oldCamera = camera;
-		WorkbenchHelper.asyncRun("admin",() -> {
+		WorkbenchHelper.asyncRun(GAMA.getRuntimeScope(),() -> {
 			getCanvas().removeKeyListener(oldCamera);
 			getCanvas().removeMouseListener(oldCamera);
 			getCanvas().removeMouseMoveListener(oldCamera);

@@ -481,7 +481,7 @@ public class GamaPreferencesView {
 		int height = (int) size.y;
 		if (loc.x == -1 || loc.y == -1 || size.x == -1 || size.y == -1) {
 			final Point p = shell.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-			final Rectangle bounds = WorkbenchHelper.getDisplay().getBounds();
+			final Rectangle bounds = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getBounds();
 			width = Math.min(p.x, bounds.width - 200);
 			height = Math.min(p.y, bounds.height - 200);
 			x = (bounds.width - width) / 2;

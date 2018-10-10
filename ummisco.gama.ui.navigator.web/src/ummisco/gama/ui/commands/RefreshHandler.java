@@ -51,7 +51,7 @@ public class RefreshHandler implements IRefreshHandler {
 
 	private GamaNavigator getNavigator() {
 		if (navigator == null) {
-			final IWorkbenchPage page = WorkbenchHelper.getPage();
+			final IWorkbenchPage page = WorkbenchHelper.getPage(GAMA.getRuntimeScope());
 			if (page != null) {
 				navigator = (GamaNavigator) page.findView(IGui.NAVIGATOR_VIEW_ID);
 			}
@@ -66,7 +66,7 @@ public class RefreshHandler implements IRefreshHandler {
 
 	@Override
 	public void refreshNavigator() {
-		WorkbenchHelper.run(() -> getNavigator().getCommonViewer().refresh());
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> getNavigator().getCommonViewer().refresh());
 	}
 
 	protected void refreshResource(final IResource resource, final IProgressMonitor monitor) throws CoreException {

@@ -18,6 +18,7 @@ import org.eclipse.rap.rwt.widgets.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -207,13 +208,13 @@ public class LogComposite extends Composite {
 //		new Thread( runnable ).start();
 		    
 		    
-		    final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+//		    final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
 			
 			
 			
 			//solution 1
 //			available=false;
-			Display display = WorkbenchHelper.getDisplay(uid);
+			Display display = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
 			display.asyncExec(new Runnable() {
 				public void run() {
 					if (!remoteObject.isDestroyed()) {
@@ -228,7 +229,7 @@ public class LogComposite extends Composite {
     
    public void clearAll() {
 //       System.out.println("clearAll");
-       UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay("admin"));
+       UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
 	    uiSession.exec( new Runnable() {
 	      public void run() {
 

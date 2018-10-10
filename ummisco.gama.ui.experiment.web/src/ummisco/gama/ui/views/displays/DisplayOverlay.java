@@ -212,7 +212,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		final int barStartX = x + 1 + BAR_WIDTH / 2 + margin;
 		final int barStartY = y + height - BAR_HEIGHT / 2;
 
-		final Path path = new Path(WorkbenchHelper.getDisplay());
+		final Path path = new Path(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT + 2);
 		path.lineTo(barStartX, barStartY + 2);
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT / 2 + 2);
@@ -253,7 +253,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doDisplay);
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), doDisplay);
 			}
 		}
 
@@ -272,7 +272,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partDeactivated(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part) && !referenceComposite.isDisposed() && !referenceComposite.isVisible()) {
-				WorkbenchHelper.run(doHide);
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), doHide);
 			}
 		}
 
@@ -283,7 +283,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partHidden(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doHide);
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), doHide);
 			}
 		}
 
@@ -291,7 +291,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partVisible(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(doDisplay);
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), doDisplay);
 			}
 		}
 
@@ -511,7 +511,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// Uses the trick from
 		// http://eclipsesource.com/blogs/2010/06/23/tip-how-to-detect-that-a-view-was-detached/
 		final boolean[] result = new boolean[] { false };
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			final IWorkbenchPartSite site = view.getSite();
 			if (site == null) { return; }
 			final Shell shell = site.getShell();

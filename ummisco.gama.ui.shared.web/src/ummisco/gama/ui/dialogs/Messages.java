@@ -12,12 +12,13 @@ package ummisco.gama.ui.dialogs;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class Messages {
 
 	public static void error(final String error) {
-		WorkbenchHelper.run(new Runnable() {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -27,7 +28,7 @@ public class Messages {
 	}
 
 	public static void tell(final String error) {
-		WorkbenchHelper.run(new Runnable() {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -37,7 +38,7 @@ public class Messages {
 	}
 
 	public static void exception(final Throwable e) {
-		WorkbenchHelper.run(new Runnable() {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), new Runnable() {
 
 			@Override
 			public void run() {

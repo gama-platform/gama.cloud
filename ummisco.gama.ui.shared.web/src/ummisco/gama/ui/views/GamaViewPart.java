@@ -89,7 +89,7 @@ public abstract class GamaViewPart extends ViewPart
 		protected abstract UpdatePriority jobPriority();
 
 		public void runSynchronized() {
-			WorkbenchHelper.run(() -> runInUIThread(null));
+			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> runInUIThread(null));
 		}
 
 	}

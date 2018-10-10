@@ -28,6 +28,7 @@ import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.outputs.layers.OverlayLayer;
 import msi.gama.outputs.layers.charts.ChartOutput;
+import msi.gama.runtime.GAMA;
 import msi.gama.util.file.GamaFile;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
@@ -196,7 +197,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 
-		WorkbenchHelper.run("admin",() -> getCanvas().setVisible(visible));
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> getCanvas().setVisible(visible));
 		// the drawingEntityGenerator is used only when there is a webgl display
 		// and/or a modernRenderer.
 		drawingEntityGenerator = new DrawingEntityGenerator(this);
@@ -256,7 +257,7 @@ public class ModernRenderer extends Abstract3DRenderer {
 		if (!visible) {
 			// We make the canvas visible only after a first display has occured
 			visible = true;
-			WorkbenchHelper.run("admin",() -> getCanvas().setVisible(true));
+			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> getCanvas().setVisible(true));
 
 		}
 

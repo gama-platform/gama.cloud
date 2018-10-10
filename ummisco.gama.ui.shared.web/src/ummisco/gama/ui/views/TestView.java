@@ -91,7 +91,7 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 	public void startNewTestSequence(final boolean all) {
 		runningAllTests = all;
 		experiments.clear();
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			if (toolbar != null) {
 				toolbar.status(null, "Run experiment to see the tests results", e -> {
 					GAMA.startFrontmostExperiment();
@@ -264,7 +264,7 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 
 	@Override
 	public void reset() {
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			if (!getParentComposite().isDisposed()) {
 				resortTests();
 				displayItems();

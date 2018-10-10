@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Widget;
 import com.google.common.base.Objects;
 
 import msi.gama.common.interfaces.ItemList;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.GamaIcons;
 import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
@@ -567,8 +568,8 @@ public class ParameterExpandBar extends Composite/* implements IPopupProvider */
 					menu.setLocation(p.x, p.y);
 					menu.setVisible(true);
 					while (!menu.isDisposed() && menu.isVisible()) {
-						if (!WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).readAndDispatch()) {
-							WorkbenchHelper.getDisplay(RWT.getUISession().getAttribute("user").toString()).sleep();
+						if (!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).readAndDispatch()) {
+							WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).sleep();
 						}
 					}
 					menu.dispose();

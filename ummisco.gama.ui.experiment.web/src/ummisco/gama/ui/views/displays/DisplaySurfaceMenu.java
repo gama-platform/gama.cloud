@@ -42,6 +42,7 @@ import msi.gama.outputs.layers.GridLayer;
 import msi.gama.outputs.layers.ImageLayer;
 import msi.gama.outputs.layers.SpeciesLayer;
 import msi.gama.outputs.layers.charts.ChartLayer;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.menus.AgentsMenu;
 import ummisco.gama.ui.menus.GamaMenu;
 import ummisco.gama.ui.menus.MenuAction;
@@ -179,7 +180,7 @@ public class DisplaySurfaceMenu {
 				menu.setVisible(false);
 				{
 					final Shell shell =
-							new Shell(WorkbenchHelper.getDisplay(), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
+							new Shell(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 					shell.setSize(10, 10); // big enough to avoid errors
 											// from the gtk layer
 					shell.setLocation(menu.getShell().getLocation());

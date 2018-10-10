@@ -189,7 +189,7 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 
 	@Override
 	public void reset() {
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			ErrorView.super.reset();
 			displayItems();
 			getParentComposite().layout(true, true);

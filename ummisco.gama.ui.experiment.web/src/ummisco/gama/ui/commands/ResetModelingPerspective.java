@@ -22,7 +22,7 @@ public class ResetModelingPerspective extends AbstractHandler {
 		if (result) {
 			Application.ClearWorkspace(true);
 			// removeWorkbenchXMI();
-			WorkbenchHelper.getWorkbench().close();
+			WorkbenchHelper.getWorkbench(null).close();
 		}
 		return null;
 

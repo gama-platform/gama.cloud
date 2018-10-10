@@ -17,6 +17,7 @@ import org.eclipse.rap.rwt.widgets.DialogCallback;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class ImportProjectCommand extends AbstractWorkspaceCommand {
@@ -37,7 +38,7 @@ public class ImportProjectCommand extends AbstractWorkspaceCommand {
 		// return wizardDialog.open();
 
 		String uid = RWT.getUISession().getAttribute("user").toString();
-		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(uid),
+		final FileDialog fileDialog = new FileDialog(WorkbenchHelper.getShell(GAMA.getRuntimeScope()),
 				SWT.SHELL_TRIM | SWT.APPLICATION_MODAL | SWT.MULTI);
 		fileDialog.open(new DialogCallback() {
 			public void dialogClosed(int returnCode) {

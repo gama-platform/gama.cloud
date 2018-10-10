@@ -31,6 +31,7 @@ import msi.gama.application.workbench.IWebHelper;
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.interfaces.IGamaView.Html;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.runtime.GAMA;
 
 public class WebHelper implements IWebHelper {
 
@@ -56,7 +57,7 @@ public class WebHelper implements IWebHelper {
 	}
 
 	public static void openWelcomePage(final boolean ifEmpty) {
-		if (ifEmpty && WorkbenchHelper.getPage().getActiveEditor() != null) { return; }
+		if (ifEmpty && WorkbenchHelper.getPage(GAMA.getRuntimeScope()).getActiveEditor() != null) { return; }
 		if (ifEmpty && !GamaPreferences.Interface.CORE_SHOW_PAGE.getValue()) { return; }
 		// get the workspace
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -78,7 +79,7 @@ public class WebHelper implements IWebHelper {
 		}
 
 		try {
-			WorkbenchHelper.getPage().openEditor(input, "msi.gama.application.browser");
+			WorkbenchHelper.getPage(GAMA.getRuntimeScope()).openEditor(input, "msi.gama.application.browser");
 		} catch (final PartInitException e) {
 			e.printStackTrace();
 		}
@@ -106,7 +107,7 @@ public class WebHelper implements IWebHelper {
 		}
 
 		try {
-			WorkbenchHelper.getPage().openEditor(input, "msi.gama.application.browser");
+			WorkbenchHelper.getPage(GAMA.getRuntimeScope()).openEditor(input, "msi.gama.application.browser");
 		} catch (final PartInitException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +117,7 @@ public class WebHelper implements IWebHelper {
 	public static void openPage(final String string) {
 		try {
 			final IGamaView.Html view =
-					(Html) WorkbenchHelper.getPage().openEditor(new NullEditorInput(), "msi.gama.application.browser");
+					(Html) WorkbenchHelper.getPage(GAMA.getRuntimeScope()).openEditor(new NullEditorInput(), "msi.gama.application.browser");
 			view.setUrl(string);
 		} catch (final PartInitException e) {
 			e.printStackTrace();

@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PartInitException;
 
 import msi.gama.lang.gaml.ui.editor.GamlEditor;
+import msi.gama.runtime.GAMA;
 import msi.gaml.operators.Strings;
 import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -271,7 +272,7 @@ public class TemplateReferenceMenu extends GamlReferenceMenu {
 	@Override
 	protected void openView() {
 		try {
-			WorkbenchHelper.getPage().showView("msi.gama.lang.gaml.ui.templates");
+			WorkbenchHelper.getPage(GAMA.getRuntimeScope()).showView("msi.gama.lang.gaml.ui.templates");
 		} catch (final PartInitException e) {
 			e.printStackTrace();
 		}

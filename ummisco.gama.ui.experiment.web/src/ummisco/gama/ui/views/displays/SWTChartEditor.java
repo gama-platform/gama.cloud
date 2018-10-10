@@ -55,6 +55,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.utils.GraphicsHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -95,7 +96,7 @@ public class SWTChartEditor implements ChartEditor {
 	public SWTChartEditor(final Display display, final JFreeChart chart2edit, final Point position) {
 		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.NO_TRIM);
 		this.shell.setSize(400, 500);
-		this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		this.shell.setBackground(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemColor(SWT.COLOR_BLACK));
 		// this.shell.setAlpha(140);
 		this.chart = chart2edit;
 		this.shell.setText("Chart properties");

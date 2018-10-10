@@ -13,6 +13,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -82,7 +83,7 @@ public class GamaIcon {
 		final Image[] image = new Image[] { GamaIcons.getInstance().getImageInCache(code) };
 		if (image[0] == null) {
 			WorkbenchHelper
-					.run(() -> image[0] = GamaIcons.getInstance().putImageInCache(code, descriptor().createImage()));
+					.run(GAMA.getRuntimeScope(), () -> image[0] = GamaIcons.getInstance().putImageInCache(code, descriptor().createImage()));
 		}
 		return image[0];
 	}

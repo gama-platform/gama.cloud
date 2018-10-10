@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.GraphicsHelper;
 import ummisco.gama.ui.utils.PreferencesHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -76,7 +77,7 @@ public class GamaFonts {
 
 	public static Font getSystemFont() {
 		if (systemFont == null) {
-			systemFont = WorkbenchHelper.getDisplay().getSystemFont();
+			systemFont = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemFont();
 		}
 		return systemFont;
 	}
@@ -87,7 +88,7 @@ public class GamaFonts {
 
 	static void initFonts() {
 		// DEBUG.LOG("System font = " + Arrays.toString(systemFont.getFontData()));
-		final Display d = WorkbenchHelper.getDisplay();
+		final Display d = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
 		FontData fd = new FontData(getAwtBaseFont().getName(), getAwtBaseFont().getSize(), getAwtBaseFont().getStyle());
 		final FontData original = fd;
 		labelFont = new Font(d, fd);
@@ -130,8 +131,8 @@ public class GamaFonts {
 
 	public static void setLabelFont(final java.awt.Font font) {
 		setAwtBaseFont(font);
-		final FontData fd = GraphicsHelper.toSwtFontData(WorkbenchHelper.getDisplay(), font, true);
-		setLabelFont(new Font(WorkbenchHelper.getDisplay(), fd));
+		final FontData fd = GraphicsHelper.toSwtFontData(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), font, true);
+		setLabelFont(new Font(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), fd));
 	}
 
 	public static Font getLabelfont() {

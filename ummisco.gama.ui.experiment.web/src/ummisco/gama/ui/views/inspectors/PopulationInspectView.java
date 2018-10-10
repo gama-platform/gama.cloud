@@ -113,7 +113,7 @@ public class PopulationInspectView extends GamaViewPart
 	// private String speciesName;
 
 	IAgent[] elements = new IAgent[0];
-	Font currentFont = new Font(WorkbenchHelper.getDisplay(), GamaFonts.getSmallFont().getFontData());
+	Font currentFont = new Font(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), GamaFonts.getSmallFont().getFontData());
 	Map<String, List<String>> selectedColumns = new HashMap();
 
 	class AgentContentProvider implements ILazyContentProvider {

@@ -39,6 +39,7 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 import org.eclipse.ui.internal.ide.dialogs.IDEResourceInfoUtils;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.interfaces.IRefreshHandler;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -103,7 +104,7 @@ public class RefreshAction extends WorkspaceAction {
 					return super.getShellStyle() | SWT.SHEET;
 				}
 			};
-			WorkbenchHelper.run(() -> dialog.open());
+			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> dialog.open());
 
 			// Do the deletion back in the operation thread
 			if (dialog.getReturnCode() == 0) { // yes was chosen

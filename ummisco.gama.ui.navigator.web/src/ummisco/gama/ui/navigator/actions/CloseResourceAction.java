@@ -95,7 +95,7 @@ public class CloseResourceAction extends WorkspaceAction implements IResourceCha
 	private void initAction() {
 		setId(ID);
 		setToolTipText(IDEWorkbenchMessages.CloseResourceAction_toolTip);
-		WorkbenchHelper.getWorkbench().getHelpSystem().setHelp(this, IIDEHelpContextIds.CLOSE_RESOURCE_ACTION);
+		WorkbenchHelper.getWorkbench(null).getHelpSystem().setHelp(this, IIDEHelpContextIds.CLOSE_RESOURCE_ACTION);
 	}
 
 	@Override

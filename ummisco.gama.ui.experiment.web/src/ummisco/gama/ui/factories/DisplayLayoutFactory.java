@@ -15,6 +15,7 @@ import org.eclipse.ui.services.IServiceLocator;
 
 import msi.gama.application.workbench.PerspectiveHelper;
 import msi.gama.application.workbench.PerspectiveHelper.SimulationPerspectiveDescriptor;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.commands.ArrangeDisplayViews;
 import ummisco.gama.ui.interfaces.IDisplayLayoutManager;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -30,8 +31,8 @@ public class DisplayLayoutFactory extends AbstractServiceFactory implements IDis
 	@Override
 	public void applyLayout(final Object layout, final Boolean keepTabs, final Boolean keepToolbars,
 			final boolean showEditors) {
-		WorkbenchHelper.run(() -> {
-			WorkbenchHelper.getPage().setEditorAreaVisible(showEditors);
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+			WorkbenchHelper.getPage(GAMA.getRuntimeScope()).setEditorAreaVisible(showEditors);
 		});
 		WorkbenchHelper.runInUI("Arranging views", 0, (m) -> {
 			final SimulationPerspectiveDescriptor sd = PerspectiveHelper.getActiveSimulationPerspective();

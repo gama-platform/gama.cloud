@@ -363,7 +363,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		if (output == null) { return; }
 		if (output == getOutput()) {
 			if (isFullScreen()) {
-				WorkbenchHelper.run(() -> toggleFullScreen());
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> toggleFullScreen());
 			}
 		}
 		output.dispose();

@@ -15,6 +15,7 @@ import org.eclipse.ui.IWorkbenchPartReference;
 
 import msi.gama.common.interfaces.IGamaView;
 import msi.gama.outputs.IDisplayOutput;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
@@ -79,7 +80,7 @@ public class OutputPartsManager {
 	private final static PartListener listener = new PartListener();
 
 	public static void install() {
-		WorkbenchHelper.getPage().addPartListener(listener);
+		WorkbenchHelper.getPage(GAMA.getRuntimeScope()).addPartListener(listener);
 
 	}
 

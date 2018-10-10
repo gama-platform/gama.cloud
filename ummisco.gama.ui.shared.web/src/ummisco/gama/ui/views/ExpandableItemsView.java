@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import msi.gama.common.interfaces.ItemList;
+import msi.gama.runtime.GAMA;
 import msi.gama.util.GamaColor;
 import ummisco.gama.ui.controls.ParameterExpandBar;
 import ummisco.gama.ui.controls.ParameterExpandItem;
@@ -107,7 +108,7 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart implements Ite
 	protected void disposeViewer() {
 		try {
 			if (viewer != null) {
-				WorkbenchHelper.run(() -> viewer.dispose());
+				WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> viewer.dispose());
 
 				viewer = null;
 			}

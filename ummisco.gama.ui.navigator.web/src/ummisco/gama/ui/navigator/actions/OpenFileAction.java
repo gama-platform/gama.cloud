@@ -28,6 +28,7 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 import org.eclipse.ui.part.FileEditorInput;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.navigator.contents.NavigatorRoot;
 import ummisco.gama.ui.navigator.contents.WrappedGamaFile;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -124,17 +125,17 @@ public class OpenFileAction extends OpenSystemEditorAction {
 		try {
 			final boolean activate = OpenStrategy.activateOnOpen();
 			if (editorDescriptor == null) {
-				IDE.openEditor(WorkbenchHelper.getPage(), file, activate);
+				IDE.openEditor(WorkbenchHelper.getPage(GAMA.getRuntimeScope()), file, activate);
 //				IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Procedural City.gaml"); 
-				EditorUtil.openEditor(WorkbenchHelper.getWorkbench(),file.getLocation(),activate);
+				EditorUtil.openEditor(WorkbenchHelper.getWorkbench(null),file.getLocation(),activate);
 //				 ((WrappedGamaFile) element).getResource().getLocation()
 			} else {
 				if (ensureFileLocal(file)) {
-					WorkbenchHelper.getPage().openEditor(new FileEditorInput(file), editorDescriptor.getId(), activate);
+					WorkbenchHelper.getPage(GAMA.getRuntimeScope()).openEditor(new FileEditorInput(file), editorDescriptor.getId(), activate);
 				}
 			}
 		} catch (final PartInitException e) {
-			DialogUtil.openError(WorkbenchHelper.getPage().getWorkbenchWindow().getShell(),
+			DialogUtil.openError(WorkbenchHelper.getPage(GAMA.getRuntimeScope()).getWorkbenchWindow().getShell(),
 					IDEWorkbenchMessages.OpenFileAction_openFileShellTitle, e.getMessage(), e);
 		}
 	}

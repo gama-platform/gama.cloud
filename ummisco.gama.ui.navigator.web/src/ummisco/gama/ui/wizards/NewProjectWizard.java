@@ -96,7 +96,7 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 		if (createNewModel) {
 			WorkbenchHelper.runInUI("New Model File", 100, m -> {
 				final IWorkbenchWizard w = isTest ? new NewTestExperimentWizard() : new NewFileWizard();
-				w.init(WorkbenchHelper.getWorkbench(), new StructuredSelection(project));
+				w.init(WorkbenchHelper.getWorkbench(null), new StructuredSelection(project));
 				final WizardDialog wd = new WizardDialog(getShell(), w);
 				wd.open();
 			});

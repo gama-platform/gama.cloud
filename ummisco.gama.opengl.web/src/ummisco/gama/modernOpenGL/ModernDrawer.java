@@ -436,21 +436,24 @@ public class ModernDrawer {
 	}
 
 	private void drawVBO(final int[] typeOfDrawing) {
-		try {
-			File f = new File("C:\\git\\gama\\msi.gama.models\\models\\Features\\3D Visualization\\images\\building_texture\\roof_top.png");
-//			File f = new File("D:\\M03FireplaceBox.jpg");
-	      DataInputStream dis;
-			dis = new DataInputStream(new FileInputStream(f));
-	      byte[] barray = new byte[(int) f.length()];
-	       
-	        dis.readFully(barray);  
-	        dis.close( ); 
-	        String encodedString = Base64.getEncoder().encodeToString(barray);
-	        gl.glSendImage(encodedString);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
+//		try {
+//			File f = new File("C:\\git\\gama\\msi.gama.models\\models\\Features\\3D Visualization\\images\\building_texture\\roof_top.png");
+////			File f = new File("D:\\M03FireplaceBox.jpg");
+//	      DataInputStream dis;
+//			dis = new DataInputStream(new FileInputStream(f));
+//	      byte[] barray = new byte[(int) f.length()];
+//	       
+//	        dis.readFully(barray);  
+//	        dis.close( ); 
+//	        String encodedString = Base64.getEncoder().encodeToString(barray);
+//	        gl.glSendImage(encodedString);
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} 
+		
+		
+		
 //		gl.glDrawElements(typeOfDrawing[0], typeOfDrawing[1], GL2.GL_UNSIGNED_INT, 0);
 	}
 

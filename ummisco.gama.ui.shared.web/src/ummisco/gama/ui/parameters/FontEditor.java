@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.FontDialog;
 
 import msi.gama.kernel.experiment.IParameter;
 import msi.gama.metamodel.agent.IAgent;
+import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.util.GamaFont;
 import ummisco.gama.ui.controls.FlatButton;
@@ -63,7 +64,7 @@ public class FontEditor extends AbstractEditor<GamaFont> {
 		final GamaFont data = currentValue != null ? currentValue
 				: toGamaFont(GamaFonts.getSmallFont().getFontData()[0]);
 		edit.setText(data.toString());
-		edit.setFont(new Font(WorkbenchHelper.getDisplay(), toFontData(data)));
+		edit.setFont(new Font(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), toFontData(data)));
 		internalModification = false;
 	}
 

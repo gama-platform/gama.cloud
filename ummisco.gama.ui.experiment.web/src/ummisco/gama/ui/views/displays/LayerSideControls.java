@@ -475,7 +475,7 @@ public class LayerSideControls {
 						// FIXME Editor not working for the moment
 						final Point p = b.toDisplay(b.getLocation());
 						p.y = p.y + 30;
-						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(),
+						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()),
 								((ChartLayerStatement) definition).getChart(), p);
 						editor.open();
 						updateIfPaused(layer, container);

@@ -48,6 +48,7 @@ import msi.gama.lang.gaml.web.workspace.ui.DummyDeleteUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyModifyUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.DummyNewUserModule;
 import msi.gama.lang.gaml.web.workspace.ui.WebListEditorDialog;
+import msi.gama.runtime.GAMA;
 import msi.gama.util.GamaList;
 import msi.gama.util.GamaListFactory;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -213,7 +214,7 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 				GamaList<User> o=(GamaList<User>) GamaListFactory.create(User.class);
 				o.addAll(onlines);
-				final WebListEditorDialog d = new WebListEditorDialog(WorkbenchHelper.getShell(uid), o, "Online");
+				final WebListEditorDialog d = new WebListEditorDialog(WorkbenchHelper.getShell(GAMA.getRuntimeScope()), o, "Online");
 				if (d.open() == IDialogConstants.OK_ID) {
 				}
 //				DummyCallbackHandler dch = new DummyCallbackHandler();

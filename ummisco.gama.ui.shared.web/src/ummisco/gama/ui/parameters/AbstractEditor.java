@@ -778,7 +778,7 @@ public abstract class AbstractEditor<T>
 	}
 
 	private void displayParameterValueAndCheckButtons() {
-		WorkbenchHelper.run(() -> {
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			displayParameterValue();
 			checkButtons();
 		});

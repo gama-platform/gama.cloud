@@ -47,6 +47,7 @@ import msi.gama.lang.gaml.web.ui.views.toolbar.CollaboratingUserControlsEtherpad
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenExperimentSelectionListenerEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.OpenImportedErrorSelectionListenerEtherpad;
 import msi.gama.lang.gaml.web.ui.views.toolbar.RevalidateModelSelectionListenerEtherpad;
+import msi.gama.runtime.GAMA;
 import msi.gaml.descriptions.IDescription;
 import msi.gaml.descriptions.ValidationContext;
 import ummisco.gama.participative.EtherpadBasicText;
@@ -397,7 +398,7 @@ public void openEtherpaEditor(final String absolutePath) {
 	private synchronized void updateToolbar(final GamlEditorState newState, final boolean forceState) {
 //		if (forceState || !state.equals(newState)) {
 		String uid = RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.getDisplay(uid).asyncExec(() -> {
+		WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).asyncExec(() -> {
 			GamaToolbar2 toolbar = thetoolbar.get(uid);
 			if (toolbar == null || toolbar.isDisposed()) {
 				return;

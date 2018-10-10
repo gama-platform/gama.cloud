@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
@@ -184,7 +185,7 @@ public class ExceptionDetailsDialog extends AbstractDetailsDialog {
 	 */
 	private static Image getImage(final Image image, final Object details) {
 		if (image != null) { return image; }
-		final Display display = WorkbenchHelper.getDisplay();
+		final Display display = WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
 		if (details instanceof IStatus) {
 			switch (((IStatus) details).getSeverity()) {
 				case IStatus.ERROR:

@@ -18,6 +18,7 @@ import org.eclipse.ui.progress.UIJob;
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IUpdaterMessage;
 import msi.gama.common.interfaces.IUpdaterTarget;
+import msi.gama.runtime.GAMA;
 
 /**
  * Class ThreadedUpdater.
@@ -32,7 +33,7 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 	private IUpdaterTarget<Message> control;
 
 	public ThreadedUpdater(final String name) {
-		super(WorkbenchHelper.getDisplay(), name);
+		super(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), name);
 		setPriority(DECORATE);
 	}
 

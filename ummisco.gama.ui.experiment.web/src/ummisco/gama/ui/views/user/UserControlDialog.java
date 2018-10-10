@@ -231,7 +231,7 @@ public class UserControlDialog extends AbstractDetailsDialog {
 	@Override
 	protected Control createDetailsArea(final Composite parent) {
 		final Composite compo = new Composite(parent, SWT.BORDER | SWT.SHADOW_IN);
-		compo.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY));
+		compo.setBackground(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemColor(SWT.COLOR_GRAY));
 		final GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 0;
 		compo.setLayout(layout);

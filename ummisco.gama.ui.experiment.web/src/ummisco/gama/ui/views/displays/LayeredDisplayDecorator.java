@@ -248,7 +248,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 				}
 			}
 		};
-		WorkbenchHelper.getWindow().addPerspectiveListener(perspectiveListener);
+		WorkbenchHelper.getWindow(view.getOutput().getScope()).addPerspectiveListener(perspectiveListener);
 	}
 
 	public boolean isFullScreen() {
@@ -365,7 +365,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	public void dispose() {
 		// FIXME Remove the listeners
 		try {
-			WorkbenchHelper.getWindow().removePerspectiveListener(perspectiveListener);
+			WorkbenchHelper.getWindow(view.getOutput().getScope()).removePerspectiveListener(perspectiveListener);
 		} catch (final Exception e) {
 
 		}

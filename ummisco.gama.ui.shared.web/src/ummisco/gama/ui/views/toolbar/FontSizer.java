@@ -17,6 +17,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Control;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
@@ -50,7 +51,7 @@ public class FontSizer {
 			data.setHeight(data.getHeight() + delta);
 			if (data.getHeight() < 6 || data.getHeight() > 256) { return; }
 			final Font oldFont = currentFont;
-			currentFont = new Font(WorkbenchHelper.getDisplay(), data);
+			currentFont = new Font(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), data);
 			c.setFont(currentFont);
 			if (oldFont != null && !oldFont.isDisposed()) {
 				oldFont.dispose();

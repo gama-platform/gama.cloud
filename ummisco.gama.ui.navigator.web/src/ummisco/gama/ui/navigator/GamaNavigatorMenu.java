@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.menus.GamaMenu;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -69,7 +70,7 @@ public abstract class GamaNavigatorMenu extends GamaMenu {
 			if (descriptor != null) {
 				final IWorkbenchWizard wizard = descriptor.createWizard();
 				wizard.init(PlatformUI.getWorkbench(), selection);
-				final WizardDialog wd = new WizardDialog(WorkbenchHelper.getDisplay().getActiveShell(), wizard);
+				final WizardDialog wd = new WizardDialog(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getActiveShell(), wizard);
 				wd.setTitle(wizard.getWindowTitle());
 				wd.open();
 			}

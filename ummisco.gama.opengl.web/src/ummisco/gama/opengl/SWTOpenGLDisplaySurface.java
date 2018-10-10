@@ -466,7 +466,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void followAgent(final IAgent a) {
-		new Thread(() -> WorkbenchHelper.asyncRun("admin",() -> renderer.camera.zoomFocus(a))).start();
+		new Thread(() -> WorkbenchHelper.asyncRun(GAMA.getRuntimeScope(),() -> renderer.camera.zoomFocus(a))).start();
 
 	}
 

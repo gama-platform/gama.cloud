@@ -24,6 +24,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import msi.gama.common.util.FileUtils;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.navigator.contents.NavigatorRoot;
 import ummisco.gama.ui.navigator.contents.WrappedFile;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -35,7 +36,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
  */
 public class FileOpener {
 
-	static final IWorkbenchPage PAGE = WorkbenchHelper.getPage();
+	static final IWorkbenchPage PAGE = WorkbenchHelper.getPage(GAMA.getRuntimeScope());
 
 	public static IEditorPart openFile(final String path) {
 		return openFile(path, null);
