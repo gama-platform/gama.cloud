@@ -17,11 +17,6 @@ import javax.swing.JComponent;
 
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DragDetectEvent;
-import org.eclipse.swt.events.DragDetectListener;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Point;
@@ -43,14 +38,6 @@ public class AWTDisplayView extends LayeredDisplayView {
 		return (Java2DDisplaySurface) super.getDisplaySurface();
 	}
 
-	private final static int MOUSE_PRESS = 0;
-	private final static int MOUSE_RELEASED = 1;
-	private final static int MOUSE_CLICKED = 2;
-	private final static int MOUSE_MOVED = 4;
-	private final static int MOUSE_ENTERED = 5;
-	private final static int MOUSE_EXITED = 6;
-	private final static int KEY_PRESSED = 3;
-	
 	@Override
 	protected Composite createSurfaceComposite(final Composite parent) {
 
@@ -98,7 +85,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 		surfaceComposite.setEnabled(false);
 		WorkaroundForIssue1594.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
 
-		Canvas canvas=new Canvas(surfaceComposite, 1);
+		Canvas canvas=new Canvas(surfaceComposite, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED);
 		canvas.addPaintListener(new PaintListener() {
 			
 			@Override
@@ -107,40 +94,14 @@ public class AWTDisplayView extends LayeredDisplayView {
 //				GC gc=new GC(canvas);
 				if(getDisplaySurface()!=null) {					
 					getDisplaySurface().setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
-//					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
+					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
 					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
-					renderer.SWT_RECT.width=getDisplaySurface().getWidth();//surfaceComposite.getSize().x;
-					renderer.SWT_RECT.height=getDisplaySurface().getHeight();//surfaceComposite.getSize().y;
+					renderer.SWT_RECT.width=surfaceComposite.getSize().x;
+					renderer.SWT_RECT.height=surfaceComposite.getSize().y;
 					getDisplaySurface().paintComponent(renderer);
 				}
 			}
 		});
-		
-
-		parent.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseUp(MouseEvent e) {
-				System.out.println("mouseUp"+e.x+" "+e.y);
-				getDisplaySurface().setMousePosition(e.x,e.y);
-				getDisplaySurface().draggedTo(e.x,e.y);
-				getDisplaySurface().dispatchMouseEvent(MOUSE_RELEASED);
-			}
-			
-			@Override
-			public void mouseDown(MouseEvent e) {
-				System.out.println("mouseDown"+e.x+" "+e.y);
-
-				getDisplaySurface().setMousePosition(e.x,e.y);
-				getDisplaySurface().dispatchMouseEvent(MOUSE_PRESS);
-			}
-			
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				System.out.println("mouseDoubleClick");
-				
-			}
-		});   
 		return surfaceComposite;
 	}
 
