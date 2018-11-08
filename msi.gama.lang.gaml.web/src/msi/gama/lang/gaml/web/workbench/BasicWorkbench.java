@@ -69,7 +69,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
     
-	boolean enableLoggin=true;
+	boolean enableLoggin=false;
 	
 	public void postLoggedIn(final String uid) {
 		RWT.getUISession().setAttribute("user", uid);

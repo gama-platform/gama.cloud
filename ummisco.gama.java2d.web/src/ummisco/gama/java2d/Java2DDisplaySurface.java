@@ -310,7 +310,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	public void updateDisplay(final boolean force) {
 		if (disposed) { return; }
 		rendered = false;
-		EventQueue.invokeLater(() -> repaint());
+//		EventQueue.invokeLater(() -> repaint());
 	}
 
 	@Override
@@ -431,6 +431,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			final IShape geometry = Cast.asGeometry(getScope(), temp_focus.value(getScope()), false);
 			temp_focus = null;
 			focusOn(geometry);
+			rendered = true;
 			return;
 		}
 		g2d.dispose();

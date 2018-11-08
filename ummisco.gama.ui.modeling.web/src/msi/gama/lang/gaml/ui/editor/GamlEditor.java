@@ -106,7 +106,7 @@ import msi.gama.common.preferences.IPreferenceChangeListener.IPreferenceAfterCha
 import msi.gama.lang.gaml.resource.GamlResourceServices;
 import msi.gama.lang.gaml.ui.decorators.GamlAnnotationImageProvider;
 import msi.gama.lang.gaml.ui.editbox.BoxDecoratorPartListener;
-import msi.gama.lang.gaml.ui.editbox.BoxProviderRegistry;
+//import msi.gama.lang.gaml.ui.editbox.BoxProviderRegistry;
 import msi.gama.lang.gaml.ui.editbox.IBoxDecorator;
 import msi.gama.lang.gaml.ui.editbox.IBoxEnabledEditor;
 import msi.gama.lang.gaml.ui.editbox.IBoxProvider;

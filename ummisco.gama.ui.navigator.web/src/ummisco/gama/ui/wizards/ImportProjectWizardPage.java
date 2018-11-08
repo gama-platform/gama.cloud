@@ -1053,29 +1053,29 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	 */
 	protected void handleLocationDirectoryButtonPressed() {
 
-		final DirectoryDialog dialog = new DirectoryDialog(directoryPathField.getShell(), SWT.SHEET);
-		dialog.setMessage(DataTransferMessages.WizardProjectsImportPage_SelectDialogTitle);
-
-		String dirName = directoryPathField.getText().trim();
-		if (dirName.length() == 0) {
-			dirName = previouslyBrowsedDirectory;
-		}
-
-		if (dirName.length() == 0) {
-			dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
-		} else {
-			final File path = new File(dirName);
-			if (path.exists()) {
-				dialog.setFilterPath(new Path(dirName).toOSString());
-			}
-		}
-
-		final String selectedDirectory = dialog.open();
-		if (selectedDirectory != null) {
-			previouslyBrowsedDirectory = selectedDirectory;
-			directoryPathField.setText(previouslyBrowsedDirectory);
-			updateProjectsList(selectedDirectory);
-		}
+//		final DirectoryDialog dialog = new DirectoryDialog();
+//		dialog.setMessage(DataTransferMessages.WizardProjectsImportPage_SelectDialogTitle);
+//
+//		String dirName = directoryPathField.getText().trim();
+//		if (dirName.length() == 0) {
+//			dirName = previouslyBrowsedDirectory;
+//		}
+//
+//		if (dirName.length() == 0) {
+//			dialog.setFilterPath(IDEWorkbenchPlugin.getPluginWorkspace().getRoot().getLocation().toOSString());
+//		} else {
+//			final File path = new File(dirName);
+//			if (path.exists()) {
+//				dialog.setFilterPath(new Path(dirName).toOSString());
+//			}
+//		}
+//
+//		final String selectedDirectory = dialog.open();
+//		if (selectedDirectory != null) {
+//			previouslyBrowsedDirectory = selectedDirectory;
+//			directoryPathField.setText(previouslyBrowsedDirectory);
+//			updateProjectsList(selectedDirectory);
+//		}
 
 	}
 

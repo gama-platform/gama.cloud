@@ -80,7 +80,7 @@ public abstract class SwingControl extends Composite {
 
 	Frame frame;
 	RootPaneContainer rootPaneContainer;
-	JComponent swingComponent;
+//	JComponent swingComponent;
 	boolean populated = false;
 
 	// ========================================================================
@@ -323,18 +323,18 @@ public abstract class SwingControl extends Composite {
 			// possible
 			setComponentBackground(frame, background, true);
 
-			swingComponent = createSwingComponent();
-			if (swingComponent != null) {
-				// Pass on color and font values
-				// The color of the content Pane is visible permanently.
-				setComponentForeground(rootPaneContainer.getContentPane(), foreground, true);
-				setComponentBackground(rootPaneContainer.getContentPane(), background, true);
-				setComponentFont(font, fontData, true);
-
-				rootPaneContainer.getRootPane().getContentPane().add(swingComponent);
-				swingComponent.putClientProperty(SWT_PARENT_PROPERTY_KEY, SwingControl.this);
-				// frame.setFocusable(true);
-			}
+//			swingComponent = createSwingComponent();
+//			if (swingComponent != null) {
+//				// Pass on color and font values
+//				// The color of the content Pane is visible permanently.
+//				setComponentForeground(rootPaneContainer.getContentPane(), foreground, true);
+//				setComponentBackground(rootPaneContainer.getContentPane(), background, true);
+//				setComponentFont(font, fontData, true);
+//
+//				rootPaneContainer.getRootPane().getContentPane().add(swingComponent);
+//				swingComponent.putClientProperty(SWT_PARENT_PROPERTY_KEY, SwingControl.this);
+//				// frame.setFocusable(true);
+//			}
 
 			// Invoke hooks, for use by the application.
 			afterComponentCreatedAWTThread();
@@ -490,9 +490,9 @@ public abstract class SwingControl extends Composite {
 	 * 
 	 * @return The embedded Swing component, or <code>null</code> if it has not yet been initialized.
 	 */
-	public /* final */ JComponent getSwingComponent() {
-		return swingComponent;
-	}
+//	public /* final */ JComponent getSwingComponent() {
+//		return swingComponent;
+//	}
 
 	/**
 	 * Returns the root of the AWT component hierarchy; this is the top-level parent of the embedded Swing component.
@@ -785,8 +785,8 @@ public abstract class SwingControl extends Composite {
 			Integer onBehalfAWTTime = time;
 			assert Display.getCurrent() != null; // On SWT event thread
 			if (verboseSizeLayout) {
-				System.err.println(
-						"SWT thread: Preparing to set size: " + width + " x " + height + " for " + swingComponent);
+//				System.err.println(
+//						"SWT thread: Preparing to set size: " + width + " x " + height + " for " + swingComponent);
 			}
 			// During the processing of a request, lastValidatedAWTTime is
 			// unreliable: it gets incremented to a value past the
@@ -851,10 +851,10 @@ public abstract class SwingControl extends Composite {
 					break;
 				}
 				// Set the frame's (and thus also the rootpane's) size.
-				if (verboseSizeLayout) {
-					System.err.println("SWT->AWT thread: Setting size: " + size.width + " x " + size.height + " for "
-							+ swingComponent);
-				}
+//				if (verboseSizeLayout) {
+//					System.err.println("SWT->AWT thread: Setting size: " + size.width + " x " + size.height + " for "
+//							+ swingComponent);
+//				}
 				if (frame != null) {
 					frame.setBounds(0, 0, Math.max(size.width, 0), Math.max(size.height, 0));
 					frame.validate();
@@ -960,9 +960,9 @@ public abstract class SwingControl extends Composite {
 		final boolean initialized = getCachedAWTSizes(min, pref, max);
 
 		if (!initialized) {
-			if (verboseSizeLayout) {
-				System.err.println("SWT thread: Uninitialized AWT sizes for " + swingComponent);
-			}
+//			if (verboseSizeLayout) {
+//				System.err.println("SWT thread: Uninitialized AWT sizes for " + swingComponent);
+//			}
 			return super.computeSize(widthHint, heightHint, changed);
 		} else {
 			synchronized (this) {
@@ -977,9 +977,9 @@ public abstract class SwingControl extends Composite {
 					: heightHint < min.width ? min.height : heightHint > max.width ? max.height : heightHint;
 			// Augment by 2*borderWidth, avoiding integer overflow.
 			height = Math.min(height, Integer.MAX_VALUE - 2 * borderWidth) + 2 * borderWidth;
-			if (verboseSizeLayout) {
-				System.err.println("SWT thread: Computed size: " + width + " x " + height + " for " + swingComponent);
-			}
+//			if (verboseSizeLayout) {
+//				System.err.println("SWT thread: Computed size: " + width + " x " + height + " for " + swingComponent);
+//			}
 			return new Point(width, height);
 		}
 	}
@@ -1143,13 +1143,13 @@ public abstract class SwingControl extends Composite {
 		// Allow subclasses to react to font change if necessary.
 		updateAwtFont(awtFont);
 
-		if (swingComponent != null) {
-			// Allow components to update their UI based on new font
-			// TODO: should the update method be called on the root pane
-			// instead?
-			final Container contentPane = swingComponent.getRootPane().getContentPane();
-			SwingUtilities.updateComponentTreeUI(contentPane);
-		}
+//		if (swingComponent != null) {
+//			// Allow components to update their UI based on new font
+//			// TODO: should the update method be called on the root pane
+//			// instead?
+//			final Container contentPane = swingComponent.getRootPane().getContentPane();
+//			SwingUtilities.updateComponentTreeUI(contentPane);
+//		}
 	}
 
 	protected void setComponentFont(final Font swtFont, final FontData[] swtFontData, final boolean preserveDefaults) {
@@ -1428,13 +1428,13 @@ public abstract class SwingControl extends Composite {
 		// in the swingComponent.
 		// It needs to be done without transferring to the AWT thread.
 
-		if (swingComponent != null) {
-			focusSetter.run();
-			return ((Boolean) focusSetter.getResult()).booleanValue();
-		} else {
-			// Fail if there is no underlying swing component
+//		if (swingComponent != null) {
+//			focusSetter.run();
+//			return ((Boolean) focusSetter.getResult()).booleanValue();
+//		} else {
+//			// Fail if there is no underlying swing component
 			return false;
-		}
+//		}
 	}
 
 	boolean superSetFocus() {

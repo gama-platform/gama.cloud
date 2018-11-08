@@ -17,9 +17,9 @@ import java.util.List;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.custom.TextChangeListener;
-import org.eclipse.swt.custom.TextChangedEvent;
-import org.eclipse.swt.custom.TextChangingEvent;
+//import org.eclipse.swt.custom.TextChangeListener;
+//import org.eclipse.swt.custom.TextChangedEvent;
+//import org.eclipse.swt.custom.TextChangingEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -50,7 +50,7 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 	protected BoxPaintListener boxPaint;
 	protected BoxMouseMoveListener boxMouseMove;
 	protected BoxMouseTrackListener boxMouseTrack;
-	protected BoxTextChangeListener boxTextChange;
+//	protected BoxTextChangeListener boxTextChange;
 	protected BoxMouseClickListener boxMouseClick;
 	protected FillBoxMouseClick fillMouseClick;
 	protected SettingsChangeListener settingsChangeListener;
@@ -105,27 +105,27 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 		this.boxText = newSt;
 	}
 
-	protected void buildBoxes() {
-		final IBoxBuilder boxBuilder = getBuilder();
-		if (boxBuilder == null) {
-			return;
-		}
-
-		builder.setTabSize(boxText.getTabs());
-		builder.setCaretOffset(setCaretOffset ? boxText.getCaretOffset() : -1);
-		setCaretOffset = false;
-
-		final StringBuilder text = new StringBuilder(boxText.getText());
-
-		if (text.length() > 0 && text.charAt(text.length() - 1) != '\n') {
-			text.append(".");
-		}
-
-		boxBuilder.setText(text);
-		boxes = boxBuilder.build();
-
-		charCount = boxText.getCharCount();
-	}
+//	protected void buildBoxes() {
+//		final IBoxBuilder boxBuilder = getBuilder();
+//		if (boxBuilder == null) {
+//			return;
+//		}
+//
+//		builder.setTabSize(boxText.getTabs());
+//		builder.setCaretOffset(setCaretOffset ? boxText.getCaretOffset() : -1);
+//		setCaretOffset = false;
+//
+//		final StringBuilder text = new StringBuilder(boxText.getText());
+//
+//		if (text.length() > 0 && text.charAt(text.length() - 1) != '\n') {
+//			text.append(".");
+//		}
+//
+//		boxBuilder.setText(text);
+//		boxes = boxBuilder.build();
+//
+//		charCount = boxText.getCharCount();
+//	}
 
 	protected void updateOffsetColors() {
 		int maxLevel = 0;
@@ -155,102 +155,102 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 	}
 
 	public void update() {
-		if (decorated && visible) {
-			if (builder != null
-					&& (!builderName.equals(settings.getBuilder()) || builder.getTabSize() != boxText.getTabs())) {
-				boxes = null;
-			}
-
-			if (boxes == null) {
-				buildBoxes();
-			}
-
-			offsetMoved();
-			updateCaret();
-			drawBackgroundBoxes();
-		}
+//		if (decorated && visible) {
+//			if (builder != null
+//					&& (!builderName.equals(settings.getBuilder()) || builder.getTabSize() != boxText.getTabs())) {
+//				boxes = null;
+//			}
+//
+//			if (boxes == null) {
+//				buildBoxes();
+//			}
+//
+//			offsetMoved();
+//			updateCaret();
+//			drawBackgroundBoxes();
+//		}
 	}
 
 	void drawBackgroundBoxes() {
-		if (boxes == null || !visible) {
-			return;
-		}
-
-		final Rectangle r0 = boxText.getClientArea();
-
-		if (r0.width < 1 || r0.height < 1) {
-			return;
-		}
-
-		final int xOffset = boxText.getHorizontalPixel();
-		final int yOffset = boxText.getTopPixel();
-
-		final Image newImage = new Image(null, r0.width, r0.height);
-//		final GC gc = new GC(newImage);
-
-		// fill background
-		Color bc = settings.getColor(0);
-		if (settings.getNoBackground() && oldBackground != null) {
-			bc = new Color(null, oldBackground);
-		}
-		if (bc != null) {
-			final Rectangle rec = newImage.getBounds();
-//			fillRectangle(bc, gc, rec.x, rec.y, rec.width, rec.height);
-		}
-
-		if (settings.getAlpha() > 0) {
-//			gc.setAlpha(settings.getAlpha());
-		}
-
-		// fill boxes
-		Box fillBox = null;
-		final boolean checkFillbox = !settings.getFillOnMove();
-		final Collection<Box> visibleBoxes = visibleBoxes();
-
-		final boolean ex = settings.getExpandBox();
-
-		for (final Box b : visibleBoxes) {
-			if (checkFillbox && b.level == fillBoxLevel && b.start <= fillBoxStart && b.end >= fillBoxEnd) {
-				fillBox = b;
-			}
-//			fillRectangle(settings.getColor(b.level + 1), gc, b.rec.x - xOffset, b.rec.y - yOffset,
-//					ex ? r0.width : b.rec.width, b.rec.height);
-		}
-
-		// fill selected
-		if (settings.getFillSelected()) {
-			if (settings.getFillOnMove() && currentBox != null && stateMask == settings.getFillKeyModifierSWTInt()) {
-//				fillRectangle(settings.getFillSelectedColor(), gc, currentBox.rec.x - xOffset,
-//						currentBox.rec.y - yOffset, ex ? r0.width : currentBox.rec.width + 1,
-//								currentBox.rec.height + 1);
-			} else if (fillBox != null) {
-//				fillRectangle(settings.getFillSelectedColor(), gc, fillBox.rec.x - xOffset, fillBox.rec.y - yOffset,
-//						ex ? r0.width : fillBox.rec.width + 1, fillBox.rec.height + 1);
-			}
-		}
-
-		for (final Box b : visibleBoxes) {
-			if (!b.isOn) {
-//				drawBox(gc, yOffset, xOffset, b, r0.width);
-			}
-		}
-
-		for (final Box b : visibleBoxes) {
-			if (b.isOn) {
-//				drawBox(gc, yOffset, xOffset, b, r0.width);
-			}
-		}
-
-		final Image oldImage = boxText.getBackgroundImage();
-		boxText.setBackgroundImage(newImage);
-		if (oldImage != null) {
-			oldImage.dispose();
-		}
-//		gc.dispose();
-
-		oldClientArea = r0;
-		oldXOffset = xOffset;
-		oldYOffset = yOffset;
+//		if (boxes == null || !visible) {
+//			return;
+//		}
+//
+//		final Rectangle r0 = boxText.getClientArea();
+//
+//		if (r0.width < 1 || r0.height < 1) {
+//			return;
+//		}
+//
+//		final int xOffset = boxText.getHorizontalPixel();
+//		final int yOffset = boxText.getTopPixel();
+//
+//		final Image newImage = new Image(null, r0.width, r0.height);
+////		final GC gc = new GC(newImage);
+//
+//		// fill background
+//		Color bc = settings.getColor(0);
+//		if (settings.getNoBackground() && oldBackground != null) {
+//			bc = new Color(null, oldBackground);
+//		}
+//		if (bc != null) {
+//			final Rectangle rec = newImage.getBounds();
+////			fillRectangle(bc, gc, rec.x, rec.y, rec.width, rec.height);
+//		}
+//
+//		if (settings.getAlpha() > 0) {
+////			gc.setAlpha(settings.getAlpha());
+//		}
+//
+//		// fill boxes
+//		Box fillBox = null;
+//		final boolean checkFillbox = !settings.getFillOnMove();
+//		final Collection<Box> visibleBoxes = visibleBoxes();
+//
+//		final boolean ex = settings.getExpandBox();
+//
+//		for (final Box b : visibleBoxes) {
+//			if (checkFillbox && b.level == fillBoxLevel && b.start <= fillBoxStart && b.end >= fillBoxEnd) {
+//				fillBox = b;
+//			}
+////			fillRectangle(settings.getColor(b.level + 1), gc, b.rec.x - xOffset, b.rec.y - yOffset,
+////					ex ? r0.width : b.rec.width, b.rec.height);
+//		}
+//
+//		// fill selected
+//		if (settings.getFillSelected()) {
+//			if (settings.getFillOnMove() && currentBox != null && stateMask == settings.getFillKeyModifierSWTInt()) {
+////				fillRectangle(settings.getFillSelectedColor(), gc, currentBox.rec.x - xOffset,
+////						currentBox.rec.y - yOffset, ex ? r0.width : currentBox.rec.width + 1,
+////								currentBox.rec.height + 1);
+//			} else if (fillBox != null) {
+////				fillRectangle(settings.getFillSelectedColor(), gc, fillBox.rec.x - xOffset, fillBox.rec.y - yOffset,
+////						ex ? r0.width : fillBox.rec.width + 1, fillBox.rec.height + 1);
+//			}
+//		}
+//
+//		for (final Box b : visibleBoxes) {
+//			if (!b.isOn) {
+////				drawBox(gc, yOffset, xOffset, b, r0.width);
+//			}
+//		}
+//
+//		for (final Box b : visibleBoxes) {
+//			if (b.isOn) {
+////				drawBox(gc, yOffset, xOffset, b, r0.width);
+//			}
+//		}
+//
+//		final Image oldImage = boxText.getBackgroundImage();
+//		boxText.setBackgroundImage(newImage);
+//		if (oldImage != null) {
+//			oldImage.dispose();
+//		}
+////		gc.dispose();
+//
+//		oldClientArea = r0;
+//		oldXOffset = xOffset;
+//		oldYOffset = yOffset;
 	}
 
 	protected void drawBox(final GC gc, final int yOffset, final int xOffset, final Box b, final int exWidth) {
@@ -314,106 +314,106 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 
 	@Override
 	public void decorate(final boolean mouseDbClickColorChange) {
-		decorated = false;
-		if (boxText == null || settings == null) {
-			return;
-		}
-
-		boxPaint = new BoxPaintListener();
-		boxMouseMove = new BoxMouseMoveListener();
-		boxMouseTrack = new BoxMouseTrackListener();
-		boxTextChange = new BoxTextChangeListener();
-		fillMouseClick = new FillBoxMouseClick();
-		boxKey = new BoxKeyListener();
-		boxModify = new BoxModifyListener();
-
-		if (mouseDbClickColorChange) {
-			boxMouseClick = new BoxMouseClickListener();
-		}
-
-		final Color c = boxText.getBackground();
-		if (c != null) {
-			oldBackground = c.getRGB();
-		}
-		oldIndent = boxText.getIndent();
-		if (oldIndent < 3) {
-			boxText.setIndent(3);
-		}
-		boxText.addPaintListener(boxPaint);
-//		boxText.addMouseMoveListener(boxMouseMove);
-//		boxText.addMouseTrackListener(boxMouseTrack);
-		boxText.getContent().addTextChangeListener(boxTextChange);
-		boxText.addMouseListener(fillMouseClick);
-		boxText.addModifyListener(boxModify);
-		boxText.addKeyListener(boxKey);
-
-		if (mouseDbClickColorChange) {
-			boxText.addMouseListener(boxMouseClick);
-		}
+//		decorated = false;
+//		if (boxText == null || settings == null) {
+//			return;
+//		}
+//
+//		boxPaint = new BoxPaintListener();
+//		boxMouseMove = new BoxMouseMoveListener();
+//		boxMouseTrack = new BoxMouseTrackListener();
+//		boxTextChange = new BoxTextChangeListener();
+//		fillMouseClick = new FillBoxMouseClick();
+//		boxKey = new BoxKeyListener();
+//		boxModify = new BoxModifyListener();
+//
+//		if (mouseDbClickColorChange) {
+//			boxMouseClick = new BoxMouseClickListener();
+//		}
+//
+//		final Color c = boxText.getBackground();
+//		if (c != null) {
+//			oldBackground = c.getRGB();
+//		}
+//		oldIndent = boxText.getIndent();
+//		if (oldIndent < 3) {
+//			boxText.setIndent(3);
+//		}
+//		boxText.addPaintListener(boxPaint);
+////		boxText.addMouseMoveListener(boxMouseMove);
+////		boxText.addMouseTrackListener(boxMouseTrack);
+//		boxText.getContent().addTextChangeListener(boxTextChange);
+//		boxText.addMouseListener(fillMouseClick);
+//		boxText.addModifyListener(boxModify);
+//		boxText.addKeyListener(boxKey);
+//
+//		if (mouseDbClickColorChange) {
+//			boxText.addMouseListener(boxMouseClick);
+//		}
 
 		decorated = true;
 	}
 
 	@Override
 	public void undecorate() {
-		if (boxText == null && !decorated) {
-			return;
-		}
-		if (settingsChangeListener != null) {
-			settings.removePropertyChangeListener(settingsChangeListener);
-		}
-		if (boxText == null || boxText.isDisposed()) {
-			return;
-		}
-		decorated = false;
-		if (boxMouseClick != null) {
-			boxText.removeMouseListener(boxMouseClick);
-		}
-		if (boxTextChange != null) {
-			boxText.getContent().removeTextChangeListener(boxTextChange);
-		}
-//		if (boxMouseTrack != null) {
-//			boxText.removeMouseTrackListener(boxMouseTrack);
+//		if (boxText == null && !decorated) {
+//			return;
 //		}
-//		if (boxMouseMove != null) {
-//			boxText.removeMouseMoveListener(boxMouseMove);
+//		if (settingsChangeListener != null) {
+//			settings.removePropertyChangeListener(settingsChangeListener);
 //		}
-		if (boxPaint != null) {
-			boxText.removePaintListener(boxPaint);
-		}
-		if (fillMouseClick != null) {
-			boxText.removeMouseListener(fillMouseClick);
-		}
-		if (boxModify != null) {
-			boxText.removeModifyListener(boxModify);
-		}
-		if (boxKey != null) {
-			boxText.removeKeyListener(boxKey);
-		}
-		boxText.setIndent(oldIndent);
-		boxText.setBackgroundImage(null);
-		if (oldBackground != null) {
-			boxText.setBackground(new Color(null, oldBackground));
-		} else {
-			boxText.setBackground(null);
-		}
+//		if (boxText == null || boxText.isDisposed()) {
+//			return;
+//		}
+//		decorated = false;
+//		if (boxMouseClick != null) {
+//			boxText.removeMouseListener(boxMouseClick);
+//		}
+//		if (boxTextChange != null) {
+//			boxText.getContent().removeTextChangeListener(boxTextChange);
+//		}
+////		if (boxMouseTrack != null) {
+////			boxText.removeMouseTrackListener(boxMouseTrack);
+////		}
+////		if (boxMouseMove != null) {
+////			boxText.removeMouseMoveListener(boxMouseMove);
+////		}
+//		if (boxPaint != null) {
+//			boxText.removePaintListener(boxPaint);
+//		}
+//		if (fillMouseClick != null) {
+//			boxText.removeMouseListener(fillMouseClick);
+//		}
+//		if (boxModify != null) {
+//			boxText.removeModifyListener(boxModify);
+//		}
+//		if (boxKey != null) {
+//			boxText.removeKeyListener(boxKey);
+//		}
+//		boxText.setIndent(oldIndent);
+//		boxText.setBackgroundImage(null);
+//		if (oldBackground != null) {
+//			boxText.setBackground(new Color(null, oldBackground));
+//		} else {
+//			boxText.setBackground(null);
+//		}
 
 	}
 
 	protected Collection<Box> visibleBoxes() {
-		final Rectangle r0 = boxText.getClientArea();
-		final int start = boxText.getHorizontalIndex() + boxText.getOffsetAtLine(boxText.getTopIndex());
-		int end = boxText.getCharCount() - 1;
-		final int lineIndex = boxText.getLineIndex(r0.height);
-		if (lineIndex < boxText.getLineCount() - 1) {
-			end = boxText.getOffsetAtLine(lineIndex);
-		}
+//		final Rectangle r0 = boxText.getClientArea();
+//		final int start = boxText.getHorizontalIndex() + boxText.getOffsetAtLine(boxText.getTopIndex());
+//		int end = boxText.getCharCount() - 1;
+//		final int lineIndex = boxText.getLineIndex(r0.height);
+//		if (lineIndex < boxText.getLineCount() - 1) {
+//			end = boxText.getOffsetAtLine(lineIndex);
+//		}
 
 		final List<Box> result = new ArrayList<>();
 		for (final Box b : boxes) {
-			if (b.intersects(start, end)) {
-				result.add(b);
-			}
+//			if (b.intersects(start, end)) {
+//				result.add(b);
+//			}
 		}
 
 		calcBounds(result);
@@ -421,29 +421,29 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 	}
 
 	protected void calcBounds(final Collection<Box> boxes0) {
-		final int yOffset = boxText.getTopPixel();
-		final int xOffset = boxText.getHorizontalPixel();
-		for (final Box b : boxes0) {
-			if (b.rec == null) {
-				final Point s = boxText.getLocationAtOffset(b.start);
-				if (b.tabsStart > -1 && b.tabsStart != b.start) {
-					final Point s1 = boxText.getLocationAtOffset(b.tabsStart);
-					if (s1.x < s.x) {
-						s.x = s1.x;
-					}
-				}
-				final Point e = boxText.getLocationAtOffset(b.end);
-				if (b.end != b.maxEndOffset) {
-					final Point e1 = boxText.getLocationAtOffset(b.maxEndOffset);
-					e.x = e1.x;
-				}
-				final Rectangle rec2 = new Rectangle(s.x + xOffset - 2, s.y + yOffset - 1, e.x - s.x + 6,
-						e.y - s.y + boxText.getLineHeight(b.end));
-				b.rec = rec2;
-				updateWidth(b);
-				updateWidth3(b);
-			}
-		}
+//		final int yOffset = boxText.getTopPixel();
+//		final int xOffset = boxText.getHorizontalPixel();
+//		for (final Box b : boxes0) {
+//			if (b.rec == null) {
+//				final Point s = boxText.getLocationAtOffset(b.start);
+//				if (b.tabsStart > -1 && b.tabsStart != b.start) {
+//					final Point s1 = boxText.getLocationAtOffset(b.tabsStart);
+//					if (s1.x < s.x) {
+//						s.x = s1.x;
+//					}
+//				}
+//				final Point e = boxText.getLocationAtOffset(b.end);
+//				if (b.end != b.maxEndOffset) {
+//					final Point e1 = boxText.getLocationAtOffset(b.maxEndOffset);
+//					e.x = e1.x;
+//				}
+//				final Rectangle rec2 = new Rectangle(s.x + xOffset - 2, s.y + yOffset - 1, e.x - s.x + 6,
+//						e.y - s.y + boxText.getLineHeight(b.end));
+//				b.rec = rec2;
+//				updateWidth(b);
+//				updateWidth3(b);
+//			}
+//		}
 	}
 
 	void updateWidth(final Box box) {
@@ -467,16 +467,16 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 		}
 	}
 
-	protected boolean turnOnBox(final int x0, final int y0) {
-		if (boxes == null || !visible) {
-			return false;
-		}
-
-		final int x = x0 + boxText.getHorizontalPixel();
-		final int y = y0 + boxText.getTopPixel();
-
-		return settings.getHighlightOne() ? turnOnOne(x, y) : turnOnAll(x, y);
-	}
+//	protected boolean turnOnBox(final int x0, final int y0) {
+//		if (boxes == null || !visible) {
+//			return false;
+//		}
+//
+//		final int x = x0 + boxText.getHorizontalPixel();
+//		final int y = y0 + boxText.getTopPixel();
+//
+//		return settings.getHighlightOne() ? turnOnOne(x, y) : turnOnAll(x, y);
+//	}
 
 	protected boolean turnOnAll(final int x, final int y) {
 		boolean redraw = false;
@@ -534,7 +534,7 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 
 	void updateCaret() {
 		oldCaretLoc = boxText.getLocationAtOffset(boxText.getCaretOffset());
-		turnOnBox(oldCaretLoc.x > 0 ? oldCaretLoc.x - 1 : oldCaretLoc.x, oldCaretLoc.y);
+//		turnOnBox(oldCaretLoc.x > 0 ? oldCaretLoc.x - 1 : oldCaretLoc.x, oldCaretLoc.y);
 	}
 
 	public boolean offsetMoved() {
@@ -549,19 +549,19 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 	}
 
 	protected void carretMoved() {
-		final Point newLoc = boxText.getLocationAtOffset(boxText.getCaretOffset());
-		if (boxes != null && (oldCaretLoc == null || !oldCaretLoc.equals(newLoc))) {
-			oldCaretLoc = newLoc;
-			boolean build = false;
-			if (!setCaretOffset && builder != null && builder.getCaretOffset() > -1
-					&& builder.getCaretOffset() != boxText.getCaretOffset()) {
-				buildBoxes();
-				build = true;
-			}
-			if (turnOnBox(oldCaretLoc.x > 0 ? oldCaretLoc.x - 1 : oldCaretLoc.x, oldCaretLoc.y) || build) {
-				drawBackgroundBoxes();
-			}
-		}
+//		final Point newLoc = boxText.getLocationAtOffset(boxText.getCaretOffset());
+//		if (boxes != null && (oldCaretLoc == null || !oldCaretLoc.equals(newLoc))) {
+//			oldCaretLoc = newLoc;
+//			boolean build = false;
+//			if (!setCaretOffset && builder != null && builder.getCaretOffset() > -1
+//					&& builder.getCaretOffset() != boxText.getCaretOffset()) {
+//				buildBoxes();
+//				build = true;
+//			}
+//			if (turnOnBox(oldCaretLoc.x > 0 ? oldCaretLoc.x - 1 : oldCaretLoc.x, oldCaretLoc.y) || build) {
+//				drawBackgroundBoxes();
+//			}
+//		}
 	}
 
 	private final class BoxModifyListener implements ModifyListener {
@@ -577,11 +577,11 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 			// it is more efficient to not draw boxes in PaintListner
 			// (especially on Linux)
 			// and in this event caret offset is correct
-			if (boxes == null) {
-				buildBoxes();
-				updateCaret();
-				drawBackgroundBoxes();
-			}
+//			if (boxes == null) {
+//				buildBoxes();
+//				updateCaret();
+//				drawBackgroundBoxes();
+//			}
 		}
 	}
 
@@ -622,24 +622,24 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 				return;
 			}
 			paintMode = true;
-			try {
-				// check charCount as workaround for no event when
-				// StyledText.setContent()
-				if (boxes == null || charCount != boxText.getCharCount()) {
-					buildBoxes();
-					updateCaret();
-					drawBackgroundBoxes();
-				} else if (offsetMoved()) {
-					updateCaret();
-					drawBackgroundBoxes();
-				} else {
-					redrawIfClientAreaChanged();
-				}
-			} catch (final Throwable t) {
-				// EditBox.logError(this, "Box paint error", t);
-			} finally {
-				paintMode = false;
-			}
+//			try {
+//				// check charCount as workaround for no event when
+//				// StyledText.setContent()
+//				if (boxes == null || charCount != boxText.getCharCount()) {
+//					buildBoxes();
+//					updateCaret();
+//					drawBackgroundBoxes();
+//				} else if (offsetMoved()) {
+//					updateCaret();
+//					drawBackgroundBoxes();
+//				} else {
+//					redrawIfClientAreaChanged();
+//				}
+//			} catch (final Throwable t) {
+//				// EditBox.logError(this, "Box paint error", t);
+//			} finally {
+//				paintMode = false;
+//			}
 		}
 	}
 
@@ -648,9 +648,9 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 		@Override
 		public void mouseMove(final MouseEvent e) {
 			stateMask = e.stateMask;
-			if (turnOnBox(e.x, e.y)) {
-				drawBackgroundBoxes();
-			}
+//			if (turnOnBox(e.x, e.y)) {
+//				drawBackgroundBoxes();
+//			}
 		}
 	}
 
@@ -681,27 +681,27 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 		}
 	}
 
-	class BoxTextChangeListener implements TextChangeListener {
-
-		private void change() {
-			boxes = null;
-			setCaretOffset = true;
-		}
-
-		@Override
-		public void textChanged(final TextChangedEvent event) {
-			change();
-		}
-
-		@Override
-		public void textChanging(final TextChangingEvent event) {
-		}
-
-		@Override
-		public void textSet(final TextChangedEvent event) {
-			change();
-		}
-	}
+//	class BoxTextChangeListener implements TextChangeListener {
+//
+//		private void change() {
+//			boxes = null;
+//			setCaretOffset = true;
+//		}
+//
+//		@Override
+//		public void textChanged(final TextChangedEvent event) {
+//			change();
+//		}
+//
+//		@Override
+//		public void textChanging(final TextChangingEvent event) {
+//		}
+//
+//		@Override
+//		public void textSet(final TextChangedEvent event) {
+//			change();
+//		}
+//	}
 
 	class BoxMouseClickListener extends MouseAdapter {
 
@@ -720,13 +720,13 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 			}
 			level++;
 
-			final ColorDialog colorDialog = new ColorDialog(boxText.getShell());
-			final Color oldColor1 = settings.getColor(level);
-			if (oldColor1 != null) {
-				colorDialog.setRGB(oldColor1.getRGB());
-			}
-
-			settings.setColor(level, colorDialog.open());
+//			final ColorDialog colorDialog = new ColorDialog(boxText.getShell());
+//			final Color oldColor1 = settings.getColor(level);
+//			if (oldColor1 != null) {
+//				colorDialog.setRGB(oldColor1.getRGB());
+//			}
+//
+//			settings.setColor(level, colorDialog.open());
 		}
 
 	}
@@ -765,14 +765,14 @@ public class BoxDecoratorImpl implements IBoxDecorator {
 				fillBoxLevel = -1;
 			}
 
-			if (keyPressed) {
-				keyPressed = false;
-				final Point newLoc = boxText.getLocationAtOffset(boxText.getCaretOffset());
-				if (oldCaretLoc == null || !oldCaretLoc.equals(newLoc)) {
-					buildBoxes();
-					oldCaretLoc = newLoc;
-				}
-			}
+//			if (keyPressed) {
+//				keyPressed = false;
+//				final Point newLoc = boxText.getLocationAtOffset(boxText.getCaretOffset());
+//				if (oldCaretLoc == null || !oldCaretLoc.equals(newLoc)) {
+//					buildBoxes();
+//					oldCaretLoc = newLoc;
+//				}
+//			}
 
 			drawBackgroundBoxes();
 		}
