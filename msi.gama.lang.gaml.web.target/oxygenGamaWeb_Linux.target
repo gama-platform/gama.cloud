@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="oxygenGamaWeb_Linux" sequenceNumber="354">
+<?pde version="3.8"?><target name="oxygenGamaWeb_Linux" sequenceNumber="362">
 <locations>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
-<repository location="http://dslforge.org/downloads/runtime/repository/"/>
-</location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.examples.feature.feature.group" version="3.4.0.20171017-0945"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="3.4.0.20171130-0837"/>
@@ -22,6 +18,11 @@
 <repository location="http://download.eclipse.org/gemini/jpa/updates/"/>
 </location>
 <location path="${eclipse_home}" type="Profile"/>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.dslforge.runtime.feature.feature.group" version="0.9.1.201708202014"/>
+<unit id="org.eclipse.rap.incubator.texteditor.feature.feature.group" version="0.9.0.201708202014"/>
+<repository location="http://dslforge.org/downloads/runtime/repository/"/>
+</location>
 </locations>
 <includeBundles>
 <plugin id="ch.qos.logback.classic"/>
@@ -65,7 +66,7 @@
 <plugin id="org.apache.batik.util.gui.source"/>
 <plugin id="org.apache.batik.util.source"/>
 <plugin id="org.apache.commons.cli" version="1.2.0.v201404270220"/>
-<plugin id="org.apache.commons.codec" version="1.9.0.v20170208-1614"/>
+<plugin id="org.apache.commons.codec"/>
 <plugin id="org.apache.commons.codec.source"/>
 <plugin id="org.apache.commons.compress"/>
 <plugin id="org.apache.commons.fileupload" version="1.3.1.201405120000"/>
@@ -86,9 +87,9 @@
 <plugin id="org.apache.felix.gogo.shell.source"/>
 <plugin id="org.apache.felix.scr"/>
 <plugin id="org.apache.felix.scr.source"/>
-<plugin id="org.apache.httpcomponents.httpclient" version="4.5.2.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpclient"/>
 <plugin id="org.apache.httpcomponents.httpclient.source"/>
-<plugin id="org.apache.httpcomponents.httpcore" version="4.4.6.v20170210-0925"/>
+<plugin id="org.apache.httpcomponents.httpcore"/>
 <plugin id="org.apache.httpcomponents.httpcore.source"/>
 <plugin id="org.apache.jasper.glassfish"/>
 <plugin id="org.apache.jasper.glassfish.source"/>
@@ -490,17 +491,17 @@
 <plugin id="org.eclipse.jem.util"/>
 <plugin id="org.eclipse.jetty.continuation"/>
 <plugin id="org.eclipse.jetty.continuation.source"/>
-<plugin id="org.eclipse.jetty.http"/>
+<plugin id="org.eclipse.jetty.http" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.http.source"/>
-<plugin id="org.eclipse.jetty.io"/>
+<plugin id="org.eclipse.jetty.io" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.io.source"/>
-<plugin id="org.eclipse.jetty.security"/>
+<plugin id="org.eclipse.jetty.security" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.security.source"/>
-<plugin id="org.eclipse.jetty.server"/>
+<plugin id="org.eclipse.jetty.server" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.server.source"/>
-<plugin id="org.eclipse.jetty.servlet"/>
+<plugin id="org.eclipse.jetty.servlet" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.servlet.source"/>
-<plugin id="org.eclipse.jetty.util"/>
+<plugin id="org.eclipse.jetty.util" version="9.4.8.v20171121"/>
 <plugin id="org.eclipse.jetty.util.source"/>
 <plugin id="org.eclipse.jetty.webapp"/>
 <plugin id="org.eclipse.jetty.xml"/>
@@ -831,13 +832,9 @@
 <plugin id="org.eclipse.xtend.ide.common"/>
 <plugin id="org.eclipse.xtend.ide.common.source"/>
 <plugin id="org.eclipse.xtend.ide.source"/>
-<plugin id="org.eclipse.xtend.lib" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.lib.macro" version="2.12.0.v20170518-0757"/>
-<plugin id="org.eclipse.xtend.lib.macro" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib.macro.source" version="2.12.0.v20170518-0757"/>
-<plugin id="org.eclipse.xtend.lib.macro.source" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtend.lib.source" version="2.13.0.v20171020-0659"/>
 <plugin id="org.eclipse.xtend.lib.source" version="2.12.0.v20170518-0757"/>
 <plugin id="org.eclipse.xtend.m2e"/>
 <plugin id="org.eclipse.xtend.m2e.source"/>
@@ -846,7 +843,7 @@
 <plugin id="org.eclipse.xtend.standalone.source"/>
 <plugin id="org.eclipse.xtend.typesystem.emf" version="2.2.0.v201605260315"/>
 <plugin id="org.eclipse.xtend.typesystem.emf.source"/>
-<plugin id="org.eclipse.xtext" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.activities"/>
 <plugin id="org.eclipse.xtext.activities.source"/>
 <plugin id="org.eclipse.xtext.builder"/>
@@ -888,7 +885,7 @@
 <plugin id="org.eclipse.xtext.purexbase.ui.source"/>
 <plugin id="org.eclipse.xtext.smap"/>
 <plugin id="org.eclipse.xtext.smap.source"/>
-<plugin id="org.eclipse.xtext.source" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext.source" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.testing"/>
 <plugin id="org.eclipse.xtext.testing.source"/>
 <plugin id="org.eclipse.xtext.ui"/>
@@ -905,15 +902,14 @@
 <plugin id="org.eclipse.xtext.ui.source"/>
 <plugin id="org.eclipse.xtext.ui.testing"/>
 <plugin id="org.eclipse.xtext.ui.testing.source"/>
-<plugin id="org.eclipse.xtext.util" version="2.13.0.v20171020-0708"/>
-<plugin id="org.eclipse.xtext.util.source" version="2.13.0.v20171020-0708"/>
+<plugin id="org.eclipse.xtext.util" version="2.14.0.v20180522-1821"/>
+<plugin id="org.eclipse.xtext.util.source" version="2.14.0.v20180522-1821"/>
 <plugin id="org.eclipse.xtext.xbase"/>
 <plugin id="org.eclipse.xtext.xbase.ide"/>
 <plugin id="org.eclipse.xtext.xbase.ide.source"/>
 <plugin id="org.eclipse.xtext.xbase.junit"/>
 <plugin id="org.eclipse.xtext.xbase.junit.source"/>
-<plugin id="org.eclipse.xtext.xbase.lib" version="2.13.0.v20171020-0659"/>
-<plugin id="org.eclipse.xtext.xbase.lib.source" version="2.13.0.v20171020-0659"/>
+<plugin id="org.eclipse.xtext.xbase.lib" version="2.14.0.v20180522-1629"/>
 <plugin id="org.eclipse.xtext.xbase.source"/>
 <plugin id="org.eclipse.xtext.xbase.testing"/>
 <plugin id="org.eclipse.xtext.xbase.testing.source"/>
@@ -958,7 +954,6 @@
 <plugin id="org.junit.vintage.engine"/>
 <plugin id="org.junit.vintage.engine.source"/>
 <plugin id="org.objectweb.asm" version="6.0.0.v20180116-1719"/>
-<plugin id="org.objectweb.asm" version="5.2.0.v20170126-0011"/>
 <plugin id="org.objectweb.asm.source"/>
 <plugin id="org.objectweb.asm.tree"/>
 <plugin id="org.objectweb.asm.tree.source"/>

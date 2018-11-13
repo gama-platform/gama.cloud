@@ -857,7 +857,18 @@ public class SWTGraphics2D extends Graphics2D {
      * @see java.awt.Graphics2D#drawImage(Image, AffineTransform, ImageObserver)
      */
     public boolean drawImage(Image img, AffineTransform xform, ImageObserver obs) {
-        return false;
+//        return false;
+
+        RECT.setRect(0,0,SWT_RECT.width,SWT_RECT.height);
+        SWTShapeManager.transform(RECT,transform);     
+        int x = (int) RECT.getX();
+        int y = (int) RECT.getY();
+        int width = (int) RECT.getWidth();
+        int height = (int) RECT.getHeight();
+
+        return drawImage(img, x, y, height, height, obs);
+
+//        return drawImage(img, SWT_RECT.x, SWT_RECT.y, SWT_RECT.height, SWT_RECT.height, obs);
     }
 
     /**

@@ -84,7 +84,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 		};
 		surfaceComposite.setEnabled(false);
 		WorkaroundForIssue1594.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
-
+//		int width=(int) this.getOutput().getScope().getSimulation().getEnvelope().getWidth();
+//		int height=(int) this.getOutput().getScope().getSimulation().getEnvelope().getHeight();
 		Canvas canvas=new Canvas(surfaceComposite, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED);
 		canvas.addPaintListener(new PaintListener() {
 			
@@ -96,8 +97,14 @@ public class AWTDisplayView extends LayeredDisplayView {
 					getDisplaySurface().setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
 					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
-					renderer.SWT_RECT.width=surfaceComposite.getSize().x;
-					renderer.SWT_RECT.height=surfaceComposite.getSize().y;
+					SWTGraphics2D.SWT_RECT.width=surfaceComposite.getSize().x;
+					SWTGraphics2D.SWT_RECT.height=surfaceComposite.getSize().y;
+					
+//					getDisplaySurface().setBounds(new Rectangle(width, height));
+//					getDisplaySurface().resizeImage(width, height, true);
+//					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
+//					renderer.SWT_RECT.width=width;
+//					renderer.SWT_RECT.height=height;
 					getDisplaySurface().paintComponent(renderer);
 				}
 			}
