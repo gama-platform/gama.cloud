@@ -117,6 +117,7 @@
 </extension-->
 <extension point="org.eclipse.rap.ui.entrypoint">
 	<entrypoint
+       brandingId="business"
        class="msi.gama.lang.gaml.web.workbench.BasicWorkbench"
        id="msi.gama.lang.gaml.web.workbench.entrypoint"
        path="/texteditor">
@@ -163,6 +164,17 @@
                value="Gaml Web Editor Product">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.branding">
+      <branding
+            id="Fancy"
+            themeId="org.eclipse.rap.design.example.fancy.theme">
+      </branding>
+      <branding
+            id="business"
+            themeId="org.eclipse.rap.design.example.business.theme">
+      </branding>
    </extension>
    <!--extension
          point="org.dslforge.workspace.config.configuration">
