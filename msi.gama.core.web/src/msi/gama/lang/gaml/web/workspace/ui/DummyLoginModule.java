@@ -79,6 +79,7 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 			return false;
 		}
 		String username = nameCallback.getName();
+		if(null==username) { return false;}
 		String password = "";
 		if (passwordCallback.getPassword() != null) {
 			password = md5(String.valueOf(passwordCallback.getPassword()));
