@@ -258,11 +258,7 @@ function WebGLJS(p,e) {
 	        	        gl.STATIC_DRAW);
 	         // Create a texture.
 	         var texture = gl.createTexture();
-	         gl.bindTexture(gl.TEXTURE_2D, texture);
-	          
-	         // Fill the texture with a 1x1 blue pixel.
-	         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
-	                       new Uint8Array([0, 0, 255, 255]));
+	         var texture1 = gl.createTexture();
 
 	         // Asynchronously load an image
 	         var image = new Image();
@@ -272,22 +268,32 @@ function WebGLJS(p,e) {
 
 	         image.crossOrigin = "anonymous";  // This enables CORS
 	         image.addEventListener('load', function() {
+		         gl.bindTexture(gl.TEXTURE_2D, texture);
+		          
+		         // Fill the texture with a 1x1 blue pixel.
+		         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+		                       new Uint8Array([0, 0, 255, 255]));
 	           // Now that the image has loaded make copy it to the texture.
 	           gl.bindTexture(gl.TEXTURE_2D, texture);
 	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
 	           gl.generateMipmap(gl.TEXTURE_2D);
 	         });
 	         // Asynchronously load an image
-//	         var image1 = new Image();
-//	         image1.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/woods1.jpg";
-//
-//	         image1.crossOrigin = "anonymous";  // This enables CORS
-//	         image1.addEventListener('load', function() {
-//	           // Now that the image has loaded make copy it to the texture.
-//	           gl.bindTexture(gl.TEXTURE_2D, texture);
-//	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image1);
-//	           gl.generateMipmap(gl.TEXTURE_2D);
-//	         });
+	         var image1 = new Image();
+	         image1.src = "http://i931.photobucket.com/albums/ad158/Eraco-Draco-photo/M03FireplaceBox.jpg";
+
+	         image1.crossOrigin = "anonymous";  // This enables CORS
+	         image1.addEventListener('load', function() {
+		         gl.bindTexture(gl.TEXTURE_2D, texture1);
+		          
+		         // Fill the texture with a 1x1 blue pixel.
+		         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+		                       new Uint8Array([0, 0, 255, 255]));
+	           // Now that the image has loaded make copy it to the texture.
+	           gl.bindTexture(gl.TEXTURE_2D, texture1);
+	           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image1);
+	           gl.generateMipmap(gl.TEXTURE_2D);
+	         });
 	         
 	         
 	         
@@ -529,7 +535,7 @@ function WebGLJS(p,e) {
 		            
 		            
 		            
-		            objects.forEach(function(an_agent) {
+		            objects.forEach(function(an_agent,cnt) {
 		
 						
 						gl.bindBuffer(gl.ARRAY_BUFFER, VERTICES_IDX);// 37
@@ -547,7 +553,6 @@ function WebGLJS(p,e) {
 							 vertices=sd1.v;
 							 gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
 						 }
-
 						 if(an_agent.uv.length>0){							 
 							 gl.bindBuffer(gl.ARRAY_BUFFER, UVMAPPING_IDX);// 36
 							 gl.bufferData(34962, an_agent.nb_uv, 35044);
@@ -555,8 +560,13 @@ function WebGLJS(p,e) {
 								 vertices=sd1.v;
 								 gl.bufferSubData(gl.ARRAY_BUFFER, sd1.offset, new Float32Array(vertices));//
 							 }
-							 gl.bindTexture(gl.TEXTURE_2D, texture);
-							 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
+							 if( cnt % 2 == 0){
+								 gl.bindTexture(gl.TEXTURE_2D, texture);
+								 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
+							 }else{
+								 gl.bindTexture(gl.TEXTURE_2D, texture1);
+								 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image1);
+							 }
 						 }
 							
 							

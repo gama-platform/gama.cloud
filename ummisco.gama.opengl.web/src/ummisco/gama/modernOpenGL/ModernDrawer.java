@@ -612,6 +612,7 @@ public class ModernDrawer {
 						shaderNumber);
 				gl.glActiveTexture(GL.GL_TEXTURE0);
 				gl.glBindTexture(GL.GL_TEXTURE_2D, shader.getTextureID());
+				System.out.println(shader.getTextureID());
 			}
 	
 			// NORMAL BUFFER
