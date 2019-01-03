@@ -66,11 +66,11 @@ public class BasicWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 //		}
 	}
 
-//	@Override
-//	public void postWindowCreate() {
-//		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
-//		window.getShell().setMaximized(GamaPreferences.Interface.CORE_SHOW_MAXIMIZED.getValue());
-//	}
+	@Override
+	public void postWindowCreate() {
+		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
+		window.getShell().setMaximized(GamaPreferences.Interface.CORE_SHOW_MAXIMIZED.getValue());
+	}
 
 	@Override
 	public void postWindowOpen() {
