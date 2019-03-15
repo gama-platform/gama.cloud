@@ -16,7 +16,7 @@
          </description>
       </perspective>
    </extension>
-   <extension
+   <extension 
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="msi.gama.application.perspectives.SimulationPerspective">
@@ -291,6 +291,7 @@
                   </reference>
                </visibleWhen>
             </command>
+         </menu>
             <separator
                   name="msi.gama.application.window.views"
                   visible="true">
@@ -378,12 +379,9 @@
                      style="push">
                </command>
             </menu>
-            <menu
-                  icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.other.png"
+            <menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.other.png"
                   label="Other...">
-               <menu
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.perspective2.png"
-                     label="Switch to Perspective...">
+               <!--menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.perspective2.png" label="Switch to Perspective...">
                   <command
                         commandId="msi.gama.application.goto.modeling"
                         icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/perspective.modeling2.png"
@@ -414,7 +412,7 @@
                         </not>
                      </visibleWhen>
                   </command>
-               </menu>
+               </menu-->
                <command
                      commandId="ummisco.gama.ui.resetPerspective"
                      icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.reset.perspective2.png"
@@ -431,14 +429,12 @@
                      name="msi.gama.application.window.perspectives"
                      visible="true">
                </separator>
-               <menu
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.view2.png"
+               <!--menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.view2.png"
                      label="Show View">
-                  <dynamic
-                        class="ummisco.gama.ui.commands.ShowViewContributionItem"
+                  <dynamic class="ummisco.gama.ui.commands.ShowViewContributionItem"
                         id="msi.gama.application.showView">
                   </dynamic>
-               </menu>
+               </menu-->
                <command
                      commandId="org.eclipse.ui.ToggleCoolbarAction"
                      icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.toolbar2.png"
@@ -446,8 +442,7 @@
                      style="push"
                      tooltip="Toggle the main toolbar on and off">
                </command>
-            </menu>
-         </menu>
+            </menu> 
       </menuContribution>
       <menuContribution
             locationURI="toolbar:msi.gama.application.common.toolbar?after=msi.gama.application.goto.modeling">
@@ -591,6 +586,38 @@
             </control>
       </menuContribution>
    </extension>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    <extension
          point="org.eclipse.ui.handlers">
       <handler

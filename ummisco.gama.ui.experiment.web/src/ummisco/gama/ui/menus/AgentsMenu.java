@@ -366,6 +366,6 @@ public class AgentsMenu extends ContributionItem {
 
 	@Override
 	public void fill(final Menu parent, final int index) {
-		createMenuForAgent(parent, GAMA.getExperiment().getAgent(), true, true);
+//		createMenuForAgent(parent, GAMA.getExperiment().getAgent(), true, true);
 	}
 }
