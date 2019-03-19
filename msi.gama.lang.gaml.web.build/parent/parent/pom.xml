@@ -256,7 +256,7 @@
 		</pluginRepository>
 		<pluginRepository>
 			<id>eclipse</id>
-			<url>http://download.eclipse.org/releases/oxygen</url>
+			<url>http://download.eclipse.org/releases/2018-12</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
