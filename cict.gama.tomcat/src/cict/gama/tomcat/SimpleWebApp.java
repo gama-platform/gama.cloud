@@ -16,7 +16,7 @@ import org.apache.catalina.startup.Tomcat;
 public class SimpleWebApp {
     public static void main(String[] args) throws LifecycleException {
         Tomcat tomcat = new Tomcat();
-        tomcat.setBaseDir("D:/www");
+        tomcat.setBaseDir("./www");
         tomcat.setPort(8080);
          
         String contextPath = "/";

@@ -74,7 +74,7 @@
    <extension
          point="org.dslforge.workspace.config.configuration">
       <contribution
-            path="D:/www/workspace">
+            path="./www/workspace">
       </contribution>
    </extension>
 </plugin>

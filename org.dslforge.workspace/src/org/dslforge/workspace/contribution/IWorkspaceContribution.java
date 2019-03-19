@@ -22,7 +22,7 @@
 //	/**
 //	 * Retursn the workspace root path declared in
 //	 * org.dslforge.workspace.configuration extension. For example e.g.
-//	 * D:/www/dslforge/workspace (windows) or /var/lib/tomcat/workspace (linux)
+//	 * ./www/dslforge/workspace (windows) or /var/lib/tomcat/workspace (linux)
 //	 * 
 //	 * @return the workspace root path
 //	 */

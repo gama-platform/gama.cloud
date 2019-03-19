@@ -57,7 +57,7 @@
          <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
-                  The root path of the workspace, e.g. D:/www/dslforge/workspace or /var/lib/tomcat7/workspace
+                  The root path of the workspace, e.g. ./www/dslforge/workspace or /var/lib/tomcat7/workspace
                </documentation>
             </annotation>
          </attribute>
