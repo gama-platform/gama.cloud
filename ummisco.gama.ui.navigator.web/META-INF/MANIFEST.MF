@@ -5,7 +5,6 @@ Bundle-SymbolicName: ummisco.gama.ui.navigator.web;singleton:=true
 Bundle-Version: 1.7.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: ummisco.gama.ui.shared.web,
- org.eclipse.swt,
  org.eclipse.rap.ui,
  org.eclipse.rap.ui.navigator,
  org.eclipse.emf.rap.common.ui,
