@@ -12,6 +12,7 @@ import com.google.inject.Module;
 
 import msi.gama.lang.gaml.GamlRuntimeModule;
 import msi.gama.lang.gaml.GamlStandaloneSetup;
+import ummisco.gama.ui.utils.PlatformHelper;
 
 public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 
@@ -59,6 +60,19 @@ public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 
 	private Module getRuntimeModule() {
 //		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
+		if (PlatformHelper.isLinux()) {
+			System.err.println("xxxxxxxxxxxxxxx                xxx");
+			System.err.println("xxxxxxxxxxxxxxx                xxx");
+			System.err.println("xxxxxxxxxxxxxxx                xxx");
+			System.err.println("xxxxxxxxxxxxxxx                xxx");
+			System.setProperty("java.util.prefs.systemRoot", "/etc/.java/.sprefs");
+			
+			System.setProperty("java.util.prefs.userRoot", "/etc/.java/.uprefs");
+			
+			System.err.println(System.getProperty("java.util.prefs.userRoot"));
+			
+			System.err.println(System.getProperty("java.util.prefs.systemRoot"));
+		}
 
 //		GamlStandaloneSetup.doSetup(); 
 		GamlRuntimeModule original = new GamlRuntimeModule();

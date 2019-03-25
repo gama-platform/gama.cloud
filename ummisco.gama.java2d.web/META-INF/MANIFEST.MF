@@ -5,8 +5,7 @@ Bundle-SymbolicName: ummisco.gama.java2d.web;singleton:=true
 Bundle-Version: 1.7.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.swt,
- msi.gama.ext,
+Require-Bundle: msi.gama.ext,
  msi.gama.core,
  org.eclipse.core.runtime;bundle-version="3.11.1",
  ummisco.gama.ui.shared.web,
