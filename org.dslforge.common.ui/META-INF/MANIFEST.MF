@@ -5,7 +5,8 @@ Bundle-SymbolicName: org.dslforge.common.ui
 Bundle-Version: 0.9.1.qualifier
 Bundle-Activator: org.dslforge.common.ui.internal.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.rap.rwt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.dslforge.common.ui.internal
