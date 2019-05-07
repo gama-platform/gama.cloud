@@ -9,7 +9,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>cict.gama.tomcat</name>
 	<properties>
-		<tomcat.version>8.0.53</tomcat.version>
+		<tomcat.version>[8.5.40,)</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
