@@ -93,11 +93,6 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public void debug(final String msg) {
-		System.err.println("debug " + msg);
-	}
-
-	@Override
 	public boolean confirmClose(final IExperimentPlan exp) {
 		if (exp == null || !GamaPreferences.Runtime.CORE_ASK_CLOSING.getValue()) {
 			return true;
@@ -705,6 +700,12 @@ public class WebGui implements IGui {
 	public void showScreen() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean copyToClipboard(String text) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

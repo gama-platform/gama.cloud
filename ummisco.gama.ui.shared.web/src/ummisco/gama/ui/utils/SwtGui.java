@@ -96,11 +96,7 @@ public class SwtGui implements IGui {
 	public SwtGui() {
 		updateExperimentState(null, NONE);
 	}
-
-	@Override
-	public void debug(final String msg) {
-		DEBUG.OUT(msg);
-	}
+ 
 
 	@Override
 	public boolean confirmClose(final IExperimentPlan exp) {
@@ -644,6 +640,13 @@ public class SwtGui implements IGui {
 		if (manager != null) {
 			manager.showScreen();
 		}
+	}
+
+
+	@Override
+	public boolean copyToClipboard(String text) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

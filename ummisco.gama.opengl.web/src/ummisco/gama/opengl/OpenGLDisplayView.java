@@ -62,4 +62,16 @@ public class OpenGLDisplayView extends SWTDisplayView {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -15,10 +15,7 @@ import msi.gama.lang.gaml.GamlStandaloneSetup;
 import ummisco.gama.ui.utils.PlatformHelper;
 
 public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
-
-	public static void doSetup() {
-		new GamlStandaloneSetup().createInjectorAndDoEMFRegistration();
-	}
+ 
 
 	public Injector createInjector(String language) {
 		try {

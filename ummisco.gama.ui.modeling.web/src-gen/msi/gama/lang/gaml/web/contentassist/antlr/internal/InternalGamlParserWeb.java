@@ -18477,7 +18477,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	                    // InternalGaml.g:4820:3: ( rule__TerminalExpression__Group_5__0 )
 	                    {
 	                    if ( state.backtracking==0 ) {
-	                       before(grammarAccess.getTerminalExpressionAccess().getGroup_5()); 
+	                       before(grammarAccess.getTerminalExpressionAccess().getGroup_4()); 
 	                    }
 	                    // InternalGaml.g:4821:3: ( rule__TerminalExpression__Group_5__0 )
 	                    // InternalGaml.g:4821:4: rule__TerminalExpression__Group_5__0
@@ -18491,7 +18491,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	                    }
 
 	                    if ( state.backtracking==0 ) {
-	                       after(grammarAccess.getTerminalExpressionAccess().getGroup_5()); 
+	                       after(grammarAccess.getTerminalExpressionAccess().getGroup_4()); 
 	                    }
 
 	                    }
@@ -49047,7 +49047,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:14297:2: ()
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getColorLiteralAction_3_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_3_0()); 
 	            }
 	            // InternalGaml.g:14298:2: ()
 	            // InternalGaml.g:14298:3: 
@@ -49055,7 +49055,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            }
 
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getColorLiteralAction_3_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_3_0()); 
 	            }
 
 	            }
@@ -49210,7 +49210,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:14351:2: ()
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_4_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_3_0()); 
 	            }
 	            // InternalGaml.g:14352:2: ()
 	            // InternalGaml.g:14352:3: 
@@ -49218,7 +49218,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            }
 
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_4_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getBooleanLiteralAction_3_0()); 
 	            }
 
 	            }
@@ -49373,7 +49373,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:14405:2: ()
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getReservedLiteralAction_5_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getReservedLiteralAction_4_0()); 
 	            }
 	            // InternalGaml.g:14406:2: ()
 	            // InternalGaml.g:14406:3: 
@@ -49381,7 +49381,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            }
 
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getReservedLiteralAction_5_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getReservedLiteralAction_4_0()); 
 	            }
 
 	            }
@@ -49447,7 +49447,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:14431:2: ( rule__TerminalExpression__OpAssignment_5_1 )
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getOpAssignment_5_1()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getOpAssignment_4_1()); 
 	            }
 	            // InternalGaml.g:14432:2: ( rule__TerminalExpression__OpAssignment_5_1 )
 	            // InternalGaml.g:14432:3: rule__TerminalExpression__OpAssignment_5_1
@@ -49461,7 +49461,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            }
 
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getOpAssignment_5_1()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getOpAssignment_4_1()); 
 	            }
 
 	            }
@@ -58805,11 +58805,11 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:17580:3: RULE_COLOR
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getOpCOLORTerminalRuleCall_3_1_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_3_1_0()); 
 	            }
 	            match(input,RULE_COLOR,FOLLOW_2); if (state.failed) return ;
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getOpCOLORTerminalRuleCall_3_1_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_3_1_0()); 
 	            }
 
 	            }
@@ -58846,11 +58846,11 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:17595:3: RULE_BOOLEAN
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_4_1_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_3_1_0()); 
 	            }
 	            match(input,RULE_BOOLEAN,FOLLOW_2); if (state.failed) return ;
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_4_1_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getOpBOOLEANTerminalRuleCall_3_1_0()); 
 	            }
 
 	            }
@@ -58887,11 +58887,11 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	            // InternalGaml.g:17610:3: RULE_KEYWORD
 	            {
 	            if ( state.backtracking==0 ) {
-	               before(grammarAccess.getTerminalExpressionAccess().getOpKEYWORDTerminalRuleCall_5_1_0()); 
+	               before(grammarAccess.getTerminalExpressionAccess().getOpKEYWORDTerminalRuleCall_4_1_0()); 
 	            }
 	            match(input,RULE_KEYWORD,FOLLOW_2); if (state.failed) return ;
 	            if ( state.backtracking==0 ) {
-	               after(grammarAccess.getTerminalExpressionAccess().getOpKEYWORDTerminalRuleCall_5_1_0()); 
+	               after(grammarAccess.getTerminalExpressionAccess().getOpKEYWORDTerminalRuleCall_4_1_0()); 
 	            }
 
 	            }

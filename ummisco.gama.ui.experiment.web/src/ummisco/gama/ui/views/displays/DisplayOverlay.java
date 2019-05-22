@@ -48,6 +48,7 @@ import msi.gama.outputs.LayeredDisplayOutput;
 import msi.gama.outputs.layers.OverlayStatement.OverlayInfo;
 import msi.gama.runtime.GAMA;
 import msi.gaml.operators.Maths;
+import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -61,6 +62,9 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
  */
 public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
+	static {
+		DEBUG.OFF();
+	}
 	Label coord, zoom, left, center, right;
 	StringBuilder text = new StringBuilder();
 	Canvas scalebar;
@@ -333,7 +337,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 					getOverlayZoomInfo(text);
 					zoom.setText(text.toString());
 				} catch (final Exception e) {
-					GAMA.getGui().debug("Error in updating overlay: " + e.getMessage());
+					DEBUG.OUT("Error in updating overlay: " + e.getMessage());
 					zoom.setText("Not initialized yet");
 				}
 			}

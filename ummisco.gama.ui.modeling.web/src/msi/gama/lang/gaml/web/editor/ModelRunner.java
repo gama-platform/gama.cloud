@@ -136,7 +136,7 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 		if (object instanceof URI) {
 			final URI uri = (URI) object;
 			final List<GamlCompilationError> errors = new ArrayList<>();
-			final IModel model = GamlModelBuilder.compile(uri, errors);
+			final IModel model = GamlModelBuilder.getDefaultInstance().compile(uri, errors);
 			if (model == null) {
 				GAMAWEB.getGui().error("File " + uri.lastSegment() + " cannot be built because of " + errors.size()
 						+ " compilation errors");
@@ -148,7 +148,7 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 			IModel model = null;
 			try {
 				final List<GamlCompilationError> errors = new ArrayList<>();
-				model = GamlModelBuilder.compile(doc, errors);
+				model = GamlModelBuilder.getDefaultInstance().compile(doc.getURI(), errors);
 				if (model == null) {
 					GAMAWEB.getGui().error("File " + doc.getURI().lastSegment() + " cannot be built because of " + errors.size()
 							+ " compilation errors");

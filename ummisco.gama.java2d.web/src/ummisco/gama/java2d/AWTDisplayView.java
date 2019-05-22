@@ -145,4 +145,16 @@ public class AWTDisplayView extends LayeredDisplayView {
 		return Collections.EMPTY_LIST;
 	}
 
+	@Override
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

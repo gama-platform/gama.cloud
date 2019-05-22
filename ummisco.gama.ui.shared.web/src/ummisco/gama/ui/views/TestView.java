@@ -298,4 +298,10 @@ public class TestView extends ExpandableItemsView<AbstractSummary<?>> implements
 		return false;
 	}
 
+	@Override
+	public void displayProgress(int number, int total) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
