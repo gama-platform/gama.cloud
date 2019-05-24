@@ -1,4 +1,26 @@
 #!/bin/bash
+
+
+function update_tag() {
+	echo "update tag " $1 
+	git config --global user.email "hqnghi88@gmail.com"
+	git config --global user.name "HUYNH Quang Nghi"
+	git remote rm origin
+	git remote add origin https://hqnghi88:$HQN_TOKEN@github.com/gama-platform/gama.git
+	git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+	git fetch
+	git checkout master
+	git pull origin master
+	git push origin :refs/tags/$1
+	git tag -d $1
+	git tag -fa $1 -m "$1"
+	git push --tags -f
+	git ls-remote --tags origin
+	git show-ref --tags
+}
+
+
+
 set -e
 COMMIT=$@
 
@@ -19,6 +41,64 @@ COMMIT="${COMMIT:0:7}"
 timestamp=$(date '+_%D')
 SUFFIX=$timestamp'_'$COMMIT'.war'
 echo $SUFFIX
+
+
+
+
+LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/tags/$RELEASE"
+
+echo   "Getting info of release ...  "
+RESULT1=`curl  -s -X GET \
+-H "Authorization: token $HQN_TOKEN"   \
+"$LK1"`	
+echo $RESULT1
+
+	json=$RESULT1
+	prop='id'
+	
+    temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
+    
+	assets=`echo ${temp##*|}`
+
+	for theid in $assets; do
+		if [ "$theid" != "id:" ]; then
+	LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/$theid"
+
+	echo   "Deleting release ...  "
+	RESULT1=`curl  -s -X DELETE \
+	-H "Authorization: token $HQN_TOKEN"   \
+	"$LK1"`	
+	echo $RESULT1
+	break
+		fi
+	done 
+
+
+	#update_tag $RELEASE 
+
+	echo   "Creating release ...  "
+LK="https://api.github.com/repos/gama-platform/gama.cloud/releases"
+
+  RESULT=` curl -s -X POST \
+  -H "X-Parse-Application-Id: sensitive" \
+  -H "X-Parse-REST-API-Key: sensitive" \
+  -H "Authorization: token $HQN_TOKEN"   \
+  -H "Content-Type: application/json" \
+  -d '{"tag_name": "'$RELEASE'", "name":"GAMA 1.8","body":"to be official Released on 17 May","draft": false,"prerelease": true}' \
+    "$LK"`
+echo $RESULT	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
