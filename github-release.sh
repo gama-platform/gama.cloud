@@ -83,7 +83,7 @@ echo "Upload new files..."
 echo
 
 	FILE="${thePATH}"
-	NFILE="GamaWeb.zip"
+	NFILE='GamaWeb.zip'
 
   FILENAME=`basename $FILE`
   echo   "Uploading $NFILE...  "

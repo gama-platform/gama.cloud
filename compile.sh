@@ -55,7 +55,7 @@ install
 if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then 	
 	deploy  
 else
-	if  [[ ${MESSAGE} == *"ci deploy"* ]] || [[ $MSG == *"ci deploy"* ]]; then		
+	if  [[ ${MESSAGE} == *"ci release"* ]] || [[ $MSG == *"ci release"* ]]; then		
 		if  [[ ${MESSAGE} == *"ci clean"* ]] || [[ $MSG == *"ci clean"* ]]; then
 			clean
 		fi 
