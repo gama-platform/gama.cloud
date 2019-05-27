@@ -16,11 +16,11 @@
 		<assembly-version>2.4</assembly-version>
 		<replacer-version>1.4.1</replacer-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rap-repository>http://download.eclipse.org/rt/rap/3.0/</rap-repository>
+		<rap-repository>http://download.eclipse.org/rt/rap/3.8/</rap-repository>
 		<rap-incubator-repository>http://download.eclipse.org/rt/rap/incubator/nightly/</rap-incubator-repository>
 		<language.name>GamaWeb</language.name>
-		<xtext.version>2.14.0</xtext.version>
-		<xtend.maven.version>2.9.2</xtend.maven.version>
+		<xtext.version>2.17.0</xtext.version>
+		<xtend.maven.version>3.5.2</xtend.maven.version>
 	</properties>
 	<distributionManagement>
 		<repository>

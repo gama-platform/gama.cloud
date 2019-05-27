@@ -576,14 +576,14 @@ public class SwtGui implements IGui {
 		GAMA.getExperiment().refreshAllOutputs();
 	}
 
-	@Override
-	public void applyLayout(final IScope scope, final Object layout, final Boolean keepTabs, final Boolean keepToolbars,
-			final boolean showEditors) {
-		final IDisplayLayoutManager manager = WorkbenchHelper.getService(IDisplayLayoutManager.class);
-		if (manager != null) {
-			manager.applyLayout(layout, keepTabs, keepToolbars, showEditors);
-		}
-	}
+//	@Override
+//	public void applyLayout(final IScope scope, final Object layout, final Boolean keepTabs, final Boolean keepToolbars,
+//			final boolean showEditors) {
+//		final IDisplayLayoutManager manager = WorkbenchHelper.getService(IDisplayLayoutManager.class);
+//		if (manager != null) {
+//			manager.applyLayout(layout, keepTabs, keepToolbars, showEditors);
+//		}
+//	}
 
 	@Override
 	public ILocation getMouseLocationInModel() {
@@ -647,6 +647,13 @@ public class SwtGui implements IGui {
 	public boolean copyToClipboard(String text) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, Boolean showEditors,
+			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

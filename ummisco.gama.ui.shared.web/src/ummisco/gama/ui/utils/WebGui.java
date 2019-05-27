@@ -620,15 +620,15 @@ public class WebGui implements IGui {
 		GAMAWEB.getExperiment().refreshAllOutputs();
 	}
 
-	@Override
-	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
-		// final String uid=RWT.getUISession().getAttribute("user").toString();
-		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
-//		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
-//		if (manager != null) {
-//			manager.applyLayout(layout, keepTabs, keepToolbars);
-//		}
-	}
+//	@Override
+//	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, boolean showEditors) {
+//		// final String uid=RWT.getUISession().getAttribute("user").toString();
+//		final String uid = WorkbenchHelper.UISession.get(scope.getExperiment().getSpecies().getExperimentScope());
+////		final IDisplayLayoutManager manager = WorkbenchHelper.getService(uid, IDisplayLayoutManager.class);
+////		if (manager != null) {
+////			manager.applyLayout(layout, keepTabs, keepToolbars);
+////		}
+//	}
 
 	@Override
 	public ILocation getMouseLocationInModel() {
@@ -706,6 +706,13 @@ public class WebGui implements IGui {
 	public boolean copyToClipboard(String text) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, Boolean showEditors,
+			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
