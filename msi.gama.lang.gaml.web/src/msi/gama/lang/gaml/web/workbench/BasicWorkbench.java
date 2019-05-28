@@ -129,6 +129,17 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			}
 			if (logged || RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession()) != null) {
 				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
+
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("start");
+				System.out.println(uid);
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				postLoggedIn(uid);
 				
 			}else {
@@ -179,6 +190,16 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("end");
+				System.out.println(uid);
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				return result;
 			}
 

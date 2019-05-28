@@ -649,9 +649,11 @@ public class SwtGui implements IGui {
 		return false;
 	}
 
+
 	@Override
 	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, Boolean showEditors,
-			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls) {
+			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls,
+			Boolean showTray) {
 		// TODO Auto-generated method stub
 		
 	}

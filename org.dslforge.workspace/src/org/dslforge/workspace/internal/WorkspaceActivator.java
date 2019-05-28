@@ -15,6 +15,8 @@
  */
 package org.dslforge.workspace.internal;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -177,7 +179,10 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 					logger.error("More than one workspace extension has been registered");
 				}
 				// use default persistence.xml properties
-				workspaceContributions.add(new WorkspaceContribution(IWorkspaceConstants.WORKSPACE_DEFAULT_PATH));
+				Path path = FileSystems.getDefault().getPath(".").toAbsolutePath();
+				String p=path.toString()+Math.random();
+				System.out.println(p);
+				workspaceContributions.add(new WorkspaceContribution(p));
 			}
 		}
 		return workspaceContributions.get(0);
