@@ -85,7 +85,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 		 */
 
 String bundleName = context.getBundle().getSymbolicName();
-String bundlesInfo = System.getProperty("osgi.bundles");
+String bundlesInfo = context.getBundle().getLocation();//System.getProperty("osgi.bundles");
 int bundleNameStart = bundlesInfo.indexOf(bundleName);
 int bundleNameEnd = bundleNameStart + bundleName.length();
 String prependedBundlePath = bundlesInfo.substring(0, bundleNameEnd);
