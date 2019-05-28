@@ -65,7 +65,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 	private static EntityManagerFactory emf;
 	
 	private ServiceTracker emfTracker;
-	
+	String pathDB="";
 	public static WorkspaceActivator getDefault() {
 		return plugin;
 	}
@@ -83,6 +83,38 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 		 * of how you would listen for a persistence unit coming from another
 		 * bundle.
 		 */
+
+String bundleName = context.getBundle().getSymbolicName();
+String bundlesInfo = System.getProperty("osgi.bundles");
+int bundleNameStart = bundlesInfo.indexOf(bundleName);
+int bundleNameEnd = bundleNameStart + bundleName.length();
+String prependedBundlePath = bundlesInfo.substring(0, bundleNameEnd);
+String prefix = "reference:file:";
+int prefixPos = prependedBundlePath.lastIndexOf(prefix);
+String bundlePath = prependedBundlePath;
+if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
+pathDB=bundlePath.replace(bundleName,"");
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bundlePath=" + pathDB); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 		emfTracker = new ServiceTracker(ctx, EntityManagerFactory.class.getName(), this);
 		emfTracker.open();
 	}
@@ -181,7 +213,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 				// use default persistence.xml properties
 				String p=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+Math.random();
 				System.out.println(p);
-				workspaceContributions.add(new WorkspaceContribution(p));
+				workspaceContributions.add(new WorkspaceContribution(pathDB));
 			}
 		}
 		return workspaceContributions.get(0);
