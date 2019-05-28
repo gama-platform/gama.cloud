@@ -179,8 +179,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 					logger.error("More than one workspace extension has been registered");
 				}
 				// use default persistence.xml properties
-				Path path = FileSystems.getDefault().getPath(".").toAbsolutePath();
-				String p=path.toString()+Math.random();
+				String p=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+Math.random();
 				System.out.println(p);
 				workspaceContributions.add(new WorkspaceContribution(p));
 			}
