@@ -59,7 +59,7 @@ public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 	private Module getRuntimeModule() {
 		DEBUG.ON();
 //		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
-		if (PlatformHelper.isLinux()) {
+		if (System.getProperty("os.name").toLowerCase().indexOf("nux") >= 0) {
 			System.err.println("xxxxxxxxxxxxxxx                xxx");
 			System.err.println("xxxxxxxxxxxxxxx                xxx");
 			System.err.println("xxxxxxxxxxxxxxx                xxx");
