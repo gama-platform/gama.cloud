@@ -12,6 +12,7 @@ import com.google.inject.Module;
 
 import msi.gama.lang.gaml.GamlRuntimeModule;
 import msi.gama.lang.gaml.GamlStandaloneSetup;
+import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.utils.PlatformHelper;
 
 public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
@@ -56,6 +57,7 @@ public class WebGamlStandaloneSetup extends GamlStandaloneSetup {
 	}
 
 	private Module getRuntimeModule() {
+		DEBUG.ON();
 //		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
 		if (PlatformHelper.isLinux()) {
 			System.err.println("xxxxxxxxxxxxxxx                xxx");
