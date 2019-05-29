@@ -210,8 +210,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 						
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-					ex.execute("window.location.replace('http://51.255.46.42:8080/" + user_context_prefix + uid
-							+ "/texteditor');");
+					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid
+							+ "/texteditor\"");
 
 				} else {
 					postLoggedIn(uid);
