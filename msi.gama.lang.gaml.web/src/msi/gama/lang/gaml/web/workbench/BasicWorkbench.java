@@ -105,9 +105,54 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	boolean is_controller = false;
-	String controller_context = "controller_GamaWeb";
-	String user_context_prefix = "user_GamaWeb";
+	public static String controller_context = "controller_GamaWeb";
+	public static String user_context_prefix = "user_GamaWeb";
+	public static void execBash(final String sc) {
 
+		ProcessBuilder processBuilder = new ProcessBuilder();
+
+		// -- Linux -- 
+		// Run a shell command
+		processBuilder.command("bash", "-c",sc);
+
+		// Run a shell script
+		// processBuilder.command("path/to/hello.sh");
+
+		// -- Windows --
+
+		// Run a command
+		// processBuilder.command("cmd.exe", "/c", "dir C:\\Users\\mkyong");
+
+		// Run a bat file
+		// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
+
+		try {
+
+			Process process = processBuilder.start();
+
+			StringBuilder output = new StringBuilder();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				output.append(line + "\n");
+			}
+
+			int exitVal = process.waitFor();
+			if (exitVal == 0) {
+				System.out.println("Success!");
+				System.out.println(output);
+				Thread.sleep(10000);
+			} else {
+				// abnormal...
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 	@Override
 	public int createUI() {
 //		try {
@@ -164,50 +209,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				if (is_controller && !uid.equals("admin")) {
 					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + uid);
 					if (!tmpDir.exists()) {
-						ProcessBuilder processBuilder = new ProcessBuilder();
-
-						// -- Linux -- 
-						// Run a shell command
-						processBuilder.command("bash", "-c","cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
-
-						// Run a shell script
-						// processBuilder.command("path/to/hello.sh");
-
-						// -- Windows --
-
-						// Run a command
-						// processBuilder.command("cmd.exe", "/c", "dir C:\\Users\\mkyong");
-
-						// Run a bat file
-						// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
-
-						try {
-
-							Process process = processBuilder.start();
-
-							StringBuilder output = new StringBuilder();
-
-							BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-							String line;
-							while ((line = reader.readLine()) != null) {
-								output.append(line + "\n");
-							}
-
-							int exitVal = process.waitFor();
-							if (exitVal == 0) {
-								System.out.println("Success!");
-								System.out.println(output);
-								Thread.sleep(10000);
-							} else {
-								// abnormal...
-							}
-
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-
-						
+						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid

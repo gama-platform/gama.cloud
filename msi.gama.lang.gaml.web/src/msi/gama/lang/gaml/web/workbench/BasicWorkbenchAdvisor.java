@@ -15,6 +15,7 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.dslforge.workspace.jpa.database.User;
@@ -103,6 +104,16 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		System.out.println("preShutdown of "+loggedUser);
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
+		
+
+		String webContext = RWT.getRequest().getContextPath();
+ 
+		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
+			System.out.println("remove the user ");
+		}
+			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + BasicWorkbench.user_context_prefix + loggedUser + ".war");
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + BasicWorkbench.user_context_prefix + loggedUser); 
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + BasicWorkbench.user_context_prefix + loggedUser); 
 		return super.preShutdown();
 	}
 
