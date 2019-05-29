@@ -20,11 +20,24 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.security.auth.Subject;
 
 import org.dslforge.workspace.jpa.database.User;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.ProgressMonitorWrapper;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.application.EntryPoint;
@@ -35,10 +48,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
 import msi.gama.application.Application;
+import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
-
 /**
  * Basic Workbench UI entry point
  *
@@ -143,7 +156,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (exitVal == 0) {
 				System.out.println("Success!");
 				System.out.println(output);
-				Thread.sleep(10000);
 			} else {
 				// abnormal...
 			}
@@ -211,11 +223,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					if (!tmpDir.exists()) {
 						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
 					}
+					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Please wait!!!", "Creating resources for the first time.....");
+					Thread.sleep(75000);
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid
 							+ "/texteditor\"");
 
 				} else {
+
 					postLoggedIn(uid);
 				}
 
@@ -250,6 +265,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
 				}
+
 				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);

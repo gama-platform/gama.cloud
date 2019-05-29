@@ -19,6 +19,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.dslforge.workspace.jpa.database.User;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
@@ -110,10 +115,10 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
  
 		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
 			System.out.println("remove the user ");
+			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + webContext + ".war");
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + webContext); 
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + webContext); 
 		}
-			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + BasicWorkbench.user_context_prefix + loggedUser + ".war");
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + BasicWorkbench.user_context_prefix + loggedUser); 
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + BasicWorkbench.user_context_prefix + loggedUser); 
 		return super.preShutdown();
 	}
 
@@ -128,6 +133,9 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		WorkbenchHelper.workbench.put(WorkbenchHelper.getUIDfromScope(GAMA.getRuntimeScope()),w);
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser);
+		
+		
+
 		GAMA.getGui().refreshNavigator();
 //		if (GAMAWEB.getRegularGui() == null) {
 //			GAMAWEB.setRegularGui(new WebGui());
