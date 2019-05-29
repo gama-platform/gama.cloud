@@ -198,7 +198,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 							if (exitVal == 0) {
 								System.out.println("Success!");
 								System.out.println(output);
-								System.exit(0);
+								Thread.sleep(10000);
 							} else {
 								// abnormal...
 							}
