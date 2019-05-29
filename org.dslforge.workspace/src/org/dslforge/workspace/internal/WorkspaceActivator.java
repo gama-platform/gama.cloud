@@ -99,6 +99,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 //if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
 //pathDB=bundlePath.replace(bundleName,"");
 pathDB=((BundleContextImpl) context).getContainer().getLocations().getConfigurationLocation().getURL().getPath();
+pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+pathDB;
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 

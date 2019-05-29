@@ -224,8 +224,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
 					}
 					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Please wait!!!", "Creating resources for the first time.....");
-					Thread.sleep(75000);
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+					ex.execute("alert(\"Creating resources for the first time , please wait 10 secs......\");");
+					Thread.sleep(40000);
 					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid
 							+ "/texteditor\"");
 

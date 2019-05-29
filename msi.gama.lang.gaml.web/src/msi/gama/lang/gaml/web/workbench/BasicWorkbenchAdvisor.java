@@ -102,6 +102,21 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			}
 			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
+
+		String webContext = RWT.getRequest().getContextPath();
+ 
+		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			System.out.println("remove the webcontext "+webContext);
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + webContext + ".war");
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + webContext); 
+			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + webContext); 
+		}
 	}
 
 	@Override
@@ -110,15 +125,6 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
 		
-
-		String webContext = RWT.getRequest().getContextPath();
- 
-		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
-			System.out.println("remove the user ");
-			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + webContext + ".war");
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + webContext); 
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + webContext); 
-		}
 		return super.preShutdown();
 	}
 
