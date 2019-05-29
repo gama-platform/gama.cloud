@@ -27,11 +27,15 @@ import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.IWorkspaceConstants;
 import org.dslforge.workspace.config.internal.WorkspaceContribution;
+import org.eclipse.core.internal.registry.ExtensionRegistry;
+import org.eclipse.core.internal.registry.RegistryObjectFactory;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
+import org.eclipse.osgi.internal.framework.BundleContextImpl;
+import org.eclipse.rap.rwt.RWT;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -84,16 +88,17 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 		 * bundle.
 		 */
 
-String bundleName = context.getBundle().getSymbolicName();
-String bundlesInfo = context.getBundle().getLocation();//System.getProperty("osgi.bundles");
-int bundleNameStart = bundlesInfo.indexOf(bundleName);
-int bundleNameEnd = bundleNameStart + bundleName.length();
-String prependedBundlePath = bundlesInfo.substring(0, bundleNameEnd);
-String prefix = "reference:file:";
-int prefixPos = prependedBundlePath.lastIndexOf(prefix);
-String bundlePath = prependedBundlePath;
-if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
-pathDB=bundlePath.replace(bundleName,"");
+//String bundleName = context.getBundle().getSymbolicName();
+//String bundlesInfo = context.getBundle().getLocation();//System.getProperty("osgi.bundles");
+//int bundleNameStart = bundlesInfo.indexOf(bundleName);
+//int bundleNameEnd = bundleNameStart + bundleName.length();
+//String prependedBundlePath = bundlesInfo.substring(0, bundleNameEnd);
+//String prefix = "reference:file:";
+//int prefixPos = prependedBundlePath.lastIndexOf(prefix);
+//String bundlePath = prependedBundlePath;
+//if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
+//pathDB=bundlePath.replace(bundleName,"");
+pathDB=((BundleContextImpl) context).getContainer().getLocations().getConfigurationLocation().getURL().getPath();
 System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
@@ -177,6 +182,7 @@ System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 	private static void setupWorkspace() {
 		if (Platform.isRunning()) {
 			IExtensionRegistry registry = RegistryFactory.getRegistry();
+			System.out.println(((RegistryObjectFactory)((ExtensionRegistry)registry).getElementFactory()));
 //			IConfigurationElement[] configElements = registry.getConfigurationElementsFor(WORKSPACE_CONTRIBUTION_EXTENSION_POINT);
 //			if (configElements.length != 0) {
 //				for (IConfigurationElement configElement : configElements) { 
