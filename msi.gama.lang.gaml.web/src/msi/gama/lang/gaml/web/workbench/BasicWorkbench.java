@@ -15,6 +15,9 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,31 +69,31 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	//
 	// abstract void runInSession();
 	// }
-	
+
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
-    
-	boolean enableLoggin=true;
+
+	boolean enableLoggin = true;
 //	boolean enableLoggin=false;
-	
+
 	public void postLoggedIn(final String uid) {
 		RWT.getUISession().setAttribute("user", uid);
-		
+
 //		if (uid.equals(""+uid)) {
-	if (executor.get(uid) != null) {
+		if (executor.get(uid) != null) {
 //				WorkbenchHelper.workbench.get(uid).close();
-		JavaScriptExecutor ex = executor.get(uid);
-		System.out.println("script reload  " + ex);
-		ex.execute("window.location.reload(true);");
-		// ex.execute("var myUrl = window.location;\r\n" +
-		// "window.location.replace(myUrl);");
-		ex = null;
-		executor.put(uid,ex);
-		RWT.getApplicationContext().setAttribute("logged_"+uid, null);// "restart");
-		// return 0;
-		// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-		// "Information", "This account is currently used
-		// somewhere, RETRY!");
-	}
+			JavaScriptExecutor ex = executor.get(uid);
+			System.out.println("script reload  " + ex);
+			ex.execute("window.location.reload(true);");
+			// ex.execute("var myUrl = window.location;\r\n" +
+			// "window.location.replace(myUrl);");
+			ex = null;
+			executor.put(uid, ex);
+			RWT.getApplicationContext().setAttribute("logged_" + uid, null);// "restart");
+			// return 0;
+			// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+			// "Information", "This account is currently used
+			// somewhere, RETRY!");
+		}
 //		} 
 //		else {
 //			if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
@@ -100,7 +103,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			}
 //		}
 	}
-	
+
+	boolean is_controller = false;
+	String controller_context = "controller_GamaWeb";
+	String user_context_prefix = "user_GamaWeb";
+
 	@Override
 	public int createUI() {
 //		try {
@@ -109,26 +116,40 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
+		String webContext = RWT.getRequest().getContextPath();
+
+		if (webContext.startsWith("/" + controller_context)) {
+			is_controller = true;
+			System.out.println("the controller ");
+		}
+		if (webContext.startsWith("/" + user_context_prefix)) {
+			enableLoggin = false;
+			System.out.println("the user prefix ");
+		}
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
-		RWT.getClient().getService(JavaScriptExecutor.class)
-				.execute("document.body.style.background  = \"url('"+splash+"') center center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
-			
+		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
+				+ splash + "') center center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
+
 		try {
-			String uid = enableLoggin?"":"admin"; 
+			String uid = enableLoggin ? "" : "admin";
 
 			DummyCallbackHandler dch = new DummyCallbackHandler();
 
 			DummyLoginModule dlm = new DummyLoginModule();
 			dlm.initialize(new Subject(), dch, null, null);
 //			System.out.println("ss    "+RWT.getUISession().getHttpSession());
-			boolean logged = enableLoggin?(RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession()) == null?false:true):true; //false
+			boolean logged = enableLoggin
+					? (RWT.getApplicationContext()
+							.getAttribute("credential" + RWT.getUISession().getHttpSession()) == null ? false : true)
+					: true; // false
 			while (!logged) {
 				logged = dlm.login();
 			}
-			if (logged || RWT.getApplicationContext().getAttribute("credential"+RWT.getUISession().getHttpSession()) != null) {
-				uid = enableLoggin?dlm.getLoggedUser():uid; //must enable
+			if (logged || RWT.getApplicationContext()
+					.getAttribute("credential" + RWT.getUISession().getHttpSession()) != null) {
+				uid = enableLoggin ? dlm.getLoggedUser() : uid; // must enable
 
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -140,9 +161,37 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				postLoggedIn(uid);
-				
-			}else {
+				if (is_controller) {
+					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + uid);
+					if (!tmpDir.exists()) {
+						String s;
+						Process p;
+						try {
+							String b[] = new String[4];
+							b[0] = "cp";
+							b[1] = "/opt/tomcat/webapps/"+controller_context+".war";
+							b[2] = "/opt/tomcat/webapps/"+user_context_prefix+uid+".war";
+
+							p = Runtime.getRuntime().exec(b);
+							BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+							while ((s = br.readLine()) != null)
+								System.out.println("line: " + s);
+							p.waitFor();
+							System.out.println("exit: " + p.exitValue());
+							p.destroy();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+					ex.execute("window.location.replace('http://51.255.46.42:8080/" + user_context_prefix + uid
+							+ "/texteditor');");
+
+				} else {
+					postLoggedIn(uid);
+				}
+
+			} else {
 				return 0;
 			}
 			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
@@ -155,22 +204,21 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				User u = new User();
 				u.setId(uid);
 
-				
 				ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 				Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
-				//Map<String, ArrayList<String>>
+				// Map<String, ArrayList<String>>
 				if (onlines == null) {
 					onlines = new ArrayList<>();
-					listPads  = new HashMap<String, ArrayList<String>>();
+					listPads = new HashMap<String, ArrayList<String>>();
 				}
-				boolean exist=false;
-				for(User s:onlines) {					
+				boolean exist = false;
+				for (User s : onlines) {
 					if (s.getId().equals(uid)) {
-						exist=true;
+						exist = true;
 						break;
 					}
 				}
-				if(!exist) {
+				if (!exist) {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
 				}
@@ -186,7 +234,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
 				Display display = PlatformUI.createDisplay();
-				
+
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
@@ -213,6 +261,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	@Override
 	protected void createContents(Composite parent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
