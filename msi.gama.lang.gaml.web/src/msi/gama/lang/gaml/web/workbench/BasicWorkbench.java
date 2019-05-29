@@ -105,7 +105,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	boolean is_controller = false;
-	String controller_context = "GamaWeb";
+	String controller_context = "controller_GamaWeb";
 	String user_context_prefix = "user_GamaWeb";
 
 	@Override
