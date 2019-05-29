@@ -42,8 +42,14 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.ProgressBar;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
@@ -52,6 +58,7 @@ import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
+
 /**
  * Basic Workbench UI entry point
  *
@@ -86,7 +93,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
 
 	boolean enableLoggin = true;
-//	boolean enableLoggin=false;
+//	boolean enableLoggin = false;
+
+	boolean is_controller = false;
+	public static String controller_context = "controller_GamaWeb";
+	public static String user_context_prefix = "user_GamaWeb";
 
 	public void postLoggedIn(final String uid) {
 		RWT.getUISession().setAttribute("user", uid);
@@ -117,16 +128,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //		}
 	}
 
-	boolean is_controller = false;
-	public static String controller_context = "controller_GamaWeb";
-	public static String user_context_prefix = "user_GamaWeb";
 	public static void execBash(final String sc) {
 
 		ProcessBuilder processBuilder = new ProcessBuilder();
 
-		// -- Linux -- 
+		// -- Linux --
 		// Run a shell command
-		processBuilder.command("bash", "-c",sc);
+		processBuilder.command("bash", "-c", sc);
 
 		// Run a shell script
 		// processBuilder.command("path/to/hello.sh");
@@ -165,6 +173,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 
 	}
+
 	@Override
 	public int createUI() {
 //		try {
@@ -183,6 +192,35 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			enableLoggin = false;
 			System.out.println("the user prefix ");
 		}
+//		Display d = Display.getDefault();
+//		Shell sh = new Shell(d);
+//		final ProgressBar pb = new ProgressBar(sh, SWT.HORIZONTAL);
+//		pb.setMinimum(0);
+//		pb.setMaximum(100);
+//		pb.setBounds(10, 10, 200, 20);
+//
+//		Button b = new Button(sh, SWT.PUSH);
+//		b.setBounds(95, 80, 40, 20);
+//		b.setText("Start");
+//		b.addSelectionListener(new SelectionAdapter() {
+//			public void widgetSelected(SelectionEvent e) {
+//				for (int n = 0; n <= 100; n++) {
+//					for (int i = 0; i < 10; i++) {
+//						System.out.println(".");
+//					}
+//					pb.setSelection(n);
+//				}
+//				System.out.println("finish");
+//			}
+//		});
+//
+//		sh.open();
+//
+//		while (!sh.isDisposed()) {
+//			if (!d.readAndDispatch())
+//				d.sleep();
+//		}
+//		d.dispose();
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
@@ -221,9 +259,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				if (is_controller && !uid.equals("admin")) {
 					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + uid);
 					if (!tmpDir.exists()) {
-						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
+						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
+								+ user_context_prefix + uid + ".war");
 					}
-					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Please wait!!!", "Creating resources for the first time.....");
+//					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Please wait!!!", "Creating resources for the first time.....");
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("alert(\"Creating resources for the first time , please wait 10 secs......\");");
 					Thread.sleep(40000);

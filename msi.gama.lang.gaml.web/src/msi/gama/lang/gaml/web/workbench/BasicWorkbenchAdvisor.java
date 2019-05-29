@@ -25,6 +25,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.ProgressBar;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -138,10 +142,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
 		WorkbenchHelper.workbench.put(WorkbenchHelper.getUIDfromScope(GAMA.getRuntimeScope()),w);
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
-//		WorkbenchHelper.setUID(loggedUser);
-		
-		
-
+//		WorkbenchHelper.setUID(loggedUser); 
 		GAMA.getGui().refreshNavigator();
 //		if (GAMAWEB.getRegularGui() == null) {
 //			GAMAWEB.setRegularGui(new WebGui());
