@@ -164,24 +164,50 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				if (is_controller) {
 					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + uid);
 					if (!tmpDir.exists()) {
-						String s;
-						Process p;
-						try {
-							String b[] = new String[4];
-							b[0] = "cp";
-							b[1] = "/opt/tomcat/webapps/"+controller_context+".war";
-							b[2] = "/opt/tomcat/webapps/"+user_context_prefix+uid+".war";
+						ProcessBuilder processBuilder = new ProcessBuilder();
 
-							p = Runtime.getRuntime().exec(b);
-							BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-							while ((s = br.readLine()) != null)
-								System.out.println("line: " + s);
-							p.waitFor();
-							System.out.println("exit: " + p.exitValue());
-							p.destroy();
+						// -- Linux -- 
+						// Run a shell command
+						processBuilder.command("bash", "-c","cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/" + user_context_prefix + uid + ".war");
+
+						// Run a shell script
+						// processBuilder.command("path/to/hello.sh");
+
+						// -- Windows --
+
+						// Run a command
+						// processBuilder.command("cmd.exe", "/c", "dir C:\\Users\\mkyong");
+
+						// Run a bat file
+						// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
+
+						try {
+
+							Process process = processBuilder.start();
+
+							StringBuilder output = new StringBuilder();
+
+							BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+							String line;
+							while ((line = reader.readLine()) != null) {
+								output.append(line + "\n");
+							}
+
+							int exitVal = process.waitFor();
+							if (exitVal == 0) {
+								System.out.println("Success!");
+								System.out.println(output);
+								System.exit(0);
+							} else {
+								// abnormal...
+							}
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+
+						
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("window.location.replace('http://51.255.46.42:8080/" + user_context_prefix + uid
