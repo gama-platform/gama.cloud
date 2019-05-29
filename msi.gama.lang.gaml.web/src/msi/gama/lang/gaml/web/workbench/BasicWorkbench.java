@@ -105,7 +105,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	boolean is_controller = false;
-	String controller_context = "controller_GamaWeb";
+	String controller_context = "GamaWeb";
 	String user_context_prefix = "user_GamaWeb";
 
 	@Override
@@ -161,7 +161,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				if (is_controller && uid!="admin") {
+				if (is_controller && !uid.equals("admin")) {
 					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + uid);
 					if (!tmpDir.exists()) {
 						ProcessBuilder processBuilder = new ProcessBuilder();
