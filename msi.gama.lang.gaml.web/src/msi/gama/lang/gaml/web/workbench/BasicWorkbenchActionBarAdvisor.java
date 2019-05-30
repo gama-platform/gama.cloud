@@ -70,7 +70,9 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 	@Override
 	protected void fillMenuBar(IMenuManager menuBar) {
 		IWorkbenchWindow window = getActionBarConfigurer().getWindowConfigurer().getWindow();
-		if (RWT.getUISession().getAttribute("user").toString().equals("admin")) {
+
+		String webContext = RWT.getRequest().getContextPath(); 
+		if (RWT.getUISession().getAttribute("user").toString().equals("admin") && !webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
 			menuBar.add(createUserMenu(window));
 			menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		}
@@ -79,8 +81,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 		menuBar.add(createEditMenu(window));
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 		menuBar.add(createCollaborativeMenu(window));
-		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-		menuBar.add(createHelpMenu(window));		
+//		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+//		menuBar.add(createHelpMenu(window));		
 	}
 	
 	/**

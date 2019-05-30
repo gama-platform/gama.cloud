@@ -34,14 +34,18 @@ import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.ProgressMonitorWrapper;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -175,8 +179,57 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			e.printStackTrace();
 		}
 
-	}
+	} 
+	  private void doWait() {
+		  Display d = Display.getDefault();
+			Shell sh = new Shell(d);
+			sh.setSize(500, 50);
+			Label lb=new Label(sh, SWT.NONE);
+			lb.setForeground(IGamaColors.BLACK.color()); 
+			lb.setText("Creating resources, please wait 20s "); 
+	        lb.setBounds(10, 25, 450, 20);		
+	       
+			d.syncExec(new Runnable() {
 
+				public void run() {
+					sh.open();   
+				}
+			});
+			try {
+				ModalContext.setAllowReadAndDispatch(true); // Works for now.
+				ModalContext.run(new IRunnableWithProgress() {
+
+					public void run(final IProgressMonitor monitor) {
+						int i=0;
+						while (i<20) {
+							i++;
+							d.syncExec(new Runnable() {
+
+								public void run() {
+									
+									String ls=lb.getText();
+									lb.setText(ls+"!"); 
+								}
+							}); 
+							try {
+//								System.out.println("waiting");
+								Thread.sleep(1000);
+							} catch (final Exception e) {
+								e.printStackTrace();
+							}
+						} 
+							d.syncExec(new Runnable() {
+
+								public void run() {
+									sh.close();
+								}
+							}); 
+					}
+				}, true, new NullProgressMonitor(), d);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+	  }
 	@Override
 	public int createUI() {
 //		try {
@@ -194,12 +247,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if (webContext.startsWith("/" + user_context_prefix)) {
 			enableLoggin = false;
 			System.out.println("the user prefix ");
-		}
+		} 
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
 		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
-				+ splash + "') center center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
+				+ splash + "') top center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
 
 		try {
 			String uid = enableLoggin ? "" : "admin";
@@ -235,22 +288,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					if (!tmpDir.exists()) {
 						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
 								+ user_context_prefix + uid + ".war");
-						Display d = Display.getDefault();
-						Shell sh = new Shell(d);
-						sh.setSize(400, 50);
-						Label lb=new Label(sh, SWT.NONE);
-						lb.setForeground(IGamaColors.BLACK.color()); 
-						lb.setText("Creating resources, please wait 10s........."); 
-				        lb.setBounds(10, 25, 200, 20);		
-				        sh.open(); 
-						Thread.sleep(40000);
+						doWait();
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid
 							+ "/texteditor\"");
 
 				} else {
-
 					postLoggedIn(uid);
 				}
 

@@ -99,6 +99,8 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 //if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
 //pathDB=bundlePath.replace(bundleName,"");
 pathDB=((BundleContextImpl) context).getContainer().getLocations().getConfigurationLocation().getURL().getPath();
+int ss=pathDB.indexOf(".metadata");
+pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+pathDB.substring(ss);
 //pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+pathDB;
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
@@ -183,7 +185,7 @@ System.out.println("bundlePath=" + pathDB);
 	private static void setupWorkspace() {
 		if (Platform.isRunning()) {
 			IExtensionRegistry registry = RegistryFactory.getRegistry();
-			System.out.println(((RegistryObjectFactory)((ExtensionRegistry)registry).getElementFactory()));
+//			System.out.println(((RegistryObjectFactory)((ExtensionRegistry)registry).getElementFactory()));
 //			IConfigurationElement[] configElements = registry.getConfigurationElementsFor(WORKSPACE_CONTRIBUTION_EXTENSION_POINT);
 //			if (configElements.length != 0) {
 //				for (IConfigurationElement configElement : configElements) { 
