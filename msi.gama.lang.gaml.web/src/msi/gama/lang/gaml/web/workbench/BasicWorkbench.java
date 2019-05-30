@@ -243,11 +243,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 						lb.setText("Creating resources, please wait 10s........."); 
 				        lb.setBounds(10, 25, 200, 20);		
 				        sh.open(); 
-						while (!sh.isDisposed()) {
-							if (!d.readAndDispatch())
-								d.sleep();
-						}
-						d.dispose();
 						Thread.sleep(40000);
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
