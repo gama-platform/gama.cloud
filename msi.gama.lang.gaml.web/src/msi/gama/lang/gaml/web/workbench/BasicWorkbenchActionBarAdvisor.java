@@ -281,7 +281,17 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 //					s.dispose();
 //				}
 //				GAMAHelper.theControllers.clear();
-
+ 
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					System.out.println("remove the webcontext ");
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+					BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/user_GamaWeb*"); 
+					BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/user_GamaWeb*");  
+					
 				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 				ArrayList<User> onl=(ArrayList<User>) onlines.clone();
 				for(User u: onlines) {
