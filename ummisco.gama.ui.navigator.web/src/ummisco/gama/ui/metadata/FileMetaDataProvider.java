@@ -38,8 +38,7 @@ import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.swt.graphics.ImageData;
 
-import msi.gama.common.GamlFileExtension;
-import msi.gama.util.GAML;
+import msi.gama.common.GamlFileExtension; 
 import msi.gama.util.file.GamaCSVFile;
 import msi.gama.util.file.GamaCSVFile.CSVInfo;
 import msi.gama.util.file.GamaFileMetaData;
@@ -54,6 +53,7 @@ import ummisco.gama.dev.utils.DEBUG;
 import msi.gama.util.file.GamlFileInfo;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gama.util.file.IGamaFileMetaData;
+import msi.gaml.compilation.GAML;
 
 /**
  * Class FileMetaDataProvider.

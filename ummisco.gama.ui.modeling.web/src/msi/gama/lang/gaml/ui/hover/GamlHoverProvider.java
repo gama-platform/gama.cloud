@@ -293,7 +293,7 @@ public class GamlHoverProvider {//extends DefaultEObjectHoverProvider {
 		String facetName = o.getKey();
 		facetName = facetName.substring(0, facetName.length() - 1);
 		final EObject cont = o.eContainer();
-		final String key = EGaml.getKeyOf(cont);
+		final String key = EGaml.getInstance().getKeyOf(cont);
 		final SymbolProto p = DescriptionFactory.getProto(key, null);
 		if (p != null) {
 			final FacetProto f = p.getPossibleFacets().get(facetName);

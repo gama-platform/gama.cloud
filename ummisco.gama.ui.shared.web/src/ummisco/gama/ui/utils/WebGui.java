@@ -688,30 +688,16 @@ public class WebGui implements IGui {
 		if (refresh != null) {
 			refresh.completeRefresh(null);
 		}
-	}
-
-	@Override
-	public void hideScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	} 
+ 
 	@Override
 	public boolean copyToClipboard(String text) {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	} 
 
 	@Override
-	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, Boolean showEditors,
-			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls,
-			Boolean showTray) {
+	public void applyLayout(IScope scope, Object layout) {
 		// TODO Auto-generated method stub
 		
 	}

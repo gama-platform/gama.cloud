@@ -40,7 +40,7 @@ import msi.gama.runtime.ExecutionScope;
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IExecutionContext;
 import msi.gama.runtime.IScope;
-import msi.gama.util.GAML;
+import msi.gaml.compilation.GAML;
 import msi.gama.util.GamaColor;
 import msi.gaml.descriptions.IVarDescriptionProvider;
 import msi.gaml.expressions.IExpression;

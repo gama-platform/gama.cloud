@@ -625,35 +625,18 @@ public class SwtGui implements IGui {
 		}
 
 	}
-
-	@Override
-	public void hideScreen() {
-		final IDisplayLayoutManager manager = WorkbenchHelper.getService(IDisplayLayoutManager.class);
-		if (manager != null) {
-			manager.hideScreen();
-		}
-	}
-
-	@Override
-	public void showScreen() {
-		final IDisplayLayoutManager manager = WorkbenchHelper.getService(IDisplayLayoutManager.class);
-		if (manager != null) {
-			manager.showScreen();
-		}
-	}
-
+ 
 
 	@Override
 	public boolean copyToClipboard(String text) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+ 
 
 
 	@Override
-	public void applyLayout(IScope scope, Object layout, Boolean keepTabs, Boolean keepToolbars, Boolean showEditors,
-			Boolean showParameters, Boolean showConsoles, Boolean showNavigator, Boolean showControls,
-			Boolean showTray) {
+	public void applyLayout(IScope scope, Object layout) {
 		// TODO Auto-generated method stub
 		
 	}
