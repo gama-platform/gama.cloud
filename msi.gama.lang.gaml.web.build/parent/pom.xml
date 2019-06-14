@@ -20,7 +20,15 @@
 		This pom (example.parent) removes the problematic extension bundle and serves 
 		as parent for all modules. Only the feature and the product, which need the 
 		extension bundle, have derive from the top parent. -->
-
+ <dependencies> 
+    <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.service.jdbc -->
+<dependency>
+    <groupId>org.osgi</groupId>
+    <artifactId>org.osgi.service.jdbc</artifactId>
+    <version>1.0.0</version>
+    <scope>provided</scope>
+</dependency>
+  </dependencies>
 	<build>
 		<plugins>
 
