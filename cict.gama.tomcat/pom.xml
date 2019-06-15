@@ -9,7 +9,8 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>cict.gama.tomcat</name>
 	<properties>
-		<tomcat.version>[8.5.40,)</tomcat.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tomcat.version>8.5.2</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>

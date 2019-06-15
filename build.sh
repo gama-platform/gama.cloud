@@ -4,4 +4,6 @@ cd ../msi.gama.lang.gaml.web.build
 mvn clean install
 cd GamaWeb 
 mvn clean install 
-cd ../..
+cd ../../cict.gama.tomcat
+mvn clean install
+cd ..

@@ -48,7 +48,7 @@
 <unit id="org.eclipse.xtext.xbase.ide" version="0.0.0"/>
 <unit id="org.eclipse.xtext.xbase.junit" version="0.0.0"/>
 <unit id="org.eclipse.xtext.xbase.lib.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/2019-03"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.persistence.sdk.feature.group" version="0.0.0"/>
