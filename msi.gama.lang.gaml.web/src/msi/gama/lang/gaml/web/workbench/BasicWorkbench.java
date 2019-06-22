@@ -103,6 +103,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //	boolean enableLoggin = false;
 
 	boolean is_controller = false;
+	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
 
@@ -240,6 +241,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //		}
 		String webContext = RWT.getRequest().getContextPath();
 
+		if (webContext.startsWith("/" + offline_context)) {
+			enableLoggin = false;
+			System.out.println("the offline prefix ");
+		}
 		if (webContext.startsWith("/" + controller_context)) {
 			is_controller = true;
 			System.out.println("the controller ");
