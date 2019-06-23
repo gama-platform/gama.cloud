@@ -10,7 +10,7 @@ public class RunWarExample {
 	public static void main(String[] args) throws ServletException, LifecycleException {
 		String contextPath = "/GamaWeb";
 		String warFilePath = "GamaWeb.war";
-		if(args.length==1) port=stringToInt(args[0]);
+//		if(args.length==1) port=stringToInt(args[0]);
 		if(args.length==3) {
 			contextPath=args[0];
 			warFilePath=args[1];
@@ -25,7 +25,13 @@ public class RunWarExample {
 		tomcat.addWebapp(contextPath, warFilePath);
 
 		tomcat.start();
-		tomcat.getServer().await();
+		if(args.length!=1) {			
+			tomcat.getServer().await();
+		}
+	}
+
+	public static boolean stringToBool(String param)  {		
+			return Boolean.valueOf(param);
 	}
 
 	public static int stringToInt(String param) throws NumberFormatException {
