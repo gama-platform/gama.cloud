@@ -8,9 +8,12 @@ import org.apache.catalina.startup.Tomcat;
 public class RunWarExample {
 	public static int port=8080;
 	public static void main(String[] args) throws ServletException, LifecycleException {
-
 		String contextPath = "/GamaWeb";
 		String warFilePath = "GamaWeb.war";
+		if(args.length>2) {
+			contextPath=args[0];
+			warFilePath=args[1];
+		}
 		Tomcat tomcat = new Tomcat();
 		if(args.length>0) port=stringToInt(args[0]);
 		tomcat.setPort(port);
