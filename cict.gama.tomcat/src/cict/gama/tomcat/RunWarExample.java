@@ -25,7 +25,7 @@ public class RunWarExample {
 		tomcat.addWebapp(contextPath, warFilePath);
 
 		tomcat.start();
-		if(args.length!=1) {			
+		if(args.length==4) {			
 			tomcat.getServer().await();
 		}
 	}
