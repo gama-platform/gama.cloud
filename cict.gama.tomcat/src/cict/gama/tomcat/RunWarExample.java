@@ -10,12 +10,13 @@ public class RunWarExample {
 	public static void main(String[] args) throws ServletException, LifecycleException {
 		String contextPath = "/GamaWeb";
 		String warFilePath = "GamaWeb.war";
-		if(args.length>2) {
+		if(args.length==1) port=stringToInt(args[0]);
+		if(args.length==3) {
 			contextPath=args[0];
 			warFilePath=args[1];
+			port=stringToInt(args[2]);
 		}
 		Tomcat tomcat = new Tomcat();
-		if(args.length>0) port=stringToInt(args[0]);
 		tomcat.setPort(port);
 		tomcat.setBaseDir(".");
 
