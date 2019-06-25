@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.security.auth.Subject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.resources.IResource;
@@ -107,6 +108,24 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
 
+	public static String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("X-Real-IP");
+		if (null != ip && !"".equals(ip.trim()) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("X-Forwarded-For");
+		if (null != ip && !"".equals(ip.trim()) && !"unknown".equalsIgnoreCase(ip)) {
+			// get first ip from proxy ip
+			int index = ip.indexOf(',');
+			if (index != -1) {
+				return ip.substring(0, index);
+			} else {
+				return ip;
+			}
+		}
+		return request.getRemoteAddr();
+	}
+
 	public void postLoggedIn(final String uid) {
 		RWT.getUISession().setAttribute("user", uid);
 
@@ -173,64 +192,66 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				System.out.println("Success!");
 				System.out.println(output);
 			} else {
-				// abnormal...
+				System.out.println("abnormal");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	} 
-	  private void doWait() {
-		  Display d = Display.getDefault();
-			Shell sh = new Shell(d);
-			sh.setSize(500, 50);
-			Label lb=new Label(sh, SWT.NONE);
-			lb.setForeground(IGamaColors.BLACK.color()); 
-			lb.setText("Creating resources, please wait 20s "); 
-	        lb.setBounds(10, 25, 450, 20);		
-	       
-			d.syncExec(new Runnable() {
+	}
 
-				public void run() {
-					sh.open();   
-				}
-			});
-			try {
-				ModalContext.setAllowReadAndDispatch(true); // Works for now.
-				ModalContext.run(new IRunnableWithProgress() {
+	private void doWait() {
+		Display d = Display.getDefault();
+		Shell sh = new Shell(d);
+		sh.setSize(500, 50);
+		Label lb = new Label(sh, SWT.NONE);
+		lb.setForeground(IGamaColors.BLACK.color());
+		lb.setText("Creating resources, please wait 20s ");
+		lb.setBounds(10, 25, 450, 20);
 
-					public void run(final IProgressMonitor monitor) {
-						int i=0;
-						while (i<20) {
-							i++;
-							d.syncExec(new Runnable() {
+		d.syncExec(new Runnable() {
 
-								public void run() {
-									
-									String ls=lb.getText();
-									lb.setText(ls+"!"); 
-								}
-							}); 
-							try {
-//								System.out.println("waiting");
-								Thread.sleep(1000);
-							} catch (final Exception e) {
-								e.printStackTrace();
-							}
-						} 
-							d.syncExec(new Runnable() {
-
-								public void run() {
-									sh.close();
-								}
-							}); 
-					}
-				}, true, new NullProgressMonitor(), d);
-			} catch (final Exception e) {
-				e.printStackTrace();
+			public void run() {
+				sh.open();
 			}
-	  }
+		});
+		try {
+			ModalContext.setAllowReadAndDispatch(true); // Works for now.
+			ModalContext.run(new IRunnableWithProgress() {
+
+				public void run(final IProgressMonitor monitor) {
+					int i = 0;
+					while (i < 20) {
+						i++;
+						d.syncExec(new Runnable() {
+
+							public void run() {
+
+								String ls = lb.getText();
+								lb.setText(ls + "!");
+							}
+						});
+						try {
+//								System.out.println("waiting");
+							Thread.sleep(1000);
+						} catch (final Exception e) {
+							e.printStackTrace();
+						}
+					}
+					d.syncExec(new Runnable() {
+
+						public void run() {
+							sh.close();
+						}
+					});
+				}
+			}, true, new NullProgressMonitor(), d);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public int createUI() {
 //		try {
@@ -239,8 +260,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		System.out.println(getIpAddr(RWT.getRequest()));
 		String webContext = RWT.getRequest().getContextPath();
-
+		
 		if (webContext.startsWith("/" + offline_context)) {
 			enableLoggin = false;
 			System.out.println("the offline prefix ");
@@ -252,7 +275,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if (webContext.startsWith("/" + user_context_prefix)) {
 			enableLoggin = false;
 			System.out.println("the user prefix ");
-		} 
+		}
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
