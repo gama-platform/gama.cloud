@@ -19,8 +19,8 @@ import com.vividsolutions.jts.geom.Geometry;
 
 import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.interfaces.IKeyword;
-import msi.gama.common.interfaces.ILayer; 
-import msi.gama.metamodel.agent.AgentIdentifier;
+import msi.gama.common.interfaces.ILayer;
+import msi.gama.metamodel.agent.IAgent;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.IShape; 
 import msi.gama.outputs.layers.OverlayLayer;
@@ -121,7 +121,7 @@ public class LayerObject {
 			final double delta = size == 0 ? 0 : 1d / size;
 			for (final AbstractObject list : currentList) {
 				alpha = isFading ? originalAlpha * (alpha + delta) : originalAlpha;
-				final AgentIdentifier id = list.attributes.getAgentIdentifier();
+				final IAgent id = list.attributes.getAgentIdentifier();
 //				if (id != null)
 //					System.out.println(id.getAgent(GAMAHelper.getRuntimeScope()));
 				

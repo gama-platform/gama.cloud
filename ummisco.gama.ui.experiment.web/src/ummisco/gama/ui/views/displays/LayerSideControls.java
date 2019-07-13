@@ -195,7 +195,7 @@ public class LayerSideControls {
 				});
 		cameraUp = EditorFactory.create(scope, contents, "Orientation:", data.getCameraUpVector(),
 				(EditorListener<ILocation>) newValue -> {
-					data.setCameraUpVector((GamaPoint) newValue, true);
+					data.setCameraUpVector((GamaPoint) newValue);
 					ds.updateDisplay(true);
 				});
 		preset.setActive(!cameraLocked);
