@@ -641,4 +641,11 @@ public class SwtGui implements IGui {
 		
 	}
 
+
+	@Override
+	public boolean isInDisplayThread() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
