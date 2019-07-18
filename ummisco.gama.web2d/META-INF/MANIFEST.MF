@@ -20,7 +20,4 @@ Require-Bundle: msi.gama.ext,
  msi.gama.core.web;bundle-version="1.0.0",
  ummisco.gama.ui.shared.web,
  ummisco.gama.ui.experiment.web
-Export-Package: 
- ummisco.gama.web2d,
- ummisco.gama.web2d.swing
 Bundle-ClassPath: .
