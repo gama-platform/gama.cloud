@@ -26,8 +26,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.ISourceProviderService;
-
-import gnu.trove.map.hash.THashMap;
+ 
 import msi.gama.application.workbench.PerspectiveHelper;
 import msi.gama.common.interfaces.IConsoleDisplayer;
 import msi.gama.common.interfaces.IDisplayCreator.DisplayDescription;
@@ -56,6 +55,8 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
+import msi.gama.util.GamaMapFactory;
+import msi.gama.util.IMap;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
 import msi.gaml.statements.test.CompoundSummary;
@@ -269,7 +270,7 @@ public class SwtGui implements IGui {
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
 			final Map<String, Object> initialValues, final Map<String, IType<?>> types) {
-		final Map<String, Object> result = new THashMap<>();
+		final IMap<String, Object> result = GamaMapFactory.createUnordered();
 		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
 			final EditorsDialog dialog =
 					new EditorsDialog(scope, WorkbenchHelper.getShell(), initialValues, types, title);
@@ -407,7 +408,7 @@ public class SwtGui implements IGui {
 			}
 			WorkbenchHelper.setWorkbenchWindowTitle(GAMA.getRuntimeScope(), exp.getName() + " - " + exp.getModel().getFilePath());
 			updateParameterView(scope, exp);
-			getConsole(scope).showConsoleView(exp.getAgent());
+			getConsole().showConsoleView(exp.getAgent());
 		}
 	}
 
@@ -417,10 +418,10 @@ public class SwtGui implements IGui {
 	 * @see msi.gama.common.interfaces.IGui#cleanAfterExperiment(msi.gama.kernel.experiment.IExperimentPlan)
 	 */
 	@Override
-	public void cleanAfterExperiment(final IScope scope) {
+	public void cleanAfterExperiment() {
 		WorkbenchHelper.hideView(PARAMETER_VIEW_ID);
 		hideMonitorView();
-		getConsole(null).eraseConsole(true);
+		getConsole().eraseConsole(true);
 		final IGamaView icv = (IGamaView) WorkbenchHelper.findView(INTERACTIVE_CONSOLE_VIEW_ID, null, false);
 		if (icv != null) {
 			icv.reset();
@@ -554,7 +555,7 @@ public class SwtGui implements IGui {
 	}
 
 	@Override
-	public IConsoleDisplayer getConsole(final IScope scope) {
+	public IConsoleDisplayer getConsole() {
 		return WorkbenchHelper.getService(IConsoleDisplayer.class);
 	}
 
@@ -647,5 +648,6 @@ public class SwtGui implements IGui {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 }

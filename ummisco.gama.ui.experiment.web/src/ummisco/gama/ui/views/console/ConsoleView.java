@@ -29,8 +29,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.kernel.experiment.ITopLevelAgent;
 import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
-import msi.gama.util.GamaColor;
-import msi.gaml.operators.fastmaths.CmnFastMath;
+import msi.gama.util.GamaColor; 
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.resources.GamaIcons;
@@ -124,7 +123,7 @@ public class ConsoleView extends GamaViewPart
 				if (maxMemorized == -1) {
 					maxMemorized = maxDisplayed;
 				} else {
-					maxMemorized = CmnFastMath.min(maxMemorized, maxDisplayed);
+					maxMemorized = Math.min(maxMemorized, maxDisplayed);
 				}
 			}
 			if (maxMemorized > 0) {

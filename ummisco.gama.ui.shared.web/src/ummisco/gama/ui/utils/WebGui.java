@@ -25,8 +25,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.services.ISourceProviderService;
-
-import gnu.trove.map.hash.THashMap;
+ 
 import msi.gama.application.workbench.PerspectiveHelper;
 import msi.gama.common.interfaces.IConsoleDisplayer;
 import msi.gama.common.interfaces.IDisplayCreator;
@@ -57,6 +56,8 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
+import msi.gama.util.GamaMapFactory;
+import msi.gama.util.IMap;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
 import msi.gaml.statements.test.CompoundSummary;
@@ -267,7 +268,7 @@ public class WebGui implements IGui {
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
 			final Map<String, Object> initialValues, final Map<String, IType<?>> types) {
-		final Map<String, Object> result = new THashMap<>();
+		final IMap<String, Object> result = GamaMapFactory.createUnordered();
 		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.run(scope, () -> {
 			final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(GAMA.getRuntimeScope()), initialValues, types,
@@ -427,11 +428,11 @@ public class WebGui implements IGui {
 	 * @see msi.gama.common.interfaces.IGui#cleanAfterExperiment(msi.gama.kernel.experiment.IExperimentPlan)
 	 */
 	@Override
-	public void cleanAfterExperiment(final IScope scope) {
+	public void cleanAfterExperiment() {
 		final String uid = RWT.getUISession().getAttribute("user").toString();
 		WorkbenchHelper.hideView(uid, PARAMETER_VIEW_ID);
 		hideMonitorView();
-		getConsole(scope).eraseConsole(true);
+		getConsole().eraseConsole(true);
 		final IGamaView icv = (IGamaView) WorkbenchHelper.findView(GAMA.getRuntimeScope(), INTERACTIVE_CONSOLE_VIEW_ID, null, false);
 		if (icv != null)
 			icv.reset();
@@ -593,12 +594,12 @@ public class WebGui implements IGui {
 	}
 
 	@Override
-	public IConsoleDisplayer getConsole(IScope scope) {
+	public IConsoleDisplayer getConsole() {
 		// final String uid=RWT.getUISession().getAttribute("user").toString();
-		if (scope.getExperiment() != null) {
-			scope = scope.getExperiment().getSpecies().getExperimentScope();
-		}
-		final String uid = WorkbenchHelper.UISession.get(scope);
+//		if (scope.getExperiment() != null) {
+//			scope = scope.getExperiment().getSpecies().getExperimentScope();
+//		}
+		final String uid = "admin";//WorkbenchHelper.UISession.get(scope);
 		return ConsoleDisplayerFactory.displayer.get(uid);// = new
 
 		// return WorkbenchHelper.getService(uid, IConsoleDisplayer.class);

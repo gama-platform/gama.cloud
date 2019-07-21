@@ -9,10 +9,11 @@
  **********************************************************************************************/
 package ummisco.gama.ui.controls;
 
+import java.util.LinkedHashMap;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
-
-import msi.gama.util.TOrderedHashMap;
+ 
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 
 /**
@@ -24,7 +25,7 @@ import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
  */
 public interface IPopupProvider {
 
-	public static class PopupText extends TOrderedHashMap<String, GamaUIColor> {
+	public static class PopupText extends LinkedHashMap<String, GamaUIColor> {
 
 		public static PopupText with(final GamaUIColor color, final String text) {
 			final PopupText p = new PopupText();

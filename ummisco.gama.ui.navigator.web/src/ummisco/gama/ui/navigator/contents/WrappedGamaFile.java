@@ -10,10 +10,11 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
-
-import gnu.trove.map.hash.TObjectIntHashMap;
+ 
 import msi.gama.common.GamlFileExtension;
-import msi.gama.runtime.GAMA; 
+import msi.gama.runtime.GAMA;
+import msi.gama.util.GamaMapFactory;
+import msi.gama.util.IMap;
 import msi.gama.util.file.GamlFileInfo;
 import msi.gama.util.file.IGamaFileMetaData;
 import msi.gaml.compilation.GAML;
@@ -24,7 +25,7 @@ import ummisco.gama.ui.resources.GamaIcons;
 public class WrappedGamaFile extends WrappedFile {
 
 	boolean isExperiment;
-	TObjectIntHashMap<String> uriProblems;
+	IMap<String, Integer> uriProblems;
 
 	public WrappedGamaFile(final WrappedContainer<?> root, final IFile wrapped) {
 		super(root, wrapped);
@@ -39,7 +40,7 @@ public class WrappedGamaFile extends WrappedFile {
 				final String s = marker.getAttribute("URI_KEY", "UNKNOWN");
 				final int severity = marker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
 				if (uriProblems == null) {
-					uriProblems = new TObjectIntHashMap<>();
+					uriProblems = GamaMapFactory.createUnordered();
 				}
 				uriProblems.put(s, severity);
 			}
@@ -127,7 +128,7 @@ public class WrappedGamaFile extends WrappedFile {
 		if (uriProblems == null) { return -1; }
 		final String fragment = uri.toString();
 		final int[] severity = new int[] { -1 };
-		uriProblems.forEachEntry((s, arg1) -> {
+		uriProblems.forEachPair((s, arg1) -> {
 			if (s.startsWith(fragment)) {
 				severity[0] = arg1;
 				return false;

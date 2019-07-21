@@ -11,6 +11,7 @@ package ummisco.gama.opengl.camera;
 
 import java.awt.Point;
 
+import org.apache.commons.math3.util.FastMath;
 import org.eclipse.swt.SWT;
 
 import com.jogamp.opengl.glu.GLU;
@@ -21,8 +22,7 @@ import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.LayeredDisplayData;
-import msi.gaml.operators.Maths;
-import msi.gaml.operators.fastmaths.FastMath;
+import msi.gaml.operators.Maths; 
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
 
