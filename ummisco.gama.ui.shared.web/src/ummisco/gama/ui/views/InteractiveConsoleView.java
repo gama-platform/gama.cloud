@@ -416,7 +416,7 @@ public class InteractiveConsoleView extends GamaViewPart
 	}
 
 	@Override
-	public IExecutionContext createCopyContext() {
+	public IExecutionContext createCopy() {
 		return this;
 	}
 
