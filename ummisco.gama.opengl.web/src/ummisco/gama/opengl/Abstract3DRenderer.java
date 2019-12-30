@@ -417,7 +417,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 * openGl.
 	 */
 	@Override
-	public Rectangle2D drawShape(final Geometry shape, final ShapeDrawingAttributes attributes) {
+	public Rectangle2D drawShape(final Geometry shape, final DrawingAttributes attributes) {
 		if (shape == null) { return null; }
 		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
 		tryToHighlight(attributes);
@@ -434,7 +434,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 *            Integer
 	 */
 	@Override
-	public Rectangle2D drawImage(final BufferedImage img, final FileDrawingAttributes attributes) {
+	public Rectangle2D drawImage(final BufferedImage img, final DrawingAttributes attributes) {
 		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
 		sceneBuffer.getSceneToUpdate().addImage(img, attributes);
 		tryToHighlight(attributes);
@@ -444,7 +444,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 		return rect;
 	}
 
-	protected void tryToHighlight(final FileDrawingAttributes attributes) {
+	protected void tryToHighlight(final DrawingAttributes attributes) {
 		if (highlight) {
 			attributes.setHighlighted(data.getHighlightColor());
 		}
@@ -519,7 +519,7 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	public void defineROI(final Point start, final Point end) {
 		final GamaPoint startInWorld = getRealWorldPointFromWindowPoint(start);
 		final GamaPoint endInWorld = getRealWorldPointFromWindowPoint(end);
-		ROIEnvelope = new Envelope3D(startInWorld.x, endInWorld.x, startInWorld.y, endInWorld.y, 0, 1);
+		ROIEnvelope = Envelope3D.of(startInWorld.x, endInWorld.x, startInWorld.y, endInWorld.y, 0, 1);
 	}
 
 	public void cancelROI() {

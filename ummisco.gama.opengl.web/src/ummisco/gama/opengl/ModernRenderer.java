@@ -12,6 +12,7 @@ package ummisco.gama.opengl;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
 
 import javax.vecmath.Matrix4f;
@@ -22,6 +23,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
+import com.vividsolutions.jts.geom.Geometry;
 
 import msi.gama.common.geometry.Scaling3D;
 import msi.gama.common.interfaces.IDisplaySurface;
@@ -32,6 +34,7 @@ import msi.gama.runtime.GAMA;
 import msi.gama.util.file.GamaFile;
 import msi.gama.util.file.GamaGeometryFile;
 import msi.gama.util.file.GamaImageFile;
+import msi.gaml.statements.draw.DrawingAttributes;
 import msi.gaml.statements.draw.FieldDrawingAttributes;
 import msi.gaml.statements.draw.FileDrawingAttributes;
 import ummisco.gama.modernOpenGL.ModernDrawer;
@@ -332,20 +335,20 @@ public class ModernRenderer extends Abstract3DRenderer {
 		return drawer;
 	}
 
-	@SuppressWarnings ("rawtypes")
-	@Override
-	public Rectangle2D drawFile(final GamaFile file, final FileDrawingAttributes attributes) {
-		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
-		if (attributes.getSize() == null) {
-			attributes.setSize(Scaling3D.of(worldDimensions));
-		}
-		if (file instanceof GamaImageFile)
-			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
-		else if (file instanceof GamaGeometryFile) {
-			sceneBuffer.getSceneToUpdate().addGeometryFile((GamaGeometryFile) file, attributes);
-		}
-		return rect;
-	}
+//	@SuppressWarnings ("rawtypes")
+//	@Override
+//	public Rectangle2D drawFile(final GamaFile file, final FileDrawingAttributes attributes) {
+//		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+//		if (attributes.getSize() == null) {
+//			attributes.setSize(Scaling3D.of(worldDimensions));
+//		}
+//		if (file instanceof GamaImageFile)
+//			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
+//		else if (file instanceof GamaGeometryFile) {
+//			sceneBuffer.getSceneToUpdate().addGeometryFile((GamaGeometryFile) file, attributes);
+//		}
+//		return rect;
+//	}
 
 	@Override
 	public Rectangle2D drawField(final double[] fieldValues, final FieldDrawingAttributes attributes) {
@@ -398,6 +401,24 @@ public class ModernRenderer extends Abstract3DRenderer {
 
 	public GeometryDrawer getGeometryDrawer() {
 		return geometryDrawer;
+	}
+
+	@Override
+	public Rectangle2D drawFile(GamaFile<?, ?> file, DrawingAttributes attributes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Rectangle2D drawImage(BufferedImage img, DrawingAttributes attributes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Rectangle2D drawShape(Geometry shape, DrawingAttributes attributes) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

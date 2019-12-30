@@ -155,7 +155,7 @@ public class GeometryCache {
 		try {
 			return envelopes.get(file.getPath(scope), () -> file.computeEnvelope(scope));
 		} catch (final ExecutionException e) {
-			return new Envelope3D();
+			return Envelope3D.create();
 		}
 	}
 

@@ -162,7 +162,7 @@ public class ModelScene {
 		return configure(currentLayer.addImage(img, attributes));
 	}
 
-	public GeometryObject addGeometry(final Geometry geometry, final ShapeDrawingAttributes attributes) {
+	public GeometryObject addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
 		if (cannotAdd()) { return null; }
 		return configure(currentLayer.addGeometry(geometry, attributes));
 	}

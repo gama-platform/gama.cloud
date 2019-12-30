@@ -75,7 +75,7 @@ public class GeometryObject extends AbstractObject {
 	}
 
 	public GamaColor[] getColors() {
-		return attributes.getColors();
+		return new GamaColor[] {attributes.getColor()};
 	}
 
 	@Override

@@ -19,7 +19,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.JSONParser;
+
+import jdk.nashorn.internal.parser.JSONParser;
 
 /**
  * Connection object for talking to and parsing responses from the Etherpad Lite Server.
@@ -169,11 +171,11 @@ public class EPLiteConnection {
      *
      * @param jsonString a valid JSON string
      * @return Object
-     * @throws org.json.simple.parser.ParseException 
+     * @throws ParseException 
      */
-    protected Object handleResponse(String jsonString) throws org.json.simple.parser.ParseException, ParseException {
-        JSONParser parser = new JSONParser();
-		Map response = (Map) parser.parse(jsonString);
+    protected Object handleResponse(String jsonString) throws ParseException, ParseException {
+        JSONParser parser = new JSONParser(jsonString, null, false);
+		Map response = (Map) parser.parse();
 		// Act on the response code
 		if (response.get("code") != null)  {
 		    int code = ((Long) response.get("code")).intValue();
