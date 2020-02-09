@@ -335,20 +335,22 @@ public class ModernRenderer extends Abstract3DRenderer {
 		return drawer;
 	}
 
-//	@SuppressWarnings ("rawtypes")
-//	@Override
+	@SuppressWarnings ("rawtypes")
+	@Override
+	public Rectangle2D drawFile(GamaFile<?, ?> file, DrawingAttributes attributes) {
+
 //	public Rectangle2D drawFile(final GamaFile file, final FileDrawingAttributes attributes) {
-//		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
-//		if (attributes.getSize() == null) {
-//			attributes.setSize(Scaling3D.of(worldDimensions));
-//		}
-//		if (file instanceof GamaImageFile)
-//			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
-//		else if (file instanceof GamaGeometryFile) {
-//			sceneBuffer.getSceneToUpdate().addGeometryFile((GamaGeometryFile) file, attributes);
-//		}
-//		return rect;
-//	}
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+		if (attributes.getSize() == null) {
+			attributes.setSize(Scaling3D.of(worldDimensions));
+		}
+		if (file instanceof GamaImageFile)
+			sceneBuffer.getSceneToUpdate().addImageFile((GamaImageFile) file, attributes);
+		else if (file instanceof GamaGeometryFile) {
+			sceneBuffer.getSceneToUpdate().addGeometryFile((GamaGeometryFile) file, attributes);
+		}
+		return rect;
+	}
 
 	@Override
 	public Rectangle2D drawField(final double[] fieldValues, final FieldDrawingAttributes attributes) {
@@ -403,22 +405,31 @@ public class ModernRenderer extends Abstract3DRenderer {
 		return geometryDrawer;
 	}
 
-	@Override
-	public Rectangle2D drawFile(GamaFile<?, ?> file, DrawingAttributes attributes) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Rectangle2D drawFile(GamaFile<?, ?> file, DrawingAttributes attributes) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public Rectangle2D drawImage(BufferedImage img, DrawingAttributes attributes) {
 		// TODO Auto-generated method stub
-		return null;
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+		sceneBuffer.getSceneToUpdate().addImage(img, attributes);
+		tryToHighlight(attributes);
+		if (attributes.getBorder() != null) {
+			drawGridLine(new GamaPoint(img.getWidth(), img.getHeight()), attributes.getBorder());
+		}
+		return rect;
 	}
 
 	@Override
 	public Rectangle2D drawShape(Geometry shape, DrawingAttributes attributes) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		if (shape == null) { return null; }
+		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+		tryToHighlight(attributes);
+		sceneBuffer.getSceneToUpdate().addGeometry(shape, attributes);
+		return rect;	}
 
 }

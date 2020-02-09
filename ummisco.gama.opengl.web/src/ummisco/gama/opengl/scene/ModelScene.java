@@ -147,12 +147,12 @@ public class ModelScene {
 		return configure(currentLayer.addString(string, attributes));
 	}
 
-	public GeometryObject addImageFile(final GamaImageFile file, final FileDrawingAttributes attributes) {
+	public GeometryObject addImageFile(final GamaImageFile file, final DrawingAttributes attributes) {
 		if (cannotAdd()) { return null; }
 		return configure(currentLayer.addImage(file, attributes));
 	}
 
-	public ResourceObject addGeometryFile(final GamaGeometryFile file, final FileDrawingAttributes attributes) {
+	public ResourceObject addGeometryFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
 		if (cannotAdd()) { return null; }
 		return configure(currentLayer.addFile(file, attributes));
 	}

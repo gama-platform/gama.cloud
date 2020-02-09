@@ -416,14 +416,14 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 * Method drawShape. Add a given JTS Geometry in the list of all the existing geometry that will be displayed by
 	 * openGl.
 	 */
-	@Override
-	public Rectangle2D drawShape(final Geometry shape, final DrawingAttributes attributes) {
-		if (shape == null) { return null; }
-		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
-		tryToHighlight(attributes);
-		sceneBuffer.getSceneToUpdate().addGeometry(shape, attributes);
-		return rect;
-	}
+//	@Override
+//	public Rectangle2D drawShape(final Geometry shape, final ShapeDrawingAttributes attributes) {
+//		if (shape == null) { return null; }
+//		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+//		tryToHighlight(attributes);
+//		sceneBuffer.getSceneToUpdate().addGeometry(shape, attributes);
+//		return rect;
+//	}
 
 	/**
 	 * Method drawImage.
@@ -433,16 +433,16 @@ public abstract class Abstract3DRenderer extends AbstractDisplayGraphics impleme
 	 * @param angle
 	 *            Integer
 	 */
-	@Override
-	public Rectangle2D drawImage(final BufferedImage img, final DrawingAttributes attributes) {
-		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
-		sceneBuffer.getSceneToUpdate().addImage(img, attributes);
-		tryToHighlight(attributes);
-		if (attributes.getBorder() != null) {
-			drawGridLine(new GamaPoint(img.getWidth(), img.getHeight()), attributes.getBorder());
-		}
-		return rect;
-	}
+//	@Override
+//	public Rectangle2D drawImage(final BufferedImage img, final FileDrawingAttributes attributes) {
+//		if (sceneBuffer.getSceneToUpdate() == null) { return null; }
+//		sceneBuffer.getSceneToUpdate().addImage(img, attributes);
+//		tryToHighlight(attributes);
+//		if (attributes.getBorder() != null) {
+//			drawGridLine(new GamaPoint(img.getWidth(), img.getHeight()), attributes.getBorder());
+//		}
+//		return rect;
+//	}
 
 	protected void tryToHighlight(final DrawingAttributes attributes) {
 		if (highlight) {
