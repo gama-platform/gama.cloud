@@ -120,7 +120,7 @@ public class SWTGraphics2D extends Graphics2D {
 	static org.eclipse.swt.graphics.Rectangle SWT_RECT = new org.eclipse.swt.graphics.Rectangle(0, 0, 0, 0);
 
 	protected Device device;
-	protected AffineTransform transform = new AffineTransform();
+//	protected AffineTransform transform = new AffineTransform();
 	protected org.eclipse.swt.graphics.Font curFont;
 	protected double lineWidth = 1.0;
 	/** The swt graphic composite */
@@ -395,7 +395,7 @@ public class SWTGraphics2D extends Graphics2D {
         return cachedFont;        
     }
 
-    protected org.eclipse.swt.graphics.Font getTransformedFont() {
+    protected org.eclipse.swt.graphics.Font getTransformedFont(AffineTransform transform) {
         if (curFont != null) {
             FontData fontData = curFont.getFontData()[0];
             int height = fontData.getHeight();
@@ -533,7 +533,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        gc.drawPolyline(ptArray);    
 //    }
 
-    public void drawPolyline(double[] pts) {
+    public void drawPolyline(double[] pts, AffineTransform transform) {
         int[] intPts = SWTShapeManager.transform(pts,transform);
         gc.drawPolyline(intPts);            
     }
@@ -550,7 +550,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        gc.drawPolygon(ptArray);
 //    }
 
-    public void fillPolygon(double[] pts) {
+    public void fillPolygon(double[] pts, AffineTransform transform) {
         int[] intPts = SWTShapeManager.transform(pts,transform);
         if(intPts!=null)
         gc.fillPolygon(intPts);
@@ -574,7 +574,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawLine((double)x1,(double)y1,(double)x2,(double)y2);
 //    }
 
-    public void drawLine(double x1, double y1, double x2, double y2) {
+    public void drawLine(double x1, double y1, double x2, double y2, AffineTransform transform) {
         PT.setLocation(x1,y1);
         transform.transform(PT,PT);
         x1 = (int)PT.getX();
@@ -584,7 +584,7 @@ public class SWTGraphics2D extends Graphics2D {
         x2 = (int)PT.getX();
         y2 = (int)PT.getY();
 
-        gc.setLineWidth(getTransformedLineWidth());        
+        gc.setLineWidth(getTransformedLineWidth(transform));        
         gc.drawLine((int)(x1+0.5),(int)(y1+0.5),(int)(x2+0.5),(int)(y2+0.5));
     }
 
@@ -592,7 +592,7 @@ public class SWTGraphics2D extends Graphics2D {
     // FOR NOW - ASSUME NO ROTATION ON THE TRANSFORM FOR THE FOLLOWING CALLS!
     //***************************************************************************
 
-    public void copyArea(org.eclipse.swt.graphics.Image img, double x, double y) {
+    public void copyArea(org.eclipse.swt.graphics.Image img, double x, double y, AffineTransform transform) {
         PT.setLocation(x,y);
         transform.transform(PT,PT);
         
@@ -608,10 +608,10 @@ public class SWTGraphics2D extends Graphics2D {
 ////        gc.copyArea((int)RECT.getX(),(int)RECT.getY(),(int)RECT.getWidth(),(int)RECT.getHeight(),(int)PT.getX(),(int)PT.getY());
 //    }
 
-    public void drawString(String str, double x, double y) {
+    public void drawString(String str, double x, double y, AffineTransform transform) {
         PT.setLocation(x,y);
         transform.transform(PT,PT);
-        gc.setFont(getTransformedFont());
+        gc.setFont(getTransformedFont(transform));
         gc.drawString(str,(int)(PT.getX()+0.5),(int)(PT.getY()+0.5),true);
     }
     
@@ -623,30 +623,30 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawString(str,(double)x,(double)y);
 //    }
 
-    public void drawText(String s, double x, double y) {
+    public void drawText(String s, double x, double y, AffineTransform transform) {
         PT.setLocation(x,y);
         transform.transform(PT,PT);
-        gc.setFont(getTransformedFont());
+        gc.setFont(getTransformedFont(transform));
         gc.drawText(s,(int)(PT.getX()+0.5),(int)(PT.getY()+0.5),true);    
     }
 
-    public void drawText(String s, double x, double y, int flags) {
+    public void drawText(String s, double x, double y, int flags, AffineTransform transform) {
         PT.setLocation(x,y);
         transform.transform(PT,PT);
-        gc.setFont(getTransformedFont());
+        gc.setFont(getTransformedFont(transform));
         gc.drawText(s,(int)(PT.getX()+0.5),(int)(PT.getY()+0.5),flags);    
     }
 
-    public void drawRect(int x, int y, int width, int height) {
-        drawRect((double)x,(double)y,(double)width,(double)height);    
+    public void drawRect(int x, int y, int width, int height, AffineTransform transform) {
+        drawRect((double)x,(double)y,(double)width,(double)height, transform);    
     }
 
-    public void drawRect(double x, double y, double width, double height) {
+    public void drawRect(double x, double y, double width, double height, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         SWTShapeManager.awtToSWT(RECT,SWT_RECT);
         
-        gc.setLineWidth(getTransformedLineWidth());
+        gc.setLineWidth(getTransformedLineWidth(transform));
         gc.drawRectangle(SWT_RECT);
     }
 
@@ -654,7 +654,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        fillRect((double)x,(double)y,(double)width,(double)height);    
 //    }
 
-    public void fillRect(double x, double y, double width, double height) {
+    public void fillRect(double x, double y, double width, double height, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         SWTShapeManager.awtToSWT(RECT,SWT_RECT);
@@ -666,7 +666,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawRoundRect((double)x,(double)y,(double)width,(double)height,(double)arcWidth,(double)arcHeight);
 //    }
 
-    public void drawRoundRect(double x, double y, double width, double height, double arcWidth, double arcHeight) {
+    public void drawRoundRect(double x, double y, double width, double height, double arcWidth, double arcHeight, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);        
         x = RECT.getX();
@@ -679,7 +679,7 @@ public class SWTGraphics2D extends Graphics2D {
         arcWidth = RECT.getWidth();
         arcHeight = RECT.getHeight();
 
-        gc.setLineWidth(getTransformedLineWidth());
+        gc.setLineWidth(getTransformedLineWidth(transform));
         gc.drawRoundRectangle((int)(x+0.5),(int)(y+0.5),(int)(width+0.5),(int)(height+0.5),(int)(arcWidth+0.5),(int)(arcHeight+0.5));        
     }
 
@@ -688,7 +688,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        fillRoundRect((double)x,(double)y,(double)width,(double)height,(double)arcWidth,(double)arcHeight);
 //    }
 
-    public void fillRoundRect(double x, double y, double width, double height, double arcWidth, double arcHeight) {
+    public void fillRoundRect(double x, double y, double width, double height, double arcWidth, double arcHeight, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);        
         x = RECT.getX();
@@ -701,7 +701,7 @@ public class SWTGraphics2D extends Graphics2D {
         arcWidth = RECT.getWidth();
         arcHeight = RECT.getHeight();
 
-        gc.setLineWidth(getTransformedLineWidth());
+        gc.setLineWidth(getTransformedLineWidth(transform));
         gc.fillRoundRectangle((int)(x+0.5),(int)(y+0.5),(int)(width+0.5),(int)(height+0.5),(int)(arcWidth+0.5),(int)(arcHeight+0.5));        
     }
 
@@ -709,11 +709,11 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawOval((double)x,(double)y,(double)width,(double)height);
 //    }
     
-    public void drawOval(double x, double y, double width, double height) {
+    public void drawOval(double x, double y, double width, double height, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         
-        gc.setLineWidth(getTransformedLineWidth());
+        gc.setLineWidth(getTransformedLineWidth(transform));
         gc.drawOval((int)(RECT.getX()+0.5),(int)(RECT.getY()+0.5),(int)(RECT.getWidth()+0.5),(int)(RECT.getHeight()+0.5));
     }
 
@@ -721,7 +721,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        fillOval((double)x,(double)y,(double)width,(double)height);
 //    }
 
-    public void fillOval(double x, double y, double width, double height) {
+    public void fillOval(double x, double y, double width, double height, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         
@@ -733,11 +733,11 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawArc((double)x,(double)y,(double)width,(double)height,(double)startAngle,(double)extent);
 //    }
 
-    public void drawArc(double x, double y, double width, double height, double startAngle, double extent) {
+    public void drawArc(double x, double y, double width, double height, double startAngle, double extent, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         
-        gc.setLineWidth(getTransformedLineWidth());
+        gc.setLineWidth(getTransformedLineWidth(transform));
         gc.drawArc((int)(RECT.getX()+0.5),(int)(RECT.getY()+0.5),(int)(RECT.getWidth()+0.5),(int)(RECT.getHeight()+0.5),(int)(startAngle+0.5),(int)(startAngle+extent+0.5));
     }
 
@@ -745,7 +745,7 @@ public class SWTGraphics2D extends Graphics2D {
 //        drawArc((double)x,(double)y,(double)width,(double)height,(double)startAngle,(double)extent);
 //    }
 
-    public void fillArc(double x, double y, double width, double height, double startAngle, double extent) {
+    public void fillArc(double x, double y, double width, double height, double startAngle, double extent, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         
@@ -756,7 +756,7 @@ public class SWTGraphics2D extends Graphics2D {
     // SWT IMAGE METHODS
     //////////////////////////
 
-    public void drawImage(org.eclipse.swt.graphics.Image image, double x, double y) {
+    public void drawImage(org.eclipse.swt.graphics.Image image, double x, double y, AffineTransform transform) {
         org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
         RECT.setRect(x,y,bounds.width,bounds.height);
         SWTShapeManager.transform(RECT,transform);
@@ -765,7 +765,7 @@ public class SWTGraphics2D extends Graphics2D {
         gc.drawImage(image,0,0,bounds.width,bounds.height,SWT_RECT.x,SWT_RECT.y,SWT_RECT.width,SWT_RECT.height);
     }
 
-    public void drawImage(org.eclipse.swt.graphics.Image image, int srcX, int srcY, int srcW, int srcH, double destX, double destY, double destW, double destH) {
+    public void drawImage(org.eclipse.swt.graphics.Image image, int srcX, int srcY, int srcW, int srcH, double destX, double destY, double destW, double destH, AffineTransform transform) {
         RECT.setRect(destX,destY,destW,destH);
         SWTShapeManager.transform(RECT,transform);
         SWTShapeManager.awtToSWT(RECT,SWT_RECT);
@@ -781,14 +781,14 @@ public class SWTGraphics2D extends Graphics2D {
         this.lineWidth = lineWidth;            
     }
 
-    protected int getTransformedLineWidth() {
+    protected int getTransformedLineWidth(AffineTransform transform) {
         LINE_RECT.setRect(0,0,lineWidth,lineWidth);
         SWTShapeManager.transform(LINE_RECT,transform);
         
         return (int)(Math.max(LINE_RECT.getWidth(),1)+0.5);
     }
     
-    public void fillGradientRectangle(double x, double y, double width, double height, boolean vertical) {
+    public void fillGradientRectangle(double x, double y, double width, double height, boolean vertical, AffineTransform transform) {
         RECT.setRect(x,y,width,height);
         SWTShapeManager.transform(RECT,transform);
         SWTShapeManager.awtToSWT(RECT,SWT_RECT);
@@ -2031,7 +2031,7 @@ public class SWTGraphics2D extends Graphics2D {
 		int width = (int) RECT.getWidth();
 		int height = (int) RECT.getHeight();
 
-		return drawImage(image, x, y, width, height, obs);
+		return drawImage(image, x, y, height, height, obs);
 
 //      return drawImage(img, SWT_RECT.x, SWT_RECT.y, SWT_RECT.height, SWT_RECT.height, obs);
 
