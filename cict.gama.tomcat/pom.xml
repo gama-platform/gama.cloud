@@ -10,7 +10,7 @@
 	<name>cict.gama.tomcat</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tomcat.version>8.5.40</tomcat.version>
+		<tomcat.version>9.0.31</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
