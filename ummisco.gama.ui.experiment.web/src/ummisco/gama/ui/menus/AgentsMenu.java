@@ -132,6 +132,7 @@ public class AgentsMenu extends ContributionItem {
 		return result;
 	}
 
+	private String label="Agents";
 	public AgentsMenu(final String id) {
 		super(id);
 	}
@@ -366,6 +367,9 @@ public class AgentsMenu extends ContributionItem {
 
 	@Override
 	public void fill(final Menu parent, final int index) {
+		if(!parent.getParentItem().getText().equals(label)) {
+			return;
+		}
 		createMenuForAgent(parent, GAMA.getExperiment()!=null? GAMA.getExperiment().getAgent():null, true, true);
 	}
 }

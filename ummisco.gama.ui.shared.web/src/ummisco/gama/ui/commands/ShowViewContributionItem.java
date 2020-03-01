@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
@@ -21,6 +22,7 @@ import org.eclipse.ui.actions.ContributionItemFactory;
 
 public class ShowViewContributionItem extends CompoundContributionItem {
 
+	private String label="Show View";
 	public ShowViewContributionItem() {
 	}
 
@@ -29,12 +31,20 @@ public class ShowViewContributionItem extends CompoundContributionItem {
 	}
 
 	@Override
+	public void fill(Menu menu, int index) {
+		if(!menu.getParentItem().getText().equals(label)) {
+			return;
+		}
+		super.fill(menu, index);
+	}
+
+	@Override
 	protected IContributionItem[] getContributionItems() {
 		final List<IContributionItem> menuContributionList = new ArrayList<>();
 		final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		final IContributionItem item = ContributionItemFactory.VIEWS_SHORTLIST.create(window);
 		menuContributionList.add(item); // add the list of views in the menu
-		return menuContributionList.toArray(new IContributionItem[menuContributionList.size()]);
+		return menuContributionList.toArray(new IContributionItem[0]);
 	}
 
 }

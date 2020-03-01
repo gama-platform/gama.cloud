@@ -291,7 +291,6 @@
                   </reference>
                </visibleWhen>
             </command>
-         </menu>
             <separator
                   name="msi.gama.application.window.views"
                   visible="true">
@@ -310,141 +309,27 @@
                      id="ummisco.gama.ui.experiment.outputs.menu">
                </dynamic>
             </menu>
+            <separator
+                  name="msi.gama.application.window.perspectives"
+                  visible="true">
+            </separator>
             <menu
-                  icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.layout.png"
-                  label="Layout Displays... (Experimental)">
-               <command
-                     commandId="msi.gama.application.layoutDisplays"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/layout.stack.png"
-                     label="Stacked"
-                     style="push">
-                  <parameter
-                        name="msi.gama.displays.layout"
-                        value="Stacked">
-                  </parameter>
-               </command>
-               <command
-                     commandId="msi.gama.application.layoutDisplays"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/layout.grid.png"
-                     label="Split"
-                     style="push">
-                  <parameter
-                        name="msi.gama.displays.layout"
-                        value="Split">
-                  </parameter>
-               </command>
-               <command
-                     commandId="msi.gama.application.layoutDisplays"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/layout.horizontal.png"
-                     label="Horizontally"
-                     style="push">
-                  <parameter
-                        name="msi.gama.displays.layout"
-                        value="Horizontal">
-                  </parameter>
-               </command>
-               <command
-                     commandId="msi.gama.application.layoutDisplays"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/layout.vertical.png"
-                     label="Vertically"
-                     style="push">
-                  <parameter
-                        name="msi.gama.displays.layout"
-                        value="Vertical">
-                  </parameter>
-               </command>
-               <visibleWhen
-                     checkEnabled="false">
-                  <and>
-                     <reference
-                           definitionId="isSimulationReady">
-                     </reference>
-                     <reference
-                           definitionId="isInSimulationPerspective">
-                     </reference>
-                  </and>
-               </visibleWhen>
-               <separator
-                     name="msi.gama.application.separator3"
-                     visible="true">
-               </separator>
-               <command
-                     commandId="msi.gama.application.toggleDisplayTabs"
-                     label="Toggle Tabs"
-                     style="push">
-               </command>
-               <command
-                     commandId="ummisco.gama.ui.experiment.copyLayout"
-                     label="Copy Layout to Clipboard"
-                     style="push">
-               </command>
+                  icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.view2.png"
+                  label="Show View">
+               <dynamic
+                     class="ummisco.gama.ui.commands.ShowViewContributionItem"
+                     id="msi.gama.application.showView">
+               </dynamic>
             </menu>
-            <menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.perspective2.png" label="Switch to Perspective...">
-                  <command
-                        commandId="msi.gama.application.goto.modeling"
-                        icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/perspective.modeling2.png"
-                        label="Modeling"
-                        style="push"
-                        tooltip="Open modeling perspective">
-                     <visibleWhen
-                           checkEnabled="false">
-                        <not>
-                           <reference
-                                 definitionId="isInModelingPerspective">
-                           </reference>
-                        </not>
-                     </visibleWhen>
-                  </command>
-                  <command
-                        commandId="msi.gama.application.goto.simulation"
-                        icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/perspective.simulation2.png"
-                        label="Simulation"
-                        style="push"
-                        tooltip="Open simulation perspective">
-                     <visibleWhen
-                           checkEnabled="false">
-                        <not>
-                           <reference
-                                 definitionId="isInSimulationPerspective">
-                           </reference>
-                        </not>
-                     </visibleWhen>
-                  </command>
-               </menu>
-            <menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.other.png"
-                  label="Other...">
-               
-               <command
-                     commandId="ummisco.gama.ui.resetPerspective"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.reset.perspective2.png"
-                     label="Reset Perspective (restart required)..."
-                     style="push">
-                  <visibleWhen
-                        checkEnabled="false">
-                     <reference
-                           definitionId="isInModelingPerspective">
-                     </reference>
-                  </visibleWhen>
-               </command>
-               <separator
-                     name="msi.gama.application.window.perspectives"
-                     visible="true">
-               </separator>
-               <command
-                     commandId="org.eclipse.ui.ToggleCoolbarAction"
-                     icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.toolbar2.png"
-                     label="Toggle Toolbar"
-                     style="push"
-                     tooltip="Toggle the main toolbar on and off">
-               </command>
-            </menu> 
+            <command
+                  commandId="org.eclipse.ui.ToggleCoolbarAction"
+                  icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.toolbar2.png"
+                  label="Toggle Toolbar"
+                  style="push"
+                  tooltip="Toggle the main toolbar on and off">
+            </command>
+         </menu>
             
-               <menu icon="platform:/plugin/ummisco.gama.ui.shared.web/icons/menu.open.view2.png"
-                     label="Show View">
-                  <dynamic class="ummisco.gama.ui.commands.ShowViewContributionItem"
-                        id="msi.gama.application.showView">
-                  </dynamic>
-               </menu>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:msi.gama.application.common.toolbar?after=msi.gama.application.goto.modeling">

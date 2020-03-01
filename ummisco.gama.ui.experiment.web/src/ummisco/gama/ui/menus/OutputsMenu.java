@@ -20,6 +20,7 @@ import msi.gama.runtime.IScope;
 
 public class OutputsMenu extends ContributionItem {
 
+	private String label="Manage outputs...";
 	@FunctionalInterface
 	private interface ISelecter extends SelectionListener {
 
@@ -36,6 +37,9 @@ public class OutputsMenu extends ContributionItem {
 
 	@Override
 	public void fill(final Menu main, final int index) {
+		if(!main.getParentItem().getText().equals(label)) {
+			return;
+		}
 		IExperimentPlan exp = GAMA.getExperiment();
 		if (exp == null) return;
 		ExperimentAgent agent = exp.getAgent();
