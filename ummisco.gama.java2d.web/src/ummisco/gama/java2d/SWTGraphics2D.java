@@ -109,9 +109,9 @@ import org.eclipse.swt.graphics.Transform;
 public class SWTGraphics2D extends Graphics2D {
 
 	protected static int CACHE_COUNT = 0;
-	protected static HashMap FONT_CACHE = new HashMap();
-	protected static HashMap COLOR_CACHE = new HashMap();
-	protected static HashMap SHAPE_CACHE = new HashMap();
+//	protected static HashMap FONT_CACHE = new HashMap();
+//	protected static HashMap COLOR_CACHE = new HashMap();
+//	protected static HashMap SHAPE_CACHE = new HashMap();
 	protected static BufferedImage BUFFER = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
 	static Point PT = new Point();
@@ -139,13 +139,13 @@ public class SWTGraphics2D extends Graphics2D {
 	private java.awt.Composite composite;
 
 	/** A HashMap to store the Swt color resources. */
-	private Map colorsPool = new HashMap();
+	private HashMap colorsPool = new HashMap();
 
 	/** A HashMap to store the Swt font resources. */
-	private Map fontsPool = new HashMap();
+	private HashMap fontsPool = new HashMap();
 
 	/** A HashMap to store the Swt transform resources. */
-	private Map transformsPool = new HashMap();
+	private HashMap transformsPool = new HashMap();
 
 	/** A List to store the Swt resources. */
 	private List resourcePool = new ArrayList();
@@ -307,10 +307,10 @@ public class SWTGraphics2D extends Graphics2D {
 //    }
 
     public void setBackground(Color c) {
-        org.eclipse.swt.graphics.Color cachedColor = (org.eclipse.swt.graphics.Color)COLOR_CACHE.get(c);
+        org.eclipse.swt.graphics.Color cachedColor = (org.eclipse.swt.graphics.Color)colorsPool.get(c);
         if (cachedColor == null) {
             cachedColor = new org.eclipse.swt.graphics.Color(device,c.getRed(),c.getGreen(),c.getBlue());    
-            COLOR_CACHE.put(c,cachedColor);
+            colorsPool.put(c,cachedColor);
         }
         gc.setBackground(cachedColor);
     }
@@ -371,7 +371,7 @@ public class SWTGraphics2D extends Graphics2D {
     }
 
     public org.eclipse.swt.graphics.Font getFont(String fontString) {
-        org.eclipse.swt.graphics.Font cachedFont = (org.eclipse.swt.graphics.Font)FONT_CACHE.get(fontString);
+        org.eclipse.swt.graphics.Font cachedFont = (org.eclipse.swt.graphics.Font)fontsPool.get(fontString);
         if (cachedFont == null) {
             int style = 0;
             if (fontString.indexOf("bold=true") != -1) {
@@ -390,7 +390,7 @@ public class SWTGraphics2D extends Graphics2D {
             catch (Exception e) {e.printStackTrace();}
             
             cachedFont = new org.eclipse.swt.graphics.Font(device,name.substring(name.indexOf("=")+1,name.length()),sizeInt,style);
-            FONT_CACHE.put(fontString,cachedFont);
+            fontsPool.put(fontString,cachedFont);
         }
         return cachedFont;        
     }
@@ -1076,30 +1076,30 @@ public class SWTGraphics2D extends Graphics2D {
     // CLEAN-UP METHODS
     /////////////////////////////////
 
-    public static void incrementGCCount() {
-        CACHE_COUNT++;        
-    }
+//    public static void incrementGCCount() {
+//        CACHE_COUNT++;        
+//    }
 
-    public static void decrementGCCount() {
-        CACHE_COUNT--;
-
-        if (CACHE_COUNT == 0) {
-            synchronized(FONT_CACHE){
-                for(Iterator i=FONT_CACHE.values().iterator(); i.hasNext();) {
-                    org.eclipse.swt.graphics.Font font = (org.eclipse.swt.graphics.Font)i.next();
-                    font.dispose();
-                }
-                FONT_CACHE.clear();
-            }
-            synchronized(COLOR_CACHE){
-                for(Iterator i=COLOR_CACHE.values().iterator(); i.hasNext();) {
-                    org.eclipse.swt.graphics.Color color = (org.eclipse.swt.graphics.Color)i.next();
-                    color.dispose();
-                }
-                COLOR_CACHE.clear();
-            }
-        }
-    }
+//    public static void decrementGCCount() {
+//        CACHE_COUNT--;
+//
+//        if (CACHE_COUNT == 0) {
+//            synchronized(fontsPool){
+//                for(Iterator i=fontsPool.values().iterator(); i.hasNext();) {
+//                    org.eclipse.swt.graphics.Font font = (org.eclipse.swt.graphics.Font)i.next();
+//                    font.dispose();
+//                }
+//                fontsPool.clear();
+//            }
+//            synchronized(fontsPool){
+//                for(Iterator i=fontsPool.values().iterator(); i.hasNext();) {
+//                    org.eclipse.swt.graphics.Color color = (org.eclipse.swt.graphics.Color)i.next();
+//                    color.dispose();
+//                }
+//                COLOR_CACHE.clear();
+//            }
+//        }
+//    }
 	
 	
 	
@@ -1319,10 +1319,10 @@ public class SWTGraphics2D extends Graphics2D {
 		if (c == null) {
 			c = Color.BLACK;
 		}
-		org.eclipse.swt.graphics.Color cachedColor = (org.eclipse.swt.graphics.Color) COLOR_CACHE.get(c);
+		org.eclipse.swt.graphics.Color cachedColor = (org.eclipse.swt.graphics.Color) colorsPool.get(c);
 		if (cachedColor == null) {
 			cachedColor = new org.eclipse.swt.graphics.Color(device, c.getRed(), c.getGreen(), c.getBlue());
-			COLOR_CACHE.put(c, cachedColor);
+			colorsPool.put(c, cachedColor);
 		}
 		gc.setForeground(cachedColor);
 		gc.setBackground(cachedColor);

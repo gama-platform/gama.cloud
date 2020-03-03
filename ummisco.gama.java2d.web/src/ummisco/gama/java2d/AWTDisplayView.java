@@ -15,15 +15,20 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.progress.UIJob;
 
 import msi.gama.outputs.IDisplayOutput;
+import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.swing.SwingControl;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.LayeredDisplayView;
@@ -32,16 +37,30 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 	public static long REALIZATION_TIME_OUT = 1000;
 	public boolean isVisible;
-	
+
+	@Override
+	public void update(IDisplayOutput output) {
+		// TODO Auto-generated method stub
+		super.update(output);
+		if (output.isSynchronized() && !canvas.isDisposed()) {
+			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> canvas.redraw());
+		} 
+
+	}
+
 	@Override
 	public Java2DDisplaySurface getDisplaySurface() {
 		return (Java2DDisplaySurface) super.getDisplaySurface();
 	}
 
+	Canvas canvas;
+
 	@Override
 	protected Composite createSurfaceComposite(final Composite parent) {
 
-		if (getOutput() == null) { return null; }
+		if (getOutput() == null) {
+			return null;
+		}
 
 		surfaceComposite = new SwingControl(parent, SWT.NO_FOCUS) {
 
@@ -72,7 +91,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 			}
 
 			@Override
-			public void afterComponentCreatedSWTThread() {}
+			public void afterComponentCreatedSWTThread() {
+			}
 
 			@Override
 			public void checkWidget() {
@@ -80,32 +100,35 @@ public class AWTDisplayView extends LayeredDisplayView {
 			}
 
 			@Override
-			public void afterComponentCreatedAWTThread() {}
+			public void afterComponentCreatedAWTThread() {
+			}
 		};
 		surfaceComposite.setEnabled(false);
 		WorkaroundForIssue1594.installOn(AWTDisplayView.this, parent, surfaceComposite, getDisplaySurface());
 //		int width=(int) this.getOutput().getScope().getSimulation().getEnvelope().getWidth();
 //		int height=(int) this.getOutput().getScope().getSimulation().getEnvelope().getHeight();
-		Canvas canvas=new Canvas(surfaceComposite, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED);
+		canvas = new Canvas(surfaceComposite, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED);
 		canvas.addPaintListener(new PaintListener() {
-			
+
 			@Override
 			public void paintControl(PaintEvent arg0) {
 				// TODO Auto-generated method stub
 //				GC gc=new GC(canvas);
-				if(getDisplaySurface()!=null) {					
-					getDisplaySurface().setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
+				if (getDisplaySurface() != null) {
+					getDisplaySurface()
+							.setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
-					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc);
-					SWTGraphics2D.SWT_RECT.width=surfaceComposite.getSize().x;
-					SWTGraphics2D.SWT_RECT.height=surfaceComposite.getSize().y;
-					
+					SWTGraphics2D renderer = new SWTGraphics2D(arg0.gc);
+					SWTGraphics2D.SWT_RECT.width = surfaceComposite.getSize().x;
+					SWTGraphics2D.SWT_RECT.height = surfaceComposite.getSize().y;
+
 //					getDisplaySurface().setBounds(new Rectangle(width, height));
 //					getDisplaySurface().resizeImage(width, height, true);
 //					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
 //					renderer.SWT_RECT.width=width;
 //					renderer.SWT_RECT.height=height;
 					getDisplaySurface().paintComponent(renderer);
+//					renderer.dispose();
 				}
 			}
 		});
@@ -113,9 +136,11 @@ public class AWTDisplayView extends LayeredDisplayView {
 	}
 
 	/**
-	 * Wait for the AWT environment to be initialized, preventing a thread lock when two views want to open at the same
-	 * time. Must not be called in neither the AWT or the SWT thread. A configurable timeout is applied, so that other
-	 * views are not blocked. It remains to be seen what to do if this times out, as we should normally cancel the view.
+	 * Wait for the AWT environment to be initialized, preventing a thread lock when
+	 * two views want to open at the same time. Must not be called in neither the
+	 * AWT or the SWT thread. A configurable timeout is applied, so that other views
+	 * are not blocked. It remains to be seen what to do if this times out, as we
+	 * should normally cancel the view.
 	 * 
 	 * @see msi.gama.common.interfaces.IGamaView#waitToBeRealized()
 	 */
@@ -134,7 +159,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 	// // e.printStackTrace();
 	// // }
 	// // now = System.currentTimeMillis();
-	// // openable = now - start > REALIZATION_TIME_OUT || this.getDisplaySurface().isRealized();
+	// // openable = now - start > REALIZATION_TIME_OUT ||
+	// this.getDisplaySurface().isRealized();
 	// // }
 	// // DEBUG.LOG("Realized in " + (now - start) + "ms");
 	//
@@ -154,7 +180,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 	@Override
 	public void setIndex(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
