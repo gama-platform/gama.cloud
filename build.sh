@@ -6,4 +6,6 @@ cd GamaWeb
 mvn clean install 
 cd ../../cict.gama.tomcat
 mvn clean install
-cd ..
+cd target
+cp tomcat_launcher.jar GamaWeb
+cd ../..

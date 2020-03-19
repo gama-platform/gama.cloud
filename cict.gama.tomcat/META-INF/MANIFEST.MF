@@ -129,4 +129,4 @@ Bundle-ClassPath: lib/ecj-3.12.3.jar,
  lib/tomcat-embed-el-8.0.48.jar,
  lib/tomcat-embed-jasper-8.0.48.jar,
  lib/tomcat-embed-logging-juli-8.0.48.jar
-Require-Bundle: javax.servlet;bundle-version="3.1.0"
+Require-Bundle: javax.servlet
