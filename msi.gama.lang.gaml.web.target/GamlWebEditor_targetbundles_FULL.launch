@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.rap.ui.launch.RAPLauncher">
+<booleanAttribute key="append.args" value="true"/>
+<booleanAttribute key="askclear" value="false"/>
+<booleanAttribute key="automaticAdd" value="false"/>
+<booleanAttribute key="automaticValidate" value="true"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="true"/>
+<booleanAttribute key="clearws" value="true"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/GamlWebEditor_targetbundles_FULL"/>
+<booleanAttribute key="default" value="true"/>
+<booleanAttribute key="default_auto_start" value="true"/>
+<intAttribute key="default_start_level" value="4"/>
+<booleanAttribute key="includeOptional" value="true"/>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -console -data @noDefault"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.8 -XX:+UseG1GC -XX:+UseStringDeduplication -Dosgi.requiredJavaVersion=1.8 -Xms256m -Xmx4096m -Declipse.ignoreApp=true -Dosgi.noShutdown=true&#13;&#10;-Dorg.eclipse.equinox.http.jetty.log.stderr.threshold=none"/>
+<stringAttribute key="org.eclipse.rap.launch.browserMode" value="INTERNAL"/>
+<stringAttribute key="org.eclipse.rap.launch.contextpath" value="/offline_GamaWeb"/>
+<stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.tools.launch/GamlWebEditor_targetbundles_FULL"/>
+<booleanAttribute key="org.eclipse.rap.launch.developmentMode" value="false"/>
+<booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="false"/>
+<intAttribute key="org.eclipse.rap.launch.port" value="10080"/>
+<stringAttribute key="org.eclipse.rap.launch.servletPath" value="/texteditor"/>
+<intAttribute key="org.eclipse.rap.launch.sessionTimeout" value="0"/>
+<booleanAttribute key="org.eclipse.rap.launch.useDefaultDataLocation" value="true"/>
+<booleanAttribute key="org.eclipse.rap.launch.useManualContextPath" value="true"/>
+<booleanAttribute key="org.eclipse.rap.launch.useManualPort" value="true"/>
+<booleanAttribute key="org.eclipse.rap.launch.useSessionTimeout" value="false"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<booleanAttribute key="show_selected_only" value="false"/>
+<stringAttribute key="target_bundles" value="com.google.guava,com.google.inject,com.ibm.icu,javax.annotation,javax.inject,javax.persistence,javax.servlet*2.4.0.v200806031604,javax.servlet*3.1.0.v201410161800,javax.xml,msi.gama.core,msi.gama.ext,msi.gama.lang.gaml,msi.gama.models,msi.gama.processor,org.antlr.runtime*3.2.0.v201101311130,org.antlr.runtime*4.3.0.v201502022030,org.antlr.runtime*4.7.1.v20181120-0808,org.apache.commons.compress,org.apache.commons.fileupload*1.3.1.201405120000,org.apache.commons.fileupload*1.3.2.v20170320-2229,org.apache.commons.io*2.2.0.201405120000,org.apache.commons.io*2.6.0.v20190123-2029,org.apache.commons.jxpath,org.apache.commons.lang,org.apache.felix.gogo.command,org.apache.felix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.scr,org.apache.log4j,org.eclipse.compare.core,org.eclipse.core.commands,org.eclipse.core.contenttype,org.eclipse.core.databinding,org.eclipse.core.databinding.observable,org.eclipse.core.databinding.property,org.eclipse.core.expressions,org.eclipse.core.filebuffers,org.eclipse.core.filesystem,org.eclipse.core.jobs,org.eclipse.core.resources,org.eclipse.core.runtime,org.eclipse.core.variables,org.eclipse.emf.common,org.eclipse.emf.ecore,org.eclipse.emf.ecore.change,org.eclipse.emf.ecore.edit,org.eclipse.emf.ecore.xmi,org.eclipse.emf.edit,org.eclipse.emf.rap.common.ui,org.eclipse.emf.rap.edit.ui,org.eclipse.equinox.app,org.eclipse.equinox.bidi,org.eclipse.equinox.common,org.eclipse.equinox.console,org.eclipse.equinox.http.jetty,org.eclipse.equinox.http.registry,org.eclipse.equinox.http.servlet,org.eclipse.equinox.p2.core,org.eclipse.equinox.p2.engine,org.eclipse.equinox.p2.metadata,org.eclipse.equinox.p2.metadata.repository,org.eclipse.equinox.p2.repository,org.eclipse.equinox.preferences,org.eclipse.equinox.registry,org.eclipse.equinox.security,org.eclipse.equinox.util,org.eclipse.gemini.jpa@2:default,org.eclipse.help,org.eclipse.jetty.continuation,org.eclipse.jetty.http,org.eclipse.jetty.io,org.eclipse.jetty.security,org.eclipse.jetty.server,org.eclipse.jetty.servlet,org.eclipse.jetty.util,org.eclipse.jface,org.eclipse.jface.databinding,org.eclipse.jface.text,org.eclipse.ltk.core.refactoring,org.eclipse.osgi,org.eclipse.osgi.compatibility.state,org.eclipse.osgi.services,org.eclipse.osgi.util,org.eclipse.pde.ds.lib,org.eclipse.persistence.antlr,org.eclipse.persistence.asm,org.eclipse.persistence.core,org.eclipse.persistence.jpa.jpql@default:default,org.eclipse.persistence.jpa@default:default,org.eclipse.rap.addons.filedialog,org.eclipse.rap.addons.fileupload,org.eclipse.rap.design.example,org.eclipse.rap.filedialog,org.eclipse.rap.fileupload,org.eclipse.rap.jface,org.eclipse.rap.jface.databinding,org.eclipse.rap.rwt,org.eclipse.rap.rwt.osgi,org.eclipse.rap.ui,org.eclipse.rap.ui.forms,org.eclipse.rap.ui.navigator,org.eclipse.rap.ui.views,org.eclipse.rap.ui.workbench,org.eclipse.swt,org.eclipse.team.core,org.eclipse.text,org.eclipse.xtend.lib,org.eclipse.xtend.lib.macro,org.eclipse.xtext,org.eclipse.xtext.ide,org.eclipse.xtext.logging,org.eclipse.xtext.smap,org.eclipse.xtext.util,org.eclipse.xtext.xbase.lib,org.hamcrest.core,org.junit,org.tukaani.xz,org.w3c.css.sac,org.w3c.dom.events,org.w3c.dom.smil,org.w3c.dom.svg,osgi.enterprise,ummisco.gama.annotations"/>
+<booleanAttribute key="tracing" value="true"/>
+<booleanAttribute key="useCustomFeatures" value="false"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<stringAttribute key="workspace_bundles" value="cict.gama.web.wrapper,msi.gama.application.web,msi.gama.core.web,msi.gama.lang.gaml.web,msi.gama.processor,org.dslforge.styledtext,org.dslforge.texteditor,org.dslforge.workspace,org.dslforge.workspace.config,org.dslforge.workspace.jpa@3:default,org.dslforge.workspace.ui,org.dslforge.xtext.common,ummisco.gama.java2d.web,ummisco.gama.opengl.web,ummisco.gama.participative,ummisco.gama.ui.experiment.web,ummisco.gama.ui.modeling.web,ummisco.gama.ui.navigator.web,ummisco.gama.ui.shared.web"/>
+</launchConfiguration>
