@@ -28,7 +28,7 @@
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit"> 
 <repository location="http://download.eclipse.org/rt/eclipselink/updates/"/>
-	<unit id="org.eclipse.persistence.sdk.feature.group" version="1.1.3.v20091002-r5404"/>
+	<unit id="org.eclipse.persistence.sdk.feature.group" version="2.7.3.v20180807-4be1041"/>
 </location>
 	<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 		<repository location="http://download.eclipse.org/releases/2019-03"/>
@@ -78,16 +78,16 @@
 
 	</location>
 	<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="ummisco.gama.feature.core.extensions.feature.group" version="1.7.0.202003080852"/>
-<unit id="ummisco.gama.feature.core.feature.group" version="1.7.0.202003080852"/>
-<unit id="ummisco.gama.feature.dependencies.feature.group" version="1.7.0.202003080852"/>
 		<repository location="file:/C:/git/gama/msi.gama.p2updatesite/target/repository/"/>
-		<unit id="simtools.graphlayout.feature.feature.group" version="1.7.0.202003080852"/>
-		<unit id="ummisco.gama.feature.audio.feature.group" version="1.7.0.202003080852"/>
-		<unit id="ummisco.gama.feature.models.feature.group" version="1.7.0.202003080852"/>
-		<unit id="ummisco.gama.feature.network.feature.group" version="1.7.0.202003080852"/>
-		<unit id="ummisco.gama.feature.serialize.feature.group" version="1.7.0.202003080852"/>
-		<unit id="ummisco.gama.feature.stats.feature.group" version="1.7.0.202003080852"/>
+		<unit id="ummisco.gama.feature.core.extensions.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.core.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.dependencies.feature.group" version="0.0.0"/>
+		<unit id="simtools.graphlayout.feature.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.audio.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.models.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.network.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.serialize.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.stats.feature.group" version="0.0.0"/>
 	</location>
 </locations>
 <environment>
