@@ -38,9 +38,9 @@
  		<module>../ummisco.gama.ui.experiment.web</module>	
  		<module>../ummisco.gama.opengl.web</module>	
  		<module>../ummisco.gama.java2d.web</module>	
+ 		<module>../ummisco.gama.participative</module>	
  		
 		<!-- 
- 		<module>../ummisco.gama.participative</module>	
     	<module>GamaWeb</module>
 		 -->
 		 

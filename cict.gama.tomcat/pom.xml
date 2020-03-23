@@ -10,7 +10,7 @@
 	<name>cict.gama.tomcat</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tomcat.version>8.5.40</tomcat.version>
+		<tomcat.version>8.0.48</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,8 +26,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<!--   <version>${tomcat.version}</version> -->
-    		<version>9.0.0.M1</version>
+			<version>${tomcat.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
