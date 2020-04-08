@@ -361,8 +361,8 @@ public class WorkbenchHelper {
 		return service.getCommand(string);
 	}
 
-	public static void runInUI(final String title, final int scheduleTime, final Consumer<IProgressMonitor> run) {
-		final UIJob job = new UIJob(title) {
+	public static void runInUI(final String title, final int scheduleTime, final Consumer<IProgressMonitor> run) { 
+		final UIJob job = new UIJob(getDisplay(GAMA.getRuntimeScope()), title) {
 
 			@Override
 			public IStatus runInUIThread(final IProgressMonitor monitor) {

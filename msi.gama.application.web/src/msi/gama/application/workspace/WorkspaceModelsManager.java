@@ -502,8 +502,9 @@ public class WorkspaceModelsManager {
 					try {
 						
 					IProject proj = workspace.getRoot().getProject(project.getName());
+					System.out.println(proj.getFullPath()+" "+proj.exists());
 					if ( !proj.exists() ) {
-						IProjectDescription wd= workspace.loadProjectDescription(location);						
+						IProjectDescription wd= workspace.loadProjectDescription(location);					
 						proj.create(wd, monitor);
 					} else {
 						// project exists but is not accessible
