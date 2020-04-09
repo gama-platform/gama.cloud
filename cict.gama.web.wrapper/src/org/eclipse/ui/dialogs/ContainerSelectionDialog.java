@@ -19,4 +19,14 @@ public class ContainerSelectionDialog {
 		return 0;
 	}
 
+	public void setTitle(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void showClosedProjects(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
