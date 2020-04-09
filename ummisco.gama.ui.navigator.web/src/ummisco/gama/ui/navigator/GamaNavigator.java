@@ -18,9 +18,14 @@ import java.util.List;
 import org.dslforge.workspace.IWorkspaceListener;
 import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -33,6 +38,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.SameShellProvider;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -41,6 +47,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IDecoratorManager;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IPartService;
@@ -56,8 +63,17 @@ import org.eclipse.ui.internal.navigator.actions.LinkEditorAction;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonNavigatorManager;
 import org.eclipse.ui.navigator.CommonViewer;
-
+import org.eclipse.xtext.resource.XtextResource;
+import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.common.preferences.GamaPreferences;
+import msi.gama.core.web.editor.GAMAWEB;
+import msi.gama.kernel.model.IModel;
+import msi.gama.lang.gaml.resource.GamlResource;
+import msi.gama.lang.gaml.validation.GamlModelBuilder; 
+import msi.gama.runtime.GAMA;
+import msi.gama.runtime.exceptions.GamaRuntimeException;
+import msi.gaml.compilation.GamlCompilationError;
+import ummisco.gama.ui.interfaces.IModelRunner;
 import ummisco.gama.ui.navigator.contents.NavigatorRoot;
 import ummisco.gama.ui.navigator.contents.TopLevelFolder;
 import ummisco.gama.ui.navigator.contents.VirtualContent;
@@ -68,6 +84,8 @@ import ummisco.gama.ui.navigator.contents.WrappedResource;
 import ummisco.gama.ui.navigator.contents.WrappedSyntacticContent;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor;
 import ummisco.gama.ui.utils.PlatformHelper;
+import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.IGamlEditor;
 import ummisco.gama.ui.views.toolbar.GamaCommand;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
@@ -163,11 +181,7 @@ public class GamaNavigator extends CommonNavigator implements IToolbarDecoratedV
 		properties =
 				new PropertyDialogAction(new SameShellProvider(getSite().getShell()), getSite().getSelectionProvider());
 		findControl.initialize();
-//		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/Agent Perception/Continuous Field of Vision.gaml");		
-//		IPath p=new Path("C:/git/gama/msi.gama.models/models/Features/3D Visualization/models/Built-In Shapes.gaml"); 
-//		IPath p=new Path("C:\\git\\gama\\msi.gama.models\\models\\Toy Models\\Segregation (Schelling)\\models\\Segregation (Agents).gaml"); 
-//		EditorUtil.openEditor(PlatformUI.getWorkbench(),p,true);
-
+		
 	}
 
 	@Override

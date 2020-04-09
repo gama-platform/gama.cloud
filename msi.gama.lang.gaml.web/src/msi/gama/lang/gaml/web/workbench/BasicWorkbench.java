@@ -356,8 +356,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				if (!exist) {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
-				}
-
+				} 
+				RWT.getApplicationContext().setAttribute("_model", getParameter("model"));
+				RWT.getApplicationContext().setAttribute("_exp", getParameter("exp"));
 				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);

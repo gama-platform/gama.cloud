@@ -46,6 +46,7 @@ import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.resources.IGamaIcons;
 import ummisco.gama.ui.resources.GamaColors.GamaUIColor; 
 import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.IGamlEditor;
 import ummisco.gama.ui.views.toolbar.GamaToolbar2;
 import ummisco.gama.ui.views.toolbar.GamaToolbarFactory;
 import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
@@ -59,7 +60,7 @@ import ummisco.gama.ui.views.toolbar.Selector;
  * @since 4 mars 2012
  */
 @SuppressWarnings ("all")
-public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListener, IToolbarDecoratedView {
+public class GamlEditor extends AbstractGamlEditor  implements IGamlEditor, IGamlBuilderListener, IToolbarDecoratedView {
 
 	static {
 //		final IPreferenceStore store = EditorsUI.getPreferenceStore();
@@ -307,7 +308,7 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlBuilderListe
 			final GamlEditorState newState = new GamlEditorState(status, newExperiments);
 			updateToolbar(newState, false);
 			state = newState;
-		}
+		} 
 	}
 
 

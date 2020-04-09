@@ -17,12 +17,16 @@ package msi.gama.lang.gaml.web.workbench;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.dslforge.workspace.jpa.database.User;
+import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
@@ -30,21 +34,29 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.xtext.resource.XtextResource;
 
-
+import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.IWorkbenchConstants;
+import msi.gama.kernel.model.IModel;
+import msi.gama.lang.gaml.resource.GamlResource;
+import msi.gama.lang.gaml.validation.GamlModelBuilder;
 import msi.gama.runtime.GAMA;
+import msi.gama.runtime.exceptions.GamaRuntimeException;
+import msi.gaml.compilation.GamlCompilationError;
 import ummisco.gama.ui.factories.ConsoleDisplayer;
 import ummisco.gama.ui.factories.ConsoleDisplayerFactory;
 import ummisco.gama.ui.factories.StatusDisplayer;
 import ummisco.gama.ui.factories.StatusDisplayerFactory;
 import ummisco.gama.ui.utils.WebGui;
 import ummisco.gama.ui.utils.WorkbenchHelper;
+import ummisco.gama.ui.views.IGamlEditor;
 
 /**
  * This workbench advisor creates the window advisor, and specifies
@@ -156,6 +168,21 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		ConsoleDisplayerFactory.displayer.put(loggedUser, new ConsoleDisplayer(loggedUser));
 //		StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 
+		
+		
+		
+
+		Object _model = RWT.getApplicationContext().getAttribute("_model");
+		if (_model != null) { 
+			Object _e = RWT.getApplicationContext().getAttribute("_exp");
+			String _exp = "";
+			if (_e != null) {
+				_exp = "#" + _e;
+			}
+ 
+			WorkspaceModelsManager.instance.openModelPassedAsArgument("" + _model + _exp);
+
+		}
 	}
 
 	@Override

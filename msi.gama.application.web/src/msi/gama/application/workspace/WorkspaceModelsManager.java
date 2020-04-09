@@ -46,6 +46,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -391,7 +392,7 @@ public class WorkspaceModelsManager {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
 				// DEBUG.OUT("Asynchronous link of models library...");
-				GAMA.getGui().refreshNavigator();
+//				GAMA.getGui().refreshNavigator();
 				return GamaBundleLoader.ERRORED ? Status.CANCEL_STATUS : Status.OK_STATUS;
 			}
 
@@ -489,33 +490,34 @@ public class WorkspaceModelsManager {
 		for ( final Map.Entry<File, IPath> entry : projects.entrySet() ) {
 			final File project = entry.getKey();
 			final IPath location = entry.getValue();
-			final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-
-				@Override
-				protected void execute(final IProgressMonitor monitor)
-					throws CoreException, InvocationTargetException, InterruptedException {
-					IProject proj = workspace.getRoot().getProject(project.getName());
-					if ( !proj.exists() ) {
-						proj.create(workspace.loadProjectDescription(location), monitor);
-					} else {
-						// project exists but is not accessible
-						if ( !proj.isAccessible() ) {
-							proj.delete(true, null);
-							proj = workspace.getRoot().getProject(project.getName());
-							proj.create(workspace.loadProjectDescription(location), monitor);
+//			Job jj =new Job("aa") {
+//				
+//				@Override
+//				protected IStatus run(IProgressMonitor monitor) {
+					try {
+						NullProgressMonitor npm=new NullProgressMonitor();
+						IProject proj = workspace.getRoot().getProject(project.getName());
+						if ( !proj.exists() ) {
+							IProjectDescription wd = workspace.loadProjectDescription(location);
+							proj.create(wd, npm);
+						} else {
+							// project exists but is not accessible
+							if ( !proj.isAccessible() ) {
+								proj.delete(true, npm);
+								proj = workspace.getRoot().getProject(project.getName());
+								proj.create(workspace.loadProjectDescription(location), npm);
+							}
 						}
+						proj.open(IResource.NONE, npm);
+						setValuesProjectDescription(proj, true, !core, tests, plugin);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+//						return Status.CANCEL_STATUS;
 					}
-					proj.open(IResource.NONE, monitor);
-					setValuesProjectDescription(proj, true, !core, tests, plugin);
-				}
-			};
-			try {
-				operation.run(null);
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
-			} catch (final InvocationTargetException e) {
-				e.printStackTrace();
-			}
+//					return Status.OK_STATUS;
+//				}
+//			};
+//			jj.schedule(0);
 		}
 
 	}
@@ -587,10 +589,10 @@ public class WorkspaceModelsManager {
 			}
 			proj.setDescription(desc, IResource.FORCE, null);
 			// Addition of a special persistent property to indicate that the project is built-in
-			if ( builtin ) {
-				proj.setPersistentProperty(BUILTIN_PROPERTY,
-					Platform.getProduct().getDefiningBundle().getVersion().toString());
-			}
+//			if ( builtin ) {
+//				proj.setPersistentProperty(BUILTIN_PROPERTY,
+//					Platform.getProduct().getDefiningBundle().getVersion().toString());
+//			}
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
@@ -637,7 +639,7 @@ public class WorkspaceModelsManager {
 					IPath p = new Path(f.getAbsolutePath());
 					p = p.append(".project");
 					final IProjectDescription pd = ResourcesPlugin.getWorkspace().loadProjectDescription(p);
-					if ( pd.hasNature(this.GAMA_NATURE) ) { return true; }
+					if ( pd.hasNature(WorkspaceModelsManager.GAMA_NATURE) ) { return true; }
 				}
 			}
 		}

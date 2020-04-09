@@ -10,8 +10,11 @@
  **********************************************************************************************/
 package ummisco.gama.ui.views;
 
+import org.eclipse.xtext.resource.XtextResource;
+
 public interface IGamlEditor {
 
 	// Tagging interface
 
+	public XtextResource getXtextResource();
 }
