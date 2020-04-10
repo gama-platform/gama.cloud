@@ -18,50 +18,31 @@ package msi.gama.lang.gaml.web.workbench;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dslforge.workspace.jpa.database.User;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.ProgressMonitorWrapper;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
-import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.service.UISession;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
 import msi.gama.application.Application;
-import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
@@ -264,7 +245,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		System.out.println(getIpAddr(RWT.getRequest()));
 		String webContext = RWT.getRequest().getContextPath();
 		
-		if (webContext.startsWith("/" + offline_context)) {
+		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(getIpAddr(RWT.getRequest())) || "0:0:0:0:0:0:0:1".equals(getIpAddr(RWT.getRequest()))) {
 			enableLoggin = false;
 			System.out.println("the offline prefix ");
 		}
@@ -357,8 +338,23 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
 				} 
-				RWT.getApplicationContext().setAttribute("_model", getParameter("model"));
-				RWT.getApplicationContext().setAttribute("_exp", getParameter("exp"));
+//				RWT.getRequest().setCharacterEncoding("UTF-8");
+//				RWT.getResponse().setCharacterEncoding("UTF-8");
+//				RWT.getResponse().setContentType("text/html; charset=UTF-8");
+				String mm=""+getParameter("model");//.replace("\\", "\\\\");
+//				System.out.println(URLDecoder.decode(mm,"UTF-8"));
+//				System.out.println(URLDecoder.decode(""+getParameter("exp"),"UTF-8"));
+//				try {
+//					System.out.println("sss");
+//					System.out.println(URLDecoder.decode("C:\\Spatial%20Topology\\Agent%20movement\\models\\Continuous%20Field%20of%20Vision.gaml","UTF-8"));
+//					System.out.println("bbb");
+//					
+//				} catch (UnsupportedEncodingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm,"UTF-8"));
+				RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(""+getParameter("exp"),"UTF-8"));
 				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);
