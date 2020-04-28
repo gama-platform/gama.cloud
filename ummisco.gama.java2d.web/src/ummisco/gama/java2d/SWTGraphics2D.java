@@ -2025,13 +2025,13 @@ public class SWTGraphics2D extends Graphics2D {
 //      return false;
 
 		RECT.setRect(0, 0, SWT_RECT.width, SWT_RECT.height);
-		SWTShapeManager.transform(RECT, xform);
+//		SWTShapeManager.transform(RECT, xform);
 		int x = (int) RECT.getX();
 		int y = (int) RECT.getY();
 		int width = (int) RECT.getWidth();
 		int height = (int) RECT.getHeight();
 
-		return drawImage(image, x, y, height, height, obs);
+		return drawImage(image, x, y, width, height, obs);
 
 //      return drawImage(img, SWT_RECT.x, SWT_RECT.y, SWT_RECT.height, SWT_RECT.height, obs);
 

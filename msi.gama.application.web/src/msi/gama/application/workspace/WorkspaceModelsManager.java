@@ -260,7 +260,7 @@ public class WorkspaceModelsManager {
 						// We open the project
 						proj.open(IResource.NONE, monitor);
 						// And we set some properties to it
-						setValuesProjectDescription(proj, false, false, false, null);
+//						setValuesProjectDescription(proj, false, false, false, null);
 					}
 				};
 				operation.run(new NullProgressMonitor() {

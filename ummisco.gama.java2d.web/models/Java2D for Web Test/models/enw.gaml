@@ -4,21 +4,44 @@ global {
 // 	file shp<-file("../includes/landuse_myxuyen_2005_region.shp");
 	geometry shape<-envelope(shp);
 	init { 
-		create parcel from:shp;
+// 		create parcel from:shp;
+		create aa number:10;
+        create parcel{
+            shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
+        }
 	}
 }
-
+species aa skills:[moving]{
+    reflex ss{
+        do wander speed:20.0;
+    }
+    aspect default{
+        draw circle(100) color:#red;
+    }
+}
 species parcel { 
 }
-
-experiment TestExp type: gui autorun:true {
+grid cell width:10 height:10{
+    
+	float max_food <- 1.0;
+	float food_prod <- rnd(0.01);
+	float food <- rnd(1.0) max: max_food update: food + food_prod;
+	rgb color <- rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 * (1 - food)));
+	reflex ss{
+	    color <- rgb(rnd(255));//rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 * (1 - food)));
+	}
+}
+experiment TestExp type: gui autorun:false {
 
 	output {
 		layout #split navigator:false editors:false;
-		display o type: java2D synchronized:true {
-			 species parcel{
-			     draw shape color:rgb(rnd(255),rnd(255),rnd(255));
-			 }
+		display o type: java2D synchronized:false { 
+		    grid cell;
+			 //species parcel{
+			 //    draw shape color:rgb(rnd(255),rnd(255),rnd(255));
+			 //}
+		    species aa;
+		  //species parcel;
 		}
 	}
 }

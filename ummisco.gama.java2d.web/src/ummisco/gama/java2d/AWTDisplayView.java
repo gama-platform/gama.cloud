@@ -10,23 +10,22 @@
 package ummisco.gama.java2d;
 
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComponent;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.progress.UIJob;
 
+import com.vividsolutions.jts.awt.ShapeWriter;
+
+import msi.gama.metamodel.shape.IShape;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.swing.SwingControl;
@@ -43,7 +42,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 		// TODO Auto-generated method stub
 		super.update(output);
 		if (output.isSynchronized() && !canvas.isDisposed()) {
-			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> canvas.redraw());
+			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {if(!canvas.isDisposed())canvas.redraw();});
 		} 
 
 	}
@@ -119,9 +118,12 @@ public class AWTDisplayView extends LayeredDisplayView {
 							.setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
 					SWTGraphics2D renderer = new SWTGraphics2D(arg0.gc);
-					SWTGraphics2D.SWT_RECT.width = surfaceComposite.getSize().x;
-					SWTGraphics2D.SWT_RECT.height = surfaceComposite.getSize().y;
-
+//					IShape g =getOutput().getScope().getSimulation().getGeometry();
+					ShapeWriter sw=new ShapeWriter(getDisplaySurface().getIGraphics());
+					Shape s=sw.toShape(getOutput().getScope().getSimulation().getGeometry().getInnerGeometry());
+//					System.out.println("paint  "+s.getBounds2D());
+					SWTGraphics2D.SWT_RECT.width = (int) s.getBounds2D().getWidth();//g.getEnvelope().getWidth();//surfaceComposite.getSize().x;
+					SWTGraphics2D.SWT_RECT.height = (int) s.getBounds2D().getHeight();//g.getEnvelope().getHeight();//surfaceComposite.getSize().y;
 //					getDisplaySurface().setBounds(new Rectangle(width, height));
 //					getDisplaySurface().resizeImage(width, height, true);
 //					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
