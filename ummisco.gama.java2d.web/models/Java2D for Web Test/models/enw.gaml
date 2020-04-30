@@ -1,8 +1,9 @@
 model TestJava2D
 global {
 	file shp<-file("../includes/test.shp");
+	image_file my_icon <- image_file("../includes/sheep.png");
 // 	file shp<-file("../includes/landuse_myxuyen_2005_region.shp");
-	geometry shape<-envelope(shp);
+// 	geometry shape<-envelope(shp);
 	init { 
 // 		create parcel from:shp;
 		create aa number:10;
@@ -10,13 +11,18 @@ global {
             shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
         }
 	}
-}
+} 
 species aa skills:[moving]{
+	float size<-1.0;
     reflex ss{
         do wander speed:20.0;
     }
+
+	aspect icon {
+		draw my_icon size: 0.2 * size;
+	}
     aspect default{
-        draw circle(100) color:#red;
+        draw circle(size) color:#red;
     }
 }
 species parcel { 
@@ -40,7 +46,7 @@ experiment TestExp type: gui autorun:false {
 			 //species parcel{
 			 //    draw shape color:rgb(rnd(255),rnd(255),rnd(255));
 			 //}
-		    species aa;
+		    species aa  aspect: icon;
 		  //species parcel;
 		}
 	}

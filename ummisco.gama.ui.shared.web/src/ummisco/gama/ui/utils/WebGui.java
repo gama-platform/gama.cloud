@@ -44,6 +44,7 @@ import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.kernel.experiment.IExperimentController;
 import msi.gama.kernel.experiment.IExperimentPlan;
+import msi.gama.kernel.experiment.IParameter;
 import msi.gama.kernel.model.IModel;
 import msi.gama.kernel.simulation.SimulationAgent;
 import msi.gama.metamodel.agent.IAgent;
@@ -265,15 +266,19 @@ public class WebGui implements IGui {
 		return surface;
 	}
 
+
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
-			final Map<String, Object> initialValues, final Map<String, IType<?>> types) {
+			final List<IParameter> parameters) {
 		final IMap<String, Object> result = GamaMapFactory.createUnordered();
-		final String uid = RWT.getUISession().getAttribute("user").toString();
-		WorkbenchHelper.run(scope, () -> {
-			final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(GAMA.getRuntimeScope()), initialValues, types,
-					title);
-			result.putAll(dialog.open() == Window.OK ? dialog.getValues() : initialValues);
+		for (final IParameter p : parameters) {
+			result.put(p.getName(), p.getInitialValue(scope));
+		}
+		WorkbenchHelper.run(GAMA.getRuntimeScope(),() -> {
+			final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(), parameters, title);
+			if (dialog.open() == Window.OK) {
+				result.putAll(dialog.getValues());
+			}
 		});
 		return result;
 	}
