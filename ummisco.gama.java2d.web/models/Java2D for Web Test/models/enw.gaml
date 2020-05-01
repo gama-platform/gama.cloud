@@ -19,7 +19,7 @@ species aa skills:[moving]{
     }
 
 	aspect icon {
-		draw my_icon size: 0.2 * size;
+		draw my_icon size:2 * size;
 	}
     aspect default{
         draw circle(size) color:#red;
@@ -38,7 +38,7 @@ grid cell width:10 height:10{
 	}
 }
 experiment TestExp type: gui autorun:false {
-
+ 
 	output {
 		layout #split navigator:false editors:false;
 		display o type: java2D synchronized:false { 

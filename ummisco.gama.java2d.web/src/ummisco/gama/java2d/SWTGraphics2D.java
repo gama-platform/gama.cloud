@@ -2024,7 +2024,7 @@ public class SWTGraphics2D extends Graphics2D {
 	public boolean drawImage(Image image, AffineTransform xform, ImageObserver obs) {
 //      return false;
 
-		RECT.setRect(0, 0, SWT_RECT.width, SWT_RECT.height);
+		RECT.setRect(0, 0, image.getWidth(obs), image.getHeight(obs));
 
 
 
@@ -2032,14 +2032,20 @@ public class SWTGraphics2D extends Graphics2D {
 //		AffineTransform imageTransform = new AffineTransform();
 //		imageTransform.scale(curWidth / ((BufferedImage) image).getWidth(), curHeight / ((BufferedImage) image).getHeight());
 //		xform.scale(xform.getScaleX()*0.1, xform.getScaleY()*0.1);
-//		SWTShapeManager.transform(RECT, xform);
+		SWTShapeManager.transform(RECT, xform);
 		int width = (int) RECT.getWidth();
 		int height = (int) RECT.getHeight();
 		int x = (int) RECT.getX();
 		int y = (int) RECT.getY();
 		return drawImage(image, x, y, width, height, obs);
 
-//      return drawImage(img, SWT_RECT.x, SWT_RECT.y, SWT_RECT.height, SWT_RECT.height, obs);
+//      return drawImage(image, SWT_RECT.x, SWT_RECT.y, SWT_RECT.width, SWT_RECT.height, obs);
+//        org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
+//        RECT.setRect(x,y,bounds.width,bounds.height);
+//        SWTShapeManager.transform(RECT,xform);
+//        SWTShapeManager.awtToSWT(RECT,SWT_RECT);
+//
+//        gc.drawImage(image,0,0,bounds.width,bounds.height,SWT_RECT.x,SWT_RECT.y,SWT_RECT.width,SWT_RECT.height);
 
 	}
 
