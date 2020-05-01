@@ -259,6 +259,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int previousHeight = getHeight();
 		final int width = w == -1 ? previousWidth : w;
 		final int height = h == -1 ? previousHeight : h;
+		final boolean sameSize = width == previousWidth && height == previousHeight;
 		final BufferedImage newImage = ImageUtils.createCompatibleImage(width, height, false);
 		final Graphics g = newImage.getGraphics();
 
@@ -271,13 +272,26 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		}
 		try {
 			EventQueue.invokeAndWait(() -> {
-				resizeImage(width, height, false);
-				paintComponent(g);
-				resizeImage(previousWidth, previousHeight, false);
+				final Rectangle old = new Rectangle(viewPort);
+				if (!sameSize) {
+					viewPort.x = viewPort.y = 0;
+					final int[] point = computeBoundsFrom(width, height);
+					viewPort.width = point[0];
+					viewPort.height = point[1];
+					// resizeImage(width, height, false);
+
+				}
+				print(g);
+				if (!sameSize) {
+					// resizeImage(previousWidth, previousHeight, false);
+					viewPort.setBounds(old);
+				}
+
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
+		g.dispose();
 		return newImage;
 	}
 
@@ -302,7 +316,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	}
 
 	void setOrigin(final int x, final int y) {
-		final int inset = 1;
+		// Temporarily reverts the changes introduced for #2367
+		final int inset = 0;
 		viewPort.setLocation(x - inset, y - inset);
 	}
 
@@ -396,6 +411,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	@Override
 	public void paintComponent(final Graphics g) {
+
 		realized = true;
 		if (iGraphics == null) { return; }
 		super.paintComponent(g);
@@ -453,7 +469,9 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		for (final ILayer layer : layers) {
 			if (layer.isProvidingWorldCoordinates()) { return layer.getModelCoordinatesFrom(xc, yc, this); }
 		}
-		return null;
+		// See Issue #2783: we dont return null but 0,0.
+		// return null;
+		return new GamaPoint();
 	}
 
 	@Override
@@ -485,7 +503,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	@Override
 	public double getDisplayWidth() {
-		return viewPort.width;
+		return (double) viewPort.width;
 	}
 
 	protected void setDisplayWidth(final int displayWidth) {
@@ -499,7 +517,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	@Override
 	public double getDisplayHeight() {
-		return viewPort.height;
+		return (double) viewPort.height;
 	}
 
 	protected void setDisplayHeight(final int displayHeight) {
@@ -632,16 +650,17 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	@Override
 	public void setBounds(final int arg0, final int arg1, final int arg2, final int arg3) {
+		// DEBUG.OUT("-- Java2D surface set bounds to " + arg0 + " " + arg1 + " | " + arg2 + " " + arg3);
 		if (arg2 == 0 && arg3 == 0) { return; }
 		super.setBounds(arg0, arg1, arg2, arg3);
 	}
-
-	@Override
-	public void setBounds(final Rectangle r) {
-		// scope.getGui().debug("Set bounds called with " + r);
-		if (r.width < 1 && r.height < 1) { return; }
-		super.setBounds(r);
-	}
+	//
+	// @Override
+	// public void setBounds(final Rectangle r) {
+	// DEBUG.OUT("-- Java2D surface set bounds to " + r);
+	// if (r.width < 1 && r.height < 1) { return; }
+	// super.setBounds(r);
+	// }
 
 	double applyZoom(final double factor) {
 		double real_factor = Math.min(factor, 10 / getZoomLevel());
@@ -708,7 +727,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	/**
 	 * Method changed()
-	 * 
+	 *
 	 * @see msi.gama.outputs.LayeredDisplayData.DisplayDataListener#changed(int, boolean)
 	 */
 	@Override
@@ -723,15 +742,6 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		}
 
 	};
-
-	/**
-	 * Method getZoomIncrement()
-	 * 
-	 * @see msi.gama.gui.displays.awt.IJava2DDisplaySurface#getZoomIncrement()
-	 */
-	double getZoomIncrement() {
-		return zoomIncrement;
-	}
 
 	@Override
 	public boolean isRealized() {
@@ -750,6 +760,16 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	@Override
 	public boolean isDisposed() {
 		return disposed;
+	}
+
+	@Override
+	public Font computeFont(final Font f) {
+		if (f == null) { return null; }
+//		if (PlatformHelper.isWindows() && PlatformHelper.isHiDPI()) {
+//			return f.deriveFont(PlatformHelper.scaleUpIfWin(f.getSize2D()));
+//		}
+		return f;
+
 	}
 
 }

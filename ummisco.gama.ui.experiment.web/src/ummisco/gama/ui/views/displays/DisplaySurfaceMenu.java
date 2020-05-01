@@ -2,11 +2,11 @@
  *
  * ummisco.gama.ui.views.displays.DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source
  * code of the GAMA modeling and simulation platform (v. 1.8)
- * 
+ *
  * (c) 2007-2018 UMI 209 UMMISCO IRD/SU & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package ummisco.gama.ui.views.displays;
 
@@ -42,7 +42,6 @@ import msi.gama.outputs.layers.GridLayer;
 import msi.gama.outputs.layers.ImageLayer;
 import msi.gama.outputs.layers.SpeciesLayer;
 import msi.gama.outputs.layers.charts.ChartLayer;
-import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.menus.AgentsMenu;
 import ummisco.gama.ui.menus.GamaMenu;
 import ummisco.gama.ui.menus.MenuAction;
@@ -59,7 +58,6 @@ public class DisplaySurfaceMenu {
 		layer_images.put(GridLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRID).image());
 		layer_images.put(AgentLayer.class, GamaIcons.create(IGamaIcons.LAYER_AGENTS).image());
 		layer_images.put(ImageLayer.class, GamaIcons.create(IGamaIcons.LAYER_IMAGE).image());
-		// layer_images.put(TextLayer.class, GamaIcons.create(IGamaIcons.LAYER_TEXT).image());
 		layer_images.put(SpeciesLayer.class, GamaIcons.create(IGamaIcons.LAYER_SPECIES).image());
 		layer_images.put(ChartLayer.class, GamaIcons.create(IGamaIcons.LAYER_CHART).image());
 		layer_images.put(GraphicLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRAPHICS).image());
@@ -104,7 +102,7 @@ public class DisplaySurfaceMenu {
 	public void prepareNewMenu(final Control c, final int x, final int y, final boolean withPresentation) {
 		disposeMenu();
 		menu = new Menu(c);
-		menu.setLocation(c.toDisplay(x, y));
+		// menu.setLocation(scaleDownIfWin(c.toDisplay(x, y)));
 		if (withPresentation) {
 			presentationMenu.fill(menu, -1);
 			GamaMenu.separate(menu);
@@ -180,7 +178,7 @@ public class DisplaySurfaceMenu {
 				menu.setVisible(false);
 				{
 					final Shell shell =
-							new Shell(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
+							new Shell(WorkbenchHelper.getDisplay(), SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 					shell.setSize(10, 10); // big enough to avoid errors
 											// from the gtk layer
 					shell.setLocation(menu.getShell().getLocation());
@@ -236,12 +234,12 @@ public class DisplaySurfaceMenu {
 					final FocusOnSelection adapter = new FocusOnSelection(surface);
 					final MenuAction focus = new MenuAction(adapter, GamaIcons.create(IGamaIcons.MENU_FOCUS).image(),
 							"Focus on this display");
-					final MenuAction[] actions2;
-					if (layer instanceof GridLayer) {
-						actions2 = new MenuAction[] { focus };
-					} else {
-						actions2 = new MenuAction[] { focus };
-					}
+					final MenuAction[] actions2 = new MenuAction[] { focus };
+					// if (layer instanceof GridLayer) {
+					// actions2 = new MenuAction[] { focus };
+					// } else {
+					// actions2 = new MenuAction[] { focus };
+					// }
 
 					if (filteredList != null) {
 						pop.retainAll(filteredList);

@@ -82,13 +82,34 @@ public class WorkbenchHelper {
 			r.run();
 	}
 
+	public static void run(final Runnable r) {
+		final IScope scope=GAMA.getRuntimeScope(); 
+		final Display d = getDisplay(scope);
+		if (d != null && !d.isDisposed()) {
+			d.syncExec(r);
+		} else
+			r.run();
+	}
+
 	public static Display getDisplay(final IScope scope) {
+		return getWorkbench(scope).getDisplay();
+	}
+
+	public static Display getDisplay() {
+		final IScope scope=GAMA.getRuntimeScope();
 		return getWorkbench(scope).getDisplay();
 	}
 
 //	public static IWorkbenchPage getPage(IScope scope) {
 //		return getPage("admin");
 //	}
+	public static IWorkbenchPage getPage() {
+		final IScope scope=GAMA.getRuntimeScope();
+		final IWorkbenchWindow w = getWindow(scope);
+		if (w == null) { return null; }
+		final IWorkbenchPage p = w.getActivePage();
+		return p;
+	}
 	public static IWorkbenchPage getPage(final IScope scope) {
 		final IWorkbenchWindow w = getWindow(scope);
 		if (w == null) { return null; }
@@ -115,6 +136,17 @@ public class WorkbenchHelper {
 //	public static IWorkbenchWindow getWindow() {
 //		return getWindow("admin");
 //	}
+
+	public static IWorkbenchWindow getWindow() {
+		final IScope scope=GAMA.getRuntimeScope();
+		final IWorkbenchWindow w = getWorkbench(scope).getActiveWorkbenchWindow();
+
+		if (w == null) {
+			final IWorkbenchWindow[] windows = getWorkbench(scope).getWorkbenchWindows();
+			if (windows != null && windows.length > 0) { return windows[0]; }
+		}
+		return w;
+	}
 
 	public static IWorkbenchWindow getWindow(final IScope scope) {
 		final IWorkbenchWindow w = getWorkbench(scope).getActiveWorkbenchWindow();

@@ -1,11 +1,12 @@
 package com.jogamp.opengl;
 
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.SWTGLAnimator;
 
-public class GLAutoDrawable extends Composite{
+public class GLAutoDrawable extends Canvas{
 	protected GLContext mycontext=null;
 
 	protected GL2 myGL = null;

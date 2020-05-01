@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="ummisco/gama/java2d/swing/AwtDialogListener.java|ummisco/gama/java2d/swing/AwtEnvironment.java|ummisco/gama/java2d/swing/CleanResizeListener.java|ummisco/gama/java2d/swing/ComponentDebugging.java|ummisco/gama/java2d/swing/FocusDebugging.java|ummisco/gama/java2d/swing/FocusHandler.java|ummisco/gama/java2d/swing/GlobalFocusHandler.java|ummisco/gama/java2d/swing/LookAndFeelHandler.java|ummisco/gama/java2d/swing/ResourceConverter.java|ummisco/gama/java2d/swing/RunnableWithResult.java|ummisco/gama/java2d/swing/SizeEvent.java|ummisco/gama/java2d/swing/SizeListener.java|ummisco/gama/java2d/swing/SwtInputBlocker.java|ummisco/gama/java2d/swing/SwtKeystroke.java|ummisco/gama/java2d/swing/SwtPopupHandler.java|ummisco/gama/java2d/swing/SwtPopupRegistry.java|ummisco/gama/java2d/swing/ThreadingHandler.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="gaml">
 		<attributes>
 			<attribute name="optional" value="true"/>

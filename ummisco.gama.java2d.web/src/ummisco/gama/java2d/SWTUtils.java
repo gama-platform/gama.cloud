@@ -308,8 +308,7 @@ public class SWTUtils {
      *
      * @return Image data.
      */
-    public static ImageData convertAWTImageToSWT(Image image) {
-        ParamChecks.nullNotPermitted(image, "image");
+    public static ImageData convertAWTImageToSWT(Image image) { 
         int w = image.getWidth(null);
         int h = image.getHeight(null);
         if (w == -1 || h == -1) {

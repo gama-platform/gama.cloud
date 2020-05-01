@@ -4,7 +4,7 @@
  * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
@@ -13,7 +13,6 @@ import static msi.gama.common.preferences.GamaPreferences.Displays.CORE_DISPLAY_
 import static msi.gama.common.preferences.GamaPreferences.Runtime.CORE_SYNC;
 
 import java.awt.Color;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -25,6 +24,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IViewSite;
@@ -49,12 +49,24 @@ import ummisco.gama.ui.views.toolbar.IToolbarDecoratedView;
 public abstract class LayeredDisplayView extends GamaViewPart
 		implements IToolbarDecoratedView.Pausable, IToolbarDecoratedView.Zoomable, IGamaView.Display {
 
+	protected int realIndex = -1;
 	protected SashForm form;
-	public Composite surfaceComposite;
+	public Canvas surfaceComposite;
 	public final LayeredDisplayDecorator decorator;
-	protected volatile boolean disposed, realized;
+	protected volatile boolean disposed;
+	// protected volatile boolean realized;
 	Thread updateThread;
 	private volatile boolean lockAcquired = false;
+
+	@Override
+	public void setIndex(final int index) {
+		realIndex = index;
+	}
+
+	@Override
+	public int getIndex() {
+		return realIndex;
+	}
 
 	public LayeredDisplayView() {
 		decorator = new LayeredDisplayDecorator(this);
@@ -232,11 +244,6 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	}
 
 	@Override
-	public boolean toolbarVisible() {
-		return getOutput().getData().isToolbarVisible();
-	}
-
-	@Override
 	public void zoomIn() {
 		if (getDisplaySurface() != null) {
 			getDisplaySurface().zoomIn();
@@ -323,14 +330,14 @@ public abstract class LayeredDisplayView extends GamaViewPart
 			if (getOutput().getData().isAutosave() && s.isRealized()) {
 				SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
 			}
-//			while (!s.isRendered() && !s.isDisposed() && !disposed) {
-//				try {
-//					Thread.sleep(10);
-//				} catch (final InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//
-//			}
+			while (!s.isRendered() && !s.isDisposed() && !disposed) {
+				try {
+					Thread.sleep(10);
+				} catch (final InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
 		} else if (updateThread.isAlive()) {
 			releaseLock();
 		}
@@ -351,8 +358,6 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		notify();
 	}
 
-	public abstract List<String> getCameraNames();
-
 	@Override
 	public boolean zoomWhenScrolling() {
 		return true;
@@ -363,7 +368,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		if (output == null) { return; }
 		if (output == getOutput()) {
 			if (isFullScreen()) {
-				WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> toggleFullScreen());
+				WorkbenchHelper.run(() -> toggleFullScreen());
 			}
 		}
 		output.dispose();

@@ -4,7 +4,7 @@
  * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
@@ -46,7 +46,6 @@ import msi.gama.common.interfaces.IOverlayProvider;
 import msi.gama.common.interfaces.IUpdaterTarget;
 import msi.gama.outputs.LayeredDisplayOutput;
 import msi.gama.outputs.layers.OverlayStatement.OverlayInfo;
-import msi.gama.runtime.GAMA;
 import msi.gaml.operators.Maths;
 import ummisco.gama.dev.utils.DEBUG;
 import ummisco.gama.ui.resources.GamaColors;
@@ -65,6 +64,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	static {
 		DEBUG.OFF();
 	}
+
 	Label coord, zoom, left, center, right;
 	StringBuilder text = new StringBuilder();
 	Canvas scalebar;
@@ -142,12 +142,12 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// }
 	}
 
-	public void relocateOverlay(final Shell newShell) {
-		if (popup.setParent(newShell)) {
-			// DEBUG.LOG("Relocating overlay");
-			popup.moveAbove(referenceComposite);
-		}
-	}
+	// public void relocateOverlay(final Shell newShell) {
+	// if (popup.setParent(newShell)) {
+	// // DEBUG.LOG("Relocating overlay");
+	// popup.moveAbove(referenceComposite);
+	// }
+	// }
 
 	private Label label(final Composite c, final int horizontalAlign) {
 		final Label l = new Label(c, SWT.None);
@@ -216,7 +216,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		final int barStartX = x + 1 + BAR_WIDTH / 2 + margin;
 		final int barStartY = y + height - BAR_HEIGHT / 2;
 
-		final Path path = new Path(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()));
+		final Path path = new Path(WorkbenchHelper.getDisplay());
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT + 2);
 		path.lineTo(barStartX, barStartY + 2);
 		path.moveTo(barStartX, barStartY - BAR_HEIGHT / 2 + 2);
@@ -257,7 +257,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(GAMA.getRuntimeScope(), doDisplay);
+				WorkbenchHelper.run(doDisplay);
 			}
 		}
 
@@ -276,7 +276,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partDeactivated(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part) && !referenceComposite.isDisposed() && !referenceComposite.isVisible()) {
-				WorkbenchHelper.run(GAMA.getRuntimeScope(), doHide);
+				WorkbenchHelper.run(doHide);
 			}
 		}
 
@@ -287,7 +287,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partHidden(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(GAMA.getRuntimeScope(), doHide);
+				WorkbenchHelper.run(doHide);
 			}
 		}
 
@@ -295,7 +295,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		public void partVisible(final IWorkbenchPartReference partRef) {
 			final IWorkbenchPart part = partRef.getPart(false);
 			if (view.equals(part)) {
-				WorkbenchHelper.run(GAMA.getRuntimeScope(), doDisplay);
+				WorkbenchHelper.run(doDisplay);
 			}
 		}
 
@@ -356,6 +356,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		final Point p = referenceComposite.toDisplay(r.x, r.y);
 		final int x = p.x;
 		final int y = p.y + r.height - (createExtraInfo ? 56 : 32);
+		// DEBUG.OUT("Location of overlay = " + x + " " + y + " <> client area dans Display : " + r);
 		return new Point(x, y);
 	}
 
@@ -371,9 +372,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		gc.drawText(string, xx, yBase - extent.y, !filled);
 	}
 
-	public void displayScale(final Boolean newValue) {
-		scalebar.setVisible(newValue);
-	}
+	// public void displayScale(final Boolean newValue) {
+	// scalebar.setVisible(newValue);
+	// }
 
 	/**
 	 * @param left2
@@ -390,7 +391,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 	/**
 	 * Method updateWith()
-	 * 
+	 *
 	 * @see msi.gama.gui.swt.controls.IUpdaterTarget#updateWith(java.lang.Object)
 	 */
 	@Override
@@ -421,7 +422,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 	/**
 	 * Method getCurrentState()
-	 * 
+	 *
 	 * @see msi.gama.common.interfaces.IUpdaterTarget#getCurrentState()
 	 */
 	@Override
@@ -431,7 +432,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 	/**
 	 * Method resume()
-	 * 
+	 *
 	 * @see msi.gama.common.interfaces.IUpdaterTarget#resume()
 	 */
 	@Override
@@ -441,9 +442,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return popup;
 	}
 
-	protected LayeredDisplayView getView() {
-		return view;
-	}
+	// protected LayeredDisplayView getView() {
+	// return view;
+	// }
 
 	public void display() {
 		if (!isVisible()) { return; }
@@ -515,7 +516,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		// Uses the trick from
 		// http://eclipsesource.com/blogs/2010/06/23/tip-how-to-detect-that-a-view-was-detached/
 		final boolean[] result = new boolean[] { false };
-		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+		WorkbenchHelper.run(() -> {
 			final IWorkbenchPartSite site = view.getSite();
 			if (site == null) { return; }
 			final Shell shell = site.getShell();

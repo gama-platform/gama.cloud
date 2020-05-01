@@ -4,7 +4,7 @@
  * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 
@@ -22,7 +22,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -55,7 +54,6 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
 
-import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.resources.GamaColors;
 import ummisco.gama.ui.utils.GraphicsHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -96,7 +94,7 @@ public class SWTChartEditor implements ChartEditor {
 	public SWTChartEditor(final Display display, final JFreeChart chart2edit, final Point position) {
 		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.NO_TRIM);
 		this.shell.setSize(400, 500);
-		this.shell.setBackground(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).getSystemColor(SWT.COLOR_BLACK));
+		this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		// this.shell.setAlpha(140);
 		this.chart = chart2edit;
 		this.shell.setText("Chart properties");
@@ -1326,20 +1324,6 @@ public class SWTChartEditor implements ChartEditor {
 	}
 
 	static class SWTStrokeCanvas extends Canvas {
-
-		/**
-		 * Creates a new instance.
-		 *
-		 * @param parent
-		 *            the parent.
-		 * @param style
-		 *            the style.
-		 * @param image
-		 *            the image.
-		 */
-		public SWTStrokeCanvas(final Composite parent, final int style, final Image image) {
-			this(parent, style);
-		}
 
 		/**
 		 * Creates a new instance.

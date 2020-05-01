@@ -30,7 +30,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
 import msi.gama.common.interfaces.IDisplaySurface;
-import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
@@ -56,29 +55,29 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 				control.forceFocus();
 			}
 			if (!Objects.equals(WorkbenchHelper.getActivePart(), deco.view)) {
-				WorkbenchHelper.getPage(GAMA.getRuntimeScope()).activate(deco.view);
+				WorkbenchHelper.getPage().activate(deco.view);
 			}
 			return surfaceOk;
 		};
 
-//		control.addKeyListener(this);
-//		control.addMouseListener(this);
-//		control.addMenuDetectListener(this);
-//		control.addDragDetectListener(this);
+		control.addKeyListener(this);
+		control.addMouseListener(this);
+		control.addMenuDetectListener(this);
+		control.addDragDetectListener(this);
 //		control.addMouseTrackListener(this);
 //		control.addMouseMoveListener(this);
-//		control.addFocusListener(this);
+		control.addFocusListener(this);
 	}
 
 	public void dispose() {
 		if (control == null || control.isDisposed()) { return; }
-//		control.removeKeyListener(this);
-//		control.removeMouseListener(this);
-//		control.removeMenuDetectListener(this);
-//		control.removeDragDetectListener(this);
+		control.removeKeyListener(this);
+		control.removeMouseListener(this);
+		control.removeMenuDetectListener(this);
+		control.removeDragDetectListener(this);
 //		control.removeMouseTrackListener(this);
 //		control.removeMouseMoveListener(this);
-//		control.removeFocusListener(this);
+		control.removeFocusListener(this);
 	}
 
 	@Override
@@ -130,13 +129,13 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 	@Override
 	public void mouseDown(final MouseEvent e) {
 		if (!ok.get()) { return; }
-		delegate.mouseDown(e.x, e.y, (e.stateMask & SWT.MODIFIER_MASK) != 0);
+		delegate.mouseDown(e.x, e.y, e.button, (e.stateMask & SWT.MODIFIER_MASK) != 0);
 	}
 
 	@Override
 	public void mouseUp(final MouseEvent e) {
 		if (!ok.get()) { return; }
-		delegate.mouseUp(e.x, e.y, (e.stateMask & SWT.MODIFIER_MASK) != 0);
+		delegate.mouseUp(e.x, e.y, e.button, (e.stateMask & SWT.MODIFIER_MASK) != 0);
 	}
 
 	@Override

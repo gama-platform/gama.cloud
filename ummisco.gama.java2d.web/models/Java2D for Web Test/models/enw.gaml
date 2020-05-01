@@ -6,7 +6,7 @@ global {
 // 	geometry shape<-envelope(shp);
 	init { 
 // 		create parcel from:shp;
-		create aa number:10;
+		create aa number:100;
         create parcel{
             shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
         }
@@ -15,7 +15,7 @@ global {
 species aa skills:[moving]{
 	float size<-1.0;
     reflex ss{
-        do wander speed:20.0;
+        do wander speed:2.0;
     }
 
 	aspect icon {
@@ -37,12 +37,12 @@ grid cell width:10 height:10{
 	    color <- rgb(rnd(255));//rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 * (1 - food)));
 	}
 }
-experiment TestExp type: gui autorun:false {
+experiment TestExp type: gui autorun:true {
  
 	output {
 		layout #split navigator:false editors:false;
-		display o type: java2D synchronized:false { 
-		    grid cell;
+		display o type: java2D synchronized:true { 
+		  //  grid cell;
 			 //species parcel{
 			 //    draw shape color:rgb(rnd(255),rnd(255),rnd(255));
 			 //}
