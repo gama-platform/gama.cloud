@@ -28,6 +28,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.Rectangle2D;
@@ -42,7 +43,9 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.GC;
 
+import com.vividsolutions.jts.awt.ShapeWriter;
 import com.vividsolutions.jts.geom.Envelope;
 
 import msi.gama.common.interfaces.IDisplaySurface;
@@ -69,6 +72,7 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gaml.expressions.IExpression;
 import msi.gaml.operators.Cast;
+import ummisco.gama.java2d.swing.SwingControl;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.DisplaySurfaceMenu;
 
@@ -89,7 +93,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		GamaPreferences.Displays.DISPLAY_NO_ACCELERATION
 				.set(GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.getValue());
 	}
-
+	public SwingControl comp;
 	final LayeredDisplayOutput output;
 	protected final Rectangle viewPort = new Rectangle();
 	// protected final AffineTransform translation = new AffineTransform();
@@ -325,7 +329,27 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	public void updateDisplay(final boolean force) {
 		if (disposed) { return; }
 		rendered = false;
-		EventQueue.invokeLater(() -> repaint());
+//		EventQueue.invokeLater(() -> repaint());
+		if(comp==null) return;
+
+		realized = true;
+		comp.redraw();
+//		setBounds(new Rectangle(comp.getSize().x, comp.getSize().y));
+//		resizeImage(comp.getSize().x, comp.getSize().y, true);
+//		GC gc=new GC(comp);
+//		SWTGraphics2D renderer = new SWTGraphics2D(gc);
+////		IShape g =getOutput().getScope().getSimulation().getGeometry();
+//		ShapeWriter sw = new ShapeWriter(getIGraphics());
+//		Shape s = sw.toShape(getOutput().getScope().getSimulation().getGeometry().getInnerGeometry());
+////		System.out.println("paint  "+s.getBounds2D());
+//		SWTGraphics2D.SWT_RECT.width = (int) s.getBounds2D().getWidth();// g.getEnvelope().getWidth();//surfaceComposite.getSize().x;
+//		SWTGraphics2D.SWT_RECT.height = (int) s.getBounds2D().getHeight();// g.getEnvelope().getHeight();//surfaceComposite.getSize().y;
+////		getDisplaySurface().setBounds(new Rectangle(width, height));
+////		getDisplaySurface().resizeImage(width, height, true);
+////		SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
+////		renderer.SWT_RECT.width=width;
+////		renderer.SWT_RECT.height=height;
+//		paintComponent(renderer);
 	}
 
 	@Override

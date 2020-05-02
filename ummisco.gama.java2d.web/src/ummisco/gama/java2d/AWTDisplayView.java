@@ -14,6 +14,7 @@ import java.awt.Shape;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
@@ -30,21 +31,23 @@ public class AWTDisplayView extends LayeredDisplayView {
 	public static long REALIZATION_TIME_OUT = 1000;
 	public boolean isVisible;
 
-	@Override
-	public void update(IDisplayOutput output) {
-		// TODO Auto-generated method stub
-		super.update(output);
-		if (output.isSynchronized() && !surfaceComposite.isDisposed()) {
-			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
-				if (!surfaceComposite.isDisposed()) {
-					surfaceComposite.redraw();
-//					surfaceComposite.setSize(surfaceComposite.getSize());
-//					surfaceComposite.getParent().layout(true, true);
-				}
-			});
-		}
-
-	}
+//	@Override
+//	public void update(IDisplayOutput output) {
+//		// TODO Auto-generated method stub
+//		super.update(output);
+//		if (output.isSynchronized() && !surfaceComposite.isDisposed()) {
+//			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+//				if (!surfaceComposite.isDisposed()) {
+////					surfaceComposite.redraw();
+////					surfaceComposite.getParent().setBounds(surfaceComposite.getBounds());
+////					surfaceComposite.setSize(surfaceComposite.getSize());
+////					this.getDisplaySurface().doLayout();
+////					surfaceComposite.getParent().getParent().layout(true, true);
+//				}
+//			});
+//		}
+//
+//	}
 
 	@Override
 	public Java2DDisplaySurface getDisplaySurface() {
@@ -58,35 +61,18 @@ public class AWTDisplayView extends LayeredDisplayView {
 			return null;
 		}
 
-		surfaceComposite = new SwingControl(parent, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED) {
+		surfaceComposite = new SwingControl(parent, SWT.NO_BACKGROUND | SWT.DOUBLE_BUFFERED,this) {
 
 			@Override
-			protected Java2DDisplaySurface createSwingComponent() {
-				return (Java2DDisplaySurface) getDisplaySurface();
-			}
-
-			@Override
-			protected void preferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {
-				WorkbenchHelper.asyncRun(() -> {
-					surfaceComposite.setSize(prefSize);
-					parent.layout(true, true);
-				});
-
-			}
-
-		};
-		surfaceComposite.setEnabled(false);
-		surfaceComposite.addPaintListener(new PaintListener() {
-
-			@Override
-			public void paintControl(PaintEvent arg0) {
+			public void redraw() {
 				// TODO Auto-generated method stub
-//				GC gc=new GC(canvas);
+				super.redraw();
 				if (getDisplaySurface() != null) {
 					getDisplaySurface()
 							.setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
 					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
-					SWTGraphics2D renderer = new SWTGraphics2D(arg0.gc);
+					GC gc=new GC(this);
+					SWTGraphics2D renderer = new SWTGraphics2D(gc);
 //					IShape g =getOutput().getScope().getSimulation().getGeometry();
 					ShapeWriter sw = new ShapeWriter(getDisplaySurface().getIGraphics());
 					Shape s = sw.toShape(getOutput().getScope().getSimulation().getGeometry().getInnerGeometry());
@@ -102,7 +88,45 @@ public class AWTDisplayView extends LayeredDisplayView {
 //					renderer.dispose();
 				}
 			}
-		});
+ 
+			@Override
+			protected void preferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {
+				WorkbenchHelper.asyncRun(() -> {
+					surfaceComposite.setSize(prefSize);
+					parent.layout(true, true);
+				});
+
+			}
+
+		};
+		surfaceComposite.setEnabled(true);
+//		surfaceComposite.addPaintListener(new PaintListener() {
+//
+//			@Override
+//			public void paintControl(PaintEvent arg0) {
+//				// TODO Auto-generated method stub
+////				GC gc=new GC(canvas);
+//				if (getDisplaySurface() != null) {
+//					getDisplaySurface()
+//							.setBounds(new Rectangle(surfaceComposite.getSize().x, surfaceComposite.getSize().y));
+//					getDisplaySurface().resizeImage(surfaceComposite.getSize().x, surfaceComposite.getSize().y, true);
+//					SWTGraphics2D renderer = new SWTGraphics2D(arg0.gc);
+////					IShape g =getOutput().getScope().getSimulation().getGeometry();
+//					ShapeWriter sw = new ShapeWriter(getDisplaySurface().getIGraphics());
+//					Shape s = sw.toShape(getOutput().getScope().getSimulation().getGeometry().getInnerGeometry());
+////					System.out.println("paint  "+s.getBounds2D());
+//					SWTGraphics2D.SWT_RECT.width = (int) s.getBounds2D().getWidth();// g.getEnvelope().getWidth();//surfaceComposite.getSize().x;
+//					SWTGraphics2D.SWT_RECT.height = (int) s.getBounds2D().getHeight();// g.getEnvelope().getHeight();//surfaceComposite.getSize().y;
+////					getDisplaySurface().setBounds(new Rectangle(width, height));
+////					getDisplaySurface().resizeImage(width, height, true);
+////					SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
+////					renderer.SWT_RECT.width=width;
+////					renderer.SWT_RECT.height=height;
+//					getDisplaySurface().paintComponent(renderer);
+////					renderer.dispose();
+//				}
+//			}
+//		});
 		return surfaceComposite;
 	}
 

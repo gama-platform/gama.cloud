@@ -15,18 +15,15 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
-public abstract class SwingControl extends Canvas { 
-	public SwingControl(final Composite parent, final int style) {
-		super(parent, style | ((style & SWT.BORDER) == 0 ? SWT.WRAP : 0)); 
+import ummisco.gama.java2d.AWTDisplayView;
+import ummisco.gama.java2d.Java2DDisplaySurface;
+import ummisco.gama.ui.views.GamaViewPart;
 
-	} 
+public abstract class SwingControl extends Canvas {
+	public SwingControl(final Composite parent, final int style, GamaViewPart view) {
+		super(parent, style | ((style & SWT.BORDER) == 0 ? SWT.WRAP : 0));
 
-	protected abstract JComponent createSwingComponent();
-
-	protected void afterComponentCreatedAWTThread() {
-	}
-
-	protected void afterComponentCreatedSWTThread() {
+		((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).comp = this;
 	}
 
 	protected void preferredSizeChanged(final Point minSize, final Point prefSize, final Point maxSize) {

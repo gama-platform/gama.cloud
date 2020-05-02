@@ -6,7 +6,7 @@ global {
 // 	geometry shape<-envelope(shp);
 	init { 
 // 		create parcel from:shp;
-		create aa number:100;
+		create aa number:10;
         create parcel{
             shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
         }
