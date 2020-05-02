@@ -6,7 +6,7 @@ global {
 // 	geometry shape<-envelope(shp);
 	init { 
 // 		create parcel from:shp;
-		create aa number:10;
+		create aa number:100;
         create parcel{
             shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
         }
@@ -27,7 +27,7 @@ species aa skills:[moving]{
 }
 species parcel { 
 }
-grid cell width:10 height:10{
+grid cell width:100 height:100{
     
 	float max_food <- 1.0;
 	float food_prod <- rnd(0.01);
@@ -39,10 +39,9 @@ grid cell width:10 height:10{
 }
 experiment TestExp type: gui autorun:true {
  
-	output {
-		layout #split navigator:false editors:false;
+	output { 
 		display o type: java2D synchronized:true { 
-		  //  grid cell;
+		    grid cell;
 			 //species parcel{
 			 //    draw shape color:rgb(rnd(255),rnd(255),rnd(255));
 			 //}

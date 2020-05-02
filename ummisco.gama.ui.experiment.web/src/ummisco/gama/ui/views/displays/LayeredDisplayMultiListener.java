@@ -4,7 +4,7 @@
  * modeling and simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
+ * 
  *
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
@@ -16,7 +16,6 @@ import org.eclipse.swt.graphics.Point;
 
 import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.runtime.GAMA;
-import ummisco.gama.ui.utils.PlatformHelper;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.WorkaroundForIssue1353;
 
@@ -105,9 +104,8 @@ public class LayeredDisplayMultiListener {
 
 	public void mouseMove(final int x, final int y, final boolean modifier) {
 		WorkbenchHelper.asyncRun(view.displayOverlay);
-		if (modifier) {
-			return;
-			// DEBUG.LOG("Mouse moving on " + view.getPartName());
+		if (modifier) { return;
+		// DEBUG.LOG("Mouse moving on " + view.getPartName());
 		}
 
 		if (mouseIsDown) {
@@ -120,55 +118,26 @@ public class LayeredDisplayMultiListener {
 
 	}
 
-	/**
-	 * Mouse down event fired
-	 *
-	 * @param x
-	 *            the x coordinate relative to the display (in pixels, not model coordinates)
-	 * @param y
-	 *            the y coordinate relative to the display (in pixels, not model coordinates)
-	 * @param button
-	 *            the button clicked (1 for left, 2 for middle, 3 for right)
-	 * @param modifier
-	 *            whetehr ALT, CTRL, CMD, META or other modifiers are used
-	 */
-	public void mouseDown(final int x, final int y, final int button, final boolean modifier) {
+	public void mouseDown(final int x, final int y, final boolean modifier) {
 		setMousePosition(x, y);
 		if (inMenu) {
 			inMenu = false;
 			return;
 		}
 		if (modifier) { return; }
-		if (PlatformHelper.isWindows() && button == 3) {
-			// see Issue #2756: Windows emits the mouseDown(...) event *before* the menuDetected(..) one.
-			// No need to patch mouseUp(...) right now
-			return;
-		}
 		mouseIsDown = true;
 		// DEBUG.LOG("Mouse down on " + view.getPartName());
 		surface.dispatchMouseEvent(SWT.MouseDown);
 	}
 
-	/**
-	 * Mouse up event fired
-	 *
-	 * @param x
-	 *            the x coordinate relative to the display (in pixels, not model coordinates)
-	 * @param y
-	 *            the y coordinate relative to the display (in pixels, not model coordinates)
-	 * @param button
-	 *            the button clicked (1 for left, 2 for middle, 3 for right)
-	 * @param modifier
-	 *            whetehr ALT, CTRL, CMD, META or other modifiers are used
-	 */
-	public void mouseUp(final int x, final int y, final int button, final boolean modifier) {
+	public void mouseUp(final int x, final int y, final boolean modifier) {
 		// In case the mouse has moved (for example on a menu)
 		if (!mouseIsDown) { return; }
 		setMousePosition(x, y);
 		if (modifier) { return; }
 		mouseIsDown = false;
 		// DEBUG.LOG("Mouse up on " + view.getPartName());
-		if (!view.isFullScreen() && WorkaroundForIssue1353.isInstalled()) {
+		if (!view.isFullScreen()) {
 			WorkaroundForIssue1353.showShell();
 		}
 		surface.dispatchMouseEvent(SWT.MouseUp);
@@ -177,12 +146,9 @@ public class LayeredDisplayMultiListener {
 	public void menuDetected(final int x, final int y) {
 		if (inMenu) { return; }
 		// DEBUG.LOG("Menu detected on " + view.getPartName());
-		inMenu = surface.canTriggerContextualMenu();
+		inMenu = true;
 		setMousePosition(x, y);
-		surface.dispatchMouseEvent(SWT.MenuDetect);
-		if (inMenu) {
-			surface.selectAgentsAroundMouse();
-		}
+		surface.selectAgentsAroundMouse();
 	}
 
 	public void dragDetected() {

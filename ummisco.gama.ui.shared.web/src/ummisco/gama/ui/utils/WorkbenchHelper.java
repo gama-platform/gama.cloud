@@ -66,12 +66,12 @@ public class WorkbenchHelper {
 	public final static String BUILTIN_NATURE = WorkspaceModelsManager.BUILTIN_NATURE;
 
 	public static void asyncRun(IScope scope , final Runnable r) {
-//		final Display d = getDisplay(uid);
-//		if (d != null && !d.isDisposed()) {
-//			d.asyncExec(r);
-//		} else
-//			r.run();
-		run(GAMA.getRuntimeScope(), r);
+		final Display d = getDisplay(scope);
+		if (d != null && !d.isDisposed()) {
+			d.asyncExec(r);
+		} else
+			r.run();
+//		run(GAMA.getRuntimeScope(), r);
 	}
 
 	public static void run(IScope scope, final Runnable r) {

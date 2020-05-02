@@ -4,7 +4,7 @@
  * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
+ * 
  *
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
@@ -26,7 +26,6 @@ import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IKeyword;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.interfaces.ItemList;
-import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.outputs.LayeredDisplayData;
@@ -43,12 +42,10 @@ import msi.gama.util.GamaColor;
 import msi.gama.util.GamaListFactory;
 import msi.gama.util.IList;
 import msi.gaml.expressions.IExpression;
-import msi.gaml.operators.Strings;
 import msi.gaml.types.Types;
 import ummisco.gama.ui.controls.ParameterExpandBar;
 import ummisco.gama.ui.controls.ParameterExpandItem;
 import ummisco.gama.ui.interfaces.EditorListener;
-import ummisco.gama.ui.parameters.BooleanEditor;
 import ummisco.gama.ui.parameters.ColorEditor;
 import ummisco.gama.ui.parameters.EditorFactory;
 import ummisco.gama.ui.parameters.FloatEditor;
@@ -211,24 +208,19 @@ public class LayerSideControls {
 				case CAMERA_POS:
 					cameraPos.getParam().setValue(scope, data.getCameraPos());
 					cameraPos.forceUpdateValueAsynchronously();
-					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				case CAMERA_TARGET:
 					cameraTarget.getParam().setValue(scope, data.getCameraLookPos());
 					cameraTarget.forceUpdateValueAsynchronously();
-					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				case CAMERA_UP:
 					cameraUp.getParam().setValue(scope, data.getCameraUpVector());
 					cameraUp.forceUpdateValueAsynchronously();
-					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				case CAMERA_PRESET:
 					preset.getParam().setValue(scope, "Choose...");
 					preset.forceUpdateValueAsynchronously();
-					copyCameraAndKeystoneDefinition(scope, data);
 					break;
-
 				default:
 					;
 			}
@@ -244,7 +236,12 @@ public class LayerSideControls {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final String text = cameraDefinitionToCopy();
+				String text = IKeyword.CAMERA_POS + ": "
+						+ cameraPos.getCurrentValue().yNegated().withPrecision(4).serialize(false);
+				text += " " + IKeyword.CAMERA_LOOK_POS + ": "
+						+ cameraTarget.getCurrentValue().yNegated().withPrecision(4).serialize(false);
+				text += " " + IKeyword.CAMERA_UP_VECTOR + ": "
+						+ cameraUp.getCurrentValue().withPrecision(4).serialize(false);
 				WorkbenchHelper.copy(text);
 			}
 
@@ -262,11 +259,11 @@ public class LayerSideControls {
 		final PointEditor[] point = new PointEditor[4];
 		final ICoordinates points = data.getKeystone();
 		int i = 0;
-		for (@SuppressWarnings ("unused") final GamaPoint p : points) {
+		for (final GamaPoint p : points) {
 			final int j = i;
 			i++;
-			point[j] = EditorFactory.create(scope, contents, "Point " + j + ":", data.getKeystone().at(j).clone(),
-					(EditorListener<ILocation>) newValue -> {
+			point[j] = EditorFactory.create(scope, contents, "Point " + j + ":",
+					(GamaPoint) data.getKeystone().at(j).clone(), (EditorListener<ILocation>) newValue -> {
 						data.getKeystone().at(j).setLocation(newValue);
 						data.setKeystone(data.getKeystone());
 						ds.updateDisplay(true);
@@ -280,8 +277,6 @@ public class LayerSideControls {
 						point[k].getParam().setValue(scope, data.getKeystone().at(k));
 						point[k].forceUpdateValueAsynchronously();
 					}
-					data.setAntialias(data.isKeystoneDefined());
-					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				default:
 					;
@@ -299,7 +294,9 @@ public class LayerSideControls {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final String text = keystoneDefinitionToCopy(scope, data);
+				final IList<GamaPoint> pp =
+						GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
+				final String text = IKeyword.KEYSTONE + ": " + pp.serialize(false);
 				WorkbenchHelper.copy(text);
 			}
 
@@ -312,12 +309,10 @@ public class LayerSideControls {
 		final IDisplaySurface ds = view.getDisplaySurface();
 		final IScope scope = ds.getScope();
 		final LayeredDisplayData data = ds.getData();
-		final BooleanEditor antialias = EditorFactory.create(scope, contents, "Antialias:", data.isAntialias(),
-				(EditorListener<Boolean>) newValue -> {
-					data.setAntialias(newValue);
-					ds.updateDisplay(true);
-				});
-
+		EditorFactory.create(scope, contents, "Antialias:", data.isAntialias(), (EditorListener<Boolean>) newValue -> {
+			data.setAntialias(newValue);
+			ds.updateDisplay(true);
+		});
 		final ColorEditor background = EditorFactory.create(scope, contents, "Background:", data.getBackgroundColor(),
 				(EditorListener<Color>) newValue -> {
 					data.setBackgroundColor(new GamaColor(newValue));
@@ -368,13 +363,8 @@ public class LayerSideControls {
 						rotate.forceUpdateValueAsynchronously();
 					}
 					break;
-				case ANTIALIAS:
-					antialias.getParam().setValue(scope, data.isAntialias());
-					antialias.forceUpdateValueAsynchronously();
-					break;
 				default:
 					;
-
 			}
 
 		});
@@ -414,9 +404,9 @@ public class LayerSideControls {
 
 		final ILayerStatement definition = layer.getDefinition();
 
-		EditorFactory.create(container.getScope(), compo, "Transparency:",
-				layer.getData().getTransparency(container.getScope()), 0.0, 1.0, 0.1, false, newValue -> {
-					layer.getData().setTransparency(newValue);
+		EditorFactory.create(container.getScope(), compo, "Transparency:", layer.getData().getTransparency(container.getScope()), 0.0, 1.0,
+				0.1, false, newValue -> {
+					layer.getData().setTransparency(1 - newValue);
 					updateIfPaused(layer, container);
 				});
 		EditorFactory.create(container.getScope(), compo, "Position:", layer.getData().getPosition(),
@@ -485,7 +475,7 @@ public class LayerSideControls {
 						// FIXME Editor not working for the moment
 						final Point p = b.toDisplay(b.getLocation());
 						p.y = p.y + 30;
-						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(),
+						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()),
 								((ChartLayerStatement) definition).getChart(), p);
 						editor.open();
 						updateIfPaused(layer, container);
@@ -516,28 +506,5 @@ public class LayerSideControls {
 
 		}
 
-	}
-
-	private void copyCameraAndKeystoneDefinition(final IScope scope, final LayeredDisplayData data) {
-		if (!GamaPreferences.Displays.OPENGL_CLIPBOARD_CAM.getValue()) { return; }
-		final String toCopy = cameraDefinitionToCopy() + " " + Strings.LN
-				+ (data.isKeystoneDefined() ? keystoneDefinitionToCopy(scope, data) : "");
-		WorkbenchHelper.copy(toCopy);
-	}
-
-	private String cameraDefinitionToCopy() {
-		String text = IKeyword.CAMERA_POS + ": "
-				+ new GamaPoint(cameraPos.getCurrentValue().toGamaPoint()).yNegated().withPrecision(4).serialize(false);
-		text += " " + IKeyword.CAMERA_LOOK_POS + ": " + new GamaPoint(cameraTarget.getCurrentValue().toGamaPoint())
-				.yNegated().withPrecision(4).serialize(false);
-		text += " " + IKeyword.CAMERA_UP_VECTOR + ": "
-				+ new GamaPoint(cameraUp.getCurrentValue().toGamaPoint()).withPrecision(4).serialize(false);
-		return text;
-	}
-
-	private String keystoneDefinitionToCopy(final IScope scope, final LayeredDisplayData data) {
-		final IList<ILocation> pp = GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
-		final String text = IKeyword.KEYSTONE + ": " + pp.serialize(false);
-		return text;
 	}
 }

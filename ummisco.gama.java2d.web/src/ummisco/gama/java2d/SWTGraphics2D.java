@@ -117,7 +117,7 @@ public class SWTGraphics2D extends Graphics2D {
 	static Point PT = new Point();
 	static Rectangle2D RECT = new Rectangle2D.Double();
 	static Rectangle2D LINE_RECT = new Rectangle2D.Double();
-	static org.eclipse.swt.graphics.Rectangle SWT_RECT = new org.eclipse.swt.graphics.Rectangle(0, 0, 0, 0);
+	public static org.eclipse.swt.graphics.Rectangle SWT_RECT = new org.eclipse.swt.graphics.Rectangle(0, 0, 0, 0);
 
 	protected Device device;
 //	protected AffineTransform transform = new AffineTransform();
