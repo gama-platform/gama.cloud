@@ -1,1 +1,1 @@
-start java -jar .\tomcat_launcher.jar
+start java -jar .\jetty_launcher.jar

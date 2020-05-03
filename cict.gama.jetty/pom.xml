@@ -166,8 +166,7 @@
 						<macosx-bundled>true</macosx-bundled>
 					</profileProperties>
 				</configuration>
-			</plugin>
-			<!-- 
+			</plugin> 
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.0.2</version>
@@ -180,13 +179,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>target/GamaWeb</outputDirectory>   
-							<resources>
-								<resource>
-									<directory>../msi.gama.lang.gaml.web.build/GamaWeb/target/</directory>   
-									<includes>       
-										<include>GamaWeb.war</include>
-									</includes>
-								</resource>
+							<resources> 
 								<resource>
 									<directory>script</directory>   
 									<filtering>true</filtering>
@@ -200,8 +193,7 @@
 					</execution>
 				</executions>
 			</plugin> 
-
-			 -->
+ 
 
 
 		</plugins>

@@ -84,6 +84,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
 
+	boolean is_offline = true;
 	boolean is_controller = false;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
@@ -247,6 +248,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		
 		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(getIpAddr(RWT.getRequest())) || "0:0:0:0:0:0:0:1".equals(getIpAddr(RWT.getRequest()))) {
 			enableLoggin = false;
+			is_offline=true;
 			System.out.println("the offline prefix ");
 		}
 		if (webContext.startsWith("/" + controller_context)) {
@@ -259,6 +261,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
+		String mm=""+getParameter("model");//.replace("\\", "\\\\");
+		String exp=""+getParameter("exp");//.replace("\\", "\\\\");
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
 		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
 				+ splash + "') top center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
@@ -266,21 +270,22 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		try {
 			String uid = enableLoggin ? "" : "admin";
 
-			DummyCallbackHandler dch = new DummyCallbackHandler();
+//			DummyCallbackHandler dch = new DummyCallbackHandler();
 
-			DummyLoginModule dlm = new DummyLoginModule();
-			dlm.initialize(new Subject(), dch, null, null);
+//			DummyLoginModule dlm = new DummyLoginModule();
+//			dlm.initialize(new Subject(), dch, null, null);
 //			System.out.println("ss    "+RWT.getUISession().getHttpSession());
 			boolean logged = enableLoggin
 					? (RWT.getApplicationContext()
 							.getAttribute("credential" + RWT.getUISession().getHttpSession()) == null ? false : true)
 					: true; // false
-			while (!logged) {
-				logged = dlm.login();
-			}
+//			while (!logged) {
+//				logged = dlm.login();
+//			}
 			if (logged || RWT.getApplicationContext()
 					.getAttribute("credential" + RWT.getUISession().getHttpSession()) != null) {
-				uid = enableLoggin ? dlm.getLoggedUser() : uid; // must enable
+//				uid = enableLoggin ? dlm.getLoggedUser() : uid; // must enable 
+				uid = !is_offline ? getIpAddr(RWT.getRequest()).replace('.', '_') : uid; // must enable
 
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -301,7 +306,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 					ex.execute("window.location=\"http://51.255.46.42:8080/" + user_context_prefix + uid
-							+ "/texteditor\"");
+							+ "/texteditor/model="+mm+"&exp="+exp+"\"");
 
 				} else {
 					postLoggedIn(uid);
@@ -341,7 +346,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				RWT.getRequest().setCharacterEncoding("UTF-8");
 //				RWT.getResponse().setCharacterEncoding("UTF-8");
 //				RWT.getResponse().setContentType("text/html; charset=UTF-8");
-				String mm=""+getParameter("model");//.replace("\\", "\\\\");
 //				System.out.println(URLDecoder.decode(mm,"UTF-8"));
 //				System.out.println(URLDecoder.decode(""+getParameter("exp"),"UTF-8"));
 //				try {
@@ -354,7 +358,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //					e.printStackTrace();
 //				}
 				RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm,"UTF-8"));
-				RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(""+getParameter("exp"),"UTF-8"));
+				RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(exp,"UTF-8"));
 				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);
