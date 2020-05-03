@@ -24,15 +24,18 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 public class RunWarExample {
 	public static int port = 8080;
 
+	String warpath = "/GamaWeb.war";
 	public void retrieveWar() {
 		File currentJavaJarFile = new File(RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
 		File file1 = new File(executionPath + "/GamaWeb.war");
+		warpath=file1.getAbsolutePath();
 		if (!file1.exists()) {
 			InputStream link = (getClass().getResourceAsStream("/GamaWeb.war"));
 			try {
 				Files.copy(link, file1.getAbsoluteFile().toPath());
+				System.out.println(file1.getAbsoluteFile() );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -43,9 +46,9 @@ public class RunWarExample {
 		RunWarExample r=new RunWarExample();
 		r.retrieveWar();
 		Server server = new Server(port);
-		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
+//		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
+		 
 
-//		String warpath = "GamaWeb.war";
 		WebAppContext context = new WebAppContext();
 //		context.setResourceBase(warpath);
 		context.setConfigurations(new Configuration[] { new AnnotationConfiguration(), new WebInfConfiguration(),
@@ -53,7 +56,7 @@ public class RunWarExample {
 				new EnvConfiguration(), new PlusConfiguration(), new JettyWebXmlConfiguration() });
 		context.setContextPath("/GamaWeb");
 
-		context.setWar(warpath);
+		context.setWar(r.warpath);
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
