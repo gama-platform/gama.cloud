@@ -46,4 +46,4 @@ cd target
 cp tomcat_launcher.jar GamaWeb
 cd ../..
 }
-o
+a
