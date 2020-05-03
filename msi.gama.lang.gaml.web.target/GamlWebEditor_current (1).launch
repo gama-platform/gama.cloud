@@ -19,14 +19,14 @@
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.8 -XX:+UseG1GC -XX:+UseStringDeduplication -Dosgi.requiredJavaVersion=1.8 -Xms256m -Xmx4096m -Declipse.ignoreApp=true -Dosgi.noShutdown=true&#13;&#10;-Dorg.eclipse.equinox.http.jetty.log.stderr.threshold=none"/>
 <stringAttribute key="org.eclipse.rap.launch.browserMode" value="INTERNAL"/>
-<stringAttribute key="org.eclipse.rap.launch.contextpath" value="/GamaWeb"/>
+<stringAttribute key="org.eclipse.rap.launch.contextpath" value="/user_GamaWeb0_0_0_0_0_0_0_1"/>
 <stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.tools.launch/GamlWebEditor_current(1)"/>
 <booleanAttribute key="org.eclipse.rap.launch.developmentMode" value="false"/>
 <booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="false"/>
 <intAttribute key="org.eclipse.rap.launch.port" value="10081"/>
 <stringAttribute key="org.eclipse.rap.launch.servletPath" value="/texteditor"/>
 <intAttribute key="org.eclipse.rap.launch.sessionTimeout" value="0"/>
-<booleanAttribute key="org.eclipse.rap.launch.useDefaultDataLocation" value="false"/>
+<booleanAttribute key="org.eclipse.rap.launch.useDefaultDataLocation" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useManualContextPath" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useManualPort" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useSessionTimeout" value="false"/>
@@ -36,5 +36,5 @@
 <booleanAttribute key="tracing" value="true"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="cict.gama.web.wrapper@default:default,msi.gama.application.web@default:default,msi.gama.core.web@default:default,msi.gama.core@default:default,msi.gama.ext@default:default,msi.gama.lang.gaml.web@default:default,msi.gama.lang.gaml@default:default,msi.gama.models@default:default,msi.gama.processor@default:default,msi.gaml.architecture.simplebdi@default:default,org.dslforge.styledtext@default:default,org.dslforge.texteditor@default:default,org.dslforge.workspace.config@default:default,org.dslforge.workspace.jpa@3:default,org.dslforge.workspace.ui@default:default,org.dslforge.workspace@default:default,org.dslforge.xtext.common@default:default,simtools.gaml.extensions.physics@default:default,simtools.gaml.extensions.traffic@default:default,simtools.graphanalysis@default:default,ummisco.gama.annotations@default:default,ummisco.gama.java2d.web@default:default,ummisco.gama.network@default:default,ummisco.gama.opengl.web@default:default,ummisco.gama.participative@default:default,ummisco.gama.serialize@default:default,ummisco.gama.ui.experiment.web@default:default,ummisco.gama.ui.modeling.web@default:default,ummisco.gama.ui.navigator.web@default:default,ummisco.gama.ui.shared.web@default:default,ummisco.gaml.extensions.maths@default:default,ummisco.gaml.extensions.sound@default:default,ummisco.gaml.extensions.stats@default:default"/>
+<stringAttribute key="workspace_bundles" value="cict.gama.web.wrapper@default:default,msi.gama.application.web@default:default,msi.gama.core.web@default:default,msi.gama.core@default:default,msi.gama.ext@default:default,msi.gama.lang.gaml.web@default:default,msi.gama.lang.gaml@default:default,msi.gama.models@default:default,msi.gama.processor@default:default,org.dslforge.styledtext@default:default,org.dslforge.texteditor@default:default,org.dslforge.workspace.config@default:default,org.dslforge.workspace.jpa@3:default,org.dslforge.workspace.ui@default:default,org.dslforge.workspace@default:default,org.dslforge.xtext.common@default:default,simtools.gaml.extensions.physics@default:default,simtools.gaml.extensions.traffic@default:default,simtools.graphanalysis@default:default,ummisco.gama.annotations@default:default,ummisco.gama.java2d.web@default:default,ummisco.gama.network@default:default,ummisco.gama.opengl.web@default:default,ummisco.gama.participative@default:default,ummisco.gama.serialize@default:default,ummisco.gama.ui.experiment.web@default:default,ummisco.gama.ui.modeling.web@default:default,ummisco.gama.ui.navigator.web@default:default,ummisco.gama.ui.shared.web@default:default,ummisco.gaml.extensions.maths@default:default,ummisco.gaml.extensions.stats@default:default"/>
 </launchConfiguration>
