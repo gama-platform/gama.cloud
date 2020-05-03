@@ -87,6 +87,7 @@ import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -98,6 +99,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.graphics.Transform;
 
@@ -1783,10 +1785,11 @@ public class SWTGraphics2D extends Graphics2D {
 		// Note that for consistency with the AWT implementation, it is
 		// necessary to switch temporarily the foreground and background
 		// colours
-		switchColors();
+//		switchColors();
 		this.gc.fillPath(path);
-		switchColors();
+//		switchColors();
 		path.dispose();
+		path=null;
 	}
 
 	/**
@@ -2137,11 +2140,15 @@ public class SWTGraphics2D extends Graphics2D {
 		ImageData data = SWTUtils.convertAWTImageToSWT(image);
 		if (data == null) {
 			return false;
-		}
+		}   
+		int whitePixel = data.palette.getPixel(new RGB(0,0,0));
+		data.transparentPixel = whitePixel; 
 		org.eclipse.swt.graphics.Image im = new org.eclipse.swt.graphics.Image(this.gc.getDevice(), data);
 		org.eclipse.swt.graphics.Rectangle bounds = im.getBounds();
 		this.gc.drawImage(im, 0, 0, bounds.width, bounds.height, x, y, width, height);
 		im.dispose();
+		bounds=null;
+		data=null;
 		return true;
 	}
 
@@ -2394,6 +2401,8 @@ public class SWTGraphics2D extends Graphics2D {
 			}
 			pit.next();
 		}
+		pit=null;
+		coords=null;
 		return path;
 	}
 

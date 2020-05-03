@@ -471,7 +471,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			focusOn(geometry);
 			return;
 		}
-		g2d.dispose();
+	
+//		g2d.dispose();
 		frames++;
 		rendered = true;
 	}

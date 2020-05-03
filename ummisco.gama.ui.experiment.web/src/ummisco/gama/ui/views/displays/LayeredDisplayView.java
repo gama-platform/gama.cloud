@@ -285,38 +285,38 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	public void update(final IDisplayOutput output) {
 
 		// Fix for issue #1693
-		final boolean oldSync = output.isSynchronized();
-		if (output.isInInitPhase()) {
-			output.setSynchronized(false);
-		}
+//		final boolean oldSync = output.isSynchronized();
+//		if (output.isInInitPhase()) {
+//			output.setSynchronized(false);
+//		}
 		// end fix
-		if (updateThread == null) {
-			updateThread = new Thread(() -> {
-				final IDisplaySurface s = getDisplaySurface();
-				// if (s != null && !s.isDisposed() && !disposed) {
-				// s.updateDisplay(false);
-				// }
-				while (!disposed) {
-
-					if (s != null && s.isRealized() && !s.isDisposed() && !disposed) {
-						acquireLock();
-						s.updateDisplay(false);
-						if (s.getData().isAutosave()) {
-							SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
-						}
-						// Fix for issue #1693
-						if (output.isInInitPhase()) {
-							output.setInInitPhase(false);
-							output.setSynchronized(oldSync);
-							// end fix
-						}
-
-					}
-
-				}
-			});
-			updateThread.start();
-		}
+//		if (updateThread == null) {
+//			updateThread = new Thread(() -> {
+//				final IDisplaySurface s = getDisplaySurface();
+//				// if (s != null && !s.isDisposed() && !disposed) {
+//				// s.updateDisplay(false);
+//				// }
+//				while (!disposed) {
+//
+//					if (s != null && s.isRealized() && !s.isDisposed() && !disposed) {
+//						acquireLock();
+//						s.updateDisplay(false);
+//						if (s.getData().isAutosave()) {
+//							SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
+//						}
+//						// Fix for issue #1693
+//						if (output.isInInitPhase()) {
+//							output.setInInitPhase(false);
+//							output.setSynchronized(oldSync);
+//							// end fix
+//						}
+//
+//					}
+//
+//				}
+//			});
+//			updateThread.start();
+//		}
 
 		if (output.isSynchronized()) {
 			final IDisplaySurface s = getDisplaySurface();
@@ -332,9 +332,10 @@ public abstract class LayeredDisplayView extends GamaViewPart
 //				}
 //
 //			}
-		} else if (updateThread.isAlive()) {
-			releaseLock();
-		}
+		} 
+//		else if (updateThread.isAlive()) {
+//			releaseLock();
+//		}
 
 	}
 
