@@ -16,6 +16,7 @@
 package msi.gama.lang.gaml.web.workbench;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.xtext.resource.XtextResource;
 
+import msi.gama.application.Application;
 import msi.gama.application.workspace.WorkspaceModelsManager;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.core.web.editor.IWorkbenchConstants;
@@ -168,6 +170,12 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		ConsoleDisplayerFactory.displayer.put(loggedUser, new ConsoleDisplayer(loggedUser));
 //		StatusDisplayerFactory.displayer.put(RWT.getUISession().getAttribute("user").toString(), new StatusDisplayer());
 
+		try {
+			Application.checkWorkspace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		

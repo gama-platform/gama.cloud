@@ -36,7 +36,7 @@ public class GAMAWEB extends GAMA{
 		return s.getScope();
 	}
 	public static void pauseFrontmostExperiment() {
-		String u=RWT.getUISession().getAttribute("user").toString();
+		String u="admin";//RWT.getUISession().getAttribute("user").toString();
 		if(theControllers.get(u)!=null){
 			IExperimentController controller = theControllers.get(u);
 			controller.directPause();

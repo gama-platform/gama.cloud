@@ -21,7 +21,11 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +37,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
+import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.rap.rwt.internal.service.ContextProvider;
 import org.eclipse.rap.rwt.service.UISessionEvent;
 import org.eclipse.rap.rwt.service.UISessionListener;
 import org.eclipse.swt.SWT;
@@ -240,13 +246,15 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 	}
 
-	public void sss(Display display) { 
+	public void redirect_to(Display display, String url) {
 		final Runnable bgRunnable = new Runnable() {
 			public void run() {
 				RWT.getUISession(display).exec(new Runnable() {
-					public void run() { 
-						JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-						ex.execute("window.location=\"http://google.com\"");
+					public void run() {
+//						JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+//						ex.execute("window.location=\""+url+"\"");
+						ContextProvider.getProtocolWriter().appendHead("redirect", url); 
+
 					}
 				});
 			}
@@ -254,17 +262,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		bgRunnable.run();
 	}
 
-	@Override
-	public int createUI() {
-//		try {
-//			enableLoggin=InetAddress.getLocalHost().getHostName().equals("dell3847")?false:true;
-//		} catch (UnknownHostException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
-		System.out.println(ip);
+	ArrayList<String> available_user = new ArrayList<String>(Arrays.asList("user1", "user2", "user3"));
+	ArrayList<String> used_user = new ArrayList<String>();
+
+	public void checkRole() {
 		String webContext = RWT.getRequest().getContextPath();
 		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(getIpAddr(RWT.getRequest()))
 				|| "0:0:0:0:0:0:0:1".equals(getIpAddr(RWT.getRequest()))) {
@@ -282,26 +283,116 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			enableLoggin = false;
 			System.out.println("the user prefix ");
 			RWT.getUISession().getHttpSession().setMaxInactiveInterval(5);
-			RWT.getUISession().addUISessionListener(new UISessionListener() {
-				@Override
-				public void beforeDestroy(UISessionEvent event) {
-					System.out.println("UISession                   " + event.getUISession());
-				}
-			});
 		}
+	}
+
+	public void init_google_callback() {
 		RWT.getServiceManager().unregisterServiceHandler("tokenCallback");
 		RWT.getServiceManager().registerServiceHandler("tokenCallback", new TokenCallbackServiceHandler(this));
-		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-		String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+	}
+
+	public void set_background_gama() {
 		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
 		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
 				+ splash + "') top center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
 
+	}
+
+	public void set_timeout_trigger(int sec, Display display) {
+
+		BasicWorkbench bw = this;
+		new Thread() {
+			float tick = 0;
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while (tick < sec) {
+					tick = tick + 1;
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//					System.out.println(s);
+				}
+				bw.redirect_to(display, "http://google.com");
+
+			}
+
+		}.start();
+	}
+	
+	public void check_auth_ip(final String uid) {
+
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
+		System.out.println(ip);
+		HashMap<String, LocalDateTime> recent_ip = (HashMap<String, LocalDateTime>) RWT.getApplicationContext()
+				.getAttribute("recent_ip");
+		LocalDateTime now = LocalDateTime.now();
+		if (recent_ip == null) {
+			recent_ip = new HashMap<String, LocalDateTime>();
+			recent_ip.put(ip, now);
+			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+		} else {
+			LocalDateTime dd = recent_ip.get(ip);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			System.out.println(dtf.format(dd.plusMinutes(1)));
+			System.out.println(dtf.format(now));
+			if (!now.isAfter(dd.plusMinutes(1))) {
+//				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+//				ex.execute("alert('come back later');window.location=\"http://google.com\"");
+//				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
+				ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
+			} else {
+				recent_ip.put(ip, now);
+				RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+			}
+		}
+		if (is_controller) {
+			File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + ip);
+			if (!tmpDir.exists()) {
+				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
+						+ user_context_prefix + ip + ".war");
+				doWait();
+			}
+			recent_ip.put(ip, now);
+			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+//			JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+//			ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
+//					+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
+
+			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+			try {
+				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
+						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+//			return 0;
+
+		} else {
+			postLoggedIn(uid);
+		}
+	}
+	@Override
+	public int createUI() {
+//		try {
+//			enableLoggin=InetAddress.getLocalHost().getHostName().equals("dell3847")?false:true;
+//		} catch (UnknownHostException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		checkRole();
+		init_google_callback();
 		try {
 			String uid = enableLoggin ? "" : "admin";
 
 //			DummyCallbackHandler dch = new DummyCallbackHandler();
-
 //			DummyLoginModule dlm = new DummyLoginModule();
 //			dlm.initialize(new Subject(), dch, null, null);
 //			System.out.println("ss    "+RWT.getUISession().getHttpSession());
@@ -315,7 +406,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (logged || RWT.getApplicationContext()
 					.getAttribute("credential" + RWT.getUISession().getHttpSession()) != null) {
 				uid = enableLoggin ? "admin" : uid; // must enable
-
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -326,21 +416,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				if (is_controller && !uid.equals("admin")) {
-					File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + ip);
-					if (!tmpDir.exists()) {
-						execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
-								+ user_context_prefix + ip + ".war");
-						doWait();
-					}
-					JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-					ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
-							+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
-					return 0;
-
-				} else {
-					postLoggedIn(uid);
-				}
+				check_auth_ip(uid);
 
 			} else {
 				return 0;
@@ -373,23 +449,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					onlines.add(u);
 					listPads.put(uid, new ArrayList<String>());
 				}
-//				RWT.getRequest().setCharacterEncoding("UTF-8");
-//				RWT.getResponse().setCharacterEncoding("UTF-8");
-//				RWT.getResponse().setContentType("text/html; charset=UTF-8");
-//				System.out.println(URLDecoder.decode(mm,"UTF-8"));
-//				System.out.println(URLDecoder.decode(""+getParameter("exp"),"UTF-8"));
-//				try {
-//					System.out.println("sss");
-//					System.out.println(URLDecoder.decode("C:\\Spatial%20Topology\\Agent%20movement\\models\\Continuous%20Field%20of%20Vision.gaml","UTF-8"));
-//					System.out.println("bbb");
-//					
-//				} catch (UnsupportedEncodingException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+
+				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 				RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm, "UTF-8"));
 				RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(exp, "UTF-8"));
-				Application.checkWorkspace();
 				RWT.getApplicationContext().setAttribute("onlines", onlines);
 				RWT.getApplicationContext().setAttribute("listPads", listPads);
 				// JavaScriptExecutor js =
@@ -401,29 +465,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
 				Display display = PlatformUI.createDisplay();
-				BasicWorkbench bw = this;
-				new Thread() {
-					float s = 0;
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						while (s < 500) {
-							s = s + 1;
-							try {
-								sleep(10);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							System.out.println(s);
-						}
-						bw.sss(display);
-
-					}
-
-				}.start();
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
+				set_timeout_trigger(5,display);
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
