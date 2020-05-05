@@ -379,6 +379,47 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			postLoggedIn(uid);
 		}
 	}
+	public void sync_user_list(String uid) {
+
+		User u = new User();
+		u.setId(uid);
+
+		ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+		Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
+		// Map<String, ArrayList<String>>
+		if (onlines == null) {
+			onlines = new ArrayList<>();
+			listPads = new HashMap<String, ArrayList<String>>();
+		}
+		boolean exist = false;
+		for (User s : onlines) {
+			if (s.getId().equals(uid)) {
+				exist = true;
+				break;
+			}
+		}
+		if (!exist) {
+			onlines.add(u);
+			listPads.put(uid, new ArrayList<String>());
+		}
+		RWT.getApplicationContext().setAttribute("onlines", onlines);
+		RWT.getApplicationContext().setAttribute("listPads", listPads);
+	}
+	
+	public void set_environment_param(String uid) throws UnsupportedEncodingException {
+		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+		String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+		RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm, "UTF-8"));
+		RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(exp, "UTF-8"));
+		// JavaScriptExecutor js =
+		// RWT.getClient().getService(JavaScriptExecutor.class);
+		// if(u.getId().equals(""+uid)) {
+		executor.put(uid, RWT.getClient().getService(JavaScriptExecutor.class));
+		System.out.println("script new    " + executor);
+		// }
+		RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
+
+	}
 	@Override
 	public int createUI() {
 //		try {
@@ -406,16 +447,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (logged || RWT.getApplicationContext()
 					.getAttribute("credential" + RWT.getUISession().getHttpSession()) != null) {
 				uid = enableLoggin ? "admin" : uid; // must enable
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("start");
-				System.out.println(uid);
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of "+uid);
 				check_auth_ip(uid);
 
 			} else {
@@ -428,57 +460,16 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
 				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
-				User u = new User();
-				u.setId(uid);
-
-				ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-				Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
-				// Map<String, ArrayList<String>>
-				if (onlines == null) {
-					onlines = new ArrayList<>();
-					listPads = new HashMap<String, ArrayList<String>>();
-				}
-				boolean exist = false;
-				for (User s : onlines) {
-					if (s.getId().equals(uid)) {
-						exist = true;
-						break;
-					}
-				}
-				if (!exist) {
-					onlines.add(u);
-					listPads.put(uid, new ArrayList<String>());
-				}
-
-				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
-				RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm, "UTF-8"));
-				RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(exp, "UTF-8"));
-				RWT.getApplicationContext().setAttribute("onlines", onlines);
-				RWT.getApplicationContext().setAttribute("listPads", listPads);
-				// JavaScriptExecutor js =
-				// RWT.getClient().getService(JavaScriptExecutor.class);
-				// if(u.getId().equals(""+uid)) {
-				executor.put(uid, RWT.getClient().getService(JavaScriptExecutor.class));
-				System.out.println("script new    " + executor);
-				// }
-				RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
-
+				
+				sync_user_list(uid);
+				set_environment_param(uid);
+				
 				Display display = PlatformUI.createDisplay();
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 				set_timeout_trigger(5,display);
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("end");
-				System.out.println(uid);
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
 				return result;
 			}
 

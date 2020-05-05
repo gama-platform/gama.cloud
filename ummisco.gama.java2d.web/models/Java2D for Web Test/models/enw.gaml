@@ -14,6 +14,7 @@ global {
         }
 	}
 	reflex ss{
+	    write "dd";
 	    float t<-machine_time;
 	    ask aa{
 	        do ss;
