@@ -339,16 +339,19 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		} else {
 			LocalDateTime dd = recent_ip.get(ip);
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-			System.out.println(dtf.format(dd.plusMinutes(1)));
-			System.out.println(dtf.format(now));
-			if (!now.isAfter(dd.plusMinutes(1))) {
+			if(dd!=null) {				
+				System.out.println(dtf.format(dd.plusMinutes(1)));
+				System.out.println(dtf.format(now));
+				if (!now.isAfter(dd.plusMinutes(1))) {
 //				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //				ex.execute("alert('come back later');window.location=\"http://google.com\"");
 //				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
-				ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
-			} else {
-				recent_ip.put(ip, now);
-				RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
+				} 
+//				else {
+//					recent_ip.put(ip, now);
+//					RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+//				}
 			}
 		}
 		if (is_controller) {
@@ -466,7 +469,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				
 				Display display = PlatformUI.createDisplay();
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
-				set_timeout_trigger(5,display);
+//				if(!is_offline) {
+//					set_timeout_trigger(5,display);
+//				}
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
