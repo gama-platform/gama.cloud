@@ -9,26 +9,14 @@
  **********************************************************************************************/
 package ummisco.gama.java2d;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Layout;
-
-import com.vividsolutions.jts.awt.ShapeWriter;
-
-import msi.gama.common.interfaces.IGamaView;
 import msi.gama.outputs.IDisplayOutput;
 import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.swing.SwingControl;
 import ummisco.gama.ui.utils.WorkbenchHelper;
-import ummisco.gama.ui.views.GamaViewPart;
 import ummisco.gama.ui.views.displays.LayeredDisplayView;
 
 public class AWTDisplayView extends LayeredDisplayView {
