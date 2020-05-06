@@ -20,7 +20,7 @@ public class SwitchToModeling extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		PerspectiveHelper.openModelingPerspective(true);
+		PerspectiveHelper.openModelingPerspective(true,false);
 		return null;
 	}
 }

@@ -525,7 +525,7 @@ public class WebGui implements IGui {
 				}
 			}
 			if (openModelingPerspective) {
-				PerspectiveHelper.openModelingPerspective(immediately);
+				PerspectiveHelper.openModelingPerspective(immediately,false);
 			}
 			getStatus(scope).neutralStatus("No simulation running");
 		});
