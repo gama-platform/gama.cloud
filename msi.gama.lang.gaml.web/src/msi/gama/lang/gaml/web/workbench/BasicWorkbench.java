@@ -41,10 +41,13 @@ import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.rap.rwt.internal.application.ApplicationContextImpl;
 import org.eclipse.rap.rwt.internal.service.ContextProvider;
+import org.eclipse.rap.rwt.service.ApplicationContext;
 import org.eclipse.rap.rwt.service.UISessionEvent;
 import org.eclipse.rap.rwt.service.UISessionListener;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.internal.widgets.IDisplayAdapter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -196,7 +199,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	private void doWait() {
-		Display d = Display.getDefault();
+		Display d = Display.getCurrent();
 		Shell sh = new Shell(d);
 		sh.setSize(500, 50);
 		Label lb = new Label(sh, SWT.NONE);
@@ -346,7 +349,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //				ex.execute("alert('come back later');window.location=\"http://google.com\"");
 //				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
-					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
+//					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
 				} 
 //				else {
 //					recent_ip.put(ip, now);
@@ -369,13 +372,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
-			try {
-				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
-						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+//			try {
+//				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
+//						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} 
 //			return 0;
 
 		} else {
@@ -472,7 +475,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				if(!is_offline) {
 //					set_timeout_trigger(5,display);
 //				}
-				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
+
+			   int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
 				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
 				return result;

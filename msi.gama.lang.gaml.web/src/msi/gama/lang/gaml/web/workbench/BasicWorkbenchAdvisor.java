@@ -96,7 +96,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 //		
 
 		String uid=RWT.getUISession().getAttribute("user").toString();
-		while(!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).isDisposed()) {
+//		while(!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).isDisposed()) {
 			try {
 				Thread.sleep(100);
 			} catch (Exception e) {
@@ -104,7 +104,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 				e.printStackTrace();
 			}
 			
-		}
+//		}
 		if(RWT.getApplicationContext().getAttribute("logged_"+uid)!=null) {			
 			RWT.getApplicationContext().setAttribute("logged_"+uid, null);
 			
@@ -121,20 +121,20 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
 
-		String webContext = RWT.getRequest().getContextPath();
- 
-		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			System.out.println("remove the webcontext "+webContext);
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + webContext + ".war");
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + webContext); 
-			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + webContext); 
-		}
+//		String webContext = RWT.getRequest().getContextPath();
+// 
+//		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			System.out.println("remove the webcontext "+webContext);
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
+//			BasicWorkbench.execBash("rm /opt/tomcat/webapps/" + webContext + ".war");
+//			BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/" + webContext); 
+//			BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/" + webContext); 
+//		}
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 
 		// }
 		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
-		WorkbenchHelper.workbench.put(WorkbenchHelper.getUIDfromScope(GAMA.getRuntimeScope()),w);
+		WorkbenchHelper.workbench.put("admin",w);
 		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
 //		WorkbenchHelper.setUID(loggedUser); 
 		GAMA.getGui().refreshNavigator();

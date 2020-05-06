@@ -54,7 +54,7 @@ grid cell width:10 height:10{
 experiment TestExp type: gui autorun:true {
  
 	output { 
-		display o type: java2D synchronized:true { 
+		display o type: java2D synchronized:false { 
 		    graphics s{
 		        draw ""+aaa at:{10.0,10.0} color:#black;
 		    }

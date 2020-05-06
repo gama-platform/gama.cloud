@@ -190,7 +190,7 @@ public class WorkbenchHelper {
 //	}
 	
 	public static String getUIDfromScope(final IScope scope) {
-		return UISession.get(scope);
+		return "admin";//UISession.get(scope);
 	}
 	
 
