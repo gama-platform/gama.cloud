@@ -90,15 +90,6 @@
 <plugin id="org.apache.xml.serializer"/>
 <plugin id="org.apiguardian"/>
 <plugin id="org.apiguardian.source"/>
-<plugin id="org.dslforge.common.logging"/>
-<plugin id="org.dslforge.styledtext"/>
-<plugin id="org.dslforge.texteditor"/>
-<plugin id="org.dslforge.texteditor.demo"/>
-<plugin id="org.dslforge.workspace"/>
-<plugin id="org.dslforge.workspace.config"/>
-<plugin id="org.dslforge.workspace.jpa"/>
-<plugin id="org.dslforge.workspace.ui"/>
-<plugin id="org.dslforge.xtext.common"/>
 <plugin id="org.eclipse.ant.core"/>
 <plugin id="org.eclipse.ant.core.source"/>
 <plugin id="org.eclipse.ant.launching"/>
@@ -872,7 +863,7 @@
 <plugin id="org.w3c.css.sac.source"/>
 <plugin id="org.w3c.dom.events"/>
 <plugin id="org.w3c.dom.events.source"/>
-<plugin id="org.w3c.dom.smil"/>
+<plugin id="org.w3c.dom.smil" version="1.0.1.v200903091627"/>
 <plugin id="org.w3c.dom.smil.source"/>
 <plugin id="org.w3c.dom.svg"/>
 <plugin id="org.w3c.dom.svg.source"/>
@@ -883,9 +874,9 @@
 	<plugin id="org.eclipse.xtext.source" version="2.17.0.v20190304-0545"/>
 	<plugin id="org.eclipse.xtext.util" version="2.17.0.v20190304-0545"/>
 	<plugin id="org.eclipse.xtext.util.source" version="2.17.0.v20190304-0545"/>
-	<plugin id="org.apache.batik.util"/>
+	<plugin id="org.apache.batik.util" version="1.10.0.v20180703-1553"/>
 	<plugin id="org.apache.batik.util.source"/>
-	<plugin id="org.apache.batik.css"/>
+	<plugin id="org.apache.batik.css" version="1.10.0.v20180703-1553"/>
 	<plugin id="org.apache.batik.css.source"/>
 	<plugin id="org.eclipse.core.runtime.source" version="3.15.200.v20190301-1641"/>
 	<plugin id="org.eclipse.core.contenttype.source" version="3.7.300.v20190215-2048"/>

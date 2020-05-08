@@ -55,6 +55,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
+import cict.gama.jetty.RunWarExample;
 import msi.gama.application.Application;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
@@ -199,7 +200,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	private void doWait() {
-		Display d = Display.getCurrent();
+//		Display d = Display.getCurrent();
+		Display d = PlatformUI.createDisplay();
 		Shell sh = new Shell(d);
 		sh.setSize(500, 50);
 		Label lb = new Label(sh, SWT.NONE);
@@ -435,6 +437,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			e1.printStackTrace();
 //		}
 		checkRole();
+		RunWarExample.main(new String[] {"GamaWeb","8080"});
 		init_google_callback();
 		try {
 			String uid = enableLoggin ? "" : "admin";
@@ -469,17 +472,19 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				
 				sync_user_list(uid);
 				set_environment_param(uid);
-				
-				Display display = PlatformUI.createDisplay();
-				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
+				if(!is_controller) {
+					
+					Display display = PlatformUI.createDisplay();
+					// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 //				if(!is_offline) {
 //					set_timeout_trigger(5,display);
 //				}
-
-			   int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
-				display.dispose();
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
-				return result;
+					
+					int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
+					display.dispose();
+					System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
+					return result;
+				}
 			}
 
 		} catch (Exception e) {
