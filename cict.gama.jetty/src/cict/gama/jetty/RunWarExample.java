@@ -24,18 +24,18 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 public class RunWarExample {
 	public static int port = 8080;
 
-	String warpath = "/GamaWeb.war";
-	public void retrieveWar() {
+	File warpath ;//= "/GamaWeb.war";
+	public void retrieveWar(String contextpath) {
 		File currentJavaJarFile = new File(RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		File file1 = new File(executionPath + "/GamaWeb.war");
-		warpath=file1.getAbsolutePath();
-		if (!file1.exists()) {
+		warpath = new File(executionPath + "/"+contextpath+".war");
+//		warpath=file1.getAbsolutePath();
+		if (!warpath.exists()) {
 			InputStream link = (getClass().getResourceAsStream("/GamaWeb.war"));
 			try {
-				Files.copy(link, file1.getAbsoluteFile().toPath());
-				System.out.println(file1.getAbsoluteFile() );
+				Files.copy(link, warpath.getAbsoluteFile().toPath());
+				System.out.println(warpath.getAbsoluteFile() );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -44,8 +44,8 @@ public class RunWarExample {
 	}
 	public static void main(String[] args) {  
 		RunWarExample r=new RunWarExample();
-		r.retrieveWar();
-		Server server = new Server(port);
+		r.retrieveWar(args[0]);
+		Server server = new Server(stringToInt(args[1]));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
 		 
 
@@ -54,13 +54,13 @@ public class RunWarExample {
 		context.setConfigurations(new Configuration[] { new AnnotationConfiguration(), new WebInfConfiguration(),
 				new WebXmlConfiguration(), new MetaInfConfiguration(), new FragmentConfiguration(),
 				new EnvConfiguration(), new PlusConfiguration(), new JettyWebXmlConfiguration() });
-		context.setContextPath("/GamaWeb");
+		context.setContextPath("/"+args[0]);
 
-		context.setWar(r.warpath);
+		context.setWar(r.warpath.getAbsolutePath());
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
-		File tmpPath = new File("GamaWeb");
+		File tmpPath = new File(r.warpath.getName());
 		tmpPath.mkdirs();
 		context.setTempDirectory(tmpPath);
 

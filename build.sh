@@ -1,7 +1,7 @@
 b(){
 cd msi.gama.lang.gaml.web.build/GamaWeb 
 mvn clean install 
-cd ../../cict.gama.tomcat
+cd ../../cict.gama.jetty
 mvn clean install
 cd target
 cp tomcat_launcher.jar GamaWeb
@@ -20,7 +20,7 @@ if [[ $res -ne 0 ]]; then
 fi
 cd GamaWeb 
 mvn clean install 
-cd ../../cict.gama.tomcat
+cd ../../cict.gama.jetty
 mvn clean install
 cd target
 cp tomcat_launcher.jar GamaWeb
@@ -40,10 +40,10 @@ if [[ $res -ne 0 ]]; then
 fi
 cd GamaWeb 
 mvn clean install -o
-cd ../../cict.gama.tomcat
+cd ../../cict.gama.jetty
 mvn clean install -o
 cd target
 cp tomcat_launcher.jar GamaWeb
 cd ../..
 }
-a
+o
