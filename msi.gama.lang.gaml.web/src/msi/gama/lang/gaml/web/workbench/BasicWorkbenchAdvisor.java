@@ -120,7 +120,6 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			}
 			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
-
 //		String webContext = RWT.getRequest().getContextPath();
 // 
 //		if (webContext.startsWith("/" + BasicWorkbench.user_context_prefix)) {
@@ -140,6 +139,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public boolean preShutdown() {
 		System.out.println("preShutdown of "+loggedUser);
+		System.exit(0);
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
 		

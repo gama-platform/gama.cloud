@@ -291,8 +291,8 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-					BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/user_GamaWeb*"); 
-					BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/user_GamaWeb*");  
+//					BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/user_GamaWeb*"); 
+//					BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/user_GamaWeb*");  
 					
 				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
 				ArrayList<User> onl=(ArrayList<User>) onlines.clone();

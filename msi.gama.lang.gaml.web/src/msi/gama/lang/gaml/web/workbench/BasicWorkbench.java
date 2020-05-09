@@ -54,8 +54,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
-
-import cict.gama.jetty.RunWarExample;
+ 
 import msi.gama.application.Application;
 import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
 import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
@@ -153,13 +152,18 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //		}
 	}
 
-	public static void execBash(final String sc) {
+	public static void execBash(final String sc[]) {
 
 		ProcessBuilder processBuilder = new ProcessBuilder();
 
 		// -- Linux --
 		// Run a shell command
-		processBuilder.command("bash", "-c", sc);
+		processBuilder.command().add("cmd");
+		processBuilder.command().add("/C");
+		for(int i=0;i<sc.length;i++) {			
+			processBuilder.command().add(sc[i]);
+		}
+
 
 		// Run a shell script
 		// processBuilder.command("path/to/hello.sh");
@@ -176,22 +180,22 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 			Process process = processBuilder.start();
 
-			StringBuilder output = new StringBuilder();
+//			StringBuilder output = new StringBuilder();
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-			String line;
-			while ((line = reader.readLine()) != null) {
-				output.append(line + "\n");
-			}
-
-			int exitVal = process.waitFor();
-			if (exitVal == 0) {
-				System.out.println("Success!");
-				System.out.println(output);
-			} else {
-				System.out.println("abnormal");
-			}
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//			String line;
+//			while ((line = reader.readLine()) != null) {
+////				output.append(line + "\n");
+//				System.out.println(line);
+//			}
+//
+//			int exitVal = process.waitFor();
+//			if (exitVal == 0) {
+//				System.out.println("Success!");
+//			} else {
+//				System.out.println("abnormal");
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,7 +203,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	}
 
-	private void doWait() {
+	private void doWait(int tick) {
 //		Display d = Display.getCurrent();
 		Display d = PlatformUI.createDisplay();
 		Shell sh = new Shell(d);
@@ -221,7 +225,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				public void run(final IProgressMonitor monitor) {
 					int i = 0;
-					while (i < 2) {
+					while (i < tick) {
 						i++;
 						d.syncExec(new Runnable() {
 
@@ -240,7 +244,23 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 					d.syncExec(new Runnable() {
 
-						public void run() {
+						public void run() { 
+//							String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+//							String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+//
+//							try {
+//							JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+//							ex.execute("window.location.replace(\""+"http://localhost:8081/GamaWeb1/texteditor?model="
+//									+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") +"\")");
+////							ex.execute("window.location=\" "+"http://localhost:8081/GamaWeb1/texteditor?model="
+////									+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") +"  \"");
+//
+////								ContextProvider.getProtocolWriter().appendHead("redirect", "http://localhost:8081/GamaWeb1/texteditor?model="
+////										+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
+//							} catch (UnsupportedEncodingException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}  
 							sh.close();
 						}
 					});
@@ -258,8 +278,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					public void run() {
 //						JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //						ex.execute("window.location=\""+url+"\"");
-						ContextProvider.getProtocolWriter().appendHead("redirect", url); 
 
+						JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+						ex.execute("window.location.reload(true)");
+//						ex.execute("window.location=\" "+"http://localhost:8081/GamaWeb1/texteditor?model="
+//								+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") +"  \"");  
 					}
 				});
 			}
@@ -322,7 +345,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 //					System.out.println(s);
 				}
-				bw.redirect_to(display, "http://google.com");
+				redirect_to(display,"google.com");
 
 			}
 
@@ -362,9 +385,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if (is_controller) {
 			File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + ip);
 			if (!tmpDir.exists()) {
-				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
-						+ user_context_prefix + ip + ".war");
-				doWait();
+//				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
+//						+ user_context_prefix + ip + ".war");
+				
 			}
 			recent_ip.put(ip, now);
 			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
@@ -437,7 +460,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			e1.printStackTrace();
 //		}
 		checkRole();
-		RunWarExample.main(new String[] {"GamaWeb","8080"});
 		init_google_callback();
 		try {
 			String uid = enableLoggin ? "" : "admin";
@@ -462,7 +484,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			} else {
 				return 0;
 			}
-			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
+//			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
 				// ||
 				// "restart".equals(RWT.getApplicationContext().getAttribute("logged_"+uid).toString()))
 				// {
@@ -477,15 +499,27 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					Display display = PlatformUI.createDisplay();
 					// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 //				if(!is_offline) {
-//					set_timeout_trigger(5,display);
+					set_timeout_trigger(15,display);
 //				}
 					
 					int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 					display.dispose();
 					System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
 					return result;
+				}else {
+ 
+					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
+					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
+					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
+					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
+						doWait(30);
+
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
+//					execBash(new String[]{"start","java -jar /c/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar GamaWeb1 8081"});
 				}
-			}
+//			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

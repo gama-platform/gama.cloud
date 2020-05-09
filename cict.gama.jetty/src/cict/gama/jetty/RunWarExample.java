@@ -44,7 +44,7 @@ public class RunWarExample {
 	}
 	public static void main(String[] args) {  
 		RunWarExample r=new RunWarExample();
-//		r.retrieveWar(args[0]);
+		r.retrieveWar(args[0]);
 		Server server = new Server(stringToInt(args[1]));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
 		 
