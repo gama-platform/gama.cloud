@@ -21,8 +21,7 @@ JPA-PersistenceUnits: workspace
 ZZZ-Require-Capability: osgi.extender;
  filter:="(&(osgi.extender=osgi.jpa)(version>=1.0))"
 Meta-Persistence: META-INF/persistence.xml
-Bundle-ClassPath: lib/derby.jar,
- .
+Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.dslforge.workspace.jpa.internal.Activator
 Bundle-Vendor: PlugBee

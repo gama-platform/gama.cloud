@@ -61,14 +61,12 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.IGamlEditor;
 
 /**
- * This workbench advisor creates the window advisor, and specifies
- * the perspective id for the initial window.
- */	
+ * This workbench advisor creates the window advisor, and specifies the
+ * perspective id for the initial window.
+ */
 public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
-	private String loggedUser="";
-	
-	
-	
+	private String loggedUser = "";
+
 	public String getLoggedUser() {
 		return loggedUser;
 	}
@@ -80,7 +78,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
 		return new BasicWorkbenchWindowAdvisor(configurer);
 	}
-	
+
 	@Override
 	public void postShutdown() {
 		// TODO Auto-generated method stub
@@ -95,26 +93,26 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 //		}
 //		
 
-		String uid=RWT.getUISession().getAttribute("user").toString();
+		String uid = RWT.getUISession().getAttribute("user").toString();
 //		while(!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).isDisposed()) {
-			try {
-				Thread.sleep(100);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+		try {
+			Thread.sleep(100);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 //		}
-		if(RWT.getApplicationContext().getAttribute("logged_"+uid)!=null) {			
-			RWT.getApplicationContext().setAttribute("logged_"+uid, null);
-			
-			ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-			ArrayList<User> onl=new ArrayList<User>(); 
-			if(onlines==null) {
-				onlines=new ArrayList<>();					
+		if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
+			RWT.getApplicationContext().setAttribute("logged_" + uid, null);
+
+			ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+			ArrayList<User> onl = new ArrayList<User>();
+			if (onlines == null) {
+				onlines = new ArrayList<>();
 			}
-			for(User us:onlines) {
-				if(!us.getId().equals(uid)) {
+			for (User us : onlines) {
+				if (!us.getId().equals(uid)) {
 					onl.add(us);
 				}
 			}
@@ -138,11 +136,14 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 
 	@Override
 	public boolean preShutdown() {
-		System.out.println("preShutdown of "+loggedUser);
-		System.exit(0);
+		System.out.println("preShutdown of " + loggedUser);
+//		String webContext = RWT.getRequest().getContextPath();
+//		if (!webContext.startsWith("/" + BasicWorkbench.controller_context)) {
+			System.exit(0);
+//		}
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
-		
+
 		return super.preShutdown();
 	}
 
@@ -153,16 +154,16 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		// if(StatusDisplayerFactory.displayer == null){
 
 		// }
-		IWorkbench w=getWorkbenchConfigurer().getWorkbench();
-		WorkbenchHelper.workbench.put("admin",w);
-		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(),w);
+		IWorkbench w = getWorkbenchConfigurer().getWorkbench();
+		WorkbenchHelper.workbench.put("admin", w);
+		WorkbenchHelper.workbench.put(RWT.getUISession().getAttribute("user").toString(), w);
 //		WorkbenchHelper.setUID(loggedUser); 
 		GAMA.getGui().refreshNavigator();
 //		if (GAMAWEB.getRegularGui() == null) {
 //			GAMAWEB.setRegularGui(new WebGui());
 //		}
 		System.out.println("postStartup of " + loggedUser);
-		if(StatusDisplayerFactory.displayer.get("null")==null) {
+		if (StatusDisplayerFactory.displayer.get("null") == null) {
 			StatusDisplayerFactory.displayer.put("null", new StatusDisplayer("null"));
 			ConsoleDisplayerFactory.displayer.put("null", new ConsoleDisplayer("null"));
 		}
@@ -176,18 +177,15 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 
 		Object _model = RWT.getApplicationContext().getAttribute("_model");
-		if (_model != null) { 
+		if (_model != null) {
 			Object _e = RWT.getApplicationContext().getAttribute("_exp");
 			String _exp = "";
 			if (_e != null) {
 				_exp = "#" + _e;
 			}
- 
+
 			WorkspaceModelsManager.instance.openModelPassedAsArgument("" + _model + _exp);
 
 		}

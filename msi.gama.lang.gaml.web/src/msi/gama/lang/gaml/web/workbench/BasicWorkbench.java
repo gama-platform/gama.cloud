@@ -45,6 +45,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
+import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.resources.IGamaColors;
 
 /**
@@ -329,15 +330,18 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //					System.out.println(s);
 				}
 				redirect_to(display, "google.com");
+				display.syncExec(()->{ MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
+						"Time out, please try again later!");});
 
 			}
 
 		}.start();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void check_auth_ip() {
 
-		System.out.println("IP xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx IP");
 		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		System.out.println(ip);
 		HashMap<String, LocalDateTime> recent_ip = (HashMap<String, LocalDateTime>) RWT.getApplicationContext()
@@ -351,9 +355,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			LocalDateTime dd = recent_ip.get(ip);
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			if (dd != null) {
+				LocalDateTime exprire=dd.plusMinutes(3);
+				LocalDateTime retry=exprire.plusMinutes(1);
 				System.out.println(dtf.format(dd.plusMinutes(1)));
 				System.out.println(dtf.format(now));
-				if (!now.isAfter(dd.plusMinutes(1))) {
+				if ( now.isAfter(exprire) && now.isBefore(retry)) {
 
 					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 							"This account is currently used somewhere, please try again later!");
@@ -381,8 +387,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
 //					+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
 
-			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+//			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+//			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 //			try {
 //				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
 //						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
@@ -442,50 +448,41 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	@Override
 	public int createUI() {
+		String uid = "admin";
+		RWT.getUISession().setAttribute("user", "admin");
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
 		checkRole();
+		check_auth_ip();
 		init_google_callback();
 		set_background_gama();
+		sync_user_list(uid);
 		try {
-			String uid = "admin";
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
-			check_auth_ip();
+			set_environment_param(uid);
 
 			WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 			((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
 //			System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 
-			sync_user_list(uid);
-			set_environment_param(uid);
+			Display display = PlatformUI.createDisplay();
+			int result = 0;
 			if (!is_controller) {
-
-				Display display = PlatformUI.createDisplay();
-				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
+				 GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
-					set_timeout_trigger(15, display);
+					set_timeout_trigger(10, display);
 				}
-
-				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
-				display.dispose();
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
-				return result;
+				result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 			} else {
 
-				Display display = PlatformUI.createDisplay();
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
 				doWait(30);
-
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
-//					execBash(new String[]{"start","java -jar /c/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar GamaWeb1 8081"});
-
-				display.dispose();
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
-				return 0;
+ 
 			}
+			display.dispose();
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
+			return result;
 //			}
 
 		} catch (Exception e) {
