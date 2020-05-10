@@ -15,49 +15,35 @@
  */
 package msi.gama.lang.gaml.web.workbench;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
-import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.internal.application.ApplicationContextImpl;
-import org.eclipse.rap.rwt.internal.service.ContextProvider;
-import org.eclipse.rap.rwt.service.ApplicationContext;
-import org.eclipse.rap.rwt.service.UISessionEvent;
-import org.eclipse.rap.rwt.service.UISessionListener;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.internal.widgets.IDisplayAdapter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
- 
-import msi.gama.application.Application;
-import msi.gama.lang.gaml.web.workspace.ui.DummyCallbackHandler;
-import msi.gama.lang.gaml.web.workspace.ui.DummyLoginModule;
+
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 import ummisco.gama.ui.resources.IGamaColors;
 
@@ -112,7 +98,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		ip = request.getHeader("X-Forwarded-For");
 		if (null != ip && !"".equals(ip.trim()) && !"unknown".equalsIgnoreCase(ip)) {
-			// get first ip from proxy ip
 			int index = ip.indexOf(',');
 			if (index != -1) {
 				return ip.substring(0, index);
@@ -160,10 +145,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		// Run a shell command
 		processBuilder.command().add("cmd");
 		processBuilder.command().add("/C");
-		for(int i=0;i<sc.length;i++) {			
+		for (int i = 0; i < sc.length; i++) {
 			processBuilder.command().add(sc[i]);
 		}
-
 
 		// Run a shell script
 		// processBuilder.command("path/to/hello.sh");
@@ -204,8 +188,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	private void doWait(int tick) {
-//		Display d = Display.getCurrent();
-		Display d = PlatformUI.createDisplay();
+		Display d = Display.getCurrent();
+//		Display d = PlatformUI.createDisplay();
 		Shell sh = new Shell(d);
 		sh.setSize(500, 50);
 		Label lb = new Label(sh, SWT.NONE);
@@ -244,7 +228,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 					d.syncExec(new Runnable() {
 
-						public void run() { 
+						public void run() {
 //							String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 //							String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 //
@@ -328,33 +312,31 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	public void set_timeout_trigger(int sec, Display display) {
 
-		BasicWorkbench bw = this;
+//		BasicWorkbench bw = this;
 		new Thread() {
 			float tick = 0;
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				while (tick < sec) {
 					tick = tick + 1;
 					try {
 						sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 //					System.out.println(s);
 				}
-				redirect_to(display,"google.com");
+				redirect_to(display, "google.com");
 
 			}
 
 		}.start();
 	}
-	
+
 	public void check_auth_ip(final String uid) {
 
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("IP xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		System.out.println(ip);
 		HashMap<String, LocalDateTime> recent_ip = (HashMap<String, LocalDateTime>) RWT.getApplicationContext()
@@ -367,15 +349,18 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		} else {
 			LocalDateTime dd = recent_ip.get(ip);
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-			if(dd!=null) {				
+			if (dd != null) {
 				System.out.println(dtf.format(dd.plusMinutes(1)));
 				System.out.println(dtf.format(now));
 				if (!now.isAfter(dd.plusMinutes(1))) {
+
+					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
+							"This account is currently used somewhere, please try again later!");
 //				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //				ex.execute("alert('come back later');window.location=\"http://google.com\"");
 //				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
 //					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
-				} 
+				}
 //				else {
 //					recent_ip.put(ip, now);
 //					RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
@@ -387,7 +372,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (!tmpDir.exists()) {
 //				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
 //						+ user_context_prefix + ip + ".war");
-				
+
 			}
 			recent_ip.put(ip, now);
 			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
@@ -410,6 +395,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			postLoggedIn(uid);
 		}
 	}
+
 	public void sync_user_list(String uid) {
 
 		User u = new User();
@@ -436,7 +422,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		RWT.getApplicationContext().setAttribute("onlines", onlines);
 		RWT.getApplicationContext().setAttribute("listPads", listPads);
 	}
-	
+
 	public void set_environment_param(String uid) throws UnsupportedEncodingException {
 		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 		String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
@@ -451,74 +437,47 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
 	}
+
 	@Override
 	public int createUI() {
-//		try {
-//			enableLoggin=InetAddress.getLocalHost().getHostName().equals("dell3847")?false:true;
-//		} catch (UnknownHostException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		checkRole();
 		init_google_callback();
 		try {
-			String uid = enableLoggin ? "" : "admin";
+			String uid = "admin";
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
+			check_auth_ip(uid);
 
-//			DummyCallbackHandler dch = new DummyCallbackHandler();
-//			DummyLoginModule dlm = new DummyLoginModule();
-//			dlm.initialize(new Subject(), dch, null, null);
-//			System.out.println("ss    "+RWT.getUISession().getHttpSession());
-			boolean logged = enableLoggin
-					? (RWT.getApplicationContext()
-							.getAttribute("credential" + RWT.getUISession().getHttpSession()) == null ? false : true)
-					: true; // false
-//			while (!logged) {
-//				logged = dlm.login();
-//			}
-			if (logged || RWT.getApplicationContext()
-					.getAttribute("credential" + RWT.getUISession().getHttpSession()) != null) {
-				uid = enableLoggin ? "admin" : uid; // must enable
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of "+uid);
-				check_auth_ip(uid);
+			WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
+			((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
+			System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 
-			} else {
-				return 0;
-			}
-//			if (RWT.getApplicationContext().getAttribute("logged_" + uid) == null || executor == null) {
-				// ||
-				// "restart".equals(RWT.getApplicationContext().getAttribute("logged_"+uid).toString()))
-				// {
-				WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
-				((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
-				System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
-				
-				sync_user_list(uid);
-				set_environment_param(uid);
-				if(!is_controller) {
-					
-					Display display = PlatformUI.createDisplay();
-					// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
+			sync_user_list(uid);
+			set_environment_param(uid);
+			if (!is_controller) {
+
+				Display display = PlatformUI.createDisplay();
+				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
 //				if(!is_offline) {
-					set_timeout_trigger(15,display);
+				set_timeout_trigger(15, display);
 //				}
-					
-					int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
-					display.dispose();
-					System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of "+uid); 
-					return result;
-				}else {
- 
-					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
-					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
-					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
-					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
-						doWait(30);
+
+				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
+				display.dispose();
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
+				return result;
+			} else {
+
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
+//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
+				doWait(30);
 
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
 //					execBash(new String[]{"start","java -jar /c/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar GamaWeb1 8081"});
-				}
+			}
 //			}
 
 		} catch (Exception e) {
