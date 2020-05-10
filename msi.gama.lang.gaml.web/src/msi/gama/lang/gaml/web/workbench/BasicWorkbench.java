@@ -80,7 +80,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
 
-	boolean enableLoggin = true;
+//	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
 
 	boolean is_offline = true;
@@ -108,34 +108,34 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return request.getRemoteAddr();
 	}
 
-	public void postLoggedIn(final String uid) {
-		RWT.getUISession().setAttribute("user", uid);
-
-//		if (uid.equals(""+uid)) {
-		if (executor.get(uid) != null) {
-//				WorkbenchHelper.workbench.get(uid).close();
-			JavaScriptExecutor ex = executor.get(uid);
-			System.out.println("script reload  " + ex);
-			ex.execute("window.location.reload(true);");
-			// ex.execute("var myUrl = window.location;\r\n" +
-			// "window.location.replace(myUrl);");
-			ex = null;
-			executor.put(uid, ex);
-			RWT.getApplicationContext().setAttribute("logged_" + uid, null);// "restart");
-			// return 0;
-			// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-			// "Information", "This account is currently used
-			// somewhere, RETRY!");
-		}
-//		} 
-//		else {
-//			if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
-//				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-//						"This account is currently used somewhere, please try again later!");
-//				logged = false;
-//			}
+//	public void postLoggedIn(final String uid) {
+//		RWT.getUISession().setAttribute("user", "admin");
+//
+////		if (uid.equals(""+uid)) {
+//		if (executor.get(uid) != null) {
+////				WorkbenchHelper.workbench.get(uid).close();
+//			JavaScriptExecutor ex = executor.get(uid);
+//			System.out.println("script reload  " + ex);
+//			ex.execute("window.location.reload(true);");
+//			// ex.execute("var myUrl = window.location;\r\n" +
+//			// "window.location.replace(myUrl);");
+//			ex = null;
+//			executor.put(uid, ex);
+//			RWT.getApplicationContext().setAttribute("logged_" + uid, null);// "restart");
+//			// return 0;
+//			// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+//			// "Information", "This account is currently used
+//			// somewhere, RETRY!");
 //		}
-	}
+////		} 
+////		else {
+////			if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
+////				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
+////						"This account is currently used somewhere, please try again later!");
+////				logged = false;
+////			}
+////		}
+//	}
 
 	public static void execBash(final String sc[]) {
 
@@ -281,7 +281,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		String webContext = RWT.getRequest().getContextPath();
 		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(getIpAddr(RWT.getRequest()))
 				|| "0:0:0:0:0:0:0:1".equals(getIpAddr(RWT.getRequest()))) {
-			enableLoggin = false;
+//			enableLoggin = false;
 			is_offline = true;
 			System.out.println("the offline prefix ");
 		}
@@ -292,7 +292,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		if (webContext.startsWith("/" + user_context_prefix)) {
 			is_offline = false;
-			enableLoggin = false;
+			is_controller = false;
+//			enableLoggin = false;
 			System.out.println("the user prefix ");
 			RWT.getUISession().getHttpSession().setMaxInactiveInterval(5);
 		}
@@ -334,7 +335,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}.start();
 	}
 
-	public void check_auth_ip(final String uid) {
+	public void check_auth_ip() {
 
 		System.out.println("IP xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
@@ -391,9 +392,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //			} 
 //			return 0;
 
-		} else {
-			postLoggedIn(uid);
 		}
+//		else {
+//			postLoggedIn(uid);
+//		}
 	}
 
 	public void sync_user_list(String uid) {
@@ -442,14 +444,15 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	public int createUI() {
 		checkRole();
 		init_google_callback();
+		set_background_gama();
 		try {
 			String uid = "admin";
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
-			check_auth_ip(uid);
+			check_auth_ip();
 
 			WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 			((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
-			System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
+//			System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 
 			sync_user_list(uid);
 			set_environment_param(uid);
@@ -457,9 +460,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				Display display = PlatformUI.createDisplay();
 				// GamaFonts.systemFont=Display.getCurrent().getSystemFont();
-//				if(!is_offline) {
-				set_timeout_trigger(15, display);
-//				}
+				if (!is_offline) {
+					set_timeout_trigger(15, display);
+				}
 
 				int result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 				display.dispose();
@@ -467,6 +470,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				return result;
 			} else {
 
+				Display display = PlatformUI.createDisplay();
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
@@ -477,6 +481,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
 //					execBash(new String[]{"start","java -jar /c/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar GamaWeb1 8081"});
+
+				display.dispose();
+				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
+				return 0;
 			}
 //			}
 
