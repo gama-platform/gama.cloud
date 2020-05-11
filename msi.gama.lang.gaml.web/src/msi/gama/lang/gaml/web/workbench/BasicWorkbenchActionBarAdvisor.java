@@ -299,12 +299,12 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 				for(User u: onlines) {
 					if(!u.getId().equals("admin")) {		
 
-						JavaScriptExecutor ex = BasicWorkbench.executor.get(u.getId());
-						System.out.println("script reload  " + ex);
-						ex.execute("window.location.reload(true);");
+//						JavaScriptExecutor ex = BasicWorkbench.executor.get(u.getId());
+//						System.out.println("script reload  " + ex);
+//						ex.execute("window.location.reload(true);");
 						// ex.execute("var myUrl = window.location;\r\n" +
 						// "window.location.replace(myUrl);");
-						ex = null;
+//						ex = null;
 //						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
 //						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
 						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), null);

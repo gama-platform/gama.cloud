@@ -75,22 +75,22 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	protected final Composite referenceComposite;
 	// private final Shell parentShell;
 	final boolean createExtraInfo;
-	Timer timer = new Timer();
+//	Timer timer = new Timer();
 
-	public class FPSTask extends TimerTask {
-
-		@Override
-		public void run() {
-			WorkbenchHelper.asyncRun(() -> {
-				if (!zoom.isDisposed()) {
-					text.setLength(0);
-					getOverlayZoomInfo(text);
-					zoom.setText(text.toString());
-				}
-			});
-
-		}
-	}
+//	public class FPSTask extends TimerTask {
+//
+//		@Override
+//		public void run() {
+//			WorkbenchHelper.asyncRun(() -> {
+//				if (!zoom.isDisposed()) {
+//					text.setLength(0);
+//					getOverlayZoomInfo(text);
+//					zoom.setText(text.toString());
+//				}
+//			});
+//
+//		}
+//	}
 
 	class OverlayListener extends ShellAdapter implements ControlListener {
 
@@ -138,7 +138,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 			provider.setTarget(new ThreadedOverlayUpdater(this), view.getDisplaySurface());
 		}
 		// if (GamaPreferences.Displays.CORE_SHOW_FPS.getValue()) {
-		timer.schedule(new FPSTask(), 0, 1000);
+//		timer.schedule(new FPSTask(), 0, 1000);
 		// }
 	}
 
@@ -499,7 +499,7 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 				popup.getParent().removeControlListener(listener);
 				popup.getParent().getShell().removeShellListener(listener);
 			}
-			timer.cancel();
+//			timer.cancel();
 			popup.dispose();
 		}
 	}

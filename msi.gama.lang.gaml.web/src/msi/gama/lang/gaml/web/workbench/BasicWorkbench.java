@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
+import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 import ummisco.gama.ui.resources.GamaFonts;
 import ummisco.gama.ui.resources.IGamaColors;
@@ -79,13 +80,16 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	// abstract void runInSession();
 	// }
 
-	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
+//	public static HashMap<String, JavaScriptExecutor> executor = new HashMap<String, JavaScriptExecutor>();
 
 //	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
 
 	boolean is_offline = true;
 	boolean is_controller = false;
+	boolean stopped = false;
+	int expired_time = 30;
+	int retry_time = 1;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
@@ -312,11 +316,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	}
 
+	float tick = 0;
+
 	public void set_timeout_trigger(int sec, Display display) {
 
 //		BasicWorkbench bw = this;
 		new Thread() {
-			float tick = 0;
 
 			@Override
 			public void run() {
@@ -329,9 +334,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 //					System.out.println(s);
 				}
-				redirect_to(display, "google.com");
-				display.syncExec(()->{ MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-						"Time out, please try again later!");});
+				GAMAWEB.pauseFrontmostExperiment();
+				if (!display.isDisposed()) {
+					display.syncExec(() -> {
+						MessageDialog.openInformation(display.getActiveShell(), "Information",
+								"Time out, please try again later!");
+					});
+					redirect_to(display, "google.com");
+				}
 
 			}
 
@@ -353,25 +363,26 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
 		} else {
 			LocalDateTime dd = recent_ip.get(ip);
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			if (dd != null) {
-				LocalDateTime exprire=dd.plusMinutes(3);
-				LocalDateTime retry=exprire.plusMinutes(1);
-				System.out.println(dtf.format(dd.plusMinutes(1)));
-				System.out.println(dtf.format(now));
-				if ( now.isAfter(exprire) && now.isBefore(retry)) {
+				LocalDateTime exprire = dd.plusSeconds(expired_time);
+				LocalDateTime retry = exprire.plusMinutes(retry_time);
+				System.out.println(exprire);
+				System.out.println(retry);
+				if (now.isAfter(exprire) && now.isBefore(retry)) {
 
 					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-							"This account is currently used somewhere, please try again later!");
+							"Please try again later!");
+					stopped = true;
 //				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //				ex.execute("alert('come back later');window.location=\"http://google.com\"");
 //				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
 //					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
+				} else {
+					tick = 0;
+					recent_ip.put(ip, now);
+					RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
 				}
-//				else {
-//					recent_ip.put(ip, now);
-//					RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
-//				}
 			}
 		}
 		if (is_controller) {
@@ -439,8 +450,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		// JavaScriptExecutor js =
 		// RWT.getClient().getService(JavaScriptExecutor.class);
 		// if(u.getId().equals(""+uid)) {
-		executor.put(uid, RWT.getClient().getService(JavaScriptExecutor.class));
-		System.out.println("script new    " + executor);
+//		executor.put(uid, RWT.getClient().getService(JavaScriptExecutor.class));
+//		System.out.println("script new    " + executor);
 		// }
 		RWT.getApplicationContext().setAttribute("logged_" + uid, RWT.getClient());
 
@@ -453,6 +464,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
 		checkRole();
 		check_auth_ip();
+		if (stopped)
+			return 0;
 		init_google_callback();
 		set_background_gama();
 		sync_user_list(uid);
@@ -466,9 +479,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			Display display = PlatformUI.createDisplay();
 			int result = 0;
 			if (!is_controller) {
-				 GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
+				GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
-					set_timeout_trigger(10, display);
+					set_timeout_trigger(expired_time, display);
 				}
 				result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 			} else {
@@ -478,7 +491,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
 //					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
 				doWait(30);
- 
+
 			}
 			display.dispose();
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);

@@ -139,7 +139,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		System.out.println("preShutdown of " + loggedUser);
 //		String webContext = RWT.getRequest().getContextPath();
 //		if (!webContext.startsWith("/" + BasicWorkbench.controller_context)) {
-			System.exit(0);
+//			System.exit(0);
 //		}
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
