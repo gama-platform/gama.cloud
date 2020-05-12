@@ -104,7 +104,7 @@
 						</manifest>
 					</archive>
 
-					<finalName>tomcat_launcher</finalName>
+					<finalName>gamaweb</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>

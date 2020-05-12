@@ -66,6 +66,7 @@ import ummisco.gama.ui.views.IGamlEditor;
  */
 public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	private String loggedUser = "";
+	public boolean isUser = false;
 
 	public String getLoggedUser() {
 		return loggedUser;
@@ -137,10 +138,9 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public boolean preShutdown() {
 		System.out.println("preShutdown of " + loggedUser);
-//		String webContext = RWT.getRequest().getContextPath();
-//		if (!webContext.startsWith("/" + BasicWorkbench.controller_context)) {
-//			System.exit(0);
-//		}
+		if (isUser) {
+			System.exit(0);
+		}
 		GAMAWEB.pauseFrontmostExperiment();
 		GAMAWEB.closeAllExperiments(true, true);
 

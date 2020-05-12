@@ -4,7 +4,7 @@ mvn clean install
 cd ../../cict.gama.jetty
 mvn clean install
 cd target
-cp tomcat_launcher.jar GamaWeb
+cp gamaweb.jar GamaWeb
 cd ../..
 }
 a(){
@@ -23,7 +23,7 @@ mvn clean install
 cd ../../cict.gama.jetty
 mvn clean install
 cd target
-cp tomcat_launcher.jar GamaWeb
+cp gamaweb.jar GamaWeb
 cd ../..
 }
 
@@ -43,7 +43,7 @@ mvn clean install -o
 cd ../../cict.gama.jetty
 mvn clean install -o
 cd target
-cp tomcat_launcher.jar GamaWeb
+cp gamaweb.jar GamaWeb
 cd ../..
 }
 o

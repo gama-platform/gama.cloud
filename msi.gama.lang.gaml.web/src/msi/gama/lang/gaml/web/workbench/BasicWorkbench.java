@@ -18,6 +18,7 @@ package msi.gama.lang.gaml.web.workbench;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
+import org.eclipse.rap.rwt.internal.service.ContextProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -84,12 +86,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 //	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
-
+	String current_ip = "";
 	boolean is_offline = true;
 	boolean is_controller = false;
 	boolean stopped = false;
-	int expired_time = 30;
-	int retry_time = 1;
+	int expired_time = 20;
+	int retry_time = 20;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
@@ -110,7 +112,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				return ip;
 			}
 		}
-		return request.getRemoteAddr();
+		ip = request.getRemoteAddr();
+		if ("0:0:0:0:0:0:0:1".equals(ip)) {
+			ip = "127.0.0.1";
+		}
+		return ip;
 	}
 
 //	public void postLoggedIn(final String uid) {
@@ -142,7 +148,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 ////		}
 //	}
 
-	public static void execBash(final String sc[]) {
+	public Process execBash(final String sc[]) {
 
 		ProcessBuilder processBuilder = new ProcessBuilder();
 
@@ -168,7 +174,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		try {
 
 			Process process = processBuilder.start();
-
+			return process;
 //			StringBuilder output = new StringBuilder();
 
 //			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -189,6 +195,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 
 	}
 
@@ -255,7 +262,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					});
 				}
 			}, true, new NullProgressMonitor(), d);
-		} catch (final Exception e) {
+		} catch (
+
+		final Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -279,13 +288,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		bgRunnable.run();
 	}
 
-	ArrayList<String> available_user = new ArrayList<String>(Arrays.asList("user1", "user2", "user3"));
-	ArrayList<String> used_user = new ArrayList<String>();
+//	ArrayList<String> available_user = new ArrayList<String>(Arrays.asList("user1", "user2", "user3"));
+//	ArrayList<String> used_user = new ArrayList<String>();
 
 	public void checkRole() {
 		String webContext = RWT.getRequest().getContextPath();
-		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(getIpAddr(RWT.getRequest()))
-				|| "0:0:0:0:0:0:0:1".equals(getIpAddr(RWT.getRequest()))) {
+		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(current_ip)) {
 //			enableLoggin = false;
 			is_offline = true;
 			System.out.println("the offline prefix ");
@@ -354,62 +362,84 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx IP");
 		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		System.out.println(ip);
+
+		String webContext = RWT.getRequest().getContextPath();
+
+		if (webContext.startsWith("/" + user_context_prefix) && !webContext.equals("/" + user_context_prefix + ip)) {
+			stopped = true;
+			return;
+		}
 		HashMap<String, LocalDateTime> recent_ip = (HashMap<String, LocalDateTime>) RWT.getApplicationContext()
 				.getAttribute("recent_ip");
 		LocalDateTime now = LocalDateTime.now();
 		if (recent_ip == null) {
 			recent_ip = new HashMap<String, LocalDateTime>();
-			recent_ip.put(ip, now);
-			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
-		} else {
-			LocalDateTime dd = recent_ip.get(ip);
+		}
+		LocalDateTime dd = recent_ip.get(ip);
 //			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-			if (dd != null) {
-				LocalDateTime exprire = dd.plusSeconds(expired_time);
-				LocalDateTime retry = exprire.plusMinutes(retry_time);
-				System.out.println(exprire);
-				System.out.println(retry);
-				if (now.isAfter(exprire) && now.isBefore(retry)) {
+		if (dd != null) {
+			LocalDateTime exprire = dd.plusSeconds(expired_time);
+			LocalDateTime retry = exprire.plusSeconds(retry_time);
+			System.out.println(now);
+			System.out.println(dd);
+			System.out.println(exprire);
+			System.out.println(retry);
+			if (now.isAfter(exprire) && now.isBefore(retry)) {
 
-					MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-							"Please try again later!");
-					stopped = true;
+				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
+						"Please try again later!");
+				stopped = true;
 //				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
 //				ex.execute("alert('come back later');window.location=\"http://google.com\"");
 //				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
 //					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
-				} else {
-					tick = 0;
-					recent_ip.put(ip, now);
-					RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
-				}
+			}
+			if (now.isAfter(retry)) {
+				tick = 0;
+				dd = null;
 			}
 		}
-		if (is_controller) {
-			File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + ip);
-			if (!tmpDir.exists()) {
-//				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
-//						+ user_context_prefix + ip + ".war");
-
-			}
+		if (dd == null) {
+			dd = now;
 			recent_ip.put(ip, now);
-			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
-//			JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-//			ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
-//					+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
 
-//			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-//			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
-//			try {
-//				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
-//						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
-//			} catch (UnsupportedEncodingException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} 
-//			return 0;
+			Process p = (Process) RWT.getApplicationContext().getAttribute("process" + recent_ip);
+			if (p != null) {
+				p.destroy();
+			}
+			p = execBash(new String[] { "start", "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+					user_context_prefix + current_ip, "8081" });
+			RWT.getApplicationContext().setAttribute("process" + recent_ip, p);
 
+			System.out.println("execcccccccccccccccccccccc");
 		}
+		RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+
+//		if (is_controller) {
+//			File tmpDir = new File("/opt/tomcat/webapps/" + user_context_prefix + ip);
+//			if (!tmpDir.exists()) {
+////				execBash("cp /opt/tomcat/webapps/" + controller_context + ".war /opt/tomcat/webapps/"
+////						+ user_context_prefix + ip + ".war");
+//
+//			}
+//			recent_ip.put(ip, now);
+//			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
+////			JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
+////			ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
+////					+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
+//
+////			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+////			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+////			try {
+////				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
+////						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
+////			} catch (UnsupportedEncodingException e) {
+////				// TODO Auto-generated catch block
+////				e.printStackTrace();
+////			} 
+////			return 0;
+//
+//		}
 //		else {
 //			postLoggedIn(uid);
 //		}
@@ -460,12 +490,33 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	@Override
 	public int createUI() {
 		String uid = "admin";
+		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
 		checkRole();
 		check_auth_ip();
-		if (stopped)
+		if (stopped) {
 			return 0;
+		} else {
+			if (is_controller) {
+				Display display = PlatformUI.createDisplay();
+				doWait(40);
+				display.dispose();
+				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+
+				try {
+					String url = "http://localhost:8081/" + user_context_prefix + current_ip + "/texteditor";
+					if (mm != "")
+						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
+					ContextProvider.getProtocolWriter().appendHead("redirect", url);
+					return 0;
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		init_google_callback();
 		set_background_gama();
 		sync_user_list(uid);
@@ -482,17 +533,19 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
 					set_timeout_trigger(expired_time, display);
+					((BasicWorkbenchAdvisor) workbenchAdvisor).isUser = true;
 				}
 				result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
-			} else {
-
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
-//					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
-				doWait(30);
-
 			}
+//			else {
+//
+////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
+////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
+////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
+////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
+//				doWait(30);
+//
+//			}
 			display.dispose();
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
 			return result;
