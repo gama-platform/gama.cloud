@@ -1,3 +1,4 @@
+#!/bin/bash
 b(){
 cd msi.gama.lang.gaml.web.build/GamaWeb 
 mvn clean install 
@@ -46,4 +47,10 @@ cd target
 cp gamaweb.jar GamaWeb
 cd ../..
 }
-o
+
+if  [ $1 = "O" ] || [ $1 = "o" ]
+then
+    o
+else
+    a
+fi

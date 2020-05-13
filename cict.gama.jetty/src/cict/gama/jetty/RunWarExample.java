@@ -24,47 +24,53 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 public class RunWarExample {
 	public static int port = 8080;
 
-	File warpath ;//= "/GamaWeb.war";
+	File warpath;// = "/GamaWeb.war";
+
 	public void retrieveWar(String contextpath) {
-		File currentJavaJarFile = new File(RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		File currentJavaJarFile = new File(
+				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		warpath = new File(executionPath + "/"+contextpath+".war");
+		warpath = new File(executionPath + "/" + contextpath + ".war");
 //		warpath=file1.getAbsolutePath();
 		if (!warpath.exists()) {
 			InputStream link = (getClass().getResourceAsStream("/GamaWeb.war"));
 			try {
 				Files.copy(link, warpath.getAbsoluteFile().toPath());
-				System.out.println(warpath.getAbsoluteFile() );
-			} catch (IOException e) {
+				System.out.println(warpath.getAbsoluteFile());
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	public static void main(String[] args) {  
-		RunWarExample r=new RunWarExample();
+
+	public static void main(String[] args) {
+		RunWarExample r = new RunWarExample();
 		r.retrieveWar(args[0]);
 		Server server = new Server(stringToInt(args[1]));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
-		 
 
-		File currentJavaJarFile = new File(RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		File currentJavaJarFile = new File(
+				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		File warpath = new File(executionPath + "/"+args[0]+".war");
+		File warpath = new File(executionPath + "/" + args[0] + ".war");
 		WebAppContext context = new WebAppContext();
 //		context.setResourceBase(warpath);
 		context.setConfigurations(new Configuration[] { new AnnotationConfiguration(), new WebInfConfiguration(),
 				new WebXmlConfiguration(), new MetaInfConfiguration(), new FragmentConfiguration(),
 				new EnvConfiguration(), new PlusConfiguration(), new JettyWebXmlConfiguration() });
-		context.setContextPath("/"+args[0]);
+		context.setContextPath("/" + args[0]);
 
 		context.setWar(warpath.getAbsolutePath());
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
-		File tmpPath = new File(warpath.getName());
+		File tmpPath = new File(args[0] + "_tmp_");
+		if (tmpPath.exists()) {
+			System.exit(1);
+		}
 		tmpPath.mkdirs();
 		context.setTempDirectory(tmpPath);
 

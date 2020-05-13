@@ -399,15 +399,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				dd = null;
 			}
 		}
-		if (dd == null) {
+		if (is_controller && dd == null) {
 			dd = now;
 			recent_ip.put(ip, now);
 
-			Process p = (Process) RWT.getApplicationContext().getAttribute("process" + recent_ip);
-			if (p != null) {
-				p.destroy();
-			}
-			p = execBash(new String[] { "start", "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+			Process p = execBash(new String[] { "start", "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
 					user_context_prefix + current_ip, "8081" });
 			RWT.getApplicationContext().setAttribute("process" + recent_ip, p);
 
@@ -422,23 +418,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 ////						+ user_context_prefix + ip + ".war");
 //
 //			}
-//			recent_ip.put(ip, now);
-//			RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
-////			JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-////			ex.execute("window.location=\"" + server_local + user_context_prefix + ip + "/texteditor?model="
-////					+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") + "\"");
-//
-////			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-////			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
-////			try {
-////				ContextProvider.getProtocolWriter().appendHead("redirect", server_local + user_context_prefix + ip + "/texteditor?model="
-////						+ URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8") );
-////			} catch (UnsupportedEncodingException e) {
-////				// TODO Auto-generated catch block
-////				e.printStackTrace();
-////			} 
-////			return 0;
-//
 //		}
 //		else {
 //			postLoggedIn(uid);
@@ -500,7 +479,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		} else {
 			if (is_controller) {
 				Display display = PlatformUI.createDisplay();
-				doWait(40);
+				doWait(30);
 				display.dispose();
 				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
