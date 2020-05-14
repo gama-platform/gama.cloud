@@ -1,17 +1,32 @@
 package cict.gama.jetty;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.EventListener;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 import org.eclipse.jetty.plus.webapp.PlusConfiguration;
+import org.eclipse.jetty.security.HashLoginService;
+import org.eclipse.jetty.server.Handler;
 //import org.eclipse.jetty.annotations.AnnotationConfiguration;
 //import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 //import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.SessionIdManager;
+import org.eclipse.jetty.server.session.DefaultSessionIdManager;
+import org.eclipse.jetty.server.session.HouseKeeper;
+import org.eclipse.jetty.server.session.SessionHandler;
+import org.eclipse.jetty.util.IO;
+import org.eclipse.jetty.util.component.Container;
+import org.eclipse.jetty.util.component.LifeCycle;
+import org.eclipse.jetty.util.component.LifeCycle.Listener;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.FragmentConfiguration;
 import org.eclipse.jetty.webapp.JettyWebXmlConfiguration;
@@ -48,9 +63,9 @@ public class RunWarExample {
 	public static void main(String[] args) {
 		RunWarExample r = new RunWarExample();
 		r.retrieveWar(args[0]);
-		Server server = new Server(stringToInt(args[1]));
+		final Server server = new Server(stringToInt(args[1]));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
-
+//		server.setStopAtShutdown(true);
 		File currentJavaJarFile = new File(
 				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
@@ -67,17 +82,28 @@ public class RunWarExample {
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
-		File tmpPath = new File(args[0] + "_tmp_");
+		final File tmpPath = new File(args[0] + "_tmp_");
 		if (tmpPath.exists()) {
-			System.exit(1);
+//			System.exit(1);
+		} else {
+			tmpPath.mkdirs();
 		}
-		tmpPath.mkdirs();
+		context.setPersistTempDirectory(false);
 		context.setTempDirectory(tmpPath);
 
 //		  ((HandlerCollection) server.getHandler()).addHandler(context);
 
 		context.setParentLoaderPriority(true);
 		server.setHandler(context);
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+
+			@Override
+			public void run() {  
+					deleteFolder(tmpPath); 
+			}
+
+		});
+
 		try {
 			server.start();
 		} catch (Exception e) {
@@ -85,60 +111,19 @@ public class RunWarExample {
 			e.printStackTrace();
 		}
 
-//	    Server server = new Server(9090);
-//	    WebAppContext webapp = new WebAppContext();
-//	    webapp.setContextPath("/");
-//
-//	    webapp.setWar("test.war");
-//	    server.setHandler(webapp);
-//
-//	    try {
-//	        server.start();
-//	        System.out.println("Press any key to stop the server...");
-//	        System.in.read(); System.in.read();
-//	        server.stop();
-//	    } catch (Exception ex) {
-//	        System.out.println("error");
-//	    }
-//
-//	    System.out.println("Server stopped");
+	}
 
-//		String contextPath = "/GamaWeb";
-//		String warFilePath = "GamaWeb.war";
-//
-////		String warFilePath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
-////		if(args.length==1) port=stringToInt(args[0]);
-//		if(args.length==3) {
-//			contextPath=args[0];
-//			warFilePath=args[1];
-//			port=stringToInt(args[2]);
-//		}
-//		
-//		Tomcat tomcat = new Tomcat();
-//		tomcat.setPort(port);
-//		tomcat.setBaseDir(".");
-////		Catalina cat=new Catalina();
-////		System.out.println(cat.getConfigFile());
-////		cat.setConfigFile("C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\conf\\server.xml");
-////		System.out.println(cat.getConfigFile());
-////		cat.setUseNaming(true);
-////		tomcat.getServer().setCatalina(cat);
-////		org.apache.catalina.connector.Connector def=tomcat.getConnector();
-////		def.setURIEncoding("UTF-8");
-////		def.setAttribute("relaxedQueryChars", "[]|{}^&#x5c;&#x60;&quot;&lt;&gt;");
-////		def.setAttribute("relaxedPathChars", "[]|");//org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH
-////		def.setProperty("URIEncoding", "UTF-8");
-////		def.setProtocol("org.apache.coyote.http11.Http11NioProtocol");
-////		def.setUseBodyEncodingForURI(true);
-//
-//		tomcat.getHost().setAppBase(".");
-//
-//		tomcat.addWebapp(contextPath, warFilePath);
-//
-//		tomcat.start();
-//		if(args.length==4 || args.length==0) {			
-//			tomcat.getServer().await();
-//		}
+	public static void deleteFolder(File file) {
+		for (File subFile : file.listFiles()) {
+			if (subFile.isDirectory()) {
+				deleteFolder(subFile);
+			} else {
+				IO.delete(subFile);
+//				System.out.println(subFile);
+			}
+		}
+		IO.delete(file);
+//		System.out.println(file);
 	}
 
 	public static boolean stringToBool(String param) {

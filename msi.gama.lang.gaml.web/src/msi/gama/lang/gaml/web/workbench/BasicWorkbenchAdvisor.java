@@ -18,6 +18,7 @@ package msi.gama.lang.gaml.web.workbench;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.dslforge.workspace.jpa.database.User;
@@ -28,6 +29,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
@@ -41,6 +43,10 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.xtext.resource.XtextResource;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.FrameworkUtil;
 
 import msi.gama.application.Application;
 import msi.gama.application.workspace.WorkspaceModelsManager;
@@ -96,12 +102,12 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 
 		String uid = RWT.getUISession().getAttribute("user").toString();
 //		while(!WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()).isDisposed()) {
-		try {
-			Thread.sleep(100);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(100);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 //		}
 		if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
@@ -138,11 +144,48 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public boolean preShutdown() {
 		System.out.println("preShutdown of " + loggedUser);
-		if (isUser) {
-			System.exit(0);
-		}
-		GAMAWEB.pauseFrontmostExperiment();
-		GAMAWEB.closeAllExperiments(true, true);
+		RWT.getApplicationContext().setAttribute("stopped", "1");
+//		if (isUser) {
+//		GAMAWEB.pauseFrontmostExperiment();
+//		GAMAWEB.closeAllExperiments(true, true);
+		new Thread() {
+			public void run() {
+				try {
+					final BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+					if (bundleContext != null) {
+						// stop jetty
+						List<String> bundle = new ArrayList<String>(Arrays.asList("org.eclipse.core.resources",
+								"org.eclipse.rap.ui.workbench", "org.eclipse.rap.ui.navigator",
+								"org.eclipse.jetty.server", "org.eclipse.wst.sse.core",
+								"org.eclipse.ltk.core.refactoring", "ummisco.gama.ui.shared.web",
+								"ummisco.gama.ui.modeling.web", "ummisco.gama.ui.experiment.web",
+								"org.dslforge.xtext.common", "org.dslforge.workspace.ui ", "org.dslforge.texteditor",
+								"org.dslforge.styledtext", "ummisco.gama.ui.modeling.web"));
+						bundle.forEach(each -> {
+							if (Platform.getBundle(each) != null) {
+								try {
+									Platform.getBundle(each).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+								} catch (BundleException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						});
+//						Platform.getBundle().stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+//						Platform.getBundle("org.eclipse.wst.validation.internal.plugin")
+//								.stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+//						Platform.getBundle("org.eclipse.wst.validation").stop(org.osgi.framework.Bundle.STOP_TRANSIENT); 
+						bundleContext.getBundle(0).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+						// //$NON-NLS-1$
+						// stop osgi
+					}
+				} catch (BundleException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}.start();
+//		System.exit(0);
+//		}
 
 		return super.preShutdown();
 	}

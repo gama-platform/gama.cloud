@@ -1,9 +1,10 @@
 #!/bin/bash
 b(){
-cd msi.gama.lang.gaml.web.build/GamaWeb 
-mvn clean install 
-cd ../../cict.gama.jetty
-mvn clean install
+#cd msi.gama.lang.gaml.web.build/GamaWeb 
+#mvn clean install -o
+#cd ../../cict.gama.jetty
+cd cict.gama.jetty
+mvn clean install -o
 cd target
 cp gamaweb.jar GamaWeb
 cd ../..
@@ -48,9 +49,15 @@ cp gamaweb.jar GamaWeb
 cd ../..
 }
 
+if  [ $1 = "A" ] || [ $1 = "a" ]
+then
+    a 
+fi
+if  [ $1 = "B" ] || [ $1 = "b" ]
+then
+    b 
+fi
 if  [ $1 = "O" ] || [ $1 = "o" ]
 then
-    o
-else
-    a
+    o 
 fi

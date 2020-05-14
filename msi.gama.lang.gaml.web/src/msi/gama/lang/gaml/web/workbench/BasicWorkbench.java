@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
@@ -38,6 +39,10 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.internal.service.ContextProvider;
+import org.eclipse.rap.rwt.service.ApplicationContextEvent;
+import org.eclipse.rap.rwt.service.ApplicationContextListener;
+import org.eclipse.rap.rwt.service.UISessionEvent;
+import org.eclipse.rap.rwt.service.UISessionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -45,6 +50,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.FrameworkUtil;
 
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
@@ -308,7 +316,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			is_controller = false;
 //			enableLoggin = false;
 			System.out.println("the user prefix ");
-			RWT.getUISession().getHttpSession().setMaxInactiveInterval(5);
+//			RWT.getUISession().getHttpSession().setMaxInactiveInterval(5);
 		}
 	}
 
@@ -347,8 +355,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					display.syncExec(() -> {
 						MessageDialog.openInformation(display.getActiveShell(), "Information",
 								"Time out, please try again later!");
+						PlatformUI.getWorkbench().close();
 					});
-					redirect_to(display, "google.com");
+//					redirect_to(display, "google.com");
+
 				}
 
 			}
@@ -403,8 +413,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			dd = now;
 			recent_ip.put(ip, now);
 
-			Process p = execBash(new String[] { "start", "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
-					user_context_prefix + current_ip, "8081" });
+			Process p = execBash(new String[] { "start", "java", "-jar",
+					"C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar", user_context_prefix + current_ip, "8081" });
 			RWT.getApplicationContext().setAttribute("process" + recent_ip, p);
 
 			System.out.println("execcccccccccccccccccccccc");
@@ -468,6 +478,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	@Override
 	public int createUI() {
+		if("1".equals(RWT.getApplicationContext().getAttribute("stopped"))){
+			return 0;
+		}
+
 		String uid = "admin";
 		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		RWT.getUISession().setAttribute("user", "admin");
@@ -499,7 +513,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		init_google_callback();
 		set_background_gama();
 		sync_user_list(uid);
-		try {
+		try { 
 			set_environment_param(uid);
 
 			WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
