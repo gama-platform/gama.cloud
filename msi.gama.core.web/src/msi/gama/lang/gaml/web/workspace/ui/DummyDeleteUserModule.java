@@ -70,21 +70,21 @@ public class DummyDeleteUserModule implements javax.security.auth.spi.LoginModul
 		loggedIn=false;
 		String username = nameCallback.getName();
 //		loggedIn = password.equals(USERS.get(username));
-		IPersistencyService dbservice = GamaPersistencyService.getInstance();
-		if (dbservice.isRunning()) {
-			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null) {
-				if(MessageDialog.openConfirm(Display.getDefault().getActiveShell(), "Warning", "Do you really want to delete "+username+"???")) {
-					((GamaPersistencyService) dbservice).deleteUser(username);
-					loggedIn=true;					
-				}
-
-			}
-//			dbservice.deleteUser(username);
-//			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
-//			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
-//			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
-			
-		}
+//		IPersistencyService dbservice = GamaPersistencyService.getInstance();
+//		if (dbservice.isRunning()) {
+//			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null) {
+//				if(MessageDialog.openConfirm(Display.getDefault().getActiveShell(), "Warning", "Do you really want to delete "+username+"???")) {
+//					((GamaPersistencyService) dbservice).deleteUser(username);
+//					loggedIn=true;					
+//				}
+//
+//			}
+////			dbservice.deleteUser(username);
+////			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
+////			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
+////			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
+//			
+//		}
 		return loggedIn;
 	}
 

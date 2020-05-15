@@ -66,9 +66,9 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 	private static WorkspaceActivator plugin;
 	
 	private static BundleContext ctx;
-	private static EntityManagerFactory emf;
+//	private static EntityManagerFactory emf;
 	
-	private ServiceTracker emfTracker;
+//	private ServiceTracker emfTracker;
 	String pathDB="";
 	public static WorkspaceActivator getDefault() {
 		return plugin;
@@ -98,9 +98,9 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 //String bundlePath = prependedBundlePath;
 //if (prefixPos >= 0) bundlePath = prependedBundlePath.substring(prefixPos + prefix.length(), prependedBundlePath.length());
 //pathDB=bundlePath.replace(bundleName,"");
-pathDB=((BundleContextImpl) context).getContainer().getLocations().getConfigurationLocation().getURL().getPath();
-int ss=pathDB.indexOf("work");
-pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+pathDB.substring(ss);
+//pathDB=((BundleContextImpl) context).getContainer().getLocations().getConfigurationLocation().getURL().getPath();
+//int ss=pathDB.indexOf("work");
+//pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+pathDB.substring(ss);
 //pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+pathDB;
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
@@ -116,24 +116,24 @@ pathDB=IWorkspaceConstants.WORKSPACE_DEFAULT_PATH+"/"+pathDB.substring(ss);
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-System.out.println("bundlePath=" + pathDB); 
+//System.out.println("bundlePath=" + pathDB); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
-		emfTracker = new ServiceTracker(ctx, EntityManagerFactory.class.getName(), this);
-		emfTracker.open();
+//		emfTracker = new ServiceTracker(ctx, EntityManagerFactory.class.getName(), this);
+//		emfTracker.open();
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		logger.info(PLUGIN_ID + " stopping!");
 		plugin = null;
-		emfTracker.close();
-		if (emf!=null && emf.isOpen())
-			emf.close();
+//		emfTracker.close();
+//		if (emf!=null && emf.isOpen())
+//			emf.close();
 		ctx = null;
 	}
 
@@ -144,14 +144,14 @@ System.out.println("bundlePath=" + pathDB);
 		final Object service = bundle.getBundleContext().getService(ref);
 		String unitName = (String) ref.getProperty(EntityManagerFactoryBuilder.JPA_UNIT_NAME);
 		if (unitName.equals(IWorkspaceConstants.PERSISTENCE_UNIT_NAME)) {
-			EntityManagerFactoryBuilder entityManagerFactoryBuilder = lookupEntityManagerFactoryBuilder(unitName);
-			if (entityManagerFactoryBuilder != null) {
-				emf = entityManagerFactoryBuilder.createEntityManagerFactory(overrideConfiguration(workspaceRootPath));
-			} else {
-				logger.error("Could not retrieve the database service (entity manager factory builder not found).\n"
-						+ "This means the plugin is started before the persistency unit has been loaded by Gemini JPA.\n"
-						+ "Make sure the startup level of this plugin is higher than org.eclipse.gemini.jpa startup level.");
-			}
+//			EntityManagerFactoryBuilder entityManagerFactoryBuilder = lookupEntityManagerFactoryBuilder(unitName);
+//			if (entityManagerFactoryBuilder != null) {
+//				emf = entityManagerFactoryBuilder.createEntityManagerFactory(overrideConfiguration(workspaceRootPath));
+//			} else {
+//				logger.error("Could not retrieve the database service (entity manager factory builder not found).\n"
+//						+ "This means the plugin is started before the persistency unit has been loaded by Gemini JPA.\n"
+//						+ "Make sure the startup level of this plugin is higher than org.eclipse.gemini.jpa startup level.");
+//			}
 		}
 		return service;
 	}
@@ -228,7 +228,7 @@ System.out.println("bundlePath=" + pathDB);
 		return workspaceContributions.get(0);
 	}
 
-	public static EntityManagerFactory getEntityManagerFactory() {
-		return emf;
-	}
+//	public static EntityManagerFactory getEntityManagerFactory() {
+//		return emf;
+//	}
 }

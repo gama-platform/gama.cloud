@@ -85,32 +85,32 @@ public class DummyLoginModule implements javax.security.auth.spi.LoginModule {
 			password = md5(String.valueOf(passwordCallback.getPassword()));
 		}
 //		loggedIn = password.equals(USERS.get(username));
-		IPersistencyService dbservice = GamaPersistencyService.getInstance();
-		if (dbservice.isRunning()) {
-			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
-				loggedIn=true;
-				loggedUser=username;
-			}
-			if(username.equals("admin") && ((GamaPersistencyService) dbservice).getUser(username)==null) {
-				DummyCallbackHandler dch = new DummyCallbackHandler();
-				DummyNewUserModule dlm = new DummyNewUserModule();
-				dlm.initialize(new Subject(), dch, null, null);
-				try {
-					if(dlm.newuser()) {
-						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "New admin created!");						
-					}
-				} catch (LoginException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-//			dbservice.deleteUser(username);
-//			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
-//			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
-//			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
-			
-		}
+//		IPersistencyService dbservice = GamaPersistencyService.getInstance();
+//		if (dbservice.isRunning()) {
+//			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
+//				loggedIn=true;
+//				loggedUser=username;
+//			}
+//			if(username.equals("admin") && ((GamaPersistencyService) dbservice).getUser(username)==null) {
+//				DummyCallbackHandler dch = new DummyCallbackHandler();
+//				DummyNewUserModule dlm = new DummyNewUserModule();
+//				dlm.initialize(new Subject(), dch, null, null);
+//				try {
+//					if(dlm.newuser()) {
+//						MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information", "New admin created!");						
+//					}
+//				} catch (LoginException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			}
+////			dbservice.deleteUser(username);
+////			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
+////			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
+////			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
+//			
+//		}
 		return loggedIn;
 	}
 

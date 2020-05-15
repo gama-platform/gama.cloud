@@ -16,20 +16,20 @@ public interface IPersistencyService {
 	public static final String LOCKED = "locked";
 	public static final String UNLOCKED = "unlocked";
 	
-	boolean isRunning();
-
-	void createProject(String projectName, String description, String path, String userId, String visibility);
-
-	void createFolder(IPath path);
-
-	void createResource(IPath path);
-
-	void deleteProject(IPath path);
-
-	void deleteFolder(IPath path);
-
-	void deleteResource(IPath path);
-
-	List<String> getAllProjectNames();
+//	boolean isRunning();
+//
+//	void createProject(String projectName, String description, String path, String userId, String visibility);
+//
+//	void createFolder(IPath path);
+//
+//	void createResource(IPath path);
+//
+//	void deleteProject(IPath path);
+//
+//	void deleteFolder(IPath path);
+//
+//	void deleteResource(IPath path);
+//
+//	List<String> getAllProjectNames();
 
 }

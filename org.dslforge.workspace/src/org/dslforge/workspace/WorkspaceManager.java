@@ -67,10 +67,10 @@ public class WorkspaceManager {
 		} catch (IOException ex) {
 			logger.error(ex.getMessage(), ex);
 		}
-		IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-		if (dbservice.isRunning()) {
-			logger.info("Database service notified with root path [" + rootPath + "]");
-		}
+//		IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//		if (dbservice.isRunning()) {
+//			logger.info("Database service notified with root path [" + rootPath + "]");
+//		}
 	}
 
 	public boolean isRunning() {
@@ -113,11 +113,11 @@ public class WorkspaceManager {
 				}
 			});
 			String userId = (String) RWT.getUISession().getAttribute("user");
-			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-			if (dbservice.isRunning()) {
-				dbservice.createProject(projectName, description, projectPath.toString(), userId, visibility);
-				logger.info("Project created : " + file.getAbsolutePath());
-			}
+//			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//			if (dbservice.isRunning()) {
+//				dbservice.createProject(projectName, description, projectPath.toString(), userId, visibility);
+//				logger.info("Project created : " + file.getAbsolutePath());
+//			}
 		}
 		return file;
 	}
@@ -135,11 +135,11 @@ public class WorkspaceManager {
 					}
 				}
 			});
-			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-			if (dbservice.isRunning()) {
-				dbservice.createFolder(path);
-			}
-			logger.info("Folder created : " + file.getAbsolutePath());
+//			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//			if (dbservice.isRunning()) {
+//				dbservice.createFolder(path);
+//			}
+//			logger.info("Folder created : " + file.getAbsolutePath());
 		}
 		return file;
 	}
@@ -157,11 +157,11 @@ public class WorkspaceManager {
 					}
 				}
 			});
-			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-			if (dbservice.isRunning()) {
-				dbservice.createResource(path);
-			}
-			logger.info("Resource created : " + file.getAbsolutePath());
+//			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//			if (dbservice.isRunning()) {
+//				dbservice.createResource(path);
+//			}
+//			logger.info("Resource created : " + file.getAbsolutePath());
 		}
 		return file;
 	}
@@ -183,11 +183,11 @@ public class WorkspaceManager {
 					} catch (IOException e) {
 						logger.error(e.getMessage(), e);
 					} finally {
-						IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-						if (dbservice.isRunning()) {
-							dbservice.deleteProject(path);
-						}
-						logger.info("Project deleted : " + path);
+//						IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//						if (dbservice.isRunning()) {
+//							dbservice.deleteProject(path);
+//						}
+//						logger.info("Project deleted : " + path);
 					}
 				}
 			});
@@ -207,11 +207,11 @@ public class WorkspaceManager {
 					} catch (IOException e) {
 						logger.error(e.getMessage(), e);
 					} finally {
-						IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-						if (dbservice.isRunning()) {
-							dbservice.deleteFolder(path);
-						}
-						logger.info("Folder deleted : " + path);
+//						IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//						if (dbservice.isRunning()) {
+//							dbservice.deleteFolder(path);
+//						}
+//						logger.info("Folder deleted : " + path);
 					}
 				}
 			});
@@ -228,11 +228,11 @@ public class WorkspaceManager {
 					file.delete();
 				}
 			});
-			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-			if (dbservice.isRunning()) {
-				dbservice.deleteResource(path);
-			}
-			logger.info("Resource deleted : " + file.getAbsolutePath());
+//			IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//			if (dbservice.isRunning()) {
+//				dbservice.deleteResource(path);
+//			}
+//			logger.info("Resource deleted : " + file.getAbsolutePath());
 			return true;
 		}
 		return false;
@@ -265,10 +265,10 @@ public class WorkspaceManager {
 	}
 
 	public List<String> getAllProjectNames() {
-		IPersistencyService dbservice = DefaultPersistencyService.getInstance();
-		if (dbservice.isRunning()) {
-			return dbservice.getAllProjectNames();
-		}
+//		IPersistencyService dbservice = DefaultPersistencyService.getInstance();
+//		if (dbservice.isRunning()) {
+//			return dbservice.getAllProjectNames();
+//		}
 		return Collections.emptyList();
 	}
 	

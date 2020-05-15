@@ -76,22 +76,22 @@ public class DummyProfileModule implements javax.security.auth.spi.LoginModule {
 			password = md5(String.valueOf(oldpasswordCallback.getPassword()));
 		}
 //		loggedIn = password.equals(USERS.get(username));
-		IPersistencyService dbservice = GamaPersistencyService.getInstance();
-		if (dbservice.isRunning()) {
-			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
-				if(newpasswordCallback.getPassword()!=null && newpasswordCallback1.getPassword()!=null && String.valueOf(newpasswordCallback.getPassword()).equals(String.valueOf(newpasswordCallback1.getPassword()))) {
-					password = md5(String.valueOf(newpasswordCallback.getPassword()));
-					((GamaPersistencyService) dbservice).changePwd(username, password);
-				}
-			}else {
- 
-			}
-//			dbservice.deleteUser(username);
-//			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
-//			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
-//			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
-			
-		}
+//		IPersistencyService dbservice = GamaPersistencyService.getInstance();
+//		if (dbservice.isRunning()) {
+//			if(username!=null && ((GamaPersistencyService) dbservice).getUser(username)!=null && ((GamaPersistencyService) dbservice).getUser(username).getPassword().equals(password)) {
+//				if(newpasswordCallback.getPassword()!=null && newpasswordCallback1.getPassword()!=null && String.valueOf(newpasswordCallback.getPassword()).equals(String.valueOf(newpasswordCallback1.getPassword()))) {
+//					password = md5(String.valueOf(newpasswordCallback.getPassword()));
+//					((GamaPersistencyService) dbservice).changePwd(username, password);
+//				}
+//			}else {
+// 
+//			}
+////			dbservice.deleteUser(username);
+////			MessageDialog.openInformation(getSite().getShell(), "Open", "Open Message Dialog!");
+////			((GamaPersistencyService) dbservice).createUser("user", "HUYNH", "Nghi", "GAMA", "hqnghi88@gmail.com", md5("user"));
+////			System.out.println(""+((GamaPersistencyService) dbservice).getAllUsers());
+//			
+//		}
 		return loggedIn;
 	}
 
