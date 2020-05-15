@@ -184,7 +184,7 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 				}
 			}
 		}.start();
-//		System.exit(0);
+		System.exit(0);
 //		}
 
 		return super.preShutdown();
