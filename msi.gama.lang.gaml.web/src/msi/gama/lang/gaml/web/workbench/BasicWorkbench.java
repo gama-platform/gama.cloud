@@ -159,7 +159,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 ////		}
 //	}
 
-	public Process execBash(final String sc[]) {
+	public Thread execBash(final String sc[]) {
 
 		ProcessBuilder processBuilder = new ProcessBuilder();
 
@@ -182,12 +182,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		// Run a bat file
 		// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
 
+		Thread t = null;
 		try {
 
 			final Process process = processBuilder.start();
-
-			// enter code here
-			new Thread() {
+			t = new Thread() {
 
 				@Override
 				public void run() {
@@ -204,48 +203,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					}
 				}
 
-			}.start();
-
-//			process.waitFor();
-
-//				StringBuilder output = new StringBuilder();
-
-//				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//				//
-//				String line;
-//				while ((line = reader.readLine()) != null) {
-////					output.append(line + "\n");
-//					System.out.println(line);
-//				}
-			//
-//				int exitVal = process.waitFor();
-//				if (exitVal == 0) {
-//					System.out.println("Success!");
-//				} else {
-//					System.out.println("abnormal");
-//				} 
-//			return process;
-//			StringBuilder output = new StringBuilder();
-
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//			String line;
-//			while ((line = reader.readLine()) != null) {
-////				output.append(line + "\n");
-//				System.out.println(line);
-//			}
-//
-//			int exitVal = process.waitFor();
-//			if (exitVal == 0) {
-//				System.out.println("Success!");
-//			} else {
-//				System.out.println("abnormal");
-//			}
+			};
+			t.start();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return t;
 
 	}
 
@@ -438,6 +402,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(retry);
 			if (now.isAfter(exprire) && now.isBefore(retry)) {
 
+				Thread t=(Thread) RWT.getApplicationContext().getAttribute("process" + recent_ip);
+				t.interrupt();
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 						"Please try again later!");
 				stopped = true;
@@ -454,13 +420,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if (is_controller && dd == null) {
 			dd = now;
 			recent_ip.put(current_ip, now);
-			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
-					user_context_prefix + current_ip, "8081" ,"-console","1002"});
+			Thread t=execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+					user_context_prefix + current_ip, "8081", "-console", "1002" });
 
-			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
-					user_context_prefix + current_ip+"2", "8082" ,"-console","1002"});
+//			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+//					user_context_prefix + current_ip + "2", "8082", "-console", "1002" });
 
-//			RWT.getApplicationContext().setAttribute("process" + recent_ip, p);
+			RWT.getApplicationContext().setAttribute("process" + recent_ip, t);
 
 			System.out.println("execcccccccccccccccccccccc");
 		}
