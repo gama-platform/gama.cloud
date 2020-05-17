@@ -2,15 +2,15 @@
 <html>
 <head>
 <style>
-table, th, td {
-	margin:0;
+table {
+	margin: 0;
 	border: 0;
 	height: 100%;
 	padding: 0;
 	text-align: left;
 	border-collapse: collapse;
 }
- 
+
 iframe {
 	width: 100%;
 	border: 0;
@@ -19,37 +19,44 @@ iframe {
 
 html, body, iframe {
 	height: 100%;
-	margin:0;
+	margin: 0;
 }
 </style>
 </head>
 <body>
 
 	<table style="width: 100%">
-		<tr>
-			<td width=100px>
+		<tr  >
+			<td  >
 				<p>
-					<a
-						href="http://localhost:10080/GamaWeb/texteditor"
+					<a href="http://localhost:10080/GamaWeb/texteditor"
 						target="myFrame">GamaWeb</a>
 				</p>
+			</td>
+			<td>
 				<p>
 					<a
 						href="http://localhost:10080/GamaWeb/texteditor?model=C:\git\gama.cloud\ummisco.gama.java2d.web\models\Java2D%20for%20Web%20Test\models\enw.gaml&exp=TestExp"
 						target="myFrame">GamaWeb running</a>
 				</p>
+			</td>
+			<td>
 				<p>
 					<a
 						href="http://localhost:10080/controller_GamaWeb/texteditor?model=C:\git\gama.cloud\ummisco.gama.java2d.web\models\Java2D%20for%20Web%20Test\models\enw.gaml&exp=TestExp"
 						target="myFrame">controller_GamaWeb</a>
 				</p>
+			</td>
+			<td>
 				<p>
 					<a
 						href="http://localhost:10081/user_GamaWeb127_0_0_1/texteditor?model=C:\git\gama.cloud\ummisco.gama.java2d.web\models\Java2D%20for%20Web%20Test\models\enw.gaml&exp=TestExp"
 						target="myFrame">user_GamaWeb</a>
 				</p>
 			</td>
-			<td><iframe src="" name="myFrame"></iframe></td>
+		</tr>
+		<tr>
+			<td colspan=4 height=100%><iframe src="" name="myFrame"></iframe></td>
 		</tr>
 	</table>
 
