@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.EventListener;
 import java.util.Set;
@@ -60,9 +62,36 @@ public class RunWarExample {
 		}
 	}
 
+	public static String getStatus(String url) throws IOException {
+
+		String result = "";
+		int code = 200;
+		try {
+			URL siteURL = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setConnectTimeout(3000);
+			connection.connect();
+
+			code = connection.getResponseCode();
+			if (code == 200) {
+				result = "-> Green <-\t" + "Code: " + code;
+				;
+			} else {
+				result = "-> Yellow <-\t" + "Code: " + code;
+			}
+		} catch (Exception e) {
+			result = "-> Red <-\t" + "Wrong domain - Exception: " + e.getMessage();
+
+		}
+//		System.out.println(url + "\t\tStatus:" + result);
+		return result;
+	}
+
 	public static void main(String[] args) {
+		final String ctx_path=args[0];
 		RunWarExample r = new RunWarExample();
-		r.retrieveWar(args[0]);
+		r.retrieveWar(ctx_path);
 		final Server server = new Server(stringToInt(args[1]));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
 //		server.setStopAtShutdown(true);
@@ -70,19 +99,19 @@ public class RunWarExample {
 				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		File warpath = new File(executionPath + "/" + args[0] + ".war");
+		File warpath = new File(executionPath + "/" + ctx_path + ".war");
 		WebAppContext context = new WebAppContext();
 //		context.setResourceBase(warpath);
 		context.setConfigurations(new Configuration[] { new AnnotationConfiguration(), new WebInfConfiguration(),
 				new WebXmlConfiguration(), new MetaInfConfiguration(), new FragmentConfiguration(),
 				new EnvConfiguration(), new PlusConfiguration(), new JettyWebXmlConfiguration() });
-		context.setContextPath("/" + args[0]);
+		context.setContextPath("/" + ctx_path);
 
 		context.setWar(warpath.getAbsolutePath());
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
-		final File tmpPath = new File(args[0] + "_tmp_");
+		final File tmpPath = new File(ctx_path + "_tmp_");
 		if (tmpPath.exists()) {
 //			System.exit(1);
 		} else {
@@ -98,12 +127,32 @@ public class RunWarExample {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 
 			@Override
-			public void run() {  
-					deleteFolder(tmpPath); 
+			public void run() {
+				deleteFolder(tmpPath);
 			}
 
 		});
+		new Thread() {
 
+			@Override
+			public void run() {
+				while (true) {
+
+					try {
+						if (ctx_path.startsWith("user_GamaWeb")
+								&& getStatus("http://localhost:10080/controller_GamaWeb/texteditor")
+										.startsWith("-> Red <-")) {
+							System.exit(0);
+						}
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}.start();
 		try {
 			server.start();
 		} catch (Exception e) {

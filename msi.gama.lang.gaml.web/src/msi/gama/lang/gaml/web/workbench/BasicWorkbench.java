@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
@@ -27,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,6 +102,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
 	String current_ip = "";
+	String current_port = "";
 	boolean is_offline = true;
 	boolean is_controller = false;
 	boolean stopped = false;
@@ -106,6 +111,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
+	public static String server_addr = "http://192.168.1.27";
 	public static String server_gama = "http://51.255.46.42:8080/";
 	public static String server_local = "http://localhost:10081/";
 
@@ -128,6 +134,32 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			ip = "127.0.0.1";
 		}
 		return ip;
+	}
+
+	public static String getAvailablePort() {
+		String p = "808";
+		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
+		if (used == null) {
+			used = new ArrayList<String>();
+		}
+		int i = 0;
+		do {
+			i++;
+		} while (used.contains(p + i));
+		used.add(p + i);
+		RWT.getApplicationContext().setAttribute("used_port", used);
+
+		return p+i;
+	}
+
+	public static void removePort(String p) {
+		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
+		if (used == null) {
+			used = new ArrayList<String>();
+		}
+		used.remove(p);
+		RWT.getApplicationContext().setAttribute("used_port", used);
+
 	}
 
 //	public void postLoggedIn(final String uid) {
@@ -158,57 +190,67 @@ public class BasicWorkbench extends AbstractEntryPoint {
 ////			}
 ////		}
 //	}
+	public class CustomThread extends Thread {
+		String sc[];
+		String msg = "";
 
-	public Thread execBash(final String sc[]) {
-
-		ProcessBuilder processBuilder = new ProcessBuilder();
-
-		// -- Linux --
-		// Run a shell command
-//		processBuilder.command().add("cmd");
-//		processBuilder.command().add("/C");
-		for (int i = 0; i < sc.length; i++) {
-			processBuilder.command().add(sc[i]);
+		public CustomThread(final String sc1[]) {
+			sc = sc1;
 		}
 
-		// Run a shell script
-		// processBuilder.command("path/to/hello.sh");
+		Process process;
 
-		// -- Windows --
+		@Override
+		public void interrupt() {
+			// TODO Auto-generated method stub
+			super.interrupt();
+			process.destroyForcibly();
+		}
 
-		// Run a command
-		// processBuilder.command("cmd.exe", "/c", "dir C:\\Users\\mkyong");
+		@Override
+		public void run() {
+			try {
 
-		// Run a bat file
-		// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
+				// Run a shell script
+				// processBuilder.command("path/to/hello.sh");
 
-		Thread t = null;
-		try {
+				// -- Windows --
 
-			final Process process = processBuilder.start();
-			t = new Thread() {
+				// Run a command
+				// processBuilder.command("cmd.exe", "/c", "dir C:\\Users\\mkyong");
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try (BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-						String line;
+				// Run a bat file
+				// processBuilder.command("C:\\Users\\mkyong\\hello.bat");
 
-						while ((line = input.readLine()) != null) {
-							System.out.println(line);
-						}
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				// -- Linux --
+				// Run a shell command
+
+				ProcessBuilder processBuilder = new ProcessBuilder();
+
+				for (int i = 0; i < sc.length; i++) {
+					processBuilder.command().add(sc[i]);
+				}
+//				processBuilder.command().add("cmd");
+//				processBuilder.command().add("/C");
+				process = processBuilder.start();
+				// TODO Auto-generated method stub
+				BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//				String line;
+
+				while ((msg = input.readLine()) != null) {
 				}
 
-			};
-			t.start();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	public CustomThread execBash(final String sc[]) {
+		System.out.println("execcccccccccccccccccccccc");
+		CustomThread t = new CustomThread(sc);
+		t.start();
+
 		return t;
 
 	}
@@ -235,7 +277,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				public void run(final IProgressMonitor monitor) {
 					int i = 0;
-					while (i < tick) {
+					// > JAI/ImageIO subsystem activated
+
+					CustomThread t = null;
+//					while (i < tick) {
+					do {
+						t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+
 						i++;
 						d.syncExec(new Runnable() {
 
@@ -246,12 +294,15 @@ public class BasicWorkbench extends AbstractEntryPoint {
 							}
 						});
 						try {
-//								System.out.println("waiting");
+							if (t.msg.contains("> JAI/ImageIO subsystem activated")) {
+								System.out.println("..." + t.msg + "...");
+								break;
+							}
 							Thread.sleep(1000);
 						} catch (final Exception e) {
 							e.printStackTrace();
 						}
-					}
+					} while (t != null);
 					d.syncExec(new Runnable() {
 
 						public void run() {
@@ -377,7 +428,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx IP");
 //		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
-		System.out.println(current_ip);
+		System.out.println(current_ip + ":" + current_port);
 
 		String webContext = RWT.getRequest().getContextPath();
 
@@ -402,8 +453,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(retry);
 			if (now.isAfter(exprire) && now.isBefore(retry)) {
 
-				Thread t=(Thread) RWT.getApplicationContext().getAttribute("process" + recent_ip);
-				t.interrupt();
+				for (int i = 1; i < 2; i++) {
+					Thread t = (Thread) RWT.getApplicationContext().getAttribute("process" + i + current_ip);
+					t.interrupt();
+					removePort(current_port);
+
+				}
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 						"Please try again later!");
 				stopped = true;
@@ -420,15 +475,16 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if (is_controller && dd == null) {
 			dd = now;
 			recent_ip.put(current_ip, now);
-			Thread t=execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
-					user_context_prefix + current_ip, "8081", "-console", "1002" });
+//			for (int i = 1; i < 2; i++) {
+			CustomThread t = execBash(
+					new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+							user_context_prefix + current_ip, current_port });
+			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
+//			}
 
 //			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
 //					user_context_prefix + current_ip + "2", "8082", "-console", "1002" });
 
-			RWT.getApplicationContext().setAttribute("process" + recent_ip, t);
-
-			System.out.println("execcccccccccccccccccccccc");
 		}
 		RWT.getApplicationContext().setAttribute("recent_ip", recent_ip);
 
@@ -489,14 +545,27 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	@Override
 	public int createUI() {
+
 		if ("1".equals(RWT.getApplicationContext().getAttribute("stopped"))) {
 			return 0;
 		}
 
 		String uid = "admin";
 		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
+		current_port = getAvailablePort();
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
+//		Runtime.getRuntime().addShutdownHook(new Thread() {
+//
+//			@Override
+//			public void run() {
+//				for (int i = 1; i < 2; i++) {
+//					CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + i + current_ip);
+//					t.interrupt();
+//				}
+//			}
+//
+//		});
 		checkRole();
 		check_auth_ip();
 		if (stopped) {
@@ -505,12 +574,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (is_controller) {
 				Display display = PlatformUI.createDisplay();
 				doWait(30);
+
 				display.dispose();
 				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 
 				try {
-					String url = "http://localhost:8081/" + user_context_prefix + current_ip + "/texteditor";
+					String url = server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
+							+ "/texteditor";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);
@@ -541,22 +612,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				}
 				result = PlatformUI.createAndRunWorkbench(display, workbenchAdvisor);
 			}
-//			else {
-//
-////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb1","8081"});
-////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb2","8082"});
-////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb3","8083"});
-////					execBash(new String[]{"start","java","-jar","C:/git/gama.cloud/cict.gama.jetty/target/tomcat_launcher.jar","GamaWeb4","8084"});
-//				doWait(30);
-//
-//			}
 			display.dispose();
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx end of " + uid);
 			return result;
 //			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
