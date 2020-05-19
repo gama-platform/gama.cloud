@@ -106,12 +106,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_offline = true;
 	boolean is_controller = false;
 	boolean stopped = false;
-	int expired_time = 20;
-	int retry_time = 20;
+	int expired_time = 300;
+	int retry_time = 60;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
-	public static String server_addr = "http://192.168.1.27";
+	public static String server_addr = "192.168.1.27";
 	public static String server_gama = "http://51.255.46.42:8080/";
 	public static String server_local = "http://localhost:10081/";
 
@@ -132,6 +132,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		ip = request.getRemoteAddr();
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
+		}
+		if ("127.0.0.1".equals(ip)) {
+			ip = server_addr;
 		}
 		return ip;
 	}
@@ -243,6 +246,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				String line;
 
 				while ((msg = input.readLine()) != null) {
+//					System.out.println(msg);
 				}
 
 			} catch (Exception e) {
@@ -263,12 +267,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	private void doWait(int tick) {
 		Display d = Display.getCurrent();
 //		Display d = PlatformUI.createDisplay();
-		Shell sh = new Shell(d);
-		sh.setSize(500, 50);
+		Shell sh = new Shell(d,SWT.NO_TRIM | SWT.ON_TOP);
+//		sh.setSize(500, 50);
+		sh.setMaximized(true);
 		Label lb = new Label(sh, SWT.NONE);
 		lb.setForeground(IGamaColors.BLACK.color());
-		lb.setText("Creating resources, please wait 20s ");
-		lb.setBounds(10, 25, 450, 20);
+		lb.setText("Creating resources, please wait ");
+		lb.setBounds(10, 25, sh.getSize().x, sh.getSize().y);
 
 		d.syncExec(new Runnable() {
 
@@ -301,6 +306,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 						try {
 							if (t.msg.contains("> JAI/ImageIO subsystem activated")) {
 								System.out.println("..." + t.msg + "...");
+								Thread.sleep(3000);
 								break;
 							}
 							Thread.sleep(1000);
@@ -436,8 +442,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		System.out.println(current_ip + ":" + current_port);
 
 		String webContext = RWT.getRequest().getContextPath();
-		System.out.println(webContext+"      "+"/" + user_context_prefix + current_ip);
-		if (webContext.startsWith("/" + user_context_prefix) && !webContext.equals("/" + user_context_prefix + current_ip)) {
+		System.out.println(webContext + "      " + "/" + user_context_prefix + current_ip);
+		if (webContext.startsWith("/" + user_context_prefix)
+				&& !webContext.equals("/" + user_context_prefix + current_ip)) {
 			stopped = true;
 			return;
 		}
@@ -584,7 +591,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 
 				try {
-					String url = server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
+					String url = "http://"+server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
 							+ "/texteditor";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
