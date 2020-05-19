@@ -117,6 +117,7 @@ public class RunWarExample {
 		} else {
 			tmpPath.mkdirs();
 		}
+		System.out.println("tmpPath "+tmpPath);
 		context.setPersistTempDirectory(false);
 		context.setTempDirectory(tmpPath);
 
@@ -140,7 +141,8 @@ public class RunWarExample {
 
 					try {
 						if (ctx_path.startsWith("user_GamaWeb")
-								&& getStatus("http://localhost:10080/controller_GamaWeb/texteditor")
+//								&& getStatus("http://localhost:10080/controller_GamaWeb/texteditor")
+								&& getStatus("http://51.255.46.42:8080/controller_GamaWeb/texteditor")
 										.startsWith("-> Red <-")) {
 							System.exit(0);
 						}
