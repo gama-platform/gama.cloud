@@ -457,6 +457,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		LocalDateTime dd = recent_ip.get(current_ip);
 //			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//		String jarPath="C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+		String jarPath="/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
 			LocalDateTime retry = exprire.plusSeconds(retry_time);
@@ -471,7 +473,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			}
 
 			if (now.isBefore(exprire)) {
-				t = execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+				t = execBash(new String[] { "java", "-jar", jarPath,
 						user_context_prefix + current_ip, current_port });
 				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
@@ -492,7 +494,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (t != null) {
 				t.interrupt();
 			}
-			t = execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+			t = execBash(new String[] { "java", "-jar", jarPath,
 					user_context_prefix + current_ip, current_port });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
