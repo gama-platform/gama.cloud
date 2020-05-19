@@ -107,11 +107,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_controller = false;
 	boolean stopped = false;
 	int expired_time = 300;
-	int retry_time = 60;
+	int retry_time = 600;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
-	public static String server_addr = "192.168.1.27";
+//	public static String server_addr = "192.168.1.14";
+	public static String server_addr = "51.255.46.42";
 	public static String server_gama = "http://51.255.46.42:8080/";
 	public static String server_local = "http://localhost:10081/";
 
@@ -267,7 +268,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	private void doWait(int tick) {
 		Display d = Display.getCurrent();
 //		Display d = PlatformUI.createDisplay();
-		Shell sh = new Shell(d,SWT.NO_TRIM | SWT.ON_TOP);
+		Shell sh = new Shell(d, SWT.NO_TRIM | SWT.ON_TOP);
 //		sh.setSize(500, 50);
 		sh.setMaximized(true);
 		Label lb = new Label(sh, SWT.NONE);
@@ -304,7 +305,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 							}
 						});
 						try {
-							if (t.msg.contains("> JAI/ImageIO subsystem activated")) {
+							if (t != null && t.msg != null && t.msg.contains("> JAI/ImageIO subsystem activated")) {
 								System.out.println("..." + t.msg + "...");
 								Thread.sleep(3000);
 								break;
@@ -394,9 +395,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	public void set_background_gama() {
-		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
-		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
-				+ splash + "') top center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
+//		final String splash = "https://raw.githubusercontent.com/gama-platform/gama/master/msi.gama.application/splash.bmp";
+//		RWT.getClient().getService(JavaScriptExecutor.class).execute("document.body.style.background  = \"url('"
+//				+ splash + "') top center no-repeat fixed\"; \n document.body.style.backgroundSize = 'contain';");
 
 	}
 
@@ -463,22 +464,21 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(dd);
 			System.out.println(exprire);
 			System.out.println(retry);
-			if (now.isAfter(exprire) && now.isBefore(retry)) {
 
-//				for (int i = 1; i < 2; i++) {
-				Thread t = (Thread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+			if (t != null) {
 				t.interrupt();
+			}
 
-//				}
+			if (now.isBefore(exprire)) {
+				t = execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+						user_context_prefix + current_ip, current_port });
+				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
+			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 						"Please try again later!");
 				stopped = true;
-//				JavaScriptExecutor ex = RWT.getClient().getService(JavaScriptExecutor.class);
-//				ex.execute("alert('come back later');window.location=\"http://google.com\"");
-//				ContextProvider.getResponse().getWriter().write( "window.location.href=\"http://google.com\";" );
-//					ContextProvider.getProtocolWriter().appendHead("redirect", server_local); 
-			}
-			if (now.isAfter(retry)) {
+			} else if (now.isAfter(retry)) {
 				tick = 0;
 				dd = null;
 			}
@@ -487,9 +487,13 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			dd = now;
 			recent_ip.put(current_ip, now);
 //			for (int i = 1; i < 2; i++) {
-			CustomThread t = execBash(
-					new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
-							user_context_prefix + current_ip, current_port });
+
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+			if (t != null) {
+				t.interrupt();
+			}
+			t = execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
+					user_context_prefix + current_ip, current_port });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
 
@@ -591,7 +595,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 
 				try {
-					String url = "http://"+server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
+					String url = "http://" + server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
 							+ "/texteditor";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");

@@ -265,7 +265,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	@Override
 	protected GamaUIJob createUpdateJob() {
-		return new GamaUIJob() {
+		return new GamaUIJob(WorkbenchHelper.getDisplay()) {
 
 			@Override
 			protected UpdatePriority jobPriority() {

@@ -67,8 +67,8 @@ public abstract class GamaViewPart extends ViewPart
 
 	public abstract class GamaUIJob extends UIJob {
 
-		public GamaUIJob() {
-			super("Updating " + getPartName());
+		public GamaUIJob(org.eclipse.swt.widgets.Display d) {
+			super(d,"Updating " + getPartName());
 			final UpdatePriority p = jobPriority();
 			switch (p) {
 				case HIGHEST:

@@ -155,7 +155,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	@Override
 	protected GamaUIJob createUpdateJob() {
-		return new GamaUIJob() {
+		return new GamaUIJob(WorkbenchHelper.getDisplay()) {
 
 			@Override
 			protected UpdatePriority jobPriority() {

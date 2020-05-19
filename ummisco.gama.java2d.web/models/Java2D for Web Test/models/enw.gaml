@@ -51,7 +51,7 @@ grid cell width:10 height:10{
 	    color <- rgb(rnd(255));//rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 * (1 - food)));
 	}
 }
-experiment TestExp type: gui autorun:true {
+experiment TestExp type: gui autorun:false {
  
 	output { 
 		display o type: java2D synchronized:false { 
@@ -66,5 +66,6 @@ experiment TestExp type: gui autorun:true {
 		    species aa ;// aspect: icon;
 		  //species parcel;
 		}
+		monitor "Number of preys" value: aaa;
 	}
 }

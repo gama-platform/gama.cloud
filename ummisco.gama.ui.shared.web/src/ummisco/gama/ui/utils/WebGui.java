@@ -421,7 +421,7 @@ public class WebGui implements IGui {
 			// if (initializer != null && !initializer.isDone()) {
 			// initializer.run();
 			// }
-			WorkbenchHelper.setWorkbenchWindowTitle(GAMA.getRuntimeScope(), exp.getName() + " - " + exp.getModel().getFilePath());
+			WorkbenchHelper.setWorkbenchWindowTitle(GAMA.getRuntimeScope(), exp.getName());//+ " - " + exp.getModel().getFilePath()
 			updateParameterView(scope, exp);
 //			getConsole(scope).showConsoleView(exp.getAgent());
 		}

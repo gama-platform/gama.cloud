@@ -229,7 +229,7 @@ public class WorkbenchHelper {
 	
 	public static void setWorkbenchWindowTitle(IScope scope, final String title) { 
 		run(scope, () -> {
-			if (WorkbenchHelper.getShell(GAMA.getRuntimeScope()) != null)
+			if (WorkbenchHelper.getShell(GAMA.getRuntimeScope()) != null) 
 				WorkbenchHelper.getShell(GAMA.getRuntimeScope()).setText(title);
 		});
 
