@@ -136,20 +136,25 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return ip;
 	}
 
-	public static String getAvailablePort() {
+	public static String getAvailablePort(String ip) {
 		String p = "808";
 		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
 		if (used == null) {
 			used = new ArrayList<String>();
 		}
-		int i = 0;
-		do {
-			i++;
-		} while (used.contains(p + i));
-		used.add(p + i);
-		RWT.getApplicationContext().setAttribute("used_port", used);
-
-		return p+i;
+		if (RWT.getApplicationContext().getAttribute("used_port" + ip) != null) {
+			p = "" + RWT.getApplicationContext().getAttribute("used_port" + ip);
+		} else {
+			int i = 0;
+			do {
+				i++;
+			} while (used.contains(p + i));
+			p = p + i;
+			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
+			used.add(p);
+			RWT.getApplicationContext().setAttribute("used_port", used);
+		}
+		return p;
 	}
 
 	public static void removePort(String p) {
@@ -410,8 +415,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				GAMAWEB.pauseFrontmostExperiment();
 				if (!display.isDisposed()) {
 					display.syncExec(() -> {
-						MessageDialog.openInformation(display.getActiveShell(), "Information",
-								"Time out, please try again later!");
+//						MessageDialog.openInformation(display.getActiveShell(), "Information",
+//								"Time out, please try again later!");
 						PlatformUI.getWorkbench().close();
 					});
 //					redirect_to(display, "google.com");
@@ -431,11 +436,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		System.out.println(current_ip + ":" + current_port);
 
 		String webContext = RWT.getRequest().getContextPath();
-
-//		if (webContext.startsWith("/" + user_context_prefix) && !webContext.equals("/" + user_context_prefix + current_ip)) {
-//			stopped = true;
-//			return;
-//		}
+		System.out.println(webContext+"      "+"/" + user_context_prefix + current_ip);
+		if (webContext.startsWith("/" + user_context_prefix) && !webContext.equals("/" + user_context_prefix + current_ip)) {
+			stopped = true;
+			return;
+		}
 		HashMap<String, LocalDateTime> recent_ip = (HashMap<String, LocalDateTime>) RWT.getApplicationContext()
 				.getAttribute("recent_ip");
 		LocalDateTime now = LocalDateTime.now();
@@ -453,12 +458,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(retry);
 			if (now.isAfter(exprire) && now.isBefore(retry)) {
 
-				for (int i = 1; i < 2; i++) {
-					Thread t = (Thread) RWT.getApplicationContext().getAttribute("process" + i + current_ip);
-					t.interrupt();
-					removePort(current_port);
+//				for (int i = 1; i < 2; i++) {
+				Thread t = (Thread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+				t.interrupt();
 
-				}
+//				}
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 						"Please try again later!");
 				stopped = true;
@@ -552,7 +556,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 		String uid = "admin";
 		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
-		current_port = getAvailablePort();
+		current_port = getAvailablePort(current_ip);
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
 //		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -607,6 +611,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (!is_controller) {
 				GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
+					RWT.getApplicationContext().setAttribute("stopped", "1");
 					set_timeout_trigger(expired_time, display);
 					((BasicWorkbenchAdvisor) workbenchAdvisor).isUser = true;
 				}
