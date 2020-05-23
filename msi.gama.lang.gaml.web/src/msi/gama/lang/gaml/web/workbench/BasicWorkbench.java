@@ -16,6 +16,7 @@
 package msi.gama.lang.gaml.web.workbench;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
@@ -47,6 +48,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
+
+import cict.gama.jetty.RunWarExample;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -271,7 +274,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				String line;
 
 				while ((msg = input.readLine()) != null) {
-					System.out.println(msg);
+//					System.out.println(msg);
 				}
 
 			} catch (Exception e) {
@@ -481,8 +484,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		LocalDateTime dd = recent_ip.get(current_ip);
 //			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		String jarPath = "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+//		String jarPath = "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 //		String jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+
+		File currentJavaJarFile = new File(
+				BasicWorkbench.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
+		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), ""); 
+		String jarPath=executionPath+"/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
 			LocalDateTime retry = exprire.plusSeconds(retry_time);
