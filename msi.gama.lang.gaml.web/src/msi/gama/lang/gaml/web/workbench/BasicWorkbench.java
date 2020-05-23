@@ -16,23 +16,16 @@
 package msi.gama.lang.gaml.web.workbench;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.ModalContext;
@@ -48,10 +40,6 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.internal.service.ContextProvider;
-import org.eclipse.rap.rwt.service.ApplicationContextEvent;
-import org.eclipse.rap.rwt.service.ApplicationContextListener;
-import org.eclipse.rap.rwt.service.UISessionEvent;
-import org.eclipse.rap.rwt.service.UISessionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -59,10 +47,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.FrameworkUtil;
-
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -287,7 +271,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				String line;
 
 				while ((msg = input.readLine()) != null) {
-//					System.out.println(msg);
+					System.out.println(msg);
 				}
 
 			} catch (Exception e) {
@@ -534,6 +518,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (t != null) {
 				t.interrupt();
 			}
+			System.out.println("serv        "+server_addr + ":8080" );
 			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 					server_addr + ":8080" });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
