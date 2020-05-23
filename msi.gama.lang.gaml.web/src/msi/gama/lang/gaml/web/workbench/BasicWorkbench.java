@@ -514,7 +514,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-						"Please try again after " + dtf.format(retry) + "!");
+						"Please try again after " + dtf.format(retry) + " UTC!");
 				stopped = true;
 			} else if (now.isAfter(retry)) {
 				tick = 0;
