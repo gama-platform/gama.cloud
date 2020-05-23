@@ -21,10 +21,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -110,11 +112,28 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	int retry_time = 600;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
-	public static String user_context_prefix = "user_GamaWeb";
-//	public static String server_addr = "192.168.1.14";
-	public static String server_addr = "51.255.46.42";
-	public static String server_gama = "http://51.255.46.42:8080/";
-	public static String server_local = "http://localhost:10081/";
+	public static String user_context_prefix = "user_GamaWeb"; 
+//	public static String server_addr = "51.255.46.42";
+	public static String server_addr = "";
+//	public static String server_gama = "http://51.255.46.42:8080/";
+//	public static String server_local = "http://localhost:10081/";
+
+	public static String getPublicIpAddr() {
+		String systemipaddress = "";
+		try {
+			URL url_name = new URL("http://bot.whatismyipaddress.com");
+
+			BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
+
+			// reads system IPAddress
+			systemipaddress = sc.readLine().trim();
+		} catch (Exception e) {
+			systemipaddress = "Cannot Execute Properly";
+			e.printStackTrace();
+		}
+		System.out.println("Public IP Address: " + systemipaddress + "\n");
+		return systemipaddress;
+	}
 
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Real-IP");
@@ -135,7 +154,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			ip = "127.0.0.1";
 		}
 		if ("127.0.0.1".equals(ip)) {
-			ip = server_addr;
+			try {
+				InetAddress localhost = InetAddress.getLocalHost();
+				ip = (localhost.getHostAddress()).trim();
+				System.out.println("System IP Address : " + ip);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return ip;
 	}
@@ -152,6 +178,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			int i = 0;
 			do {
 				i++;
+				if(i==80) continue;
 			} while (used.contains(p + i));
 			p = p + (i < 10 ? "0" : "") + i;
 			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
@@ -495,7 +522,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				t.interrupt();
 				removePort(current_port);
 			}
-			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port });
+			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port, server_addr+":8080" });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
 
@@ -566,23 +593,15 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if ("1".equals(RWT.getApplicationContext().getAttribute("stopped"))) {
 			return 0;
 		}
-
+		if (server_addr.equals("")) {
+			server_addr = getPublicIpAddr();
+		}
 		String uid = "admin";
 		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		current_port = getAvailablePort(current_ip);
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
-//		Runtime.getRuntime().addShutdownHook(new Thread() {
-//
-//			@Override
-//			public void run() {
-//				for (int i = 1; i < 2; i++) {
-//					CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + i + current_ip);
-//					t.interrupt();
-//				}
-//			}
-//
-//		});
+
 		checkRole();
 		check_auth_ip();
 		if (stopped) {

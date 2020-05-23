@@ -1,10 +1,13 @@
 package cict.gama.jetty;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.EventListener;
@@ -67,11 +70,11 @@ public class RunWarExample {
  * args[1] port
  * args[2] controller's address
  */
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		final String ctx_path=args[0];
 		final String ctx_port=args[1];
 		final String ctrl_addr=args[2];
-		RunWarExample r = new RunWarExample();
+		final RunWarExample r = new RunWarExample();
 		r.retrieveWar(ctx_path);
 		final Server server = new Server(stringToInt(ctx_port));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
