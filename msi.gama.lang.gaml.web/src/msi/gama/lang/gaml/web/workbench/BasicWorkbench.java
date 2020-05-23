@@ -141,7 +141,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	public static String getAvailablePort(String ip) {
-		String p = "808";
+		String p = "80";
 		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
 		if (used == null) {
 			used = new ArrayList<String>();
@@ -153,7 +153,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			do {
 				i++;
 			} while (used.contains(p + i));
-			p = p + i;
+			p = p + (i < 10 ? "0" : "") + i;
 			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
 			used.add(p);
 			RWT.getApplicationContext().setAttribute("used_port", used);
@@ -458,7 +458,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		LocalDateTime dd = recent_ip.get(current_ip);
 //			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 //		String jarPath="C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
-		String jarPath="/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+		String jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
 			LocalDateTime retry = exprire.plusSeconds(retry_time);
@@ -470,11 +470,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
 				t.interrupt();
+				removePort(current_port);
 			}
 
 			if (now.isBefore(exprire)) {
-				t = execBash(new String[] { "java", "-jar", jarPath,
-						user_context_prefix + current_ip, current_port });
+				t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port });
 				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
@@ -493,9 +493,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
 				t.interrupt();
+				removePort(current_port);
 			}
-			t = execBash(new String[] { "java", "-jar", jarPath,
-					user_context_prefix + current_ip, current_port });
+			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
 
@@ -598,7 +598,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				try {
 					String url = "http://" + server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
-							+ "/texteditor";
+							+ "/";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);

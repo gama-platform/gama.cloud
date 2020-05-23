@@ -120,7 +120,7 @@
        brandingId="business"
        class="msi.gama.lang.gaml.web.workbench.BasicWorkbench"
        id="msi.gama.lang.gaml.web.workbench.entrypoint"
-       path="/texteditor">
+       path="/">
 		</entrypoint>
 	</extension>
 	

@@ -41,20 +41,20 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 public class RunWarExample {
 	public static int port = 8080;
 
-	File warpath;// = "/GamaWeb.war";
+	File warFile;// = "/GamaWeb.war";
 
 	public void retrieveWar(String contextpath) {
 		File currentJavaJarFile = new File(
 				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		warpath = new File(executionPath + "/" + contextpath + ".war");
+		warFile = new File(executionPath + "/" + contextpath + ".war");
 //		warpath=file1.getAbsolutePath();
-		if (!warpath.exists()) {
+		if (!warFile.exists()) {
 			InputStream link = (getClass().getResourceAsStream("/GamaWeb.war"));
 			try {
-				Files.copy(link, warpath.getAbsoluteFile().toPath());
-				System.out.println(warpath.getAbsoluteFile());
+				Files.copy(link, warFile.getAbsoluteFile().toPath());
+				System.out.println(warFile.getAbsoluteFile());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,44 +62,25 @@ public class RunWarExample {
 		}
 	}
 
-	public static String getStatus(String url) throws IOException {
-
-		String result = "";
-		int code = 200;
-		try {
-			URL siteURL = new URL(url);
-			HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
-			connection.setRequestMethod("GET");
-			connection.setConnectTimeout(3000);
-			connection.connect();
-
-			code = connection.getResponseCode();
-			if (code == 200) {
-				result = "-> Green <-\t" + "Code: " + code;
-				;
-			} else {
-				result = "-> Yellow <-\t" + "Code: " + code;
-			}
-		} catch (Exception e) {
-			result = "-> Red <-\t" + "Wrong domain - Exception: " + e.getMessage();
-
-		}
-//		System.out.println(url + "\t\tStatus:" + result);
-		return result;
-	}
-
+/*
+ * args[0] contextpath
+ * args[1] port
+ * args[2] controller's address
+ */
 	public static void main(String[] args) {
 		final String ctx_path=args[0];
+		final String ctx_port=args[1];
+		final String ctrl_addr=args[2];
 		RunWarExample r = new RunWarExample();
 		r.retrieveWar(ctx_path);
-		final Server server = new Server(stringToInt(args[1]));
+		final Server server = new Server(stringToInt(ctx_port));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
 //		server.setStopAtShutdown(true);
-		File currentJavaJarFile = new File(
-				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
-		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
-		File warpath = new File(executionPath + "/" + ctx_path + ".war");
+//		File currentJavaJarFile = new File(
+//				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+//		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
+//		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
+//		File warpath = new File(executionPath + "/" + ctx_path + ".war");
 		WebAppContext context = new WebAppContext();
 //		context.setResourceBase(warpath);
 		context.setConfigurations(new Configuration[] { new AnnotationConfiguration(), new WebInfConfiguration(),
@@ -107,7 +88,7 @@ public class RunWarExample {
 				new EnvConfiguration(), new PlusConfiguration(), new JettyWebXmlConfiguration() });
 		context.setContextPath("/" + ctx_path);
 
-		context.setWar(warpath.getAbsolutePath());
+		context.setWar(r.warFile.getAbsolutePath());
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
@@ -129,6 +110,7 @@ public class RunWarExample {
 
 			@Override
 			public void run() {
+				IO.delete(r.warFile);
 				deleteFolder(tmpPath);
 			}
 
@@ -142,7 +124,8 @@ public class RunWarExample {
 					try {
 						if (ctx_path.startsWith("user_GamaWeb")
 //								&& getStatus("http://localhost:10080/controller_GamaWeb/texteditor")
-								&& getStatus("http://51.255.46.42:8080/controller_GamaWeb/texteditor")
+//								&& getStatus("http://51.255.46.42:8080/controller_GamaWeb/texteditor")
+								&& getStatus("http://"+ctrl_addr+"/controller_GamaWeb/")
 										.startsWith("-> Red <-")) {
 							System.exit(0);
 						}
@@ -177,6 +160,31 @@ public class RunWarExample {
 //		System.out.println(file);
 	}
 
+	public static String getStatus(String url) throws IOException {
+
+		String result = "";
+		int code = 200;
+		try {
+			URL siteURL = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setConnectTimeout(3000);
+			connection.connect();
+
+			code = connection.getResponseCode();
+			if (code == 200) {
+				result = "-> Green <-\t" + "Code: " + code;
+				;
+			} else {
+				result = "-> Yellow <-\t" + "Code: " + code;
+			}
+		} catch (Exception e) {
+			result = "-> Red <-\t" + "Wrong domain - Exception: " + e.getMessage();
+
+		}
+//		System.out.println(url + "\t\tStatus:" + result);
+		return result;
+	}
 	public static boolean stringToBool(String param) {
 		return Boolean.valueOf(param);
 	}
