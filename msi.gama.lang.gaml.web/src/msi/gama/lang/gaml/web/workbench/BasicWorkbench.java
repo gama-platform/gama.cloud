@@ -490,9 +490,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				BasicWorkbench.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
 		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), ""); 
-		String jarPath=executionPath+"/gamaweb.jar";
+		String jarPath=executionPath.replace("controller_GamaWeb_tmp_/eclipse/plugins/", "")+"/gamaweb.jar";
 		System.out.println("....."+jarPath);
-		jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+//		jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
 			LocalDateTime retry = exprire.plusSeconds(retry_time);
