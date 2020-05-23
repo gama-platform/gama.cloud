@@ -24,7 +24,7 @@
 <booleanAttribute key="org.eclipse.rap.launch.developmentMode" value="false"/>
 <booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="false"/>
 <intAttribute key="org.eclipse.rap.launch.port" value="10081"/>
-<stringAttribute key="org.eclipse.rap.launch.servletPath" value="/texteditor"/>
+<stringAttribute key="org.eclipse.rap.launch.servletPath" value="/"/>
 <intAttribute key="org.eclipse.rap.launch.sessionTimeout" value="0"/>
 <booleanAttribute key="org.eclipse.rap.launch.useDefaultDataLocation" value="true"/>
 <booleanAttribute key="org.eclipse.rap.launch.useManualContextPath" value="true"/>

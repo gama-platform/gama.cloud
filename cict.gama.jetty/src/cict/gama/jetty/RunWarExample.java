@@ -130,6 +130,7 @@ public class RunWarExample {
 //								&& getStatus("http://51.255.46.42:8080/controller_GamaWeb/texteditor")
 								&& getStatus("http://"+ctrl_addr+"/controller_GamaWeb/")
 										.startsWith("-> Red <-")) {
+							System.out.println("http://"+ctrl_addr+"/controller_GamaWeb/");
 							System.exit(0);
 						}
 						Thread.sleep(1000);

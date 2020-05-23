@@ -112,7 +112,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	int retry_time = 600;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
-	public static String user_context_prefix = "user_GamaWeb"; 
+	public static String user_context_prefix = "user_GamaWeb";
 //	public static String server_addr = "51.255.46.42";
 	public static String server_addr = "";
 //	public static String server_gama = "http://51.255.46.42:8080/";
@@ -133,6 +133,18 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		System.out.println("Public IP Address: " + systemipaddress + "\n");
 		return systemipaddress;
+	}
+
+	public static String getLocalIpAddr() {
+		String ip = "127.0.0.1";
+		try {
+			InetAddress localhost = InetAddress.getLocalHost();
+			ip = (localhost.getHostAddress()).trim();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ip;
 	}
 
 	public static String getIpAddr(HttpServletRequest request) {
@@ -178,7 +190,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			int i = 0;
 			do {
 				i++;
-				if(i==80) continue;
+				if (i == 80)
+					continue;
 			} while (used.contains(p + i));
 			p = p + (i < 10 ? "0" : "") + i;
 			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
@@ -484,8 +497,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		LocalDateTime dd = recent_ip.get(current_ip);
 //			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//		String jarPath="C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
-		String jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+		String jarPath = "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
+//		String jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
 			LocalDateTime retry = exprire.plusSeconds(retry_time);
@@ -496,11 +509,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
-				t.interrupt(); 
+				t.interrupt();
 			}
 
 			if (now.isBefore(exprire)) {
-				t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port });
+				t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
+						server_addr + ":8080" });
 				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
@@ -520,7 +534,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (t != null) {
 				t.interrupt();
 			}
-			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port, server_addr+":8080" });
+			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
+					server_addr + ":8080" });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
 
