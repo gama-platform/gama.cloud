@@ -25,6 +25,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +49,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
- 
+
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.rap.oauth.TokenCallbackServiceHandler;
 import ummisco.gama.ui.resources.GamaFonts;
@@ -489,9 +490,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		File currentJavaJarFile = new File(
 				BasicWorkbench.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
-		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), ""); 
-		String jarPath=executionPath.replace("controller_GamaWeb_tmp_/eclipse/plugins/", "")+"/gamaweb.jar";
-		System.out.println("....."+jarPath);
+		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
+		String jarPath = executionPath.replace("controller_GamaWeb_tmp_/eclipse/plugins/", "") + "/gamaweb.jar";
+		System.out.println("....." + jarPath);
 //		jarPath = "/var/www/gama_cloud/gama.cloud/cict.gama.jetty/target/gamaweb.jar";
 		if (dd != null) {
 			LocalDateTime exprire = dd.plusSeconds(expired_time);
@@ -511,8 +512,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 						server_addr + ":8080" });
 				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-						"Please try again later!");
+						"Please try again after " + dtf.format(retry) + "!");
 				stopped = true;
 			} else if (now.isAfter(retry)) {
 				tick = 0;
@@ -528,7 +530,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (t != null) {
 				t.interrupt();
 			}
-			System.out.println("serv        "+server_addr + ":8080" );
+			System.out.println("serv        " + server_addr + ":8080");
 			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 					server_addr + ":8080" });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
