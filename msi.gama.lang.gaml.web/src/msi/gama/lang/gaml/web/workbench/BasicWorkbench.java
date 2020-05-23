@@ -496,8 +496,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
-				t.interrupt();
-				removePort(current_port);
+				t.interrupt(); 
 			}
 
 			if (now.isBefore(exprire)) {
@@ -520,7 +519,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
 				t.interrupt();
-				removePort(current_port);
 			}
 			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port, server_addr+":8080" });
 			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
