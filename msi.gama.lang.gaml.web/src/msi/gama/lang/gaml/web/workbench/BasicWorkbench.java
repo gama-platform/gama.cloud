@@ -19,9 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -29,7 +27,6 @@ import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,6 +90,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 //	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
+	String current_ip_raw = "";
 	String current_ip = "";
 	String current_port = "";
 	boolean is_offline = true;
@@ -152,7 +150,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			}
 		}
 		ip = request.getRemoteAddr();
-		System.out.println("request getremoteaddr "+ip);
+		System.out.println("request getremoteaddr " + ip);
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
 		}
@@ -324,7 +322,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					CustomThread t = null;
 //					while (i < tick) {
 					do {
-						t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+						t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
 
 						i++;
 						d.syncExec(new Runnable() {
@@ -401,7 +399,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	public void checkRole() {
 		String webContext = RWT.getRequest().getContextPath();
-		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(current_ip)) {
+		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(current_ip_raw)) {
 //			enableLoggin = false;
 			is_offline = true;
 			System.out.println("the offline prefix ");
@@ -471,7 +469,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx IP");
 //		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
-		System.out.println(current_ip + ":" + current_port);
+		System.out.println(current_ip_raw + ":" + current_port);
 
 		String webContext = RWT.getRequest().getContextPath();
 		System.out.println(webContext + "      " + "/" + user_context_prefix + current_ip);
@@ -506,7 +504,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(exprire);
 			System.out.println(retry);
 
-			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
 			if (t != null) {
 				t.interrupt();
 			}
@@ -514,7 +512,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (now.isBefore(exprire)) {
 				t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 						server_addr + ":8080" });
-				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
+				RWT.getApplicationContext().setAttribute("process" + current_ip_raw, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
@@ -530,14 +528,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			recent_ip.put(current_ip, now);
 //			for (int i = 1; i < 2; i++) {
 
-			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
 			if (t != null) {
 				t.interrupt();
 			}
 			System.out.println("serv        " + server_addr + ":8080");
 			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 					server_addr + ":8080" });
-			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
+			RWT.getApplicationContext().setAttribute("process" + current_ip_raw, t);
 //			}
 
 //			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
@@ -601,38 +599,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	}
 
-
-private String getPublicIpAddress() {
-    String res = null;
-    try {
-        String localhost = InetAddress.getLocalHost().getHostAddress();
-        Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
-        while (e.hasMoreElements()) {
-            NetworkInterface ni = (NetworkInterface) e.nextElement();
-            if(ni.isLoopback())
-                continue;
-            if(ni.isPointToPoint())
-                continue;
-            Enumeration<InetAddress> addresses = ni.getInetAddresses();
-            while(addresses.hasMoreElements()) {
-                InetAddress address = (InetAddress) addresses.nextElement();
-                if(address instanceof Inet4Address) {
-                    String ip = address.getHostAddress();
-                    if(!ip.equals(localhost))
-                        System.out.println((res = ip));
-                }
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return res;
-}
-
-
 	@Override
 	public int createUI() {
-		System.out.println("pp "+getPublicIpAddress());
 		if ("1".equals(RWT.getApplicationContext().getAttribute("stopped"))) {
 			return 0;
 		}
@@ -640,7 +608,8 @@ private String getPublicIpAddress() {
 			server_addr = getPublicIpAddr();
 		}
 		String uid = "admin";
-		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
+		current_ip_raw = getIpAddr(RWT.getRequest());
+		current_ip = current_ip_raw.replace('.', '_').replace(':', '_');
 		current_port = getAvailablePort(current_ip);
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
@@ -659,8 +628,8 @@ private String getPublicIpAddress() {
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 
 				try {
-					String url = "http://" + server_addr + ":" + current_port + "/" + user_context_prefix + current_ip
-							+ "/";
+					String url = "http://" + (current_ip_raw.equals(server_addr) ? server_addr : current_ip_raw) + ":"
+							+ current_port + "/" + user_context_prefix + current_ip + "/";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);
