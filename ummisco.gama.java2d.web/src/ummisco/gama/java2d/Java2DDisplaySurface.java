@@ -104,7 +104,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	protected double zoomIncrement = 0.1;
 	protected boolean zoomFit = true;
 	protected volatile boolean disposed;
-//	public SwingControl comp;
+	public SwingControl comp;
 	private IScope scope;
 	int frames;
 	private volatile boolean realized = false;
@@ -327,11 +327,18 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		if (disposed) {
 			return;
 		}
-		rendered = false;
-//		EventQueue.invokeLater(() -> {
-//		});
-//		if (comp != null)
-//			comp.redraw();
+//		if (comp != null) {
+//			rendered = false;
+////		EventQueue.invokeLater(() -> {
+////		});
+//			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+//
+//				comp.redraw();
+////				((IGamaView)getViewSite().getPart()).updateToolbarState();
+//			});
+//		}
+//		rendered = true;
+//		realized = true;
 
 	}
 
@@ -471,7 +478,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			focusOn(geometry);
 			return;
 		}
-	
+
 //		g2d.dispose();
 		frames++;
 		rendered = true;

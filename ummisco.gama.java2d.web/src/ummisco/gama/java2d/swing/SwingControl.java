@@ -34,17 +34,17 @@ import ummisco.gama.ui.interfaces.IParameterEditor;
 import ummisco.gama.ui.parameters.AbstractEditor;
 import ummisco.gama.ui.views.GamaViewPart;
 
-public class SwingControl extends Canvas {
+public class SwingControl extends Canvas{
 	AWTDisplayView view;
 	ShapeWriter sw = null;
 	Shape bound = null;
-	GC gc;
+	GC gc; 
 	SWTGraphics2D renderer;
 
 	public SwingControl(final Composite parent, final int style, GamaViewPart v) {
 		super(parent, style);
 		view = (AWTDisplayView) v;
-//		((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).comp = this;
+		((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).comp = this;
 
 		sw = new ShapeWriter((((AWTDisplayView) view).getDisplaySurface().getIGraphics()));
 		bound = sw.toShape((((AWTDisplayView) view).getDisplaySurface().getOutput().getScope().getSimulation()
@@ -73,17 +73,17 @@ public class SwingControl extends Canvas {
 //
 //			}
 //		});
-		addPaintListener(new PaintListener() {
-
-			@Override
-			public void paintControl(PaintEvent arg0) {
-				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
-					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-				}
-				redraw();
-			}
-		});
+//		addPaintListener(new PaintListener() {
+//
+//			@Override
+//			public void paintControl(PaintEvent arg0) {
+//				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
+//					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
+//					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
+//				}
+//				redraw();
+//			}
+//		});
 	}
 
 	@Override
@@ -100,6 +100,9 @@ public class SwingControl extends Canvas {
 //			SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
 //			renderer.SWT_RECT.width=width;
 //			renderer.SWT_RECT.height=height;
+
+			((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
+			((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
 			((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).paintComponent(renderer);
 //			renderer.dispose();
 		}

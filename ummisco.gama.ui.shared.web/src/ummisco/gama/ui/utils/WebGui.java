@@ -534,7 +534,7 @@ public class WebGui implements IGui {
 
 	@Override
 	public String getExperimentState(String uid) {
-		final IExperimentController controller = GAMAWEB.theControllers.get(uid);
+		final IExperimentController controller = GAMA.getFrontmostController();//GAMAWEB.theControllers.get(uid);
 		if (controller == null) {
 			return NONE;
 		} else if (controller.getScheduler().paused) {

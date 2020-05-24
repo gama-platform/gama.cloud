@@ -20,14 +20,17 @@ import org.eclipse.ui.menus.UIElement;
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.GAMA;
 import ummisco.gama.ui.bindings.GamaKeyBindings;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class CancelRun extends AbstractHandler implements IElementUpdater {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 //		new Thread(() -> GAMA.closeAllExperiments(true, false)).start();
-		GAMAWEB.closeAllExperiments(true, false);
 
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+			GAMAWEB.closeAllExperiments(true, false);
+		});
 		return null;
 	}
 

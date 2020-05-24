@@ -2,7 +2,7 @@ model TestJava2D
 global {
     float aaa<-0.0;
     float aaaa<-0.0;
-	file shp<-file("../includes/test3.shp");
+	file shp<-file("../includes/test2.shp");
 	image_file my_icon <- image_file("../includes/sheep.png");
 	geometry shape<-envelope(shp);
 	init { 

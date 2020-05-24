@@ -148,42 +148,42 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 //		if (isUser) {
 //		GAMAWEB.pauseFrontmostExperiment();
 //		GAMAWEB.closeAllExperiments(true, true);
-		new Thread() {
-			public void run() {
-				try {
-					final BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
-					if (bundleContext != null) {
-						// stop jetty
-						List<String> bundle = new ArrayList<String>(Arrays.asList("org.eclipse.core.resources",
-								"org.eclipse.rap.ui.workbench", "org.eclipse.rap.ui.navigator",
-								"org.eclipse.jetty.server", "org.eclipse.wst.sse.core",
-								"org.eclipse.ltk.core.refactoring", "ummisco.gama.ui.shared.web",
-								"ummisco.gama.ui.modeling.web", "ummisco.gama.ui.experiment.web",
-								"org.dslforge.xtext.common", "org.dslforge.workspace.ui ", "org.dslforge.texteditor",
-								"org.dslforge.styledtext", "ummisco.gama.ui.modeling.web"));
-						bundle.forEach(each -> {
-							if (Platform.getBundle(each) != null) {
-								try {
-									Platform.getBundle(each).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
-								} catch (BundleException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						});
-//						Platform.getBundle().stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
-//						Platform.getBundle("org.eclipse.wst.validation.internal.plugin")
-//								.stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
-//						Platform.getBundle("org.eclipse.wst.validation").stop(org.osgi.framework.Bundle.STOP_TRANSIENT); 
-						bundleContext.getBundle(0).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
-						// //$NON-NLS-1$
-						// stop osgi
-					}
-				} catch (BundleException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}.start();
+//		new Thread() {
+//			public void run() {
+//				try {
+//					final BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+//					if (bundleContext != null) {
+//						// stop jetty
+//						List<String> bundle = new ArrayList<String>(Arrays.asList("org.eclipse.core.resources",
+//								"org.eclipse.rap.ui.workbench", "org.eclipse.rap.ui.navigator",
+//								"org.eclipse.jetty.server", "org.eclipse.wst.sse.core",
+//								"org.eclipse.ltk.core.refactoring", "ummisco.gama.ui.shared.web",
+//								"ummisco.gama.ui.modeling.web", "ummisco.gama.ui.experiment.web",
+//								"org.dslforge.xtext.common", "org.dslforge.workspace.ui ", "org.dslforge.texteditor",
+//								"org.dslforge.styledtext", "ummisco.gama.ui.modeling.web"));
+//						bundle.forEach(each -> {
+//							if (Platform.getBundle(each) != null) {
+//								try {
+//									Platform.getBundle(each).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+//								} catch (BundleException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//							}
+//						});
+////						Platform.getBundle().stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+////						Platform.getBundle("org.eclipse.wst.validation.internal.plugin")
+////								.stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+////						Platform.getBundle("org.eclipse.wst.validation").stop(org.osgi.framework.Bundle.STOP_TRANSIENT); 
+//						bundleContext.getBundle(0).stop(org.osgi.framework.Bundle.STOP_TRANSIENT);
+//						// //$NON-NLS-1$
+//						// stop osgi
+//					}
+//				} catch (BundleException ex) {
+//					ex.printStackTrace();
+//				}
+//			}
+//		}.start();
 		System.exit(0);
 //		}
 

@@ -5,16 +5,18 @@
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>   
   <files> 
-  <!-- 
       <file>
-	      <source>target/tomcat_launcher.jar</source>
+	      <source>target/gamaweb.jar</source>
 	      <outputDirectory>/</outputDirectory>
       </file> 
-   -->
       <file>
 	      <source>../msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</source>
 	      <outputDirectory>/</outputDirectory>
       </file>  
+      <file>
+	      <source>script/index.html</source>
+	      <outputDirectory>/</outputDirectory>
+      </file> 
       <file>
 	      <source>script/gama.bat</source>
 	      <outputDirectory>/</outputDirectory>

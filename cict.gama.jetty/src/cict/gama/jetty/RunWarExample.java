@@ -65,15 +65,13 @@ public class RunWarExample {
 		}
 	}
 
-/*
- * args[0] contextpath
- * args[1] port
- * args[2] controller's address
- */
-	public static void main(String[] args) { 
-		final String ctx_path=args[0];
-		final String ctx_port=args[1];
-		final String ctrl_addr=args[2];
+	/*
+	 * args[0] contextpath args[1] port args[2] controller's address
+	 */
+	public static void main(String[] args) {
+		final String ctx_path = args[0];
+		final String ctx_port = args[1];
+		final String ctrl_addr = args[2];
 		final RunWarExample r = new RunWarExample();
 		r.retrieveWar(ctx_path);
 		final Server server = new Server(stringToInt(ctx_port));
@@ -101,7 +99,7 @@ public class RunWarExample {
 		} else {
 			tmpPath.mkdirs();
 		}
-		System.out.println("tmpPath "+tmpPath);
+		System.out.println("tmpPath " + tmpPath);
 		context.setPersistTempDirectory(false);
 		context.setTempDirectory(tmpPath);
 
@@ -128,9 +126,9 @@ public class RunWarExample {
 						if (ctx_path.startsWith("user_GamaWeb")
 //								&& getStatus("http://localhost:10080/controller_GamaWeb/texteditor")
 //								&& getStatus("http://51.255.46.42:8080/controller_GamaWeb/texteditor")
-								&& getStatus("http://"+ctrl_addr+"/controller_GamaWeb/")
-										.startsWith("-> Red <-")) {
-							System.out.println("http://"+ctrl_addr+"/controller_GamaWeb/");
+								&& getStatus("http://" + ctrl_addr + "/controller_GamaWeb/").startsWith("-> Red <-")
+								&& getStatus("http://localhost:8080/controller_GamaWeb/").startsWith("-> Red <-")) {
+							System.out.println("http://" + ctrl_addr + "/controller_GamaWeb/");
 							System.exit(0);
 						}
 						Thread.sleep(1000);
@@ -189,6 +187,7 @@ public class RunWarExample {
 //		System.out.println(url + "\t\tStatus:" + result);
 		return result;
 	}
+
 	public static boolean stringToBool(String param) {
 		return Boolean.valueOf(param);
 	}
