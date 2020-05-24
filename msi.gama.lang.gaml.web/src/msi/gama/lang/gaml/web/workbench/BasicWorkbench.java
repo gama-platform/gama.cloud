@@ -123,19 +123,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return systemipaddress;
 	}
 
-//	public static String getLocalIpAddr() {
-//		String ip = "127.0.0.1";
-//		try {
-//			InetAddress localhost = InetAddress.getLocalHost();
-//			ip = (localhost.getHostAddress()).trim();
-//		} catch (UnknownHostException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return ip;
-//	}
-
-	public static String getIpAddr(HttpServletRequest request) {
+	public static String getRequestIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Real-IP");
 		if (null != ip && !"".equals(ip.trim()) && !"unknown".equalsIgnoreCase(ip)) {
 			return ip;
@@ -154,6 +142,11 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
 		}
+		return ip;
+	}
+
+	public static String getIpAddr(HttpServletRequest request) {
+		String ip = getRequestIpAddr(request);
 		if ("127.0.0.1".equals(ip)) {
 			try {
 				InetAddress localhost = InetAddress.getLocalHost();
@@ -628,8 +621,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 
 				try {
-					String url = "http://" + (current_ip_raw.equals(server_addr) ? server_addr : current_ip_raw) + ":"
-							+ current_port + "/" + user_context_prefix + current_ip + "/";
+					String url = "http://"
+							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? current_ip_raw : server_addr)
+							+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);
