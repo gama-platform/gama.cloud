@@ -73,17 +73,17 @@ public class SwingControl extends Canvas{
 //
 //			}
 //		});
-//		addPaintListener(new PaintListener() {
-//
-//			@Override
-//			public void paintControl(PaintEvent arg0) {
-//				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
-//					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-//					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-//				}
-//				redraw();
-//			}
-//		});
+		addPaintListener(new PaintListener() {
+
+			@Override
+			public void paintControl(PaintEvent arg0) {
+				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
+					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
+					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
+				}
+				redraw();
+			}
+		});
 	}
 
 	@Override
