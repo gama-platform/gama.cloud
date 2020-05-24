@@ -184,6 +184,7 @@
 									<directory>script</directory>   
 									<filtering>true</filtering>
 									<includes>      
+										<include>index.html</include>
 										<include>gama.bat</include>
 										<include>gama.sh</include>
 									</includes>

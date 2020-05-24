@@ -3,27 +3,5 @@
   <formats>
     <format>zip</format>
   </formats>
-  <includeBaseDirectory>false</includeBaseDirectory>   
-  <files> 
-      <file>
-	      <source>target/gamaweb.jar</source>
-	      <outputDirectory>/</outputDirectory>
-      </file> 
-      <file>
-	      <source>../msi.gama.lang.gaml.web.build/GamaWeb/target/GamaWeb.war</source>
-	      <outputDirectory>/</outputDirectory>
-      </file>  
-      <file>
-	      <source>script/index.html</source>
-	      <outputDirectory>/</outputDirectory>
-      </file> 
-      <file>
-	      <source>script/gama.bat</source>
-	      <outputDirectory>/</outputDirectory>
-      </file> 
-      <file>
-	      <source>script/gama.sh</source>
-	      <outputDirectory>/</outputDirectory>
-      </file> 
-  </files>
+  <includeBaseDirectory>false</includeBaseDirectory>    
 </assembly>
