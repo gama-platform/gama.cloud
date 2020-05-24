@@ -19,7 +19,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -27,6 +29,7 @@ import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,17 +125,17 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return systemipaddress;
 	}
 
-	public static String getLocalIpAddr() {
-		String ip = "127.0.0.1";
-		try {
-			InetAddress localhost = InetAddress.getLocalHost();
-			ip = (localhost.getHostAddress()).trim();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ip;
-	}
+//	public static String getLocalIpAddr() {
+//		String ip = "127.0.0.1";
+//		try {
+//			InetAddress localhost = InetAddress.getLocalHost();
+//			ip = (localhost.getHostAddress()).trim();
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return ip;
+//	}
 
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Real-IP");
@@ -149,6 +152,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			}
 		}
 		ip = request.getRemoteAddr();
+		System.out.println("request getremoteaddr "+ip);
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
 		}
@@ -597,9 +601,38 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	}
 
+
+private String getPublicIpAddress() {
+    String res = null;
+    try {
+        String localhost = InetAddress.getLocalHost().getHostAddress();
+        Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+        while (e.hasMoreElements()) {
+            NetworkInterface ni = (NetworkInterface) e.nextElement();
+            if(ni.isLoopback())
+                continue;
+            if(ni.isPointToPoint())
+                continue;
+            Enumeration<InetAddress> addresses = ni.getInetAddresses();
+            while(addresses.hasMoreElements()) {
+                InetAddress address = (InetAddress) addresses.nextElement();
+                if(address instanceof Inet4Address) {
+                    String ip = address.getHostAddress();
+                    if(!ip.equals(localhost))
+                        System.out.println((res = ip));
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return res;
+}
+
+
 	@Override
 	public int createUI() {
-
+		System.out.println("pp "+getPublicIpAddress());
 		if ("1".equals(RWT.getApplicationContext().getAttribute("stopped"))) {
 			return 0;
 		}
