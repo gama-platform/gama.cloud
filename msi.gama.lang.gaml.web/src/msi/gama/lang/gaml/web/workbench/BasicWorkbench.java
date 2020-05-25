@@ -626,18 +626,18 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				String mm = "" + getParameter("model");// .replace("\\", "\\\\");
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 				System.out.println(mm);
-				try {
+//				try {
 					String url = "http://"
 							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? getIpAddr(RWT.getRequest()) : server_addr)
 							+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
 					if (mm != "" && !mm.equals("null"))
-						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
+						url += "?model=" + (mm) + "&exp=" + (exp);
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);
 					return 0;
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				} catch (UnsupportedEncodingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 		}
 		init_google_callback();
