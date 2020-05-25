@@ -90,7 +90,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 //	boolean enableLoggin = true;
 //	boolean enableLoggin = false;
-	String current_ip_raw = "";
+//	String current_ip_raw = "";
 	String current_ip = "";
 	String current_port = "";
 	boolean is_offline = true;
@@ -392,7 +392,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 	public void checkRole() {
 		String webContext = RWT.getRequest().getContextPath();
-		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(current_ip_raw)) {
+		if (webContext.startsWith("/" + offline_context) || "127.0.0.1".equals(current_ip)) {
 //			enableLoggin = false;
 			is_offline = true;
 			System.out.println("the offline prefix ");
@@ -601,8 +601,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			server_addr = getPublicIpAddr();
 		}
 		String uid = "admin";
-		current_ip_raw = getIpAddr(RWT.getRequest());
-		current_ip = current_ip_raw.replace('.', '_').replace(':', '_');
+//		current_ip_raw = getIpAddr(RWT.getRequest());
+		current_ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
 		current_port = getAvailablePort(current_ip);
 		RWT.getUISession().setAttribute("user", "admin");
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx start of " + uid);
@@ -622,7 +622,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				try {
 					String url = "http://"
-							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? current_ip_raw : server_addr)
+							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? getIpAddr(RWT.getRequest()) : server_addr)
 							+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
 					if (mm != "")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
