@@ -174,7 +174,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				i++;
 				if (i == 80)
 					continue;
-			} while (used.contains(p + i) && i<100);
+			} while (used.contains(p + (i < 10 ? "0" : "") + i) && i<100);
 			if(i>99) {
 				stopped=true;
 			}
