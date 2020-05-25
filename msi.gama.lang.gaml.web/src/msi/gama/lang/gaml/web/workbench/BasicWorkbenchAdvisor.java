@@ -73,6 +73,8 @@ import ummisco.gama.ui.views.IGamlEditor;
 public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 	private String loggedUser = "";
 	public boolean isUser = false;
+	public String _model = "";
+	public String _exp = "";
 
 	public String getLoggedUser() {
 		return loggedUser;
@@ -221,12 +223,10 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 			e.printStackTrace();
 		}
 
-		Object _model = RWT.getApplicationContext().getAttribute("_model");
-		if (_model != null) {
-			Object _e = RWT.getApplicationContext().getAttribute("_exp");
-			String _exp = "";
-			if (_e != null) {
-				_exp = "#" + _e;
+//		Object _model = RWT.getApplicationContext().getAttribute("_model");
+		if (_model != "" && _model != "null") {
+			if (_exp != "" && _exp != "null") {
+				_exp = "#" + _exp;
 			}
 
 			WorkspaceModelsManager.instance.openModelPassedAsArgument("" + _model + _exp);

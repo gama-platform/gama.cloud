@@ -97,12 +97,12 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_controller = false;
 	boolean stopped = false;
 	int expired_time = 300;
-	int retry_time =600;
+	int retry_time = 600;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
-//	public static String args_model="_model";
-//	public static String args_experiment="_exp";
+	public static String args_model = "_model";
+	public static String args_experiment = "_exp";
 //	public static String server_addr = "51.255.46.42";
 	public static String server_addr = "";
 //	public static String server_gama = "http://51.255.46.42:8080/";
@@ -176,9 +176,9 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				i++;
 				if (i == 80)
 					continue;
-			} while (used.contains(p + (i < 10 ? "0" : "") + i) && i<100);
-			if(i>99) {
-				stopped=true;
+			} while (used.contains(p + (i < 10 ? "0" : "") + i) && i < 100);
+			if (i > 99) {
+				stopped = true;
 			}
 			p = p + (i < 10 ? "0" : "") + i;
 			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
@@ -188,7 +188,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return p;
 	}
 
-	public void removePort(String ip,String p) {
+	public void removePort(String ip, String p) {
 		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
 		if (used == null) {
 			used = new ArrayList<String>();
@@ -627,13 +627,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
 				System.out.println(mm);
 //				try {
-					String url = "http://"
-							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? getIpAddr(RWT.getRequest()) : server_addr)
-							+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
-					if (mm != "" && !mm.equals("null"))
-						url += "?model=" + (mm) + "&exp=" + (exp);
-					ContextProvider.getProtocolWriter().appendHead("redirect", url);
-					return 0;
+				String url = "http://"
+						+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? getIpAddr(RWT.getRequest())
+								: server_addr)
+						+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
+				if (mm != "" && !mm.equals("null"))
+					url += "?model=" + (mm) + "&exp=" + (exp);
+				ContextProvider.getProtocolWriter().appendHead("redirect", url);
+				return 0;
 //				} catch (UnsupportedEncodingException e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
@@ -648,6 +649,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 			WorkbenchAdvisor workbenchAdvisor = new BasicWorkbenchAdvisor();
 			((BasicWorkbenchAdvisor) workbenchAdvisor).setLoggedUser(uid);
+			String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+			String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+			((BasicWorkbenchAdvisor) workbenchAdvisor)._model = URLDecoder.decode(mm, "UTF-8");
+			((BasicWorkbenchAdvisor) workbenchAdvisor)._exp = URLDecoder.decode(exp, "UTF-8");
 //			System.out.println("logged as " + ((BasicWorkbenchAdvisor) workbenchAdvisor).getLoggedUser());
 
 			Display display = PlatformUI.createDisplay();
@@ -656,7 +661,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
 					RWT.getApplicationContext().setAttribute("stopped", "1");
-					
+
 					set_timeout_trigger(expired_time, display);
 					((BasicWorkbenchAdvisor) workbenchAdvisor).isUser = true;
 				}
