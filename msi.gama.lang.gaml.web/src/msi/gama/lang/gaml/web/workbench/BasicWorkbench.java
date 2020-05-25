@@ -101,6 +101,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
+//	public static String args_model="_model";
+//	public static String args_experiment="_exp";
 //	public static String server_addr = "51.255.46.42";
 	public static String server_addr = "";
 //	public static String server_gama = "http://51.255.46.42:8080/";
@@ -582,10 +584,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	public void set_environment_param(String uid) throws UnsupportedEncodingException {
-		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
-		String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
-		RWT.getApplicationContext().setAttribute("_model", URLDecoder.decode(mm, "UTF-8"));
-		RWT.getApplicationContext().setAttribute("_exp", URLDecoder.decode(exp, "UTF-8"));
+//		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
+//		String exp = "" + getParameter("exp");// .replace("\\", "\\\\");
+//		RWT.getApplicationContext().setAttribute(args_model, URLDecoder.decode(mm, "UTF-8"));
+//		RWT.getApplicationContext().setAttribute(args_experiment, URLDecoder.decode(exp, "UTF-8"));
 		// JavaScriptExecutor js =
 		// RWT.getClient().getService(JavaScriptExecutor.class);
 		// if(u.getId().equals(""+uid)) {
@@ -628,7 +630,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					String url = "http://"
 							+ (getRequestIpAddr(RWT.getRequest()).equals("127.0.0.1") ? getIpAddr(RWT.getRequest()) : server_addr)
 							+ ":" + current_port + "/" + user_context_prefix + current_ip + "/";
-					if (mm != "")
+					if (mm != "" && mm!="null")
 						url += "?model=" + URLEncoder.encode(mm, "UTF-8") + "&exp=" + URLEncoder.encode(exp, "UTF-8");
 					ContextProvider.getProtocolWriter().appendHead("redirect", url);
 					return 0;
