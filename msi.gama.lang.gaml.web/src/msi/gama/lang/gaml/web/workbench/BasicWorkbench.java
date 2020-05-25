@@ -97,7 +97,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_controller = false;
 	boolean stopped = false;
 	int expired_time = 300;
-	int retry_time =60;
+	int retry_time =600;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
