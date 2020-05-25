@@ -138,10 +138,10 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			}
 		}
 		ip = request.getRemoteAddr();
-		System.out.println("request getremoteaddr " + ip);
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
 		}
+		System.out.println("request getremoteaddr " + ip);
 		return ip;
 	}
 
@@ -269,7 +269,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				String line;
 
 				while ((msg = input.readLine()) != null) {
-//					System.out.println(msg);
+					System.out.println(msg);
 				}
 
 			} catch (Exception e) {
@@ -650,6 +650,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				GamaFonts.setSystemFont(Display.getCurrent().getSystemFont());
 				if (!is_offline) {
 					RWT.getApplicationContext().setAttribute("stopped", "1");
+					
 					set_timeout_trigger(expired_time, display);
 					((BasicWorkbenchAdvisor) workbenchAdvisor).isUser = true;
 				}
