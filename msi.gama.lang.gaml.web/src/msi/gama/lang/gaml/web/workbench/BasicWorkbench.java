@@ -97,7 +97,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_controller = false;
 	boolean stopped = false;
 	int expired_time = 300;
-	int retry_time = 600;
+	int retry_time =60;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
@@ -119,7 +119,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			systemipaddress = "Cannot Execute Properly";
 			e.printStackTrace();
 		}
-		System.out.println("Public IP Address: " + systemipaddress + "\n");
+//		System.out.println("Public IP Address: " + systemipaddress + "\n");
 		return systemipaddress;
 	}
 
@@ -141,7 +141,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "127.0.0.1";
 		}
-		System.out.println("request getremoteaddr " + ip);
+//		System.out.println("request getremoteaddr " + ip);
 		return ip;
 	}
 
@@ -151,7 +151,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			try {
 				InetAddress localhost = InetAddress.getLocalHost();
 				ip = (localhost.getHostAddress()).trim();
-				System.out.println("System IP Address : " + ip);
+//				System.out.println("System IP Address : " + ip);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -160,7 +160,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		return ip;
 	}
 
-	public static String getAvailablePort(String ip) {
+	public String getAvailablePort(String ip) {
 		String p = "80";
 		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
 		if (used == null) {
@@ -174,21 +174,25 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				i++;
 				if (i == 80)
 					continue;
-			} while (used.contains(p + i));
+			} while (used.contains(p + i) && i<100);
+			if(i>99) {
+				stopped=true;
+			}
 			p = p + (i < 10 ? "0" : "") + i;
 			RWT.getApplicationContext().setAttribute("used_port" + ip, p);
-			used.add(p);
-			RWT.getApplicationContext().setAttribute("used_port", used);
 		}
+		used.add(p);
+		RWT.getApplicationContext().setAttribute("used_port", used);
 		return p;
 	}
 
-	public static void removePort(String p) {
+	public void removePort(String ip,String p) {
 		ArrayList<String> used = (ArrayList<String>) RWT.getApplicationContext().getAttribute("used_port");
 		if (used == null) {
 			used = new ArrayList<String>();
 		}
 		used.remove(p);
+		RWT.getApplicationContext().setAttribute("used_port" + ip, null);
 		RWT.getApplicationContext().setAttribute("used_port", used);
 
 	}
@@ -269,7 +273,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //				String line;
 
 				while ((msg = input.readLine()) != null) {
-					System.out.println(msg);
+//					System.out.println(msg);
 				}
 
 			} catch (Exception e) {
@@ -279,7 +283,6 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	}
 
 	public CustomThread execBash(final String sc[]) {
-		System.out.println("execcccccccccccccccccccccc");
 		CustomThread t = new CustomThread(sc);
 		t.start();
 
@@ -510,6 +513,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
 						"Please try again after " + dtf.format(retry) + " UTC!");
+				removePort(current_ip, current_port);
 				stopped = true;
 			} else if (now.isAfter(retry)) {
 				tick = 0;
