@@ -315,7 +315,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 					CustomThread t = null;
 //					while (i < tick) {
 					do {
-						t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
+						t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 
 						i++;
 						d.syncExec(new Runnable() {
@@ -462,7 +462,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx IP");
 //		String ip = getIpAddr(RWT.getRequest()).replace('.', '_').replace(':', '_');
-		System.out.println(current_ip_raw + ":" + current_port);
+		System.out.println(current_ip + ":" + current_port);
 
 		String webContext = RWT.getRequest().getContextPath();
 		System.out.println(webContext + "      " + "/" + user_context_prefix + current_ip);
@@ -497,7 +497,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			System.out.println(exprire);
 			System.out.println(retry);
 
-			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
 				t.interrupt();
 			}
@@ -505,7 +505,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			if (now.isBefore(exprire)) {
 				t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 						server_addr + ":8080" });
-				RWT.getApplicationContext().setAttribute("process" + current_ip_raw, t);
+				RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
@@ -521,14 +521,14 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			recent_ip.put(current_ip, now);
 //			for (int i = 1; i < 2; i++) {
 
-			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip_raw);
+			CustomThread t = (CustomThread) RWT.getApplicationContext().getAttribute("process" + current_ip);
 			if (t != null) {
 				t.interrupt();
 			}
 			System.out.println("serv        " + server_addr + ":8080");
 			t = execBash(new String[] { "java", "-jar", jarPath, user_context_prefix + current_ip, current_port,
 					server_addr + ":8080" });
-			RWT.getApplicationContext().setAttribute("process" + current_ip_raw, t);
+			RWT.getApplicationContext().setAttribute("process" + current_ip, t);
 //			}
 
 //			execBash(new String[] { "java", "-jar", "C:/git/gama.cloud/cict.gama.jetty/target/gamaweb.jar",
