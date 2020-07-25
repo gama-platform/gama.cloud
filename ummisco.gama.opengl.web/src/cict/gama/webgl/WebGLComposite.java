@@ -13,6 +13,8 @@ import org.eclipse.rap.rwt.remote.Connection;
 import org.eclipse.rap.rwt.remote.OperationHandler;
 import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.rap.rwt.widgets.WidgetUtil;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import ummisco.gama.ui.utils.WorkbenchHelper;
@@ -112,6 +114,7 @@ public class WebGLComposite extends GLCanvas {
 			e.printStackTrace();
 			// throw new RuntimeException(e);
 		}
+ 
 	}
 
 	@Override

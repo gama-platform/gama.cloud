@@ -24,7 +24,7 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 
 public class SnapshotMaker {
 
-	void doSnapshot(final IDisplayOutput output, final IDisplaySurface surface, final Control composite) {
+	public void doSnapshot(final IDisplayOutput output, final IDisplaySurface surface, final Control composite) {
 		if (output == null || surface == null || composite == null)
 			return;
 		final IScope scope = surface.getScope();

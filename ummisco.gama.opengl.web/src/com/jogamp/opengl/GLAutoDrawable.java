@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import ummisco.gama.opengl.Abstract3DRenderer;
 import ummisco.gama.opengl.SWTGLAnimator;
 
-public class GLAutoDrawable extends Canvas{
+public class GLAutoDrawable extends Composite{
 	protected GLContext mycontext=null;
 
 	protected GL2 myGL = null;

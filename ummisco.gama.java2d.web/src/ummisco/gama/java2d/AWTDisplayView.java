@@ -23,7 +23,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 
 //	public static long REALIZATION_TIME_OUT = 1000;
 //	public boolean isVisible;
-
+//
 	@Override
 	public void update(IDisplayOutput output) {
 		// TODO Auto-generated method stub

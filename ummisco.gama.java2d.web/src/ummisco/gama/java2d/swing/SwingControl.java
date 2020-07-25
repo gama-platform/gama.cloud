@@ -12,39 +12,33 @@ package ummisco.gama.java2d.swing;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-import javax.swing.JComponent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
 import com.vividsolutions.jts.awt.ShapeWriter;
 
+import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.AWTDisplayView;
 import ummisco.gama.java2d.Java2DDisplaySurface;
 import ummisco.gama.java2d.SWTGraphics2D;
-import ummisco.gama.ui.controls.ParameterExpandBar;
-import ummisco.gama.ui.controls.ParameterExpandItem;
-import ummisco.gama.ui.interfaces.IParameterEditor;
-import ummisco.gama.ui.parameters.AbstractEditor;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.GamaViewPart;
 
-public class SwingControl extends Canvas{
+public class SwingControl extends Canvas {
 	AWTDisplayView view;
 	ShapeWriter sw = null;
 	Shape bound = null;
-	GC gc; 
+	GC gc;
 	SWTGraphics2D renderer;
 
 	public SwingControl(final Composite parent, final int style, GamaViewPart v) {
 		super(parent, style);
 		view = (AWTDisplayView) v;
-		((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).comp = this;
+		((Java2DDisplaySurface) (view.getDisplaySurface())).comp = this;
 
 		sw = new ShapeWriter((((AWTDisplayView) view).getDisplaySurface().getIGraphics()));
 		bound = sw.toShape((((AWTDisplayView) view).getDisplaySurface().getOutput().getScope().getSimulation()
@@ -76,11 +70,7 @@ public class SwingControl extends Canvas{
 		addPaintListener(new PaintListener() {
 
 			@Override
-			public void paintControl(PaintEvent arg0) {
-				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
-					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-				}
+			public void paintControl(PaintEvent arg0) {				 
 				redraw();
 			}
 		});
@@ -89,23 +79,14 @@ public class SwingControl extends Canvas{
 	@Override
 	public void redraw() {
 //		super.redraw();
-		if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
-//			if ((((AWTDisplayView) view).getDisplaySurface().getIGraphics()) == null) {
-//				((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-//			}
-//			IShape g =getOutput().getScope().getSimulation().getGeometry();
-//			System.out.println("paint  "+s.getBounds2D());
-//			getDisplaySurface().setBounds(new Rectangle(width, height));
-//			getDisplaySurface().resizeImage(width, height, true);
-//			SWTGraphics2D renderer=new SWTGraphics2D(arg0.gc, arg0.display);
-//			renderer.SWT_RECT.width=width;
-//			renderer.SWT_RECT.height=height;
+		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+			if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
 
-			((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-			((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-			((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).paintComponent(renderer);
-//			renderer.dispose();
-		}
+				((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
+				((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
+				((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).paintComponent(renderer);
+			}
+		});
 	}
 
 }

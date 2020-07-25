@@ -51,7 +51,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		implements IToolbarDecoratedView.Pausable, IToolbarDecoratedView.Zoomable, IGamaView.Display {
 
 	protected SashForm form;
-	public Canvas surfaceComposite;
+	public Composite surfaceComposite;
 	public final LayeredDisplayDecorator decorator;
 	protected volatile boolean disposed, realized;
 	Thread updateThread;
@@ -71,7 +71,9 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	@Override
 	public boolean containsPoint(final int x, final int y) {
-		if (super.containsPoint(x, y)) { return true; }
+		if (super.containsPoint(x, y)) {
+			return true;
+		}
 		final Point o = getSurfaceComposite().toDisplay(0, 0);
 		final Point s = getSurfaceComposite().getSize();
 		return new Rectangle(o.x, o.y, s.x, s.y).contains(x, y);
@@ -100,7 +102,9 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	}
 
 	public boolean isOpenGL() {
-		if (outputs.isEmpty()) { return false; }
+		if (outputs.isEmpty()) {
+			return false;
+		}
 		return getOutput().getData().isOpenGL();
 	}
 
@@ -114,7 +118,9 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	@Override
 	public void ownCreatePartControl(final Composite c) {
-		if (getOutput() == null) { return; }
+		if (getOutput() == null) {
+			return;
+		}
 		c.setLayout(emptyLayout());
 
 		// First create the sashform
@@ -180,13 +186,17 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	@Override
 	public IDisplaySurface getDisplaySurface() {
 		final LayeredDisplayOutput out = getOutput();
-		if (out != null) { return out.getSurface(); }
+		if (out != null) {
+			return out.getSurface();
+		}
 		return null;
 	}
 
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
-		if (disposed) { return; }
+		if (disposed) {
+			return;
+		}
 		final LayeredDisplayOutput output = getOutput();
 		if (output != null) {
 			output.getData().listeners.clear();
@@ -274,7 +284,9 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 			@Override
 			public IStatus runInUIThread(final IProgressMonitor monitor) {
-				if (getDisplaySurface() == null) { return Status.CANCEL_STATUS; }
+				if (getDisplaySurface() == null) {
+					return Status.CANCEL_STATUS;
+				}
 				getDisplaySurface().updateDisplay(false);
 				return Status.OK_STATUS;
 			}
@@ -284,12 +296,10 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	@Override
 	public void update(final IDisplayOutput output) {
 
-		// Fix for issue #1693
 //		final boolean oldSync = output.isSynchronized();
 //		if (output.isInInitPhase()) {
 //			output.setSynchronized(false);
-//		}
-		// end fix
+//		} 
 //		if (updateThread == null) {
 //			updateThread = new Thread(() -> {
 //				final IDisplaySurface s = getDisplaySurface();
@@ -318,12 +328,12 @@ public abstract class LayeredDisplayView extends GamaViewPart
 //			updateThread.start();
 //		}
 
-		if (output.isSynchronized()) {
-			final IDisplaySurface s = getDisplaySurface();
-			s.updateDisplay(false);
-			if (getOutput().getData().isAutosave() && s.isRealized()) {
-				SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
-			}
+//		final IDisplaySurface s = getDisplaySurface();
+//		s.updateDisplay(false);
+//		if (getOutput().getData().isAutosave() && s.isRealized()) {
+//			SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
+//		}
+//		if (output.isSynchronized()) {
 //			while (!s.isRendered() && !s.isDisposed() && !disposed) {
 //				try {
 //					Thread.sleep(10);
@@ -332,7 +342,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 //				}
 //
 //			}
-		} 
+//		}
 //		else if (updateThread.isAlive()) {
 //			releaseLock();
 //		}
@@ -343,7 +353,8 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		while (lockAcquired) {
 			try {
 				wait();
-			} catch (final InterruptedException e) {}
+			} catch (final InterruptedException e) {
+			}
 		}
 		lockAcquired = true;
 	}
@@ -362,7 +373,9 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	@Override
 	public void removeOutput(final IDisplayOutput output) {
-		if (output == null) { return; }
+		if (output == null) {
+			return;
+		}
 		if (output == getOutput()) {
 			if (isFullScreen()) {
 				WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> toggleFullScreen());
@@ -422,9 +435,10 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	}
 
 	/**
-	 * A call indicating that fullscreen has been set on the display. Views might decide to do something or not. Default
-	 * is to do nothing.
+	 * A call indicating that fullscreen has been set on the display. Views might
+	 * decide to do something or not. Default is to do nothing.
 	 */
-	public void fullScreenSet() {}
+	public void fullScreenSet() {
+	}
 
 }

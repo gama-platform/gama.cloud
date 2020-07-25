@@ -327,18 +327,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		if (disposed) {
 			return;
 		}
-//		if (comp != null) {
-//			rendered = false;
-////		EventQueue.invokeLater(() -> {
-////		});
-//			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
-//
-//				comp.redraw();
-////				((IGamaView)getViewSite().getPart()).updateToolbarState();
-//			});
-//		}
-//		rendered = true;
-//		realized = true;
+		if (comp != null)
+			comp.redraw();
 
 	}
 

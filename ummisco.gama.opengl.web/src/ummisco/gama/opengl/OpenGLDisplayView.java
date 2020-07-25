@@ -14,7 +14,12 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 
+import msi.gama.common.interfaces.IDisplaySurface;
+import msi.gama.outputs.IDisplayOutput;
+import msi.gama.runtime.GAMA;
+import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.displays.SWTDisplayView;
+import ummisco.gama.ui.views.displays.SnapshotMaker;
 
 /**
  * Class OpenGLLayeredDisplayView.
@@ -26,6 +31,23 @@ import ummisco.gama.ui.views.displays.SWTDisplayView;
 public class OpenGLDisplayView extends SWTDisplayView {
 
 	public static String ID = "msi.gama.application.view.OpenGLDisplayView";
+
+	@Override
+	public void update(IDisplayOutput output) {
+		// TODO Auto-generated method stub
+//		super.update(output);
+//		if (output.isSynchronized() && !surfaceComposite.isDisposed()) {
+//			WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+				final IDisplaySurface s = getDisplaySurface();
+				s.updateDisplay(false);
+				if (getOutput().getData().isAutosave() && s.isRealized()) {
+					SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
+				}
+//				((IGamaView)getViewSite().getPart()).updateToolbarState();
+//			});
+//		}
+
+	}
 
 	@Override
 	public SWTOpenGLDisplaySurface getDisplaySurface() {
@@ -54,13 +76,13 @@ public class OpenGLDisplayView extends SWTDisplayView {
 	@Override
 	public void hideToolbar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showToolbar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -72,6 +94,6 @@ public class OpenGLDisplayView extends SWTDisplayView {
 	@Override
 	public void setIndex(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
