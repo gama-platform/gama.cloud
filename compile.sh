@@ -35,10 +35,10 @@ deploy(){
 	
 	cd msi.gama.lang.gaml.web.build/GamaWeb 
 	mvn deploy -P p2Repo --settings ../../settings.xml -Dmaven.test.skip=true 
-	cd ../../cict.gama.tomcat 
+	cd ../../cict.gama.jetty    
 	mvn clean install 
 	cd target
-	sudo cp tomcat_launcher.jar GamaWeb
+	sudo cp gamaweb.jar GamaWeb
 	ls GamaWeb
 	sudo zip GamaWeb.zip GamaWeb/* && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
 

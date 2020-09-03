@@ -28,12 +28,7 @@ REPO="gama-platform/gama.cloud"
 RELEASE="latest"
 thePATH="/home/travis/build/gama-platform/gama.cloud/cict.gama.jetty/target/GamaWeb/GamaWeb.zip"
 
-
-
-cd /home/travis/build/gama-platform/gama.cloud/cict.gama.jetty/target/GamaWeb
-sudo zip -9 -qyr "GamaWeb.zip" . && echo "compressed GamaWeb.zip" || echo "compress fail GamaWeb.zip"
-cd ..
-
+ 
 
 
 
