@@ -436,6 +436,9 @@ public class WorkspaceModelsManager {
 		// DEBUG.OUT("Linking library from bundle " + bundle.getSymbolicName() + " at path " + path);
 		final boolean core = bundle.equals(GamaBundleLoader.CORE_MODELS);
 		final URL fileURL = bundle.getEntry(path);
+		if(null==fileURL) {
+			return;
+		}
 		File modelsRep = null;
 		try {
 			final URL resolvedFileURL = FileLocator.toFileURL(fileURL);
