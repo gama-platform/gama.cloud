@@ -79,9 +79,6 @@
 		<unit id="ummisco.gama.feature.core.feature.group" version="0.0.0"/>
 		<unit id="ummisco.gama.feature.dependencies.feature.group" version="0.0.0"/>
 		<unit id="ummisco.gama.feature.models.feature.group" version="0.0.0"/>
-		<unit id="ummisco.gama.application.product" version="0.0.0"/>
-		<unit id="ummisco.gama.application.runtime.product" version="0.0.0"/>
-		<unit id="ummisco.gama.feature.core.ui.feature.group" version="0.0.0"/>
 	</location>
 </locations>
 <environment>

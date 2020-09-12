@@ -266,6 +266,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				for (int i = 0; i < sc.length; i++) {
 					processBuilder.command().add(sc[i]);
+//					System.out.println(sc[i]);
 				}
 //				processBuilder.command().add("cmd");
 //				processBuilder.command().add("/C");
@@ -276,6 +277,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 
 				while ((msg = input.readLine()) != null) {
 //					System.out.println(msg);
+//					Thread.sleep(100);
 				}
 
 			} catch (Exception e) {
@@ -332,7 +334,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 							}
 						});
 						try {
-							if (t != null && t.msg != null && t.msg.contains("> JAI/ImageIO subsystem activated")) {
+							if (t != null && t.msg != null && t.msg.contains("GAMA building GAML artefacts in :")) {
 								System.out.println("..." + t.msg + "...");
 								Thread.sleep(3000);
 								break;
