@@ -45,12 +45,9 @@ public class RunWarExample {
 	public static int port = 8080;
 
 	File warFile;// = "/GamaWeb.war";
+	String executionPath = "";
 
 	public void retrieveWar(String contextpath) {
-		File currentJavaJarFile = new File(
-				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
-		String executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
 		warFile = new File(executionPath + "/" + contextpath + ".war");
 //		warpath=file1.getAbsolutePath();
 		if (!warFile.exists()) {
@@ -73,6 +70,10 @@ public class RunWarExample {
 		final String ctx_port = args[1];
 		final String ctrl_addr = args[2];
 		final RunWarExample r = new RunWarExample();
+		File currentJavaJarFile = new File(
+				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
+		r.executionPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
 		r.retrieveWar(ctx_path);
 		final Server server = new Server(stringToInt(ctx_port));
 //		String warpath = "C:\\git\\gama.cloud\\cict.gama.tomcat\\target\\GamaWeb\\GamaWeb.war";
@@ -93,7 +94,7 @@ public class RunWarExample {
 		context.setParentLoaderPriority(false);
 		context.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true");
 
-		final File tmpPath = new File(ctx_path + "_tmp_");
+		final File tmpPath = new File(r.executionPath + "/" + ctx_path + "_tmp_");
 		if (tmpPath.exists()) {
 //			System.exit(1);
 		} else {

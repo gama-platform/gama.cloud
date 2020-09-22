@@ -10,8 +10,8 @@ cp gamaweb.jar GamaWeb
 cd ../..
 }
 a(){
-rm -rf ummisco.gama.opengl.web/gaml
-rm -rf ummisco.gama.java2d.web/gaml
+rm -rf ummisco.gama.opengl.web/gaml/*
+rm -rf ummisco.gama.java2d.web/gaml/*
 cd msi.gama.lang.gaml.web.target
 mvn clean install
 cd ../msi.gama.lang.gaml.web.build
@@ -30,8 +30,8 @@ cd ../..
 }
 
 o(){
-rm -rf ummisco.gama.opengl.web/gaml
-rm -rf ummisco.gama.java2d.web/gaml
+rm -rf ummisco.gama.opengl.web/gaml/*
+rm -rf ummisco.gama.java2d.web/gaml/*
 cd msi.gama.lang.gaml.web.target
 mvn clean install -o
 cd ../msi.gama.lang.gaml.web.build
@@ -61,3 +61,4 @@ if  [ $1 = "O" ] || [ $1 = "o" ]
 then
     o 
 fi
+start java -jar cict.gama.jetty/target/GamaWeb/gamaweb.jar GamaWeb 8080 127.0.0.1:8080
