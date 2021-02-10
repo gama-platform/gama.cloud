@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.vividsolutions.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinate;
 
 import msi.gama.common.geometry.AxisAngle;
 import msi.gama.common.preferences.GamaPreferences;

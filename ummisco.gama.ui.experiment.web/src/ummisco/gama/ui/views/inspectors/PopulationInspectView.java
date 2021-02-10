@@ -573,7 +573,7 @@ public class PopulationInspectView extends GamaViewPart
 									rc = stringComparator.compare(v1, v2);
 									break;
 								case IType.POINT:
-									rc = ((ILocation) v1).compareTo(v2);
+									rc = ((ILocation) v1).compareTo((ILocation) v2);
 									break;
 								default:
 									rc = Cast.toGaml(v1).compareTo(Cast.toGaml(v2));

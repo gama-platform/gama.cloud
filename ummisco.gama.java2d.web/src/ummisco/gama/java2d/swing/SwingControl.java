@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
-import com.vividsolutions.jts.awt.ShapeWriter;
+import org.locationtech.jts.awt.ShapeWriter;
 
 import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.AWTDisplayView;

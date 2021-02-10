@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.jogamp.opengl.GL2;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFilter;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFilter;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.metamodel.shape.IShape;

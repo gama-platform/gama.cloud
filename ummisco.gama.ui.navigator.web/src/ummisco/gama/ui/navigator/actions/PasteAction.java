@@ -257,8 +257,8 @@ public class PasteAction extends SelectionListenerAction {
 			}
 			return true;
 		}
-		final TransferData[] transfers = clipboard.getAvailableTypes();
-		final FileTransfer fileTransfer = FileTransfer.getInstance();
+//		final TransferData[] transfers = clipboard.getAvailableTypes();
+//		final FileTransfer fileTransfer = FileTransfer.getInstance();
 //		for (final TransferData transfer : transfers) {
 //			if (fileTransfer.isSupportedType(transfer)) { return true; }
 //		}
