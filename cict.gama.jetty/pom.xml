@@ -11,7 +11,7 @@
 	<properties>
 		<tycho.version>0.25.0</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty.version>9.4.31.v20200723</jetty.version>
+		<jetty.version>11.0.1</jetty.version>
 	</properties>
 	<dependencies>
 		<dependency>
