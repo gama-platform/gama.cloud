@@ -48,7 +48,10 @@ public class RunWarExample {
 	String executionPath = "";
 
 	public void retrieveWar(String contextpath) {
-		warFile = new File(executionPath + "/" + contextpath + ".war");
+//		warFile = new File(executionPath + "/" + contextpath + ".war");
+		String warpath = "C:\\git\\gama.cloud\\cict.gama.jetty\\target\\GamaWeb\\GamaWeb.war";
+
+		warFile = new File(warpath);
 //		warpath=file1.getAbsolutePath();
 		if (!warFile.exists()) {
 			InputStream link = (getClass().getResourceAsStream("/GamaWeb.war"));
@@ -66,9 +69,12 @@ public class RunWarExample {
 	 * args[0] contextpath args[1] port args[2] controller's address
 	 */
 	public static void main(String[] args) {
-		final String ctx_path = args[0];
-		final String ctx_port = args[1];
-		final String ctrl_addr = args[2];
+//		final String ctx_path = args[0];
+//		final String ctx_port = args[1];
+//		final String ctrl_addr = args[2];
+		final String ctx_path = "GamaWeb";
+		final String ctx_port = "8080";
+		final String ctrl_addr = "127.0.0.1:8080";
 		final RunWarExample r = new RunWarExample();
 		File currentJavaJarFile = new File(
 				RunWarExample.class.getProtectionDomain().getCodeSource().getLocation().getPath());

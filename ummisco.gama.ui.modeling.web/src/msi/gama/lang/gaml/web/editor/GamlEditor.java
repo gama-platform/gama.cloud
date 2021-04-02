@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import org.dslforge.styledtext.Position;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
@@ -101,14 +101,14 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlEditor, IGam
 		setDirty(false);
 		
 		
-		String uid=RWT.getUISession().getAttribute("user").toString();
-		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		for(User us:onlines) {
-			if(us.getId().equals(uid)) {
-				us.setOrganization(xtextResource.getURI().toFileString());
-			}
-		}
-		RWT.getApplicationContext().setAttribute("onlines", onlines);
+//		String uid=RWT.getUISession().getAttribute("user").toString();
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		for(User us:onlines) {
+//			if(us.getId().equals(uid)) {
+//				us.setOrganization(xtextResource.getURI().toFileString());
+//			}
+//		}
+//		RWT.getApplicationContext().setAttribute("onlines", onlines);
 		
 	}
 
@@ -218,15 +218,15 @@ public class GamlEditor extends AbstractGamlEditor  implements IGamlEditor, IGam
 //		System.out.println(uid+" at "+offset+" : ");
 		
 		getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
-		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		for(User u:onlines) {
-			if(u.getId().equals(uid)) {
-				u.setOrganization(xtextResource.getURI().toFileString());
-				u.setLastName(""+offset);
-			}
-		}
-
-		RWT.getApplicationContext().setAttribute("onlines", onlines);
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		for(User u:onlines) {
+//			if(u.getId().equals(uid)) {
+//				u.setOrganization(xtextResource.getURI().toFileString());
+//				u.setLastName(""+offset);
+//			}
+//		}
+//
+//		RWT.getApplicationContext().setAttribute("onlines", onlines);
 	}
 
 	private synchronized void enableButton(final int index, final String text, final SelectionListener listener) {

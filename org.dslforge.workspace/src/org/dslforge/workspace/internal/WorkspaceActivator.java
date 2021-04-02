@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
+//import javax.persistence.EntityManagerFactory;
 
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.IWorkspaceConstants;
@@ -41,7 +41,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.jpa.EntityManagerFactoryBuilder;
+//import org.osgi.service.jpa.EntityManagerFactoryBuilder;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
@@ -142,8 +142,8 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 		IPath workspaceRootPath = getWorkspace().getWorkspaceRootPath();
 		Bundle bundle = ref.getBundle();
 		final Object service = bundle.getBundleContext().getService(ref);
-		String unitName = (String) ref.getProperty(EntityManagerFactoryBuilder.JPA_UNIT_NAME);
-		if (unitName.equals(IWorkspaceConstants.PERSISTENCE_UNIT_NAME)) {
+//		String unitName = (String) ref.getProperty(EntityManagerFactoryBuilder.JPA_UNIT_NAME);
+//		if (unitName.equals(IWorkspaceConstants.PERSISTENCE_UNIT_NAME)) {
 //			EntityManagerFactoryBuilder entityManagerFactoryBuilder = lookupEntityManagerFactoryBuilder(unitName);
 //			if (entityManagerFactoryBuilder != null) {
 //				emf = entityManagerFactoryBuilder.createEntityManagerFactory(overrideConfiguration(workspaceRootPath));
@@ -152,7 +152,7 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 //						+ "This means the plugin is started before the persistency unit has been loaded by Gemini JPA.\n"
 //						+ "Make sure the startup level of this plugin is higher than org.eclipse.gemini.jpa startup level.");
 //			}
-		}
+//		}
 		return service;
 	}
 	
@@ -164,17 +164,17 @@ public class WorkspaceActivator implements BundleActivator, ServiceTrackerCustom
 		return props;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public EntityManagerFactoryBuilder lookupEntityManagerFactoryBuilder(String puName) {
-		String filter = "(osgi.unit.name=" + puName + ")";
-		ServiceReference[] refs = null;
-		try {
-			refs = ctx.getServiceReferences(EntityManagerFactoryBuilder.class.getName(), filter);
-		} catch (InvalidSyntaxException isEx) {
-			new RuntimeException("Found bad filter in manifest file.", isEx);
-		}
-		return (refs == null) ? null : (EntityManagerFactoryBuilder) ctx.getService(refs[0]);
-	}
+//	@SuppressWarnings("unchecked")
+//	public EntityManagerFactoryBuilder lookupEntityManagerFactoryBuilder(String puName) {
+//		String filter = "(osgi.unit.name=" + puName + ")";
+//		ServiceReference[] refs = null;
+//		try {
+//			refs = ctx.getServiceReferences(EntityManagerFactoryBuilder.class.getName(), filter);
+//		} catch (InvalidSyntaxException isEx) {
+//			new RuntimeException("Found bad filter in manifest file.", isEx);
+//		}
+//		return (refs == null) ? null : (EntityManagerFactoryBuilder) ctx.getService(refs[0]);
+//	}
 
 	public void modifiedService(ServiceReference ref, Object service) {
 	}

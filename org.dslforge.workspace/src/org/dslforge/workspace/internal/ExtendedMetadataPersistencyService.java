@@ -19,16 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.config.IPersistencyService;
-import org.dslforge.workspace.jpa.database.Folder;
-import org.dslforge.workspace.jpa.database.Project;
-import org.dslforge.workspace.jpa.database.Resource;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.Folder;
+//import org.dslforge.workspace.jpa.database.Project;
+//import org.dslforge.workspace.jpa.database.Resource;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.util.SafeRunnable;
 
@@ -37,7 +37,7 @@ public class ExtendedMetadataPersistencyService implements IPersistencyService{
 	
 	static final Logger logger = Logger.getLogger(ExtendedMetadataPersistencyService.class);
 
-	private EntityManagerFactory entityManagerFactory;
+//	private EntityManagerFactory entityManagerFactory;
 
 	private static ExtendedMetadataPersistencyService INSTANCE;
 	private static IPath rootPath;

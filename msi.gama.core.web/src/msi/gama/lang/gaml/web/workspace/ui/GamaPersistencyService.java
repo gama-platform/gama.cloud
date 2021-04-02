@@ -19,17 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.internal.ExtendedMetadataPersistencyService;
 import org.dslforge.workspace.internal.WorkspaceActivator;
-import org.dslforge.workspace.jpa.database.Folder;
-import org.dslforge.workspace.jpa.database.Project;
-import org.dslforge.workspace.jpa.database.Resource;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.Folder;
+//import org.dslforge.workspace.jpa.database.Project;
+//import org.dslforge.workspace.jpa.database.Resource;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.util.SafeRunnable;
 
@@ -38,7 +38,7 @@ public class GamaPersistencyService implements IPersistencyService{
 	
 	static final Logger logger = Logger.getLogger(ExtendedMetadataPersistencyService.class);
 
-	public EntityManagerFactory entityManagerFactory;
+//	public EntityManagerFactory entityManagerFactory;
 
 	public static GamaPersistencyService INSTANCE;
 	public static IPath rootPath;

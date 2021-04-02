@@ -15,25 +15,20 @@
  */
 package org.dslforge.workspace.internal;
 
-import java.io.File;
-import java.util.List;
-import java.util.UUID;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.PersistenceException;
+//import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.dslforge.workspace.config.IPersistencyService;
-import org.dslforge.workspace.jpa.database.Folder;
-import org.dslforge.workspace.jpa.database.Project;
-import org.dslforge.workspace.jpa.database.Resource;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.Folder;
+//import org.dslforge.workspace.jpa.database.Project;
+//import org.dslforge.workspace.jpa.database.Resource;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.util.SafeRunnable;
-import org.eclipse.rap.rwt.RWT;
 
 /**
  *	Basic implementation of org.dslforge.workspace.jpa.IPersistencyService based on EclipseLink JPA
@@ -43,7 +38,7 @@ public class DefaultPersistencyService implements IPersistencyService{
 	
 	static final Logger logger = Logger.getLogger(DefaultPersistencyService.class);
 
-	private EntityManagerFactory entityManagerFactory;
+//	private EntityManagerFactory entityManagerFactory;
 
 	private static DefaultPersistencyService INSTANCE;
 	

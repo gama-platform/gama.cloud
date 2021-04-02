@@ -12,7 +12,7 @@ package msi.gama.lang.gaml.web.ui.views.toolbar;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.IFindReplaceTarget;
 import org.eclipse.jface.text.IFindReplaceTargetExtension;
 import org.eclipse.jface.text.ITextOperationTarget;
@@ -42,7 +42,7 @@ import ummisco.gama.ui.views.toolbar.GamaToolbarSimple;
 public class CollaboratingUserControls {
 
 	private static final String EMPTY = RWT.getUISession().getAttribute("user").toString(); //$NON-NLS-1$
-	private HashMap<User,ToolItem> collaborating=new HashMap<User,ToolItem>();
+//	private HashMap<User,ToolItem> collaborating=new HashMap<User,ToolItem>();
 	private int incrementalOffset = -1;
 	final GamlEditor editor;
 
@@ -53,54 +53,54 @@ public class CollaboratingUserControls {
 	
 
 	public synchronized CollaboratingUserControls fill(final GamaToolbarSimple toolbar) {
-		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		for(User u:collaborating.keySet()) {
-			if(collaborating.get(u)!=null && !collaborating.get(u).isDisposed() && !onlines.contains(u)) {
-				collaborating.get(u).getControl().dispose();
-				collaborating.get(u).dispose();
-				collaborating.put(u, null);
-			}
-		}
-		for(User u : onlines) {
-			if (collaborating.get(u) == null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString()) && (editor!=null
-					&& editor.getXtextResource().getURI().toFileString().equals(u.getOrganization()))) {
-				//
-				Button btn = new Button(toolbar, SWT.PUSH | SWT.DOUBLE_BUFFERED);
-				btn.setText(u.getId());
-
-				// final IFocusService focusService =
-				// editor.getSite().getService(IFocusService.class);
-				// focusService.addFocusTracker(find, "search");
-
-				// find.setBackground(IGamaColors.WHITE.color());
-				// btn.setForeground(IGamaColors.BLACK.color());
-				btn.addSelectionListener(new SelectionListener() {
-					
-					@Override
-						public void widgetSelected(SelectionEvent arg0) {
-							// TODO Auto-generated method stub
-							int offset = Cast.asInt(null, u.getLastName());
-							int line=editor.getViewer().getTextWidget().getLineAtOffset(offset);
-							TextRange t=new TextRange(line, line, line, line);
-							editor.getViewer().getTextWidget().clearMarkers();
-							editor.getViewer().getTextWidget().addMarker(t);
-	//						TextRange t=new TextRange(line, line+1, line, line);
-	//						ArrayList a=new ArrayList<>(); a.add(t);
-	//						editor.getViewer().getTextWidget().clearMarkers();
-	//						editor.getViewer().getTextWidget().setMarkers(a);
-						}
-						
-					@Override
-					public void widgetDefaultSelected(SelectionEvent arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				ToolItem t = toolbar.control(btn, u.getId().length() * 10);
-				// this.adjustEnablement(false, null);
-				collaborating.put(u, t);
-			}
-		}
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		for(User u:collaborating.keySet()) {
+//			if(collaborating.get(u)!=null && !collaborating.get(u).isDisposed() && !onlines.contains(u)) {
+//				collaborating.get(u).getControl().dispose();
+//				collaborating.get(u).dispose();
+//				collaborating.put(u, null);
+//			}
+//		}
+//		for(User u : onlines) {
+//			if (collaborating.get(u) == null && !u.getId().equals(RWT.getUISession().getAttribute("user").toString()) && (editor!=null
+//					&& editor.getXtextResource().getURI().toFileString().equals(u.getOrganization()))) {
+//				//
+//				Button btn = new Button(toolbar, SWT.PUSH | SWT.DOUBLE_BUFFERED);
+//				btn.setText(u.getId());
+//
+//				// final IFocusService focusService =
+//				// editor.getSite().getService(IFocusService.class);
+//				// focusService.addFocusTracker(find, "search");
+//
+//				// find.setBackground(IGamaColors.WHITE.color());
+//				// btn.setForeground(IGamaColors.BLACK.color());
+//				btn.addSelectionListener(new SelectionListener() {
+//					
+//					@Override
+//						public void widgetSelected(SelectionEvent arg0) {
+//							// TODO Auto-generated method stub
+//							int offset = Cast.asInt(null, u.getLastName());
+//							int line=editor.getViewer().getTextWidget().getLineAtOffset(offset);
+//							TextRange t=new TextRange(line, line, line, line);
+//							editor.getViewer().getTextWidget().clearMarkers();
+//							editor.getViewer().getTextWidget().addMarker(t);
+//	//						TextRange t=new TextRange(line, line+1, line, line);
+//	//						ArrayList a=new ArrayList<>(); a.add(t);
+//	//						editor.getViewer().getTextWidget().clearMarkers();
+//	//						editor.getViewer().getTextWidget().setMarkers(a);
+//						}
+//						
+//					@Override
+//					public void widgetDefaultSelected(SelectionEvent arg0) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//				});
+//				ToolItem t = toolbar.control(btn, u.getId().length() * 10);
+//				// this.adjustEnablement(false, null);
+//				collaborating.put(u, t);
+//			}
+//		}
 
 		return this;
 	}

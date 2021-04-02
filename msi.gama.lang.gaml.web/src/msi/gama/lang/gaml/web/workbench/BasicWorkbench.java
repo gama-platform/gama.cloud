@@ -32,7 +32,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -558,32 +558,32 @@ public class BasicWorkbench extends AbstractEntryPoint {
 //		}
 	}
 
-	public void sync_user_list(String uid) {
-
-		User u = new User();
-		u.setId(uid);
-
-		ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
-		// Map<String, ArrayList<String>>
-		if (onlines == null) {
-			onlines = new ArrayList<>();
-			listPads = new HashMap<String, ArrayList<String>>();
-		}
-		boolean exist = false;
-		for (User s : onlines) {
-			if (s.getId().equals(uid)) {
-				exist = true;
-				break;
-			}
-		}
-		if (!exist) {
-			onlines.add(u);
-			listPads.put(uid, new ArrayList<String>());
-		}
-		RWT.getApplicationContext().setAttribute("onlines", onlines);
-		RWT.getApplicationContext().setAttribute("listPads", listPads);
-	}
+//	public void sync_user_list(String uid) {
+//
+//		User u = new User();
+//		u.setId(uid);
+//
+//		ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		Map listPads = (Map) RWT.getApplicationContext().getAttribute("listPads");
+//		// Map<String, ArrayList<String>>
+//		if (onlines == null) {
+//			onlines = new ArrayList<>();
+//			listPads = new HashMap<String, ArrayList<String>>();
+//		}
+//		boolean exist = false;
+//		for (User s : onlines) {
+//			if (s.getId().equals(uid)) {
+//				exist = true;
+//				break;
+//			}
+//		}
+//		if (!exist) {
+//			onlines.add(u);
+//			listPads.put(uid, new ArrayList<String>());
+//		}
+//		RWT.getApplicationContext().setAttribute("onlines", onlines);
+//		RWT.getApplicationContext().setAttribute("listPads", listPads);
+//	}
 
 	public void set_environment_param(String uid) throws UnsupportedEncodingException {
 //		String mm = "" + getParameter("model");// .replace("\\", "\\\\");
@@ -645,7 +645,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 		}
 		init_google_callback();
 		set_background_gama();
-		sync_user_list(uid);
+//		sync_user_list(uid);
 		try {
 			set_environment_param(uid);
 

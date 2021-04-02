@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.dslforge.workspace.ui.util.EditorUtil;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -115,17 +115,17 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 		if (RWT.getApplicationContext().getAttribute("logged_" + uid) != null) {
 			RWT.getApplicationContext().setAttribute("logged_" + uid, null);
 
-			ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-			ArrayList<User> onl = new ArrayList<User>();
-			if (onlines == null) {
-				onlines = new ArrayList<>();
-			}
-			for (User us : onlines) {
-				if (!us.getId().equals(uid)) {
-					onl.add(us);
-				}
-			}
-			RWT.getApplicationContext().setAttribute("onlines", onl);
+//			ArrayList<User> onlines = (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//			ArrayList<User> onl = new ArrayList<User>();
+//			if (onlines == null) {
+//				onlines = new ArrayList<>();
+//			}
+//			for (User us : onlines) {
+//				if (!us.getId().equals(uid)) {
+//					onl.add(us);
+//				}
+//			}
+//			RWT.getApplicationContext().setAttribute("onlines", onl);
 		}
 //		String webContext = RWT.getRequest().getContextPath();
 // 

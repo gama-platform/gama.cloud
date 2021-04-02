@@ -29,6 +29,7 @@
       <plugin id="com.ibm.icu"/>
       <plugin id="irit.gaml.extensions.database"/>
       <plugin id="javax.inject"/>
+      <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
       <plugin id="msi.gama.application.web"/>
       <plugin id="msi.gama.core"/>
@@ -40,8 +41,13 @@
       <plugin id="msi.gama.processor"/>
       <plugin id="msi.gaml.architecture.simplebdi"/>
       <plugin id="msi.gaml.extensions.fipa"/>
+      <plugin id="org.apache.batik.constants"/>
+      <plugin id="org.apache.batik.css"/>
+      <plugin id="org.apache.batik.i18n"/>
+      <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.commons.cli"/>
       <plugin id="org.apache.commons.compress"/>
+      <plugin id="org.apache.commons.fileupload"/>
       <plugin id="org.apache.commons.io"/>
       <plugin id="org.apache.commons.lang"/>
       <plugin id="org.apache.commons.logging"/>
@@ -49,12 +55,12 @@
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
       <plugin id="org.apache.log4j"/>
+      <plugin id="org.apache.xmlgraphics"/>
       <plugin id="org.dslforge.common.logging" fragment="true"/>
       <plugin id="org.dslforge.styledtext"/>
       <plugin id="org.dslforge.texteditor"/>
       <plugin id="org.dslforge.workspace"/>
       <plugin id="org.dslforge.workspace.config"/>
-      <plugin id="org.dslforge.workspace.jpa"/>
       <plugin id="org.dslforge.workspace.ui"/>
       <plugin id="org.dslforge.xtext.common"/>
       <plugin id="org.eclipse.core.commands"/>
@@ -64,12 +70,16 @@
       <plugin id="org.eclipse.core.databinding.observable"/>
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.filebuffers"/>
       <plugin id="org.eclipse.core.filesystem"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.e4.ui.css.core"/>
+      <plugin id="org.eclipse.e4.ui.css.swt"/>
       <plugin id="org.eclipse.emf.common"/>
       <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.change"/>
       <plugin id="org.eclipse.emf.ecore.xmi"/>
       <plugin id="org.eclipse.emf.edit"/>
       <plugin id="org.eclipse.emf.rap.common.ui"/>
@@ -84,21 +94,23 @@
       <plugin id="org.eclipse.equinox.http.servletbridge"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.equinox.servletbridge"/>
       <plugin id="org.eclipse.equinox.util"/>
-      <plugin id="org.eclipse.gemini.jpa"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.text"/>
+      <plugin id="org.eclipse.ltk.core.refactoring"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
-      <plugin id="org.eclipse.persistence.antlr"/>
-      <plugin id="org.eclipse.persistence.asm"/>
-      <plugin id="org.eclipse.persistence.core"/>
-      <plugin id="org.eclipse.persistence.jpa"/>
-      <plugin id="org.eclipse.persistence.jpa.jpql"/>
+      <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.rap.addons.filedialog"/>
+      <plugin id="org.eclipse.rap.addons.fileupload"/>
       <plugin id="org.eclipse.rap.design.example"/>
+      <plugin id="org.eclipse.rap.filedialog"/>
+      <plugin id="org.eclipse.rap.fileupload"/>
       <plugin id="org.eclipse.rap.jface"/>
       <plugin id="org.eclipse.rap.jface.databinding"/>
       <plugin id="org.eclipse.rap.rwt"/>
@@ -109,17 +121,22 @@
       <plugin id="org.eclipse.rap.ui.views"/>
       <plugin id="org.eclipse.rap.ui.workbench"/>
       <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.browser.chromium.win32.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.text"/>
-      <plugin id="org.eclipse.xtend.lib"/>
+      <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.xtend.lib.macro"/>
       <plugin id="org.eclipse.xtext"/>
       <plugin id="org.eclipse.xtext.ide"/>
       <plugin id="org.eclipse.xtext.logging" fragment="true"/>
       <plugin id="org.eclipse.xtext.smap"/>
-      <plugin id="org.eclipse.xtext.util"/>
-      <plugin id="org.eclipse.xtext.xbase.lib"/>
       <plugin id="org.hamcrest.core"/>
       <plugin id="org.objectweb.asm"/>
+      <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.events"/>
+      <plugin id="org.w3c.dom.smil"/>
+      <plugin id="org.w3c.dom.svg"/>
+      <plugin id="osgi.enterprise"/>
       <plugin id="simtools.gaml.extensions.physics"/>
       <plugin id="simtools.gaml.extensions.traffic"/>
       <plugin id="ummisco.gama.annotations"/>
@@ -163,7 +180,6 @@
       <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.workspace" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="1" />
-      <plugin id="org.dslforge.workspace.jpa" autoStart="true" startLevel="3" />
       <plugin id="org.dslforge.workspace.ui" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.xtext.common" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="5" />
@@ -193,15 +209,9 @@
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.gemini.jpa" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.persistence.antlr" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.persistence.asm" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.persistence.core" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.persistence.jpa" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.persistence.jpa.jpql" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.rap.jface" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.rap.jface.databinding" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.rap.rwt" autoStart="true" startLevel="5" />
@@ -210,12 +220,9 @@
       <plugin id="org.eclipse.rap.ui.navigator" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.rap.ui.views" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.xtend.lib" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtend.lib.macro" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.xtext.smap" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.xtext.util" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.xtext.xbase.lib" autoStart="true" startLevel="5" />
       <plugin id="org.hamcrest.core" autoStart="true" startLevel="5" />
       <plugin id="org.objectweb.asm" autoStart="true" startLevel="5" />
       <plugin id="simtools.gaml.extensions.physics" autoStart="false" startLevel="0" />

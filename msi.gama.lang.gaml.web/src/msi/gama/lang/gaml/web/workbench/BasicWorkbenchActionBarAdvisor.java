@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -213,12 +213,12 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 			public void run() {
 
 				final String uid=RWT.getUISession().getAttribute("user").toString();
-				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-				GamaList<User> o=(GamaList<User>) GamaListFactory.create(User.class);
-				o.addAll(onlines);
-				final WebListEditorDialog d = new WebListEditorDialog(WorkbenchHelper.getShell(GAMA.getRuntimeScope()), o, "Online");
-				if (d.open() == IDialogConstants.OK_ID) {
-				}
+//				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//				GamaList<User> o=(GamaList<User>) GamaListFactory.create(User.class);
+//				o.addAll(onlines);
+//				final WebListEditorDialog d = new WebListEditorDialog(WorkbenchHelper.getShell(GAMA.getRuntimeScope()), o, "Online");
+//				if (d.open() == IDialogConstants.OK_ID) {
+//				}
 //				DummyCallbackHandler dch = new DummyCallbackHandler();
 //				DummyDeleteUserModule dlm = new DummyDeleteUserModule();
 //				dlm.initialize(new Subject(), dch, null, null);
@@ -293,25 +293,25 @@ public class BasicWorkbenchActionBarAdvisor extends ActionBarAdvisor {
 					System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); 
 //					BasicWorkbench.execBash("rm -rf /opt/tomcat/webapps/user_GamaWeb*"); 
 //					BasicWorkbench.execBash("rm -rf /opt/tomcat/work/Catalina/localhost/user_GamaWeb*");  
-					
-				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-				ArrayList<User> onl=(ArrayList<User>) onlines.clone();
-				for(User u: onlines) {
-					if(!u.getId().equals("admin")) {		
-
-//						JavaScriptExecutor ex = BasicWorkbench.executor.get(u.getId());
-//						System.out.println("script reload  " + ex);
-//						ex.execute("window.location.reload(true);");
-						// ex.execute("var myUrl = window.location;\r\n" +
-						// "window.location.replace(myUrl);");
-//						ex = null;
-//						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
-//						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
-						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), null);
-						onl.remove(u);
-					}
-				}
-				RWT.getApplicationContext().setAttribute("onlines", onl);
+//					
+//				ArrayList<User> onlines=(ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//				ArrayList<User> onl=(ArrayList<User>) onlines.clone();
+//				for(User u: onlines) {
+//					if(!u.getId().equals("admin")) {		
+//
+////						JavaScriptExecutor ex = BasicWorkbench.executor.get(u.getId());
+////						System.out.println("script reload  " + ex);
+////						ex.execute("window.location.reload(true);");
+//						// ex.execute("var myUrl = window.location;\r\n" +
+//						// "window.location.replace(myUrl);");
+////						ex = null;
+////						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), RWT.getUISession());
+////						((UISession)RWT.getApplicationContext().getAttribute("logged_" + u.getId())).getHttpSession().setMaxInactiveInterval(1); 
+//						RWT.getApplicationContext().setAttribute("logged_" + u.getId(), null);
+//						onl.remove(u);
+//					}
+//				}
+//				RWT.getApplicationContext().setAttribute("onlines", onl);
 				
 			}
 

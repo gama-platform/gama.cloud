@@ -21,7 +21,6 @@
 		<module>../org.dslforge.styledtext</module>
 		<module>../org.dslforge.texteditor</module>
 		<module>../org.dslforge.workspace.config</module>
-		<module>../org.dslforge.workspace.jpa</module>
 		<module>../org.dslforge.workspace</module>
 		<module>../org.dslforge.xtext.common</module>
 		<module>../org.dslforge.workspace.ui</module>
@@ -40,6 +39,7 @@
  		<module>../ummisco.gama.java2d.web</module>	
  		
 		<!-- 
+		<module>../org.dslforge.workspace.jpa</module>
  		<module>../ummisco.gama.participative</module>	
     	<module>GamaWeb</module>
 		 -->
