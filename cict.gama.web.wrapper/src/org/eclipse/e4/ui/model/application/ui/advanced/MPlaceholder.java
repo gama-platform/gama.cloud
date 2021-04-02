@@ -1,8 +1,8 @@
 package org.eclipse.e4.ui.model.application.ui.advanced;
 
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import java.util.Map;
 
-import msi.gama.common.preferences.GamaPreferences;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart; 
 
 public class MPlaceholder {
 
@@ -16,7 +16,7 @@ public class MPlaceholder {
 		
 	}
 
-	public GamaPreferences getTransientData() {
+	public Map<String, Object> getTransientData(){
 		// TODO Auto-generated method stub
 		return null;
 	}

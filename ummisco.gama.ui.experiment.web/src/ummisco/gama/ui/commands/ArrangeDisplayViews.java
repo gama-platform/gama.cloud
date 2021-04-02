@@ -12,30 +12,17 @@ package ummisco.gama.ui.commands;
 import static msi.gama.common.interfaces.IKeyword.LAYOUT;
 import static msi.gaml.operators.Displays.HORIZONTAL;
 import static msi.gaml.operators.Displays.VERTICAL;
-import static org.eclipse.e4.ui.workbench.modeling.EModelService.IN_ACTIVE_PERSPECTIVE;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
-
-import msi.gama.application.workbench.PerspectiveHelper;
-import msi.gama.common.interfaces.IGamaView;
 import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.util.tree.GamaNode;
 import msi.gama.util.tree.GamaTree;
 import one.util.streamex.StreamEx;
-import ummisco.gama.ui.utils.WorkbenchHelper;
-import ummisco.gama.ui.views.WorkaroundForIssue1353;
 
 @SuppressWarnings ({ "rawtypes" })
 public class ArrangeDisplayViews extends AbstractHandler {
@@ -171,6 +158,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 			final List<MPlaceholder> holders) {
 		final String data = treeRoot.getData();
 		final String weight = String.valueOf(treeRoot.getWeight());
+		// DEBUG.OUT("Processing " + data + " with weight " + weight);
 		final Boolean dir = !data.equals(HORIZONTAL) && !data.equals(VERTICAL) ? null : data.equals(HORIZONTAL);
 		final MPlaceholder holder = StreamEx.of(holders)
 				.findFirst(h -> h.getTransientData().get(DISPLAY_INDEX_KEY).equals(data)).orElse(null);

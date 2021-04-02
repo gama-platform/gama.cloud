@@ -57,6 +57,7 @@ import msi.gama.runtime.GAMA;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
+import msi.gama.util.GamaFont;
 import msi.gama.util.GamaMapFactory;
 import msi.gama.util.IMap;
 import msi.gama.util.file.IFileMetaDataProvider;
@@ -267,9 +268,10 @@ public class WebGui implements IGui {
 	}
 
 
+
 	@Override
-	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
-			final List<IParameter> parameters) {
+	public Map<String, Object> openUserInputDialog(IScope scope, String title, List<IParameter> parameters,
+			GamaFont font) {
 		final IMap<String, Object> result = GamaMapFactory.createUnordered();
 		for (final IParameter p : parameters) {
 			result.put(p.getName(), p.getInitialValue(scope));

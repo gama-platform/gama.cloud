@@ -6,7 +6,7 @@ Bundle-Version: 1.7.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Require-Bundle: msi.gama.core,
+Require-Bundle: msi.gama.core;bundle-version="1.8.1",
  org.eclipse.rap.rwt;bundle-version="3.4.0",
  org.eclipse.rap.ui.workbench;bundle-version="3.4.0",
  org.eclipse.rap.jface,

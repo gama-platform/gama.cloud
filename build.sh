@@ -52,13 +52,17 @@ cd ../..
 if  [ $1 = "A" ] || [ $1 = "a" ]
 then
     a 
+	start java -jar cict.gama.jetty/target/GamaWeb/gamaweb.jar GamaWeb 8080 127.0.0.1:8080
+else
+	if  [ $1 = "B" ] || [ $1 = "b" ]
+	then
+		b 
+	else
+		if  [ $1 = "O" ] || [ $1 = "o" ]
+		then
+			o 
+		else
+			a
+		fi
+	fi
 fi
-if  [ $1 = "B" ] || [ $1 = "b" ]
-then
-    b 
-fi
-if  [ $1 = "O" ] || [ $1 = "o" ]
-then
-    o 
-fi
-start java -jar cict.gama.jetty/target/GamaWeb/gamaweb.jar GamaWeb 8080 127.0.0.1:8080

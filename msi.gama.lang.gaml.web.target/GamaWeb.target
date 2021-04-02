@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="GamaWeb" sequenceNumber="386">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="GamaWeb" sequenceNumber="386">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.cnf.feature.feature.group" version="0.1.0.20140425-1557"/>
@@ -27,7 +29,7 @@
 	<unit id="org.eclipse.persistence.sdk.feature.group" version="2.7.3.v20180807-4be1041"/>
 </location>
 	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-		<repository location="http://download.eclipse.org/releases/oxygen"/> 
+		<repository location="http://download.eclipse.org/releases/2021-03"/> 
 
 <unit id="org.eclipse.emf.rap.sdk.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
@@ -40,11 +42,16 @@
 
 	</location>
 	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-		<repository location="http://51.255.46.42/updates/"/>
+		<repository location="file:/C:/git/gama/msi.gama.p2updatesite/target/repository/"/>
 		<unit id="ummisco.gama.feature.core.extensions.feature.group" version="0.0.0"/>
 		<unit id="ummisco.gama.feature.core.feature.group" version="0.0.0"/>
 		<unit id="ummisco.gama.feature.dependencies.feature.group" version="0.0.0"/>
+		<unit id="simtools.graphlayout.feature.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.audio.feature.group" version="0.0.0"/>
 		<unit id="ummisco.gama.feature.models.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.network.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.serialize.feature.group" version="0.0.0"/>
+		<unit id="ummisco.gama.feature.stats.feature.group" version="0.0.0"/> 
 	</location>
 </locations>
 <environment>
@@ -53,5 +60,4 @@
 <arch>x86_64</arch>
 <nl>en_US</nl>
 </environment>
-<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-</target>
+ </target>
