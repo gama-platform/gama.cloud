@@ -8,6 +8,17 @@ mvn clean install -o
 cd target
 cp gamaweb.jar GamaWeb
 cd ../..
+if  [ $1 = "B" ] || [ $1 = "b" ]
+	then
+		b 
+	else
+		if  [ $1 = "O" ] || [ $1 = "o" ]
+		then
+			o 
+		else
+			a
+		fi
+	fi
 }
 a(){
 rm -rf ummisco.gama.opengl.web/gaml/*
@@ -49,20 +60,17 @@ cp gamaweb.jar GamaWeb
 cd ../..
 }
 
-if  [ $1 = "A" ] || [ $1 = "a" ]
+
+if  [ "$1" = "A" ] || [ "$1" = "a" ]
 then
     a 
 	start java -jar cict.gama.jetty/target/GamaWeb/gamaweb.jar GamaWeb 8080 127.0.0.1:8080
-else
-	if  [ $1 = "B" ] || [ $1 = "b" ]
-	then
-		b 
-	else
-		if  [ $1 = "O" ] || [ $1 = "o" ]
-		then
-			o 
-		else
-			a
-		fi
-	fi
+elif [ "$1" = "B" ] || [ "$1" = "b" ]
+then
+    b 
+elif [ "$1" = "O" ] || [ "$1" = "o" ]
+then
+    o 
+else 
+	a
 fi
