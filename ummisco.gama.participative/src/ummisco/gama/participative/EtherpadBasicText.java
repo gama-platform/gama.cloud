@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.dslforge.styledtext.BasicText;
 import org.dslforge.styledtext.Position;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.rap.json.JsonObject;
@@ -179,50 +179,50 @@ public synchronized void setCollaborativeText(final String uid, String text, Str
 				         
 			ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 			Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
-			ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-				          
-			for(User u : onlines) {
-				if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
-					ArrayList<String> padlist = listPads.get(u.getId());
-				
-					System.out.println(" For the user  -> "+u.getId() + " The pas list is: "+padlist.toString());
-				    System.out.println(" Number of all opened editors are : "+listBt.size());
-				    
-				    if(padlist.contains(edPadId)) {
-				    	for(EtherpadBasicText bt : listBt) {
-				    		if(!bt.isDisposed())
-				        	if(!owner.equals(bt.owner)) {
-				        		final ServerPushSession pushSession = new ServerPushSession();
-				        		Runnable bgRunnable = new Runnable() {
-									@Override
-									public void run() {
-										Display display =   WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
-										display.syncExec( new Runnable() {
-											@Override
-											public void run() {
-												if(bt.edPadId.equals(padId)) {
-													if(!bt.getText().equals(text)) {
-														Position p = bt.getCursorPosition();
-												        //bt.setCollaborativeText("$c$"+text, p.row+1,p.column, true);
-												        bt.setCollaborativeText(text, false);
-												        bt.setCursorPosition(p.row+1, p.column);
-												        System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
-												    }
-													pushSession.stop();
-											     }
-											}
-										});
-									}
-								};
-								pushSession.start();
-								Thread bgThread = new Thread( bgRunnable );
-								bgThread.setDaemon( true );
-								bgThread.start();
-				        	}
-				        }
-					}
-				}
-			}
+//			ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//				          
+//			for(User u : onlines) {
+//				if(!u.getId().equals(RWT.getUISession().getAttribute("user"))) {
+//					ArrayList<String> padlist = listPads.get(u.getId());
+//				
+//					System.out.println(" For the user  -> "+u.getId() + " The pas list is: "+padlist.toString());
+//				    System.out.println(" Number of all opened editors are : "+listBt.size());
+//				    
+//				    if(padlist.contains(edPadId)) {
+//				    	for(EtherpadBasicText bt : listBt) {
+//				    		if(!bt.isDisposed())
+//				        	if(!owner.equals(bt.owner)) {
+//				        		final ServerPushSession pushSession = new ServerPushSession();
+//				        		Runnable bgRunnable = new Runnable() {
+//									@Override
+//									public void run() {
+//										Display display =   WorkbenchHelper.getDisplay(GAMA.getRuntimeScope());
+//										display.syncExec( new Runnable() {
+//											@Override
+//											public void run() {
+//												if(bt.edPadId.equals(padId)) {
+//													if(!bt.getText().equals(text)) {
+//														Position p = bt.getCursorPosition();
+//												        //bt.setCollaborativeText("$c$"+text, p.row+1,p.column, true);
+//												        bt.setCollaborativeText(text, false);
+//												        bt.setCursorPosition(p.row+1, p.column);
+//												        System.out.println("----> Updating editors from ->  "+owner+ " to "+ bt.owner+ " about pad: "+padId);
+//												    }
+//													pushSession.stop();
+//											     }
+//											}
+//										});
+//									}
+//								};
+//								pushSession.start();
+//								Thread bgThread = new Thread( bgRunnable );
+//								bgThread.setDaemon( true );
+//								bgThread.start();
+//				        	}
+//				        }
+//					}
+//				}
+//			}
 			epClient.setText(padId, text);
 		}
 	} );
@@ -297,21 +297,21 @@ public synchronized void setCollaborativeText(final String uid, String text, Str
 	
 		ArrayList<EtherpadBasicText> listBt = (ArrayList<EtherpadBasicText>) RWT.getApplicationContext().getAttribute("editors");
 	    Map <String, ArrayList<String>> listPads = (Map<String, ArrayList<String>>) RWT.getApplicationContext().getAttribute("listPads");
-	    ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-
-	    for(User u : onlines) {
-	    	if(u.getId().equals(RWT.getUISession().getAttribute("user"))) {
-		   		ArrayList<String> padlist = listPads.get(u.getId());
-		   		if(padlist.contains(this.edPadId)) {
-		   			padlist.remove(this.edPadId);
-		   			listPads.put(u.getId(), padlist);
-		   			RWT.getApplicationContext().setAttribute("listPads", listPads);
-		   		}
-		   	 if(this.isDisposed()) {
-			   	listBt.remove(this);
-			   	RWT.getApplicationContext().setAttribute("editors",listBt);
-			   }	
-		    }
-	    }
+//	    ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//
+//	    for(User u : onlines) {
+//	    	if(u.getId().equals(RWT.getUISession().getAttribute("user"))) {
+//		   		ArrayList<String> padlist = listPads.get(u.getId());
+//		   		if(padlist.contains(this.edPadId)) {
+//		   			padlist.remove(this.edPadId);
+//		   			listPads.put(u.getId(), padlist);
+//		   			RWT.getApplicationContext().setAttribute("listPads", listPads);
+//		   		}
+//		   	 if(this.isDisposed()) {
+//			   	listBt.remove(this);
+//			   	RWT.getApplicationContext().setAttribute("editors",listBt);
+//			   }	
+//		    }
+//	    }
 	}
 }

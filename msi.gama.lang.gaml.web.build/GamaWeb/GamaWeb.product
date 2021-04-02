@@ -31,9 +31,9 @@
       <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
-      <plugin id="msi.gama.application.web"/>
+      <plugin id="msi.gama.application_web"/>
       <plugin id="msi.gama.core"/>
-      <plugin id="msi.gama.core.web"/>
+      <plugin id="msi.gama.core_web"/>
       <plugin id="msi.gama.ext"/>
       <plugin id="msi.gama.lang.gaml"/>
       <plugin id="msi.gama.lang.gaml.web"/>
@@ -140,14 +140,14 @@
       <plugin id="simtools.gaml.extensions.physics"/>
       <plugin id="simtools.gaml.extensions.traffic"/>
       <plugin id="ummisco.gama.annotations"/>
-      <plugin id="ummisco.gama.java2d.web"/>
+      <plugin id="ummisco.gama.java2d_web"/>
       <plugin id="ummisco.gama.network"/>
-      <plugin id="ummisco.gama.opengl.web"/>
+      <plugin id="ummisco.gama.opengl_web"/>
       <plugin id="ummisco.gama.serialize"/>
-      <plugin id="ummisco.gama.ui.experiment.web"/>
-      <plugin id="ummisco.gama.ui.modeling.web"/>
-      <plugin id="ummisco.gama.ui.navigator.web"/>
-      <plugin id="ummisco.gama.ui.shared.web"/>
+      <plugin id="ummisco.gama.ui.experiment_web"/>
+      <plugin id="ummisco.gama.ui.modeling_web"/>
+      <plugin id="ummisco.gama.ui.navigator_web"/>
+      <plugin id="ummisco.gama.ui.shared_web"/>
       <plugin id="ummisco.gaml.extensions.maths"/>
       <plugin id="ummisco.gaml.extensions.stats"/>
    </plugins>
@@ -159,9 +159,9 @@
       <plugin id="irit.gaml.extensions.database" autoStart="false" startLevel="0" />
       <plugin id="javax.inject" autoStart="true" startLevel="5" />
       <plugin id="javax.xml" autoStart="true" startLevel="5" />
-      <plugin id="msi.gama.application.web" autoStart="false" startLevel="0" />
+      <plugin id="msi.gama.application_web" autoStart="false" startLevel="0" />
       <plugin id="msi.gama.core" autoStart="false" startLevel="0" />
-      <plugin id="msi.gama.core.web" autoStart="false" startLevel="0" />
+      <plugin id="msi.gama.core_web" autoStart="false" startLevel="0" />
       <plugin id="msi.gama.ext" autoStart="false" startLevel="0" />
       <plugin id="msi.gama.lang.gaml" autoStart="true" startLevel="5" />
       <plugin id="msi.gama.lang.gaml.web" autoStart="true" startLevel="5" />
@@ -228,14 +228,14 @@
       <plugin id="simtools.gaml.extensions.physics" autoStart="false" startLevel="0" />
       <plugin id="simtools.gaml.extensions.traffic" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.annotations" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.java2d.web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.java2d_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.network" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.opengl.web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.opengl_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.serialize" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.ui.experiment.web" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.ui.modeling.web" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.ui.navigator.web" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.ui.shared.web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.ui.experiment_web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.ui.modeling_web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.ui.navigator_web" autoStart="false" startLevel="0" />
+      <plugin id="ummisco.gama.ui.shared_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gaml.extensions.maths" autoStart="false" startLevel="5" />
       <plugin id="ummisco.gaml.extensions.stats" autoStart="false" startLevel="0" />
    </configurations>

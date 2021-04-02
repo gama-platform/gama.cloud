@@ -21,7 +21,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 //import org.json.simple.parser.JSONParser;
 
-import jdk.nashorn.internal.parser.JSONParser;
+//import jdk.nashorn.internal.parser.JSONParser;
 
 /**
  * Connection object for talking to and parsing responses from the Etherpad Lite Server.
@@ -174,28 +174,29 @@ public class EPLiteConnection {
      * @throws ParseException 
      */
     protected Object handleResponse(String jsonString) throws ParseException, ParseException {
-        JSONParser parser = new JSONParser(jsonString, null, false);
-		Map response = (Map) parser.parse();
-		// Act on the response code
-		if (response.get("code") != null)  {
-		    int code = ((Long) response.get("code")).intValue();
-		    switch ( code ) {
-		        // Valid code, parse the response
-		        case CODE_OK:
-		            return response.get("data");
-		        // Invalid code, throw an exception with the message
-		        case CODE_INVALID_PARAMETERS:
-		        case CODE_INTERNAL_ERROR:
-		        case CODE_INVALID_METHOD:
-		        case CODE_INVALID_API_KEY:
-		            throw new EPLiteException((String)response.get("message"));
-		        default:
-		            throw new EPLiteException("An unknown error has occurred while handling the response: " + jsonString);
-		    }
-		// No response code, something's really wrong
-		} else {
-		    throw new EPLiteException("An unexpected response from the server: " + jsonString);
-		}
+		return null;
+//        JSONParser parser = new JSONParser(jsonString, null, false);
+//		Map response = (Map) parser.parse();
+//		// Act on the response code
+//		if (response.get("code") != null)  {
+//		    int code = ((Long) response.get("code")).intValue();
+//		    switch ( code ) {
+//		        // Valid code, parse the response
+//		        case CODE_OK:
+//		            return response.get("data");
+//		        // Invalid code, throw an exception with the message
+//		        case CODE_INVALID_PARAMETERS:
+//		        case CODE_INTERNAL_ERROR:
+//		        case CODE_INVALID_METHOD:
+//		        case CODE_INVALID_API_KEY:
+//		            throw new EPLiteException((String)response.get("message"));
+//		        default:
+//		            throw new EPLiteException("An unknown error has occurred while handling the response: " + jsonString);
+//		    }
+//		// No response code, something's really wrong
+//		} else {
+//		    throw new EPLiteException("An unexpected response from the server: " + jsonString);
+//		}
     }
 
     /**

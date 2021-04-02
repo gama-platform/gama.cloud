@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dslforge.styledtext.Annotation;
-import org.dslforge.workspace.jpa.database.User;
+//import org.dslforge.workspace.jpa.database.User;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
@@ -131,13 +131,13 @@ public class EtherpadEditor extends AbstractGamlEtherpadEditor  implements IGaml
 		String uid=RWT.getUISession().getAttribute("user").toString();
 		
 		
-		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		for(User us:onlines) {
-			if(us.getId().equals(uid)) {
-				us.setOrganization(xtextResource.getURI().toFileString());
-			}
-		}
-		RWT.getApplicationContext().setAttribute("onlines", onlines);
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		for(User us:onlines) {
+//			if(us.getId().equals(uid)) {
+//				us.setOrganization(xtextResource.getURI().toFileString());
+//			}
+//		}
+//		RWT.getApplicationContext().setAttribute("onlines", onlines);
 
 		
 	}
@@ -360,17 +360,17 @@ public void openEtherpaEditor(final String absolutePath) {
 		//((EtherpadBasicText)getViewer().getTextWidget()).setText(uid, value, this.padId);
 		((EtherpadBasicText)getViewer().getTextWidget()).setCollaborativeText(uid, value, this.padId, this.etherpadUrl);
 	
-		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
-		//getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
-		//((EtherpadBasicText)getViewer().getTextWidget()).setCursorPosition(2, 2);
-		for(User u:onlines) {
-			if(u.getId().equals(uid)) {
-				u.setOrganization(xtextResource.getURI().toFileString());
-				u.setLastName(""+offset);
-			}
-		}
-
-		RWT.getApplicationContext().setAttribute("onlines", onlines);
+//		ArrayList<User> onlines= (ArrayList<User>) RWT.getApplicationContext().getAttribute("onlines");
+//		//getViewer().getTextWidget().setCursorPosition(new Position(0, 0));
+//		//((EtherpadBasicText)getViewer().getTextWidget()).setCursorPosition(2, 2);
+//		for(User u:onlines) {
+//			if(u.getId().equals(uid)) {
+//				u.setOrganization(xtextResource.getURI().toFileString());
+//				u.setLastName(""+offset);
+//			}
+//		}
+//
+//		RWT.getApplicationContext().setAttribute("onlines", onlines);
 	}
 	
 	

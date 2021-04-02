@@ -30,11 +30,11 @@ Require-Bundle: org.eclipse.rap.ui,
  org.dslforge.workspace,
  msi.gama.ext,
  msi.gama.core,
- msi.gama.core.web,
+ msi.gama.core_web,
  org.dslforge.workspace.config,
  org.eclipse.jface,
- ummisco.gama.ui.shared.web,
- msi.gama.application.web
+ ummisco.gama.ui.shared_web,
+ msi.gama.application_web
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: msi.gama.lang.gaml.web.workbench,
  msi.gama.rap.oauth

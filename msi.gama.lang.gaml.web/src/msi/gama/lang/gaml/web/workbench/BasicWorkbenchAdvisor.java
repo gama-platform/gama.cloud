@@ -159,8 +159,8 @@ public class BasicWorkbenchAdvisor extends WorkbenchAdvisor {
 //						List<String> bundle = new ArrayList<String>(Arrays.asList("org.eclipse.core.resources",
 //								"org.eclipse.rap.ui.workbench", "org.eclipse.rap.ui.navigator",
 //								"org.eclipse.jetty.server", "org.eclipse.wst.sse.core",
-//								"org.eclipse.ltk.core.refactoring", "ummisco.gama.ui.shared.web",
-//								"ummisco.gama.ui.modeling.web", "ummisco.gama.ui.experiment.web",
+//								"org.eclipse.ltk.core.refactoring", "ummisco.gama.ui.shared_web",
+//								"ummisco.gama.ui.modeling.web", "ummisco.gama.ui.experiment_web",
 //								"org.dslforge.xtext.common", "org.dslforge.workspace.ui ", "org.dslforge.texteditor",
 //								"org.dslforge.styledtext", "ummisco.gama.ui.modeling.web"));
 //						bundle.forEach(each -> {

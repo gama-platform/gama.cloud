@@ -22,14 +22,14 @@ Require-Bundle: msi.gama.core;bundle-version="1.7.0",
  org.eclipse.xtext,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
- msi.gama.core.web,
+ msi.gama.core_web,
  org.eclipse.rap.ui.views,
  msi.gama.lang.gaml,
  msi.gama.lang.gaml.web,
  org.junit,
- ummisco.gama.ui.shared.web;bundle-version="1.7.0",
- ummisco.gama.ui.experiment.web;bundle-version="1.7.0",
- ummisco.gama.ui.modeling.web
+ ummisco.gama.ui.shared_web;bundle-version="1.7.0",
+ ummisco.gama.ui.experiment_web;bundle-version="1.7.0",
+ ummisco.gama.ui.modeling_web
 Export-Package: ummisco.gama.participative,
  ummisco.gama.participative.texteditor,
  ummisco.gama.participative.xtext.common

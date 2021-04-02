@@ -21,8 +21,8 @@ if  [ $1 = "B" ] || [ $1 = "b" ]
 	fi
 }
 a(){
-rm -rf ummisco.gama.opengl.web/gaml/*
-rm -rf ummisco.gama.java2d.web/gaml/*
+rm -rf ummisco.gama.opengl_web/gaml/*
+rm -rf ummisco.gama.java2d_web/gaml/*
 cd msi.gama.lang.gaml.web.target
 mvn clean install
 cd ../msi.gama.lang.gaml.web.build
@@ -41,8 +41,8 @@ cd ../..
 }
 
 o(){
-rm -rf ummisco.gama.opengl.web/gaml/*
-rm -rf ummisco.gama.java2d.web/gaml/*
+rm -rf ummisco.gama.opengl_web/gaml/*
+rm -rf ummisco.gama.java2d_web/gaml/*
 cd msi.gama.lang.gaml.web.target
 mvn clean install -o
 cd ../msi.gama.lang.gaml.web.build
