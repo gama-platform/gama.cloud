@@ -157,7 +157,7 @@
          id="webapplication"
          point="org.eclipse.core.runtime.products">
       <product
-            application="msi.gama.lang.gaml.web.editor.application"
+            application="msi.gama.application_web.GamaApplication"
             name="Gaml Web Editor Product">
          <property
                name="appName"

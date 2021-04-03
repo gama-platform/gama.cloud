@@ -49,7 +49,8 @@ public class RunWarExample {
 
 	public void retrieveWar(String contextpath) {
 //		warFile = new File(executionPath + "/" + contextpath + ".war");
-		String warpath = "C:\\git\\gama.cloud\\cict.gama.jetty\\target\\GamaWeb\\GamaWeb.war";
+//		String warpath = "C:\\git\\gama.cloud\\cict.gama.jetty\\target\\GamaWeb\\GamaWeb.war";
+		String warpath = "C:\\git\\gama.cloud\\msi.gama.lang.gaml.web.build\\GamaWeb\\target\\GamaWeb.war";
 
 		warFile = new File(warpath);
 //		warpath=file1.getAbsolutePath();
