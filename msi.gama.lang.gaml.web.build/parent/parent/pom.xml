@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<modelVersion>4.0.0</modelVersion>
 	<prerequisites>
@@ -13,7 +14,7 @@
 	<properties>
 		<tycho.version>2.2.0</tycho.version>
 		<tycho.showEclipseLog>true</tycho.showEclipseLog>
-		<jdk.version>15</jdk.version>		
+		<jdk.version>15</jdk.version>
 		<assembly-version>2.4</assembly-version>
 		<replacer-version>1.4.1</replacer-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,16 +36,46 @@
 			<url>scp://51.255.46.42/./var/www/gama_cloud</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>gaml</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<debug>false</debug>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<compilerArgument>-warn:+discouraged,forbidden</compilerArgument>
+					<useProjectSettings>false</useProjectSettings>
+					<generatedSourcesDirectory>gaml</generatedSourcesDirectory>
+					<optimize>true</optimize>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
+					<annotationProcessors>
+						<annotationProcessor>msi.gama.precompiler.GamaProcessor</annotationProcessor>
+					</annotationProcessors>
 				</configuration>
 				<version>${tycho.version}</version>
 				<extensions>true</extensions>
@@ -54,21 +85,20 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<!-- 
-					 -->
-					 <target>
+					<!-- -->
+					<target>
 						<artifact>
 							<groupId>msi.gama</groupId>
 							<artifactId>${language.name}</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
 						</artifact>
 					</target>
-					<environments> 
+					<environments>
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
 							<arch>x86_64</arch>
-						</environment>						
+						</environment>
 					</environments>
 				</configuration>
 			</plugin>
@@ -123,117 +153,44 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<archiveSite>true</archiveSite>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.dash.maven</groupId>
+				<artifactId>eclipse-signing-maven-plugin</artifactId>
+				<version>1.0.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.fornax.toolsupport</groupId>
+				<artifactId>fornax-oaw-m2-plugin</artifactId>
+				<version>3.3.0</version>
+			</plugin>
+			
 		</plugins>
-
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-compiler-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
-					</configuration>
-				</plugin>
-	      		<plugin>
-	      			<groupId>org.eclipse.tycho</groupId>
-	      			<artifactId>tycho-packaging-plugin</artifactId>
-	      			<version>${tycho.version}</version>
-	      			<configuration>
-	        			<archiveSite>true</archiveSite>
-	      			</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>maven-osgi-test-plugin</artifactId>
-					<version>${tycho.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-repository-plugin</artifactId>
-					<version>${tycho.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.6</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.3</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.12.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>2.4.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.2-beta-4</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.3.2</version>
-					<configuration>
-						<findbugsXmlOutput>true</findbugsXmlOutput>
-						<failOnError>false</failOnError>
-					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>check</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.dash.maven</groupId>
-					<artifactId>eclipse-signing-maven-plugin</artifactId>
-					<version>1.0.5</version>
-				</plugin>
-				<plugin>
-					<groupId>org.fornax.toolsupport</groupId>
-					<artifactId>fornax-oaw-m2-plugin</artifactId>
-					<version>3.3.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.xtend</groupId>
-					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtend.maven.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>compile</goal>
-								<goal>xtend-install-debug-info</goal>
-								<goal>testCompile</goal>
-								<goal>xtend-test-install-debug-info</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<outputDirectory>xtend-gen</outputDirectory>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -247,7 +204,7 @@
 			</extension>
 		</extensions>
 	</build>
-	
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>mvn</id>
@@ -260,7 +217,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
- 
+
 	<profiles>
 		<profile>
 			<id>Gaml</id>
@@ -284,16 +241,16 @@
 						<artifactId>maven-deploy-plugin</artifactId>
 						<version>2.5</version>
 						<executions>
-		                <!-- disable standard deploy -->
-		                <execution>
-		                    <id>default-deploy</id>
-		                    <phase>none</phase>
-		                </execution>
-		                <execution>
-		                    <id>deployEssential</id>
-		                    <phase>deploy</phase>
-		                </execution>
-		            </executions>
+							<!-- disable standard deploy -->
+							<execution>
+								<id>default-deploy</id>
+								<phase>none</phase>
+							</execution>
+							<execution>
+								<id>deployEssential</id>
+								<phase>deploy</phase>
+							</execution>
+						</executions>
 						<dependencies>
 							<dependency>
 								<groupId>org.apache.maven.wagon</groupId>
@@ -420,14 +377,14 @@
 							<showWarnings>true</showWarnings>
 							<showDeprecation>true</showDeprecation>
 						</configuration>
-		
+
 						<dependencies>
 							<dependency>
 								<groupId>org.codehaus.plexus</groupId>
 								<artifactId>plexus-compiler-eclipse</artifactId>
 								<version>2.8.8</version>
 							</dependency>
-		
+
 							<dependency>
 								<groupId>org.eclipse.jdt</groupId>
 								<artifactId>ecj</artifactId>
@@ -435,7 +392,7 @@
 							</dependency>
 						</dependencies>
 					</plugin>
-							
+
 				</plugins>
 			</build>
 		</profile>
