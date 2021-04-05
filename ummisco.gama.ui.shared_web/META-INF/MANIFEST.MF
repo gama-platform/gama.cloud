@@ -34,7 +34,6 @@ Require-Bundle: org.eclipse.rap.ui,
  msi.gama.application_web;bundle-version="1.7.0",
  msi.gama.core_web,
  cict.gama.web.wrapper;bundle-version="1.7.0",
- org.dslforge.workspace.ui,
  javax.inject,
  msi.gama.lang.gaml;bundle-version="1.7.0",
  org.apache.commons.lang;bundle-version="2.6.0"

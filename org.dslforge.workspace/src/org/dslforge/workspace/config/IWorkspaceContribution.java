@@ -26,5 +26,5 @@ public interface IWorkspaceContribution {
 	 * 
 	 * @return the workspace root path
 	 */
-	IPath getRootPath();
+	public IPath getWorkspaceRootPath();
 }

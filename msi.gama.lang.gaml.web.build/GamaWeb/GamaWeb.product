@@ -49,13 +49,9 @@
       <plugin id="org.apache.felix.gogo.runtime"/>
       <plugin id="org.apache.felix.gogo.shell"/>
       <plugin id="org.apache.log4j"/>
-      <plugin id="org.dslforge.common.logging" fragment="true"/>
       <plugin id="org.dslforge.styledtext"/>
       <plugin id="org.dslforge.texteditor"/>
       <plugin id="org.dslforge.workspace"/>
-      <plugin id="org.dslforge.workspace.config"/>
-      <plugin id="org.dslforge.workspace.ui"/>
-      <plugin id="org.dslforge.xtext.common"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
@@ -156,9 +152,6 @@
       <plugin id="org.dslforge.styledtext" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.texteditor" autoStart="true" startLevel="5" />
       <plugin id="org.dslforge.workspace" autoStart="true" startLevel="5" />
-      <plugin id="org.dslforge.workspace.config" autoStart="true" startLevel="1" />
-      <plugin id="org.dslforge.workspace.ui" autoStart="true" startLevel="5" />
-      <plugin id="org.dslforge.xtext.common" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.core.databinding" autoStart="true" startLevel="5" />

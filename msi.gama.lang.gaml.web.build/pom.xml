@@ -20,10 +20,7 @@
 		<module>../msi.gama.lang.gaml.web.target</module>
 		<module>../org.dslforge.styledtext</module>
 		<module>../org.dslforge.texteditor</module>
-		<module>../org.dslforge.workspace.config</module>
 		<module>../org.dslforge.workspace</module>
-		<module>../org.dslforge.xtext.common</module>
-		<module>../org.dslforge.workspace.ui</module>
  			
 
  		<module>../cict.gama.web.wrapper</module>	
@@ -38,6 +35,9 @@
  		<module>../ummisco.gama.java2d_web</module>	
  		
 		<!-- 
+		<module>../org.dslforge.workspace.config</module>
+		<module>../org.dslforge.xtext.common</module>
+		<module>../org.dslforge.workspace.ui</module>
 		<module>../org.dslforge.common.logging</module>
 		<module>../org.dslforge.workspace.jpa</module>
  		<module>../ummisco.gama.participative</module>	
