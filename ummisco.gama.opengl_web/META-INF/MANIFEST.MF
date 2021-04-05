@@ -21,9 +21,6 @@ Require-Bundle: msi.gama.ext,
  ummisco.gama.ui.experiment_web;bundle-version="1.7.0",
  cict.gama.web.wrapper
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.commons.lang;version="2.6.0",
- org.jfree.chart,
- org.locationtech.jts.geom
 Export-Package: 
  cict.gama.webgl,
  com.jogamp.common.nio,
@@ -55,3 +52,4 @@ Export-Package:
 Bundle-Vendor: UMMISCO
 Bundle-ClassPath: .
 Automatic-Module-Name: ummisco.gama.opengl.web
+Import-Package: org.locationtech.jts.geom
