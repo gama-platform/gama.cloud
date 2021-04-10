@@ -3,7 +3,9 @@
 install (){
 	echo "install GAMA cloud project"			
 	
-	cd msi.gama.lang.gaml.web.build 
+	cd msi.gama.lang.gaml.web.target
+	mvn clean install
+	cd ../msi.gama.lang.gaml.web.build
 	
 	if  [[ $MSG == *"ci debug"* ]]; then		
 		mvn -X clean install > output.txt
@@ -33,9 +35,8 @@ deploy(){
 	echo "Deploy to p2 update site"	
 	
 	
-	cd msi.gama.lang.gaml.web.build/GamaWeb 
-	mvn deploy -P p2Repo --settings ../../settings.xml -Dmaven.test.skip=true 
-	cd ../../cict.gama.jetty    
+	
+	cd cict.gama.jetty    
 	mvn clean install 
 	cd target
 	sudo cp gamaweb.jar GamaWeb
