@@ -26,7 +26,7 @@ COMMIT=$@
 
 REPO="gama-platform/gama.cloud"
 RELEASE="latest"
-thePATH="/home/travis/build/gama-platform/gama.cloud/cict.gama.jetty/target/GamaWeb.zip"
+thePATH="$GITHUB_WORKSPACE/cict.gama.jetty/target/GamaWeb.zip"
 
  
 
