@@ -80,7 +80,6 @@
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.servletbridge"/>
-      <plugin id="org.eclipse.equinox.util"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.text"/>
@@ -178,7 +177,6 @@
       <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="5" />
-      <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="5" />
