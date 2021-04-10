@@ -23,7 +23,9 @@ install (){
 		mvn clean install
 	fi
 	
-	cd ..
+	cd GamaWeb 
+	mvn clean install 
+	cd ../..
 }
 
 clean(){
