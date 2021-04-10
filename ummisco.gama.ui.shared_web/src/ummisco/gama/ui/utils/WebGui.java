@@ -59,6 +59,7 @@ import msi.gama.runtime.ISimulationStateProvider;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
 import msi.gama.util.GamaFont;
 import msi.gama.util.GamaMapFactory;
+import msi.gama.util.IList;
 import msi.gama.util.IMap;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
@@ -714,6 +715,18 @@ public class WebGui implements IGui {
 	public boolean isInDisplayThread() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public IList<IMap<String, Object>> openWizard(IScope scope, String title, IList<IMap<String, Object>> pages) {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public Boolean openUserInputDialogConfirm(IScope scope, String title, String message) {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 
 

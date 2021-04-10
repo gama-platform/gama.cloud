@@ -6,7 +6,7 @@ function update_tag() {
 	git config --global user.email "hqnghi88@gmail.com"
 	git config --global user.name "HUYNH Quang Nghi"
 	git remote rm origin
-	git remote add origin https://hqnghi88:$HQN_TOKEN@github.com/gama-platform/gama.git
+	git remote add origin https://hqnghi88:$BOT_TOKEN@github.com/gama-platform/gama.git
 	git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 	git fetch
 	git checkout master
@@ -31,10 +31,14 @@ thePATH="/home/travis/build/gama-platform/gama.cloud/cict.gama.jetty/target/Gama
  
 
 
-
+ 
 COMMIT="${COMMIT:0:7}"
+BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 3)
+COMMIT=$(echo $GITHUB_SHA | cut -c1-8)
 
 timestamp=$(date '+_%D')
+ 
+
 SUFFIX=$timestamp'_'$COMMIT'.war'
 echo $SUFFIX
 
@@ -45,7 +49,7 @@ LK1="https://api.github.com/repos/gama-platform/gama.cloud/releases/tags/$RELEAS
 
 echo   "Getting info of release ...  "
 RESULT1=`curl  -s -X GET \
--H "Authorization: token $HQN_TOKEN"   \
+-H "Authorization: token $BOT_TOKEN"   \
 "$LK1"`	
 echo $RESULT1
 
@@ -62,7 +66,7 @@ echo $RESULT1
 
 	echo   "Deleting release ...  "
 	RESULT1=`curl  -s -X DELETE \
-	-H "Authorization: token $HQN_TOKEN"   \
+	-H "Authorization: token $BOT_TOKEN"   \
 	"$LK1"`	
 	echo $RESULT1
 	break
@@ -78,7 +82,7 @@ LK="https://api.github.com/repos/gama-platform/gama.cloud/releases"
   RESULT=` curl -s -X POST \
   -H "X-Parse-Application-Id: sensitive" \
   -H "X-Parse-REST-API-Key: sensitive" \
-  -H "Authorization: token $HQN_TOKEN"   \
+  -H "Authorization: token $BOT_TOKEN"   \
   -H "Content-Type: application/json" \
   -d '{"tag_name": "'$RELEASE'", "name":"GAMA Web","body":"to be official Released soon","draft": false,"prerelease": true}' \
     "$LK"`
@@ -108,7 +112,7 @@ LK="https://api.github.com/repos/gama-platform/gama.cloud/releases/tags/$RELEASE
   RESULT=` curl -s -X GET \
   -H "X-Parse-Application-Id: sensitive" \
   -H "X-Parse-REST-API-Key: sensitive" \
-  -H "Authorization: token $HQN_TOKEN"   \
+  -H "Authorization: token $BOT_TOKEN"   \
   -H "Content-Type: application/json" \
   -d '{"name":"value"}' \
     "$LK"`
@@ -122,7 +126,7 @@ echo $RELEASEID
   RESULT=` curl -s -X GET \
   -H "X-Parse-Application-Id: sensitive" \
   -H "X-Parse-REST-API-Key: sensitive" \
-  -H "Authorization: token $HQN_TOKEN"   \
+  -H "Authorization: token $BOT_TOKEN"   \
   -H "Content-Type: application/json" \
   -d '{"name":"value"}' \
     "$LK"`
@@ -146,7 +150,7 @@ if [ $check -gt 4 ]; then
 		  
 			echo   "Deleting $LK1...  "
 		  RESULT1=`curl  -s -X  "DELETE"                \
-			-H "Authorization: token $HQN_TOKEN"   \
+			-H "Authorization: token $BOT_TOKEN"   \
 			"$LK1"`	
 			echo $RESULT1
 		fi
@@ -166,7 +170,7 @@ echo
   LK="https://uploads.github.com/repos/gama-platform/gama.cloud/releases/$RELEASEID/assets?name=$NFILE"
   
   RESULT=`curl -s -w  "\n%{http_code}\n"                   \
-    -H "Authorization: token $HQN_TOKEN"                \
+    -H "Authorization: token $BOT_TOKEN"                \
     -H "Accept: application/vnd.github.manifold-preview"  \
     -H "Content-Type: application/zip"                    \
     --data-binary "@$FILE"                                \
