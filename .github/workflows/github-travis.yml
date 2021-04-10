@@ -19,27 +19,22 @@ jobs:
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8 
+          java-version: 15 
 
       - name: Prepare build
         run: |
           echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=1024m'" >> ~/.mavenrc
           sudo apt install sshpass -y
-
-      - name: Prepare SSH (if needed)
-        if: ${{ contains(github.event.head_commit.message, 'ci clean') && contains(github.event.head_commit.message, 'ci release') }} 
-        shell: bash
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 400 ~/.ssh/id_rsa
-          chmod 700 ~/.ssh
-          cat << EOF > ~/.ssh/config
-          Host *
-              ServerAliveInterval 60
-              StrictHostKeyChecking no
-          EOF
-
+          sudo chmod +x $GITHUB_WORKSPACE/*.sh          
+ 
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+ 
       - name: Compile with Maven
         shell: bash
         run: $GITHUB_WORKSPACE/compile.sh 
