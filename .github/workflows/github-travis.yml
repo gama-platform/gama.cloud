@@ -46,7 +46,7 @@ jobs:
 
       - name: Publish to Github
         shell: bash
-        run: $GITHUB_WORKSPACE/travis/publish.sh
+        run: $GITHUB_WORKSPACE/publish.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
           SSHPASS: ${{ secrets.USER_PWD }}
