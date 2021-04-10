@@ -10,7 +10,7 @@ echo $MESSAGE
 echo $MSG
 if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then 	
 	release  
-else
+else 
 	if  [[ ${MESSAGE} == *"ci release"* ]] || [[ $MSG == *"ci release"* ]]; then	
 		release 
 	fi	
