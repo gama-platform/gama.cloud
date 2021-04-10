@@ -6,7 +6,7 @@ function update_tag() {
 	git config --global user.email "hqnghi88@gmail.com"
 	git config --global user.name "HUYNH Quang Nghi"
 	git remote rm origin
-	git remote add origin https://hqnghi88:$BOT_TOKEN@github.com/gama-platform/gama.git
+	git remote add origin https://gama-bot:$BOT_TOKEN@github.com/gama-platform/gama.git
 	git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 	git fetch
 	git checkout master

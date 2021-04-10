@@ -40,7 +40,7 @@ jobs:
         run: $GITHUB_WORKSPACE/compile.sh 
         env:
           MSG: ${ github.event.head_commit.message }
-          HQN_TOKEN: ${{ secrets.HQN_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TRAVIS_COMMIT: ${ GITHUB_SHA }
           TRAVIS_EVENT_TYPE: ${{ github.event_name }}
 
@@ -50,6 +50,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           SSHPASS: ${{ secrets.USER_PWD }}
-          BOT_TOKEN: ${{ secrets.GAMA_BOT_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TRAVIS_COMMIT: ${ GITHUB_SHA }
           TRAVIS_EVENT_TYPE: ${{ github.event_name }}

@@ -14,7 +14,7 @@ install (){
 		git config --global user.name "Travis CI"
 		git config --global push.default simple	
 		git remote rm origin
-		git remote add origin https://hqnghi88:$HQN_TOKEN@github.com/gama-platform/gama.cloud
+		git remote add origin https://gama-bot:$BOT_TOKEN@github.com/gama-platform/gama.cloud
 		git status
 		git add -A		
 		git commit -m "debug output ci skip"
