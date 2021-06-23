@@ -1,10 +1,12 @@
 /*********************************************************************************************
  *
  * 'LayerSideControls.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * simulation platform. (v. 1.8.1)
+ *
+ * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package ummisco.gama.ui.views.displays;
@@ -26,6 +28,7 @@ import msi.gama.common.interfaces.IDisplaySurface;
 import msi.gama.common.interfaces.IKeyword;
 import msi.gama.common.interfaces.ILayer;
 import msi.gama.common.interfaces.ItemList;
+import msi.gama.common.preferences.GamaPreferences;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.ILocation;
 import msi.gama.outputs.LayeredDisplayData;
@@ -42,17 +45,18 @@ import msi.gama.util.GamaColor;
 import msi.gama.util.GamaListFactory;
 import msi.gama.util.IList;
 import msi.gaml.expressions.IExpression;
+import msi.gaml.operators.Strings;
 import msi.gaml.types.Types;
 import ummisco.gama.ui.controls.ParameterExpandBar;
 import ummisco.gama.ui.controls.ParameterExpandItem;
 import ummisco.gama.ui.interfaces.EditorListener;
+import ummisco.gama.ui.parameters.BooleanEditor;
 import ummisco.gama.ui.parameters.ColorEditor;
 import ummisco.gama.ui.parameters.EditorFactory;
 import ummisco.gama.ui.parameters.FloatEditor;
 import ummisco.gama.ui.parameters.IntEditor;
 import ummisco.gama.ui.parameters.PointEditor;
 import ummisco.gama.ui.parameters.StringEditor;
-import ummisco.gama.ui.resources.IGamaColors;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 
 /**
@@ -71,7 +75,7 @@ public class LayerSideControls {
 	public Composite fill(final Composite parent, final LayeredDisplayView view) {
 
 		final Composite column = new Composite(parent, SWT.NONE);
-		column.setBackground(IGamaColors.WHITE.color());
+		// column.setBackground(IGamaColors.WHITE.color());
 		GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
 		column.setLayoutData(data);
 		final GridLayout layout = new GridLayout(2, false);
@@ -79,7 +83,7 @@ public class LayerSideControls {
 		column.setLayout(layout);
 
 		final Composite viewersComposite = new Composite(parent, SWT.None);
-		viewersComposite.setBackground(IGamaColors.WHITE.color());
+		// viewersComposite.setBackground(IGamaColors.WHITE.color());
 		data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		viewersComposite.setLayoutData(data);
 		viewersComposite.setLayout(new GridLayout(1, true));
@@ -148,7 +152,7 @@ public class LayerSideControls {
 		createItem(viewer, "OpenGL", null, contents);
 	}
 
-	PointEditor cameraPos, cameraTarget, cameraUp;
+	PointEditor cameraPos, cameraTarget, cameraOrientation;
 	StringEditor preset;
 	IntEditor zoom;
 	FloatEditor rotate;
@@ -171,7 +175,7 @@ public class LayerSideControls {
 			preset.setActive(!newValue);
 			cameraPos.setActive(!newValue);
 			cameraTarget.setActive(!newValue);
-			cameraUp.setActive(!newValue);
+			cameraOrientation.setActive(!newValue);
 			zoom.setActive(!newValue);
 			data.disableCameraInteractions(newValue);
 		});
@@ -188,39 +192,44 @@ public class LayerSideControls {
 					data.setCameraPos((GamaPoint) newValue);
 					ds.updateDisplay(true);
 				});
-		cameraTarget = EditorFactory.create(scope, contents, "Target:", data.getCameraLookPos(),
+		cameraTarget = EditorFactory.create(scope, contents, "Target:", data.getCameraTarget(),
 				(EditorListener<ILocation>) newValue -> {
 					data.setCameraLookPos((GamaPoint) newValue);
 					ds.updateDisplay(true);
 				});
-		cameraUp = EditorFactory.create(scope, contents, "Orientation:", data.getCameraUpVector(),
+		cameraOrientation = EditorFactory.create(scope, contents, "Orientation:", data.getCameraOrientation(),
 				(EditorListener<ILocation>) newValue -> {
-					data.setCameraUpVector((GamaPoint) newValue);
+					data.setCameraOrientation((GamaPoint) newValue);
 					ds.updateDisplay(true);
 				});
 		preset.setActive(!cameraLocked);
 		cameraPos.setActive(!cameraLocked);
 		cameraTarget.setActive(!cameraLocked);
-		cameraUp.setActive(!cameraLocked);
+		cameraOrientation.setActive(!cameraLocked);
 		zoom.setActive(!cameraLocked);
 		data.addListener((p, v) -> {
 			switch (p) {
 				case CAMERA_POS:
 					cameraPos.getParam().setValue(scope, data.getCameraPos());
 					cameraPos.forceUpdateValueAsynchronously();
+					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				case CAMERA_TARGET:
-					cameraTarget.getParam().setValue(scope, data.getCameraLookPos());
+					cameraTarget.getParam().setValue(scope, data.getCameraTarget());
 					cameraTarget.forceUpdateValueAsynchronously();
+					copyCameraAndKeystoneDefinition(scope, data);
 					break;
-				case CAMERA_UP:
-					cameraUp.getParam().setValue(scope, data.getCameraUpVector());
-					cameraUp.forceUpdateValueAsynchronously();
+				case CAMERA_ORIENTATION:
+					cameraOrientation.getParam().setValue(scope, data.getCameraOrientation());
+					cameraOrientation.forceUpdateValueAsynchronously();
+					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				case CAMERA_PRESET:
 					preset.getParam().setValue(scope, "Choose...");
 					preset.forceUpdateValueAsynchronously();
+					copyCameraAndKeystoneDefinition(scope, data);
 					break;
+
 				default:
 					;
 			}
@@ -236,12 +245,7 @@ public class LayerSideControls {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				String text = IKeyword.CAMERA_POS + ": "
-						+ cameraPos.getCurrentValue().yNegated().withPrecision(4).serialize(false);
-				text += " " + IKeyword.CAMERA_LOOK_POS + ": "
-						+ cameraTarget.getCurrentValue().yNegated().withPrecision(4).serialize(false);
-				text += " " + IKeyword.CAMERA_UP_VECTOR + ": "
-						+ cameraUp.getCurrentValue().withPrecision(4).serialize(false);
+				final String text = cameraDefinitionToCopy();
 				WorkbenchHelper.copy(text);
 			}
 
@@ -259,11 +263,11 @@ public class LayerSideControls {
 		final PointEditor[] point = new PointEditor[4];
 		final ICoordinates points = data.getKeystone();
 		int i = 0;
-		for (final GamaPoint p : points) {
+		for (@SuppressWarnings ("unused") final GamaPoint p : points) {
 			final int j = i;
 			i++;
-			point[j] = EditorFactory.create(scope, contents, "Point " + j + ":",
-					(GamaPoint) data.getKeystone().at(j).clone(), (EditorListener<ILocation>) newValue -> {
+			point[j] = EditorFactory.create(scope, contents, "Point " + j + ":", data.getKeystone().at(j).clone(),
+					(EditorListener<ILocation>) newValue -> {
 						data.getKeystone().at(j).setLocation(newValue);
 						data.setKeystone(data.getKeystone());
 						ds.updateDisplay(true);
@@ -277,6 +281,8 @@ public class LayerSideControls {
 						point[k].getParam().setValue(scope, data.getKeystone().at(k));
 						point[k].forceUpdateValueAsynchronously();
 					}
+					data.setAntialias(data.isKeystoneDefined());
+					copyCameraAndKeystoneDefinition(scope, data);
 					break;
 				default:
 					;
@@ -294,9 +300,7 @@ public class LayerSideControls {
 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final IList<GamaPoint> pp =
-						GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
-				final String text = IKeyword.KEYSTONE + ": " + pp.serialize(false);
+				final String text = keystoneDefinitionToCopy(scope, data);
 				WorkbenchHelper.copy(text);
 			}
 
@@ -309,10 +313,12 @@ public class LayerSideControls {
 		final IDisplaySurface ds = view.getDisplaySurface();
 		final IScope scope = ds.getScope();
 		final LayeredDisplayData data = ds.getData();
-		EditorFactory.create(scope, contents, "Antialias:", data.isAntialias(), (EditorListener<Boolean>) newValue -> {
-			data.setAntialias(newValue);
-			ds.updateDisplay(true);
-		});
+		final BooleanEditor antialias = EditorFactory.create(scope, contents, "Antialias:", data.isAntialias(),
+				(EditorListener<Boolean>) newValue -> {
+					data.setAntialias(newValue);
+					ds.updateDisplay(true);
+				});
+
 		final ColorEditor background = EditorFactory.create(scope, contents, "Background:", data.getBackgroundColor(),
 				(EditorListener<Color>) newValue -> {
 					data.setBackgroundColor(new GamaColor(newValue));
@@ -323,16 +329,15 @@ public class LayerSideControls {
 					data.setHighlightColor(new GamaColor(newValue));
 					ds.updateDisplay(true);
 				});
-		zoom = EditorFactory.create(scope, contents, "Zoom (%):", "",
-				Integer.valueOf((int) (data.getZoomLevel() * 100)), 0, null, 1, (EditorListener<Integer>) newValue -> {
+		zoom = EditorFactory.create(scope, contents, "Zoom (%):", "", (int) (data.getZoomLevel() * 100), 0, null, 1,
+				(EditorListener<Integer>) newValue -> {
 					data.setZoomLevel(newValue.doubleValue() / 100d, true, false);
 					ds.updateDisplay(true);
 				});
 
 		if (view.isOpenGL()) {
-			rotate = EditorFactory.create(scope, contents, "Z-axis rotation:",
-					Double.valueOf(data.getCurrentRotationAboutZ()), null, null, 0.1, false,
-					(EditorListener<Double>) newValue -> {
+			rotate = EditorFactory.create(scope, contents, "Z-axis rotation:", data.getCurrentRotationAboutZ(), null,
+					null, 0.1, false, (EditorListener<Double>) newValue -> {
 						data.setZRotationAngle(newValue);
 						// ds.updateDisplay(true);
 					});
@@ -340,7 +345,7 @@ public class LayerSideControls {
 					(EditorListener<Boolean>) val -> {
 						ds.runAndUpdate(() -> {
 							data.setContinuousRotation(val);
-							;
+
 						});
 
 					});
@@ -363,8 +368,13 @@ public class LayerSideControls {
 						rotate.forceUpdateValueAsynchronously();
 					}
 					break;
+				case ANTIALIAS:
+					antialias.getParam().setValue(scope, data.isAntialias());
+					antialias.forceUpdateValueAsynchronously();
+					break;
 				default:
 					;
+
 			}
 
 		});
@@ -384,7 +394,7 @@ public class LayerSideControls {
 
 	public static Composite createContentsComposite(final ParameterExpandBar viewer) {
 		final Composite contents = new Composite(viewer, SWT.NONE);
-		contents.setBackground(IGamaColors.WHITE.color());
+		// contents.setBackground(IGamaColors.WHITE.color());
 		final GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 0;
 		contents.setLayout(layout);
@@ -404,9 +414,9 @@ public class LayerSideControls {
 
 		final ILayerStatement definition = layer.getDefinition();
 
-		EditorFactory.create(container.getScope(), compo, "Transparency:", layer.getData().getTransparency(container.getScope()), 0.0, 1.0,
-				0.1, false, newValue -> {
-					layer.getData().setTransparency(1 - newValue);
+		EditorFactory.create(container.getScope(), compo, "Transparency:",
+				layer.getData().getTransparency(container.getScope()), 0.0, 1.0, 0.1, false, newValue -> {
+					layer.getData().setTransparency(newValue);
 					updateIfPaused(layer, container);
 				});
 		EditorFactory.create(container.getScope(), compo, "Position:", layer.getData().getPosition(),
@@ -475,7 +485,7 @@ public class LayerSideControls {
 						// FIXME Editor not working for the moment
 						final Point p = b.toDisplay(b.getLocation());
 						p.y = p.y + 30;
-						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(GAMA.getRuntimeScope()),
+						final SWTChartEditor editor = new SWTChartEditor(WorkbenchHelper.getDisplay(),
 								((ChartLayerStatement) definition).getChart(), p);
 						editor.open();
 						updateIfPaused(layer, container);
@@ -506,5 +516,28 @@ public class LayerSideControls {
 
 		}
 
+	}
+
+	private void copyCameraAndKeystoneDefinition(final IScope scope, final LayeredDisplayData data) {
+		if (!GamaPreferences.Displays.OPENGL_CLIPBOARD_CAM.getValue()) { return; }
+		final String toCopy = cameraDefinitionToCopy() + " " + Strings.LN
+				+ (data.isKeystoneDefined() ? keystoneDefinitionToCopy(scope, data) : "");
+		WorkbenchHelper.copy(toCopy);
+	}
+
+	private String cameraDefinitionToCopy() {
+		String text = IKeyword.CAMERA_LOCATION + ": "
+				+ new GamaPoint(cameraPos.getCurrentValue().toGamaPoint()).yNegated().withPrecision(4).serialize(false);
+		text += " " + IKeyword.CAMERA_TARGET + ": " + new GamaPoint(cameraTarget.getCurrentValue().toGamaPoint())
+				.yNegated().withPrecision(4).serialize(false);
+		text += " " + IKeyword.CAMERA_ORIENTATION + ": "
+				+ new GamaPoint(cameraOrientation.getCurrentValue().toGamaPoint()).withPrecision(4).serialize(false);
+		return text;
+	}
+
+	private String keystoneDefinitionToCopy(final IScope scope, final LayeredDisplayData data) {
+		final IList<ILocation> pp = GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
+		final String text = IKeyword.KEYSTONE + ": " + pp.serialize(false);
+		return text;
 	}
 }

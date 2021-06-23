@@ -40,7 +40,7 @@ public class SwingControl extends Canvas {
 		view = (AWTDisplayView) v;
 		((Java2DDisplaySurface) (view.getDisplaySurface())).comp = this;
 
-		sw = new ShapeWriter((((AWTDisplayView) view).getDisplaySurface().getIGraphics()));
+		sw = new ShapeWriter((((AWTDisplayView) view).getDisplaySurface().getIGraphics()).pf);
 		bound = sw.toShape((((AWTDisplayView) view).getDisplaySurface().getOutput().getScope().getSimulation()
 				.getGeometry().getInnerGeometry()));
 		SWTGraphics2D.SWT_RECT.width = (int) bound.getBounds2D().getWidth();// g.getEnvelope().getWidth();//surfaceComposite.getSize().x;

@@ -11481,7 +11481,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	                    // InternalGaml.g:3224:3: ruleS_1Expr_Facets_BlockOrEnd
 	                    {
 	                    if ( state.backtracking==0 ) {
-	                       before(grammarAccess.getDisplayStatementAccess().getS_1Expr_Facets_BlockOrEndParserRuleCall_1()); 
+	                        before(grammarAccess.getDisplayStatementAccess().getStatementParserRuleCall_1()); 
 	                    }
 	                    pushFollow(FOLLOW_2);
 	                    ruleS_1Expr_Facets_BlockOrEnd();
@@ -11489,7 +11489,7 @@ public class InternalGamlParserWeb extends AbstractInternalContentAssistParser {
 	                    state._fsp--;
 	                    if (state.failed) return ;
 	                    if ( state.backtracking==0 ) {
-	                       after(grammarAccess.getDisplayStatementAccess().getS_1Expr_Facets_BlockOrEndParserRuleCall_1()); 
+	                        after(grammarAccess.getDisplayStatementAccess().getStatementParserRuleCall_1()); 
 	                    }
 
 	                    }

@@ -63,6 +63,7 @@ import msi.gama.util.IList;
 import msi.gama.util.IMap;
 import msi.gama.util.file.IFileMetaDataProvider;
 import msi.gaml.architecture.user.UserPanelStatement;
+import msi.gaml.descriptions.ActionDescription;
 import msi.gaml.statements.test.CompoundSummary;
 import msi.gaml.statements.test.TestExperimentSummary;
 import msi.gaml.types.IType; 
@@ -254,19 +255,19 @@ public class WebGui implements IGui {
 		return (DisplayDescription) DISPLAYS.get(name);
 	}
 
-	@Override
-	public IDisplaySurface getDisplaySurfaceFor(final LayeredDisplayOutput output, final Object... args) {
-		IDisplaySurface surface = null;
-		final String keyword = output.getData().getDisplayType();
-		final DisplayDescription creator = DISPLAYS.get(keyword);
-		if (creator != null) {
-			surface = creator.create(output, args);
-			surface.outputReloaded();
-		} else {
-			throw GamaRuntimeException.error("Display " + keyword + " is not defined anywhere.", output.getScope());
-		}
-		return surface;
-	}
+//	@Override
+//	public IDisplaySurface getDisplaySurfaceFor(final LayeredDisplayOutput output, final Object... args) {
+//		IDisplaySurface surface = null;
+//		final String keyword = output.getData().getDisplayType();
+//		final DisplayDescription creator = DISPLAYS.get(keyword);
+//		if (creator != null) {
+//			surface = creator.create(output, args);
+//			surface.outputReloaded();
+//		} else {
+//			throw GamaRuntimeException.error("Display " + keyword + " is not defined anywhere.", output.getScope());
+//		}
+//		return surface;
+//	}
 
 
 
@@ -716,15 +717,34 @@ public class WebGui implements IGui {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+ 
 	@Override
-	public IList<IMap<String, Object>> openWizard(IScope scope, String title, IList<IMap<String, Object>> pages) {
+	public Boolean openUserInputDialogConfirm(IScope scope, String title, String message) {
 	    // TODO Auto-generated method stub
 	    return null;
 	}
 
 	@Override
-	public Boolean openUserInputDialogConfirm(IScope scope, String title, String message) {
+	public Iterable<IDisplaySurface> getAllDisplaySurfaces() {
+	    return allDisplaySurfaces();
+	}
+
+	@Override
+	public IDisplaySurface createDisplaySurfaceFor(LayeredDisplayOutput output, Object... args) {
+	    IDisplaySurface surface = null;
+	    final String keyword = output.getData().getDisplayType();
+	    final DisplayDescription creator = DISPLAYS.get(keyword);
+	    if (creator != null) {
+		surface = creator.create(output, args);
+		surface.outputReloaded();
+	    } else
+		throw GamaRuntimeException.error("Display " + keyword + " is not defined anywhere.", output.getScope());
+	    return surface;
+	}
+
+	@Override
+	public IMap<String, IMap<String, Object>> openWizard(IScope scope, String title, ActionDescription finish,
+		IList<IMap<String, Object>> pages) {
 	    // TODO Auto-generated method stub
 	    return null;
 	}
