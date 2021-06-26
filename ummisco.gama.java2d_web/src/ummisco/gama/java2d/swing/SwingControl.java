@@ -11,6 +11,7 @@ package ummisco.gama.java2d.swing;
 
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
@@ -18,9 +19,10 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-
+import org.locationtech.jts.awt.PointTransformation;
 import org.locationtech.jts.awt.ShapeWriter;
-
+import org.locationtech.jts.geom.Coordinate;
+ 
 import msi.gama.runtime.GAMA;
 import ummisco.gama.java2d.AWTDisplayView;
 import ummisco.gama.java2d.Java2DDisplaySurface;
@@ -29,64 +31,88 @@ import ummisco.gama.ui.utils.WorkbenchHelper;
 import ummisco.gama.ui.views.GamaViewPart;
 
 public class SwingControl extends Canvas {
-	AWTDisplayView view;
-	ShapeWriter sw = null;
-	Shape bound = null;
-	GC gc;
-	SWTGraphics2D renderer;
+    AWTDisplayView view;
+    ShapeWriter sw = null;
+    Shape bound = null;
+    GC gc;
+    SWTGraphics2D renderer;
 
-	public SwingControl(final Composite parent, final int style, GamaViewPart v) {
-		super(parent, style);
-		view = (AWTDisplayView) v;
-		((Java2DDisplaySurface) (view.getDisplaySurface())).comp = this;
+    private class Java2DPointTransformation implements PointTransformation {
 
-		sw = new ShapeWriter((((AWTDisplayView) view).getDisplaySurface().getIGraphics()).pf);
-		bound = sw.toShape((((AWTDisplayView) view).getDisplaySurface().getOutput().getScope().getSimulation()
-				.getGeometry().getInnerGeometry()));
-		SWTGraphics2D.SWT_RECT.width = (int) bound.getBounds2D().getWidth();// g.getEnvelope().getWidth();//surfaceComposite.getSize().x;
-		SWTGraphics2D.SWT_RECT.height = (int) bound.getBounds2D().getHeight();// g.getEnvelope().getHeight();//surfaceComposite.getSize().y;
-		gc = new GC(this);
-		gc.setAdvanced(true);
-		gc.setAntialias(SWT.ON);
-		renderer = new SWTGraphics2D(gc);
-
-//		addControlListener(new ControlListener() {
-//
-//			@Override
-//			public void controlResized(final ControlEvent e) {
-////				if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
-////					((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-////					((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-////				}
-//				System.out.println("resize"+e);
-//			}
-//
-//			@Override
-//			public void controlMoved(ControlEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-		addPaintListener(new PaintListener() {
-
-			@Override
-			public void paintControl(PaintEvent arg0) {				 
-				redraw();
-			}
-		});
-	}
+	double xOffset, yOffset, xRatio, yRatio;
 
 	@Override
-	public void redraw() {
-//		super.redraw();
-		WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
-			if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
+	public void transform(final Coordinate src, final Point2D dest) {
+	    dest.setLocation(xOffset + xRatio * src.x, yOffset + yRatio * src.y);
 
-				((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
-				((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
-				((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).paintComponent(renderer);
-			}
-		});
 	}
+
+	public void adapt() {
+	    xOffset = (((AWTDisplayView) view).getDisplaySurface().getIGraphics()).getXOffsetInPixels();
+	    yOffset = (((AWTDisplayView) view).getDisplaySurface().getIGraphics()).getYOffsetInPixels();
+	    xRatio = (((AWTDisplayView) view).getDisplaySurface().getIGraphics()).getxRatioBetweenPixelsAndModelUnits();
+	    yRatio = (((AWTDisplayView) view).getDisplaySurface().getIGraphics()).getyRatioBetweenPixelsAndModelUnits();
+	}
+
+    }
+
+    private final Java2DPointTransformation pf = new Java2DPointTransformation();
+
+    public SwingControl(final Composite parent, final int style, GamaViewPart v) {
+	super(parent, style);
+	view = (AWTDisplayView) v;
+	((Java2DDisplaySurface) (view.getDisplaySurface())).comp = this;
+
+	sw = new ShapeWriter(pf);
+	bound = sw.toShape((((AWTDisplayView) view).getDisplaySurface().getOutput().getScope().getSimulation()
+		.getGeometry().getInnerGeometry()));
+	SWTGraphics2D.SWT_RECT.width = (int) bound.getBounds2D().getWidth();// g.getEnvelope().getWidth();//surfaceComposite.getSize().x;
+	SWTGraphics2D.SWT_RECT.height = (int) bound.getBounds2D().getHeight();// g.getEnvelope().getHeight();//surfaceComposite.getSize().y;
+	gc = new GC(this);
+	gc.setAdvanced(true);
+	gc.setAntialias(SWT.ON);
+	renderer = new SWTGraphics2D(gc);
+
+	// addControlListener(new ControlListener() {
+	//
+	// @Override
+	// public void controlResized(final ControlEvent e) {
+	//// if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
+	//// ((AWTDisplayView) view).getDisplaySurface().setBounds(new
+	// Rectangle(getSize().x, getSize().y));
+	//// ((AWTDisplayView)
+	// view).getDisplaySurface().resizeImage(getSize().x, getSize().y,
+	// true);
+	//// }
+	// System.out.println("resize"+e);
+	// }
+	//
+	// @Override
+	// public void controlMoved(ControlEvent e) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	// });
+	addPaintListener(new PaintListener() {
+
+	    @Override
+	    public void paintControl(PaintEvent arg0) {
+		redraw();
+	    }
+	});
+    }
+
+    @Override
+    public void redraw() {
+	// super.redraw();
+	WorkbenchHelper.run(GAMA.getRuntimeScope(), () -> {
+	    if ((((AWTDisplayView) view).getDisplaySurface()) != null) {
+
+		((AWTDisplayView) view).getDisplaySurface().setBounds(new Rectangle(getSize().x, getSize().y));
+		((AWTDisplayView) view).getDisplaySurface().resizeImage(getSize().x, getSize().y, true);
+		((Java2DDisplaySurface) (((AWTDisplayView) view).getDisplaySurface())).paintComponent(renderer);
+	    }
+	});
+    }
 
 }

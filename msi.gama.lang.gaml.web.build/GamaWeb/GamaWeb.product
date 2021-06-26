@@ -114,7 +114,6 @@
       <plugin id="ummisco.gama.annotations"/>
       <plugin id="ummisco.gama.java2d_web"/>
       <plugin id="ummisco.gama.network"/>
-      <plugin id="ummisco.gama.opengl_web"/>
       <plugin id="ummisco.gama.serialize"/>
       <plugin id="ummisco.gama.ui.experiment_web"/>
       <plugin id="ummisco.gama.ui.modeling_web"/>
@@ -198,7 +197,6 @@
       <plugin id="ummisco.gama.annotations" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.java2d_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.network" autoStart="false" startLevel="0" />
-      <plugin id="ummisco.gama.opengl_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.serialize" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.ui.experiment_web" autoStart="false" startLevel="0" />
       <plugin id="ummisco.gama.ui.modeling_web" autoStart="false" startLevel="0" />

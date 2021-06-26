@@ -31,10 +31,10 @@
  		<module>../ummisco.gama.ui.navigator_web</module>	
  		<module>../ummisco.gama.ui.modeling_web</module>	
  		<module>../ummisco.gama.ui.experiment_web</module>	
- 		<module>../ummisco.gama.opengl_web</module>	
  		<module>../ummisco.gama.java2d_web</module>	
  		
 		<!-- 
+ 		<module>../ummisco.gama.opengl_web</module>	
 		<module>../org.dslforge.workspace.config</module>
 		<module>../org.dslforge.xtext.common</module>
 		<module>../org.dslforge.workspace.ui</module>
