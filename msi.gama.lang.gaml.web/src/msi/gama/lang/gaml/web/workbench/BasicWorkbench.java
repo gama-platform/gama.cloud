@@ -96,8 +96,8 @@ public class BasicWorkbench extends AbstractEntryPoint {
 	boolean is_offline = true;
 	boolean is_controller = false;
 	boolean stopped = false;
-	int expired_time = 300;
-	int retry_time = 600;
+	int expired_time = 600;
+	int retry_time = 300;
 	public static String offline_context = "offline_GamaWeb";
 	public static String controller_context = "controller_GamaWeb";
 	public static String user_context_prefix = "user_GamaWeb";
@@ -516,7 +516,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 			} else if (now.isAfter(exprire) && now.isBefore(retry)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Information",
-						"Please try again after " + dtf.format(retry) + " UTC!");
+						"Now is:"+ dtf.format(now) +". Please try again after " + dtf.format(retry) + " UTC!");
 				removePort(current_ip, current_port);
 				stopped = true;
 			} else if (now.isAfter(retry)) {
