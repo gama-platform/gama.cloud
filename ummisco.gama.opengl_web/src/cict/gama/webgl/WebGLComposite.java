@@ -26,14 +26,7 @@ import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.IScope; 
 
 public class WebGLComposite extends GLCanvas {
-
-	// final LayeredDisplayOutput output;
-
-	@Override
-	public GL2 getGL() {
-		// TODO Auto-generated method stub
-		return myGL;
-	}
+ 
 
 	public int delay = 1;
 	public static IScope myscope;

@@ -6,8 +6,8 @@ import org.eclipse.swt.widgets.Composite;
 import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
-
-import ummisco.gama.opengl.Abstract3DRenderer;
+import com.jogamp.opengl.GLEventListener;
+ 
 import ummisco.gama.opengl.camera.ICamera;
 
 public class GLCanvas extends GLAutoDrawable {
@@ -44,7 +44,7 @@ public class GLCanvas extends GLAutoDrawable {
 
 	}
 
-	public void addGLEventListener(Abstract3DRenderer abstract3dRenderer) {
+	public void addGLEventListener(GLEventListener abstract3dRenderer) {
 		// TODO Auto-generated method stub
 
 	}

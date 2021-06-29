@@ -1,103 +1,106 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GeometryObject.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * ummisco.gama.opengl.scene.GeometryObject.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
+ * modeling and simulation platform (v. 1.8.1)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
  *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ *
+ ********************************************************************************************************/
 package ummisco.gama.opengl.scene;
 
 import org.locationtech.jts.geom.Geometry;
 
-import msi.gama.common.geometry.AxisAngle;
-import msi.gama.common.geometry.Envelope3D;
-import msi.gama.common.preferences.GamaPreferences;
-import msi.gama.metamodel.agent.IAgent;
-import msi.gama.metamodel.shape.IShape;
-import msi.gama.util.GamaColor;
-import msi.gama.util.file.GamaGeometryFile;
+import msi.gama.common.geometry.GeometryUtils;
+import msi.gama.metamodel.shape.GamaPoint;
 import msi.gaml.statements.draw.DrawingAttributes;
-import msi.gaml.statements.draw.ShapeDrawingAttributes;
-import ummisco.gama.opengl.ModernRenderer; 
-public class GeometryObject extends AbstractObject {
 
-	public static class GeometryObjectWithAnimation extends GeometryObject {
-
-		public GeometryObjectWithAnimation(final Geometry geometry, final DrawingAttributes attributes) {
-			super(geometry, attributes);
-		}
-
-		@Override
-		public boolean isAnimated() {
-			return true;
-		}
-
-	}
-
-	protected Geometry geometry;
+public class GeometryObject extends AbstractObject<Geometry, DrawingAttributes> {
 
 	public GeometryObject(final Geometry geometry, final DrawingAttributes attributes) {
-		super(attributes);
-		this.geometry = geometry;
-	}
-
-	// Package protected as it is only used by the static layers
-	GeometryObject(final IShape geometry, final GamaColor color, final IShape.Type type, final boolean empty) {
-		this(geometry, color, type, ModernRenderer.getLineWidth());
-		attributes.setEmpty(empty);
-		attributes.setHeight(geometry.getDepth());
-	}
-
-	GeometryObject(final IShape geometry, final GamaColor color, final IShape.Type type, final double lineWidth) {		 
-		this(geometry.getInnerGeometry(), new ShapeDrawingAttributes(geometry, (IAgent) null, color, color, type,
-				GamaPreferences.Displays.CORE_LINE_WIDTH.getValue()));
-	}
-
-	public IShape.Type getType() {
-		return attributes.getType();
+		super(geometry, attributes, DrawerType.GEOMETRY);
 	}
 
 	@Override
-	public boolean isFilled() {
-		return super.isFilled() && getType() != IShape.Type.GRIDLINE;
-	}
-
-	// public SimpleGeometryObject toSimpleGeometryObject() {
-	// return new SimpleGeometryObject(geometry, getColor(), this.getBorder(), attributes.getHeight(),
-	// attributes.getAngle(), attributes.getAxis(), getLocation(), attributes.getSize(), getType(),
-	// !isFilled(), attributes.getTextures());
-	// }
-
-	public Geometry getGeometry() {
-		return geometry;
-	}
-
-	public GamaColor[] getColors() {
-		return new GamaColor[] {attributes.getColor()};
+	public void getTranslationInto(final GamaPoint p) {
+		final GamaPoint explicitLocation = getAttributes().getLocation();
+		if (explicitLocation == null) {
+			p.setLocation(0, 0, 0);
+		} else {
+			GeometryUtils.getContourCoordinates(getObject()).getCenter(p);
+			p.negate();
+			p.add(explicitLocation);
+		}
 	}
 
 	@Override
-	public DrawerType getDrawerType() {
-		return DrawerType.GEOMETRY;
-	}
-
-	public GamaGeometryFile getFile() {
-		return null;
-	}
-
-	public AxisAngle getInitRotation() {
-		return null;
-	}
-
-	public Envelope3D getEnvelope(final OpenGL gl) {
-		return Envelope3D.of(geometry);
+	public void getTranslationForRotationInto(final GamaPoint p) {
+		final GamaPoint explicitLocation = getAttributes().getLocation();
+		if (explicitLocation == null) {
+			// System.out.println(GeometryUtils.getContourCoordinates(getObject()).getEnvelope());
+			GeometryUtils.getContourCoordinates(getObject()).getCenter(p);
+			Double depth = getAttributes().getDepth();
+			if (depth != null) {
+				switch (getAttributes().type) {
+					case SPHERE:
+						p.z += depth;
+						break;
+					case CYLINDER:
+					case PYRAMID:
+					case CONE:
+					case BOX:
+					case CUBE:
+						p.z += depth / 2;
+						break;
+					case CIRCLE:
+						break;
+					case GRIDLINE:
+						break;
+					case LINEARRING:
+						break;
+					case LINECYLINDER:
+						break;
+					case LINESTRING:
+						break;
+					case MULTILINESTRING:
+						break;
+					case MULTIPOINT:
+						break;
+					case MULTIPOLYGON:
+						break;
+					case NULL:
+						break;
+					case PLAN:
+						break;
+					case POINT:
+						break;
+					case POLYGON:
+						break;
+					case POLYHEDRON:
+						break;
+					case POLYPLAN:
+						break;
+					case ROUNDED:
+						break;
+					case SQUARE:
+						break;
+					case TEAPOT:
+						break;
+					case THREED_FILE:
+						break;
+					default:
+						break;
+				}
+			}
+		} else {
+			p.setLocation(explicitLocation);
+		}
 	}
 
 	@Override
-	public AxisAngle getRotation() {
-		return attributes.getRotation();
+	public void getTranslationForScalingInto(final GamaPoint p) {
+		GeometryUtils.getContourCoordinates(getObject()).getCenter(p);
 	}
 
 }

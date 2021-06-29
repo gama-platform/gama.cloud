@@ -38,17 +38,11 @@ Export-Package:
  jogamp.opengl,
  jogamp.opengl.gl4,
  jogamp.opengl.glu,
- jogamp.opengl.glu.tessellator,
- ummisco.gama.modernOpenGL,
- ummisco.gama.modernOpenGL.font.fontMeshCreator,
- ummisco.gama.modernOpenGL.shader,
- ummisco.gama.modernOpenGL.shader.postprocessing,
+ jogamp.opengl.glu.tessellator, 
  ummisco.gama.opengl,
  ummisco.gama.opengl.camera,
  ummisco.gama.opengl.files,
- ummisco.gama.opengl.scene,
- ummisco.gama.opengl.utils,
- ummisco.gama.opengl.vaoGenerator
+ ummisco.gama.opengl.scene
 Bundle-Vendor: UMMISCO
 Bundle-ClassPath: .
 Automatic-Module-Name: ummisco.gama.opengl.web
