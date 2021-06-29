@@ -334,7 +334,7 @@ public class BasicWorkbench extends AbstractEntryPoint {
 							}
 						});
 						try {
-							if (t != null && t.msg != null && t.msg.contains("GAMA building GAML artefacts in :")) {
+							if (t != null && t.msg != null && t.msg.contains("GAMA: GAML artefacts")) {
 								System.out.println("..." + t.msg + "...");
 								Thread.sleep(3000);
 								break;
