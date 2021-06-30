@@ -41,6 +41,8 @@
         <setEntry value="com.google.guava*30.1.0.v20210127-2300@default:default"/>
         <setEntry value="com.google.inject@default:default"/>
         <setEntry value="com.ibm.icu@default:default"/>
+        <setEntry value="javax.activation*1.1.0.v201211130549@default:default"/>
+        <setEntry value="javax.activation*1.2.2.v20201119-1642@default:default"/>
         <setEntry value="javax.annotation@default:default"/>
         <setEntry value="javax.inject@default:default"/>
         <setEntry value="javax.servlet@default:default"/>
@@ -107,6 +109,7 @@
         <setEntry value="org.eclipse.jetty.security@default:default"/>
         <setEntry value="org.eclipse.jetty.server@default:default"/>
         <setEntry value="org.eclipse.jetty.servlet@default:default"/>
+        <setEntry value="org.eclipse.jetty.util.ajax@default:default"/>
         <setEntry value="org.eclipse.jetty.util@default:default"/>
         <setEntry value="org.eclipse.jface.databinding@default:default"/>
         <setEntry value="org.eclipse.jface.text@default:default"/>
@@ -131,12 +134,10 @@
         <setEntry value="org.eclipse.rap.rwt.osgi*3.16.0.20210107-1310@default:default"/>
         <setEntry value="org.eclipse.rap.rwt.osgi*3.17.0.20210526-1425@default:default"/>
         <setEntry value="org.eclipse.rap.ui*3.16.0.20210107-1310@default:default"/>
-        <setEntry value="org.eclipse.rap.ui*3.17.0.20210319-1404@default:default"/>
         <setEntry value="org.eclipse.rap.ui.forms@default:default"/>
         <setEntry value="org.eclipse.rap.ui.navigator@default:default"/>
         <setEntry value="org.eclipse.rap.ui.views@default:default"/>
         <setEntry value="org.eclipse.rap.ui.workbench*3.16.0.20210107-1310@default:default"/>
-        <setEntry value="org.eclipse.rap.ui.workbench*3.17.0.20210319-1404@default:default"/>
         <setEntry value="org.eclipse.swt@default:default"/>
         <setEntry value="org.eclipse.team.core@default:default"/>
         <setEntry value="org.eclipse.text@default:default"/>
@@ -169,7 +170,9 @@
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">
         <setEntry value="cict.gama.web.wrapper@default:default"/>
+        <setEntry value="msi.gama.application_web@default:default"/>
         <setEntry value="msi.gama.core@default:default"/>
+        <setEntry value="msi.gama.core_web@default:default"/>
         <setEntry value="msi.gama.ext@default:default"/>
         <setEntry value="msi.gama.lang.gaml.web@default:default"/>
         <setEntry value="msi.gama.lang.gaml@default:default"/>
@@ -178,15 +181,14 @@
         <setEntry value="org.dslforge.styledtext@default:default"/>
         <setEntry value="org.dslforge.texteditor@default:default"/>
         <setEntry value="org.dslforge.workspace@default:default"/>
-        <setEntry value="simtools.gaml.extensions.physics@default:default"/>
-        <setEntry value="simtools.gaml.extensions.traffic@default:default"/>
-        <setEntry value="simtools.graphanalysis@default:default"/>
         <setEntry value="ummisco.gama.annotations@default:default"/>
-        <setEntry value="ummisco.gama.network@default:default"/>
+        <setEntry value="ummisco.gama.java2d_web@default:default"/>
+        <setEntry value="ummisco.gama.opengl_web@default:default"/>
         <setEntry value="ummisco.gama.participative@default:default"/>
-        <setEntry value="ummisco.gama.serialize@default:default"/>
-        <setEntry value="ummisco.gaml.extensions.maths@default:default"/>
-        <setEntry value="ummisco.gaml.extensions.stats@default:default"/>
+        <setEntry value="ummisco.gama.ui.experiment_web@default:default"/>
+        <setEntry value="ummisco.gama.ui.modeling_web@default:default"/>
+        <setEntry value="ummisco.gama.ui.navigator_web@default:default"/>
+        <setEntry value="ummisco.gama.ui.shared_web@default:default"/>
     </setAttribute>
     <booleanAttribute key="show_selected_only" value="false"/>
     <booleanAttribute key="tracing" value="true"/>
