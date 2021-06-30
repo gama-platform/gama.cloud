@@ -5,11 +5,16 @@ import java.awt.image.BufferedImage;
 import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
- 
 
-public class AWTTextureIO extends TextureIO {
- 
+import ummisco.gama.opengl.scene.PGMTextureProvider;
+
+public class AWTTextureIO {
+
+	public static void addTextureProvider(PGMTextureProvider pgmTextureProvider) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void setTexRectEnabled(Boolean newValue) {
 		// TODO Auto-generated method stub
 		

@@ -1,33 +1,30 @@
-/*******************************************************************************************************
+/*********************************************************************************************
  *
- * ummisco.gama.opengl.scene.ModelScene.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * 'ModelScene.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
+ * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * 
  *
- * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
- ********************************************************************************************************/
+ **********************************************************************************************/
 package ummisco.gama.opengl.scene;
+
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
 import org.locationtech.jts.geom.Geometry;
 
-import com.jogamp.opengl.GL2;
-
 import msi.gama.common.interfaces.ILayer;
+import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.util.GamaMapFactory;
 import msi.gama.util.IMap;
 import msi.gama.util.file.GamaGeometryFile;
-import msi.gama.util.matrix.IField;
-import msi.gaml.statements.draw.DrawingAttributes;
+import msi.gama.util.file.GamaImageFile;
+import msi.gaml.statements.draw.DrawingAttributes; 
+import msi.gaml.statements.draw.FileDrawingAttributes;
 import msi.gaml.statements.draw.MeshDrawingAttributes;
-import msi.gaml.statements.draw.TextDrawingAttributes;
-import ummisco.gama.dev.utils.DEBUG;
-import ummisco.gama.opengl.OpenGL;
-import ummisco.gama.opengl.renderer.IOpenGLRenderer;
-import ummisco.gama.opengl.scene.layers.AxesLayerObject;
-import ummisco.gama.opengl.scene.layers.FrameLayerObject;
-import ummisco.gama.opengl.scene.layers.LayerObject;
+import msi.gaml.statements.draw.ShapeDrawingAttributes;
+import ummisco.gama.opengl.Abstract3DRenderer; 
 
 /**
  *
@@ -42,25 +39,41 @@ public class ModelScene {
 
 	public static final String AXES_KEY = "__axes__0";
 	public static final String FRAME_KEY = "__frame__0";
-
+	public static final String ROTATION_HELPER_KEY = "__rotation__0";
+	public static final String KEYSTONE_HELPER_KEY = "__keystone__0";
+	public static final String LIGHTS_KEY = "__lights__0";
+	public static final String FPS_KEY = "z__fps__0";
 	protected final IMap<String, LayerObject> layers = GamaMapFactory.create();
 	protected LayerObject currentLayer;
-	protected final IOpenGLRenderer renderer;
+	protected final Abstract3DRenderer renderer;
 	private volatile boolean rendered = false;
 	private volatile int objectNumber;
 	private double zIncrement;
 	private int currentLayerTrace;
 
-	public ModelScene(final IOpenGLRenderer renderer, final boolean withWorld) {
+	public static abstract class ObjectVisitor {
+		public abstract void process(AbstractObject object);
+	}
+
+	public ModelScene(final Abstract3DRenderer renderer, final boolean withWorld) {
 		this.renderer = renderer;
-		if (withWorld) { initWorld(); }
+		if (withWorld) {
+			initWorld();
+		}
 	}
 
 	protected void initWorld() {
-		if (renderer.getData().isDrawEnv()) {
-			layers.put(FRAME_KEY, new FrameLayerObject(renderer));
-			layers.put(AXES_KEY, new AxesLayerObject(renderer));
-		}
+//		if (renderer.data.isDrawEnv()) {
+//			layers.put(FRAME_KEY, new FrameLayerObject(renderer));
+//			layers.put(AXES_KEY, new AxesLayerObject(renderer));
+//		}
+//		if (renderer.useShader()) {
+//			layers.put(ROTATION_HELPER_KEY, new RotationHelperLayerObject(renderer));
+////			layers.put(KEYSTONE_HELPER_KEY, new KeystoneHelperLayerObject(renderer));
+//			layers.put(LIGHTS_KEY, new LightsLayerObject(renderer));
+//			if (renderer.data.isShowfps())
+//				layers.put(FPS_KEY, new FPSLayerObject(renderer));
+//		}
 	}
 
 	/**
@@ -68,37 +81,50 @@ public class ModelScene {
 	 *            Called every new iteration when updateDisplay() is called on the surface
 	 */
 	public void wipe(final OpenGL gl) {
-		layers.forEach((name, obj) -> {
-			if (obj != null && (!obj.isStatic() || obj.isInvalid())) { obj.clear(gl); }
-		});
 
+		for (final Map.Entry<String, LayerObject> entry : layers.entrySet()) {
+			final LayerObject obj = entry.getValue();
+			if (obj != null && (!obj.isStatic() || obj.isInvalid())) {
+				obj.clear(gl);
+			}
+		}
 		// Wipe the textures.
 		gl.deleteVolatileTextures();
 	}
 
 	public void draw(final OpenGL gl) {
 
-		gl.push(GL2.GL_MODELVIEW);
+//		if (renderer.useShader()) {
+//			// if the rotation helper layer exists, put it at the end of the map
+//			// (otherwise, transparency issues)
+//			final LayerObject rotLayer = layers.get(ROTATION_HELPER_KEY);
+//			if (rotLayer != null) {
+//				layers.remove(ROTATION_HELPER_KEY);
+//				layers.put(ROTATION_HELPER_KEY, rotLayer);
+//			}
+//		}
+		gl.pushMatrix();
 		gl.setZIncrement(zIncrement);
 
-		layers.forEach((name, layer) -> {
+		for (final LayerObject layer : layers.values()) {
 			if (layer != null && !layer.isInvalid()) {
 				try {
 					layer.draw(gl);
 					layer.lock();
 				} catch (final RuntimeException r) {
-					DEBUG.ERR("Runtime error " + r.getMessage() + " in OpenGL loop");
+					System.err.println("Runtime error " + r.getMessage() + " in OpenGL loop");
 					r.printStackTrace();
 				}
 			}
-		});
+		}
 		gl.setZIncrement(0);
 		rendered = true;
-		gl.pop(GL2.GL_MODELVIEW);
+		gl.popMatrix();
 	}
 
 	private double computeVisualZIncrement() {
-		if (objectNumber <= 1) return 0d;
+		if (objectNumber == 0)
+			return 0d;
 		// The maximum visual z allowance between the object at the bottom and the one at the top
 		final double maxZ = renderer.getMaxEnvDim() / 2000d;
 		// The increment is simply
@@ -106,34 +132,44 @@ public class ModelScene {
 	}
 
 	public boolean cannotAdd() {
-		if (currentLayer == null) return true;
+		if (currentLayer == null)
+			return true;
 		return currentLayer.isStatic() && currentLayer.isLocked();
 	}
 
-	private boolean increment() {
-		if (cannotAdd()) return false;
+	private <T extends AbstractObject> T configure(final T object) {
 		objectNumber += currentLayerTrace;
-		return true;
+		return object;
 	}
 
-	public void addString(final String string, final TextDrawingAttributes attributes) {
-		if (increment()) { currentLayer.addString(string, attributes); }
+	public StringObject addString(final String string, final DrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addString(string, attributes));
 	}
 
-	public void addGeometryFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
-		if (increment()) { currentLayer.addFile(file, attributes); }
+	public GeometryObject addImageFile(final GamaImageFile file, final DrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addImage(file, attributes));
 	}
 
-	public void addImage(final Object img, final DrawingAttributes attributes) {
-		if (increment()) { currentLayer.addImage(img, attributes); }
+	public ResourceObject addGeometryFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addFile(file, attributes));
 	}
 
-	public void addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
-		if (increment()) { currentLayer.addGeometry(geometry, attributes); }
+	public GeometryObject addImage(final BufferedImage img, final DrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addImage(img, attributes));
 	}
 
-	public void addField(final IField fieldValues, final MeshDrawingAttributes attributes) {
-		if (increment()) { currentLayer.addField(fieldValues, attributes); }
+	public GeometryObject addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addGeometry(geometry, attributes));
+	}
+
+	public FieldObject addField(final double[] fieldValues, final MeshDrawingAttributes attributes) {
+		if (cannotAdd()) { return null; }
+		return configure(currentLayer.addField(fieldValues, attributes));
 	}
 
 	public void dispose() {
@@ -161,19 +197,27 @@ public class ModelScene {
 		initWorld();
 	}
 
-	public void beginDrawingLayer(final ILayer layer, final Double alpha) {
-		final String key = layer.getName() + layer.getDefinition().getOrder();
+	public void hideLayer(final String name) {
+		layers.put(name, null);
+	}
+
+	public void beginDrawingLayer(final ILayer layer, final GamaPoint offset, final GamaPoint scale,
+			final Double alpha) {
+		final int id = layer.getDefinition().getOrder();
+		final String key = layer.getName() + id;
 		currentLayer = layers.get(key);
 		if (currentLayer == null) {
-			currentLayer = createRegularLayer(renderer, layer);
+			currentLayer = new LayerObject(renderer, layer);
 			layers.put(key, currentLayer);
 		}
+		currentLayer.setOffset(offset);
+		currentLayer.setScale(scale);
 		currentLayer.setAlpha(alpha);
 		currentLayerTrace = currentLayer.numberOfTraces();
 	}
 
-	protected LayerObject createRegularLayer(final IOpenGLRenderer renderer, final ILayer layer) {
-		return new LayerObject(renderer, layer);
+	public void beginOverlay() {
+		// currentLayer.setOverlay(true);
 	}
 
 	/**
@@ -181,10 +225,12 @@ public class ModelScene {
 	 */
 	public ModelScene copyStatic() {
 		final ModelScene newScene = new ModelScene(renderer, false);
-		layers.forEach((name, layer) -> {
-			if ((layer.isStatic() || layer.hasTrace()) && !layer.isInvalid()) { newScene.layers.put(name, layer); }
-		});
-
+		for (final Map.Entry<String, LayerObject> entry : layers.entrySet()) {
+			final LayerObject layer = entry.getValue();
+			if ((layer.isStatic() || layer.hasTrace()) && !layer.isInvalid()) {
+				newScene.layers.put(entry.getKey(), layer);
+			}
+		}
 		return newScene;
 	}
 
@@ -192,22 +238,27 @@ public class ModelScene {
 	 *
 	 */
 	public void invalidateLayers() {
-		layers.forEach((name, layer) -> {
-			layer.invalidate();
-		});
+		for (final Map.Entry<String, LayerObject> entry : layers.entrySet()) {
+			entry.getValue().invalidate();
+		}
 	}
 
-	public void layerOffsetChanged() {
-		layers.forEach((name, layer) -> {
-			if (layer.canSplit()) { layer.computeOffset(); }
-		});
+	public void startDrawRotationHelper(final GamaPoint pivotPoint, final double size) {
+		final AxesLayerObject worldLayer = (AxesLayerObject) layers.get(AXES_KEY);
+		if (worldLayer != null) {
+			worldLayer.setOffset(pivotPoint.yNegated());
+			final double ratio = size / renderer.getMaxEnvDim();
+			worldLayer.setScale(new GamaPoint(ratio, ratio, ratio));
 
+		}
 	}
 
-	public void recomputeLayoutDimensions(final OpenGL gl) {
-		layers.forEach((name, layer) -> {
-			if (layer.isOverlay() || layer.isStatic()) { layer.forceRedraw(gl); }
-		});
+	public void stopDrawRotationHelper() {
+		final AxesLayerObject worldLayer = (AxesLayerObject) layers.get(AXES_KEY);
+		if (worldLayer != null) {
+			worldLayer.setOffset(null);
+			worldLayer.setScale(null);
+		}
 
 	}
 

@@ -30,20 +30,30 @@ Export-Package:
  com.jogamp.opengl.fixedfunc,
  com.jogamp.opengl.glu,
  com.jogamp.opengl.swt,
+ com.jogamp.opengl.util.GLPixelBuffer,
  com.jogamp.opengl.util.awt,
  com.jogamp.opengl.util.gl2,
  com.jogamp.opengl.util.texture,
  com.jogamp.opengl.util.texture.awt,
  com.jogamp.opengl.util.texture.spi,
+ gaml.additions.opengl_web,
+ javax.vecmath,
  jogamp.opengl,
  jogamp.opengl.gl4,
  jogamp.opengl.glu,
- jogamp.opengl.glu.tessellator, 
+ jogamp.opengl.glu.tessellator,
+ ummisco.gama.modernOpenGL,
+ ummisco.gama.modernOpenGL.font.fontMeshCreator,
+ ummisco.gama.modernOpenGL.shader,
+ ummisco.gama.modernOpenGL.shader.postprocessing,
  ummisco.gama.opengl,
  ummisco.gama.opengl.camera,
  ummisco.gama.opengl.files,
- ummisco.gama.opengl.scene
+ ummisco.gama.opengl.scene,
+ ummisco.gama.opengl.utils,
+ ummisco.gama.opengl.vaoGenerator
 Bundle-Vendor: UMMISCO
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ res/vecmath-1.5.2.jar
 Automatic-Module-Name: ummisco.gama.opengl.web
 Import-Package: org.locationtech.jts.geom

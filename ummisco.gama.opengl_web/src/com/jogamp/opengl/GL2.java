@@ -3881,14 +3881,6 @@ public class GL2 extends GL2ES2 {
 	public static final int GL_OFFSET_TEXTURE_2D_SCALE_NV = 0x86e2;
 
 	public static final int GL_DOUBLE = 0x140A;
-
-	public static final int GL_POLYGON_SMOOTH = 0;
-
-	public static final int GL_POLYGON_SMOOTH_HINT = 0;
-
-	public static final int GL_LINE = 0;
-
-	public static final int GL_FILL = 0;
 	
 	public WebGLComposite webgl;
 	public GL2(final WebGLComposite w) {
@@ -4579,52 +4571,6 @@ public class GL2 extends GL2ES2 {
 	public GL2 getGL2() {
 		// TODO Auto-generated method stub
 		return this;
-	}
-
-	public void glTexParameterf(int glTexture2d, int glTextureMaxAnisotropyExt, float anisotropicLevel) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glGetFloatv(int glMaxTextureMaxAnisotropyExt, FloatBuffer aniso) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public boolean isExtensionAvailable(String string) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
-
-	public void glNormalPointer(int glDouble, int i, DoubleBuffer normalBuffer) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glTexCoordPointer(int i, int glDouble, int j, DoubleBuffer texBuffer) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glColorPointer(int i, int glDouble, int j, DoubleBuffer colorBuffer) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glDrawElements(int glTriangles, int limit, int glUnsignedInt, IntBuffer indexBuffer) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glReadBuffer(int glBack) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-	public void glReadPixels(int i, int j, int width, int height, int glRgba, int glUnsignedByte,
-		ByteBuffer buffer) {
-	    // TODO Auto-generated method stub
-	    
 	}
 
 }

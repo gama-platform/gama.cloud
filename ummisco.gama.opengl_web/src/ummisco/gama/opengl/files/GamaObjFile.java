@@ -1,12 +1,10 @@
 /*********************************************************************************************
  *
  * 'GamaObjFile.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
- *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
+ * 
  *
  **********************************************************************************************/
 package ummisco.gama.opengl.files;
@@ -28,7 +26,6 @@ import msi.gama.common.util.FileUtils;
 import msi.gama.metamodel.shape.GamaPoint;
 import msi.gama.metamodel.shape.IShape;
 import msi.gama.precompiler.GamlAnnotations.doc;
-import msi.gama.precompiler.GamlAnnotations.example;
 import msi.gama.precompiler.GamlAnnotations.file;
 import msi.gama.runtime.IScope;
 import msi.gama.runtime.exceptions.GamaRuntimeException;
@@ -39,8 +36,7 @@ import msi.gama.util.file.Gama3DGeometryFile;
 import msi.gaml.types.GamaGeometryType;
 import msi.gaml.types.IType;
 import msi.gaml.types.Types;
-import ummisco.gama.dev.utils.DEBUG;
-import ummisco.gama.opengl.OpenGL;
+import ummisco.gama.opengl.scene.OpenGL;
 
 /**
  * Class GamaObjFile.
@@ -81,43 +77,18 @@ public class GamaObjFile extends Gama3DGeometryFile {
 	 * @param pathName
 	 * @throws GamaRuntimeException
 	 */
-	@doc (
-			value = "This file constructor allows to read an obj file. The associated mlt file have to have the same name as the file to be read.",
-			examples = { @example (
-					value = "file f <- obj_file(\"file.obj\");",
-					isExecutable = false) })
-
 	public GamaObjFile(final IScope scope, final String pathName) throws GamaRuntimeException {
 		this(scope, pathName, (GamaPair<Double, GamaPoint>) null);
 	}
-
-	@doc (
-			value = "This file constructor allows to read an obj file and apply an init rotation to it. The rotation"
-					+ "is a pair angle::rotation vector. The associated mlt file have to have the same name as the file to be read.",
-			examples = { @example (
-					value = "file f <- obj_file(\"file.obj\", 90.0::{-1,0,0});",
-					isExecutable = false) })
 
 	public GamaObjFile(final IScope scope, final String pathName, final GamaPair<Double, GamaPoint> initRotation)
 			throws GamaRuntimeException {
 		this(scope, pathName, pathName.replace(".obj", ".mtl"), initRotation);
 	}
 
-	@doc (
-			value = "This file constructor allows to read an obj file, using a specific mlt file",
-			examples = { @example (
-					value = "file f <- obj_file(\"file.obj\",\"file.mlt\");",
-					isExecutable = false) })
 	public GamaObjFile(final IScope scope, final String pathName, final String mtlPath) {
 		this(scope, pathName, mtlPath, null);
 	}
-
-	@doc (
-			value = "This file constructor allows to read an obj file, using a specific mlt file, and apply an init rotation to it. The rotation"
-					+ "is a pair angle::rotation vector",
-			examples = { @example (
-					value = "file f <- obj_file(\"file.obj\",\"file.mlt\", 90.0::{-1,0,0});",
-					isExecutable = false) })
 
 	public GamaObjFile(final IScope scope, final String pathName, final String mtlPath,
 			final GamaPair<Double, GamaPoint> initRotation) {
@@ -149,9 +120,9 @@ public class GamaObjFile extends Gama3DGeometryFile {
 		try (BufferedReader br = new BufferedReader(new FileReader(getFile(scope)))) {
 			loadObject(br);
 		} catch (final IOException e) {
-			DEBUG.ERR("Failed to read file: " /* + br.toString() */);
+			System.out.println("Failed to read file: " /* + br.toString() */);
 		} catch (final NumberFormatException e) {
-			DEBUG.ERR("Malformed OBJ file: "/* + br.toString() */ + "\r \r" + e.getMessage());
+			System.out.println("Malformed OBJ file: "/* + br.toString() */ + "\r \r" + e.getMessage());
 		}
 
 	}
@@ -243,11 +214,11 @@ public class GamaObjFile extends Gama3DGeometryFile {
 						final char chars[] = st.nextToken().toCharArray();
 						final StringBuffer sb = new StringBuffer();
 						char lc = 'x';
-						for (final char c : chars) {
-							if (c == '/' && lc == '/') {
+						for (int k = 0; k < chars.length; k++) {
+							if (chars[k] == '/' && lc == '/') {
 								sb.append('0');
 							}
-							lc = c;
+							lc = chars[k];
 							sb.append(lc);
 						}
 
@@ -299,7 +270,7 @@ public class GamaObjFile extends Gama3DGeometryFile {
 
 	/**
 	 * Method fillBuffer(). Fills the buffer with the polygons built from the .obj vertices + faces
-	 *
+	 * 
 	 * @see msi.gama.util.file.GamaFile#fillBuffer(msi.gama.runtime.IScope)
 	 */
 	@Override
@@ -329,18 +300,23 @@ public class GamaObjFile extends Gama3DGeometryFile {
 	}
 
 	private void loadMaterials() {
+		FileReader frm;
 		final String refm = mtlPath;
-		try (FileReader frm = new FileReader(refm); final BufferedReader brm = new BufferedReader(frm);) {
+
+		try {
+			frm = new FileReader(refm);
+			final BufferedReader brm = new BufferedReader(frm);
 			materials = new MtlLoader(brm, mtlPath);
+			frm.close();
 		} catch (final IOException e) {
-			DEBUG.ERR("Could not open file: " + refm);
+			System.out.println("Could not open file: " + refm);
 			materials = null;
 		}
 	}
 
 	/**
 	 * Method flushBuffer()
-	 *
+	 * 
 	 * @see msi.gama.util.file.GamaFile#flushBuffer() //
 	 */
 	// @Override
@@ -366,7 +342,7 @@ public class GamaObjFile extends Gama3DGeometryFile {
 		for (int i = 0; i < faces.size(); i++) {
 			if (i == nextmat) {
 				if (texture != null) {
-					texture.destroy(gl.getGL());
+					gl.deleteTexture(texture);
 					texture = null;
 				}
 				// gl.getGL().glEnable(GL2.GL_COLOR_MATERIAL);
@@ -426,9 +402,8 @@ public class GamaObjFile extends Gama3DGeometryFile {
 			final double[] arrayOfVertices = new double[tempfaces.length * 3];
 			for (int w = 0; w < tempfaces.length; w++) {
 				final double[] ordinates = setOfVertex.get(tempfaces[w] - 1);
-				for (int k = 0; k < 3; k++) {
+				for (int k = 0; k < 3; k++)
 					arrayOfVertices[w * 3 + k] = ordinates[k];
-				}
 			}
 			final ICoordinates coords = ICoordinates.ofLength(tempfaces.length + 1);
 			coords.setTo(arrayOfVertices);
@@ -438,9 +413,8 @@ public class GamaObjFile extends Gama3DGeometryFile {
 				gl.setNormal(coords, !coords.isClockwise());
 			}
 			for (int w = 0; w < tempfaces.length; w++) {
-				if (tempfaces[w] == 0) {
+				if (tempfaces[w] == 0)
 					continue;
-				}
 				final boolean hasNormal = norms[w] != 0;
 				final boolean hasTex = texs[w] != 0;
 				if (hasNormal) {
@@ -452,9 +426,8 @@ public class GamaObjFile extends Gama3DGeometryFile {
 					tex.setLocation(ordinates[0], ordinates[1], ordinates[2]);
 					if (1d >= tex.y && -tex.y <= 0) {
 						tex.y = 1d - tex.y;
-					} else {
+					} else
 						tex.y = Math.abs(tex.y);
-					}
 				}
 				final double[] temp_coords = setOfVertex.get(tempfaces[w] - 1);
 				vertex.setLocation(temp_coords[0], temp_coords[1], temp_coords[2]);
@@ -467,6 +440,7 @@ public class GamaObjFile extends Gama3DGeometryFile {
 
 		if (texture != null) {
 			gl.disableTextures();
+			;
 			texture = null;
 		}
 		// gl.glEndList();
