@@ -19,13 +19,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.swt.GLCanvas;
 
 import msi.gama.core.web.editor.GAMAWEB;
 import msi.gama.runtime.IScope; 
 
-public class WebGLComposite extends GLCanvas {
+public class WebGLComposite extends GLAutoDrawable {
  
 
 	public int delay = 1;
