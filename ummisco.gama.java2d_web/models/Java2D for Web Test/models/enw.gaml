@@ -6,8 +6,8 @@ global {
 	image_file my_icon <- image_file("../includes/sheep.png");
 	geometry shape<-envelope(shp);
 	init { 
-		create parcel from:shp;
-		create aa number:100;
+		create parcel number:3 from:shp;
+// 		create aa number:100;
         // create parcel{
         //     shape<-rectangle(world.shape.width,world.shape.height) at_location {world.shape.width/2,world.shape.height/2};
         // }
@@ -53,17 +53,17 @@ grid cell width:10 height:10{
 experiment TestExp type: gui autorun:false {
  
 	output { 
-		display o type: java2D synchronized:false { 
-		    graphics s{
-		        draw ""+aaa at:{10.0,10.0} color:#black;
-		    }
-		    image file:"../includes/sheep.png";
+		display o type: opengl synchronized:false { 
+		  //  graphics s{
+		  //      draw ""+aaa at:{10.0,10.0} color:#black;
+		  //  }
+		  //  image file:"../includes/sheep.png";
 		  //  grid cell;
 			 //species parcel{
 			 //    draw shape color:rgb(rnd(255),rnd(255),rnd(255));
 			 //}
 		  species parcel transparency:0.5;
-		    species aa ;// aspect: icon;
+		  //  species aa ;// aspect: icon;
 		}
 // 		monitor "Number of preys" value: aaa;
 	}

@@ -296,56 +296,56 @@ public abstract class LayeredDisplayView extends GamaViewPart
 	@Override
 	public void update(final IDisplayOutput output) {
 
-//		final boolean oldSync = output.isSynchronized();
-//		if (output.isInInitPhase()) {
-//			output.setSynchronized(false);
-//		} 
-//		if (updateThread == null) {
-//			updateThread = new Thread(() -> {
-//				final IDisplaySurface s = getDisplaySurface();
-//				// if (s != null && !s.isDisposed() && !disposed) {
-//				// s.updateDisplay(false);
-//				// }
-//				while (!disposed) {
-//
-//					if (s != null && s.isRealized() && !s.isDisposed() && !disposed) {
-//						acquireLock();
-//						s.updateDisplay(false);
-//						if (s.getData().isAutosave()) {
-//							SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
-//						}
-//						// Fix for issue #1693
-//						if (output.isInInitPhase()) {
-//							output.setInInitPhase(false);
-//							output.setSynchronized(oldSync);
-//							// end fix
-//						}
-//
-//					}
-//
-//				}
-//			});
-//			updateThread.start();
-//		}
+		final boolean oldSync = output.isSynchronized();
+		if (output.isInInitPhase()) {
+			output.setSynchronized(false);
+		} 
+		if (updateThread == null) {
+			updateThread = new Thread(() -> {
+				final IDisplaySurface s = getDisplaySurface();
+				// if (s != null && !s.isDisposed() && !disposed) {
+				// s.updateDisplay(false);
+				// }
+				while (!disposed) {
 
-//		final IDisplaySurface s = getDisplaySurface();
-//		s.updateDisplay(false);
-//		if (getOutput().getData().isAutosave() && s.isRealized()) {
-//			SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
-//		}
-//		if (output.isSynchronized()) {
-//			while (!s.isRendered() && !s.isDisposed() && !disposed) {
-//				try {
-//					Thread.sleep(10);
-//				} catch (final InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//
-//			}
-//		}
-//		else if (updateThread.isAlive()) {
-//			releaseLock();
-//		}
+					if (s != null && s.isRealized() && !s.isDisposed() && !disposed) {
+						acquireLock();
+						s.updateDisplay(false);
+						if (s.getData().isAutosave()) {
+							SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
+						}
+						// Fix for issue #1693
+						if (output.isInInitPhase()) {
+							output.setInInitPhase(false);
+							output.setSynchronized(oldSync);
+							// end fix
+						}
+
+					}
+
+				}
+			});
+			updateThread.start();
+		}
+
+		final IDisplaySurface s = getDisplaySurface();
+		s.updateDisplay(false);
+		if (getOutput().getData().isAutosave() && s.isRealized()) {
+			SnapshotMaker.getInstance().doSnapshot(output, s, surfaceComposite);
+		}
+		if (output.isSynchronized()) {
+			while (!s.isRendered() && !s.isDisposed() && !disposed) {
+				try {
+					Thread.sleep(10);
+				} catch (final InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		else if (updateThread.isAlive()) {
+			releaseLock();
+		}
 
 	}
 

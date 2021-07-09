@@ -17,27 +17,26 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+
+import ummisco.gama.opengl.renderer.JOGLRenderer;
 import ummisco.gama.ui.utils.WorkbenchHelper;
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAnimatorControl;
+import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLContext;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.swt.GLCanvas;
 
 import msi.gama.core.web.editor.GAMAWEB;
-import msi.gama.runtime.IScope; 
+import msi.gama.runtime.IScope;
 
-public class WebGLComposite extends GLCanvas {
-
-	// final LayeredDisplayOutput output;
-
-	@Override
-	public GL2 getGL() {
-		// TODO Auto-generated method stub
-		return myGL;
-	}
+public class WebGLComposite extends GLAutoDrawable {
 
 	public int delay = 1;
 	public static IScope myscope;
 
+	private GLAnimatorControl animatorCtrl;
 	// final Composite parent;
 	//
 	// Abstract3DRenderer renderer;
@@ -114,7 +113,7 @@ public class WebGLComposite extends GLCanvas {
 			e.printStackTrace();
 			// throw new RuntimeException(e);
 		}
- 
+
 	}
 
 	@Override
@@ -219,12 +218,10 @@ public class WebGLComposite extends GLCanvas {
 		// final Runnable runnable = new Runnable() {
 		// public void run() {
 		// if(!func.equals("appendErr")) return;
-		
+
 //		final String uid = WorkbenchHelper.UISession.get(myscope.getExperiment().getSpecies().getExperimentScope());
-		
-		
-		
-		//solution 1
+
+		// solution 1
 //		available=false;
 		Display display = WorkbenchHelper.getDisplay(myscope);
 		display.asyncExec(new Runnable() {
@@ -237,7 +234,7 @@ public class WebGLComposite extends GLCanvas {
 		});
 //		while(!available) {}
 
-		//solution 2
+		// solution 2
 //		available = false;
 //		UISession uiSession = RWT.getUISession(WorkbenchHelper.getDisplay(uid));
 //		uiSession.exec(new Runnable() {
@@ -252,11 +249,8 @@ public class WebGLComposite extends GLCanvas {
 //
 //		while (!available) {
 //		}
-		
-		
-		
-		
-		//solution 3 
+
+		// solution 3
 
 //		final ServerPushSession pushSession = new ServerPushSession();
 //		Runnable bgRunnable = new Runnable() {
@@ -324,6 +318,31 @@ public class WebGLComposite extends GLCanvas {
 		// }
 		// });
 		return 600;
+	}
+
+	@Override
+	public GLAnimatorControl getAnimator() {
+		// TODO Auto-generated method stub
+		return animatorCtrl;
+	}
+
+	@Override
+	public void setAnimator(GLAnimatorControl animatorControl) {
+		animatorCtrl = animatorControl;
+	}
+
+	GLEventListener listener;
+
+	public void addGLEventListener(JOGLRenderer joglRenderer) {
+		listener = joglRenderer;
+		listener.init(this);
+	}
+
+	@Override
+	public void display() {
+
+		listener.display(this);
+
 	}
 
 }

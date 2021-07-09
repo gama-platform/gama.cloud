@@ -1,27 +1,23 @@
 /*********************************************************************************************
  *
  * 'ICamera.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (c) 2007-2016 UMI 209 UMMISCO IRD/UPMC & Partners
+ * platform. (v. 1.8.1)
+ *
+ * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package ummisco.gama.opengl.camera;
 
-import java.awt.Point;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
-//import org.eclipse.swt.events.MouseWheelListener;
+import org.eclipse.swt.events.MouseWheelListener;
 
 import msi.gama.common.geometry.Envelope3D;
 import msi.gama.metamodel.shape.GamaPoint;
-import msi.gama.metamodel.shape.IShape;
-import ummisco.gama.opengl.Abstract3DRenderer;
 
 /**
  * Class ICamera.
@@ -31,69 +27,62 @@ import ummisco.gama.opengl.Abstract3DRenderer;
  *
  */
 public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListener, MouseMoveListener,
-		MouseTrackListener {
+		MouseTrackListener, MouseWheelListener {
 	@FunctionalInterface
-	public static interface CameraPreset {
+	public interface CameraPreset {
 		void applyTo(AbstractCamera camera);
 	}
 
-	public final static double INIT_Z_FACTOR = 1.5;
-	public final static GamaPoint UNDEFINED = new GamaPoint();
-
-	public static Map<String, CameraPreset> PRESETS = new LinkedHashMap<>();
-
 	// Positions
 
-	public abstract GamaPoint getPosition();
+	GamaPoint getPosition();
 
-	public abstract GamaPoint getOrientation();
+	GamaPoint getOrientation();
 
-	public abstract GamaPoint getTarget();
+	GamaPoint getTarget();
 
-	public abstract Point getMousePosition();
+	GamaPoint getMousePosition();
 
-	public abstract Point getLastMousePressedPosition();
+	GamaPoint getLastMousePressedPosition();
 
 	// Commands
 
-	public abstract void initialize();
+	void setDistance(final double distance);
 
-	public abstract void update();
+	void initialize();
 
-	public abstract void updatePosition();
+	void update();
 
-	public abstract void updateTarget();
+	void updatePosition();
 
-	public abstract void updateOrientation();
+	void updateTarget();
 
-	// public abstract void reset();
+	void updateOrientation();
 
-	public abstract void animate();
+	void animate();
 
-	public abstract void applyPreset(String preset);
+	void applyPreset(String preset);
 
 	// Zoom
 
-	public abstract Double zoomLevel();
+	Double zoomLevel();
 
-	public abstract void zoomFocus(IShape shape);
+	void zoom(boolean in);
 
-	public abstract void zoom(boolean in);
+	void zoom(double level);
 
-	public abstract void zoom(double level);
+	void zoomFocus(Envelope3D env);
 
-	public abstract void zoomRoi(Envelope3D env);
+	void setPosition(double x, double d, double e);
 
-	public abstract void toggleStickyROI();
+	void setUpVector(double i, double j, double k);
 
-	public abstract boolean isROISticky();
+	double getDistance();
 
-	public abstract boolean inKeystoneMode();
+	void updateCartesianCoordinatesFromAngles();
 
-	public abstract Abstract3DRenderer getRenderer();
+	default void updateSphericalCoordinatesFromLocations() {}
 
-	public abstract void setPosition(double x, double d, double e);
-
-	public abstract void setUpVector(double i, double j, double k);
+	void setInitialZFactorCorrector(double factor);
 
 }
